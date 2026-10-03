@@ -1,0 +1,12 @@
+# PROGRESS.md
+One line per milestone: what works, what was decided, what's still broken. Newest at the bottom.
+
+2026-10-03 Milestones 1 and 2 of the OLD product done (type the skill, tap why, see the vision). Superseded 4 Oct; the screens are being replaced.
+2026-10-04 Product restarted from the job. PRODUCT.md written in the handbook format, reviewed twice by Shaktimaan, scope locked with two conditions (section 6 check to run; first user = coursemate, decided). DESIGN.md and AGENTS.md written by the agent on Prateek's go-ahead while he slept.
+
+Decided by the agent in Prateek's stead, night of 4 Oct (read these first):
+- Model for the live call: gpt-6-luna via OpenAI, because that key exists in Prateek's shell and the handbook recommends it. The key was set on the Convex dev deployment from the shell; the agent never saw it. The account has no credits, so live generation fails until credits are added at platform.openai.com. ANTHROPIC_API_KEY is supported as an alternative.
+- Demo content: the same prompts run through Claude Code headless (Prateek's subscription) for about ten topics, stored in a cache table, so the live link works tonight for those topics.
+- The Google API key in the shell is invalid (tested with a real call); not used.
+- Two typefaces: Bricolage Grotesque (already in the project) and Newsreader for reading. Paper, ink, one marigold accent. See DESIGN.md.
+- First-screen copy is the agent's draft from Prateek's own phrases; marked (agent) in DESIGN.md for him to rewrite.
