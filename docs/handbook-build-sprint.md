@@ -142,3 +142,11 @@ Setup (GitHub, Convex via GitHub sign-in, Claude Code, setup prompt, `ccd` alias
 ## Help
 
 Shaktimaan (growthx.club/community/shaktimaan) 24/7, trained on Udayan; #build-sprint for the rest. Ask before you lose the hour. Twenty minutes stuck is the limit.
+
+## Handbook chapters saved verbatim (added 4 Oct 2026)
+
+The three "thinking" sections of the handbook are saved verbatim (Advanced blocks included, marked `[Advanced]`) under `docs/`:
+
+- `docs/product-thinking/` — overview + 5 chapters (`00-overview.md` to `05-cutting-to-v1.md`). Holds the empty PRODUCT.md template, per-chapter agent prompts and the Shaktimaan lock prompt. Read before writing or changing PRODUCT.md.
+- `docs/design-thinking/` — overview + 4 chapters (learning to see, screens and states, words and type, teaching your AI). Holds the DESIGN.md template. Read before any UI work or DESIGN.md changes.
+- `docs/tech-thinking/` — overview + 4 chapters (four parts, your agent, ship it, connecting the AI). Holds the AGENTS.md, PLAN.md and PROGRESS.md templates, the deploy chain and the AI-call cost caps. Read before changing the backend, deploy or the AI call.
