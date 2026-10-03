@@ -1,14 +1,14 @@
 # PLAN.md
 Milestones from PRODUCT.md section 7, riskiest first, each demoable in ten seconds. The current one is marked. Updated by the agent after each one works.
 
-Before milestone 1: DESIGN.md (done 4 Oct night), AGENTS.md (done), the section 6 check (running).
+Before milestone 1: DESIGN.md (done 4 Oct night, taste choices marked MISSING for Prateek), AGENTS.md (done), the section 6 check (outputs ready, scores pending Prateek).
 
-1. I can type a topic on the live link and read a generated chapter 1 with its first exercise checked on the spot.   <- now
-2. I can see the 7-chapter plan with "by day 7 you'll be able to X" and chapter 1 marked tonight.
-3. I can finish chapter 1: all exercises, a re-teach card on a miss, the rung lit, chapter 2 named.
-4. I can close the tab, reopen it on the same phone, and I'm on the same card, no account.
-5. I can sign in after the rung, pick when tomorrow is, and my night is attached to me.
-6. I can come back, answer recall on chapter 1, and get chapter 2.
+1. I can type a topic on the live link and read a generated chapter 1 with its first exercise checked on the spot.   DONE for cached topics (live generation waits on API credits)
+2. I can see the 7-chapter plan with "by day 7 you'll be able to X" and chapter 1 marked tonight.   DONE
+3. I can finish chapter 1: all exercises, a re-teach card on a miss, the rung lit, chapter 2 named.   DONE (checked on dev, 4 Oct 05:05)
+4. I can close the tab, reopen it on the same phone, and I'm on the same card, no account.   DONE (checked by reload on dev)
+5. I can sign in after the rung, pick when tomorrow is, and my night is attached to me.   sign-in DONE; time picker built, checking   <- now
+6. I can come back, answer recall on chapter 1, and get chapter 2.   recall cards DONE; chapter 2 in progress
 7. I can open it on another device after sign-in and land on the same rung.
 Last: I can close it, reopen it, and my plan and my rungs are still there.
 

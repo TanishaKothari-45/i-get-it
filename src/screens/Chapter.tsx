@@ -41,6 +41,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
   const [missed, setMissed] = useState<string[]>([])
   const [result, setResult] = useState<AnswerResult | null>(null)
   const [passedHere, setPassedHere] = useState<Set<string>>(() => new Set(passedExercises))
+  const [passedChoice, setPassedChoice] = useState<Record<string, string>>({})
   const [sending, setSending] = useState(false)
   const [finishing, setFinishing] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -62,7 +63,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
     try {
       const r = await onAnswer(item, optionId, attempt)
       setResult(r)
-      if (r.correct) { if (!item.recall) setPassedHere((s) => new Set(s).add(key)) }
+      if (r.correct) { if (!item.recall) { setPassedHere((s) => new Set(s).add(key)); setPassedChoice((m) => ({ ...m, [key]: optionId })) } }
       else setMissed((m) => [...m, optionId])
     } catch { setError("Couldn't save that answer. It still counts here; try the next one when you're back online.") }
     finally { setSending(false) }
@@ -86,9 +87,12 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
   return (
     <>
       <RungBar passed={passed} />
-      <p className="sub" style={{ marginTop: 10 }}>
-        {item.recall ? `Recall · from chapter ${item.chapter}` : `Chapter ${n} of 7 · card ${chapterCardNo} of ${cards.length}`}
-        <span style={{ float: 'right' }}>{topic}</span>
+      <p className="sub" style={{ marginTop: 10, display: 'flex', justifyContent: 'space-between', gap: 12 }}>
+        <span>
+          {i > 0 && <button type="button" className="quiet" style={{ padding: 0, marginRight: 10 }} onClick={() => { setI(i - 1); reset() }} aria-label="Previous card">← Back</button>}
+          {item.recall ? `Recall · from chapter ${item.chapter}` : `Chapter ${n} of 7 · card ${chapterCardNo} of ${cards.length}`}
+        </span>
+        <span>{topic}</span>
       </p>
 
       <div className={`card ${item.card.type}-card`} key={`${key}-${item.recall ? 'r' : 'c'}`}>
@@ -111,7 +115,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
             <div className="options">
               {item.card.options.map((o) => {
                 const cls = ['opt']
-                if (exercisePassed && picked === o.id) cls.push('pass')
+                if (exercisePassed && (picked === o.id || (picked === null && passedChoice[key] === o.id))) cls.push('pass')
                 else if (missed.includes(o.id)) cls.push('missed')
                 if (revealId === o.id) cls.push('reveal')
                 return (
