@@ -4,7 +4,7 @@ The one page the agent builds from. Format and rules: docs/product-thinking/00-o
 
 Reset 4 Oct 2026 (Prateek): the product starts over from the job in section 1. Everything written before this date (IDEA_SCOPE.md, docs/*.md other than the handbook chapters, the two existing screens) is superseded and is not an input. Sections 2 to 7 get written in order, each checked against its handbook chapter, then design thinking (DESIGN.md), then tech thinking (AGENTS.md).
 
-Status: scope locked by Shaktimaan 4 Oct, 4:30am, with two conditions: (1) section 6 stays open until the check is run; (2) pick one first user, because the Orbitshift PM's job ends outside the app and the coursemate's ends inside it. Decision pending (Prateek). The check now includes a ChatGPT study-mode comparison on the same 10 topics.
+Status: scope locked by Shaktimaan 4 Oct, 4:30am, with two conditions: (1) section 6 stays open until the check is run; (2) pick one first user, because the Orbitshift PM's job ends outside the app and the coursemate's ends inside it. Decided 4 Oct: the coursemate. Condition 2 closed; condition 1 stays open until the check runs. The check now includes a ChatGPT study-mode comparison on the same 10 topics.
 
 ## 1. The job
 
@@ -15,20 +15,20 @@ Other moments it happens:
 - A 60-second clip hooks me and I want more than the clip: WWII, western philosophy, a film (Prateek, 4 Oct).
 - A new video or release lands and my existing plan feels stale. Strongest in AI, where it happens weekly (Prateek, 4 Oct).
 
-Who, by situation (not age, city or title): someone who wants to do a lot and spreads thin. Has saved dozens of "learn this" posts and follows creators who teach, hoping the content resurfaces; it drowns in the feed. Has started at least one of these and stopped. Would say "I keep meaning to learn X" without being asked. Work version of the same person: on a team where colleagues have started shipping agents, with a weekly chore an agent could take over.
+Who, by situation (not age, city or title): someone who wants to do a lot and spreads thin. Has saved dozens of "learn this" posts and follows creators who teach, hoping the content resurfaces; it drowns in the feed. Has started at least one of these and stopped. Would say "I keep meaning to learn X" without being asked. Work version of the same person (second ring): on a team where colleagues have started shipping agents, with a weekly chore an agent could take over.
 
 Today they hire: the saved folder and watch-later (most common, zero follow-through). Following the creator and hoping. A course bought on sale, abandoned at lecture 4. ChatGPT when stuck, re-pasting context every time. A friend who did it, one message then nothing. Most often: nothing, and the next scroll.
 
 More than one person in the product: two people share the same moment and differ at the end.
-- The Orbitshift PM: tries the thing on their own chore, so the chore stops being done by hand. **Built for this weekend.**
-- Prateek and the GrowthX coursemates: try the thing on their own agents or dive into a topic, so they have an earned POV on the hype, not a shared reel. Second ring.
+- A GrowthX coursemate: wants an earned POV on the thing everyone's talking about (agents, most often), or a real grounding in a topic they keep saving. Their job ends inside the app: a plan, chapters passed, something they can now explain and use. **Built for this sprint. Decided 4 Oct after the lock.**
+- The Orbitshift PM with a weekly chore: same moment, but their job ends with the chore running, which the product never sees. Second ring; the "try it in your tool" card on doing-topics is for them, never checked in v1.
 
 What needs doing: turn tonight's 20 minutes into one real step on one of the three things, with something to show at the end.
 How they want to feel: moving, not collecting. Progress they can point to. No guilt about the folder.
 How they want to look to others: the one who has actually done it, not the one who shares reels about it. An earned POV on the hype.
 
 The bench: not B2B this sprint. The person with the interest is the person who signs in.
-The one we serve first: a PM on the Orbitshift Product Ops team with a weekly manual chore an agent could take over. Five committed, nine in reach. Coursemates next.
+The one we serve first: a GrowthX Build Sprint coursemate who has saved a dozen things on one topic and started none. Reachable in #build-sprint and the cohort, nine from Orbitshift as the second ring. Monday's interview: one coursemate's last attempt at learning something they saved (trigger, what they tried, where they stopped, what counted as progress); sections 1 to 3 get corrected from that account.
 
 Checked 4 Oct against the three tests: product out of the sentence, still makes sense (no app, path or tutor in it); a moment I could watch (the save button, three half-started things behind it); one "so I can". Weak spot, on record: the last clause is Prateek's wording of "spreads themselves thin", not yet a coursemate's words. Fix: say the sentence to two coursemates this week and write down what they say back.
 
@@ -57,7 +57,7 @@ The one worry onboarding must remove: "If I start here I'm skipping levels; I do
 
 ## 3. The core flow
 
-Today (what they do now, before the product; from Prateek's Jev story, 4 Oct, to be corrected from one Orbitshift PM's last attempt on Monday):
+Today (what they do now, before the product; from Prateek's Jev story, 4 Oct, to be corrected from one coursemate's last attempt on Monday):
 1. 11pm, phone in hand, scrolling. A clip on something new catches them.
 2. They save it. Maybe follow the creator, hoping it resurfaces.
 3. They scroll on. The save felt like progress. (The habit.)
