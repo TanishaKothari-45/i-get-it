@@ -61,6 +61,30 @@ async function ownedHandbook(ctx: QueryCtx | MutationCtx, handbookId: Id<"handbo
   return h;
 }
 
+
+// A pre-generated chapter for this topic, if the cache has it. Used before any model call.
+async function cachedChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
+  const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
+  const ch = row?.chapters?.find((c: any) => c.n === n);
+  return ch ?? null;
+}
+
+async function ensureChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
+  const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
+  if (existing && existing.status === "ready") return;
+  const fromCache = await cachedChapter(ctx, h, n);
+  if (fromCache) {
+    const doc = { status: "ready" as const, title: fromCache.title, cards: fromCache.cards, outcomeLine: fromCache.outcomeLine, error: undefined };
+    if (existing) await ctx.db.patch(existing._id, doc);
+    else await ctx.db.insert("chapters", { handbookId: h._id, n, createdAt: Date.now(), ...doc });
+    return;
+  }
+  if (!h.plan) return;
+  if (existing) await ctx.db.patch(existing._id, { status: "writing", error: undefined });
+  else await ctx.db.insert("chapters", { handbookId: h._id, n, status: "writing", createdAt: Date.now() });
+  await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId: h._id, n });
+}
+
 // ---------- what the client is allowed to see ----------
 
 // Exercises go out without their answers; the check happens in recordAnswer.
@@ -197,10 +221,7 @@ export const retry = mutation({
       return;
     }
     const failed = (await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId)).collect()).filter((c) => c.status === "failed");
-    for (const c of failed) {
-      await ctx.db.patch(c._id, { status: "writing", error: undefined });
-      await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n: c.n });
-    }
+    for (const c of failed) await ensureChapter(ctx, h, c.n);
   },
 });
 
@@ -349,13 +370,7 @@ export const finishChapter = mutation({
     const next = Math.min(n + 1, CHAPTERS);
     await ctx.db.patch(p._id, { chaptersPassed, currentChapter: n < CHAPTERS ? next : n, currentCard: 0, updatedAt: Date.now() });
     // Write the next chapter now if it isn't there yet (cached handbooks may already have it).
-    if (n < CHAPTERS) {
-      const nextCh = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", next)).unique();
-      if (!nextCh && h.plan) {
-        await ctx.db.insert("chapters", { handbookId, n: next, status: "writing", createdAt: Date.now() });
-        await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n: next });
-      }
-    }
+    if (n < CHAPTERS) await ensureChapter(ctx, h, next);
   },
 });
 
