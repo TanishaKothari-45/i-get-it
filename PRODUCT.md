@@ -4,7 +4,7 @@ The one page the agent builds from. Format and rules: docs/product-thinking/00-o
 
 Reset 4 Oct 2026 (Prateek): the product starts over from the job in section 1. Everything written before this date (IDEA_SCOPE.md, docs/*.md other than the handbook chapters, the two existing screens) is superseded and is not an input. Sections 2 to 7 get written in order, each checked against its handbook chapter, then design thinking (DESIGN.md), then tech thinking (AGENTS.md).
 
-Status: sections 1 to 7 rewritten 4 Oct (evening) after Shaktimaan's first review; shape changed from "do it in your own tool" to "a generated handbook: teach, then check in-app". Scope not yet locked. The 30-minute check in section 6 not yet run.
+Status: scope locked by Shaktimaan 4 Oct, 4:30am, with two conditions: (1) section 6 stays open until the check is run; (2) pick one first user, because the Orbitshift PM's job ends outside the app and the coursemate's ends inside it. Decision pending (Prateek). The check now includes a ChatGPT study-mode comparison on the same 10 topics.
 
 ## 1. The job
 
@@ -147,6 +147,7 @@ If this is false, the product is pointless: given the handbook's chapter shape, 
 Thirty-minute check, no code (run it while you build), and what happened:
 - Decided before running. We believe: a chat model given the chapter template does this for most topics. To check: paste the template and 10 one-line topics into a plain chat window, at the "new to this" level: swimming, WWII, western philosophy, Jev's agent thing, an agent that tracks my competitors, read a balance sheet, and four in coursemates' own words. Measure, per topic: (a) the day-7 outcome is specific and honest (not "understand the basics"); (b) seven distinct chapters, no invented facts on a spot-check of two claims; (c) for three of the ten (swimming, agents, WWII), chapter 1 has at least two exercises answerable from the chapter and gradable by a rule or a one-idea rubric; (d) a person reading it can tell it was written for that topic, not pasted from a template. We're right if 8 of 10 pass (a), (b) and (d), and all three pass (c).
 - Then two timed people: chapter 1 text on a phone, no help. Pass if both finish inside 20 minutes, pass the exercises unaided, and can say in one sentence what they can now do. Fail if either needs me, can't say it, or says "I've read this before". Failures and what they change get written here.
+- Same 10 topics into ChatGPT study mode, scored against the same four criteria. Added 4 Oct on Shaktimaan's condition. If it ties, generation isn't the edge; the plan, the recall and coming back on night 2 are, and "finishes chapter 2 within 48 hours" becomes the real riskiest guess.
 - Result: [not yet run]
 
 ## 7. Milestones (each starts "I can", demoable in ten seconds, riskiest first)
