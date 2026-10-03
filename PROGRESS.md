@@ -10,3 +10,5 @@ Decided by the agent in Prateek's stead, night of 4 Oct (read these first):
 - The Google API key in the shell is invalid (tested with a real call); not used.
 - Two typefaces: Bricolage Grotesque (already in the project) and Newsreader for reading. Paper, ink, one marigold accent. See DESIGN.md.
 - First-screen copy is the agent's draft from Prateek's own phrases; marked (agent) in DESIGN.md for him to rewrite.
+
+2026-10-04 05:40 Milestones 1 to 6 done on the dev deployment and checked in Chrome by the agent: swimming handbook from the cache, plan, chapter 1 with a miss and the re-teach sheet, rung lit, reload lands on the same card, email+password sign-in attaches the night, night 2 opens with two recall cards from chapter 1, chapter 2 passed, time picker shown. Decided: the sheet's Next advances the card; a Back control on the stack; options shuffled server-side (the model put the key at B in 64 of 90 exercises). Still broken: nothing known. Not yet checked: milestone 7 (another device), the live link on a real phone, live generation for a new topic (needs API credits).
