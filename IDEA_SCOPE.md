@@ -1,3 +1,5 @@
+> **Superseded 4 Oct 2026.** The product was restarted from the job in PRODUCT.md section 1. Nothing below is an input to the build. Kept for the record only.
+
 # IDEA_SCOPE: I Get It
 
 Locked: 2 Oct 2026, named 3 Oct. Domain: igetit.now (not yet bought). Full pitch and pedagogy in docs/pitch-and-scope.md.
@@ -51,6 +53,69 @@ Not the user: people who need a credential, students in a formal course, anyone 
 **Core loop (daily, or on demand if you want to binge):** nudge arrives at your slot, a 10 to 12 card swipeable stack (recall, story, clip, guess, prose, funny, do, teach-back), tutor on any card, test with confidence rating, results rewrite the next session. Spacing reviews follow the clock, so bingers still get them.
 
 **Third loop (boss days 7, 14, 28):** do the thing, get the share card crediting the creators, meter moves a band. The roadmap is 28 days, each day generated the night before.
+
+**The job (handbook section 1, filled 3 Oct; last clause of the job story in the words of one Orbitshift user):**
+
+When I save the twelfth reel on building AI agents and still haven't built one, I want to build a small piece of one tonight in the time I'd have spent scrolling, so I can stop tracking competitors by hand.
+
+Who, by situation: on a product team where colleagues are starting to ship agents. Has saved a dozen reels on building one, started once, stopped. Does at least one chore by hand every week that an agent could do (the first user named theirs: tracking competitor activity in the company's core strength areas). Would say "I keep meaning to learn this" without being asked.
+
+Today they hire: the saved folder and YouTube watch-later (most common, zero follow-through). A Udemy course bought on sale, abandoned at lecture 4. ChatGPT when stuck, re-pasting context every time. A friend who built one, one WhatsApp message then nothing. Nothing at all, straight to step 10.
+
+What needs doing: turn the thing they keep saving into a working piece of their own agent, 20 minutes tonight.
+How they want to feel: moving, not collecting. Progress they can point to. No guilt about the folder.
+How they want to look to others: the one on the team who builds things, not the one who shares reels about them. Inferred, not yet heard from a user; check on Monday.
+
+The bench: not B2B this sprint. The person with the chore is the person who signs in.
+The one we serve first: a PM on the Orbitshift Product Ops team with a weekly manual chore an agent could take over. Five committed, nine in reach.
+
+Checked 3 Oct against three tests: a non-software hire exists (a colleague, an intern, Google Alerts); the moment is watchable (phone, save button, a folder with eleven already); the last part is their progress in their words. All three pass. What it exposes: for this user, learning to build an agent is the route, not the want. The day 7 boss task should be the full version of their own chore, not a generic agent.
+
+**The switch (handbook section 2, filled 3 Oct; one line from what a user did, the rest inferred until the two switch interviews are done):**
+
+What they'd fire: the saved folder and YouTube watch-later. A Udemy course abandoned at lecture 4. ChatGPT when stuck. A friend who built one. Most often, nothing.
+
+Push: a weekly chore done by hand that they know an agent could do (heard: competitor tracking in the company's core areas). Colleagues on the same team have started shipping agents and the gap shows in meetings. The folder is at twelve saves.
+Pull: "a piece of my own agent working tonight, and by day 7 I stop doing the chore by hand."
+Anxiety: "I'll quit this one too, like the course." "It'll be a toy demo, not my actual chore." "I'll have to give my email before I know it's worth it." "Everyone else already gets this."
+Habit: scrolling the reels already feels like keeping up, free and in hand. The chore works, slow but known. ChatGPT is one tab away with nothing to commit to.
+
+The one worry onboarding must remove: "It'll be another demo, not my competitor tracker." A worry about the outcome, so the first minute answers it with their own chore: type the boring job, see a piece of it automated, before any email.
+How I know: one Orbitshift PM, 3 Oct, said they want an agent to track competitor activity in the company's core strength areas so they can stop doing it manually. Nothing else in this block is from what someone did. Two switch interviews (people who recently tried a course, n8n or ChatGPT to build an agent; six phases, last time only, product kept out of the call) before Monday rewrite these lines.
+
+Must-have audit against the four forces: six must-haves are pull (vision, first task, day stack, test, saved progress, boss and share card), four shrink anxiety or habit (no sign-up before the win, tutor on a card, routine anchor, nudge in the inbox). Every answer to "I'll quit again" (fresh start, freezes, bad-day card) is parked in nice-to-have. Decision pending: move the 5-minute fresh-start card to must-have and promise it on the first screen.
+
+**The core flow (handbook section 3, drafted 3 Oct by Claude on Prateek's call; the daily session, with day 1 as the first session; draft until Prateek edits it):**
+
+The story: do tonight's 20 minutes and have one more piece of my own agent working.
+
+1. 8pm, after dinner, phone in hand, about to open Instagram. The competitor tracking is still done by hand. The nudge lands: "20 minutes on your competitor tracker?" (Day 1 instead: 11pm, saves the twelfth reel on agents. Opens the link a colleague sent. No nudge yet.)
+2. They open it. (Day 1: they type the chore in one sentence, "I check five competitor sites every Monday and note what changed.")
+3. It opens with three questions about yesterday's piece. (Day 1: it shows the piece they'll build tonight and what day 7 looks like for this chore.)
+4. They answer them.
+5. It shows tonight's piece: one real step, under 60 words, done in whatever tool they already use, with the tutor one tap away. "In your builder, make it fetch one competitor's page and list what changed since last week."
+6. They do it in their own tool and tick "done" when it is. Self-reported, no paste.
+7. It gives the closing test on tonight's piece: two or three questions or a one-line teach-back, graded. Feedback names what they confused, never "incorrect".
+8. They rate how sure they were before each answer.
+9. It moves the streak on the tick and the meter on the test, then names tomorrow's piece, the one open loop. (Day 1 only: "Want tomorrow's? Sign in, pick when.")
+10. Job done: a piece of their agent works tonight. On day 7 it runs the Monday check for them.
+
+Things they do today: 10 (save, forget, search YouTube, pick one of 40, watch, search how to practise, try and get stuck, ask ChatGPT and re-paste, lose the thread, stop) · Things they do with my product: 4 (open, answer recall, do the piece, take the test).
+
+What can go wrong:
+Step 1: nudge lands when they're not free -> the session opens any time; the slot is a suggestion, never a lock.
+Step 2: day 1 opened on a laptop at the office with Prateek nearby, not on a phone at 11pm -> both must work; the chore box accepts a messy sentence and asks one clarifying question at most.
+Step 4: they get all three recall questions wrong -> tonight's piece becomes a redo of yesterday's, not the next step. They tap "don't remember" -> counts as a miss, never blocked.
+Step 5: the generated piece is generic, not their chore -> generation takes the chore sentence plus yesterday's output; the card says which chore it's for. Piece too big for 20 minutes -> one artifact per night, instruction under 60 words.
+Step 6: they tick done without doing it -> the test catches it; a tick with a failed test moves the streak but not the meter, and tomorrow repeats the piece. They don't have the tool the step names -> the step names a free one or offers "I use something else" and rewrites for it. They close the tab mid-task -> the tick and the test state are saved per card and reopen where they left. They get stuck in their tool -> tutor on the card, scoped to tonight's step.
+Step 7: slow or failed grading -> "grading" state, an answer or a clear failure within 20 seconds, their answer kept. Grader fails a right answer -> "I think this is right" opens the tutor; grade logged either way for the Monday review.
+Step 8: high confidence, failed test -> feedback addresses the specific confusion, not the score.
+Step 9: day 1, they decline sign-in -> the win is saved to this device anyway. Sign-in fails -> the win is not lost.
+Step 10: day 7 "works" is only a tick -> the boss test asks them to describe what their agent returned on a real competitor page they name, and grades that; the share card shows their description, not a score.
+
+Decided 3 Oct (Prateek): the product guides, it does not host or grade the artifact. The agent lives in whatever tool they already use. Doing is self-reported with a tick; understanding is tested with questions and teach-backs, which work for any subject. Streak moves on the tick, meter moves on the test. This keeps PRODUCT.md principle 2 (progress is evidence) and makes the method horizontal: one roadmap call, one day call, one test grader, no artifact grader. The sprint's riskiest assumption changes with it: the first task is still real, but the win is "I did it and I can explain it", not "it was graded".
+
+Next story (only once this one works end to end): missed two evenings -> "fresh start, here's a 5-minute catch-up", rejoins at step 3.
 
 **Example user story (AI-written, the one the handbook allows):**
 As someone who's saved a dozen reels on building AI agents and never built one, I want a message at 8pm with one 20-minute session that starts with what I learned yesterday and ends with a small test, so that by Sunday I have a working agent and proof I understand it, instead of a folder of saved videos.
@@ -109,11 +174,11 @@ One topic: build your first AI agent with no code. All five users are on it, so 
 **What v1 does (the golden path, step by step)**
 1. Open igetit on a phone. One line says what this is. Type the skill. Tap why (work, own thing, joy, life).
 2. In 30 seconds: the day 7, 14, 28 vision for that reason.
-3. Do one tiny real task. Get graded. The skill meter ticks (2 of 28).
+3. Do one tiny real step in their own tool, tick done, answer two questions on it. The skill meter ticks (2 of 28) on the test.
 4. "Want tomorrow's?" Sign in. Pick a routine anchor. Say why in one sentence.
 5. Day 1 onward: open today's stack (hook, recall, guess, prose, do, teach-back), tutor on any card, confidence rating on every test, feedback says what you confused.
 6. Tomorrow's stack is generated from today's results. A nudge email lands 30 minutes before your usual time.
-7. Day 7: the boss task, graded. Share card: "I get it now."
+7. Day 7: the boss task in their tool, then describe what it returned on a real input; the description is tested. Share card: "I get it now."
 
 **What v1 does not do (parked)**
 Creator features (paste a link, name a creator, creator credits). Days 8 to 28 with real people (they generate, nobody reaches them). Payments (the ₹499 line is copy only). WhatsApp nudges. Cohorts. Leaderboards. Instagram saved-reel import. Hindi. A mobile app. Percentiles before 30 placed learners.
@@ -126,7 +191,7 @@ Creator features (paste a link, name a creator, creator credits). Days 8 to 28 w
 **Milestones ("I can", simplest first, each demoable in 10 seconds)**
 1. I can open the live URL on my phone and read one line that says what this is. (done 3 Oct, empty app live)
 2. I can type the skill, tap why, and see the 7 / 14 / 28 vision written for that reason.
-3. I can do the first task, get graded, and watch the meter tick to 2 of 28.
+3. I can do the first step, tick done, pass the two-question test, and watch the meter tick to 2 of 28.
 4. I can close the tab, reopen it, and my first win is still there. (Sunday night target)
 5. I can sign in, pick my anchor, say why, and see day 1 waiting.
 6. I can swipe through day 1's stack, ask the tutor on a card, and take the closing test with a confidence rating.
@@ -136,10 +201,10 @@ Creator features (paste a link, name a creator, creator credits). Days 8 to 28 w
 10. Everything above survives closing and reopening, logged out, on a phone.
 
 **Riskiest assumption**
-A stranger who types "build my first AI agent, no code" gets a real first win in under 5 minutes: a tiny task they can actually finish, graded, that feels like doing and not like a demo. If that fails, the whole first session is wrong and nothing downstream matters.
+A stranger who types their chore in one sentence does one real first step in a tool they already have, ticks done, and can answer two questions about it, all inside 5 minutes, and it feels like doing and not like a demo. Rewritten 3 Oct: the product guides and tests, it does not grade the artifact. If that fails, the whole first session is wrong and nothing downstream matters.
 
 **The 30-minute no-code test (today)**
-In a plain Claude or ChatGPT chat: paste the topic and the motivation "get ahead at work", ask for the 7 / 14 / 28 vision and one 5-minute first task with a grading rubric. Hand the phone to two people from the Orbitshift team with a timer. Watch, say nothing. Pass: both finish inside 10 minutes and say some version of "oh, I did that". Fail: either gives up, needs you to explain, or finishes and shrugs. On fail: rewrite the first task shape (section 8 of docs/adaptive-engine.md lists the alternatives) before building milestone 3.
+In a plain Claude or ChatGPT chat: paste the chore sentence and the motivation "get ahead at work", ask for the 7 / 14 / 28 vision, one 5-minute first step in a named free tool, and a two-question test on that step. Hand the phone to two people from the Orbitshift team with a timer. Watch, say nothing. Pass: both finish inside 10 minutes and say some version of "oh, I did that". Fail: either gives up, needs you to explain, or finishes and shrugs. On fail: rewrite the first task shape (section 8 of docs/adaptive-engine.md lists the alternatives) before building milestone 3.
 
 **Primary track**
 Decided 3 Oct: pick after Monday's three users have been watched. Virality needs 26+ signups to score at all on its 25x row; Revenue scores from the first signup (20x) and rewards product quality (8x), pain conversations and right to win (the LLM-judge background). Until then, build sign-in and the share card so either track can use them: every sign-up writes a row in Convex (both tracks), and the share card is a personal artifact (Virality) that also carries the day-7 price line (Revenue).
