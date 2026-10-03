@@ -1,19 +1,438 @@
 :root {
-  color-scheme: light dark;
-  font-family: system-ui, sans-serif;
-  line-height: 1.5;
+  color-scheme: dark;
+
+  /* ground and surfaces: deep navy ink, not tinted black */
+  --ink: #10172a;
+  --ink-2: #1a2340;
+  --ink-3: #2a365c;
+  --line: #34427a;
+
+  /* text: warm paper, secondary tinted from the ground's hue */
+  --paper: #f5f1e8;
+  --paper-dim: #b3bcd9;
+  --paper-faint: #7c88b0;
+
+  /* the one accent: amber, kept for the meter tick and the primary action */
+  --amber: #ffb547;
+  --amber-deep: #d98b19;
+  --amber-ink: #3a2300;
+
+  /* pass colour, used later for tests */
+  --mint: #8fe3c1;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --gutter: 20px;
+  --measure: 34rem;
+
+  --font: 'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font);
+  font-size: 106.25%; /* 17px */
+  line-height: 1.5;
+  background: var(--ink);
+  color: var(--paper);
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   min-height: 100dvh;
+  background: var(--ink);
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--amber-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+a {
+  color: var(--amber);
+  text-underline-offset: 0.18em;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* app shell: one column, phone first, a calm max width on desktop */
+.shell {
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell-top {
+  padding: 18px 0 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.wordmark {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.wordmark small {
+  display: block;
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--paper-faint);
+  letter-spacing: 0;
+}
+
+.shell-main {
+  flex: 1;
+  padding: 36px 0 24px;
+}
+
+.shell-foot {
+  padding: 0 0 max(20px, env(safe-area-inset-bottom));
+  color: var(--paper-faint);
+  font-size: 0.85rem;
+}
+
+/* type */
+h1 {
+  font-size: clamp(2rem, 2.3vw + 1.4rem, 2.9rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  margin: 0 0 14px;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: 1.2rem;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  margin: 28px 0 10px;
+}
+
+p {
+  margin: 0 0 12px;
+}
+
+.lede {
+  color: var(--paper-dim);
+  font-size: 1.05rem;
+  max-width: 32rem;
+}
+
+/* field */
+.field {
+  margin-top: 28px;
+}
+
+.field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.field input {
+  width: 100%;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 1.1rem;
+  caret-color: var(--amber);
+  transition: border-color 160ms var(--ease-out);
+}
+
+.field input::placeholder {
+  color: var(--paper-faint);
+}
+
+.field input:focus {
+  border-color: var(--amber);
+  outline: none;
+}
+
+.field-note {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--paper-faint);
+}
+
+/* motivation tiles */
+.why {
+  margin-top: 26px;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@media (min-width: 480px) {
+  .why-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.why-tile {
+  text-align: left;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px 15px;
+  cursor: pointer;
+  display: grid;
+  gap: 3px;
+  transition:
+    border-color 160ms var(--ease-out),
+    background-color 160ms var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+
+.why-tile strong {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.why-tile span {
+  color: var(--paper-dim);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.why-tile:hover {
+  border-color: var(--amber-deep);
+}
+
+.why-tile:active {
+  transform: scale(0.985);
+}
+
+.why-tile[aria-pressed='true'] {
+  border-color: var(--amber);
+  background: #221f1a;
+}
+
+.why-skip {
+  margin-top: 12px;
+  background: none;
+  border: 0;
+  padding: 6px 0;
+  color: var(--paper-faint);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.why-skip:hover {
+  color: var(--paper-dim);
+}
+
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 54px;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  border: 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  background: var(--amber);
+  color: var(--amber-ink);
+  transition:
+    background-color 160ms var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+
+.btn:hover {
+  background: #ffc46b;
+}
+
+.btn:active {
+  transform: scale(0.985);
+}
+
+.btn-quiet {
+  background: transparent;
+  color: var(--paper-dim);
+  border: 1px solid var(--line);
+}
+
+.btn-quiet:hover {
+  background: var(--ink-2);
+  color: var(--paper);
+}
+
+/* vision: three rungs of a ladder */
+.vision-skill {
+  color: var(--paper-dim);
+  margin: 0 0 6px;
+}
+
+.rungs {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+  position: relative;
+}
+
+.rung {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 14px;
+  padding: 0 0 30px;
+}
+
+.rung::before {
+  /* the rail connecting the rungs */
+  content: '';
+  position: absolute;
+  left: 31px;
+  top: 14px;
+  bottom: -2px;
+  width: 2px;
+  background: var(--line);
+}
+
+.rung:last-child::before {
+  display: none;
+}
+
+.rung-day {
+  position: relative;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: var(--ink-2);
+  border: 2px solid var(--line);
   display: grid;
   place-items: center;
-  padding: 24px;
+  text-align: center;
+  line-height: 1;
 }
-main {
-  max-width: 36rem;
+
+.rung-day b {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
-h1 {
-  font-size: 2rem;
-  margin: 0 0 0.5rem;
+
+.rung-day small {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--paper-faint);
+  margin-top: 2px;
+}
+
+.rung:last-child .rung-day {
+  border-color: var(--amber);
+  background: #2a2214;
+}
+
+.rung-text {
+  padding-top: 8px;
+  font-size: 1.08rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.vision-note {
+  margin: 4px 0 20px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--ink-2);
+  color: var(--paper-dim);
+  font-size: 0.92rem;
+}
+
+.vision-foot {
+  margin-top: 8px;
+  color: var(--paper-dim);
+}
+
+/* one orchestrated reveal: rungs rise into place once */
+@media (prefers-reduced-motion: no-preference) {
+  .rung {
+    animation: rise 560ms var(--ease-out) both;
+  }
+
+  .rung:nth-child(2) {
+    animation-delay: 160ms;
+  }
+
+  .rung:nth-child(3) {
+    animation-delay: 320ms;
+  }
+
+  .vision-cta {
+    animation: rise 560ms var(--ease-out) 520ms both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* stub screens */
+.stub {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  color: var(--paper-dim);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
