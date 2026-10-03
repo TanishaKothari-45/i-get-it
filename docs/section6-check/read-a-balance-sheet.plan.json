@@ -1,0 +1,59 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Reading a balance sheet",
+  "outcome7": "By day 7 you'll be able to take any company's balance sheet, say in plain words what it owns, what it owes and what is left for the owners, check that the two sides match, and spot three warning signs: more short-term debt than cash to cover it, a big pile of unpaid customer bills, and a growing gap between profit and cash.",
+  "horizon14": "Later, around day 14, you could compare two years of the same company's balance sheet and explain what changed and why.",
+  "horizon28": "Later, around day 28, you could read a balance sheet alongside the income statement and cash flow statement and tell a short story of the business from all three.",
+  "picture": {
+   "name": "A house with a mortgage",
+   "line": "A balance sheet is a photo of one house on one day: the house and everything in it is what you own, the mortgage and the unpaid bills are what you owe, and whatever is left is yours."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "The one equation",
+    "covers": "Own minus owe equals yours: assets, liabilities and equity, and why the two sides of the sheet always add up to the same number.",
+    "outcome": "You can take any balance sheet, find the three totals, and show that what it owns equals what it owes plus what belongs to the owners."
+   },
+   {
+    "n": 2,
+    "title": "A photo, not a film",
+    "covers": "A balance sheet shows one day, not a year; where the date sits, how it differs from an income statement, and why two dates side by side matter.",
+    "outcome": "You can say which day a balance sheet describes and explain why it cannot tell you how much the company earned."
+   },
+   {
+    "n": 3,
+    "title": "What it owns: assets, fast and slow",
+    "covers": "Current assets that turn to cash within 12 months (cash, stock, bills customers owe) versus long-term ones (buildings, machines, brands bought from others).",
+    "outcome": "You can sort every asset line into fast or slow and name the two or three biggest things the company owns."
+   },
+   {
+    "n": 4,
+    "title": "What it owes: debts, soon and later",
+    "covers": "Current liabilities due within 12 months (supplier bills, short-term loans, taxes) versus long-term debt, and reading the amounts and due dates.",
+    "outcome": "You can list what the company must pay in the next 12 months and what it can pay later, and name who it owes."
+   },
+   {
+    "n": 5,
+    "title": "What is left: the owners' share",
+    "covers": "Equity as money the owners put in plus profit kept over the years, why it can shrink or go negative, and why it is not the same as what the company is worth.",
+    "outcome": "You can explain where the equity number came from and say whether past profits were kept or paid out."
+   },
+   {
+    "n": 6,
+    "title": "Three checks in five minutes",
+    "covers": "Three quick comparisons: current assets against current liabilities, total debt against equity, and cash against short-term debt; what a healthy and an unhealthy number looks like.",
+    "outcome": "You can run the three checks on a real balance sheet and say in one sentence whether the company can pay its bills this year."
+   },
+   {
+    "n": 7,
+    "title": "Reading a real one, start to finish",
+    "covers": "A full walk through a published balance sheet from a listed company: the order of lines, the footnotes, the odd items, and the three warning signs to look for.",
+    "outcome": "You can read a real published balance sheet in 20 minutes and tell someone else what the company owns, owes, and whether anything worries you."
+   }
+  ]
+ },
+ "seconds": 23.980466842651367
+}

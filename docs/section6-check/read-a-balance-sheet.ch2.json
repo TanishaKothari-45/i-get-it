@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 2,
+  "title": "A photo, not a film",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Imagine a photo of your house taken at midnight on 31 December. It shows the house, the car in the drive, the mortgage letter on the table. It does not show the salary that arrived in March or the roof you paid for in July. A balance sheet is that photo: one day, frozen. The story of the whole year is a different document."
+   },
+   {
+    "type": "teach",
+    "title": "Find the date first",
+    "body": "Every balance sheet carries a date at the top, usually in words like \"as at 31 December 2024\" or \"as of 30 June 2025\". That date is the day the photo was taken. Every number on the sheet is true for that day and no other.\n\nThe cash line means cash in the bank at the close of that day. The loan line means what was still owed on that day. A week later, every number could be different.\n\nThis is why a balance sheet cannot tell you how much the company earned. Earning happens over time, like a film. A single frame of a film cannot show you how the plot moved.\n\nThe income statement is the film. It covers a stretch of time, usually a year, and its heading says so: \"for the year ended 31 December 2024\". It adds up sales and costs across all 365 days and ends with profit, which is sales minus costs.\n\nSo the habit is this: read the heading before any number. \"As at\" one day means a balance sheet. \"For the year ended\" means an income statement."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "A heading says \"Balance sheet as at 31 March 2025\". The company sold a warehouse on 2 April 2025. Does the warehouse appear on this balance sheet?",
+    "options": [
+     {
+      "id": "a",
+      "text": "No, because the sale is now known and the sheet should reflect it"
+     },
+     {
+      "id": "b",
+      "text": "Yes, because on 31 March the company still owned it"
+     },
+     {
+      "id": "c",
+      "text": "Only half of it, since the sale was agreed but not finished"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That treats the sheet as a live feed, not a photo: the photo was taken on 31 March, and on that day the warehouse was still owned.",
+     "c": "That mixes in events after the date: the photo does not know about April at all, so it shows the full warehouse."
+    },
+    "reteach": "Think of the midnight photo of the house. If you sell the car the next morning, the photo still shows the car in the drive. The balance sheet works the same way: whatever was owned or owed at the close of the date on the heading is what appears, no matter what happened afterwards."
+   },
+   {
+    "type": "example",
+    "title": "Two documents, one company",
+    "body": "A small bakery publishes two pages. Page one is headed \"Balance sheet as at 31 December 2024\" and shows cash of 40,000, ovens worth 90,000 and a bank loan of 60,000. Page two is headed \"Income statement for the year ended 31 December 2024\" and shows sales of 500,000, costs of 470,000 and profit of 30,000.\n\nThe 40,000 cash is what was in the bank at the close of 31 December. The 30,000 profit is what was earned across all twelve months. You cannot find the 30,000 anywhere on page one, and you cannot find the 40,000 anywhere on page two. One is a frame, the other is the film."
+   },
+   {
+    "type": "teach",
+    "title": "Why two photos matter",
+    "body": "One photo tells you where things stand. Two photos, a year apart, start to tell you how they moved. That is why most published balance sheets print two columns side by side: this year's date and last year's date.\n\nIf the bakery's cash was 40,000 at the end of 2024 and 25,000 at the end of 2023, you now know cash rose by 15,000 over the year. The balance sheet still cannot tell you why. Maybe profit, maybe a new loan, maybe a sold oven. The income statement and the cash flow statement explain the why.\n\nFor now, the skill is only this: look at the date, know it is one day, and treat the second column as a second photo from a year earlier."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A friend looks at a balance sheet and says: \"Cash is 2 million, so the company made 2 million this year.\" What do you tell them?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Agree, since cash on the balance sheet is the year's earnings"
+     },
+     {
+      "id": "b",
+      "text": "Say cash is what was in the bank on one day; earnings are on the income statement, which covers the year"
+     },
+     {
+      "id": "c",
+      "text": "Say they need to double it, because the balance sheet only shows half the year"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That confuses the photo with the film: cash on a date is a balance, not a total earned over time.",
+     "c": "That invents a time span for the balance sheet: it does not cover half a year or any stretch of time, just one day."
+    },
+    "reteach": "The cash line answers \"how much was in the bank at close of business on the heading date?\" It says nothing about how it got there. Earnings are a flow across the year, and only the income statement, headed \"for the year ended\", adds that flow up."
+   },
+   {
+    "type": "mistake",
+    "body": "The common slip is reading a balance sheet as if it covers the year, then saying things like \"they owed 60,000 this year\". Spot it by checking the heading: if it says \"as at\" a date, every number is a snapshot of that day. If you catch yourself using the words \"this year\" about a balance sheet number, swap them for \"on that date\"."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which heading belongs to a balance sheet?",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"For the year ended 30 June 2025\""
+     },
+     {
+      "id": "b",
+      "text": "\"As at 30 June 2025\""
+     },
+     {
+      "id": "c",
+      "text": "\"For the six months to 30 June 2025\""
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the income statement's heading, not the balance sheet's: it names a stretch of time, which means a film.",
+     "c": "That's also a period heading, not a single day: six months is a stretch of time, so it belongs to a statement that adds up flows."
+    },
+    "reteach": "A balance sheet is a photo of one day, so its heading names one day: \"as at\" or \"as of\" a date. Anything headed \"for the year\" or \"for the six months\" covers a span of time and belongs to a different statement."
+   },
+   {
+    "type": "try",
+    "body": "Search online for any listed company's annual report. Find the balance sheet page and read only the heading. Write down the exact date and the two column dates."
+   }
+  ],
+  "outcomeLine": "You can now say which day a balance sheet describes and explain why it cannot tell you how much the company earned."
+ },
+ "seconds": 36.35888600349426
+}

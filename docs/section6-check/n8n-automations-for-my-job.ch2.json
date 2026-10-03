@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 2,
+  "title": "Stations and the belt",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "In our small assembly line, every box in n8n is a station. A station does exactly one job: add a label, check a weight, pack a box. The thing moving down the belt is a tray with named compartments. Each station can only see the tray the station before it put on the belt, nothing else."
+   },
+   {
+    "type": "teach",
+    "title": "Nodes, items, and the belt",
+    "body": "A node is one box on the n8n canvas. It does one job. The Schedule Trigger from chapter 1 is a node. A Slack node that sends a message is a node. Nothing in n8n happens outside a node.\n\nWhat travels between nodes is called an item. An item is a small packet of named fields, like name = Priya, team = Sales. One run can carry 1 item or 200 items down the line. Every node runs its job on every item it receives.\n\nThe line you drag from one node to the next is the belt. It has a direction. Whatever comes out of node 1 goes into node 2. Whatever comes out of node 2 goes into node 3. A node never reaches back to see what an earlier node had.\n\nYou can watch this happen. Open a node and press its test button, and n8n runs just that one step. The panel on the right is the output panel. It shows how many items came out and every field inside them.\n\nThe output panel has 3 views. Table shows fields as columns, which is easiest to read. JSON shows the raw packet with curly braces. Schema lists just the field names. Table is enough for now."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Node 1 hands over 1 item with 3 fields. Node 2 adds 1 field and keeps the others. What does node 3 receive?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Only the 1 new field"
+     },
+     {
+      "id": "b",
+      "text": "1 item with 4 fields"
+     },
+     {
+      "id": "c",
+      "text": "Nothing until the whole workflow has finished"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's what node 2 added, not what it hands on: it kept the 3 fields too, so all 4 travel down the belt.",
+     "c": "That's how a report works, not a belt: each node hands its output to the next node as soon as it finishes."
+    },
+    "reteach": "Picture the tray. It arrives at station 2 with 3 labelled compartments. Station 2 adds a fourth and slides the same tray on. Station 3 gets the tray with all 4."
+   },
+   {
+    "type": "example",
+    "title": "Three nodes, step by step",
+    "body": "Build this: Schedule Trigger, then Edit Fields, then a second Edit Fields. Press the test button on the Schedule Trigger. The output panel says 1 item, with fields such as timestamp, Readable date and Day of week.\n\nIn the first Edit Fields node, add a field named owner with the value Priya, and turn on the switch Include Other Input Fields. Test it. The output is still 1 item, now with owner = Priya plus all the date fields.\n\nIn the second Edit Fields node, add a field named note with the value checked, and leave Include Other Input Fields off. Test it. The output is 1 item with one field: note. The owner and the dates are gone."
+   },
+   {
+    "type": "teach",
+    "title": "A station can add, keep, or drop",
+    "body": "The second Edit Fields node shows the nuance. A node does not just add to the tray. It decides what goes out. With that switch off, it hands on only the fields it set itself. Everything else stops at that station.\n\nSo the question to ask about any node is never \"what data is in this workflow?\" It is \"what did the node right before this one hand over?\" The output panel of that node is the only honest answer.\n\nThe same holds for item counts. If a node receives 10 items and the output panel says 3 items, that node dropped 7. The nodes after it will only ever see 3. Reading the count at each station tells you where the belt got narrower."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Your last node, a Slack message, sends a blank where the name should be. What is the right first check?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Open the node just before Slack and read its output panel for a name field"
+     },
+     {
+      "id": "b",
+      "text": "Open the trigger's output only, since all data starts there"
+     },
+     {
+      "id": "c",
+      "text": "Rename the Slack node to something clearer"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the start of the belt, not the end: a middle station may have dropped the name, so the trigger having it proves nothing.",
+     "c": "That's the node's label, not its input: renaming a station changes nothing about what arrives on its tray."
+    },
+    "reteach": "A node only sees what the previous node handed over. If Slack has no name, the node before Slack did not pass one. Test that node and look at its output panel. If the name is missing there too, step back one more node."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is assuming a field is still there because an earlier node had it. The trigger showed a date, so people expect the Slack node to see a date, even after a middle node dropped it. Spot it fast: test the node immediately before the one that misbehaves, and read its output panel. If the field is not there, it is gone for every node after it."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "In n8n, what is an item?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A packet of named fields that moves from one node to the next"
+     },
+     {
+      "id": "b",
+      "text": "The name you give a node"
+     },
+     {
+      "id": "c",
+      "text": "The line connecting two nodes"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the node's label, not the data: a name tells you what the station is for, not what it is holding.",
+     "c": "That's the belt, not the tray: the line carries items, it is not an item itself."
+    },
+    "reteach": "Each node hands the next node a tray. The tray is an item. Its compartments are fields with names, like owner or Readable date. The output panel shows you the trays a node sent on."
+   },
+   {
+    "type": "try",
+    "body": "Open any workflow in your n8n. Click the node after the trigger, press its test button, and switch the output panel between Table and JSON. Count the items and the fields."
+   }
+  ],
+  "outcomeLine": "You can now connect three nodes and read exactly what each one hands to the next."
+ },
+ "seconds": 75.40019607543945
+}

@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 3,
+  "title": "Walking the site: reading what got built",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "When a contractor says \"come walk the site,\" you don't inspect every nail. You learn which part is which: the walls and doors, the paint, the wiring hidden behind the walls, and the folder of permits on the counter.\n\nA small web project has the same 4 parts. You don't need to build any of them. You need to tell them apart, so you can point the builder at the right one."
+   },
+   {
+    "type": "teach",
+    "title": "The 4 kinds of files",
+    "body": "Open the folder Claude built. It might hold 4 files or 40. Almost every one is one of 4 kinds, and the ending of the file name tells you which.\n\nThe page. Files ending in .html. This is what the screen shows: headings, buttons, boxes to type in. In the house, these are the walls and doors.\n\nThe styling. Files ending in .css. Colours, sizes, spacing, fonts. This is the paint. Change it and the app works exactly the same, it just looks different.\n\nThe logic. Files ending in .js (or .ts, a stricter cousin). This is what happens when someone clicks, what gets added up, what gets saved. This is the wiring. Change it and the app behaves differently.\n\nThe settings. Files like package.json, README.md, or anything with \"config\" in the name. They list what the project needs and how to start it. This is the permits folder. You almost never edit it yourself; Claude does.\n\nYou are not reading these files yet. You are learning to name them. When something is off, naming the kind of file is half the fix."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Your app works, but the Save button is grey and you wanted it green. Which kind of file most likely needs the change?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The logic file (.js)"
+     },
+     {
+      "id": "b",
+      "text": "The styling file (.css)"
+     },
+     {
+      "id": "c",
+      "text": "The settings file (package.json)"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the wiring, not the paint: logic changes what the button does, not how it looks.",
+     "c": "That's the permits folder, not the paint: settings say how to start the project, not what colour anything is."
+    },
+    "reteach": "Ask one question: did it look wrong or act wrong? Looks are paint, so that's .css. Actions are wiring, so that's .js. A grey button that works fine is a paint problem."
+   },
+   {
+    "type": "example",
+    "title": "A bill-splitter, 4 files",
+    "body": "Say you asked Claude for a page that splits a restaurant bill. You open the folder and see 4 files: index.html, style.css, app.js and package.json.\n\nindex.html holds the 2 boxes (bill total, number of people) and the Split button. style.css makes the button blue and centres everything. app.js has the part that divides the total by the number of people and shows the answer. package.json is 10 lines saying what the project needs to run.\n\nYou type: \"Explain app.js in plain words, 5 sentences max, as if I've never coded.\" Claude answers: it waits for a click, reads both numbers, divides one by the other, rounds to 2 decimal places, and writes the result under the button. You now know what the wiring does without reading a line of it."
+   },
+   {
+    "type": "teach",
+    "title": "Asking the builder to explain",
+    "body": "The first thing to do after any build is ask for a map: \"List every file in this project and one line on what each is for.\" Claude reads the folder and gives you a labelled list. Do this before anything else.\n\nTo understand one file, name it and set the level: \"Explain style.css in plain words, as if I've never coded.\" You can go smaller: \"In app.js, what does the part that starts with the word function do?\"\n\nIf the answer uses a word you don't know, ask again: \"What's a function, in one sentence?\" Claude does not get tired of this, and each answer gets you one step closer to reading it yourself.\n\nThis chapter is about knowing where to look. Fixing what you find is chapter 4."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A friend tries your bill-splitter. The page looks fine, but 3 people splitting 90 shows 45 each. You want Claude to explain the relevant part. Which request fits?",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"Explain what style.css does in plain words.\""
+     },
+     {
+      "id": "b",
+      "text": "\"Explain the part of app.js that works out the amount per person.\""
+     },
+     {
+      "id": "c",
+      "text": "\"Explain what package.json is for.\""
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the paint, not the wiring: the page looks right, so styling isn't where the maths lives.",
+     "c": "That's the permits folder, not the wiring: settings don't do any dividing."
+    },
+    "reteach": "A wrong number is a behaviour problem, and behaviour lives in the logic file. Name the file (app.js) and the job you care about (the amount per person), and Claude will show you just that piece."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is treating the folder as one blob and telling Claude \"something's wrong with the code.\" Claude then guesses, and often guesses in the wrong file.\n\nSpot it in your own typing: if your request doesn't say whether it's the look, the behaviour, or the setup, you're guessing too. Say which, and the right kind of file follows."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which kind of file holds what happens when a user clicks a button?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The page (.html)"
+     },
+     {
+      "id": "b",
+      "text": "The styling (.css)"
+     },
+     {
+      "id": "c",
+      "text": "The logic (.js)"
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's the walls, not the wiring: the page puts the button on screen but doesn't decide what it does.",
+     "b": "That's the paint, not the wiring: styling sets how the button looks, not what a click triggers."
+    },
+    "reteach": "Four parts: page is what you see, styling is how it looks, logic is what it does, settings is how it starts. A click doing something is \"what it does,\" so it's the logic file."
+   },
+   {
+    "type": "try",
+    "body": "Open Claude Code in your chapter 1 folder and type: \"List every file here and one line on what each is for.\" Then ask it to explain the one you understood least."
+   }
+  ],
+  "outcomeLine": "You can now open a project folder, name which of the 4 kinds each main file is, and ask Claude to explain any piece in plain words."
+ },
+ "seconds": 59.08942675590515
+}

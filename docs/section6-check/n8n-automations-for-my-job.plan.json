@@ -1,0 +1,59 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "n8n workflow automation",
+  "outcome7": "By day 7 you'll be able to build and switch on one n8n workflow for a real task at your job, for example a new form response gets added to a spreadsheet and posts a Slack message, and when a run fails you can find the step that broke and fix it.",
+  "horizon14": "Later: two or three workflows running every day, each replacing one repetitive task you used to do by hand.",
+  "horizon28": "Later: a workflow with an AI step that drafts or sorts text, with a check in place so a bad result never reaches a colleague.",
+  "picture": {
+   "name": "A small assembly line",
+   "line": "Every workflow is a small assembly line: one bell starts it, each station does exactly one job, and the item moves down the belt from station to station until it is finished."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "The bell that starts the line",
+    "covers": "Every workflow begins with a trigger, the one event that wakes it up: a time of day, a form being submitted, or an app sending a signal. You set up n8n, build a workflow with a Schedule Trigger, and run it by hand.",
+    "outcome": "You can build a workflow that wakes up on a schedule and does one visible thing, like sending yourself a message."
+   },
+   {
+    "n": 2,
+    "title": "Stations and the belt",
+    "covers": "Each box in n8n is a node, a station that does one job. Data travels between them as items, small packets of named fields. You chain three nodes and read the output panel to see what each one passes on.",
+    "outcome": "You can connect three nodes in a row and read exactly what each station hands to the next."
+   },
+   {
+    "n": 3,
+    "title": "Plugging in your work apps",
+    "covers": "To use Gmail, Google Sheets, Slack or similar, n8n needs credentials, a saved permission to act as you. You connect one app you use at work and read from it or write to it.",
+    "outcome": "You can connect one work app to n8n and make it add a row or send a message."
+   },
+   {
+    "n": 4,
+    "title": "Passing parts between stations",
+    "covers": "An expression, written between double curly braces, pulls a field from an earlier node into a later one. You use the Edit Fields node to rename and tidy data before it reaches an app.",
+    "outcome": "You can take a name from step 1 and put it into a message sent in step 3."
+   },
+   {
+    "n": 5,
+    "title": "Sorting items down two belts",
+    "covers": "The IF node checks a value and sends items down a true path or a false path. The Filter node drops items you do not want. You build a workflow that treats urgent and normal items differently.",
+    "outcome": "You can route items down two different paths based on one field's value."
+   },
+   {
+    "n": 6,
+    "title": "When a station jams",
+    "covers": "The Executions list shows every run, with the failing node marked in red. You read error messages, re-run with the same data, and set a workflow to retry or alert you on failure.",
+    "outcome": "You can find which node failed, read why, and fix it without rebuilding the workflow."
+   },
+   {
+    "n": 7,
+    "title": "Switching the line on for real",
+    "covers": "The Active toggle makes a workflow run without you. You pick one real repetitive task from your job, build it end to end, name every node clearly, and check it the next morning.",
+    "outcome": "You can turn on one workflow that handles a real task at your job and know where to check that it ran."
+   }
+  ]
+ },
+ "seconds": 44.147403955459595
+}

@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 3,
+  "title": "Plan the route",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "You know the destination now. A good walk leader does 3 things with it. At the gate, they point and say where you're all heading. On the path, they take you there in a few clear steps, not 20 side-trails. At the end, they stop and say: here we are. Your 3-minute talk is exactly that shape: say where you're going, go there in 3 steps, say you've arrived."
+   },
+   {
+    "type": "teach",
+    "title": "Three parts, one card",
+    "body": "A short talk has 3 parts. Opening: one sentence that tells listeners the destination. Middle: 3 steps that get them there. Close: one sentence that says you've arrived. That is the whole route.\n\nThe opening is the one sentence you wrote in chapter 1. You say it first, almost word for word. People relax when they know where a talk is going. They stop guessing and start following.\n\nThe middle is 3 steps. Not 2, not 7. Three is small enough to hold in your head without notes and big enough to feel like a real journey. Each step is one short claim or one small story that moves toward the destination.\n\nThe close is your one sentence again, maybe with a small change to show you have earned it. It gives the listener a place to stand when you stop talking. Without it, talks drift to a halt.\n\nAll of this fits on one index card. Five lines: opening, step 1, step 2, step 3, close. If it won't fit, the talk has too much in it."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You have 3 minutes. Which plan matches the 3-part shape?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Say your one sentence, give 3 reasons, say your one sentence again."
+     },
+     {
+      "id": "b",
+      "text": "Tell a long story, then reveal your point in the last 10 seconds."
+     },
+     {
+      "id": "c",
+      "text": "List 6 points quickly so nothing gets left out."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's a surprise ending, not a route: listeners spend 2 minutes 50 not knowing where they're being taken.",
+     "c": "That's a list, not a route: 6 points in 3 minutes is 30 seconds each, and nobody will remember any of them."
+    },
+    "reteach": "Think of the walk. You point at the destination before you set off, you take a few clear steps, you stop and name where you are. Opening sentence, 3 steps, closing sentence. Anything else is a detour."
+   },
+   {
+    "type": "example",
+    "title": "Maya's index card",
+    "body": "Maya has to give a 3-minute talk to 8 colleagues about why the team should start meetings 5 minutes late. Her card reads: Opening: 'Start every meeting 5 minutes late and we'll finish 10 minutes earlier.' Step 1: the first 5 minutes are already lost to people arriving. Step 2: a planned start means the first word is the agenda, not 'let's wait for Sam'. Step 3: she tried it with 2 meetings last week and both ended early. Close: 'Start 5 minutes late on purpose, and we get 10 back.' Five lines, 48 words, one card. Her talk took 2 minutes 50 seconds."
+   },
+   {
+    "type": "teach",
+    "title": "Picking the 3 steps",
+    "body": "Notice what Maya's 3 steps are. One names the problem. One explains the fix. One shows it worked. That is a good default order for any short talk: problem, fix, proof. You don't have to use it, but if you're stuck, use it.\n\nEach step should be sayable in about 40 seconds. That leaves 10 seconds for the opening and 10 for the close, and a little room to breathe. If a step needs 2 minutes on its own, it's really the whole talk and the other 2 steps are padding.\n\nThe steps should be in order. Each one should make the next one make sense. If you can shuffle them and nothing changes, they aren't steps on a route yet, they're a pile. Ask: what does the listener need to hear first so the second thing lands?"
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Dev's one sentence is 'Our shop should close at 6, not 8.' Which set of 3 steps is a route, not a pile?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The shop's history; a joke about late customers; the manager's holiday plans."
+     },
+     {
+      "id": "b",
+      "text": "Sales after 6 are 4% of the day; staff costs after 6 are the same as any other hour; one rival closed at 6 and kept its customers."
+     },
+     {
+      "id": "c",
+      "text": "Closing at 6 is good; closing at 6 is really good; closing at 6 is the best idea."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a pile, not a route: none of those 3 things moves the listener toward closing at 6.",
+     "c": "That's one step said 3 times, not 3 steps: nothing new is added after the first one."
+    },
+    "reteach": "Three steps should each move the listener closer to the destination. Problem, fix, proof is a safe order. Dev's good version does that: low sales is the problem, the cost is why it hurts, the rival is the proof it's safe."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is planning the middle and skipping the close. People write 3 solid steps, then finish with 'so, yeah, that's it'. Spot it by looking at your card: if the last line isn't a full sentence you'd be happy to end on, you haven't planned a close. Write your one sentence on that line now, before you rehearse."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What are the 3 parts of a 3-minute talk?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A joke, some facts, a thank-you."
+     },
+     {
+      "id": "b",
+      "text": "Say where you're going, go there in 3 steps, say you've arrived."
+     },
+     {
+      "id": "c",
+      "text": "Introduce yourself, share your slides, ask for questions."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a set of things people often do, not the route: a joke doesn't name the destination and a thank-you doesn't say you've arrived.",
+     "c": "That's the furniture around a talk, not the talk: the route is the one sentence, the 3 steps, and the one sentence again."
+    },
+    "reteach": "Picture the walk one more time. Point at the destination. Take 3 steps toward it. Stop and say you've arrived. Opening sentence, 3 steps, closing sentence, all on one card."
+   },
+   {
+    "type": "try",
+    "body": "Take one index card or a phone note. Write 5 lines: your one sentence, 3 steps, your one sentence again. Read it aloud once and time it."
+   }
+  ],
+  "outcomeLine": "You can now lay out a 3-minute talk on one card: an opening line, 3 steps, and a close you won't trail off from."
+ },
+ "seconds": 46.562617778778076
+}

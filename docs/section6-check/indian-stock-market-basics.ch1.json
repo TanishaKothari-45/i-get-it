@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "A share is a slice of a shop",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Think of a company as one shop in a huge bazaar. The owners have cut the shop into crores of equal paper slices and sell those slices to anyone walking past. Buy 1 slice and you own a tiny piece of that shop, including a tiny piece of its profit. The price of a slice is just whatever the last two people who swapped one agreed on."
+   },
+   {
+    "type": "teach",
+    "title": "What you own when you buy 1 share",
+    "body": "A share is one slice of ownership in a company. If a company has cut itself into 100 crore shares and you hold 1, you own one hundred-croreth of it. Tiny, but real, and in your name.\n\nOwning a slice gives you two things. If the company pays out part of its profit as a dividend (cash paid per share), you get your share of it. And if someone later wants your slice more than you do, you can sell it to them.\n\nYou don't get to run the shop. You can vote at the yearly meeting, but with 1 share your vote is a whisper. Think of yourself as a part-owner who watches, not a manager.\n\nThe price you see on screen is not set by the company, the government, or SEBI (the inspector who keeps the bazaar honest). It comes from the last trade: one person wanting to buy met one person wanting to sell, and they agreed on a number. That number is 'the price' until the next pair agrees on a different one.\n\nThat is why it changes every second between 9:15 am and 3:30 pm. Thousands of pairs are agreeing on numbers all day."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "A share shows \u20b9500 on your screen. Where did that number come from?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The company set it this morning."
+     },
+     {
+      "id": "b",
+      "text": "The last buyer and seller agreed on it."
+     },
+     {
+      "id": "c",
+      "text": "SEBI fixed it for today."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's how a shop prices its goods, not its ownership slices: a company never sets its own share price.",
+     "c": "That's the inspector's job mixed up with pricing: SEBI checks the bazaar is honest, it never sets a price."
+    },
+    "reteach": "Picture two people in the bazaar haggling over one slice. When they shake hands at \u20b9500, that is the price everyone sees. Nobody above them chose it, and the next handshake can be at a different number."
+   },
+   {
+    "type": "example",
+    "title": "One shop, one day",
+    "body": "Say a share closed yesterday at \u20b9500. At 9:15 am the market opens, 300 people want to buy and only 100 want to sell. Sellers see the queue and ask \u20b9505, then \u20b9510, and by 11 am the last trade is at \u20b9512. In the afternoon three big holders each decide to sell 50,000 shares, so now sellers outnumber buyers and have to accept lower numbers to find takers: \u20b9508, then \u20b9504. The share closes at \u20b9503, up \u20b93 for the day, even though it was up \u20b912 at one point."
+   },
+   {
+    "type": "teach",
+    "title": "Why more buyers means a higher price",
+    "body": "Here is the one rule of this chapter. If more people want to buy a share than sell it, the price goes up. If more want to sell than buy, the price goes down. Nothing else moves a price directly.\n\nWhy? A buyer who can't find a seller at \u20b9500 has to offer \u20b9501 to tempt one. A seller who can't find a buyer at \u20b9500 has to drop to \u20b9499. Every price move is one side giving in a little.\n\nNews, profits and rumours matter only because they change how many people want to buy or sell. A good profit report doesn't lift a price by itself. It makes more people want to buy, and that lifts the price. So a headline is the cause of the cause, never the cause.\n\nUse this one-line template: '[Share] rose today because more people wanted to buy it than sell it, probably because [reason].' The 'probably because' part is a guess. The first half is always true."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A company announces record profit at 9 am. By 3:30 pm its share is down 4%. What happened?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The announcement must have been fake."
+     },
+     {
+      "id": "b",
+      "text": "More people wanted to sell than buy today, maybe because they had hoped for even bigger profit."
+     },
+     {
+      "id": "c",
+      "text": "Good news always pushes a price up, so the screen is showing an error."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a guess about the news, not the mechanism: fake or real, only buyers and sellers move the price.",
+     "c": "That's a headline mistaken for the cause: news only matters through what it makes people do, and today more people chose to sell."
+    },
+    "reteach": "A price drops when sellers outnumber buyers, full stop. Good news can still leave more sellers than buyers, for example if people bought last week expecting the news and now want to cash out."
+   },
+   {
+    "type": "mistake",
+    "body": "The mistake is reading a headline and treating it as the reason: 'The share fell because of the budget.' A headline explains nothing on its own. Spot it when your explanation has no buyers or sellers in it. Fix it by always starting with 'more sellers than buyers today, possibly because of X.'"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "In one line, what moves a share's price?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The company's profit."
+     },
+     {
+      "id": "b",
+      "text": "How many people want to buy compared to how many want to sell."
+     },
+     {
+      "id": "c",
+      "text": "The Nifty 50 going up or down."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the usual reason people change their minds, not the mover itself: profit matters only when it makes more people buy or sell.",
+     "c": "That's the price board for 50 shops, not the price of one shop: the board is made from share prices, not the other way round."
+    },
+    "reteach": "Strip away every headline and one thing is left: a queue of buyers and a queue of sellers. Longer buyer queue, price rises. Longer seller queue, price falls. That is the whole engine."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, search 'TCS share price' or 'Reliance share price' on your phone. Look at today's change. Say out loud: 'It moved because more people wanted to buy than sell' or the reverse."
+   }
+  ],
+  "outcomeLine": "You can now explain in one line why a share rose or fell today, using buyers and sellers instead of headlines."
+ },
+ "seconds": 62.33223795890808
+}

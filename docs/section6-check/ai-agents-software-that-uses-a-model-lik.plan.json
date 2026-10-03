@@ -1,0 +1,59 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "AI agents",
+  "outcome7": "By day 7 you'll be able to draw the loop an AI agent runs (goal, think, act, check, repeat), name the 4 parts every agent has, read a simple agent's log and say where it went wrong, and decide for 3 real tasks whether an agent, a chatbot, or a normal script is the right tool.",
+  "horizon14": "Later: run a ready-made agent on your own computer and change what tools it is allowed to use.",
+  "horizon28": "Later still: build a small agent of your own that does one chore for you, with limits you set.",
+  "picture": {
+   "name": "A new intern",
+   "line": "An AI agent is a new intern: smart, eager, no memory of yesterday, who needs a clear task, a list of what they may touch, and someone checking their work."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "The model only talks. The agent does things.",
+    "covers": "The one difference between a chatbot (answers a question, then stops) and an agent (keeps taking steps toward a goal until done), and why that difference changes everything about risk and usefulness.",
+    "outcome": "You can explain to a friend, in 2 sentences, why asking ChatGPT a question is not an agent and why booking a flight with it would be."
+   },
+   {
+    "n": 2,
+    "title": "The loop: goal, think, act, check, repeat",
+    "covers": "The cycle every agent runs: it gets a goal, the model picks the next step, something runs that step, the result goes back to the model, and it decides whether it is done. Walked through with one example from start to finish.",
+    "outcome": "You can draw the agent loop on paper and trace a 5-step task around it, saying what the model sees at each turn."
+   },
+   {
+    "n": 3,
+    "title": "Tools: what the intern is allowed to touch",
+    "covers": "How an agent acts on the world: a tool is a named action the model can request (search the web, read a file, send an email) that ordinary code then performs. Why the model never acts directly, and why the tool list is the single biggest safety lever.",
+    "outcome": "You can list the tools a given agent would need for a task like 'find and summarise 3 recent news stories', and say which one is the riskiest to hand over."
+   },
+   {
+    "n": 4,
+    "title": "Memory: the intern forgets everything overnight",
+    "covers": "Why a model has no memory between calls, how an agent fakes memory by re-sending the conversation and notes each turn, and what breaks when the task gets longer than the model can hold at once (its context window, the amount of text it can read in one go).",
+    "outcome": "You can explain why an agent that worked for 10 steps can start repeating itself at step 40, and name 2 things builders do about it."
+   },
+   {
+    "n": 5,
+    "title": "When it goes wrong: loops, made-up facts, and wrong turns",
+    "covers": "The 3 failure types you will actually see: the agent repeats the same step forever, it invents a result a tool never gave, or it confidently solves the wrong problem. How to spot each one in a step-by-step log.",
+    "outcome": "You can read a 10-line agent log, point to the step where it went wrong, and name which of the 3 failure types it is."
+   },
+   {
+    "n": 6,
+    "title": "Guardrails: how much rope to give the intern",
+    "covers": "The practical controls: limiting tools, capping the number of steps, requiring a human 'yes' before risky actions, and running in a sandbox (a sealed copy of a system where mistakes do no real damage). Why 'ask before sending' beats 'trust it fully'.",
+    "outcome": "You can pick guardrails for a given agent and defend each choice with a one-line reason, including which single action should always need a human click."
+   },
+   {
+    "n": 7,
+    "title": "Agent, chatbot, or plain script: picking the right tool",
+    "covers": "A 3-question test for any task: is the path known in advance, how bad is a mistake, and does it need judgement at each step. Applied to real cases such as sorting email, renaming 500 files, and researching a purchase.",
+    "outcome": "You can take 3 tasks from your own week, run each through the test, and say which deserves an agent, which a chatbot, and which an ordinary script, with the reason."
+   }
+  ]
+ },
+ "seconds": 27.54938292503357
+}

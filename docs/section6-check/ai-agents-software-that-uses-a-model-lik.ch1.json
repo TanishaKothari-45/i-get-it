@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "The model only talks. The agent does things.",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Picture 2 new interns on their first day. You ask the first one how to book a flight to Lisbon. They explain it well, then sit back down. You ask the second one to book the flight. They open the booking site, pick a time, type in your card details, and come back with a ticket.\n\nThe first intern is a chatbot. The second is an agent. Same brain, same training. The only difference is that one was allowed to do things, and kept going until the job was done."
+   },
+   {
+    "type": "teach",
+    "title": "Talking versus doing",
+    "body": "A language model is a program that reads text and writes the next text. That is all it can do. It cannot click, open a file, send an email or spend money. It only produces words.\n\nA chatbot like ChatGPT wraps that model in a chat window. You type, it answers, it stops. Even when the answer is long, it is still one turn: one question in, one block of text out. Nothing in the world changes except the screen.\n\nAn agent wraps the same model in a loop. It is given a goal, not a question. It picks a step, something runs that step, the result comes back, and it picks the next step. It keeps going until it decides the goal is met.\n\nThe word 'something' matters. The model never acts directly. It writes a request like 'search for flights to Lisbon on 12 March', and ordinary code performs the search and hands back the result. The model only ever talks. The code around it does the doing.\n\nSo the one difference is this: a chatbot answers and stops. An agent takes steps toward a goal and only stops when it thinks it is done."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You tell an AI: 'Here is my calendar. Find a free hour on Thursday and send Priya an invite.' It checks the calendar, picks 2pm, sends the invite, then reports back. Which is this?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A chatbot, because it talked to you at the end"
+     },
+     {
+      "id": "b",
+      "text": "An agent, because it took steps that changed something outside the chat"
+     },
+     {
+      "id": "c",
+      "text": "Neither, because the model cannot send invites"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the final report, not the whole job: before reporting it checked a calendar and sent an invite, which a chatbot never does.",
+     "c": "That's half right about the model, not the agent: the model only writes the request, and the code around it sends the invite."
+    },
+    "reteach": "Ask one question: did anything outside the chat window change? A chatbot only changes the screen. If a calendar, inbox, file or bank balance changed, steps were taken toward a goal, and that is an agent."
+   },
+   {
+    "type": "example",
+    "title": "The same request, two ways",
+    "body": "Sam types into a chatbot: 'What's the cheapest way to get from Manchester to Lisbon next weekend?' The chatbot writes 3 paragraphs about budget airlines and the train to the airport, then stops. Sam still has no ticket.\n\nSam types into an agent: 'Book me the cheapest flight from Manchester to Lisbon next Saturday, back Monday.' The agent searches 2 airline sites, compares 6 fares, picks one at 7:05am, fills in Sam's saved details and pays. 4 minutes later Sam has a booking reference and a 7:05am flight they did not ask about.\n\nThe chatbot's worst outcome was a slightly wrong paragraph. The agent's worst outcome was a wrong flight, paid for."
+   },
+   {
+    "type": "teach",
+    "title": "Why doing changes the risk",
+    "body": "When a chatbot gets something wrong, you read it, frown, and ignore it. The mistake lives on your screen and nowhere else. The cost of a bad answer is nearly zero.\n\nWhen an agent gets something wrong, the mistake happens in the world. An email is sent. A file is deleted. A card is charged. You often find out after, not before.\n\nThis is also why agents are useful. A chatbot hands you a plan and leaves you to do 10 boring steps. An agent does the 10 steps. The same ability that saves you an hour is the ability that can send the wrong email.\n\nSo every question about agents comes back to one trade. More doing means more use and more risk. The rest of this handbook is about getting the use without the damage."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Your friend says: 'I use ChatGPT to write my cover letters, so I already use an AI agent.' Which reply is accurate?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Yes. Writing a whole cover letter is many steps, so it counts as an agent."
+     },
+     {
+      "id": "b",
+      "text": "Not yet. It writes text and stops; nothing outside the chat changes. If it also found 5 job ads and submitted the letters, that would be an agent."
+     },
+     {
+      "id": "c",
+      "text": "No. Only AI that runs on your own computer counts as an agent."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a long answer, not a loop: one request in, one block of text out is still a single chatbot turn no matter how much it writes.",
+     "c": "That's where it runs, not what it does: the agent test is whether it takes steps in the world, not which machine it lives on."
+    },
+    "reteach": "Length does not make an agent. A 2,000-word reply is still one turn that ends on the screen. An agent is one that takes a step, sees the result, and takes the next step, until a goal outside the chat is met."
+   },
+   {
+    "type": "mistake",
+    "body": "People hear 'AI agent' and picture a smarter model. It is not a smarter model. It is the same kind of model, given a goal, a loop and permission to act. You can spot the confusion when someone says an agent is 'more intelligent' than a chatbot. Ask instead: what is it allowed to do, and when does it stop?"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "In one line, what is the difference between a chatbot and an agent?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A chatbot answers a question and stops; an agent keeps taking steps toward a goal until it decides it is done."
+     },
+     {
+      "id": "b",
+      "text": "A chatbot uses an older model; an agent uses a newer, smarter one."
+     },
+     {
+      "id": "c",
+      "text": "A chatbot works in a browser; an agent is a program you install."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the model's age, not its job: the same model can sit inside a chatbot or an agent, and the difference is the loop and the permission to act.",
+     "c": "That's the packaging, not the behaviour: both can run anywhere, and only the agent takes steps in the world."
+    },
+    "reteach": "Picture the two interns again. Both are equally smart. One explains and sits down. One keeps going until the ticket is booked. The second one is the agent, and the thing to watch is what they are allowed to touch."
+   },
+   {
+    "type": "try",
+    "body": "Open any chatbot you already use. Ask it to send an email for you. Watch how it answers: it will write the email, but cannot send it. That gap is the whole chapter."
+   }
+  ],
+  "outcomeLine": "You can now explain, in 2 sentences, why asking ChatGPT a question is not an agent and why booking a flight with it would be."
+ },
+ "seconds": 40.33379101753235
+}

@@ -1,0 +1,59 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Building a competitor-tracking agent",
+  "outcome7": "By day 7 you'll be able to run a small agent that checks 3 to 5 competitor web pages every day, spots what changed, and sends you a short plain-English summary, with every claim in that summary pointing back to the exact page it came from.",
+  "horizon14": "Later, around day 14, you could add more sources (news, job listings, app store notes) and a weekly roll-up instead of daily noise.",
+  "horizon28": "Later still, around day 28, you could let the agent sort changes by what matters to you (pricing, new features, hires) and ignore the rest.",
+  "picture": {
+   "name": "a newspaper clipping service",
+   "line": "Think of the agent as a person you pay to read the same 5 newspapers every morning, cut out only the stories about your rivals, and leave a short note on your desk."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "What an agent is, and what it is not",
+    "covers": "An agent is a program that runs on its own, on a schedule, and calls an AI model to read and write text. You see the 4 parts: a trigger (the alarm clock), sources (the newspapers), the model (the reader), and the output (the note on your desk).",
+    "outcome": "You can draw the 4 boxes of a competitor-tracking agent on paper and say what each one does."
+   },
+   {
+    "n": 2,
+    "title": "Choosing who to watch and where to look",
+    "covers": "Pick 3 to 5 competitors and, for each, 1 or 2 pages that actually change: pricing, changelog, blog, careers. You learn why fewer, better pages beat a list of 50.",
+    "outcome": "You can write a list of 3 to 5 competitors with 1 or 2 exact web addresses each, and say why each page is worth reading."
+   },
+   {
+    "n": 3,
+    "title": "Fetching a page and keeping a copy",
+    "covers": "The agent downloads each page as text and saves it with the date. This is the clipping: without a saved copy you cannot tell what changed tomorrow.",
+    "outcome": "You can fetch one competitor page, save its text to a file named with today's date, and open it to check it worked."
+   },
+   {
+    "n": 4,
+    "title": "Spotting what changed",
+    "covers": "Compare today's copy with yesterday's and keep only the lines that are new or gone. A diff (a line-by-line comparison) is the clipping service's scissors.",
+    "outcome": "You can run a comparison between 2 saved copies of a page and list exactly which lines were added or removed."
+   },
+   {
+    "n": 5,
+    "title": "Asking the model to explain the change",
+    "covers": "Send only the changed lines to an AI model with a short, strict instruction: say what changed, in 2 sentences, and quote the source line. You learn why giving the model less text gives you better answers.",
+    "outcome": "You can write a prompt (the instruction you give the model) that turns a diff into a 2-sentence plain-English summary with a quoted source."
+   },
+   {
+    "n": 6,
+    "title": "Running it every day without you",
+    "covers": "Put the fetch, compare and summarise steps on a daily schedule, and deliver the result somewhere you will actually see it: an email, a chat message, or a file. The alarm clock goes on.",
+    "outcome": "You can set the agent to run once a day on its own and receive the summary without opening a terminal."
+   },
+   {
+    "n": 7,
+    "title": "Catching the agent when it is wrong",
+    "covers": "Pages break, sites block you, models make things up. You add 3 checks: did the fetch work, is the diff empty, and does every claim in the summary quote a real line. Trust comes from checks, not from hope.",
+    "outcome": "You can read one day's summary, trace each claim back to its source line, and spot a fetch failure or an invented claim within 2 minutes."
+   }
+  ]
+ },
+ "seconds": 30.130969047546387
+}

@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 3,
+  "title": "What it owns: assets, fast and slow",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Look at the house photo again and sort what you own into two piles. The cash in the drawer, the food in the fridge, and the money a friend still owes you can all turn into spendable cash within a few months. The house, the car and the boiler are worth far more, but you cannot spend them this month. A balance sheet sorts what a company owns into the same two piles: fast and slow."
+   },
+   {
+    "type": "teach",
+    "title": "Two piles, fast on top",
+    "body": "An asset is anything the company owns that is worth money. The balance sheet lists them with the ones closest to cash at the top and the ones furthest from cash at the bottom.\n\nThe fast pile is called current assets. Current means the company expects it to turn into cash within 12 months. The usual lines are cash itself, inventory (goods sitting in a warehouse waiting to be sold, often called stock) and receivables (bills the company has sent to customers who have not paid yet).\n\nThe slow pile is called non-current assets, or long-term assets. These are things the company plans to keep and use for years: buildings, land, machines, vehicles and computer systems.\n\nThe slow pile also holds things you cannot touch. Intangibles are rights like patents or brand names bought from someone else. Goodwill is the extra a company paid when it bought another company for more than its parts were worth.\n\nEvery asset line sits in one pile or the other. The sheet gives a subtotal for each: total current assets, and total non-current assets. Add them and you get total assets, the number you met in chapter 1."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Which of these lines belongs in the fast pile, the current assets?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A factory building"
+     },
+     {
+      "id": "b",
+      "text": "Goods in a warehouse waiting to be sold"
+     },
+     {
+      "id": "c",
+      "text": "A brand name bought from another company"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a slow asset, not a fast one: a factory is kept and used for years, not turned into cash within 12 months.",
+     "c": "That's an intangible in the slow pile, not a fast asset: a bought brand is held for years and cannot be sold off next month."
+    },
+    "reteach": "Ask one question of each line: does the company expect this to become cash within 12 months? Cash, stock and customer bills pass that test. Buildings, machines, brands and goodwill do not, so they go in the slow pile."
+   },
+   {
+    "type": "example",
+    "title": "A bakery chain's two piles",
+    "body": "Picture a small bakery chain with 3 shops. Its fast pile reads: cash 40,000, stock of flour and packaging 15,000, and bills owed by caf\u00e9s that buy its bread wholesale 25,000. Total current assets: 80,000.\n\nIts slow pile reads: ovens and delivery vans 120,000, shop fittings 60,000. Total non-current assets: 180,000. Total assets: 260,000.\n\nAsked what this company owns, you would say: mostly ovens and vans, then shop fittings, with 80,000 that can turn into cash this year, of which only 40,000 is cash right now."
+   },
+   {
+    "type": "teach",
+    "title": "Fast is a promise, not a fact",
+    "body": "Only one line in the fast pile is already cash: the one called cash. Stock becomes cash only if someone buys it. A customer bill becomes cash only if the customer pays. So the fast pile tells you what should arrive, not what has arrived.\n\nThe slow pile has its own catch. Buildings and machines are shown at what they cost, minus a yearly deduction for wear called depreciation. That number is not what they would fetch if sold tomorrow.\n\nGoodwill is the odd one. It is not a thing at all, only a record of a price paid in the past. It cannot be sold on its own. When goodwill is the biggest line, the company owns less touchable stuff than the total suggests.\n\nSo when you name the two or three biggest things a company owns, add one word to each: cash, stock, bills, buildings, or goodwill. That word says how real the number is."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A company's biggest asset lines are goodwill 500 million, buildings 100 million and cash 50 million. A friend says: \"They own 650 million of stuff they could sell.\" Which reply applies the idea correctly?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Agree: all three lines are assets, so all 650 million could be sold."
+     },
+     {
+      "id": "b",
+      "text": "Disagree: goodwill is a slow asset that cannot be sold on its own, so the sellable pile is closer to 150 million."
+     },
+     {
+      "id": "c",
+      "text": "Disagree: goodwill is a fast asset because it was paid for in cash, so only the buildings are hard to sell."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That treats goodwill like a building or a van, not what it is: a record of an old purchase price with nothing to hand over to a buyer.",
+     "c": "That's the fast-pile test misapplied: goodwill was bought with cash once, but it will never turn back into cash within 12 months, so it sits in the slow pile."
+    },
+    "reteach": "Sort each line first, then ask how real it is. Buildings are slow but touchable. Cash is fast and already cash. Goodwill is slow and not touchable, so it is the least sellable number on the whole sheet."
+   },
+   {
+    "type": "mistake",
+    "body": "The common slip is reading receivables as money in the bank. It is a bill the company has sent, not cash it has received. Spot it by comparing two lines: if receivables are bigger than cash, and bigger than last year, the company is lending to its customers and waiting to be paid."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What makes an asset count as current, the fast pile?",
+    "options": [
+     {
+      "id": "a",
+      "text": "It is worth more than 10,000."
+     },
+     {
+      "id": "b",
+      "text": "The company expects it to turn into cash within 12 months."
+     },
+     {
+      "id": "c",
+      "text": "It is something you can physically touch."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's size, not speed: a 2 million warehouse is slow, a 500 customer bill is fast.",
+     "c": "That's touchable versus intangible, not fast versus slow: an oven can be touched but is slow, a customer bill cannot be touched but is fast."
+    },
+    "reteach": "The only test is time. Within 12 months to cash means current. Longer than that means non-current. Nothing else about the item matters for which pile it goes in."
+   },
+   {
+    "type": "try",
+    "body": "Search the name of a company you buy from plus \"annual report balance sheet\". Find the line \"Total current assets\". Write down the three lines above it and the one biggest line below it."
+   }
+  ],
+  "outcomeLine": "You can now sort every asset line into fast or slow and name the two or three biggest things a company owns."
+ },
+ "seconds": 54.63946795463562
+}

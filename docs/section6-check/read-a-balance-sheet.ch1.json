@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "The one equation",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Take a photo of a house on one day. The house, the car on the drive and the cash in the drawer are what the family owns. The mortgage and the unpaid gas bill are what it owes. Take the second away from the first and what is left belongs to the family. A balance sheet is that photo, taken of a company instead of a house."
+   },
+   {
+    "type": "teach",
+    "title": "Owns, owes, and what is left",
+    "body": "A balance sheet has three big totals. Assets are everything the company owns: cash in the bank, buildings, machines, goods waiting to be sold, and money customers have promised to pay.\n\nLiabilities are everything the company owes: bank loans, bills from suppliers it has not paid yet, and tax it must hand over.\n\nEquity is what would be left for the owners if the company sold every asset and paid every debt today. You will also see it called shareholders' funds or net assets. Same number, different label.\n\nThe three fit one equation: Assets = Liabilities + Equity. Flip it round and it reads: owns minus owes equals yours.\n\nThe two sides always add up to the same number. That is why it is called a balance sheet. Every asset was paid for by someone, either a lender or an owner, so the asset total can never be bigger or smaller than those two sources put together.\n\nOn the page, look for the line \"Total assets\". Then look lower for \"Total liabilities and equity\". Those two lines should match to the last digit."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "A family's house is worth 300,000. The mortgage still owed on it is 200,000. How much of the house is really theirs?",
+    "options": [
+     {
+      "id": "a",
+      "text": "300,000"
+     },
+     {
+      "id": "b",
+      "text": "100,000"
+     },
+     {
+      "id": "c",
+      "text": "500,000"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the asset, the full value of the house, not the share left after the mortgage is taken off.",
+     "c": "That adds what they owe to what they own. Yours is owns minus owes, so the answer must be smaller than 300,000, not bigger."
+    },
+    "reteach": "Picture selling the house today for 300,000. The bank takes its 200,000 first. Whatever is left in your hand, 100,000, is the owners' share. That leftover is what a balance sheet calls equity."
+   },
+   {
+    "type": "example",
+    "title": "A caf\u00e9 on 31 March",
+    "body": "A small caf\u00e9 closes its books on 31 March. It owns 8,000 in cash, a coffee machine worth 12,000 and 2,000 of beans and milk. Total assets: 22,000.\n\nIt owes the bank 10,000 on a loan and its supplier 2,000 for last month's deliveries. Total liabilities: 12,000.\n\nSo equity is 22,000 minus 12,000, which is 10,000. Check it the other way: 12,000 of debt plus 10,000 of equity gives 22,000, the same as the assets. The sheet balances."
+   },
+   {
+    "type": "teach",
+    "title": "Why it can never stop balancing",
+    "body": "Every money move touches two lines at once, so the equation holds after each one. Borrow 5,000 and cash goes up 5,000 while loans go up 5,000. Spend that 5,000 on a van and cash goes down while the van line goes up, so total assets do not move. An owner puts in 3,000 and cash goes up while equity goes up.\n\nBecause of this, equity is not counted, it is worked out. Nobody walks round the company adding up equity the way they count cash or vans. It is simply assets minus liabilities, a leftover.\n\nSo if the two totals on a sheet you are reading do not match, the sheet is not broken. You have most likely picked a subtotal, such as \"current assets\" instead of \"total assets\". Go back and find the line that starts with the word total."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A company's balance sheet shows total assets of 50 million and total liabilities of 35 million. Which number should you expect on the total equity line?",
+    "options": [
+     {
+      "id": "a",
+      "text": "85 million"
+     },
+     {
+      "id": "b",
+      "text": "15 million"
+     },
+     {
+      "id": "c",
+      "text": "35 million"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's assets plus liabilities. Equity is assets minus liabilities, so it has to be smaller than 50 million.",
+     "c": "That's the liabilities total repeated. Equity is what is left after liabilities come off the assets, a different number."
+    },
+    "reteach": "Start from the 50 million the company owns. Lenders and suppliers have first claim on 35 million of it. What remains, 15 million, belongs to the owners. The sheet will show 35 plus 15 equals 50."
+   },
+   {
+    "type": "mistake",
+    "body": "People hear \"equity of 10 million\" and picture 10 million sitting in a bank account. It is not. Equity is a leftover sum, not a pile of money. Spot the slip when someone says a company can pay a bill \"because it has plenty of equity\". To know what it can pay today, look at the cash line, not the equity line."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which of these is true of every balance sheet, no matter the company?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Total assets equal total liabilities plus total equity."
+     },
+     {
+      "id": "b",
+      "text": "Total assets equal total liabilities minus total equity."
+     },
+     {
+      "id": "c",
+      "text": "Total equity equals total assets plus total liabilities."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That takes equity away from liabilities. Liabilities and equity are the two sources that together paid for the assets, so they are added, not subtracted.",
+     "c": "That's the equation turned inside out. Equity is the leftover after liabilities come off the assets, so it is smaller than the assets, not bigger."
+    },
+    "reteach": "Think of the house. House value equals the mortgage plus the family's own share. Assets are the house, liabilities are the mortgage, equity is the family's share. The house side and the mortgage-plus-share side are always the same number."
+   },
+   {
+    "type": "try",
+    "body": "Search online for any listed company's latest annual report. Find the balance sheet page. Put one finger on \"Total assets\" and another on \"Total liabilities and equity\". Check they match."
+   }
+  ],
+  "outcomeLine": "You can now find the three totals on any balance sheet and show that what it owns equals what it owes plus what belongs to the owners."
+ },
+ "seconds": 67.2264711856842
+}

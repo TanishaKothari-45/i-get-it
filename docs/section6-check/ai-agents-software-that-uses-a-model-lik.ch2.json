@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 2,
+  "title": "The loop: goal, think, act, check, repeat",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "You tell the intern: \"Find out if it will rain tomorrow, and if so, put 'take umbrella' on my list.\" They do not do it in one move. They think about the first step, go and look something up, come back to the desk with what they found, and decide the next step. Every trip back to the desk is one turn of the loop. An agent runs the same loop, except the intern is a model that has to be handed the whole story again on every return."
+   },
+   {
+    "type": "teach",
+    "title": "The 5 parts of the loop",
+    "body": "Goal. The task in plain words, such as \"book a room for 3 pm\". It is written once and stays fixed for the whole run.\n\nThink. The model reads everything so far and names one next step. It cannot do the step. It can only say, in text, \"look up the calendar for 3 pm\". This is the \"only talks\" part from chapter 1.\n\nAct. A piece of ordinary code, not the model, performs the step the model named. It opens the calendar, reads the file, sends the search.\n\nCheck. Whatever came back is turned into text and handed to the model. The model reads it and asks one question: am I done? If yes, it writes the final answer and stops. If no, it goes back to Think.\n\nRepeat. The loop runs again and again until the model says done, or until a limit set by the builder cuts it off. One Think plus one Act plus one Check is one turn."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "The Act step just ran: the calendar lookup finished. Where does its result go next?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Straight to you. The task is finished."
+     },
+     {
+      "id": "b",
+      "text": "Back to the model, which reads it and decides the next step."
+     },
+     {
+      "id": "c",
+      "text": "Into a file, to be looked at after the run ends."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the final answer, not a step result: one lookup is rarely the whole task, and only the model can say it is done.",
+     "c": "That's a log, not the loop: results do get recorded, but the live copy goes straight back to the model so it can choose the next step."
+    },
+    "reteach": "Think of the intern coming back to the desk. They do not post their findings to you and leave. They sit down, look at what they found, and decide what to do next. The result of every Act is the input to the next Think."
+   },
+   {
+    "type": "example",
+    "title": "One task, 5 turns",
+    "body": "Goal: \"Tell me if it will rain in Pune tomorrow, and if so add 'take umbrella' to my to-do list.\"\n\nTurn 1. The model sees only the goal. It asks for the weather tool with the word \"tomorrow\". The tool replies: \"Need a date, not a word.\"\n\nTurn 2. The model now sees the goal, its first request and that reply. It asks the date tool. Reply: \"4 Oct 2026.\"\n\nTurn 3. It asks for weather in Pune on 5 Oct 2026. Reply: \"Rain likely, 70%.\" Turn 4. It asks the to-do tool to add \"take umbrella\". Reply: \"Added.\" Turn 5. It sees all 4 steps and 4 replies, judges both halves of the goal done, and writes: \"Rain is likely. I added 'take umbrella' to your list.\" It stops."
+   },
+   {
+    "type": "teach",
+    "title": "What the model sees each turn",
+    "body": "The model keeps nothing between turns on its own. The code around it saves the transcript and hands the whole thing back at the start of each turn: goal, every step requested, every reply received. At turn 4 the model \"knows\" about the rain only because the text \"Rain likely, 70%\" is sitting in front of it.\n\nThis is why the loop can recover from a bad step. In turn 1 the model asked badly. Nothing broke. The reply told it what was missing, and the next Think fixed it. The loop is forgiving because each turn starts from the full record.\n\nCheck is a judgement, not a guarantee. The model decides it is done, and it can decide wrongly. So builders add a hard stop on top, often a cap like 20 turns, so a model that never says done cannot run forever. Chapter 5 shows what that looks like when it fails."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "An agent is on turn 6 of \"rename the photos in this folder by date\". What is in front of the model as turn 6 starts?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Only the reply from turn 5, so the text stays short."
+     },
+     {
+      "id": "b",
+      "text": "The goal, plus all 5 earlier requests and their replies."
+     },
+     {
+      "id": "c",
+      "text": "Only the goal. Each turn starts fresh."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's one Check, not the full record: with only the last reply the model could not tell which photos it had already renamed.",
+     "c": "That's the model's own memory, not what the code gives it: the model remembers nothing by itself, so the code re-sends the whole transcript each turn."
+    },
+    "reteach": "Picture the intern's notebook. Every time they sit back down, they re-read the whole page: the task, what they tried, what came back. The agent's code does that re-reading for the model by sending the full transcript at the start of every turn."
+   },
+   {
+    "type": "mistake",
+    "body": "People assume the agent knows the state of the world. It knows only what came back as text. If the rename tool renamed a file but replied with nothing, the model may rename it again or report that it failed. To spot this in a log, compare each Think with the reply just before it. If the model's next step ignores what the tool said, the Check step was starved of information."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which parts of the loop does the model itself carry out?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Act. It runs the step it chose."
+     },
+     {
+      "id": "b",
+      "text": "Think and Check. It names the next step and judges the reply."
+     },
+     {
+      "id": "c",
+      "text": "All 5 parts, start to finish."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the code's job, not the model's: the model only names the step in text, and ordinary code performs it.",
+     "c": "That's the whole agent, not the model: the goal comes from you, Act is done by code, and Repeat is the code calling the model again."
+    },
+    "reteach": "The model is the intern's brain, not their hands. It reads the record, picks the next step, and judges what came back. Everything that touches the real world is done by plain code acting on the model's request."
+   },
+   {
+    "type": "try",
+    "body": "Ask any chat AI: \"List the steps to book a train ticket, one per line, and after each say what reply you would need before the next step.\" You have just written the Think column of the loop by hand."
+   }
+  ],
+  "outcomeLine": "You can now draw the agent loop on paper and trace a 5-turn task around it, saying what the model sees at each turn."
+ },
+ "seconds": 68.64396691322327
+}

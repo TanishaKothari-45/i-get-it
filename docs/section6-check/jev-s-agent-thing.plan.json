@@ -1,0 +1,13 @@
+{
+ "plan": {
+  "needsClarification": true,
+  "question": "By \"agent\" do you mean AI agents (software that uses a model like ChatGPT to take steps on its own, such as searching, writing and running tools), or a different kind of agent, such as a real estate or insurance agent?",
+  "topic": "Agents",
+  "outcome7": null,
+  "horizon14": null,
+  "horizon28": null,
+  "picture": null,
+  "chapters": []
+ },
+ "seconds": 23.51095175743103
+}

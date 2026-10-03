@@ -1,0 +1,59 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Western philosophy",
+  "outcome7": "By day 7 you'll be able to take a claim like 'you should always keep your promises', ask the 4 questions philosophers ask of it (what does it mean, how would we know, is it right, who gets to decide), name one thinker who tackled each question and say in a sentence what they argued.",
+  "horizon14": "Later, around day 14, you could read one short original text, such as Plato's Apology, and follow the argument without a guide.",
+  "horizon28": "Later, around day 28, you could explain how one modern debate, such as free speech or AI rights, repeats an argument from 2,000 years ago.",
+  "picture": {
+   "name": "A long argument",
+   "line": "Western philosophy is one dinner-table argument that has run for about 2,500 years, where each new guest answers the one who spoke before, so you only need to know who is replying to whom."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "What counts as a good argument",
+    "covers": "A claim, the reasons behind it, and how to spot when the reasons do not actually support the claim, using 3 everyday examples.",
+    "outcome": "You can take any opinion, split it into its claim and its reasons, and say whether the reasons hold it up."
+   },
+   {
+    "n": 2,
+    "title": "Socrates and the habit of asking why",
+    "covers": "How Socrates questioned people in Athens around 400 BC, why it got him executed, and how to run his question-and-answer method on your own beliefs.",
+    "outcome": "You can ask 5 'why' questions in a row about a belief you hold and notice where your answers run out."
+   },
+   {
+    "n": 3,
+    "title": "Plato and Aristotle: is the real world the one we see?",
+    "covers": "Plato's cave story and his idea that perfect forms sit behind everyday things, then Aristotle's reply that we learn by looking closely at the world itself.",
+    "outcome": "You can explain the cave story in 3 sentences and say which side, Plato or Aristotle, a scientist is closer to."
+   },
+   {
+    "n": 4,
+    "title": "Descartes and the question of what we can know",
+    "covers": "Descartes doubting everything in 1641 until he hit one thing he could not doubt, and why that moved the argument from the world to the mind.",
+    "outcome": "You can explain 'I think, therefore I am' and say what problem it was trying to solve."
+   },
+   {
+    "n": 5,
+    "title": "Hume and Kant: where knowledge comes from",
+    "covers": "Hume's claim that everything we know comes through the senses and habit, and Kant's reply that the mind brings its own rules to experience.",
+    "outcome": "You can explain, with the example of cause and effect, why Hume said we never actually see one thing cause another and how Kant answered."
+   },
+   {
+    "n": 6,
+    "title": "How should I act: Mill against Kant",
+    "covers": "Two rival tests for right and wrong: Mill's 'does it produce the most happiness' and Kant's 'could everyone act this way', applied to the same 3 dilemmas.",
+    "outcome": "You can run one moral dilemma through both tests and say where they give different answers."
+   },
+   {
+    "n": 7,
+    "title": "Nietzsche and the modern turn: who decides what is true or good",
+    "covers": "Nietzsche's challenge in the 1880s that our values have a history and were made by people, and how that question still shapes today's arguments about truth and power.",
+    "outcome": "You can hear a modern claim such as 'that is just your opinion' and place it in the long argument, naming which earlier thinker it echoes and who would push back."
+   }
+  ]
+ },
+ "seconds": 33.48310089111328
+}

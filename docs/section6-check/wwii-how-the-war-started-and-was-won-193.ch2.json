@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 2,
+  "title": "The spark: from Munich to the invasion of Poland",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Between 1936 and 1939 a small fire flared in one yard after another along the street. Each time the neighbours looked over the fence, saw their own house was not burning, and went back inside. Each time nobody came out with a hose, the fire grew bolder. In September 1939 it jumped the fence into Poland, and by then only a full fight could stop it."
+   },
+   {
+    "type": "teach",
+    "title": "Three grabs nobody stopped",
+    "body": "Hitler used the same method every time. Take something, call it the last thing he wanted, and wait to see if anyone pushed back. For three years, nobody did.\n\nMarch 1936: German troops marched into the Rhineland, Germany's own border strip facing France. The 1919 treaty said no German soldiers could be there. France protested and did nothing.\n\nMarch 1938: German troops entered Austria and it was joined to Germany. Many Austrians cheered. Britain and France complained on paper only.\n\nSeptember 1938: Hitler demanded the Sudetenland, the German-speaking border region of Czechoslovakia. This time the target had an army, mountain forts, and a defence treaty with France. War looked close.\n\nInstead, at Munich on 29 and 30 September 1938, Britain and France agreed Hitler could have the Sudetenland. Czechoslovakia was not in the room. Giving way like this to avoid a war is called appeasement."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Why did Britain and France let Hitler take the Rhineland and Austria without fighting?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The 1919 treaty had secretly allowed both moves"
+     },
+     {
+      "id": "b",
+      "text": "The last war had killed millions, and each grab looked too small to die for"
+     },
+     {
+      "id": "c",
+      "text": "Their armies were far smaller than Germany's in 1936"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the treaty backwards: 1919 is what banned German soldiers from the Rhineland in the first place.",
+     "c": "That's a guess about numbers, not will: France's army in 1936 was larger than Germany's half-rebuilt one. The missing thing was the wish to fight."
+    },
+    "reteach": "Remember the dry timber from chapter 1. The men running Britain and France in 1936 had lived through 1914 to 1918 and would do almost anything to avoid a repeat. A border strip, then a country that wanted to join Germany anyway, did not seem worth another one."
+   },
+   {
+    "type": "example",
+    "title": "Munich, September 1938",
+    "body": "Neville Chamberlain, Britain's prime minister, flew to meet Hitler three times that month. On 27 September he told radio listeners the crisis was a quarrel in a far-away country between people of whom we know nothing. Two days later at Munich, he, French prime minister Daladier, Mussolini and Hitler signed the Sudetenland over to Germany. Chamberlain flew home, waved the paper, and said it meant peace for our time. Crowds cheered him. On 15 March 1939, less than six months later, German troops took the rest of the Czech lands, forts and weapons included, without a shot."
+   },
+   {
+    "type": "teach",
+    "title": "Poland, and the pact that cleared the way",
+    "body": "March 1939 changed minds in London and Paris. The Czech lands were not German-speaking, so the excuse of gathering in Germans was gone. Hitler's word was now worth nothing. On 31 March 1939 Britain promised to fight if Germany attacked Poland, and France stood with it. This was the line.\n\nHitler had one real worry: the Soviet Union, on Poland's other side. Attacking Poland might mean fighting Stalin too, and Germany had lost the last war fighting on two fronts at once.\n\nThen on 23 August 1939 Germany and the Soviet Union, loud enemies in public, signed a pact promising not to attack each other. A secret clause split Poland between them. Hitler now bet that with Russia out, Britain and France would back down again, as at Munich.\n\nOn 1 September 1939 Germany invaded Poland. On 3 September Britain and France declared war. Soviet troops took eastern Poland from 17 September. The bet had failed, but the fire was already across the fence."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "It is 25 August 1939. A friend says: \"Hitler has signed with Stalin, but Britain promised to defend Poland in March, so he won't dare attack now.\" Which reply uses this chapter's idea?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Agree. The British promise of 31 March makes Poland safe"
+     },
+     {
+      "id": "b",
+      "text": "Disagree. The pact removed his fear of a two-front war, and three years of backing down taught him Britain would not fight"
+     },
+     {
+      "id": "c",
+      "text": "Disagree. Stalin will attack Germany before it can reach Poland"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the promise without the pattern: Hitler read the March promise as another Munich, so on its own it did not stop him.",
+     "c": "That's the pact backwards: it bound Stalin not to attack Germany, and he took eastern Poland instead."
+    },
+    "reteach": "Each unopposed grab since 1936 was a lesson to Hitler: they will not fight. The 23 August pact removed the last practical reason to hesitate. Promises on paper could not undo three years of evidence."
+   },
+   {
+    "type": "mistake",
+    "body": "People call Munich simple cowardice and say Britain should have fought in 1938. That misses the reason: the fear of another 1914 to 1918, shared by most voters, who cheered Chamberlain home. The real error at Munich was believing Hitler when he said each grab was the last, despite the pattern since 1936. Spot the mistake whenever someone explains appeasement without mentioning the last war."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What did Hitler learn from 1936 to 1938 that made him willing to attack Poland?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Britain and France would give way again rather than fight"
+     },
+     {
+      "id": "b",
+      "text": "The Soviet Union would join Germany in a long war against the West"
+     },
+     {
+      "id": "c",
+      "text": "Czechoslovakia's forts proved Germany could not win without allies"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the pact overstated: 23 August 1939 was a deal not to attack each other and to split Poland, not an alliance for war.",
+     "c": "That's the Czech forts upside down: they were handed over at Munich and in March 1939 without a shot, which proved the opposite."
+    },
+    "reteach": "Three grabs, three protests, zero fights. By 1939 Hitler had every reason to think a fourth grab would go the same way. The Stalin pact dealt with his one remaining worry, and Poland followed within nine days."
+   },
+   {
+    "type": "try",
+    "body": "Tell someone, in 60 seconds, how the war started using only five dates: March 1936, March 1938, September 1938, 23 August 1939, 1 September 1939. If you stall before 3 September, reread the Poland card."
+   }
+  ],
+  "outcomeLine": "You can now list the steps from the Rhineland to 3 September 1939 and say why Britain and France waited until Poland to fight."
+ },
+ "seconds": 83.91269898414612
+}

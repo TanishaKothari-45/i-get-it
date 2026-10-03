@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 3,
+  "title": "Tools: what the intern is allowed to touch",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "The intern has no keys and no hands of their own. To do anything, they fill in a request slip: 'please search the web for electric bike news' or 'please send this email to Sam'. A clerk takes the slip, does the action, and brings back the result. The pile of slips the intern is allowed to fill in is the tool list. No slip, no action."
+   },
+   {
+    "type": "teach",
+    "title": "A tool is a request, not an action",
+    "body": "A tool is a named action the model can ask for. Each one has a name, a short description, and the inputs it needs. For example: a tool called web_search that takes one input, the words to search for.\n\nThe model never runs the tool. It only writes text. When it wants to search, it writes a structured request: 'call web_search, query: electric bike news'. Ordinary code reads that request, does the search, and pastes the result back into the conversation as text.\n\nSo the model's job is to choose a slip and fill it in. The code's job is to carry it out. This split is the whole trick that turns a chatbot into an agent.\n\nAt the start of a task, the agent is given 2 things: the goal, and the list of tools it may use. It can only ask for tools on that list. If a tool is not on the list, the model cannot use it, no matter what it decides.\n\nEverything the agent can touch in the world is set by that list."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "An agent 'sends an email'. What is the model itself actually doing at that moment?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Logging in to the mail server and sending the message."
+     },
+     {
+      "id": "b",
+      "text": "Writing a request that names the send_email tool and fills in who, subject and body. Code then sends it."
+     },
+     {
+      "id": "c",
+      "text": "Typing the message into a mail app on screen."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the code's job, not the model's: the model only produces text, so it cannot log in to anything.",
+     "c": "That's what a person does, not a model: the model has no screen or keyboard, it fills in a request slip."
+    },
+    "reteach": "The model is a text writer. It cannot click, type or connect. It writes 'call send_email with these inputs', and a separate piece of code does the sending. Think intern filling in a slip, clerk carrying it out."
+   },
+   {
+    "type": "example",
+    "title": "3 stories, 2 tools, 4 calls",
+    "body": "Goal: find and summarise 3 recent news stories about electric bikes. The builder gives the agent 2 tools: web_search and read_page.\n\nStep 1: the model asks for web_search with the words 'electric bike news'. The code returns 10 links with titles. Steps 2 to 4: the model picks 3 links and asks for read_page on each, one at a time. Each call returns the page text. Step 5: the model writes the 3 summaries itself, with no tool, because writing is what it already does.\n\nThat is 4 tool calls and a final answer. Notice what is missing: nothing on the list can send, delete or pay. The worst this agent can do is read the wrong page."
+   },
+   {
+    "type": "teach",
+    "title": "Reading tools and doing tools",
+    "body": "Tools fall into 2 kinds. Reading tools look at the world: search the web, open a file, check a calendar. Doing tools change the world: send an email, delete a file, make a payment.\n\nA reading tool called with a bad input wastes a step. A doing tool called with a bad input can send the wrong message to the wrong person, and you cannot pull it back. That is why the tool list is the biggest safety lever you have. The model's judgement can fail on any step, but it can only cause real harm through a doing tool on its list.\n\nThe rule: give the smallest list that gets the job done. For each tool, ask 'what is the worst thing this does if called with the wrong input?' If the answer is 'something I cannot undo', ask whether the task truly needs it.\n\nThe riskiest tool to hand over is the one whose effect you cannot take back."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You want an agent to write replies to your customer emails, which you will read and send yourself. Which tool list fits?",
+    "options": [
+     {
+      "id": "a",
+      "text": "read_inbox and write_draft"
+     },
+     {
+      "id": "b",
+      "text": "read_inbox and send_email"
+     },
+     {
+      "id": "c",
+      "text": "read_inbox, write_draft and delete_email"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the full-trust setup, not the review setup: with send_email on the list, the agent can send before you read anything.",
+     "c": "That's the master key, not the smallest list: delete_email is a doing tool the task never needs, and a deleted email cannot come back."
+    },
+    "reteach": "Match the list to the job. The job is 'read and draft', so the list is 'read and draft'. Any doing tool beyond that is rope the agent does not need and you cannot take back."
+   },
+   {
+    "type": "mistake",
+    "body": "The mistake is handing over every tool 'just in case', because it is easier than deciding. You spot it by reading the tool list next to the task. If a tool could do something you cannot undo, and the task does not need it, it should not be there. An agent that only summarises should not be able to send."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What is a tool, in one line?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A named action the model requests and ordinary code performs. The list of tools is everything the agent can touch."
+     },
+     {
+      "id": "b",
+      "text": "A plugin that lets the model run code on its own."
+     },
+     {
+      "id": "c",
+      "text": "The notes the agent keeps between steps."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the intern doing the clerk's job, not how it works: the model never runs anything itself, it only requests.",
+     "c": "That's memory, which comes in chapter 4, not tools: tools are actions, notes are what it remembers."
+    },
+    "reteach": "The model writes text. A tool is a slip it can fill in asking for one named action. Code does the action and hands back the result. The list of slips is the limit of what the agent can do."
+   },
+   {
+    "type": "try",
+    "body": "Ask ChatGPT or Claude to send an email for you. It will say it cannot. That is a model with no send tool on its list. Notice how that one missing tool keeps it a chatbot."
+   }
+  ],
+  "outcomeLine": "You can now list the tools an agent needs for a task, split them into reading and doing, and name which one you would be slowest to hand over."
+ },
+ "seconds": 69.34134817123413
+}

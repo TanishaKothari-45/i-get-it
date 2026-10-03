@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "The bell that starts the line",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "An assembly line does nothing until someone rings the bell. In n8n that bell is the trigger: the first station, which waits for one event and then wakes the whole line.\n\nA Schedule Trigger is a bell on a timer. It rings at 8:00 every morning whether you are at your desk or not. Today you build the bell, ring it by hand, and watch the line move once."
+   },
+   {
+    "type": "teach",
+    "title": "What a trigger is",
+    "body": "Every n8n workflow starts with a trigger. A trigger is a node, one box on the canvas, that waits for a single event. Until that event happens, no other node runs. No bell, no movement.\n\nTriggers come in three families. A time: the Schedule Trigger fires every morning or every 15 minutes. A form: someone fills in an n8n form and presses submit. An app signal: a new email arrives in Gmail, a new row lands in a sheet, a message is posted in Slack.\n\nThe trigger also decides what the first item on the belt is. A Schedule Trigger passes along the date and time it fired. A form trigger passes along the answers. Later stations work with whatever the bell hands them.\n\nThe normal setup is one workflow, one bell. Keep it that way this week.\n\nTo get n8n, you have two routes. n8n Cloud runs in your browser with nothing to install; sign up at n8n.io. Self-hosting means running n8n on your own computer or server with Docker. For week 1, cloud is the quick route, and everything in this handbook works on both."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You want a workflow that posts yesterday's sales total to Slack every morning at 8. Which part is the trigger?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The Slack message"
+     },
+     {
+      "id": "b",
+      "text": "The 8 a.m. timer"
+     },
+     {
+      "id": "c",
+      "text": "The sales total"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the last station, not the bell: Slack is where the item ends up, not the event that starts the run.",
+     "c": "That's the part on the belt, not the bell: the total is data the stations pass along, not the event that wakes them."
+    },
+    "reteach": "Ask one question: what has to happen for this workflow to start at all? Whatever the answer is, that is the trigger. Here nothing moves until the clock reaches 8, so the clock is the trigger."
+   },
+   {
+    "type": "example",
+    "title": "Your first Schedule Trigger",
+    "body": "Open n8n and click Create Workflow. Click the plus sign, search for Schedule, and add the Schedule Trigger. Set Trigger Interval to Days, Days Between Triggers to 1, and Trigger at Hour to 8.\n\nClick the plus on the right edge of the trigger and add Edit Fields. Add one field named greeting with the value Good morning. This node does nothing fancy; it just gives the line something visible to carry.\n\nClick Execute workflow at the bottom of the canvas. Both nodes get a green tick. Click the Edit Fields node and its output panel shows one item: greeting, Good morning. You rang the bell by hand and the line moved once."
+   },
+   {
+    "type": "teach",
+    "title": "Ringing by hand versus on the clock",
+    "body": "The Execute workflow button runs the trigger once, right now. It ignores the schedule you typed in. This is how you test: ring the bell yourself, watch each station light up, read what came out.\n\nThe schedule only rings on its own when the workflow is Active. Active is the switch at the top right of the canvas. Today leave it off. Chapter 7 is when you switch a line on for real.\n\nThe Schedule Trigger offers intervals of seconds, minutes, hours, days, weeks and months, plus the hour and minute to fire. It follows the timezone set in the workflow settings, so if 8 a.m. fires at the wrong 8 a.m., check that setting first."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You set a Schedule Trigger to 7 a.m. daily, click Execute workflow at 3 p.m., and see green ticks. Next morning at 7 nothing happens. Why?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The Schedule Trigger only works when you click it in the morning"
+     },
+     {
+      "id": "b",
+      "text": "The workflow is not Active, so the bell only rang when you pressed it"
+     },
+     {
+      "id": "c",
+      "text": "The Edit Fields node needs a Slack credential first"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's mixing the test button with the timer: clicking runs it once at any time of day; the clock only takes over when Active is on.",
+     "c": "That's chapter 3's problem, not this one: Edit Fields needs no credential, and a missing credential shows a red node, not silence."
+    },
+    "reteach": "There are two ways to ring the bell. Your finger on Execute workflow rings it once, right then. The clock rings it on schedule, but only after you flip Active on. A green test run proves the line works; it does not start the clock."
+   },
+   {
+    "type": "mistake",
+    "body": "The common slip is setting a schedule, seeing a green test run, and assuming it will now fire every day. The test button rings the bell by hand. The clock takes over only when the Active switch is on.\n\nSpot it fast: open Executions in the left menu. If the only runs listed are at the times you clicked, the line is still waiting on you."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which sentence about triggers is true?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A trigger is the one event that starts a run; without it the workflow never moves"
+     },
+     {
+      "id": "b",
+      "text": "A trigger is any node that sends a message to a person"
+     },
+     {
+      "id": "c",
+      "text": "A trigger is the Active switch at the top of the canvas"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's an action station like Slack or Gmail, not the bell: it does its job only after the line is already moving.",
+     "c": "That's the switch that lets the clock ring the bell on its own, not the bell itself: Active turns a trigger on, it is not the trigger."
+    },
+    "reteach": "Picture the line standing still. The trigger is the first box, and its only job is to wait for one event and then say go. Every other node, and the Active switch, only matter once that go has happened."
+   },
+   {
+    "type": "try",
+    "body": "Tonight: in n8n, add a Schedule Trigger set to every 1 minute, add Edit Fields with one field, click Execute workflow. Then open Executions on the left and find your run. Ten minutes."
+   }
+  ],
+  "outcomeLine": "You can now build a workflow that wakes on a schedule, ring it by hand, and read what its first station passed down the line."
+ },
+ "seconds": 89.28719711303711
+}

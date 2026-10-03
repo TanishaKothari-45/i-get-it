@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 2,
+  "title": "Know who's walking with you",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "You would not lead a 6-year-old and a mountain guide on the same walk. One needs you to point out every root in the path. The other is bored by the second one. A talk works the same way: the people walking with you decide which steps you explain and which you skip. You cannot know the route until you know who is on it."
+   },
+   {
+    "type": "teach",
+    "title": "Three lines about your listeners",
+    "body": "Before you plan a single step, write 3 lines about the people who will hear you. Line 1: what they already know about your topic. Line 2: what they care about, meaning the thing they would want to walk away with. Line 3: how they feel about the topic right now, such as curious, bored, or worried.\n\nLine 1 tells you what to leave out. If they already know a thing, explaining it wastes their time and makes them stop listening. If they do not know it, skipping it leaves them lost at the first turn.\n\nLine 2 tells you how to say your one sentence from chapter 1. The same point lands differently for a parent and for a manager, because they want different things from it.\n\nLine 3 tells you how to open. A worried room needs you to name the worry early. A bored room needs a reason to care in the first 20 seconds.\n\nYou are not guessing at strangers. For a 3-minute talk to a small group, you usually know these people. Picture 2 or 3 of them by name and write the lines about them."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You are giving a 3-minute talk about why your team should try a new meeting format. The listeners are the 5 people in that team. Which line about them changes your talk the most?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Their job titles and how long they have worked here"
+     },
+     {
+      "id": "b",
+      "text": "What they already know about the current meetings and what annoys them"
+     },
+     {
+      "id": "c",
+      "text": "Whether they prefer slides or no slides"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a description of the people, not of what they know or care about: a job title does not tell you what to leave out.",
+     "c": "That's a delivery choice, not an audience fact: it does not change which steps you explain or skip."
+    },
+    "reteach": "The 3 lines are about the listeners' heads, not their badges. What do they know, what do they want, how do they feel. For a team talk, what they already know about the meetings and what annoys them tells you exactly which parts to cut and which to keep."
+   },
+   {
+    "type": "example",
+    "title": "The same talk, two rooms",
+    "body": "Maya has one sentence: \"Our weekly report takes 2 hours and nobody reads it, so we should replace it with a 5-line summary.\" She gives it to her 4 teammates first. Her 3 lines about them: they know the report well, they care about getting those 2 hours back, and they are tired of it. So she skips explaining what the report is and spends her 3 minutes on the 5-line version.\n\nThe next week she gives the same talk to 3 managers. Her 3 lines change: they have never opened the report, they care about not missing bad news, and they are nervous about losing visibility. So she cuts the detail about the 5 lines and spends her time on how the summary flags problems faster. One sentence, two routes."
+   },
+   {
+    "type": "teach",
+    "title": "Cutting is the job",
+    "body": "Once you have your 3 lines, read each part of your draft talk and ask one question: does this group need this step to reach my one sentence? If the answer is no, cut it. It does not matter how much you like it.\n\nMost beginners cut nothing. They add everything they know in case someone asks. The talk gets long, the listeners get lost, and the one sentence drowns.\n\nA useful test is the 2-second rule. Say the step to yourself and picture one named listener. If they would nod and think \"I know that\" within 2 seconds, cut it. If they would frown and think \"wait, what?\", keep it.\n\nWhen you are not sure what they know, pick the simpler guess and explain. A short explanation to someone who knew it costs 10 seconds. A missing explanation to someone who did not costs the whole talk."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Sam is talking to 6 neighbours about starting a shared compost bin. Sam's 3 lines: they know nothing about composting, they care about less smell from their bins, and 2 of them worry about rats. Which version of the talk fits those lines?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Spend 2 minutes on the chemistry of how compost breaks down, then 1 minute on the plan."
+     },
+     {
+      "id": "b",
+      "text": "Skip what composting is, since everyone has heard the word, and go straight to the rota for emptying it."
+     },
+     {
+      "id": "c",
+      "text": "Explain composting in 2 sentences, spend most of the time on less smell, and name the rat worry before the close."
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's talking about what you find interesting, not what they care about: nobody in the 3 lines asked about chemistry.",
+     "b": "That's assuming they know more than line 1 says: having heard a word is not the same as knowing what it means."
+    },
+    "reteach": "Match each part of the talk to a line. Line 1 says they know nothing, so give a short explanation. Line 2 says they care about smell, so that gets most of the time. Line 3 says 2 of them are worried about rats, so name that worry out loud instead of hoping nobody mentions it."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is writing the 3 lines about yourself by accident: what you know, what you find interesting, what you are nervous about. You can spot it when every line could be true of any audience. If your line 2 says \"they care about the topic\", that is you talking. A real line names something specific, like \"they want the 2 hours back\"."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What are the 3 lines you write about your listeners before planning a talk?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Their names, their roles, and how many of them there are"
+     },
+     {
+      "id": "b",
+      "text": "What they know, what they care about, and how they feel about the topic"
+     },
+     {
+      "id": "c",
+      "text": "Your one sentence, your 3 steps, and your closing line"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a headcount, not an audience picture: names and roles do not tell you what to cut.",
+     "c": "That's the route plan from chapter 3, not the lines about who is walking with you."
+    },
+    "reteach": "Three lines, all about the people hearing you. What they already know decides what you leave out. What they care about decides how you say your one sentence. How they feel decides how you open."
+   },
+   {
+    "type": "try",
+    "body": "Pick the 2 or 3 people you will give your 3-minute talk to. Write the 3 lines about them on your phone now, naming one specific thing in each line."
+   }
+  ],
+  "outcomeLine": "You can now describe your audience in 3 lines and cut any part of your talk they don't need."
+ },
+ "seconds": 35.0262017250061
+}

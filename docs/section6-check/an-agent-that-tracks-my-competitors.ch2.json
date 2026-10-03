@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 2,
+  "title": "Choosing who to watch and where to look",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Your clipping reader can only read so many newspapers before lunch. You do not hand them every paper in the shop. You hand them the 5 that actually print news about your rivals, and you tell them which section to open: the business pages, not the crossword.\n\nIn this chapter you choose those papers. The rivals are the newspapers. The specific pages on their sites are the sections worth opening."
+   },
+   {
+    "type": "teach",
+    "title": "Two questions for every page",
+    "body": "A web page earns a place on your list only if it passes 2 questions. First: does this page change? Second: if it changed, would I do something about it?\n\nMost pages fail the first question. An \"About us\" page or a \"Contact\" page is written once and left alone for years. Watching it is like asking your reader to check the same old headline every morning.\n\nSome pages pass the first question but fail the second. A home page changes often, but usually it is a new banner image or a swapped customer quote. You would not change your plans over that.\n\nThe pages that pass both are usually the same 4 kinds: pricing (what they charge), a changelog (a dated list of product updates, newest at the top), a blog or news page (what they announce), and careers (who they are hiring, which hints at what they are building next).\n\nFor each rival, pick 1 or 2 of these. Not all 4. The one that matches what you most need to know."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You can watch only one page on a rival's site. Which is most likely to tell you something you would act on?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Their About us page"
+     },
+     {
+      "id": "b",
+      "text": "Their pricing page"
+     },
+     {
+      "id": "c",
+      "text": "Their Contact page"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a page that almost never changes, not a page that announces anything: the company story is written once and left alone.",
+     "c": "That's a page that almost never changes, not a page that announces anything: an address and a form stay the same for years."
+    },
+    "reteach": "Ask the 2 questions. Does the page change? Would you act on the change? About and Contact pages fail the first question. A pricing page passes both: it changes, and a price change is something you would respond to."
+   },
+   {
+    "type": "example",
+    "title": "Picking 2 pages for one rival",
+    "body": "Say you sell a small invoicing tool and one rival has 4 pages you could watch: home, pricing, changelog and about.\n\nYou look back over the past year. The home page changed almost weekly, but every change was a new hero image or a new logo in the customer strip. The pricing page changed 2 times, and both times you would have wanted to know the same day. The changelog got a new entry roughly every 2 weeks, each naming a feature.\n\nYou pick pricing and changelog. That is 2 pages for this rival. With 4 rivals treated the same way, your agent reads 8 pages a day, and every one of them can carry news."
+   },
+   {
+    "type": "teach",
+    "title": "Why 8 pages beat 50",
+    "body": "Every page on your list is work for every later chapter. It has to be fetched, saved, compared and summarised, every day. 8 pages gives you a note you can read with your coffee. 50 pages gives you a wall of text, and after 3 days you stop opening it.\n\nEvery page is also a place where things can break. Sites change their layout, block automatic visitors, or go down. Fewer pages means fewer breaks to chase in chapter 7.\n\nSo how do you choose which 3 to 5 rivals? Pick the ones you lose deals to, or the ones customers compare you with by name. The biggest company in your market is not always on that list.\n\nWrite the list down now, in a plain text file. One line per page: rival name, page type, the full web address copied from your browser starting with https://, and one short reason. That reason is your answer to question 2, and you will reuse it in chapter 5 when you tell the model what matters."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You compete with 12 companies. What goes on your watch list?",
+    "options": [
+     {
+      "id": "a",
+      "text": "All 12, home page each, so nothing is missed"
+     },
+     {
+      "id": "b",
+      "text": "The 4 you lose deals to most, with their pricing and changelog pages"
+     },
+     {
+      "id": "c",
+      "text": "All 12, pricing page each, since pricing passes both questions"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the 50-newspapers trap, not the clipping service: 12 home pages change often but rarely say anything you would act on.",
+     "c": "That's the right page type but the wrong count: 12 pages a day becomes a note you stop reading, and 12 places that can break."
+    },
+    "reteach": "Two limits work together. Keep the rivals to 3 to 5, chosen by who you actually lose to. Keep the pages to 1 or 2 each, chosen by the 2 questions. Both limits exist so the daily note stays short enough to read."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is putting the home page on the list because it is the address you already know. Home pages change constantly, so the agent will report changes every day, and almost none of them will matter. You end up ignoring the note.\n\nSpot it in your file: any address with nothing after the domain name, like https://rival.com/ alone, is probably a home page. Replace it with the pricing or changelog address."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What earns a web page a place on your watch list?",
+    "options": [
+     {
+      "id": "a",
+      "text": "It belongs to the biggest company in your market"
+     },
+     {
+      "id": "b",
+      "text": "It changes, and you would act on the change"
+     },
+     {
+      "id": "c",
+      "text": "It is the first page visitors see"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's how people pick rivals by size, not by use: pick rivals you lose deals to, and pick pages by the 2 questions.",
+     "c": "That's the home page, not a news page: it changes often but rarely in a way you would act on."
+    },
+    "reteach": "The list is built from 2 questions, asked of every page. Does it change? Would you act on the change? A page needs a yes to both. Pricing, changelog, blog and careers pages usually get both yeses."
+   },
+   {
+    "type": "try",
+    "body": "Open one rival's site. Find their pricing or changelog page. Paste the full address into a note with one line saying why that page matters to you."
+   }
+  ],
+  "outcomeLine": "You can now write a list of 3 to 5 rivals with 1 or 2 exact page addresses each, and say in one line why each page is worth reading."
+ },
+ "seconds": 63.465474128723145
+}

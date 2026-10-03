@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 3,
+  "title": "Fetching a page and keeping a copy",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "The clipping service does not just read the newspaper and throw it away. It cuts out the page and files it in a folder marked with the date. Tomorrow it pulls out today's clipping and holds it next to the new one. No clipping in the folder, no way to see what changed. This chapter is the scissors and the folder."
+   },
+   {
+    "type": "teach",
+    "title": "Download, strip, save",
+    "body": "Fetching a page means asking the website for it and getting the text back. Your browser does this every time you visit a page. The agent does the same thing, but it does not show the page on a screen. It just keeps the reply.\n\nThe reply comes as HTML, the code behind a web page. It is full of tags like <div> and <a href> wrapped around the words you actually care about. A pricing page of 400 words can arrive as 150 KB of code.\n\nSo the agent strips the tags and keeps the words. This is called converting to plain text. Plain text is what you would get if you selected everything on the page and pasted it into a notes app.\n\nThen it saves that text to a file. The file name carries 2 things: which page it is, and the date. Something like competitor-a-pricing-2026-10-04.txt.\n\nOne file per page per day. Never reuse yesterday's file name. Tomorrow's run needs today's copy to still exist."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Why does the agent save a copy of the page instead of just reading it and moving on?",
+    "options": [
+     {
+      "id": "a",
+      "text": "So the AI model has something to read right now"
+     },
+     {
+      "id": "b",
+      "text": "So tomorrow it has something to compare the new page against"
+     },
+     {
+      "id": "c",
+      "text": "So the page loads faster the next time you visit it"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the model step, not the saving step: the model reads text later, in chapter 5, and it could read a live page without a saved copy.",
+     "c": "That's what a browser cache does, not the agent: the agent saves for comparison, not for speed."
+    },
+    "reteach": "Think of the dated folder in the clipping service. The clipping is not useful today. It becomes useful tomorrow, when a new clipping arrives and you can hold the 2 side by side. The saved file is tomorrow's yesterday."
+   },
+   {
+    "type": "example",
+    "title": "One page, one file",
+    "body": "Say your first competitor is Competitor A and the page you chose in chapter 2 is their pricing page. The agent asks for the page and gets back about 150 KB of HTML. After stripping tags, around 3 KB of plain text is left, roughly 400 words. It saves that to a file named competitor-a-pricing-2026-10-04.txt. You open the file and on line 38 you see the line \"Pro plan: $29 per month\", which is the same price you can see on the live page."
+   },
+   {
+    "type": "teach",
+    "title": "Why the date goes in the name",
+    "body": "Write the date as year-month-day, like 2026-10-04. When your folder holds 30 files, this format makes them sort in time order on their own. Day-month-year does not.\n\nThe check at the end matters. A saved file is not proof the fetch worked. Open the file and look for one word or number you know is on the live page. If the price is there, the fetch worked. If the file is 2 lines long and says \"Access denied\", you saved a block page, not the real one.\n\nDo this for each of your 3 to 5 competitors and their 1 or 2 pages. By tonight you should have between 3 and 10 small text files, all with today's date in the name. That is day 1 of the folder."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You run the fetch on Monday and it saves to pricing.txt. On Tuesday you run it again and it saves to pricing.txt. On Wednesday you want to see what changed since Monday. What is the problem?",
+    "options": [
+     {
+      "id": "a",
+      "text": "No problem: the file holds both days inside it"
+     },
+     {
+      "id": "b",
+      "text": "Monday's copy was written over on Tuesday, so it is gone"
+     },
+     {
+      "id": "c",
+      "text": "The file is in plain text, so the dates cannot be read"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's what a dated folder gives you, not a single reused file: one file holds one copy, and the newest save replaces the old.",
+     "c": "That's mixing up the file's contents with its name: plain text is what you want inside, the date belongs in the file name."
+    },
+    "reteach": "One file name means one slot. Save into the same slot twice and the first copy is gone. Put the date in the name, like pricing-2026-10-06.txt, and every day gets its own slot that nothing overwrites."
+   },
+   {
+    "type": "mistake",
+    "body": "People save the file, see it exists, and call it done. Then on day 4 they find 3 of their files are 2 lines long and say \"Please enable JavaScript\" or \"Access denied\". The site sent a block page and the agent saved it as if it were real. Spot it by size and by one known word: a real pricing page is more than a few lines and contains a price you can see in your browser."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "After this chapter's step runs, what do you have on your machine?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A 2-sentence summary of what the competitor changed"
+     },
+     {
+      "id": "b",
+      "text": "A list of the lines that were added or removed since yesterday"
+     },
+     {
+      "id": "c",
+      "text": "A plain-text copy of each page, saved in a file named with today's date"
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's the model's note from chapter 5, not the clipping: the summary comes after the compare step, and you have not compared anything yet.",
+     "b": "That's the diff from chapter 4, not the clipping: you need 2 saved copies before you can list changes, and today you have made the first."
+    },
+    "reteach": "This step is only the scissors and the folder. Cut the page out as plain text, write today's date on it, file it. Comparing and summarising come later and both depend on this file being there."
+   },
+   {
+    "type": "try",
+    "body": "Open one competitor's pricing page. Select all, copy, paste into a new note or text file. Name it with the page and today's date, like rival-pricing-2026-10-04.txt. Check one price is in it."
+   }
+  ],
+  "outcomeLine": "You can now fetch one competitor page, save its text in a file named with today's date, and open it to prove the fetch worked."
+ },
+ "seconds": 60.95029592514038
+}

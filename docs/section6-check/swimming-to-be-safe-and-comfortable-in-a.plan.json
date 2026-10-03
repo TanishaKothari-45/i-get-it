@@ -1,0 +1,59 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Pool swimming for safety and comfort",
+  "outcome7": "By day 7 you'll be able to float on your back for 30 seconds, put your face in and breathe out underwater, push off the wall and glide, and swim a slow front crawl across the width of a pool (about 10 to 15 metres) without stopping, then stand or grab the wall calmly.",
+  "horizon14": "Later, around day 14: a full 25-metre length of the pool with side breathing, and treading water for 1 minute in the deep end.",
+  "horizon28": "Later, around day 28: 4 lengths with a rest between each, and getting in the deep end without a hand on the wall.",
+  "picture": {
+   "name": "Water holds you up",
+   "line": "Think of the water as a bed you lie on, not a floor you fall through: your body already floats, and every chapter is about letting it, then adding one movement at a time on top."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "Getting in and standing up",
+    "covers": "Entering by the steps or ladder, walking in chest-deep water, and the one move that fixes almost every panic: pulling your knees in, pressing your hands down, and planting your feet to stand.",
+    "outcome": "You can get into chest-deep water, walk 10 metres across the pool, and go from lying forward in the water to standing on your feet in under 2 seconds, every time."
+   },
+   {
+    "n": 2,
+    "title": "Face in, breath out",
+    "covers": "Putting your face in the water with your eyes open, blowing bubbles out through your nose and mouth, and lifting up to breathe in, so the water stops being something you hold your breath against.",
+    "outcome": "You can put your face in the water 10 times in a row, breathing out underwater each time for 3 seconds and in above the water, without wiping your eyes or holding your nose."
+   },
+   {
+    "n": 3,
+    "title": "Lying on the bed: floating",
+    "covers": "Back float with ears in the water and hips up, then front float with your face in, holding the wall first and then letting go, and the fact that a lungful of air is what keeps your chest at the surface.",
+    "outcome": "You can float on your back for 30 seconds and on your front for 10 seconds with no hands on anything, and return to standing calmly from both."
+   },
+   {
+    "n": 4,
+    "title": "Push off and glide",
+    "covers": "Pushing off the wall with both feet into a long thin shape, arms stretched ahead, face down, and letting the glide run out before you stand, which is the position every stroke starts from.",
+    "outcome": "You can push off the wall and glide 3 to 5 metres on your front with your face in the water, then stand up without grabbing anything."
+   },
+   {
+    "n": 5,
+    "title": "Kicking from the hips",
+    "covers": "A small, steady flutter kick with straight-ish legs and loose ankles, first holding the wall, then holding a kickboard, then from a glide, and why a big splashy kick moves you less.",
+    "outcome": "You can kick from a glide across the width of the pool (about 10 to 15 metres) holding a kickboard, with your face in the water and breath out, lifting your head to breathe when you need to."
+   },
+   {
+    "n": 6,
+    "title": "Adding the arms",
+    "covers": "Front crawl arms on top of the kick: one arm reaches forward and pulls back under your body while the other recovers over the water, practised standing first, then from a glide with 3 strokes, then 6.",
+    "outcome": "You can swim 6 to 8 front crawl strokes from a push-off with your face in the water, then stand up, 5 times in a row without feeling out of breath."
+   },
+   {
+    "n": 7,
+    "title": "Across the pool, and staying safe",
+    "covers": "Joining it up: push off, kick, arms, lift your head to breathe when you need to, and reach the far wall; plus the pool safety rules you now have the skills to follow, like staying where you can stand, swimming with someone, never jumping into water you don't know the depth of, and rolling onto your back to rest if you get tired.",
+    "outcome": "You can swim a slow front crawl across the width of the pool without stopping, roll onto your back to rest when tired, and name the 4 safety habits you'll keep every time you swim."
+   }
+  ]
+ },
+ "seconds": 41.17210912704468
+}

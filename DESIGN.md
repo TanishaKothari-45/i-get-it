@@ -1,9 +1,10 @@
 # DESIGN.md
 Read this before building or changing any screen. If a choice isn't covered here, ask me instead of guessing.
 
-Written 4 Oct 2026 (night) by the coding agent on Prateek's go-ahead, from docs/design-thinking/. Lines marked (agent) are the agent's decisions in his stead and are the first things to rewrite in his words. Everything else follows the handbook's rules.
+Written 4 Oct 2026 (night) by the coding agent on Prateek's go-ahead, from docs/design-thinking/. The agent made the choices needed to build a first version; each one Prateek must own is marked **MISSING: Prateek to pick** (Shaktimaan's guardrail). Until he does, those lines are placeholders that happen to be built.
 
 ## 1. The feeling, in labels
+**MISSING: Prateek to pick.** The labels below are the agent's; keep, cut or replace them in your words.
 - The page: a well-edited field guide on a phone, not an app. Warm paper, ink text, generous margins, one column. Reading is the product, so the reading column is the biggest thing on every screen.
 - The chapter number and the rung bar: a seven-segment bar at the top of every chapter screen, segments fill left to right as chapters pass. It is the only place the accent appears besides the main button. It moves only when a check is passed.
 - Teaching cards: book typography. A serif for the body at reading size, a short bold sans heading, paragraphs separated by space not lines. No icons in the prose, no bullet soup.
@@ -12,6 +13,7 @@ Written 4 Oct 2026 (night) by the coding agent on Prateek's go-ahead, from docs/
 - The main button: full width, low on the screen, accent fill with ink text, one per screen. Says what happens.
 
 ## 2. References, one per component
+**MISSING: Prateek to pick.** The agent chose these references from memory of shipped products, not from a Pinterest or Mobbin search; swap any for one you actually like, with your own take/ignore lines.
 Plan screen (the handbook cover and chapter list): the GrowthX Build Sprint handbook's own section page, docs/product-thinking/00-overview.md, "The chapters" block.
 Take: outcome line first ("By the end you'll have…"), then numbered chapters, each a title plus one plain line, the current one marked. Quiet numerals, not icons.
 Ignore: the level pills, the "+2 advanced" tags, the sidebar.
@@ -106,7 +108,7 @@ Top to bottom: "Keep this handbook on every device", one line on what we store (
 States: loading "Signing you in…", error as above, done returns to Done with the time picker.
 
 ## 5. The first screen's words
-(agent) Written by the agent from Prateek's own phrases in PRODUCT.md; he rewrites these before the five-second test.
+**MISSING: Prateek to write.** The lines below are the agent's draft from Prateek's own phrases in PRODUCT.md, built as placeholders; the handbook says the user never ships AI copy. Rewrite before the five-second test.
 Headline: You keep saving it. Tonight, get it.
 Under it: Type the one thing you keep meaning to learn. You get a seven-chapter handbook written for it, and you pass chapter 1 tonight. No sign-up.
 Button: Write my handbook

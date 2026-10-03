@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "The dry timber: why Germany wanted to fight again",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "A fire needs dry timber before it needs a match. The peace treaty of 1919 stacked Germany's house with timber: lost land, a tiny army, a bill it could not pay, and a line saying the whole war had been its fault. The crash of 1929 dried the timber out. In 1933 Germany handed the house to a man who had promised to light it."
+   },
+   {
+    "type": "teach",
+    "title": "What 1919 did to Germany",
+    "body": "Germany lost the First World War in November 1918. The winners wrote the peace at Versailles, near Paris, and Germany signed it on 28 June 1919 without being allowed to negotiate a word.\n\nThe treaty took about 13 percent of Germany's land. Alsace-Lorraine went to France. A strip of land went to the new state of Poland, cutting the German province of East Prussia off from the rest of the country. Every German colony was taken away.\n\nThe army was capped at 100,000 men, with no tanks, no submarines and no air force. Germany also had to pay reparations, meaning money for war damage. In 1921 the bill was set at 132 billion gold marks.\n\nOne clause stung most. Article 231 made Germany accept responsibility for starting the war. Germans of every political colour called the treaty a Diktat, a dictated peace, and almost every party promised to undo it.\n\nThat is the key point. Anger at 1919 was not a Nazi invention. It was ordinary German opinion for 14 years before Hitler took power. The Nazis only had to promise to act on it."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "It is 1920. Germans are angry about the treaty. Who in Germany shared that anger?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Only the Nazi party"
+     },
+     {
+      "id": "b",
+      "text": "Almost every party, from left to right"
+     },
+     {
+      "id": "c",
+      "text": "Only the army generals"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the party that later used the grievance, not its source. In 1920 the Nazis were a tiny club in Munich; the anger was already everywhere.",
+     "c": "That's one group, not the whole. Generals hated the 100,000-man cap, but workers, shopkeepers and farmers hated the lost land and the guilt clause too."
+    },
+    "reteach": "Think of the treaty as a bill pinned to every German front door. Communists, conservatives and liberals all read the same bill and all wanted it torn up. The Nazis were not special for hating it. They were special for what they later did about it."
+   },
+   {
+    "type": "example",
+    "title": "How a fringe party became the biggest",
+    "body": "In the election of May 1928 the Nazis won 2.6 percent of the vote, a fringe result. The Wall Street crash came in October 1929. American loans that had propped up Germany dried up, factories closed, and by early 1932 about 6 million Germans were out of work, roughly 1 worker in 3. In September 1930 the Nazi vote jumped to 18.3 percent. In July 1932 it reached 37.3 percent, the largest party in the country, and on 30 January 1933 President Hindenburg appointed Hitler chancellor, the head of government."
+   },
+   {
+    "type": "teach",
+    "title": "What Hitler said he wanted",
+    "body": "Hitler had written his aims down in Mein Kampf, meaning My Struggle, published in 1925 and 1926. There were two. First, tear up 1919: rebuild the army, take back the lost land, and bring all German speakers into one state. Second, Lebensraum, meaning living space: farmland in the east, in Poland and Russia, taken from the people living there.\n\nThe first aim was popular. Most Germans wanted the treaty gone. The second aim meant war with Poland and the Soviet Union sooner or later, and Hitler knew it. From 1933 he rebuilt the army in secret breach of the treaty. By March 1935 he announced it openly, and nobody stopped him.\n\nGermany was not the only angry house on the street. Japan had seized Manchuria from China in 1931 and was fighting a full war in China from July 1937. Italy under Mussolini invaded Ethiopia in October 1935. All three felt the world had been carved up before they got their share, and all three meant to take more."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "It is July 1932. A factory worker in Hamburg who voted for a moderate party in 1928 now votes Nazi. Which explanation fits this chapter best?",
+    "options": [
+     {
+      "id": "a",
+      "text": "He has read Mein Kampf and wants farmland in Russia."
+     },
+     {
+      "id": "b",
+      "text": "He has been out of work since 1930, and the Nazis promise jobs and to undo 1919."
+     },
+     {
+      "id": "c",
+      "text": "He is frightened by Japan's war in China."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's Hitler's own aim, not the voter's. Few voters read Mein Kampf; most voted for jobs and national pride, not for Russian farmland.",
+     "c": "That's a different fire on the street. Japan's full war in China began in 1937, five years later, and it moved no German votes."
+    },
+    "reteach": "Grievance alone did not win elections: in 1928, with the same treaty in force, the Nazis got 2.6 percent. The crash added hunger to anger. Jobs and pride together are what pulled ordinary voters across."
+   },
+   {
+    "type": "mistake",
+    "body": "People say the Nazis wanted war and dragged an unwilling Germany behind them. Closer to the truth: most Germans wanted 1919 undone and cheered rearmament, but there was no cheering in Berlin in September 1939 as there had been in 1914. Spot the mistake when someone treats \"undo the treaty\" and \"conquer the east\" as one wish. They overlapped in Hitler's head, not in most voters'."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Why was Germany in 1939 willing to start a war it had lost so badly 21 years earlier? Pick the answer with all three pieces.",
+    "options": [
+     {
+      "id": "a",
+      "text": "The 1919 treaty left a shared grievance, the 1929 crash left millions desperate, and in 1933 power went to a man who had promised to undo the treaty and take land in the east."
+     },
+     {
+      "id": "b",
+      "text": "The 1919 treaty was mild, so Germany felt strong enough to try again."
+     },
+     {
+      "id": "c",
+      "text": "Hitler alone wanted war, and he dragged a country that had made its peace with 1919."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's backwards. The treaty cut land, army and money, and Germans called it a dictated peace. The grievance was the fuel, not any mildness.",
+     "c": "That's the mistake card. Anger at 1919 was shared across German politics before Hitler. He added the eastern land and the timing."
+    },
+    "reteach": "Three layers, in order. 1919: the treaty, resented by nearly all Germans. 1929: the crash, which made millions desperate enough to try an extreme party. 1933: Hitler, who added a plan for land in the east to the shared wish to undo 1919."
+   },
+   {
+    "type": "try",
+    "body": "Open a map app and find Gda\u0144sk, Poland. Until 1919 it was the German city of Danzig. The treaty made it a free city and gave Poland the land west of it, splitting Germany in two. This was the land Germany wanted back most."
+   }
+  ],
+  "outcomeLine": "You can now explain in three plain sentences why Germany in 1939 was willing to fight a war it had lost so badly in 1918."
+ },
+ "seconds": 100.47224020957947
+}

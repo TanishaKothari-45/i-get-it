@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 3,
+  "title": "Plato and Aristotle: is the real world the one we see?",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Socrates has just been carried out of the dinner, executed in 399 BC. His student Plato takes the chair and talks for 40 years. Then Plato's own student, Aristotle, who sat at that table for about 20 years, leans in and says: teacher, I think you have it backwards. This chapter is that one exchange."
+   },
+   {
+    "type": "teach",
+    "title": "The cave",
+    "body": "Plato tells a story in his book the Republic. Picture prisoners chained in a cave since birth, facing a wall. Behind them a fire burns, and people carry puppets past it, so shadows move across the wall. The prisoners have only ever seen shadows, so they call the shadows real things.\n\nOne prisoner is unchained and turned around. The fire hurts his eyes. He is dragged up out of the cave into daylight, and slowly he sees trees, animals and finally the sun itself. When he goes back to tell the others, they think he has gone mad.\n\nHere is what Plato means. The things we see every day, chairs, horses, acts of kindness, are like the shadows. Behind them sit what he calls forms: the perfect pattern of a chair, of a horse, of kindness. The forms are the real things, and you reach them by thinking, not by looking.\n\nSo for Plato, the world your eyes show you is a copy. The original is somewhere your eyes cannot go."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "In the cave story, what stands for the everyday world you see with your eyes?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The shadows on the wall"
+     },
+     {
+      "id": "b",
+      "text": "The sun outside the cave"
+     },
+     {
+      "id": "c",
+      "text": "The chains on the prisoners"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the forms, not the seen world: the sun is the highest truth the freed prisoner reaches by leaving the cave.",
+     "c": "That's what keeps the prisoners facing the wall, Plato's picture of habit and never questioning, not the world itself."
+    },
+    "reteach": "Plato's whole point is that what we see is secondhand. A shadow is made by a real object but is not the object. He says the chairs and horses in front of you are shadows of their perfect forms in the same way."
+   },
+   {
+    "type": "example",
+    "title": "The triangle on the napkin",
+    "body": "Draw a triangle on a napkin and measure its 3 angles with a protractor. You will get something like 179 or 181 degrees, never exactly 180, because pencil lines have width and your hand shakes.\n\nPlato says: the true triangle, whose angles add to exactly 180, exists only as a form. Your napkin drawing is a shadow of it, and you know the 180 rule by thinking, not by measuring.\n\nAristotle says: there is no second triangle floating somewhere else. The shape is in the drawings. Look at 50 of them, notice what they all share, and that shared pattern is all a triangle ever was."
+   },
+   {
+    "type": "teach",
+    "title": "Aristotle turns around",
+    "body": "Aristotle studied under Plato in Athens for about 20 years, then set up his own school. His reply was blunt: there is no separate world of forms. The pattern of a horse is in the horses. Want to know what a horse is? Go and look at horses, lots of them.\n\nHe lived this. He cracked open hen's eggs on different days to watch how the chick forms, and he wrote long descriptions sorting animals into groups. His method was: observe closely, compare many cases, then state the general rule.\n\nThat is roughly what a scientist does today, so a scientist is closer to Aristotle. But Plato has not left the table. When a physicist trusts a clean formula over a messy reading from the lab, saying the instrument must be off, that is a Platonic move: the perfect law is more real than the noisy measurement."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A doctor wants to know what a healthy resting heart rate is. She records the heart rates of 200 healthy people and reports the range most of them fall in. Whose method is this?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Plato's, because she is looking for the perfect heart rate behind all the messy readings"
+     },
+     {
+      "id": "b",
+      "text": "Socrates', because she is questioning what people believe about health"
+     },
+     {
+      "id": "c",
+      "text": "Aristotle's, because she finds the pattern by looking at many real cases"
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's Plato's direction, not hers: he would reach the ideal by thinking, not by counting 200 pulses.",
+     "b": "That's Socrates' method from chapter 2, asking why about a belief. She is not questioning anyone, she is measuring."
+    },
+    "reteach": "Ask one question: did the person get the answer by looking at many things, or by reasoning towards an ideal they could never see? Looking at many things is Aristotle. Reasoning towards the unseen ideal is Plato."
+   },
+   {
+    "type": "mistake",
+    "body": "People hear the cave story and say Plato thought the everyday world is fake or does not exist. He did not. Shadows are real shadows, cast by real objects. His claim is that the seen world is real but lesser, a copy of something more perfect. Spot the mistake when someone says Plato thought nothing we see is real. That is too strong by half."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Plato and Aristotle disagree about one thing in this chapter. Which?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Whether you should question your beliefs by asking why"
+     },
+     {
+      "id": "b",
+      "text": "Where the true pattern of a thing is found: beyond things by thinking, or inside things by looking"
+     },
+     {
+      "id": "c",
+      "text": "Whether a drawn triangle can ever measure exactly 180 degrees"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's Socrates' habit from chapter 2, and both men kept it. Neither argued against asking why.",
+     "c": "That's the detail from the napkin example, and both agree the drawing is never exact. They differ on where the exact triangle lives."
+    },
+    "reteach": "Picture one horse. Plato says its horse-ness lives somewhere beyond it, and this animal is a rough copy. Aristotle says horse-ness is right here, in this animal and the others like it. Beyond or inside: that is the whole disagreement."
+   },
+   {
+    "type": "try",
+    "body": "Pick up your cup. Ask out loud: is the cup-ness in this cup, or is this cup a rough copy of a perfect cup I can only think about? Say which man you just sided with."
+   }
+  ],
+  "outcomeLine": "You can now tell the cave story in 3 sentences and say whether a scientist works more like Plato or Aristotle."
+ },
+ "seconds": 80.19900107383728
+}

@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 3,
+  "title": "Your three accounts",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "You never walk into the bazaar yourself. Your cash stays in a purse at home: that is your bank account. You send a licensed runner to buy for you: that is your broker, and your trading account is how you give the runner orders. The slices you buy go into a locker guarded by a separate locker company: that is your demat account. Three places, three jobs."
+   },
+   {
+    "type": "teach",
+    "title": "Three accounts, three jobs",
+    "body": "The bank account you already have. It holds rupees and nothing else. You open nothing new here.\n\nThe trading account is opened with a broker. A broker is a firm registered with SEBI, the market inspector, and allowed to send orders into NSE or BSE. The trading account is your order button. You move cash from your bank to the broker, the cash shows as your trading balance, and when you tap buy the broker spends it for you.\n\nThe demat account is the locker. Demat is short for dematerialised, which means your shares are an electronic record rather than paper certificates. The locker is run by one of two depositories, NSDL or CDSL, which are the companies that keep the master record of who owns which shares in India.\n\nYour broker opens the demat account for you, and you see it inside the broker's app. But the broker does not own the locker. The shares inside it are recorded in your name at NSDL or CDSL.\n\nWhy split it this way? Because each piece is guarded by a different party. If your broker shut its doors tomorrow, your cash would still be in your bank and your shares would still be in your demat locker, in your name."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Your broker's app shows you own 1 share of a company. Where does that share actually sit?",
+    "options": [
+     {
+      "id": "a",
+      "text": "In the broker's own vault, because you bought it through them"
+     },
+     {
+      "id": "b",
+      "text": "In your demat account, recorded at NSDL or CDSL in your name"
+     },
+     {
+      "id": "c",
+      "text": "In your bank account, next to your cash"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the trading account's job confused with ownership: the broker only carries your orders, and the share is recorded in your name at the depository, not in the broker's vault.",
+     "c": "That's the bank account, which holds only rupees: shares never sit next to cash."
+    },
+    "reteach": "Think of the broker as the runner, not the locker. The runner buys the slice for you and drops it in a locker that a different company, NSDL or CDSL, guards. The app just shows you a window into that locker."
+   },
+   {
+    "type": "example",
+    "title": "Asha opens her accounts",
+    "body": "Asha already has a savings account at her bank. She picks a SEBI-registered broker and fills one online form, uploading her PAN card and completing an Aadhaar check. A couple of working days later she has both a trading account and a demat account, the demat one with its own 16-character number from CDSL.\n\nShe transfers \u20b92,000 from her bank to the broker. It now shows as \u20b92,000 of trading balance. She buys 1 share for \u20b91,500. The next working day that share appears in her demat account, and about \u20b9500 minus a small fee stays as trading balance. Three accounts, each doing one thing."
+   },
+   {
+    "type": "teach",
+    "title": "KYC, and what the broker charges",
+    "body": "KYC stands for Know Your Customer: the broker must check who you are before opening anything. In India that means your PAN, the 10-character tax ID from the Income Tax Department, plus usually your Aadhaar for the quick online check, a proof of your bank account, and a short photo or video check. The bank account you link must be in your own name. Brokers are not allowed to take money from someone else's account on your behalf.\n\nBrokers charge in three places. An account opening fee, which many brokers have set to zero. An annual maintenance charge on the demat account, which is a yearly fee for keeping the locker open. And brokerage, a fee on each order, charged either as a flat rupee amount per order or as a percentage of the trade value. Small government charges also sit on each trade; chapter 4 lists them.\n\nBefore you sign up, check the broker is real. SEBI publishes a list of registered brokers on its website, and every real broker shows its SEBI registration number on its own site and app. No number, no account."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Ravi wants to buy 1 share tomorrow. He has \u20b95,000 in his bank account and zero trading balance. What has to happen first?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Move money from his bank account to his trading account with the broker"
+     },
+     {
+      "id": "b",
+      "text": "Move money into his demat account, since that is where shares live"
+     },
+     {
+      "id": "c",
+      "text": "Nothing; the broker will pull the money straight from his bank when he taps buy"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the locker for shares, not for cash: a demat account never holds rupees.",
+     "c": "That's skipping the trading account: the broker spends only the cash you have already moved to it, and cannot reach into your bank by itself."
+    },
+    "reteach": "Cash flows one way: bank, then trading balance, then spent on shares. The demat locker is at the far end and only ever receives shares. If the trading balance is zero, the runner has nothing in hand to buy with."
+   },
+   {
+    "type": "mistake",
+    "body": "People believe the broker holds their shares, so they panic when the broker's app goes down or the broker is in the news. Spot it in yourself: if you have ever thought \"if my broker goes bust, do I lose my shares?\", that is the mix-up. The shares sit at NSDL or CDSL in your name, and the depository emails you a statement of your holdings so you can see them without the broker."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which account is the locker that actually holds your shares?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Bank account"
+     },
+     {
+      "id": "b",
+      "text": "Trading account"
+     },
+     {
+      "id": "c",
+      "text": "Demat account"
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's where your cash waits before you move it to the broker: it holds rupees, never shares.",
+     "b": "That's the order button with the broker, where orders go and your transferred cash sits: the shares themselves are not kept there."
+    },
+    "reteach": "Three jobs: bank holds cash, trading account sends orders, demat holds shares. Demat is the only one of the three that is run by a depository, NSDL or CDSL, rather than by your bank or your broker."
+   },
+   {
+    "type": "try",
+    "body": "Tonight: search \"SEBI registered stock brokers list\" and open the list on sebi.gov.in. Find the registration number of a broker you have heard of. That is the inspector's stamp you will look for before opening anything."
+   }
+  ],
+  "outcomeLine": "You can now say which of your three accounts holds your cash, which sends your orders, and which holds your shares, and you know what to check before opening the last two with a SEBI-registered broker."
+ },
+ "seconds": 89.67130398750305
+}

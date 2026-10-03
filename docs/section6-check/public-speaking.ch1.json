@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "Pick one destination",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Before you take anyone on a walk, you decide where you're going. One place. Not \"somewhere nice\", and not three places you'd like to fit in.\n\nIf you don't know the destination, the people walking with you feel lost within a minute, even if the scenery is good. A talk works the same way: one destination, chosen before you take a single step."
+   },
+   {
+    "type": "teach",
+    "title": "One point, written first",
+    "body": "Every short talk has exactly one point. A point is the single idea you want people to carry out of the room. It is not a topic. \"Remote work\" is a topic. \"Our team should be in the office two days a week\" is a point.\n\nHere is the test. Can you say your point as one full sentence of 15 words or fewer, with a verb in it? If the sentence needs an \"and\" to hold together, you probably have two points.\n\nWhy only one? Listeners can't rewind you. In 3 minutes they can hold one idea. Hand them three and they walk out with none.\n\nWrite this sentence before anything else. Before the opening line, before the story, before you think about slides. It is the thing the whole talk exists to deliver.\n\nThen say it out loud and time it. Under 10 seconds is the target. If it takes longer, the sentence is too long or it's secretly two sentences."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Which of these is a point, not just a topic?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Why sleep matters"
+     },
+     {
+      "id": "b",
+      "text": "Going to bed at the same time every night matters more than how long you sleep."
+     },
+     {
+      "id": "c",
+      "text": "Sleep, exercise and diet: the three pillars of health"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a topic, not a point: it names an area to wander around in, but has no verb and claims nothing.",
+     "c": "That's three destinations, not one: sleep, exercise and diet are each a separate talk."
+    },
+    "reteach": "A topic is a place on the map. A point is the exact spot you stop at. \"Sleep\" is the map. \"Go to bed at the same time every night\" is the spot. If you can put the word \"About:\" in front of your sentence and it still reads fine, it's a topic."
+   },
+   {
+    "type": "example",
+    "title": "The booking system talk",
+    "body": "Say you have to speak for 3 minutes at work about a new room-booking system. Your first attempt at the point: \"The new booking system, its features, how to log in, and what changed.\" That's 13 words, but it's a list of 4 stops, and it has no verb.\n\nSecond attempt: \"From Monday, book meeting rooms in the new system, not by email.\" That's 12 words, one verb, one action.\n\nSaid out loud it takes about 4 seconds. Now every part of the talk either helps people do that one thing, or it gets cut."
+   },
+   {
+    "type": "teach",
+    "title": "What a destination sentence needs",
+    "body": "It needs a verb. Something happens, someone does something, or something is true. \"The booking system\" goes nowhere. \"Book rooms in the system\" goes somewhere.\n\nIt should be something a person could disagree with, or an action a person could take. If nobody on earth could disagree with it, it's a label, not a point.\n\nWrite it the way you'd say it to one friend over coffee. You'll say this sentence near the start of your talk and again at the very end, so it has to sound like speech, not like a report title.\n\nOne more check: if your sentence has a colon or a comma-separated list in it, you're probably still carrying three destinations. Pick the one that matters most and let the others go."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You're giving a 3-minute talk to your running club. You've written: \"Running shoes: what to look for, how often to replace them, and where to buy.\" What fixes it?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Trim each of the three parts so the whole thing fits inside 15 words."
+     },
+     {
+      "id": "b",
+      "text": "Pick one: \"Replace your running shoes every 500 km, even if they still look fine.\""
+     },
+     {
+      "id": "c",
+      "text": "Keep all three parts but open with a story about your first race."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's trimming the word count, not the destination count: it's still three stops squeezed into one sentence.",
+     "c": "That's the opening, not the point: a good story at the start doesn't fix a talk that's going three places."
+    },
+    "reteach": "Shorter words don't make one destination. Fewer destinations do. Look at your sentence, find the list, and keep only the item you'd be most upset if people forgot. Then write that one item as a sentence with a verb."
+   },
+   {
+    "type": "mistake",
+    "body": "The most common slip is writing a topic and calling it a point. \"A few thoughts on hiring\" or \"Our Q3 numbers\" is a place to wander, not a place to arrive.\n\nSpot it in 2 seconds: if your sentence has no verb, or if you could write \"About:\" in front of it and it still reads naturally, it's a topic. Add the verb. Say what's true, or what to do."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "How do you know you've picked one destination for your talk?",
+    "options": [
+     {
+      "id": "a",
+      "text": "You can say it as one 15-word sentence with a verb, out loud, in under 10 seconds."
+     },
+     {
+      "id": "b",
+      "text": "You've written your opening line and your closing line."
+     },
+     {
+      "id": "c",
+      "text": "You've listed the three things the audience should remember."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's planning the route, which comes in a later chapter: you can't write the opening or closing until you know where you're going.",
+     "c": "That's three destinations, not one: in 3 minutes, listeners keep one idea or none."
+    },
+    "reteach": "The destination is the one sentence the whole talk delivers. One sentence, one verb, 15 words or fewer, said out loud in under 10 seconds. If any of those four checks fails, keep cutting until they all pass."
+   },
+   {
+    "type": "try",
+    "body": "Think of one talk you might really give: at work, to friends, at a club. Type its one sentence into your notes app. Count the words. Say it out loud once and time it."
+   }
+  ],
+  "outcomeLine": "You can now write the one sentence your talk exists to deliver, and say it out loud in under 10 seconds."
+ },
+ "seconds": 60.59188985824585
+}

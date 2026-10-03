@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 2,
+  "title": "Face in, breath out",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "If the water is a bed, your face has to be able to rest on the pillow. Right now you probably hold your breath and squeeze your eyes shut the moment water touches your nose. That is fighting the bed. This chapter teaches the one habit that stops the fight: breathe out into the water, breathe in above it."
+   },
+   {
+    "type": "teach",
+    "title": "Blow out, not hold",
+    "body": "Most beginners put their face in, hold their breath, and come up gasping. The gasp is the problem. A held breath builds up pressure in your chest, and after a few seconds your body panics and tells you to lift up fast.\n\nThe fix is to breathe out the whole time your face is in. Blow bubbles through your mouth and nose together, slow and steady, like cooling a hot drink. As long as air is leaving you, water cannot get in your nose.\n\nThen lift your face just clear of the water and breathe in through your mouth. Mouth, not nose, because your nose may still have a drop of water in it. One easy breath in, then face back down and blow again.\n\nKeep your eyes open under the water. In a pool you can see your own hands, the tiles, the wall. Seeing where you are takes away most of the fear. If the chlorine stings a little, that fades in a few sessions, and goggles are fine to use.\n\nDo this standing in chest-deep water, holding the wall or the edge with both hands. Nothing else is happening yet. Just face in, blow, face up, breathe in."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You put your face in the water and hold your breath. After about 4 seconds you feel the urge to come up fast. What is most likely causing that urge?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Water is getting into your nose"
+     },
+     {
+      "id": "b",
+      "text": "Air pressure building in your chest because you are not letting it out"
+     },
+     {
+      "id": "c",
+      "text": "Your eyes are closed so you have lost your balance"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's what happens when you breathe in under water, not when you hold still: water only enters your nose when air is not coming out of it.",
+     "c": "That's a reason to keep your eyes open, not the cause of the urge to surface: closed eyes make you unsure where you are, but the gasp comes from your chest."
+    },
+    "reteach": "Think of a balloon you keep squeezing without letting any air out. The pressure has to go somewhere. Breathing out slowly as bubbles lets the pressure go, so your body stays calm and you can keep your face in longer."
+   },
+   {
+    "type": "example",
+    "title": "Ten dips at the wall",
+    "body": "A learner stands in water up to their chest, both hands on the pool edge, feet flat on the bottom. They bend forward, put their face in with eyes open, and hum. Humming pushes air out of the nose and mouth together, and makes bubbles they can hear. They count 3 seconds of bubbles, lift their chin until their mouth is just above the surface, breathe in through the mouth, and go straight back down. After 10 repeats they stand up. Their eyes are open, their nose is dry, and they never touched their face."
+   },
+   {
+    "type": "teach",
+    "title": "Why humming works, and the rhythm",
+    "body": "Humming is a trick. You cannot hum without air leaving your nose, so it forces the breath out even when your brain wants to hold it. Try it in the shower first if you like. Hum with your face in the stream and notice the water never goes up your nose.\n\nThe rhythm matters more than the depth. Out for 3 seconds, in for 1, repeat. If you stay under too long you will run out of air and come up gasping, which is the habit you are trying to replace. Short and steady beats long and brave.\n\nDo not wipe your eyes or face when you come up. Wiping takes a hand off the wall and tells your brain the water is a threat. Let the drops run off. After a few tries you will stop noticing them.\n\nOnce 10 in a row at the wall feels easy, do the same thing with your hands off the wall, standing freely, chest-deep. Same breath, same count. The water has not changed. Only your hands have."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You are at the wall doing face dips. On the fifth one you come up and feel a splash of water near your nose, so you wipe your face with one hand and stand up for a rest. What should you change next time?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Keep blowing out the whole time your face is in, and let the drops run off without wiping"
+     },
+     {
+      "id": "b",
+      "text": "Close your eyes tighter so less water gets near your face"
+     },
+     {
+      "id": "c",
+      "text": "Hold your breath longer so you need fewer dips"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's a comfort reflex, not a fix: closed eyes do not keep water off your nose, and open eyes are what let you see where you are.",
+     "c": "That's the gasp habit from the start of the chapter, not the rhythm you are learning: holding longer builds chest pressure and makes the come-up worse."
+    },
+    "reteach": "Water only gets in your nose when no air is coming out of it. Keep the bubbles going right up until your mouth is above the surface, breathe in through the mouth, then go back down. Hands stay on the wall, face stays unwiped."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is holding your breath under water and then breathing out and in both above the surface. That means two jobs in the one second your face is up, so the breath in is rushed and shallow and you feel out of air. You can spot it when you come up puffing hard. The fix is to do all the breathing out under water, so the only job above the surface is one calm breath in."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What is the one habit this chapter teaches about your breath in the water?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Breathe out under the water, breathe in above it"
+     },
+     {
+      "id": "b",
+      "text": "Hold your breath under water and breathe out and in above it"
+     },
+     {
+      "id": "c",
+      "text": "Breathe in through your nose above water so your mouth stays shut under it"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the gasp pattern, not the habit: breathing out above the water leaves no time for a calm breath in.",
+     "c": "That's backwards on which opening does which job: you breathe in through the mouth because the nose may still have water in it, and the breath out happens under water, not above."
+    },
+    "reteach": "Picture the breath as a loop with two halves in two places. The out half happens under water as bubbles, for about 3 seconds. The in half happens above water through the mouth, for about 1 second. Never both in the same place."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, in the shower or over a basin of water: put your face in the stream or the water, hum for 3 seconds with eyes open, lift and breathe in through your mouth. Repeat 10 times."
+   }
+  ],
+  "outcomeLine": "You can now put your face in the water 10 times in a row, breathing out as bubbles for 3 seconds each time and in through your mouth above the water, without wiping your eyes or holding your nose."
+ },
+ "seconds": 46.81704497337341
+}

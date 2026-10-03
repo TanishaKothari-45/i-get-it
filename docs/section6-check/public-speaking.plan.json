@@ -1,0 +1,59 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Public speaking",
+  "outcome7": "By day 7 you'll be able to plan, rehearse and deliver a 3-minute talk to a small group, with one clear point, a steady opening, and a close you don't trail off from.",
+  "horizon14": "Later: a 10-minute talk with slides that help you instead of replacing you.",
+  "horizon28": "Later: handle live questions and speak without notes to a room of 30 or more.",
+  "picture": {
+   "name": "Taking someone on a walk",
+   "line": "A talk is a walk you lead: you pick one destination, you know the route, you set the pace, and the people with you only need to follow one step at a time."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "Pick one destination",
+    "covers": "Why every talk needs exactly one point, and how to write that point as a single 15-word sentence before you write anything else.",
+    "outcome": "You can write the one sentence your talk exists to deliver, and say it out loud in under 10 seconds."
+   },
+   {
+    "n": 2,
+    "title": "Know who's walking with you",
+    "covers": "What your listeners already know, what they care about, and how that changes what you leave out.",
+    "outcome": "You can describe your audience in 3 lines and cut any part of your talk they don't need."
+   },
+   {
+    "n": 3,
+    "title": "Plan the route",
+    "covers": "The 3-part shape of a short talk: say where you're going, go there in 3 steps, say where you've arrived.",
+    "outcome": "You can lay out a 3-minute talk on one index card with an opening line, 3 steps and a closing line."
+   },
+   {
+    "n": 4,
+    "title": "Start walking without stumbling",
+    "covers": "Your first 20 seconds: a planned first sentence, a pause before you speak, and the 2 or 3 things to do with your hands and feet.",
+    "outcome": "You can open a talk from memory with a sentence that names the destination, and stand still while you do it."
+   },
+   {
+    "n": 5,
+    "title": "Set the pace",
+    "covers": "Speaking slower than feels natural, pausing at full stops, and dropping filler like 'um' and 'so' by replacing them with silence.",
+    "outcome": "You can record yourself for 1 minute, count your fillers, and halve them on a second take."
+   },
+   {
+    "n": 6,
+    "title": "When your legs shake",
+    "covers": "What nerves do to your body (fast breath, dry mouth, racing speech) and 3 physical things to do in the 2 minutes before you start.",
+    "outcome": "You can name what your nerves do to you and use a breathing pattern to slow your heart before you stand up."
+   },
+   {
+    "n": 7,
+    "title": "Arrive, then stop",
+    "covers": "Rehearsing out loud 3 times, closing on your one sentence instead of 'so, yeah, that's it', and delivering the full talk to 2 or more people.",
+    "outcome": "You can deliver your 3-minute talk to a small group, end on your one sentence, and stop."
+   }
+  ]
+ },
+ "seconds": 20.853696823120117
+}

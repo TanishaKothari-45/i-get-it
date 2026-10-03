@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 3,
+  "title": "Plugging in your work apps",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "A station on your line can reach into a neighbouring building, say the Google Sheets building, and drop a part on a desk there. But the door is locked. A credential is the key card you hand that station: it says 'this machine is allowed to act as me in this one building'. One key card per building, and any station can borrow it."
+   },
+   {
+    "type": "teach",
+    "title": "What a credential is",
+    "body": "A credential is a saved permission that lets n8n act as you inside one app. Without it, a Google Sheets node is just an empty box that knows the shape of a spreadsheet but cannot open yours.\n\nMost work apps use a sign-in flow called OAuth. You click 'Sign in with Google', a Google window opens, you pick your account and press Allow. Google hands n8n a token, a long secret string, and n8n stores it under a name you choose. You never see the token and you never type a password into n8n.\n\nSome apps, like Slack, offer a second route: you paste a token that the app gives you in its own settings page. Both routes end the same way, a named credential sitting in n8n's Credentials list.\n\nA credential is separate from a node. You make it once. After that, every Google Sheets node in every workflow can pick it from a dropdown. If your password changes or the permission is revoked, you fix the one credential and all nodes keep working.\n\nIn the editor, add an app node, open it, and look for the Credential field near the top. 'Create new credential' is right there in the dropdown, so you rarely need to visit the Credentials page first."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You build 3 workflows that each add a row to the same Google Sheet. How many Google credentials do you need to create?",
+    "options": [
+     {
+      "id": "a",
+      "text": "3, one per workflow"
+     },
+     {
+      "id": "b",
+      "text": "1, shared by all three"
+     },
+     {
+      "id": "c",
+      "text": "6, one to read and one to write per workflow"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the node count, not the credential count: nodes live inside workflows, but a credential lives once in n8n's list and any node can borrow it.",
+     "c": "That's mixing up the key card with the job: one credential covers reading and writing, the node's Operation setting decides which happens."
+    },
+    "reteach": "Think of the credential as a key card hanging on a hook by the door. Any station on any line can pick it up. You cut the card once, then reuse it everywhere."
+   },
+   {
+    "type": "example",
+    "title": "Adding a row to a sheet",
+    "body": "Maya has a Google Sheet called 'Team leads' with columns Name, Email and Date. She adds a Google Sheets node after her Schedule Trigger from chapter 1. In the Credential field she picks 'Create new credential', a Google window opens, she chooses her work account and presses Allow. Back in n8n the credential is saved as 'Google Sheets account'. She sets Operation to 'Append Row', picks the 'Team leads' document and the 'Sheet1' tab from the dropdowns, which now fill in by themselves because n8n can see her Drive. She types 'Test' in the Name column, presses Test step, and a new row appears in her sheet 2 seconds later."
+   },
+   {
+    "type": "teach",
+    "title": "Resource, operation, and what to check",
+    "body": "Once the key card is in, an app node asks two questions. Resource: which kind of thing in the app, such as a sheet, a message, or a channel. Operation: what to do with it, such as append, read, send or update. Maya's choice was Resource 'Sheet within document', Operation 'Append Row'.\n\nThe dropdowns below those only fill in after the credential works. If the document list is empty or spins forever, the credential is the first thing to suspect, not the sheet.\n\nSlack is the same pattern with one extra step. When you connect Slack, n8n adds a bot user to your workspace. A bot can only post in channels it has been invited to. So after connecting, type /invite @your-bot-name inside the channel you want to post in, or the Send message step fails with a 'not in channel' error.\n\nTest with a throwaway target first. A test sheet or a channel named #n8n-test keeps your experiments away from colleagues until the workflow behaves."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Your Slack node is connected with a working credential, but Send Message fails with 'not_in_channel'. What fixes it?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Delete and recreate the Slack credential"
+     },
+     {
+      "id": "b",
+      "text": "Invite the n8n bot into that channel in Slack"
+     },
+     {
+      "id": "c",
+      "text": "Change the Operation from Send to Update"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a fix for a broken key card, not a locked room: the credential already works, the bot just has not been let into this one channel.",
+     "c": "That's the Operation setting, which picks the job, not who may enter: updating a message needs the same channel access as sending one."
+    },
+    "reteach": "The credential gets n8n into the Slack building. Each channel is a separate room, and the bot has to be invited into each room it will post in. Working key card plus a room it can't enter equals 'not_in_channel'."
+   },
+   {
+    "type": "mistake",
+    "body": "People connect their personal Google account because that window pops up first, then wonder why the work spreadsheet is missing from the dropdown. Spot it by the account name shown in the credential: if it is not the account that owns the sheet, n8n cannot see the sheet. Make a second credential with the right account and name it after the account, like 'Google, work'."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What does a credential do in n8n?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Starts the workflow when the app sends a signal"
+     },
+     {
+      "id": "b",
+      "text": "Stores a saved permission so nodes can act as you in one app"
+     },
+     {
+      "id": "c",
+      "text": "Carries the data from one node to the next"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the trigger from chapter 1, the bell that starts the line: a credential never starts anything, it only unlocks doors.",
+     "c": "That's an item from chapter 2, the packet of fields on the belt: credentials stay on their hook and never travel between nodes."
+    },
+    "reteach": "A credential is the key card. It is made once, named, and stored in n8n's Credentials list. Any node that talks to that app picks it from a dropdown, and that is what lets the node open your sheet or post as your bot."
+   },
+   {
+    "type": "try",
+    "body": "Open your chapter 1 workflow. Add a Google Sheets or Slack node, create one credential with your work account, and append a row or send a message to a test target."
+   }
+  ],
+  "outcomeLine": "You can now connect one work app to n8n with a credential and make it add a row or send a message."
+ },
+ "seconds": 50.3701171875
+}

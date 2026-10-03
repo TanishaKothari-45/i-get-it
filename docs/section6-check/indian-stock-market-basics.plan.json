@@ -1,0 +1,59 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Indian stock market basics",
+  "outcome7": "By day 7 you'll be able to open a demat and trading account with a SEBI-registered broker, place a limit order for 1 share of a Nifty 50 company, read its price, market cap and P/E on a quote page, explain in one line why its price moved that day, and work out the tax you'd owe if you sold it.",
+  "horizon14": "Later, around day 14: you could compare two companies in the same sector using five numbers and say which you'd rather own and why.",
+  "horizon28": "Later, around day 28: you could have a written monthly plan splitting money between an index fund SIP and single shares, and one month of sticking to it.",
+  "picture": {
+   "name": "One big organised bazaar",
+   "line": "The Indian stock market is one huge organised bazaar: each company is a shop, a share is a tiny slice of ownership in one shop, and SEBI is the inspector who keeps the stalls honest."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "A share is a slice of a shop",
+    "covers": "What you actually own when you buy 1 share, and why its price moves every second: more buyers than sellers pushes it up, more sellers than buyers pushes it down.",
+    "outcome": "You can explain in one line why a share's price rose or fell today using buyers and sellers, not headlines."
+   },
+   {
+    "n": 2,
+    "title": "The two bazaars and their price boards",
+    "covers": "NSE and BSE are the two exchanges (the market buildings), open 9:15 am to 3:30 pm Monday to Friday; Nifty 50 and Sensex are price boards for the 50 and 30 biggest shops; SEBI is the inspector.",
+    "outcome": "You can read 'Nifty closed 0.8% down' and say what it does and does not tell you about the 50 companies behind it."
+   },
+   {
+    "n": 3,
+    "title": "Your three accounts",
+    "covers": "Bank account holds your money, trading account places orders through a broker, demat account is the locker (with NSDL or CDSL) that holds your shares; what KYC with PAN and Aadhaar means and what a broker charges.",
+    "outcome": "You can open a demat and trading account and say which account holds your shares and which holds your cash."
+   },
+   {
+    "n": 4,
+    "title": "Placing your first order",
+    "covers": "Market order (buy now at any price) versus limit order (buy only at your price or better), choosing quantity, T+1 settlement meaning shares land the next working day, and the charges on one trade.",
+    "outcome": "You can buy 1 share with a limit order, say when it lands in your demat, and list the charges you paid."
+   },
+   {
+    "n": 5,
+    "title": "Reading a shop in five numbers",
+    "covers": "Price, market cap (price times all shares, so the size of the shop), P/E (price divided by yearly profit per share, so how many years of profit you pay for), 52-week high and low, and dividend yield.",
+    "outcome": "You can look at a quote page and say whether a company is large or small, and whether it is priced high or low against its profit."
+   },
+   {
+    "n": 6,
+    "title": "Buying the whole bazaar at once",
+    "covers": "Index funds buy all 50 Nifty shops in one go; mutual funds hire a shopper to pick for you; SIP means a fixed amount every month; expense ratio is the yearly fee taken from your money.",
+    "outcome": "You can set up a monthly SIP in a Nifty 50 index fund and say what expense ratio you are paying."
+   },
+   {
+    "n": 7,
+    "title": "The toll on the way out, and the traps",
+    "covers": "Tax on listed shares: held under 12 months is taxed at 20%, held over 12 months at 12.5% on gains above \u20b91.25 lakh a year; why to refuse stock tips, and why SEBI's 2023 study found 9 in 10 individual futures and options traders lost money.",
+    "outcome": "You can work out the tax on a sale you are planning and name three things you will say no to in your first year."
+   }
+  ]
+ },
+ "seconds": 60.00321888923645
+}

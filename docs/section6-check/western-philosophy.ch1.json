@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "What counts as a good argument",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Picture a dinner table where the same argument has run for about 2,500 years. Nobody wins by shouting. A guest says something, such as \"you should always keep your promises\", and the whole table turns and asks \"why?\"\n\nThe answer to that \"why\" is what philosophers call an argument. Before you can follow who is replying to whom, you need to see the two parts of what every guest says: the thing they claim, and the reasons they give for it."
+   },
+   {
+    "type": "teach",
+    "title": "A claim and its reasons",
+    "body": "A claim is the thing someone wants you to accept. \"You should always keep your promises.\" \"This phone is better.\" \"We should leave now.\"\n\nA reason is what they put on the table to get you to accept it. \"Because people rely on you.\" \"Because the battery lasts 2 days.\" \"Because the train leaves in 10 minutes.\"\n\nIn philosophy an argument is not a fight. It is a claim plus the reasons given for it. One claim, one or more reasons. That is the whole shape.\n\nThe word \"because\" is your flag. What comes before it is usually the claim, what comes after is the reason. Sometimes the flag is missing: \"The train leaves in 10 minutes. We should go.\" No \"because\", but the reason is still there, doing the same job.\n\nHere is the test of a good argument. If you accepted the reasons as true, would you have to accept the claim? If yes, the reasons hold it up. If you could accept every reason and still shrug at the claim, something is missing."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "A friend says: \"We should order from the Italian place, their delivery is always under 30 minutes.\" What is the claim?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Their delivery is always under 30 minutes."
+     },
+     {
+      "id": "b",
+      "text": "We should order from the Italian place."
+     },
+     {
+      "id": "c",
+      "text": "Italian food is good."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the reason, not the claim: it's what they offer to get you to agree.",
+     "c": "That's a guess at what they might believe, not something they said. Stick to what is on the table."
+    },
+    "reteach": "The claim is what the speaker wants you to agree to or do. The reason is what they offer to get you there. Ask yourself: what do they want from me? Whatever that is, that's the claim, and everything else is support for it."
+   },
+   {
+    "type": "example",
+    "title": "The phone argument",
+    "body": "Someone tells you: \"You should buy this phone. It has a 2-day battery and my cousin loves hers.\" The claim is \"buy this phone\". There are 2 reasons: the 2-day battery, and the cousin loving hers.\n\nNow run the test. Suppose both reasons are completely true. Do you have to buy the phone? Not yet. The battery matters only if battery life is what you care about. The cousin loving it tells you about the cousin, not about you.\n\nThe reasons are true, but they lean on an unspoken piece: \"what you need from a phone is what this phone gives.\" Say that out loud and the argument stands. Leave it out and it wobbles."
+   },
+   {
+    "type": "teach",
+    "title": "Two ways reasons fail",
+    "body": "Reasons fail in 2 ways. Either the reason is not true, or it is true but does not reach the claim.\n\nFirst way: not true. \"We should leave, the train is at 6.\" If the train is actually at 7, the argument collapses, even though its shape was fine. You check this one by checking facts.\n\nSecond way: true but does not reach. \"Everyone at work uses this app, so it must be the best.\" Everyone using it may be true. But \"most used\" and \"best\" are different things. There is a gap between the reason and the claim, and that gap is where most of philosophy happens.\n\nWhen you spot a gap, ask: what would have to be true for this reason to carry this claim? The missing sentence is called a hidden assumption, a belief the argument needs but never says out loud. In the phone example it was \"this phone gives you what you need.\" Dragging the hidden assumption into the open is the single most useful move at the table."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Your flatmate says: \"Cancel the 8pm dinner booking. One of the guests hates eating late.\" Which reply points at the gap between the reason and the claim?",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"Are you sure she hates eating late?\""
+     },
+     {
+      "id": "b",
+      "text": "\"Even if she does, is 8pm late for her, and does one guest's preference decide for all six?\""
+     },
+     {
+      "id": "c",
+      "text": "\"You always want to cancel plans.\""
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That checks whether the reason is true, the first way reasons fail. The question asked about the gap, the second way.",
+     "c": "That's an attack on the speaker, not on the claim or its reasons. The argument itself is left untouched."
+    },
+    "reteach": "A reason can be fully true and still not carry the claim. To find the gap, grant the reason for a moment (\"fine, she hates eating late\") and ask whether the claim follows yet. Whatever you still need before it follows is the gap, and naming it is the move."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is to argue against the person or against the conclusion instead of against the reasons. \"That's just what you'd say\" or a flat \"I disagree\" touches nothing.\n\nSpot it in yourself when you feel sure a claim is wrong but cannot name which reason is false or where the gap is. If you cannot point at a reason, you have not argued yet. You have only disagreed."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "In the sense this chapter uses, what makes an argument a good one?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The claim is something most people already agree with."
+     },
+     {
+      "id": "b",
+      "text": "If you accept the reasons as true, you have to accept the claim too."
+     },
+     {
+      "id": "c",
+      "text": "The speaker sounds confident and uses the word \"because\"."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's about the claim's popularity, not about whether its reasons hold it up. A popular claim can have terrible reasons.",
+     "c": "\"Because\" is a flag that helps you find the reason, not a sign that the reason reaches the claim."
+    },
+    "reteach": "Picture the reasons as table legs and the claim as the table top. A good argument has legs that are real (the reasons are true) and that actually touch the top (the reasons reach the claim). Check both, every time."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, open any group chat or comment thread. Pick one opinion. Write its claim on one line and its reasons underneath. Then ask: if every reason is true, do I have to accept the claim?"
+   }
+  ],
+  "outcomeLine": "You can now split any opinion into its claim and its reasons, and say whether the reasons hold it up."
+ },
+ "seconds": 71.91693806648254
+}

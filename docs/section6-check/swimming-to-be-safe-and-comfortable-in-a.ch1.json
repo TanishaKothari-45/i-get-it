@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "Getting in and standing up",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Think of the pool as a bed, not a floor. When you lie on a bed you don't fall through it, and you don't need to hold on to anything. Chest-deep water is the edge of that bed: you can sit, lie, or stand up whenever you want. This chapter is about getting onto the bed and learning the one move that puts you back on your feet."
+   },
+   {
+    "type": "teach",
+    "title": "Get in slowly, stay where you can stand",
+    "body": "Use the steps or the ladder, not a jump. Turn to face the ladder, hold both rails, and go down one rung at a time. Facing the ladder means your hands and feet are both on it, so there is no moment where you are off balance.\n\nStop when the water is at your chest. Chest-deep means the surface is roughly at your nipples when you stand flat on your feet. Here you can breathe freely, your feet reach the bottom, and your head is a long way above the water.\n\nNow walk. The water pushes against your legs, so you will feel slow and a bit floaty. That floaty feeling is the water holding you up, not trying to take you away. Lean slightly forward and sweep your hands through the water to help you balance.\n\nWalk 10 metres across the pool, then back. Keep your shoulders under the water. If your shoulders are out, your body is heavier and wobblier. If they are under, the water does more of the holding."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You are lying forward in chest-deep water and want to stand up. What should happen first?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Lift your head high and reach for the wall"
+     },
+     {
+      "id": "b",
+      "text": "Pull your knees in towards your chest"
+     },
+     {
+      "id": "c",
+      "text": "Kick your legs hard to push yourself up"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's grabbing for a rescue, not standing: lifting your head alone leaves your legs trailing behind you and your feet nowhere near the bottom.",
+     "c": "That's swimming, not standing: kicking keeps your legs stretched out behind you, and stretched-out legs can't get under you to plant."
+    },
+    "reteach": "To stand, your feet have to get underneath you. Your feet are behind you when you lie forward, so the first job is to fold: pull your knees in to your chest, like sitting on a chair in the water. Only then can your feet drop to the floor."
+   },
+   {
+    "type": "example",
+    "title": "Dev's first stand",
+    "body": "Dev, 34, has not been in a pool since school. He walks down the ladder at the shallow end where the water is 1.2 metres deep and comes to the middle of his chest. He walks across the width, 12 metres, with his shoulders under, in about 40 seconds. Then he holds the wall, leans forward until his body is lying flat, and lets go for a count of 2. To stand he pulls both knees in, presses his palms down towards the floor, and his feet land on the bottom. The whole stand takes about 1 second."
+   },
+   {
+    "type": "teach",
+    "title": "The stand: knees, hands, feet",
+    "body": "The stand has 3 parts, always in this order. One: pull your knees in to your chest. Two: press both hands down through the water, palms flat, as if pushing a table down. Three: your feet drop under you and you plant them on the floor, then lift your head.\n\nPressing your hands down matters. Pushing water down lifts your top half up, so your hips swing under you and your feet land where you want them. Without the hands, you fold up but stay horizontal for a moment longer.\n\nYour head comes up last, not first. If you throw your head up first, your legs sink behind you and you end up pulling yourself along the floor. Knees, hands, then head.\n\nPractise this 10 times from holding the wall, then 10 times from letting go for a count of 2. The aim is that your body does it without you deciding to."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Priya is lying forward in chest-deep water, face in, and gets a sudden urge to stop. Which action gets her standing calmly?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Throw her head back out of the water and splash to the side"
+     },
+     {
+      "id": "b",
+      "text": "Knees in, press palms down, feet to the floor, then lift her head"
+     },
+     {
+      "id": "c",
+      "text": "Stretch her arms out long in front and wait for the water to lift her"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the panic version: head first leaves her legs trailing behind and her feet far from the bottom, so she stays horizontal and flustered.",
+     "c": "That's the glide position from chapter 4, not the stand: long arms keep her flat and moving forward, the opposite of folding to get her feet down."
+    },
+    "reteach": "Standing up is a fold, then a press. Fold the knees to bring the feet under the body. Press the hands down to lift the top half. The feet find the floor, and only then does the head come up."
+   },
+   {
+    "type": "mistake",
+    "body": "The mistake is lifting the head first and reaching for something. It feels natural, because above water you look where you want to go. In water it tips you forward and your feet drift behind you, so you end up grabbing at the wall or a person. You can spot it in yourself when your chin is up but your feet still aren't on the floor. The fix is always the same: knees first, hands second."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What is the order of the 3 parts of the stand?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Head up, feet down, hands press"
+     },
+     {
+      "id": "b",
+      "text": "Knees in, hands press down, feet plant"
+     },
+     {
+      "id": "c",
+      "text": "Hands press down, head up, knees in"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the panic order: head first leaves the legs trailing behind you, which is exactly what the knees-first fold prevents.",
+     "c": "That's the right parts in the wrong order: pressing the hands before folding the knees pushes you up while your legs are still stretched out behind you."
+    },
+    "reteach": "Picture sitting down on a chair that is under the water. Knees come in, hands press the water down, feet touch the floor. Head is the last thing to move."
+   },
+   {
+    "type": "try",
+    "body": "Next time you're in a pool: ladder in facing the rungs, walk across chest-deep, then do 10 stands from holding the wall. Count knees, hands, feet out loud each time."
+   }
+  ],
+  "outcomeLine": "You can now get into chest-deep water by the ladder, walk 10 metres with your shoulders under, and stand up from lying forward in under 2 seconds with knees in, hands down, feet planted."
+ },
+ "seconds": 41.40969491004944
+}

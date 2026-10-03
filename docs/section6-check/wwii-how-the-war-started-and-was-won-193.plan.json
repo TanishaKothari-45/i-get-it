@@ -1,0 +1,59 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "World War II, 1939 to 1945",
+  "outcome7": "By day 7 you'll be able to tell the story of the war in about 10 minutes, from the 1919 peace treaty to Japan's surrender in September 1945, naming 8 to 10 turning points in the right order and giving four concrete reasons the Allies won rather than the Axis.",
+  "horizon14": "Later: read a single-volume history of the war without losing track of who is fighting whom, where, and why in any given month.",
+  "horizon28": "Later: pick one question (for example, why France fell in six weeks) and argue an answer using evidence from two different books.",
+  "picture": {
+   "name": "A street fire",
+   "line": "Think of the war as a fire on a shared street: 1919 left the houses full of dry timber, the neighbours watched the first flames and hoped they would burn out, and putting it out took every hose on the street at once."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "The dry timber: why Germany wanted to fight again",
+    "covers": "The 1919 Treaty of Versailles, the 1929 Depression, Hitler's rise to power in 1933, and what he said he wanted: land in the east and the undoing of 1919. Also why Japan, already fighting in China from 1937, and Italy wanted more too.",
+    "outcome": "You can explain in three plain sentences why Germany in 1939 was willing to start a war that it had lost so badly 21 years earlier."
+   },
+   {
+    "n": 2,
+    "title": "The spark: from Munich to the invasion of Poland",
+    "covers": "Hitler's step-by-step grabs from 1936 to 1939 (Rhineland, Austria, Czechoslovakia), why Britain and France let them pass at Munich in 1938 (called appeasement, meaning giving way to avoid war), the surprise Hitler-Stalin pact of August 1939, and the invasion of Poland on 1 September 1939.",
+    "outcome": "You can list the steps from Munich to Britain and France declaring war on 3 September 1939, and say why they did not act sooner."
+   },
+   {
+    "n": 3,
+    "title": "The fire spreads: France falls, Britain holds",
+    "covers": "How Germany beat France in about six weeks in May and June 1940 using fast tank and air attacks, the escape from Dunkirk, and why Britain was not invaded: the Battle of Britain in the air and the sea in between.",
+    "outcome": "You can explain how France, with an army as big as Germany's, lost in six weeks, and why Britain alone did not."
+   },
+   {
+    "n": 4,
+    "title": "Two more houses catch: Russia and America join",
+    "covers": "Germany's invasion of the Soviet Union on 22 June 1941 and the war of extermination that followed, Japan's attack on Pearl Harbor on 7 December 1941, and Hitler's choice to declare war on the United States four days later.",
+    "outcome": "You can explain why 1941 turned a European war into a world war, and why fighting Britain, Russia and America at once put Germany at a disadvantage on paper from that point."
+   },
+   {
+    "n": 5,
+    "title": "The turn: three battles that stopped the spread",
+    "covers": "Midway in June 1942 (Japan loses four aircraft carriers), El Alamein in November 1942 (Germany pushed back in North Africa), and Stalingrad, where a whole German army surrendered on 2 February 1943. Plus the quiet battle under it all: whether supply ships could cross the Atlantic.",
+    "outcome": "You can name the three battles of 1942 and 1943 and say exactly what each one stopped the Axis from doing."
+   },
+   {
+    "n": 6,
+    "title": "Every hose on the street: Europe, 1944 to 1945",
+    "covers": "D-Day on 6 June 1944 in the west, the Soviet advance in the east, the bombing campaign, and why the Allies' factories mattered as much as their soldiers. Ends with Berlin, Hitler's death on 30 April 1945, Germany's surrender on 8 May, and what the camps showed about what the war had been against.",
+    "outcome": "You can describe how Germany was squeezed from two sides in the last 11 months and why its surrender came in May 1945, not earlier or later."
+   },
+   {
+    "n": 7,
+    "title": "Putting out the last fire: Japan, and why the Allies won",
+    "covers": "Island-by-island fighting across the Pacific, the atomic bombs on Hiroshima on 6 August and Nagasaki on 9 August 1945, the Soviet attack on Japan the same week, and the surrender signed on 2 September 1945. Then the whole war in one view: four reasons the Allies won.",
+    "outcome": "You can explain how the war in the Pacific ended and give four concrete reasons the Allies won, each tied to a chapter you have read."
+   }
+  ]
+ },
+ "seconds": 60.59835696220398
+}

@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 2,
+  "title": "Socrates and the habit of asking why",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Picture the dinner table about 2,400 years ago. Most guests are making speeches. One guest, Socrates, never gives a speech. He just turns to whoever spoke last and asks, 'What do you mean by that?' Then he asks it again about the answer. Every philosopher who came after him is, in some way, still answering his questions."
+   },
+   {
+    "type": "teach",
+    "title": "The man who only asked questions",
+    "body": "Socrates lived in Athens, in Greece, and died in 399 BC. He wrote nothing down. Everything we know about him comes from his student Plato, who wrote out his conversations as short plays called dialogues.\n\nHis method was simple. Someone would say they knew what courage, or justice, or goodness was. Socrates would ask them to define it. Then he would find a case where their definition broke, and ask again.\n\nFor example: 'Courage is standing your ground in battle.' Socrates: 'Is a soldier who retreats to win later a coward?' 'No.' 'Then courage is not just standing your ground.' And round again.\n\nThe point was not to win. The point was to show that the other person did not actually know what they thought they knew. Socrates said the only thing he knew was that he knew nothing.\n\nThis bothered powerful people. In 399 BC, Athens put him on trial for not respecting the gods and for corrupting the young. He was found guilty and drank poison, as ordered, rather than flee.\n\nToday people call this the Socratic method. It means: do not accept a belief until you have asked why, and asked why about the answer, until the reasons either hold or run out."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Someone tells Socrates, 'A good friend is someone who always agrees with you.' Which reply is most like Socrates?",
+    "options": [
+     {
+      "id": "a",
+      "text": "'No, a good friend is someone who is honest with you.'"
+     },
+     {
+      "id": "b",
+      "text": "'If your friend agreed you should jump off a cliff, would they be a good friend?'"
+     },
+     {
+      "id": "c",
+      "text": "'That is your opinion, and everyone has their own.'"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's giving a rival definition, not testing theirs: Socrates offered no answer of his own, he only found the case where yours broke.",
+     "c": "That's shrugging, not questioning: Socrates thought definitions could be tested and shown to fail, not just left as opinions."
+    },
+    "reteach": "Socrates never replaced your answer with his. He took your exact words and looked for one case where they gave an answer you would not accept. If 'always agrees' means agreeing to something harmful, the definition breaks on its own. That is the whole move."
+   },
+   {
+    "type": "example",
+    "title": "Five whys on a real belief",
+    "body": "Take the belief 'you should always keep your promises', the claim from this handbook's goal. Why? 'Because people rely on you.' Why does that matter? 'Because trust makes life work.' Why always, then, even a promise to meet for coffee when your child is sick? 'Well, not then.' So the rule is not 'always'? 'I suppose it is: keep promises unless something more important comes up.' Why count of 4, and the belief already changed shape. The fifth why, 'what counts as more important?', is where most people's answers run out."
+   },
+   {
+    "type": "teach",
+    "title": "Where your answers run out",
+    "body": "Notice what happened in that example. Nobody said the belief was false. The questions just showed that the word 'always' was hiding a judgement the speaker had never looked at.\n\nThat spot, where you say 'I suppose' or 'I just feel it', is what Socrates was hunting for. He called the feeling of reaching it being 'at a loss'. He thought it was the start of thinking, not a failure.\n\nThe method has 3 steps you can run alone. State the belief in one sentence. Ask why, and write the reason as another sentence. Repeat until the reason is either a fact you can check, or a plain 'I don't know'. 5 rounds is usually enough.\n\nThis links to chapter 1. Each 'why' asks for the reasons under a claim. Socrates added the habit of asking it of your own claims, repeatedly, in public."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You believe 'hard work always pays off'. You ask why and answer 'because effort gets results'. What is the correct next Socratic step?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Stop. You have given a reason, so the belief is now supported."
+     },
+     {
+      "id": "b",
+      "text": "Ask why again, or test it: 'Does effort get results for someone working hard at the wrong job?'"
+     },
+     {
+      "id": "c",
+      "text": "Replace it with a better belief: 'smart work pays off'."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's stopping at round 1: the method keeps going until the reason is a checkable fact or an honest 'I don't know', and 'effort gets results' is neither yet.",
+     "c": "That's swapping in a new claim, not testing the old one: Socrates stayed with your words until they broke or held."
+    },
+    "reteach": "One reason is not the end. 'Effort gets results' is itself a claim, so it gets its own why. Either you reach something solid, or you find a case where it fails, such as effort in the wrong direction. Both are useful. Stopping early is the only mistake."
+   },
+   {
+    "type": "mistake",
+    "body": "People use the method as a weapon on others and never on themselves. You can spot it when every 'why' in a conversation points outward and the asker's own beliefs are never on the table. Socrates asked others in public, but he also said he knew nothing. The test is honest only when you are willing to be the one who runs out of answers."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What was the point of Socrates asking 'why' over and over?",
+    "options": [
+     {
+      "id": "a",
+      "text": "To prove his own definitions were the right ones."
+     },
+     {
+      "id": "b",
+      "text": "To find the spot where a belief's reasons run out, so the person sees what they do not actually know."
+     },
+     {
+      "id": "c",
+      "text": "To show that all beliefs are just opinions and none is better than another."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a debater, not Socrates: he claimed to know nothing and offered no definitions of his own.",
+     "c": "That's shrugging again: Socrates thought definitions could fail real tests, which only makes sense if some answers are better than others."
+    },
+    "reteach": "Socrates was not trying to win or to declare everything an opinion. He wanted each person to see the exact place where their reasons stopped. Reaching 'I don't know' was, to him, the first honest step toward knowing."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, write one belief you hold in a notes app. Ask 'why?' and type the answer. Repeat 5 times. Mark the line where you first wrote 'I suppose' or 'I just think so'."
+   }
+  ],
+  "outcomeLine": "You can now ask 5 'why' questions in a row about a belief you hold and notice where your answers run out."
+ },
+ "seconds": 50.945980072021484
+}
