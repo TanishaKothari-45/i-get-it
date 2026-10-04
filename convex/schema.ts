@@ -13,6 +13,7 @@ export default defineSchema({
     topicKey: v.string(),         // normalised, for the cache lookup
     level,
     language: v.string(),
+    voice: v.optional(v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"))),
     status: v.union(
       v.literal("planning"),
       v.literal("question"),      // the model asked one clarifying question

@@ -56,7 +56,7 @@ export default function App() {
           question={hb?.question}
           error={hb?.error}
           examples={examples}
-          onCreate={async (topic, level) => { setDraftTopic(topic); await create({ topic, level, deviceToken: token }); setView('auto') }}
+          onCreate={async (topic, level, voice) => { setDraftTopic(topic); await create({ topic, level, voice, deviceToken: token }); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
         />
@@ -92,6 +92,7 @@ export default function App() {
           passed={passed}
           outcomeLine={ch?.outcomeLine ?? plan?.chapters?.[doneN - 1]?.outcome ?? ''}
           nextTitle={plan?.chapters?.[doneN]?.title}
+          nextHook={plan?.chapters?.[doneN]?.hook}
           signedIn={isAuthenticated}
           tomorrowAt={progress?.tomorrowAt}
           onKeep={() => setView('signin')}
@@ -133,6 +134,7 @@ export default function App() {
         current={currentN}
         chapterReady={!!chapterReady}
         chapterFailed={!!chapterFailed}
+        voiceNote={hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
         onStart={() => setView('chapter')}
         onRetry={() => { retry({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }}
         onChangeLine={() => { setDraftTopic(hb.topic); setView('start-again') }}

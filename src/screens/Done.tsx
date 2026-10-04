@@ -9,6 +9,7 @@ type Props = {
   passed: number[]
   outcomeLine: string
   nextTitle?: string
+  nextHook?: string
   signedIn: boolean
   tomorrowAt?: string
   onKeep: () => void
@@ -26,7 +27,7 @@ function pretty(t: string) {
 }
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, signedIn, tomorrowAt, onKeep, onPickTime, onContinue }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue }: Props) {
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
   const last = n >= 7
@@ -37,7 +38,7 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, signedI
       <p className="sub" style={{ marginTop: 10 }}>{topic}</p>
       <h1>Chapter {n} of 7: done.</h1>
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
-      {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.</p>}
+      {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
 
       {signedIn && (

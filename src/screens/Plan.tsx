@@ -12,10 +12,11 @@ type Props = {
   onStart: () => void
   onRetry: () => void
   onChangeLine: () => void
+  voiceNote?: string
 }
 
 // The handbook cover: the plan before the first lesson, so starting isn't skipping levels.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -24,6 +25,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
       <h1 style={{ marginTop: 6 }}>{topic}</h1>
       <p className="outcome">{plan.outcome7}</p>
       {plan.picture && <p className="picture">The one picture for the whole thing: {plan.picture.name.toLowerCase()}. {plan.picture.line}</p>}
+      {voiceNote && <p className="note" style={{ marginBottom: 'var(--m)' }}>{voiceNote}</p>}
 
       <ol className="chapters">
         {plan.chapters.map((c) => {

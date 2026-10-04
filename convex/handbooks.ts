@@ -7,6 +7,8 @@ import type { Doc, Id } from "./_generated/dataModel";
 import { CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
 
+const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
+
 const CHAPTERS = 7;
 const LANGUAGE = "English";
 
@@ -106,7 +108,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   const chapters = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect();
   const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
   return {
-    _id: h._id, topic: h.topic, level: h.level, status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error,
+    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error,
     signedIn: !!h.userId,
     chapters: chapters.sort((a, b) => a.n - b.n).map(publicChapter),
     progress: progress ? {
@@ -162,8 +164,8 @@ export const recallFor = query({
 // ---------- creating a handbook ----------
 
 export const create = mutation({
-  args: { topic: v.string(), level, deviceToken: v.string() },
-  handler: async (ctx, { topic, level: lvl, deviceToken }) => {
+  args: { topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV) },
+  handler: async (ctx, { topic, level: lvl, deviceToken, voice }) => {
     const clean = topic.trim().slice(0, 200);
     if (clean.length < 2) throw new Error("Type a few words first.");
     const userId = await getAuthUserId(ctx);
@@ -173,7 +175,7 @@ export const create = mutation({
     const cached = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
     if (cached) {
       const handbookId = await ctx.db.insert("handbooks", {
-        topic: cached.topic, topicKey, level: lvl, language: LANGUAGE, status: "ready", plan: cached.plan,
+        topic: cached.topic, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "ready", plan: cached.plan,
         ownerToken: deviceToken, userId: userId ?? undefined, source: "cache", createdAt: now,
       });
       for (const ch of cached.chapters) {
@@ -189,7 +191,7 @@ export const create = mutation({
     if (!all.ok || !mine.ok) throw new Error("busy");
 
     const handbookId = await ctx.db.insert("handbooks", {
-      topic: clean, topicKey, level: lvl, language: LANGUAGE, status: "planning",
+      topic: clean, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "planning",
       ownerToken: deviceToken, userId: userId ?? undefined, source: "live", createdAt: now,
     });
     await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
@@ -233,7 +235,7 @@ export const generatePlan = internalAction({
   handler: async (ctx, { handbookId, clarification }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, clarification) });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification) });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: r.error }); return; }
     const plan = r.json;
     if (plan.needsClarification && plan.question && !clarification) {
@@ -255,7 +257,7 @@ export const generateChapter = internalAction({
   handler: async (ctx, { handbookId, n }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h?.plan) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, n) });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n) });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");

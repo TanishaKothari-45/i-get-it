@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import ActionBar from '../components/ActionBar'
 
 type Level = 'new' | 'some'
+type Voice = 'friend' | 'straight' | 'stories'
 type Props = {
   initialTopic?: string
   status: 'idle' | 'writing' | 'question' | 'failed'
   question?: string
   error?: string
-  onCreate: (topic: string, level: Level) => Promise<void>
+  onCreate: (topic: string, level: Level, voice: Voice) => Promise<void>
   onAnswer?: (answer: string) => Promise<void>
   onRetry?: () => Promise<void>
   examples: string[]
@@ -17,6 +18,7 @@ type Props = {
 export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples }: Props) {
   const [topic, setTopic] = useState(initialTopic)
   const [level, setLevel] = useState<Level>('new')
+  const [voice, setVoice] = useState<Voice>('friend')
   const [answer, setAnswer] = useState('')
   const [slow, setSlow] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
@@ -31,7 +33,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const submit = async () => {
     setLocalError(null)
     if (topic.trim().length < 2) { setLocalError('A few words is enough. What is it?'); return }
-    try { await onCreate(topic.trim(), level) } catch (e: any) { setLocalError(friendly(e)) }
+    try { await onCreate(topic.trim(), level, voice) } catch (e: any) { setLocalError(friendly(e)) }
   }
 
   if (status === 'question' && question) {
@@ -71,6 +73,13 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
       <div className="chips" role="group" aria-label="Level">
         <button type="button" className="chip" aria-pressed={level === 'new'} onClick={() => setLevel('new')} disabled={writing}>New to this</button>
         <button type="button" className="chip" aria-pressed={level === 'some'} onClick={() => setLevel('some')} disabled={writing}>Know some</button>
+      </div>
+
+      <p className="sub" style={{ marginTop: 'var(--l)', marginBottom: 6 }}>How should it talk to you?</p>
+      <div className="chips" role="group" aria-label="Voice">
+        <button type="button" className="chip" aria-pressed={voice === 'friend'} onClick={() => setVoice('friend')} disabled={writing}>Like a friend</button>
+        <button type="button" className="chip" aria-pressed={voice === 'straight'} onClick={() => setVoice('straight')} disabled={writing}>Straight</button>
+        <button type="button" className="chip" aria-pressed={voice === 'stories'} onClick={() => setVoice('stories')} disabled={writing}>Stories</button>
       </div>
 
       {(localError || (status === 'failed' && topic.trim() === initialTopic.trim())) && (
