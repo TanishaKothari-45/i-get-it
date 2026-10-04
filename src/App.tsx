@@ -27,6 +27,7 @@ export default function App() {
   const plansData = useQuery(api.pricing.plans, { deviceToken: token })
   const lockPrice = useMutation(api.pricing.lockPrice)
   const [afterSignIn, setAfterSignIn] = useState<View>('done')
+  const [flash, setFlash] = useState<string | null>(null)
   const examples = useQuery(api.handbooks.cachedTopics, {}) ?? []
   const create = useMutation(api.handbooks.create)
   const answerQuestion = useMutation(api.handbooks.answerQuestion)
@@ -63,8 +64,15 @@ export default function App() {
   const recall = useQuery(api.handbooks.recallFor, hb && passed.length > 0 && progress?.currentCard === 0 ? { handbookId: hb._id, deviceToken: token } : 'skip') ?? []
 
   // After sign-in, the anonymous night attaches to the person.
-  useEffect(() => { if (isAuthenticated) attachToMe({ deviceToken: token }).catch(() => {}) }, [isAuthenticated, attachToMe, token])
+  // Merge runs only once the sign-in has reached the server (calling it straight after signIn races the new token).
+  useEffect(() => {
+    if (!isAuthenticated) return
+    attachToMe({ deviceToken: token })
+      .then((r) => { if (r && (r.attached > 0 || r.hidden > 0)) setFlash(`Signed in. ${r.attached} handbook${r.attached === 1 ? '' : 's'} from this device ${r.attached === 1 ? 'is' : 'are'} now in your account, with your settings.${r.hidden ? ' A topic you had on another device too now shows once, the copy with more progress.' : ''}`) })
+      .catch(() => {})
+  }, [isAuthenticated, attachToMe, token])
   useEffect(() => { window.scrollTo({ top: 0 }) }, [view, hb?._id])
+  useEffect(() => { if (view !== 'auto' && view !== 'plan') setFlash(null) }, [view])
   // Pick up newer cached chapters for anything not started yet (the cache improves over the sprint).
   useEffect(() => { if (hb?._id && hb.status === 'ready') syncFromCache({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }, [hb?._id, hb?.status, syncFromCache, token])
 
@@ -103,7 +111,7 @@ export default function App() {
           question={hb?.question}
           error={hb?.error}
           examples={examples}
-          onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }}
+          onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
         />
@@ -161,7 +169,7 @@ export default function App() {
   if (resolved === 'signin') {
     return (
       <Shell rail={rail} back={{ label: 'Back', onClick: () => setView(afterSignIn) }}>
-        <SignIn onDone={async () => { await attachToMe({ deviceToken: token }); setView(afterSignIn) }} onBack={() => setView(afterSignIn)} />
+        <SignIn onDone={async () => { setView(afterSignIn === 'done' && !doneN ? 'plan' : afterSignIn) }} onBack={() => setView(afterSignIn)} />
       </Shell>
     )
   }
@@ -224,7 +232,7 @@ export default function App() {
         current={currentN}
         chapterReady={!!chapterReady}
         chapterFailed={!!chapterFailed}
-        voiceNote={(chapter as any)?.stale ? 'You changed how you want to be taught after this chapter was written. Tap start and it gets rewritten for you first, about 30 seconds.' : hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
+        voiceNote={flash ? flash : (chapter as any)?.stale ? 'You changed how you want to be taught after this chapter was written. Tap start and it gets rewritten for you first, about 30 seconds.' : hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
         onStart={() => { if ((chapter as any)?.stale) { refreshIfStale({ handbookId: hb._id, n: currentN, deviceToken: token }).catch(() => {}) ; return } setView('chapter') }}
         onTune={() => setView('tune')}
         onCompare={!tester ? undefined : () => { if (chapter?.variants?.length) { setView('compare'); return } compareModels({ handbookId: hb._id, n: currentN, deviceToken: token }).then(() => setView('compare')).catch(() => {}) }}

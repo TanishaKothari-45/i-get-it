@@ -26,6 +26,7 @@ export default defineSchema({
     userId: v.optional(v.id("users")),
     source: v.union(v.literal("live"), v.literal("cache")),
     error: v.optional(v.string()),
+    hiddenAt: v.optional(v.number()),   // a duplicate topic found when two devices merged at sign-in; kept, not deleted
     createdAt: v.number(),
   })
     .index("by_token", ["ownerToken"])

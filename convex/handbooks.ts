@@ -124,11 +124,16 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
 
 // ---------- queries ----------
 
-async function mine(ctx: QueryCtx, userId: Id<"users"> | null, deviceToken?: string) {
+async function ownedBooks(ctx: QueryCtx | MutationCtx, userId: Id<"users"> | null, deviceToken?: string) {
   const out = new Map<string, Doc<"handbooks">>();
   if (userId) for (const h of await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).collect()) out.set(h._id, h);
   if (deviceToken) for (const h of await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).collect()) out.set(h._id, h);
-  return [...out.values()];
+  return [...out.values()].filter((h) => !h.hiddenAt);
+}
+
+async function passedCount(ctx: QueryCtx | MutationCtx, handbookId: Id<"handbooks">) {
+  const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+  return (p?.chaptersPassed.length ?? 0) * 100 + (p?.currentCard ?? 0);
 }
 
 // Every handbook this person has, newest activity first, for the library.
@@ -137,7 +142,7 @@ export const library = query({
   handler: async (ctx, { deviceToken }) => {
     const userId = await getAuthUserId(ctx);
     const rows = [];
-    for (const h of await mine(ctx, userId, deviceToken)) {
+    for (const h of await ownedBooks(ctx, userId, deviceToken)) {
       const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
       rows.push({ _id: h._id, topic: (h.plan as any)?.topic ?? h.topic, status: h.status, passed: p?.chaptersPassed.length ?? 0, current: p?.currentChapter ?? 1, lastAt: p?.updatedAt ?? h.createdAt, outcome: (h.plan as any)?.outcome7 ?? null });
     }
@@ -153,9 +158,8 @@ export const current = query({
       const pinned = await ctx.db.get(handbookId);
       if (pinned && owns(pinned, { userId, deviceToken })) return { userId, handbook: await fullView(ctx, pinned) };
     }
-    let h: Doc<"handbooks"> | null = null;
-    if (userId) h = await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).order("desc").first();
-    if (!h && deviceToken) h = await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).order("desc").first();
+    const all = await ownedBooks(ctx, userId, deviceToken);
+    const h: Doc<"handbooks"> | null = all.sort((a, b) => b.createdAt - a.createdAt)[0] ?? null;
     return { userId, handbook: h ? await fullView(ctx, h) : null };
   },
 });
@@ -202,6 +206,12 @@ export const create = mutation({
     const now = Date.now();
 
     const cached = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
+
+    // One handbook per topic per person: typing a topic you've already started opens it where you left off.
+    const already = (await ownedBooks(ctx, userId, deviceToken)).find((h) =>
+      h.topicKey === topicKey || (cached && h.source === "cache" && h.topic === cached.topic));
+    if (already) return { handbookId: already._id, fromCache: already.source === "cache", existing: true };
+
     if (cached) {
       const handbookId = await ctx.db.insert("handbooks", {
         topic: cached.topic, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "ready", plan: cached.plan,
@@ -211,7 +221,7 @@ export const create = mutation({
         await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: ch.svg, cacheVersion: cached.version ?? 0, createdAt: now });
       }
       await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
-      return { handbookId, fromCache: true };
+      return { handbookId, fromCache: true, existing: false };
     }
 
     // Live generation: the caps are checked here, in the kitchen.
@@ -225,7 +235,7 @@ export const create = mutation({
     });
     await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
-    return { handbookId, fromCache: false };
+    return { handbookId, fromCache: false, existing: false };
   },
 });
 
@@ -430,9 +440,34 @@ export const attachToMe = mutation({
   handler: async (ctx, { deviceToken }) => {
     const userId = await getAuthUserId(ctx);
     if (!userId) throw new Error("Sign in first");
-    const mine = await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).collect();
-    for (const h of mine) if (!h.userId) await ctx.db.patch(h._id, { userId });
-    return mine.length;
+    // 1. Handbooks and their progress. If the account already has the same topic from another device,
+    //    keep the copy with more progress visible and hide the other (kept, not deleted).
+    const accountBooks = (await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).collect()).filter((h) => !h.hiddenAt);
+    const deviceBooks = (await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).collect()).filter((h) => !h.hiddenAt && !h.userId);
+    let attached = 0, hidden = 0;
+    for (const h of deviceBooks) {
+      await ctx.db.patch(h._id, { userId }); attached++;
+      const twin = accountBooks.find((a) => a._id !== h._id && (a.topicKey === h.topicKey || (a.source === "cache" && h.source === "cache" && a.topic === h.topic)));
+      if (twin) {
+        const loser = (await passedCount(ctx, h._id)) >= (await passedCount(ctx, twin._id)) ? twin : h;
+        await ctx.db.patch(loser._id, { hiddenAt: Date.now() }); hidden++;
+      }
+    }
+    // 2. "Make it yours" settings: the account keeps whichever was saved most recently.
+    const deviceProfile = await ctx.db.query("profiles").withIndex("by_device", (q) => q.eq("deviceToken", deviceToken)).unique();
+    const accountProfile = await ctx.db.query("profiles").withIndex("by_user", (q) => q.eq("userId", userId)).unique();
+    if (deviceProfile && !deviceProfile.userId) {
+      if (!accountProfile) await ctx.db.patch(deviceProfile._id, { userId });
+      else if (deviceProfile.updatedAt > accountProfile.updatedAt) {
+        const { _id, _creationTime, userId: _u, deviceToken: _d, ...fields } = deviceProfile;
+        await ctx.db.patch(accountProfile._id, { ...fields, preferredModel: fields.preferredModel ?? accountProfile.preferredModel });
+      }
+    }
+    // 3. The price spot: the earliest one wins.
+    const deviceIntent = await ctx.db.query("priceIntents").withIndex("by_device", (q) => q.eq("deviceToken", deviceToken)).first();
+    const accountIntent = await ctx.db.query("priceIntents").withIndex("by_user", (q) => q.eq("userId", userId)).first();
+    if (deviceIntent && !deviceIntent.userId && !accountIntent) await ctx.db.patch(deviceIntent._id, { userId });
+    return { attached, hidden };
   },
 });
 
