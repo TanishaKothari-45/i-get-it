@@ -14,7 +14,7 @@ type Props = {
 }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, error, onCreate, onAnswer, onRetry, examples }: Props) {
+export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples }: Props) {
   const [topic, setTopic] = useState(initialTopic)
   const [level, setLevel] = useState<Level>('new')
   const [answer, setAnswer] = useState('')
@@ -73,8 +73,8 @@ export default function Start({ initialTopic = '', status, question, error, onCr
         <button type="button" className="chip" aria-pressed={level === 'some'} onClick={() => setLevel('some')} disabled={writing}>Know some</button>
       </div>
 
-      {(localError || status === 'failed') && (
-        <p className="error">{localError ?? "Couldn't write it just now. Your line is still here; try once more in a minute."}{error ? '' : ''}</p>
+      {(localError || (status === 'failed' && topic.trim() === initialTopic.trim())) && (
+        <p className="error">{localError ?? "Couldn't write it just now. Your line is still here; try once more in a minute, or pick one of tonight's ready handbooks."}</p>
       )}
 
       <ActionBar busy={writing} note={writing && slow ? 'About 30 seconds. Seven chapters take a moment to plan.' : undefined}>
