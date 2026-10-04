@@ -16,114 +16,116 @@
     "title": "The bell that starts the line",
     "covers": "Every workflow begins with a trigger, the one event that wakes it up: a time of day, a form being submitted, or an app sending a signal. You set up n8n, build a workflow with a Schedule Trigger, and run it by hand.",
     "outcome": "You can build a workflow that wakes up on a schedule and does one visible thing, like sending yourself a message.",
-    "hook": "Every n8n automation, however big, is the same 2 moves you make in this chapter."
+    "hook": "Every automation you have ever used is three parts. You will build all three in 10 minutes."
    },
    {
     "n": 2,
     "title": "Stations and the belt",
     "covers": "Each box in n8n is a node, a station that does one job. Data travels between them as items, small packets of named fields. You chain three nodes and read the output panel to see what each one passes on.",
     "outcome": "You can connect three nodes in a row and read exactly what each station hands to the next.",
-    "hook": "A workflow you have to click is just a slower version of you."
+    "hook": "A workflow that never starts does nothing. Which of 4 starters does your task need?"
    },
    {
     "n": 3,
     "title": "Plugging in your work apps",
     "covers": "To use Gmail, Google Sheets, Slack or similar, n8n needs credentials, a saved permission to act as you. You connect one app you use at work and read from it or write to it.",
     "outcome": "You can connect one work app to n8n and make it add a row or send a message.",
-    "hook": "You log in once; n8n remembers it for every workflow after that. Here's where that lives."
+    "hook": "The box labelled 'name' and the box labelled 'Name' are different. This chapter stops that bug."
    },
    {
     "n": 4,
     "title": "Passing parts between stations",
     "covers": "An expression, written between double curly braces, pulls a field from an earlier node into a later one. You use the Edit Fields node to rename and tidy data before it reaches an app.",
     "outcome": "You can take a name from step 1 and put it into a message sent in step 3.",
-    "hook": "Send 1 message to 50 people and n8n ran that node 50 times. Why that matters."
+    "hook": "n8n has over 400 ready-made connections. Yours take about 4 minutes each to set up."
    },
    {
     "n": 5,
     "title": "Sorting items down two belts",
     "covers": "The IF node checks a value and sends items down a true path or a false path. The Filter node drops items you do not want. You build a workflow that treats urgent and normal items differently.",
     "outcome": "You can route items down two different paths based on one field's value.",
-    "hook": "Most 'this automation is useless' complaints come from one missing IF node."
+    "hook": "What should happen to the one email out of 30 that says 'urgent'? Nothing, unless you say so."
    },
    {
     "n": 6,
     "title": "When a station jams",
     "covers": "The Executions list shows every run, with the failing node marked in red. You read error messages, re-run with the same data, and set a workflow to retry or alert you on failure.",
     "outcome": "You can find which node failed, read why, and fix it without rebuilding the workflow.",
-    "hook": "n8n has hundreds of app nodes. The one node that replaces all of them is here."
+    "hook": "One template line can write 100 personalised messages. Here is the 12-character trick behind it."
    },
    {
     "n": 7,
     "title": "Switching the line on for real",
     "covers": "The Active toggle makes a workflow run without you. You pick one real repetitive task from your job, build it end to end, name every node clearly, and check it the next morning.",
     "outcome": "You can turn on one workflow that handles a real task at your job and know where to check that it ran.",
-    "hook": "The workflow that worked on Tuesday will fail on Thursday. Here's how you'll know."
+    "hook": "Most workflows fail silently in week 2. One extra node means you hear about it first."
    }
-  ]
+  ],
+  "sources": []
  },
- "seconds": 58.352028131484985,
+ "seconds": 79.57261395454407,
  "hooksFrom": {
   "needsClarification": false,
   "question": null,
-  "topic": "n8n workflow automation",
-  "outcome7": "By day 7 you'll be able to build, test and switch on an n8n workflow that runs on a schedule, reads rows from a Google Sheet, uses an IF node to decide what to do with each row, sends the result to Slack or email, and read the executions log to find and fix the step that broke.",
-  "horizon14": "Later, around day 14: you could rebuild one repetitive task from your actual job as a workflow and let it run for a week unattended.",
-  "horizon28": "Later, around day 28: you could chain 3 or 4 of your work tools together with an HTTP Request node and a webhook, and hand the workflow to a colleague with notes.",
+  "topic": "n8n automations for work",
+  "outcome7": "By day 7 you'll be able to build, test and switch on one real workflow for your job: a trigger (a form, a schedule or a new email) that reads data, filters it with an IF step, and posts a formatted message to Slack or a spreadsheet, with an error alert if it fails.",
+  "horizon14": "Later: three workflows running unattended, one pulling from a service that has no ready-made n8n block, using a plain web request.",
+  "horizon28": "Later: a small 'automation menu' for your team, each workflow documented and owned, replacing 2 to 3 hours of weekly copy-paste.",
   "picture": {
-   "name": "A conveyor belt",
-   "line": "An n8n workflow is a conveyor belt: a trigger presses the start button, each node is a station that does one job to every item rolling past, and the output panel is a window onto the belt."
+   "name": "a conveyor belt",
+   "line": "An n8n workflow is a factory conveyor belt: something drops on at the start, each station does one job to it, and the finished item rolls off the end."
   },
   "chapters": [
    {
     "n": 1,
-    "title": "Your first belt: trigger, node, output",
-    "covers": "What a workflow is, the editor screen, running a Manual Trigger into an Edit Fields node and reading the output panel on the right.",
-    "outcome": "You can build a 2-node workflow, run it, and point to exactly what came out of each node.",
-    "hook": "Every n8n automation, however big, is the same 2 moves you make in this chapter."
+    "title": "What a workflow actually is",
+    "covers": "Trigger, nodes and the data that flows between them; building a 3-node belt that runs when you press a button.",
+    "outcome": "You can build and run a 3-node workflow from a blank canvas and read what each node received and sent.",
+    "hook": "Every automation you have ever used is three parts. You will build all three in 10 minutes."
    },
    {
     "n": 2,
-    "title": "Start buttons that press themselves",
-    "covers": "Triggers: the Schedule Trigger for 'every weekday at 9', the Form Trigger for a simple web form, and what 'Active' actually switches on.",
-    "outcome": "You can make a workflow that runs itself at a set time without you opening n8n.",
-    "hook": "A workflow you have to click is just a slower version of you."
+    "title": "Triggers: what starts the belt",
+    "covers": "The 4 trigger types you'll use most (manual, schedule, form, webhook) and how to pick one for a real task.",
+    "outcome": "You can choose the right trigger for a task and set a schedule that fires at 8am on weekdays.",
+    "hook": "A workflow that never starts does nothing. Which of 4 starters does your task need?"
    },
    {
     "n": 3,
-    "title": "Plugging in your own apps",
-    "covers": "Credentials (saved logins n8n reuses), connecting Google Sheets and Gmail or Slack, and reading rows from a real sheet into the belt.",
-    "outcome": "You can connect one app you use at work and pull its data into a workflow.",
-    "hook": "You log in once; n8n remembers it for every workflow after that. Here's where that lives."
+    "title": "Reading the data at each station",
+    "covers": "The items-and-fields view, how to spot field names, and why one run can carry 50 items at once.",
+    "outcome": "You can open any node's output, name the field you want, and drag it into the next node.",
+    "hook": "The box labelled 'name' and the box labelled 'Name' are different. This chapter stops that bug."
    },
    {
     "n": 4,
-    "title": "Items and fields: what's on the belt",
-    "covers": "Why one node runs once per row, where the data sits, and expressions ({{ }} brackets) that drop a value from an earlier node into a message.",
-    "outcome": "You can write a Slack or email message that fills in a name and a number from the sheet row.",
-    "hook": "Send 1 message to 50 people and n8n ran that node 50 times. Why that matters."
+    "title": "Connecting your real tools",
+    "covers": "Credentials (saved logins n8n keeps for you), connecting Gmail or Google Sheets and Slack, and a safe test send.",
+    "outcome": "You can connect two tools you use at work and move one row of data from one to the other.",
+    "hook": "n8n has over 400 ready-made connections. Yours take about 4 minutes each to set up."
    },
    {
     "n": 5,
-    "title": "Teaching the belt to decide",
-    "covers": "The IF node for yes/no splits, the Filter node to drop items, and the Switch node when there are more than 2 routes.",
-    "outcome": "You can route each row down a different path based on a value in it.",
-    "hook": "Most 'this automation is useless' complaints come from one missing IF node."
+    "title": "Making decisions mid-belt",
+    "covers": "The IF and Filter nodes, comparing fields, and sending different items down different paths.",
+    "outcome": "You can route urgent items one way and the rest another way, based on a field's value.",
+    "hook": "What should happen to the one email out of 30 that says 'urgent'? Nothing, unless you say so."
    },
    {
     "n": 6,
-    "title": "When there's no node for your tool",
-    "covers": "The HTTP Request node (a direct call to any service's API), where API keys go, and the Webhook Trigger so other tools can start your belt.",
-    "outcome": "You can call a service that has no built-in n8n node and use what it sends back.",
-    "hook": "n8n has hundreds of app nodes. The one node that replaces all of them is here."
+    "title": "Shaping the output",
+    "covers": "The Edit Fields (Set) node and expressions: small bits of text in double curly braces that pull data into messages.",
+    "outcome": "You can write one message that fills itself in with the sender, date and subject from the incoming data.",
+    "hook": "One template line can write 100 personalised messages. Here is the 12-character trick behind it."
    },
    {
     "n": 7,
-    "title": "Keeping it running when you're not watching",
-    "covers": "The Executions list, reading a red failed node, pinning test data, retry settings on a node, and an Error Trigger that messages you when something breaks.",
-    "outcome": "You can open a failed run, find the node that broke and why, fix it, and get told next time.",
-    "hook": "The workflow that worked on Tuesday will fail on Thursday. Here's how you'll know."
+    "title": "Switching it on and keeping it alive",
+    "covers": "Activating a workflow, reading the executions log, an error workflow that alerts you, and what to check when a run fails.",
+    "outcome": "You can activate a workflow, find why a run failed, and get a message when something breaks.",
+    "hook": "Most workflows fail silently in week 2. One extra node means you hear about it first."
    }
-  ]
+  ],
+  "sources": []
  }
 }

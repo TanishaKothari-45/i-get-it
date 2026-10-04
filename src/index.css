@@ -193,3 +193,8 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .rail .rail-links .quiet, .rail .rail-links .back-link { text-align: left; padding: 4px 0; }
 .kbd-hint { color: var(--ink-2); font-size: var(--small); margin-top: var(--s); display: none; }
 @media (min-width: 900px) { .kbd-hint { display: block; } }
+.watch { display: flex; flex-direction: column; gap: 4px; border: 1.5px solid var(--ink); border-radius: var(--radius); padding: var(--m); text-decoration: none; color: var(--ink); margin-top: var(--m); }
+.watch:hover { background: var(--paper-2); }
+.watch-who { font-weight: 700; }
+.watch-what { font-family: var(--serif); font-size: var(--body); }
+.watch-go { color: var(--ink-2); font-size: var(--small); margin-top: 6px; }

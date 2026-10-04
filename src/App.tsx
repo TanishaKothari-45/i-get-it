@@ -32,6 +32,7 @@ export default function App() {
   const refreshIfStale = useMutation(api.handbooks.refreshIfStale)
   const compareModels = useMutation(api.handbooks.compareModels)
   const voteModel = useMutation(api.handbooks.voteModel)
+  const syncFromCache = useMutation(api.handbooks.syncFromCache)
   const profile = useQuery(api.handbooks.myProfile, { deviceToken: token })
 
   const [view, setView] = useState<View>('auto')
@@ -48,6 +49,8 @@ export default function App() {
   // After sign-in, the anonymous night attaches to the person.
   useEffect(() => { if (isAuthenticated) attachToMe({ deviceToken: token }).catch(() => {}) }, [isAuthenticated, attachToMe, token])
   useEffect(() => { window.scrollTo({ top: 0 }) }, [view, hb?._id])
+  // Pick up newer cached chapters for anything not started yet (the cache improves over the sprint).
+  useEffect(() => { if (hb?._id && hb.status === 'ready') syncFromCache({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }, [hb?._id, hb?.status, syncFromCache, token])
 
   if (data === undefined) return <Shell><div className="splash">Opening your handbook…</div></Shell>
 

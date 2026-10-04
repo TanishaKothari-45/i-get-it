@@ -40,6 +40,7 @@ export default defineSchema({
     variants: v.optional(v.any()),            // masked model comparison: [{ key: "A", model, title, cards, outcomeLine }]
     vote: v.optional(v.string()),             // "A" | "B" | "C" once the person has chosen
     svg: v.optional(v.string()),
+    cacheVersion: v.optional(v.number()),
     title: v.optional(v.string()),
     cards: v.optional(v.any()),   // array of cards, exercises include answer/whyNot/reteach (never sent raw to the client)
     outcomeLine: v.optional(v.string()),
@@ -126,5 +127,6 @@ export default defineSchema({
     topic: v.string(),
     plan: v.any(),
     chapters: v.array(v.any()),   // chapter objects for n = 1..k
+    version: v.optional(v.number()),
   }).index("by_key", ["topicKey", "level"]),
 });

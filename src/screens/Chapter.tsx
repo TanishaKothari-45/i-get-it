@@ -7,6 +7,7 @@ import Illustration from '../components/Illustration'
 
 export type Card =
   | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number }
+  | { type: 'watch'; who: string; what: string; url: string; from?: string; minutes?: number; watchFor: string }
   | { type: 'exercise'; kind: 'guess' | 'apply' | 'recall'; prompt: string; options: { id: string; text: string }[] }
 
 export type AnswerResult =
@@ -33,6 +34,12 @@ type Props = {
 }
 
 // The card stack: teaching cards and exercises, one at a time.
+// Only http(s) links from the known hosts reach the page; anything else is dropped.
+function safeUrl(u: string): string {
+  try { const x = new URL(u); if ((x.protocol === 'https:' || x.protocol === 'http:') && /(^|\.)(ted\.com|youtube\.com|youtu\.be|ocw\.mit\.edu|archive\.org|hbr\.org|duarte\.com|mattabrahams\.com|juliantreasure\.com)$/.test(x.hostname)) return x.toString() } catch {}
+  return '#'
+}
+
 export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, onExit }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
@@ -106,7 +113,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
     finally { setFinishing(false) }
   }
 
-  const teaching = item.card.type !== 'exercise' ? item.card : null
+  const teaching = item.card.type !== 'exercise' && item.card.type !== 'watch' ? item.card : null
   const showingSimpler = !!teaching && !!teaching.simpler && simple && !showOriginal
   useEffect(() => { if (rewriting === key && teaching?.simpler) { setRewriting(null); setSimple(true); setShowOriginal(false); try { localStorage.setItem('igetit.simple', '1') } catch {} } }, [teaching?.simpler, rewriting, key])
   useEffect(() => { if (rewriting === key && teaching?.simplerFailedAt) { setRewriting(null); setRewriteError("Can't rewrite this one right now. Try again in a minute.") } }, [teaching?.simplerFailedAt, rewriting, key])
@@ -136,7 +143,17 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
       </p>
 
       <div className={`card ${item.card.type}-card`} key={`${key}-${item.recall ? 'r' : 'c'}`}>
-        {item.card.type !== 'exercise' ? (
+        {item.card.type === 'watch' ? (
+          <>
+            <p className="kicker">Watch, {item.card.minutes ? `${item.card.minutes} min` : 'a few minutes'}</p>
+            <a className="watch" href={safeUrl(item.card.url)} target="_blank" rel="noopener noreferrer">
+              <span className="watch-who">{item.card.who}</span>
+              <span className="watch-what">{item.card.what}{item.card.from ? ` · from ${item.card.from}` : ''}</span>
+              <span className="watch-go">Open in a new tab →</span>
+            </a>
+            <p className="serif" style={{ marginTop: 'var(--m)' }}><strong>Watch for:</strong> {item.card.watchFor}</p>
+          </>
+        ) : item.card.type !== 'exercise' ? (
           <>
             {item.card.type === 'picture' && i === firstChapterItem && <h1 style={{ marginBottom: 6 }}>{title}</h1>}
             {item.card.type === 'picture' && <Illustration svg={svg} />}

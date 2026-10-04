@@ -16,113 +16,137 @@
     "title": "The one equation",
     "covers": "Own minus owe equals yours: assets, liabilities and equity, and why the two sides of the sheet always add up to the same number.",
     "outcome": "You can take any balance sheet, find the three totals, and show that what it owns equals what it owes plus what belongs to the owners.",
-    "hook": "A balance sheet always balances. That is less reassuring than it sounds."
+    "hook": "Every balance sheet ever written adds up to the same equation. Why can it never be off by a cent?"
    },
    {
     "n": 2,
     "title": "A photo, not a film",
     "covers": "A balance sheet shows one day, not a year; where the date sits, how it differs from an income statement, and why two dates side by side matter.",
     "outcome": "You can say which day a balance sheet describes and explain why it cannot tell you how much the company earned.",
-    "hook": "Why does cash sit at the top of the page and the factory at the bottom?"
+    "hook": "Assets are listed in a strict order, and the order tells you how fast each one turns into cash."
    },
    {
     "n": 3,
     "title": "What it owns: assets, fast and slow",
     "covers": "Current assets that turn to cash within 12 months (cash, stock, bills customers owe) versus long-term ones (buildings, machines, brands bought from others).",
     "outcome": "You can sort every asset line into fast or slow and name the two or three biggest things the company owns.",
-    "hook": "A company can have millions in the bank and still miss next month's payroll."
+    "hook": "A company can owe billions and be perfectly healthy. What matters is when the bills come due."
    },
    {
     "n": 4,
     "title": "What it owes: debts, soon and later",
     "covers": "Current liabilities due within 12 months (supplier bills, short-term loans, taxes) versus long-term debt, and reading the amounts and due dates.",
     "outcome": "You can list what the company must pay in the next 12 months and what it can pay later, and name who it owes.",
-    "hook": "Billions in retained earnings can sit right beside an almost empty bank account."
+    "hook": "Some well-known companies have negative equity. Can a business be worth less than nothing and still run?"
    },
    {
     "n": 5,
     "title": "What is left: the owners' share",
     "covers": "Equity as money the owners put in plus profit kept over the years, why it can shrink or go negative, and why it is not the same as what the company is worth.",
     "outcome": "You can explain where the equity number came from and say whether past profits were kept or paid out.",
-    "hook": "The most important thing on the page is a date, and most people skip it."
+    "hook": "Profitable companies go bust every year. The balance sheet shows the reason before it happens."
    },
    {
     "n": 6,
     "title": "Three checks in five minutes",
     "covers": "Three quick comparisons: current assets against current liabilities, total debt against equity, and cash against short-term debt; what a healthy and an unhealthy number looks like.",
     "outcome": "You can run the three checks on a real balance sheet and say in one sentence whether the company can pay its bills this year.",
-    "hook": "Two subtractions and one division tell you if a company can pay its bills."
+    "hook": "Two companies, same assets, same profits. One is a safe bet and one is a gamble. Which line tells you?"
    },
    {
     "n": 7,
     "title": "Reading a real one, start to finish",
     "covers": "A full walk through a published balance sheet from a listed company: the order of lines, the footnotes, the odd items, and the three warning signs to look for.",
     "outcome": "You can read a real published balance sheet in 20 minutes and tell someone else what the company owns, owes, and whether anything worries you.",
-    "hook": "The most valuable thing many companies own is nowhere on the page."
+    "hook": "The last column, last year's numbers, is the most useful one on the page. Here is why."
+   }
+  ],
+  "sources": [
+   {
+    "who": "Benjamin Graham and Spencer B. Meredith",
+    "what": "The Interpretation of Financial Statements",
+    "why": "the plain-words method for reading each line of a balance sheet"
+   },
+   {
+    "who": "Karen Berman and Joe Knight",
+    "what": "Financial Intelligence",
+    "why": "the idea that financial statements are a story non-finance people can read"
    }
   ]
  },
- "seconds": 67.17292308807373,
+ "seconds": 52.733845949172974,
  "hooksFrom": {
   "needsClarification": false,
   "question": null,
   "topic": "Reading a balance sheet",
-  "outcome7": "By day 7 you'll be able to open any public company's balance sheet, say in plain words what each line means, and answer three questions from it: what the company owns, what it owes, and whether it can pay its bills in the next 12 months.",
-  "horizon14": "Later: put two companies from the same industry side by side and say which one carries more debt, and why that matters.",
-  "horizon28": "Later still: read the balance sheet next to the income statement and cash flow statement and notice when the three tell different stories.",
+  "outcome7": "By day 7 you'll be able to open any company's balance sheet, say in one sentence what it owns, what it owes and what is left for the owners, check that the two sides match, and spot 3 warning signs: too little cash, too much short-term debt, and shrinking owner's equity.",
+  "horizon14": "Later, by day 14, you could compare two companies in the same industry and say which one is on firmer ground.",
+  "horizon28": "Later, by day 28, you could read a balance sheet alongside the income statement and cash flow statement and tell a joined-up story.",
   "picture": {
-   "name": "A family's money on one day",
-   "line": "A balance sheet is a photo of one family's finances taken on a single day: the house and the savings on one side, the mortgage and the credit card on the other, and whatever is left is truly theirs."
+   "name": "A house with a mortgage",
+   "line": "A balance sheet is a snapshot of a house: what the house and everything in it is worth, how much is still owed to the bank, and how much is truly yours."
   },
   "chapters": [
    {
     "n": 1,
-    "title": "The one sentence the whole page obeys",
-    "covers": "What you own, minus what you owe, is what's yours. Why the two sides always add up to the same number, using a family with a house, a car, savings and a mortgage.",
-    "outcome": "You can sort 10 everyday items into own, owe or yours, and explain why both sides of a balance sheet always match.",
-    "hook": "A balance sheet always balances. That is less reassuring than it sounds."
+    "title": "The one equation",
+    "covers": "Assets = Liabilities + Equity: what you own equals what you owe plus what is yours, and why both sides always match.",
+    "outcome": "You can take any balance sheet, find the two totals, and explain in plain words why they are equal.",
+    "hook": "Every balance sheet ever written adds up to the same equation. Why can it never be off by a cent?"
    },
    {
     "n": 2,
-    "title": "What the company owns, top to bottom",
-    "covers": "The assets side: cash, money customers still owe, stock on shelves, buildings and machines. Why the list runs from easiest-to-spend at the top to hardest-to-sell at the bottom, and what 'current' means (turns into cash within 12 months).",
-    "outcome": "You can read the assets side of a real balance sheet and say which items could become cash within a year and which could not.",
-    "hook": "Why does cash sit at the top of the page and the factory at the bottom?"
+    "title": "What the company owns",
+    "covers": "The assets side: cash, money customers owe, stock on shelves, buildings and machines, and the order they are listed in.",
+    "outcome": "You can read the assets list top to bottom and say which items could turn into cash within a year.",
+    "hook": "Assets are listed in a strict order, and the order tells you how fast each one turns into cash."
    },
    {
     "n": 3,
-    "title": "What the company owes, and when",
-    "covers": "The liabilities side: unpaid supplier bills, wages owed, short-term loans, long-term loans. The one split that matters most: what is due within 12 months versus later. The family version: this month's credit card bill versus the 25-year mortgage.",
-    "outcome": "You can find the total a company must pay within 12 months and compare it to the cash and near-cash it has.",
-    "hook": "A company can have millions in the bank and still miss next month's payroll."
+    "title": "What the company owes",
+    "covers": "The liabilities side: bills due soon, loans due in years, and the difference between the two.",
+    "outcome": "You can split a company's debts into due-within-a-year and due-later, and say which pile matters most right now.",
+    "hook": "A company can owe billions and be perfectly healthy. What matters is when the bills come due."
    },
    {
     "n": 4,
-    "title": "What's left: the owners' slice",
-    "covers": "Equity: money the owners put in, plus profits kept back over the years. Why 'retained earnings' is a running tally, not a pile of cash. The family version: the house is worth 400, the mortgage is 300, so the family's slice is 100, even though they hold no 100 in hand.",
-    "outcome": "You can explain what equity is, where it comes from, and why a large equity number does not mean the company has that money available.",
-    "hook": "Billions in retained earnings can sit right beside an almost empty bank account."
+    "title": "What is left for the owners",
+    "covers": "Equity: the money owners put in plus profits kept over the years, and what it means when it shrinks or goes negative.",
+    "outcome": "You can find equity on a balance sheet and explain where it came from and whether it grew or shrank since last year.",
+    "hook": "Some well-known companies have negative equity. Can a business be worth less than nothing and still run?"
    },
    {
     "n": 5,
-    "title": "Reading a real one, line by line",
-    "covers": "Open an actual public company's balance sheet from its annual report. The date at the top, the two columns (this year and last year), the units line (thousands or millions), the subtotals, and the footnote references. Walk the whole page once, slowly.",
-    "outcome": "You can take an unfamiliar balance sheet and walk it top to bottom, naming each section and reading the units correctly.",
-    "hook": "The most important thing on the page is a date, and most people skip it."
+    "title": "Can it pay its bills?",
+    "covers": "Comparing cash and near-cash to bills due soon, using one ratio: current assets divided by current liabilities.",
+    "outcome": "You can calculate the current ratio from any balance sheet and say whether the company could cover the next 12 months of bills.",
+    "hook": "Profitable companies go bust every year. The balance sheet shows the reason before it happens."
    },
    {
     "n": 6,
-    "title": "Three quick checks with a calculator",
-    "covers": "Working capital (current assets minus current liabilities), the current ratio (current assets divided by current liabilities), and debt compared to equity. What a result of 1.5 or 0.8 means in plain words, and why none of these is a verdict on its own.",
-    "outcome": "You can compute three checks from any balance sheet and say what each one suggests about the company's ability to pay its bills and how much it relies on borrowing.",
-    "hook": "Two subtractions and one division tell you if a company can pay its bills."
+    "title": "How much is borrowed?",
+    "covers": "Comparing total debt to equity, why some borrowing is normal, and when the mortgage is bigger than the house.",
+    "outcome": "You can work out debt-to-equity for a company and say whether it leans on lenders or on its owners.",
+    "hook": "Two companies, same assets, same profits. One is a safe bet and one is a gamble. Which line tells you?"
    },
    {
     "n": 7,
-    "title": "What the photo leaves out",
-    "covers": "The limits: it is one day, not a year. Buildings are shown at what they cost, not what they're worth today. A brand built in-house usually does not appear at all. Why the balance sheet needs the income statement (the year's earnings) and the cash flow statement (where the cash actually went) beside it.",
-    "outcome": "You can name four things a balance sheet cannot tell you and say which other statement you would open to find each one.",
-    "hook": "The most valuable thing many companies own is nowhere on the page."
+    "title": "Read a real one, start to finish",
+    "covers": "A walkthrough of a real published balance sheet, two years side by side, applying everything from chapters 1 to 6 in 10 minutes.",
+    "outcome": "You can pick up a real company's balance sheet, read it in 10 minutes, and give a 3-sentence verdict on its financial footing.",
+    "hook": "The last column, last year's numbers, is the most useful one on the page. Here is why."
+   }
+  ],
+  "sources": [
+   {
+    "who": "Benjamin Graham and Spencer B. Meredith",
+    "what": "The Interpretation of Financial Statements",
+    "why": "the plain-words method for reading each line of a balance sheet"
+   },
+   {
+    "who": "Karen Berman and Joe Knight",
+    "what": "Financial Intelligence",
+    "why": "the idea that financial statements are a story non-finance people can read"
    }
   ]
  }

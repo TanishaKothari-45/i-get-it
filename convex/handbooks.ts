@@ -77,7 +77,8 @@ async function ensureChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
   if (existing && existing.status === "ready") return;
   const fromCache = await cachedChapter(ctx, h, n);
   if (fromCache) {
-    const doc = { status: "ready" as const, title: fromCache.title, cards: fromCache.cards, outcomeLine: fromCache.outcomeLine, error: undefined };
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
+    const doc = { status: "ready" as const, title: fromCache.title, cards: fromCache.cards, outcomeLine: fromCache.outcomeLine, svg: fromCache.svg, cacheVersion: row?.version ?? 0, error: undefined };
     if (existing) await ctx.db.patch(existing._id, doc);
     else await ctx.db.insert("chapters", { handbookId: h._id, n, createdAt: Date.now(), ...doc });
     return;
@@ -180,7 +181,7 @@ export const create = mutation({
         ownerToken: deviceToken, userId: userId ?? undefined, source: "cache", createdAt: now,
       });
       for (const ch of cached.chapters) {
-        await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, createdAt: now });
+        await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: ch.svg, cacheVersion: cached.version ?? 0, createdAt: now });
       }
       await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
       return { handbookId, fromCache: true };
@@ -456,6 +457,35 @@ export const setSimpler = internalMutation({
   },
 });
 
+
+// When the cache has a newer version of a chapter this person hasn't started, swap it in.
+// Never touches a chapter that was personalised (has a model), voted on, or already started.
+export const syncFromCache = mutation({
+  args: { handbookId: v.id("handbooks"), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    if (h.source !== "cache") return { updated: 0 };
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
+    if (!row?.version) return { updated: 0 };
+    const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    const current = progress?.currentChapter ?? 1;
+    const started = (progress?.currentCard ?? 0) > 0;
+    const chapters = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId)).collect();
+    let updated = 0;
+    for (const ch of chapters) {
+      const unread = ch.n > current || (ch.n === current && !started);
+      if (!unread || ch.model || ch.vote || (ch.cacheVersion ?? 0) >= row.version) continue;
+      const fresh = row.chapters.find((c: any) => c.n === ch.n);
+      if (!fresh) continue;
+      await ctx.db.patch(ch._id, { status: "ready", title: fresh.title, cards: fresh.cards, outcomeLine: fresh.outcomeLine, svg: fresh.svg, cacheVersion: row.version, stale: false, error: undefined });
+      updated++;
+    }
+    // the plan too (hooks, sources), only if the person hasn't started reading at all
+    if (!started && (progress?.chaptersPassed.length ?? 0) === 0 && row.plan) await ctx.db.patch(handbookId, { plan: row.plan });
+    return { updated };
+  },
+});
+
 // ---------- the cache (pre-generated handbooks) ----------
 
 export const seedCache = internalMutation({
@@ -465,8 +495,8 @@ export const seedCache = internalMutation({
     chapters = chapters.map((ch: any) => ({ ...ch, cards: shuffleExercises(ch.cards ?? [], `${topic}:${ch.n}`) }));
     for (const topicKey of keys) {
       const existing = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
-      if (existing) await ctx.db.patch(existing._id, { topic, plan, chapters });
-      else await ctx.db.insert("cache", { topicKey, level: lvl, topic, plan, chapters });
+      if (existing) await ctx.db.patch(existing._id, { topic, plan, chapters, version: Date.now() });
+      else await ctx.db.insert("cache", { topicKey, level: lvl, topic, plan, chapters, version: Date.now() });
     }
     return [...keys];
   },

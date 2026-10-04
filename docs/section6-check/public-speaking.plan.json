@@ -23,14 +23,14 @@
     "title": "Know who's walking with you",
     "covers": "What your listeners already know, what they care about, and how that changes what you leave out.",
     "outcome": "You can describe your audience in 3 lines and cut any part of your talk they don't need.",
-    "hook": "Why do you remember three things from a good talk and nothing from a bad one?"
+    "hook": "What your listeners already know decides what you cut. Most speakers cut nothing."
    },
    {
     "n": 3,
     "title": "Plan the route",
     "covers": "The 3-part shape of a short talk: say where you're going, go there in 3 steps, say where you've arrived.",
     "outcome": "You can lay out a 3-minute talk on one index card with an opening line, 3 steps and a closing line.",
-    "hook": "The shaking never fully goes away. Experienced speakers just stop waiting for it to."
+    "hook": "Why do you remember three things from a good talk and nothing from a bad one?"
    },
    {
     "n": 4,
@@ -51,7 +51,7 @@
     "title": "When your legs shake",
     "covers": "What nerves do to your body (fast breath, dry mouth, racing speech) and 3 physical things to do in the 2 minutes before you start.",
     "outcome": "You can name what your nerves do to you and use a breathing pattern to slow your heart before you stand up.",
-    "hook": "Looking at the whole room means looking at no one. Pick a face, finish the sentence."
+    "hook": "The shaking never fully goes away. Experienced speakers just stop waiting for it to."
    },
    {
     "n": 7,
@@ -60,69 +60,103 @@
     "outcome": "You can deliver your 3-minute talk to a small group, end on your one sentence, and stop.",
     "hook": "Reading your notes silently is not rehearsal. Your mouth has never said the words."
    }
+  ],
+  "sources": [
+   {
+    "who": "Chris Anderson",
+    "what": "TED Talks: The Official TED Guide to Public Speaking",
+    "why": "the idea that a talk carries one throughline and everything else serves it"
+   },
+   {
+    "who": "Nancy Duarte",
+    "what": "Resonate",
+    "why": "the shape of a talk as a journey the audience takes, not a list the speaker reads"
+   },
+   {
+    "who": "Dale Carnegie and J. Berg Esenwein",
+    "what": "The Art of Public Speaking",
+    "why": "nerves as normal and rehearsal out loud as the cure"
+   }
   ]
  },
- "seconds": 71.59335970878601,
+ "seconds": 104.15688300132751,
  "hooksFrom": {
   "needsClarification": false,
   "question": null,
   "topic": "Public speaking",
-  "outcome7": "By day 7 you'll be able to prepare and give a 5-minute talk to a group of 5 to 20 people with one clear point, a memorised opening line, a planned close, and a 10-minute routine that steadies your nerves before you stand up.",
-  "horizon14": "Later, around day 14: a 10-minute talk from a one-card outline instead of a script, with slides or a prop if you want them.",
-  "horizon28": "Later, around day 28: speaking up at a meeting or event with no notes in hand, and staying calm through an unfriendly question.",
+  "outcome7": "By day 7 you'll be able to plan, rehearse and deliver a 3-minute talk to a small group, with one clear point, a memorised opening line, a steady pace, and a close you don't trail off from.",
+  "horizon14": "Later, around day 14: a 10-minute talk from a one-card outline, with slides that help you instead of replacing you.",
+  "horizon28": "Later, around day 28: speaking without notes to a room of 30 or more and handling live questions without losing your point.",
   "picture": {
-   "name": "A guided walk",
-   "line": "Giving a talk is leading a group on a walk: you know the route, they don't, and your only job is to get everyone to the same spot at the end."
+   "name": "Taking someone on a walk",
+   "line": "A talk is a walk you lead: you pick one destination, you know the route, you set the pace, and the people with you only need to follow one step at a time."
   },
   "chapters": [
    {
     "n": 1,
-    "title": "Know where the walk ends",
-    "covers": "Pick the one sentence your talk exists to deliver, and learn to cut anything that doesn't move people toward it.",
-    "outcome": "You can write your talk's point as one sentence under 15 words and say what each part of the talk does for it.",
+    "title": "Pick one destination",
+    "covers": "Why every talk needs exactly one point, and how to write that point as a single 15-word sentence before you write anything else.",
+    "outcome": "You can write the one sentence your talk exists to deliver, and say it out loud in under 10 seconds.",
     "hook": "Most talks fail before a word is spoken: the speaker can't say what the point is."
    },
    {
     "n": 2,
-    "title": "Plan the route: three stops",
-    "covers": "A shape that holds for any short talk: say where you're going, make three stops, then land on your sentence.",
-    "outcome": "You can lay out a 5-minute talk as an opening, three stops and a close on a single index card.",
-    "hook": "Why do you remember three things from a good talk and nothing from a bad one?"
+    "title": "Know who's walking with you",
+    "covers": "What your listeners already know, what they care about, and how that changes what you leave out.",
+    "outcome": "You can describe your audience in 3 lines and cut any part of your talk they don't need.",
+    "hook": "What your listeners already know decides what you cut. Most speakers cut nothing."
    },
    {
     "n": 3,
-    "title": "Nerves: what your body is doing",
-    "covers": "Why your hands shake and your mouth dries, what helps in the 10 minutes before (longer out-breaths, moving, a memorised first line), and what doesn't.",
-    "outcome": "You can run a 10-minute pre-talk routine that gets you through the first 30 seconds steady.",
-    "hook": "The shaking never fully goes away. Experienced speakers just stop waiting for it to."
+    "title": "Plan the route",
+    "covers": "The 3-part shape of a short talk: say where you're going, go there in 3 steps, say where you've arrived.",
+    "outcome": "You can lay out a 3-minute talk on one index card with an opening line, 3 steps and a closing line.",
+    "hook": "Why do you remember three things from a good talk and nothing from a bad one?"
    },
    {
     "n": 4,
-    "title": "The first 30 seconds",
-    "covers": "How to start the walk: one memorised line that is a question, a specific moment or a number, never 'so, um, today I'm going to talk about'.",
-    "outcome": "You can open a talk with a memorised first line that makes people want the next 30 seconds.",
+    "title": "Start walking without stumbling",
+    "covers": "Your first 20 seconds: a planned first sentence, a pause before you speak, and the 2 or 3 things to do with your hands and feet.",
+    "outcome": "You can open a talk from memory with a sentence that names the destination, and stand still while you do it.",
     "hook": "The first line is the only line worth memorising word for word. Here's why."
    },
    {
     "n": 5,
-    "title": "Slow down and stop at the full stops",
-    "covers": "Pace, volume for the back row, and swapping every 'um' for a silent pause, especially right after a line that matters.",
-    "outcome": "You can deliver a 2-minute passage with a pause at each full stop and no filler words you can hear on a recording.",
+    "title": "Set the pace",
+    "covers": "Speaking slower than feels natural, pausing at full stops, and dropping filler like 'um' and 'so' by replacing them with silence.",
+    "outcome": "You can record yourself for 1 minute, count your fillers, and halve them on a second take.",
     "hook": "A 3-second pause feels like an hour to you and like confidence to them."
    },
    {
     "n": 6,
-    "title": "Feet, hands and one face at a time",
-    "covers": "Where to stand, what to do with your hands, and talking to one person for a whole sentence instead of scanning the room.",
-    "outcome": "You can speak for 3 minutes with feet planted, hands free of notes, talking to one face at a time.",
-    "hook": "Looking at the whole room means looking at no one. Pick a face, finish the sentence."
+    "title": "When your legs shake",
+    "covers": "What nerves do to your body (fast breath, dry mouth, racing speech) and 3 physical things to do in the 2 minutes before you start.",
+    "outcome": "You can name what your nerves do to you and use a breathing pattern to slow your heart before you stand up.",
+    "hook": "The shaking never fully goes away. Experienced speakers just stop waiting for it to."
    },
    {
     "n": 7,
-    "title": "Rehearse out loud, then do it for real",
-    "covers": "Three standing run-throughs out loud, one recording you actually watch, landing the close on your sentence, and what to say to a question you can't answer.",
-    "outcome": "You can prepare and give a 5-minute talk to a real group, close on your one sentence, and take 2 questions.",
+    "title": "Arrive, then stop",
+    "covers": "Rehearsing out loud 3 times, closing on your one sentence instead of 'so, yeah, that's it', and delivering the full talk to 2 or more people.",
+    "outcome": "You can deliver your 3-minute talk to a small group, end on your one sentence, and stop.",
     "hook": "Reading your notes silently is not rehearsal. Your mouth has never said the words."
+   }
+  ],
+  "sources": [
+   {
+    "who": "Chris Anderson",
+    "what": "TED Talks: The Official TED Guide to Public Speaking",
+    "why": "the idea that a talk carries one throughline and everything else serves it"
+   },
+   {
+    "who": "Nancy Duarte",
+    "what": "Resonate",
+    "why": "the shape of a talk as a journey the audience takes, not a list the speaker reads"
+   },
+   {
+    "who": "Dale Carnegie and J. Berg Esenwein",
+    "what": "The Art of Public Speaking",
+    "why": "nerves as normal and rehearsal out loud as the cure"
    }
   ]
  }

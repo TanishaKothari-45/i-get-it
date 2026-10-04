@@ -16,113 +16,137 @@
     "title": "What an agent is, and what it is not",
     "covers": "An agent is a program that runs on its own, on a schedule, and calls an AI model to read and write text. You see the 4 parts: a trigger (the alarm clock), sources (the newspapers), the model (the reader), and the output (the note on your desk).",
     "outcome": "You can draw the 4 boxes of a competitor-tracking agent on paper and say what each one does.",
-    "hook": "Most AI agents are a 4-step loop you could write on a napkin."
+    "hook": "ChatGPT answers when asked. An agent takes the next step unasked. That gap is the whole subject."
    },
    {
     "n": 2,
     "title": "Choosing who to watch and where to look",
     "covers": "Pick 3 to 5 competitors and, for each, 1 or 2 pages that actually change: pricing, changelog, blog, careers. You learn why fewer, better pages beat a list of 50.",
     "outcome": "You can write a list of 3 to 5 competitors with 1 or 2 exact web addresses each, and say why each page is worth reading.",
-    "hook": "Three competitor pages tell you more than thirty, if you pick the right three."
+    "hook": "Most competitor tracking dies on day one from watching 40 things. Pick 15."
    },
    {
     "n": 3,
     "title": "Fetching a page and keeping a copy",
     "covers": "The agent downloads each page as text and saves it with the date. This is the clipping: without a saved copy you cannot tell what changed tomorrow.",
     "outcome": "You can fetch one competitor page, save its text to a file named with today's date, and open it to check it worked.",
-    "hook": "Strip the pictures and layout and a web page is just text; here's what the agent sees."
+    "hook": "A web page is just text your agent can read. Mostly. The exceptions teach you the most."
    },
    {
     "n": 4,
     "title": "Spotting what changed",
     "covers": "Compare today's copy with yesterday's and keep only the lines that are new or gone. A diff (a line-by-line comparison) is the clipping service's scissors.",
     "outcome": "You can run a comparison between 2 saved copies of a page and list exactly which lines were added or removed.",
-    "hook": "Without a logbook, the watchman reports the same news every single night."
+    "hook": "Reading the page is easy. Remembering what it said last week is where agents earn their keep."
    },
    {
     "n": 5,
     "title": "Asking the model to explain the change",
     "covers": "Send only the changed lines to an AI model with a short, strict instruction: say what changed, in 2 sentences, and quote the source line. You learn why giving the model less text gives you better answers.",
     "outcome": "You can write a prompt (the instruction you give the model) that turns a diff into a 2-sentence plain-English summary with a quoted source.",
-    "hook": "A 1 dollar price change matters and a new footer doesn't. How does the agent know?"
+    "hook": "A 20% price rise and a fixed typo look identical to a diff. The model tells them apart."
    },
    {
     "n": 6,
     "title": "Running it every day without you",
     "covers": "Put the fetch, compare and summarise steps on a daily schedule, and deliver the result somewhere you will actually see it: an email, a chat message, or a file. The alarm clock goes on.",
     "outcome": "You can set the agent to run once a day on its own and receive the summary without opening a terminal.",
-    "hook": "A watchman who only works while you're watching isn't a watchman."
+    "hook": "An agent you start by hand is just a script. The schedule is what makes it an agent."
    },
    {
     "n": 7,
     "title": "Catching the agent when it is wrong",
     "covers": "Pages break, sites block you, models make things up. You add 3 checks: did the fetch work, is the diff empty, and does every claim in the summary quote a real line. Trust comes from checks, not from hope.",
     "outcome": "You can read one day's summary, trace each claim back to its source line, and spot a fetch failure or an invented claim within 2 minutes.",
-    "hook": "Your agent will give you a wrong report within a week. Here's how you'll catch it."
+    "hook": "Your scout will cry wolf in week one. Here is how to quiet it without going deaf."
+   }
+  ],
+  "sources": [
+   {
+    "who": "Anthropic",
+    "what": "Building effective agents",
+    "why": "the plain look-decide-act loop and the advice to start with the simplest agent that works"
+   },
+   {
+    "who": "Michael E. Porter",
+    "what": "Competitive Strategy",
+    "why": "the four things worth knowing about a competitor, which shapes the watch list in chapter 2"
    }
   ]
  },
- "seconds": 58.28798794746399,
+ "seconds": 72.9540479183197,
  "hooksFrom": {
   "needsClarification": false,
   "question": null,
-  "topic": "Competitor-tracking AI agent",
-  "outcome7": "By day 7 you'll be able to explain each part of a competitor-tracking agent in plain words, and run a basic one that checks 3 competitor pages once a day, lists what changed since yesterday, and writes you a short summary of what matters.",
-  "horizon14": "Later: the same agent watching 10 or more competitors, keeping a price history, and sending one weekly comparison.",
-  "horizon28": "Later: an agent that also watches job posts, app store listings and ads, and points out month-long trends.",
+  "topic": "A competitor-tracking agent",
+  "outcome7": "By day 7 you'll be able to run a small agent that reads 5 competitors' pricing, product and news pages every morning, spots what changed since yesterday, and emails you a 3-line ranked summary, and explain each step to a colleague.",
+  "horizon14": "Later: add job postings and app-store reviews as sources, and a weekly roll-up of changes.",
+  "horizon28": "Later: a shared page your team reads, with a month of history for every competitor change.",
   "picture": {
-   "name": "A night watchman",
-   "line": "Your agent is a night watchman who walks the same route every night, checks every door, writes what changed in a logbook, and only wakes you when something matters."
+   "name": "A morning scout",
+   "line": "Your agent is a scout you send out at dawn: it walks the same route every day, notes what moved since yesterday, and hands you a short report at breakfast."
   },
   "chapters": [
    {
     "n": 1,
     "title": "What an agent actually is",
-    "covers": "The 4-step loop every agent runs: look at something, decide, act, repeat, with a language model (software like ChatGPT that reads and writes text) doing the deciding.",
-    "outcome": "You can draw the 4-step loop on paper and point to which step a model does and which steps plain code does.",
-    "hook": "Most AI agents are a 4-step loop you could write on a napkin."
+    "covers": "The loop every agent runs: look, decide, act. Where a model like ChatGPT sits in that loop, and what it is not allowed to do on its own.",
+    "outcome": "You can describe in one sentence what your scout does each morning and name its three parts.",
+    "hook": "ChatGPT answers when asked. An agent takes the next step unasked. That gap is the whole subject."
    },
    {
     "n": 2,
     "title": "Pick the route: what to watch",
-    "covers": "Choosing 3 competitors and 1 to 2 pages each (pricing, features, news), and writing down exactly which change you'd want to know about.",
-    "outcome": "You can write a watch list of 3 competitors, the pages to check, and the one change per page you care about.",
-    "hook": "Three competitor pages tell you more than thirty, if you pick the right three."
+    "covers": "Choosing 5 competitors and 3 pages each (pricing, product updates, news), with one line on why each page matters to you.",
+    "outcome": "You can write a watch list of 15 pages, each with a one-line reason it matters.",
+    "hook": "Most competitor tracking dies on day one from watching 40 things. Pick 15."
    },
    {
     "n": 3,
-    "title": "Checking the door: reading a web page",
-    "covers": "How the agent fetches a page and turns it into plain text, what it can and can't see, and why some pages come back empty.",
-    "outcome": "You can fetch one competitor page as plain text and find the price or feature line in it.",
-    "hook": "Strip the pictures and layout and a web page is just text; here's what the agent sees."
+    "title": "Teach the scout to read a page",
+    "covers": "How a program fetches a web page or news feed and turns it into plain text, and what to do when a site says no.",
+    "outcome": "You can fetch a competitor's pricing page, save its text, and recognise the 3 common ways a fetch fails.",
+    "hook": "A web page is just text your agent can read. Mostly. The exceptions teach you the most."
    },
    {
     "n": 4,
-    "title": "The logbook: remembering last night",
-    "covers": "Saving yesterday's copy of each page and comparing it with today's to get a diff, which is the list of lines that changed.",
-    "outcome": "You can save a page, fetch it again, and produce the list of lines that changed between the two.",
-    "hook": "Without a logbook, the watchman reports the same news every single night."
+    "title": "Remember yesterday, spot the change",
+    "covers": "Keeping yesterday's copy of each page, comparing it to today's, and listing exactly which lines changed.",
+    "outcome": "You can store yesterday's version, compare it to today's, and print only the lines that differ.",
+    "hook": "Reading the page is easy. Remembering what it said last week is where agents earn their keep."
    },
    {
     "n": 5,
-    "title": "What matters: letting the model judge",
-    "covers": "Giving the model the diff plus your watch list and asking for two things: does this matter, and a 3-sentence summary.",
-    "outcome": "You can write the instruction that turns a raw diff into a yes-or-no plus a 3-sentence summary.",
-    "hook": "A 1 dollar price change matters and a new footer doesn't. How does the agent know?"
+    "title": "Let the model judge what matters",
+    "covers": "Writing the instruction that turns a raw list of changed lines into a ranked, 3-line summary, and checking it against the source so it can't invent things.",
+    "outcome": "You can write the instruction that ranks changes by importance and spot when the model has made something up.",
+    "hook": "A 20% price rise and a fixed typo look identical to a diff. The model tells them apart."
    },
    {
     "n": 6,
-    "title": "Doing the rounds on a timer",
-    "covers": "Running the loop once a day without you, and sending the summary by email or chat message only when the model said it matters.",
-    "outcome": "You can set the agent to run daily and receive a message the next morning when something changed.",
-    "hook": "A watchman who only works while you're watching isn't a watchman."
+    "title": "Send it out every dawn",
+    "covers": "Running the agent on a schedule, say 8am daily, and delivering the report to your inbox or chat without you touching it.",
+    "outcome": "You can set your agent to run every morning and land a report in your inbox unattended.",
+    "hook": "An agent you start by hand is just a script. The schedule is what makes it an agent."
    },
    {
     "n": 7,
-    "title": "When the watchman lies",
-    "covers": "The 4 common failures: blocked pages, false alarms, missed changes, and made-up summaries, plus the site rules (robots.txt and terms of service) to respect.",
-    "outcome": "You can spot which of the 4 failures hit your agent and apply the fix for each.",
-    "hook": "Your agent will give you a wrong report within a week. Here's how you'll catch it."
+    "title": "Quiet the false alarms",
+    "covers": "Reading your agent's log, cutting noise by tightening the watch list and the instruction, tracking cost per run, and which pages you may and may not fetch.",
+    "outcome": "You can read a week of logs, cut false alarms in half by changing two things, and say what you are allowed to scrape.",
+    "hook": "Your scout will cry wolf in week one. Here is how to quiet it without going deaf."
+   }
+  ],
+  "sources": [
+   {
+    "who": "Anthropic",
+    "what": "Building effective agents",
+    "why": "the plain look-decide-act loop and the advice to start with the simplest agent that works"
+   },
+   {
+    "who": "Michael E. Porter",
+    "what": "Competitive Strategy",
+    "why": "the four things worth knowing about a competitor, which shapes the watch list in chapter 2"
    }
   ]
  }
