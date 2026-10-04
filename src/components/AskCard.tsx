@@ -8,7 +8,7 @@ type Props = { handbookId: Id<'handbooks'>; chapter: number; cardIndex: number; 
 
 // The two-way street: ask or object about this card. Answered from the card only, in the handbook's voice.
 export default function AskCard({ handbookId, chapter, cardIndex, deviceToken }: Props) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const [text, setText] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)

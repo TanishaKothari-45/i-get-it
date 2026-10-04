@@ -1,6 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
-import ActionBar from '../components/ActionBar'
-import RungBar from '../components/RungBar'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Sheet from '../components/Sheet'
 import Rich, { inline } from '../components/Rich'
 import Illustration from '../components/Illustration'
@@ -17,13 +15,15 @@ export type AnswerResult =
   | { correct: false; whyNot: string; reteach: string; reveal: { id: string; text: string } | null }
 
 type Item = { chapter: number; cardIndex: number; card: Card; recall?: boolean }
+type Tone = 'marigold' | 'green' | 'coral' | 'indigo' | 'ink' | 'cream'
+type Frame = { item: Item; text?: string; part: number; parts: number; tone: Tone; cover?: boolean }
 
 type Props = {
   topic: string
   n: number
   title: string
   cards: Card[]
-  recall: Item[]              // exercises from earlier chapters, shown first on night 2+
+  recall: Item[]
   passed: number[]
   passedExercises: string[]
   startAt: number
@@ -37,21 +37,70 @@ type Props = {
   deviceToken: string
 }
 
-// The card stack: teaching cards and exercises, one at a time.
 // Only http(s) links from the known hosts reach the page; anything else is dropped.
 function safeUrl(u: string): string {
   try { const x = new URL(u); if ((x.protocol === 'https:' || x.protocol === 'http:') && /(^|\.)(ted\.com|youtube\.com|youtu\.be|ocw\.mit\.edu|archive\.org|hbr\.org|duarte\.com|mattabrahams\.com|juliantreasure\.com)$/.test(x.hostname)) return x.toString() } catch {}
   return '#'
 }
 
-export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, onExit, handbookId, deviceToken }: Props) {
+// One idea per frame: split a card into paragraphs, folding a very short one into the next.
+function paragraphs(text: string): string[] {
+  const out: string[] = []
+  for (const p of text.split(/\n\n+/).map((s) => s.trim()).filter(Boolean)) {
+    if (out.length && out[out.length - 1].split(/\s+/).length < 14) out[out.length - 1] += '\n\n' + p
+    else out.push(p)
+  }
+  return out.length ? out : [text]
+}
+
+const TEACH_TONES: Tone[] = ['marigold', 'green', 'indigo', 'cream']
+const KICKER: Record<string, string> = { example: 'Story time', mistake: 'The mistake everyone makes', try: "Tonight's dare (optional)", guess: 'Quick guess', apply: 'Your call', recall: 'Lock it in' }
+
+function sizeOf(text: string) {
+  const w = text.split(/\s+/).length
+  return w <= 26 ? 'xl' : w <= 60 ? 'lg' : 'md'
+}
+
+// The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
+export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
   )
-  const firstChapterItem = recall.length
-  // Resuming mid-chapter skips the recall cards; a fresh night starts with them.
-  const [i, setI] = useState(() => (startAt > 0 ? Math.min(firstChapterItem + startAt, items.length - 1) : 0))
+
+  const [simplePref, setSimplePref] = useState<boolean>(() => { try { return localStorage.getItem('igetit.simple') === '1' } catch { return false } })
+  const [simplified, setSimplified] = useState<Set<number>>(() => new Set())
+  const [original, setOriginal] = useState<Set<number>>(() => new Set())
+
+  const frames: Frame[] = useMemo(() => {
+    const out: Frame[] = []
+    let t = 0
+    for (const item of items) {
+      const c = item.card
+      if (c.type === 'exercise') { out.push({ item, part: 0, parts: 1, tone: 'ink' }); continue }
+      if (c.type === 'watch') { out.push({ item, part: 0, parts: 1, tone: 'indigo' }); continue }
+      const useSimple = !!c.simpler && !original.has(item.cardIndex) && (simplePref || simplified.has(item.cardIndex))
+      const ps = paragraphs(useSimple ? c.simpler! : c.body)
+      ps.forEach((text, part) => {
+        const tone: Tone = c.type === 'picture' ? (part === 0 ? 'ink' : 'indigo') : c.type === 'example' ? 'cream' : c.type === 'mistake' ? 'coral' : c.type === 'try' ? 'green' : TEACH_TONES[t++ % TEACH_TONES.length]
+        out.push({ item, text, part, parts: ps.length, tone, cover: c.type === 'picture' && part === 0 && !item.recall })
+      })
+    }
+    return out
+  }, [items, simplePref, simplified, original])
+
+  const firstChapterFrame = frames.findIndex((f) => !f.item.recall)
+  const [i, setI] = useState(() => {
+    if (startAt <= 0) return 0
+    const at = frames.findIndex((f) => !f.item.recall && f.item.cardIndex === startAt)
+    return at >= 0 ? at : Math.max(0, firstChapterFrame)
+  })
+  const frame = frames[Math.min(i, frames.length - 1)]
+  const item = frame.item
+  const key = `${item.chapter}:${item.cardIndex}`
+  const isLast = i >= frames.length - 1
+
+  // exercise state, per frame
   const [attempt, setAttempt] = useState(1)
   const [picked, setPicked] = useState<string | null>(null)
   const [missed, setMissed] = useState<string[]>([])
@@ -61,37 +110,33 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
   const [sending, setSending] = useState(false)
   const [finishing, setFinishing] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  // "Say it simpler": a per-handbook preference the phone remembers, plus the one card being rewritten right now.
-  const [simple, setSimple] = useState<boolean>(() => { try { return localStorage.getItem('igetit.simple') === '1' } catch { return false } })
-  const [showOriginal, setShowOriginal] = useState(false)
-  const [rewriting, setRewriting] = useState<string | null>(null)
-  const [rewriteError, setRewriteError] = useState<string | null>(null)
+  const [askOpen, setAskOpen] = useState(false)
+  const [rewriting, setRewriting] = useState<number | null>(null)
+  const [jumpTo, setJumpTo] = useState<number | null>(null)
 
-  const item = items[i]
-  const isLast = i === items.length - 1
-  const key = `${item.chapter}:${item.cardIndex}`
   const exercisePassed = item.card.type === 'exercise' && (item.recall ? result?.correct === true : passedHere.has(key))
+  const canAdvance = item.card.type !== 'exercise' || exercisePassed
+  const reset = () => { setAttempt(1); setPicked(null); setMissed([]); setResult(null); setError(null) }
 
-  useEffect(() => { window.scrollTo({ top: 0 }) }, [i])
-  useEffect(() => { if (!item.recall) onPosition(item.cardIndex) }, [i]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const reset = () => { setAttempt(1); setPicked(null); setMissed([]); setResult(null); setShowOriginal(false); setRewriteError(null) }
-  const next = () => { if (!isLast) { setI(i + 1); reset() } }
-  const back = () => { if (i > 0) { setI(i - 1); reset() } else onExit() }
-
-  // Keyboard on a laptop: → or Enter for Next, ← for Back, 1/2/3 to pick an option, Esc closes the sheet.
+  useEffect(() => { if (!item.recall) onPosition(item.cardIndex) }, [item.cardIndex, item.recall]) // eslint-disable-line react-hooks/exhaustive-deps
+  // after a card's frames change (simpler/original), land on that card's first frame
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      const tag = (e.target as HTMLElement)?.tagName
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return
-      if (result) { if (e.key === 'Escape' || e.key === 'Enter' || e.key === 'ArrowRight') { e.preventDefault(); if (result.correct) { setResult(null); if (!isLast) next() } else closeSheet() } return }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); back(); return }
-      if (item.card.type === 'exercise' && !exercisePassed && ['1', '2', '3'].includes(e.key)) { const o = item.card.options[Number(e.key) - 1]; if (o && !missed.includes(o.id)) choose(o.id); return }
-      if ((e.key === 'ArrowRight' || e.key === 'Enter') && (item.card.type !== 'exercise' || exercisePassed)) { e.preventDefault(); if (isLast) finish(); else next() }
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  })
+    if (jumpTo === null) return
+    const at = frames.findIndex((f) => !f.item.recall && f.item.cardIndex === jumpTo)
+    if (at >= 0) setI(at)
+    setJumpTo(null)
+  }, [frames, jumpTo])
+  // a live rewrite arriving
+  const teaching = item.card.type !== 'exercise' && item.card.type !== 'watch' ? item.card : null
+  useEffect(() => {
+    if (rewriting === null) return
+    const c = cards[rewriting]
+    if (c && c.type !== 'exercise' && c.type !== 'watch' && c.simpler) { setSimplified((s) => new Set(s).add(rewriting)); setJumpTo(rewriting); setRewriting(null) }
+    if (c && c.type !== 'exercise' && c.type !== 'watch' && c.simplerFailedAt) { setRewriting(null); setError("Can't rewrite this one right now. Try again in a minute.") }
+  }, [cards, rewriting])
+
+  const next = () => { if (!canAdvance) return; if (isLast) { finish(); return } setI(i + 1); reset() }
+  const back = () => { if (i > 0) { setI(i - 1); reset() } else onExit() }
 
   const choose = async (optionId: string) => {
     if (item.card.type !== 'exercise' || sending || exercisePassed) return
@@ -101,121 +146,129 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
       setResult(r)
       if (r.correct) { if (!item.recall) { setPassedHere((s) => new Set(s).add(key)); setPassedChoice((m) => ({ ...m, [key]: optionId })) } }
       else setMissed((m) => [...m, optionId])
-    } catch { setError("Couldn't save that answer. It still counts here; try the next one when you're back online.") }
+    } catch { setError("Couldn't save that answer. Check your connection and tap again.") }
     finally { setSending(false) }
   }
-
-  const closeSheet = () => {
-    if (!result) return
-    if (result.correct) { setResult(null); return }
-    setAttempt((a) => a + 1); setPicked(null); setResult(null)
-  }
+  const closeSheet = () => { if (!result) return; if (result.correct) { setResult(null); next(); return } setAttempt((a) => a + 1); setPicked(null); setResult(null) }
 
   const finish = async () => {
     setFinishing(true); setError(null)
-    try { await onFinish() } catch (e: any) { setError(String(e?.message ?? e).includes('Finish') ? 'One exercise is still open. Scroll back and answer it.' : 'Could not save the chapter. Try again.') }
+    try { await onFinish() } catch (e: any) { setError(String(e?.message ?? e).includes('Finish') ? 'One check is still open. Go back and answer it.' : 'Could not save the chapter. Try again.') }
     finally { setFinishing(false) }
   }
 
-  const teaching = item.card.type !== 'exercise' && item.card.type !== 'watch' ? item.card : null
-  const showingSimpler = !!teaching && !!teaching.simpler && simple && !showOriginal
-  useEffect(() => { if (rewriting === key && teaching?.simpler) { setRewriting(null); setSimple(true); setShowOriginal(false); try { localStorage.setItem('igetit.simple', '1') } catch {} } }, [teaching?.simpler, rewriting, key])
-  useEffect(() => { if (rewriting === key && teaching?.simplerFailedAt) { setRewriting(null); setRewriteError("Can't rewrite this one right now. Try again in a minute.") } }, [teaching?.simplerFailedAt, rewriting, key])
   const saySimpler = async () => {
     if (!teaching) return
-    setRewriteError(null)
-    if (teaching.simpler) { setSimple(true); setShowOriginal(false); try { localStorage.setItem('igetit.simple', '1') } catch {}; return }
-    setRewriting(key)
-    try {
-      const r = await onSimpler(item)
-      if (r.ready) { setSimple(true); setShowOriginal(false) }
-      setTimeout(() => setRewriting((cur) => { if (cur === key) { setRewriteError("Can't rewrite this one right now. Try again in a minute."); return null } return cur }), 30000)
-    } catch (e: any) { setRewriting(null); setRewriteError(String(e?.message ?? e).includes('busy') ? 'A few too many rewrites in a row. Try again in a bit.' : "Can't rewrite this one right now. Try again in a minute.") }
+    const idx = item.cardIndex
+    if (teaching.simpler) {
+      setOriginal((s) => { const x = new Set(s); x.delete(idx); return x })
+      setSimplified((s) => new Set(s).add(idx)); setSimplePref(true); try { localStorage.setItem('igetit.simple', '1') } catch {}
+      setJumpTo(idx); return
+    }
+    setRewriting(idx); setError(null)
+    try { const r = await onSimpler(item); if (r.ready) { setSimplified((s) => new Set(s).add(idx)); setJumpTo(idx); setRewriting(null) } }
+    catch (e: any) { setRewriting(null); setError(String(e?.message ?? e).includes('busy') ? 'A few too many rewrites in a row. Try again in a bit.' : "Can't rewrite this one right now.") }
   }
-  const chapterCardNo = item.recall ? null : item.cardIndex + 1
+  const showOriginal = () => { const idx = item.cardIndex; setOriginal((s) => new Set(s).add(idx)); setSimplePref(false); try { localStorage.setItem('igetit.simple', '0') } catch {}; setJumpTo(idx) }
+  const showingSimpler = !!teaching?.simpler && !original.has(item.cardIndex) && (simplePref || simplified.has(item.cardIndex))
+
+  // keyboard: → / Enter / Space next, ← back, 1 2 3 answer, Esc closes
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return
+      if (askOpen) { if (e.key === 'Escape') setAskOpen(false); return }
+      if (result) { if (['Escape', 'Enter', 'ArrowRight', ' '].includes(e.key)) { e.preventDefault(); closeSheet() } return }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); back(); return }
+      if (e.key === 'Escape') { onExit(); return }
+      if (item.card.type === 'exercise' && !exercisePassed && ['1', '2', '3'].includes(e.key)) { const o = item.card.options[Number(e.key) - 1]; if (o && !missed.includes(o.id)) choose(o.id); return }
+      if (['ArrowRight', 'Enter', ' '].includes(e.key)) { e.preventDefault(); next() }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
+
+  // tap zones and swipe
+  const touch = useRef<{ x: number; y: number } | null>(null)
+  const onTap = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).closest('button, a, input, .no-tap')) return
+    const r = e.currentTarget.getBoundingClientRect()
+    if (e.clientX - r.left < r.width * 0.3) back(); else next()
+  }
+  const onTouchStart = (e: React.TouchEvent) => { touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY } }
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const s = touch.current; touch.current = null; if (!s) return
+    const dx = e.changedTouches[0].clientX - s.x, dy = e.changedTouches[0].clientY - s.y
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { if (dx < 0) next(); else back() }
+  }
+
+  const c = item.card
   const revealId = result && !result.correct && result.reveal ? result.reveal.id : null
+  const label = item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of 7`
 
   return (
-    <>
-      <RungBar passed={passed} />
-      <p className="sub" style={{ marginTop: 10, display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-        <span>
-          <button type="button" className="quiet" style={{ padding: 0, marginRight: 10 }} onClick={back} aria-label={i > 0 ? 'Previous card' : 'Back to the handbook'}>{i > 0 ? '← Back' : '← Handbook'}</button>
-          {item.recall ? `Recall · from chapter ${item.chapter}` : `Chapter ${n} of 7 · card ${chapterCardNo} of ${cards.length}`}
-        </span>
-        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '48%' }}>{topic}</span>
-      </p>
+    <div className="story" role="dialog" aria-label={`${title}, chapter ${n}`}>
+      <div className={`story-frame tone-${frame.tone}`} onClick={onTap} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        <div className="story-bars" aria-hidden="true">
+          {frames.map((_, k) => <span key={k} className={k < i ? 'on' : k === i ? 'now' : ''} />)}
+        </div>
+        <div className="story-head">
+          <span className="story-label">{label}</span>
+          <span className="story-topic">{topic}</span>
+          <button type="button" className="story-close" onClick={onExit} aria-label="Back to the handbook">×</button>
+        </div>
 
-      <div className={`card ${item.card.type}-card`} key={`${key}-${item.recall ? 'r' : 'c'}`}>
-        {item.card.type === 'watch' ? (
-          <>
-            <p className="kicker">Watch, {item.card.minutes ? `${item.card.minutes} min` : 'a few minutes'}</p>
-            <a className="watch" href={safeUrl(item.card.url)} target="_blank" rel="noopener noreferrer">
-              <span className="watch-who">{item.card.who}</span>
-              <span className="watch-what">{item.card.what}{item.card.from ? ` · from ${item.card.from}` : ''}</span>
-              <span className="watch-go">Open in a new tab →</span>
-            </a>
-            <p className="serif" style={{ marginTop: 'var(--m)' }}><strong>Watch for:</strong> {item.card.watchFor}</p>
-          </>
-        ) : item.card.type !== 'exercise' ? (
-          <>
-            {item.card.type === 'picture' && i === firstChapterItem && <h1 style={{ marginBottom: 6 }}>{title}</h1>}
-            {item.card.type === 'picture' && <Illustration svg={svg} />}
-            {item.card.type === 'picture' && <p className="kicker">The one picture</p>}
-            {item.card.type === 'example' && <p className="kicker">A worked example</p>}
-            {item.card.type === 'mistake' && <p className="kicker">The mistake people make</p>}
-            {item.card.type === 'try' && <p className="kicker">If you want to try it tonight (optional)</p>}
-            {item.card.title && item.card.type !== 'picture' && <h2>{item.card.title}</h2>}
-            <Rich text={showingSimpler && item.card.simpler ? item.card.simpler : item.card.body} className={`serif ${item.card.type === 'mistake' ? 'mistake' : ''} ${item.card.type === 'try' ? 'try' : ''}`} />
-            {item.card.type !== 'try' && (
-              <p className="simpler-row">
-                {showingSimpler ? (
-                  <>Said simpler. <button type="button" className="quiet" onClick={() => { setShowOriginal(true); setSimple(false); try { localStorage.setItem('igetit.simple', '0') } catch {} }}>Show the original</button></>
-                ) : rewriting === key ? (
-                  <>Rewriting in plainer words…</>
-                ) : (
-                  <>Lost? <button type="button" className="quiet" onClick={saySimpler}>Say it simpler</button></>
-                )}
-                {rewriteError && <span className="error" style={{ display: 'block', marginTop: 4 }}>{rewriteError}</span>}
-              </p>
-            )}
-          </>
-        ) : (
-          <>
-            <p className="kicker">{item.recall ? 'Still with you?' : item.card.kind === 'guess' ? 'Guess before you read on' : item.card.kind === 'apply' ? 'Apply it' : 'The one thing'}</p>
-            <p className="question">{inline(item.card.prompt)}</p>
-            <div className="options">
-              {item.card.options.map((o) => {
-                const cls = ['opt']
-                if (exercisePassed && (picked === o.id || (picked === null && passedChoice[key] === o.id))) cls.push('pass')
-                else if (missed.includes(o.id)) cls.push('missed')
-                if (revealId === o.id) cls.push('reveal')
-                return (
-                  <button key={o.id} type="button" className={cls.join(' ')} onClick={() => choose(o.id)} disabled={sending || !!exercisePassed || missed.includes(o.id)}>
-                    <span className="k">{o.id.toUpperCase()}</span><span>{o.text}</span>
-                  </button>
-                )
-              })}
-            </div>
-            {!exercisePassed && attempt > 2 && <p className="note">Tap the one outlined in green to carry on.</p>}
-          </>
-        )}
+        <div className="story-body" key={i}>
+          {c.type === 'exercise' ? (
+            <>
+              <p className="story-kicker">{item.recall ? 'Remember this?' : KICKER[c.kind]}</p>
+              <p className="story-q">{inline(c.prompt)}</p>
+              <div className="story-options no-tap">
+                {c.options.map((o, k) => {
+                  const cls = ['story-opt']
+                  if (exercisePassed && (picked === o.id || (picked === null && passedChoice[key] === o.id))) cls.push('pass')
+                  else if (missed.includes(o.id)) cls.push('missed')
+                  if (revealId === o.id) cls.push('reveal')
+                  return (
+                    <button key={o.id} type="button" className={cls.join(' ')} onClick={() => choose(o.id)} disabled={sending || exercisePassed || missed.includes(o.id)}>
+                      <span className="k">{k + 1}</span><span>{o.text}</span>
+                    </button>
+                  )
+                })}
+              </div>
+              {exercisePassed && <p className="story-hint">Tap to keep going</p>}
+            </>
+          ) : c.type === 'watch' ? (
+            <>
+              <p className="story-kicker">Watch · {c.minutes ? `${c.minutes} min` : 'a few minutes'}</p>
+              <p className="story-big">{c.who}</p>
+              <p className="story-sub">{c.what}{c.from ? ` · from ${c.from}` : ''}</p>
+              <a className="story-watch no-tap" href={safeUrl(c.url)} target="_blank" rel="noopener noreferrer">Open the talk →</a>
+              <p className="story-text size-md" style={{ marginTop: 20 }}><strong>Watch for:</strong> {c.watchFor}</p>
+            </>
+          ) : (
+            <>
+              {frame.cover && <h1 className="story-title">{title}</h1>}
+              {frame.cover && svg && <div className="story-illo"><Illustration svg={svg} /></div>}
+              {!frame.cover && frame.part === 0 && (KICKER[c.type] || c.title) && <p className="story-kicker">{KICKER[c.type] ?? c.title}</p>}
+              <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover ? 'md' : sizeOf(frame.text ?? '')}`} />
+              {isLast && (
+                <button type="button" className="story-finish no-tap" onClick={finish} disabled={finishing}>{finishing ? 'Saving…' : `Finish chapter ${n}`}</button>
+              )}
+            </>
+          )}
+          {error && <p className="story-error no-tap">{error}</p>}
+        </div>
+
+        <div className="story-tools no-tap">
+          {teaching && c.type !== 'try' && (showingSimpler
+            ? <button type="button" onClick={showOriginal}>Show the original</button>
+            : rewriting === item.cardIndex ? <span>Rewriting…</span>
+            : <button type="button" onClick={saySimpler}>Say it simpler</button>)}
+          {!item.recall && c.type !== 'try' && <button type="button" onClick={() => setAskOpen(true)}>Ask or object</button>}
+          <span className="story-tapnote">{canAdvance ? (isLast ? 'Last one' : 'Tap →') : 'Pick one'}</span>
+        </div>
       </div>
-
-      {!item.recall && item.card.type !== 'try' && <AskCard handbookId={handbookId} chapter={item.chapter} cardIndex={item.cardIndex} deviceToken={deviceToken} />}
-
-      {error && <p className="error">{error}</p>}
-      <p className="kbd-hint">Keys: → or Enter next · ← back · 1 2 3 to answer</p>
-
-      <ActionBar>
-        {item.card.type === 'exercise' && !exercisePassed ? (
-          <button className="btn" disabled>Pick one</button>
-        ) : isLast ? (
-          <button className="btn" onClick={finish} disabled={finishing}>{finishing ? 'Saving…' : `Finish chapter ${n}`}</button>
-        ) : (
-          <button className="btn" onClick={next}>Next</button>
-        )}
-      </ActionBar>
 
       {result && (
         <Sheet onClose={closeSheet}>
@@ -223,18 +276,25 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
             <>
               <p className="verdict pass">That's it.</p>
               <p className="serif">{result.text}{result.why ? ` — ${result.why}` : ''}</p>
-              <button className="btn" onClick={() => { setResult(null); if (!isLast) next() }}>{isLast ? 'Done' : 'Next'}</button>
+              <button className="btn" onClick={closeSheet}>{isLast ? 'Finish' : 'Keep going'}</button>
             </>
           ) : (
             <>
               <p className="verdict">{inline(result.whyNot)}</p>
               {result.reteach && <p className="serif">{inline(result.reteach)}</p>}
-              {result.reveal && <p className="serif" style={{ marginTop: 'var(--m)' }}>It's <strong>{result.reveal.id.toUpperCase()}</strong>: {result.reveal.text}</p>}
+              {result.reveal && <p className="serif" style={{ marginTop: 'var(--m)' }}>It's <strong>{result.reveal.text}</strong></p>}
               <button className="btn" onClick={closeSheet}>{result.reveal ? 'Got it' : 'Try again'}</button>
             </>
           )}
         </Sheet>
       )}
-    </>
+      {askOpen && (
+        <Sheet onClose={() => setAskOpen(false)}>
+          <p className="verdict" style={{ fontSize: 'var(--ui)' }}>Ask or object</p>
+          <AskCard handbookId={handbookId} chapter={item.chapter} cardIndex={item.cardIndex} deviceToken={deviceToken} />
+          <button className="btn btn-ghost" onClick={() => setAskOpen(false)}>Back to the story</button>
+        </Sheet>
+      )}
+    </div>
   )
 }
