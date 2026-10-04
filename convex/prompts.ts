@@ -46,3 +46,23 @@ Reply with the answer text only.`;
 export function askSearchUserMessage(topic: string, chapterTitle: string, card: string, question: string, reader?: string) {
   return `Topic: ${topic}\nChapter: ${chapterTitle}${reader ? `\nReader: ${reader}` : ""}\nThe card they just read:\n${card}\n\nThe reader asks: ${question.slice(0, 300)}`;
 }
+
+// Fact check for chapters written live (cached chapters went through the offline judge). Opus reads the finished
+// chapter and returns corrected cards only where a claim, a marked answer or a feedback line is false.
+export const CHECK_PROMPT = `You are the fact checker for one chapter of a beginner's handbook. A reader will trust every sentence, so a single false claim is a failure.
+
+Check, card by card:
+- Every factual claim: names, dates, numbers, places, rules, positions, definitions, cause and effect.
+- Every exercise: is the marked "answer" actually the correct option, and are the other two actually not correct? Is each "whyNot" line true? Is the "reteach" true?
+- Internal consistency: does any card contradict another card?
+- Named people: is any idea or quote attached to a real person they are not known for?
+
+Work through each claim carefully before you decide. Do not rely on how confident the chapter sounds.
+
+For every card with a problem, return a corrected version of the WHOLE card: same type, same fields, same voice, same length, the smallest change that makes it true. For an exercise, keep exactly three options with the same ids, and make "answer" the id of the one correct option. If you are not sure a specific claim is true, replace it with something you are sure of, or remove the specific. Do not fix style, tone or wording that is merely clumsy. Do not touch cards that are true.
+
+Return only this JSON: {"ok": <true if nothing needed fixing>, "fixes": [{"card": <index in the cards array, 0-based>, "problem": "<one plain sentence: what was false and what is true>", "fixed": <the corrected card object>}]}`;
+
+export function checkUserMessage(topic: string, level: string, chapter: { title?: string; cards: unknown[] }) {
+  return `Topic: ${topic}\nLevel: ${level === "new" ? "complete beginner" : "knows a little"}\nChapter title: ${chapter.title ?? ""}\nCards (JSON array, index 0 first):\n${JSON.stringify(chapter.cards, null, 1)}`;
+}

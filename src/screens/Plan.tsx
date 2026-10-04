@@ -74,7 +74,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
         <button type="button" className="quiet" onClick={onChangeLine}>Not what you meant? Change the line</button>
       </div>
 
-      <ActionBar busy={!chapterReady && !chapterFailed} note={!chapterReady && !chapterFailed ? `Writing chapter ${current}…` : undefined}>
+      <ActionBar busy={!chapterReady && !chapterFailed} note={!chapterReady && !chapterFailed ? `Writing chapter ${current} and checking its facts… about a minute.` : undefined}>
         {chapterFailed ? (
           <>
             <p className="error" style={{ marginTop: 0 }}>Chapter {current} didn't come through. The plan is saved; try again.</p>

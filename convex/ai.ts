@@ -42,24 +42,25 @@ async function callOpenAI(system: string, user: string, maxOut: number): Promise
 // chapters stay on Haiku unless the reader picked a writer in the comparison; card rewrites stay on Haiku.
 const HAIKU = "claude-haiku-4-5-20251001";
 const OPUS = "claude-opus-5-5";
-type Kind = "plan" | "chapter" | "simpler" | "ask";
+type Kind = "plan" | "chapter" | "simpler" | "ask" | "check";
 const JOB: Record<Kind, { model: string; effort?: "low" | "medium" | "high"; maxTokens: number }> = {
   plan: { model: OPUS, effort: "medium", maxTokens: 8000 },   // thinking counts against max_tokens: leave room
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
   simpler: { model: HAIKU, maxTokens: 600 },
   chapter: { model: HAIKU, maxTokens: 6000 },
+  check: { model: OPUS, effort: "low", maxTokens: 10000 },   // fact check of live chapters. Tested 4 Oct on the bad chess chapter: Opus low caught all 7 problems (~33 s, ~₹7); Opus medium the same 7 (~43 s, ~₹8.90); Sonnet 5.5 low/medium introduced new false claims
 };
 
 let anthropic: Anthropic | null = null;
 function client() { return (anthropic ??= new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })); }
 
-async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string, effortOverride?: "low" | "medium" | "high"): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const job = JOB[kind];
   const model = modelOverride ?? process.env.ANTHROPIC_MODEL ?? job.model;
   const isHaiku = model.startsWith("claude-haiku");
   // Current-generation models think before answering; give them room and a set effort. Haiku takes neither.
   const maxTokens = isHaiku ? job.maxTokens : Math.max(job.maxTokens, kind === "chapter" ? 12000 : job.maxTokens);
-  const effort = isHaiku ? undefined : (job.effort ?? "medium");
+  const effort = isHaiku ? undefined : (effortOverride ?? job.effort ?? "medium");
   const res = await client().beta.messages.create({
     model,
     max_tokens: maxTokens,
@@ -82,8 +83,8 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask")), system: v.string(), user: v.string(), model: v.optional(v.string()) },
-  handler: async (ctx, { kind, system, user, model }): Promise<Result> => {
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"))) },
+  handler: async (ctx, { kind, system, user, model, effort }): Promise<Result> => {
     const started = Date.now();
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
     const provider = process.env.ANTHROPIC_API_KEY ? "anthropic" : process.env.OPENAI_API_KEY ? "openai" : null;
@@ -92,7 +93,7 @@ export const generate = internalAction({
       return { ok: false, error: "no provider key set", model: "none" };
     }
     try {
-      const r = provider === "anthropic" ? await callAnthropic(kind, system, user, model) : await callOpenAI(system, user, maxOut);
+      const r = provider === "anthropic" ? await callAnthropic(kind, system, user, model, effort) : await callOpenAI(system, user, maxOut);
       const json = extractJson(r.text);
       await ctx.runMutation(internal.handbooks.logAiCall, {
         kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),

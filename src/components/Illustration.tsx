@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 
 // Renders a model-drawn SVG after stripping anything that could run or load: scripts, handlers, links, images, foreign content.
-const ALLOWED = new Set(['svg', 'g', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'text', 'tspan', 'title'])
+// defs/pattern/gradients/clipPath are shape-only and can only point at ids inside this same SVG (href is stripped below).
+const ALLOWED = new Set(['svg', 'g', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'text', 'tspan', 'title', 'defs', 'pattern', 'lineargradient', 'radialgradient', 'stop', 'clippath'])
 
 export function sanitizeSvg(src: string): string | null {
   try {

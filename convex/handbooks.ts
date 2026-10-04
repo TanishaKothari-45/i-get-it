@@ -4,7 +4,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
+import { ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
@@ -292,6 +292,30 @@ export const generatePlan = internalAction({
   },
 });
 
+// Fact check a freshly written chapter before the reader sees it. Applies the checker's corrected cards only when they
+// keep the card's type and, for exercises, a valid three-option shape. A failed check never blocks the chapter.
+type FactReport = { status: string; fixes: number; notes: string[]; model?: string; at: number };
+function validFix(orig: any, fixed: any): boolean {
+  if (!fixed || typeof fixed !== "object" || fixed.type !== orig?.type) return false;
+  if (orig.type !== "exercise") return typeof fixed.body === "string" || typeof fixed.prompt === "string";
+  return Array.isArray(fixed.options) && fixed.options.length === 3 && fixed.options.some((o: any) => o.id === fixed.answer);
+}
+async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" } = {}): Promise<{ cards: any[]; report: FactReport }> {
+  const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: CHECK_PROMPT, user: checkUserMessage(topic, level, { title, cards }), ...opts });
+  if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() } };
+  const out = cards.slice();
+  const notes: string[] = [];
+  for (const f of Array.isArray(r.json?.fixes) ? r.json.fixes : []) {
+    const i = Number(f?.card);
+    if (!Number.isInteger(i) || i < 0 || i >= out.length) continue;
+    if (!validFix(out[i], f.fixed)) { notes.push(`card ${i}: fix skipped (shape) - ${String(f.problem ?? "").slice(0, 200)}`); continue; }
+    out[i] = f.fixed;
+    notes.push(`card ${i}: ${String(f.problem ?? "").slice(0, 300)}`);
+  }
+  const applied = notes.filter((x) => !x.includes("fix skipped")).length;
+  return { cards: out, report: { status: applied > 0 ? "fixed" : "passed", fixes: applied, notes, model: r.model, at: Date.now() } };
+}
+
 export const generateChapter = internalAction({
   args: { handbookId: v.id("handbooks"), n: v.number() },
   handler: async (ctx, { handbookId, n }) => {
@@ -305,7 +329,9 @@ export const generateChapter = internalAction({
     const sane = Array.isArray(ch.cards) && ch.cards.length >= 5 && exercises.length >= 2 &&
       exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer));
     if (!sane) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: "chapter failed the shape check" }); return; }
-    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title: String(ch.title ?? h.plan.chapters[n - 1]?.title ?? `Chapter ${n}`), cards: ch.cards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model });
+    const title = String(ch.title ?? h.plan.chapters[n - 1]?.title ?? `Chapter ${n}`);
+    const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards);
+    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards: checked.cards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report });
   },
 });
 
@@ -335,12 +361,12 @@ export const startChapter = internalMutation({
   },
 });
 export const setChapter = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), title: v.string(), cards: v.any(), outcomeLine: v.string(), svg: v.optional(v.string()), model: v.optional(v.string()) },
-  handler: async (ctx, { handbookId, n, title, cards, outcomeLine, svg, model }) => {
+  args: { handbookId: v.id("handbooks"), n: v.number(), title: v.string(), cards: v.any(), outcomeLine: v.string(), svg: v.optional(v.string()), model: v.optional(v.string()), factCheck: v.optional(v.any()) },
+  handler: async (ctx, { handbookId, n, title, cards, outcomeLine, svg, model, factCheck }) => {
     const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     const shuffled = shuffleExercises(cards, `${handbookId}:${n}`);
-    if (existing) await ctx.db.patch(existing._id, { status: "ready", title, cards: shuffled, outcomeLine, svg, model, stale: false, error: undefined });
-    else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, outcomeLine, svg, model, createdAt: Date.now() });
+    if (existing) await ctx.db.patch(existing._id, { status: "ready", title, cards: shuffled, outcomeLine, svg, model, factCheck, stale: false, error: undefined });
+    else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, outcomeLine, svg, model, factCheck, createdAt: Date.now() });
   },
 });
 export const setChapterFailed = internalMutation({
@@ -803,4 +829,34 @@ export const readQuestion = internalQuery({
 export const setAnswer = internalMutation({
   args: { questionId: v.id("cardQuestions"), answer: v.string(), failed: v.boolean(), sources: v.optional(v.array(v.object({ url: v.string(), title: v.string() }))) },
   handler: async (ctx, { questionId, answer, failed, sources }) => { await ctx.db.patch(questionId, failed ? { status: "failed" } : { status: "ready", answer, sources: sources?.length ? sources : undefined }); },
+});
+
+// Re-run the fact check on a chapter already in the database (for chapters written before the check existed).
+export const recheckChapter = internalAction({
+  args: { handbookId: v.id("handbooks"), n: v.number() },
+  handler: async (ctx, { handbookId, n }) => {
+    const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
+    const ch = await ctx.runQuery(internal.handbooks.readChapterRow, { handbookId, n });
+    if (!h || !ch?.cards) return { ok: false };
+    const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, ch.title ?? "", ch.cards);
+    await ctx.runMutation(internal.handbooks.patchCheckedCards, { id: ch._id, cards: checked.cards, factCheck: checked.report });
+    return checked.report;
+  },
+});
+export const readChapterRow = internalQuery({
+  args: { handbookId: v.id("handbooks"), n: v.number() },
+  handler: async (ctx, { handbookId, n }) => ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique(),
+});
+export const patchCheckedCards = internalMutation({
+  args: { id: v.id("chapters"), cards: v.any(), factCheck: v.any() },
+  handler: async (ctx, { id, cards, factCheck }) => { await ctx.db.patch(id, { cards, factCheck }); },
+});
+// Dry run: check cards without saving anything (for testing the checker).
+export const checkCardsDry = internalAction({
+  args: { topic: v.string(), level: v.string(), title: v.string(), cards: v.any(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"))) },
+  handler: async (ctx, { topic, level, title, cards, model, effort }) => {
+    const started = Date.now();
+    const r = await factCheck(ctx, topic, level, title, cards, { model, effort });
+    return { report: r.report, ms: Date.now() - started, cards: r.cards };
+  },
 });
