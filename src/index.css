@@ -55,6 +55,8 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .sub { color: var(--ink-2); font-size: var(--small); letter-spacing: 0.01em; }
 .serif { font-family: var(--serif); font-size: var(--body); line-height: 1.55; }
 .serif p + p { margin-top: 1em; }
+.serif strong { font-weight: 600; }
+.serif em { font-style: italic; }
 .label { font-size: var(--small); color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
 
 /* the one main button, low on the screen */
@@ -118,7 +120,8 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .opt:active { background: var(--paper-2); }
 .opt.missed { border-style: dashed; color: var(--ink-2); }
 .opt.missed .k { border-style: dashed; }
-.opt.pass { background: var(--pass-tint); border-color: var(--pass); color: var(--ink); }
+.opt.pass { background: var(--pass-tint); border-color: var(--pass); color: var(--ink); animation: passpop 420ms var(--ease) both; }
+@keyframes passpop { 0% { transform: translateX(0) scale(1); } 35% { transform: translateX(6px) scale(1.02); box-shadow: 0 6px 24px rgba(31, 122, 77, 0.25); } 100% { transform: translateX(0) scale(1); box-shadow: none; } }
 .opt.pass .k { background: var(--pass); border-color: var(--pass); color: #fff; }
 .opt.reveal { border-color: var(--pass); box-shadow: inset 0 0 0 1px var(--pass); }
 .opt:disabled { cursor: default; }
@@ -130,7 +133,8 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .sheet > div { max-width: var(--measure); margin: 0 auto; }
 .handle { width: 36px; height: 4px; border-radius: 2px; background: var(--tint); margin: 0 auto 14px; }
 .sheet .verdict { font-weight: 700; font-size: var(--heading); letter-spacing: -0.015em; }
-.sheet .verdict.pass { color: var(--pass); }
+.sheet .verdict.pass { color: var(--pass); animation: lift 360ms var(--ease) both; }
+@keyframes lift { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .sheet .serif { margin-top: var(--s); }
 .sheet .btn { margin-top: var(--l); }
 @keyframes up { from { transform: translateY(100%); } to { transform: none; } }
@@ -140,4 +144,4 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .times { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s); margin-top: var(--m); }
 .splash { flex: 1; display: grid; place-items: center; color: var(--ink-2); font-size: var(--small); }
 
-@media (prefers-reduced-motion: reduce) { .card, .sheet, .scrim, .rung span.filling::after, .busybar::after { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .card, .sheet, .scrim, .rung span.filling::after, .busybar::after, .opt.pass, .sheet .verdict.pass { animation: none !important; } }

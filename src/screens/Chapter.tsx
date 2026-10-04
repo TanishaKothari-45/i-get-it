@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Sheet from '../components/Sheet'
+import Rich, { inline } from '../components/Rich'
 
 export type Card =
   | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string }
@@ -104,14 +105,12 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
             {item.card.type === 'mistake' && <p className="kicker">The mistake people make</p>}
             {item.card.type === 'try' && <p className="kicker">If you want to try it tonight (optional)</p>}
             {item.card.title && item.card.type !== 'picture' && <h2>{item.card.title}</h2>}
-            <div className={`serif ${item.card.type === 'mistake' ? 'mistake' : ''} ${item.card.type === 'try' ? 'try' : ''}`}>
-              {item.card.body.split(/\n\n+/).map((p, k) => <p key={k}>{p}</p>)}
-            </div>
+            <Rich text={item.card.body} className={`serif ${item.card.type === 'mistake' ? 'mistake' : ''} ${item.card.type === 'try' ? 'try' : ''}`} />
           </>
         ) : (
           <>
             <p className="kicker">{item.recall ? 'Still with you?' : item.card.kind === 'guess' ? 'Guess before you read on' : item.card.kind === 'apply' ? 'Apply it' : 'The one thing'}</p>
-            <p className="question">{item.card.prompt}</p>
+            <p className="question">{inline(item.card.prompt)}</p>
             <div className="options">
               {item.card.options.map((o) => {
                 const cls = ['opt']
@@ -152,8 +151,8 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
             </>
           ) : (
             <>
-              <p className="verdict">{result.whyNot}</p>
-              {result.reteach && <p className="serif">{result.reteach}</p>}
+              <p className="verdict">{inline(result.whyNot)}</p>
+              {result.reteach && <p className="serif">{inline(result.reteach)}</p>}
               {result.reveal && <p className="serif" style={{ marginTop: 'var(--m)' }}>It's <strong>{result.reveal.id.toUpperCase()}</strong>: {result.reveal.text}</p>}
               <button className="btn" onClick={closeSheet}>{result.reveal ? 'Got it' : 'Try again'}</button>
             </>

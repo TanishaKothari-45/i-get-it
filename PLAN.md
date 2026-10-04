@@ -15,6 +15,7 @@ Last: I can close it, reopen it, and my plan and my rungs are still there.   DON
 Acceptance test (not a milestone): a stranger, logged out, on their own phone, gets through night 1 without Prateek saying a word.
 
 Parked (not now), in the order they'd come:
+- Memes, AI-generated reels or clips inside a chapter (first user test, 4 Oct). Parked on purpose: the feed is the habit we're firing; the chapter earns attention with prose, examples and the checks instead.
 - Regenerate the plan with comments, done chapters kept.
 - Change level or language mid-path.
 - The tutor chat, scoped to the mission.

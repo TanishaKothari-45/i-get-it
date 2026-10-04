@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
+import Confetti from '../components/Confetti'
 
 type Props = {
   topic: string
@@ -31,6 +32,7 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, signedI
   const last = n >= 7
   return (
     <>
+      <Confetti fire />
       <RungBar passed={passed} filling={n} />
       <p className="sub" style={{ marginTop: 10 }}>{topic}</p>
       <h1>Chapter {n} of 7: done.</h1>

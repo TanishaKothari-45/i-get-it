@@ -7,9 +7,9 @@ Written 4 Oct 2026 (night) by the coding agent on Prateek's go-ahead, from docs/
 **MISSING: Prateek to pick.** The labels below are the agent's; keep, cut or replace them in your words.
 - The page: a well-edited field guide on a phone, not an app. Warm paper, ink text, generous margins, one column. Reading is the product, so the reading column is the biggest thing on every screen.
 - The chapter number and the rung bar: a seven-segment bar at the top of every chapter screen, segments fill left to right as chapters pass. It is the only place the accent appears besides the main button. It moves only when a check is passed.
-- Teaching cards: book typography. A serif for the body at reading size, a short bold sans heading, paragraphs separated by space not lines. No icons in the prose, no bullet soup.
+- Teaching cards: book typography. A serif for the body at reading size, a short bold sans heading, paragraphs separated by space not lines. One bold phrase per card for the one idea, italics for a term or an aside, nothing else. No icons in the prose, no bullet soup. Cards under 120 words; the first check by card 2. (Changed 4 Oct morning: "I got bored in between".)
 - Exercise cards: one question, three tall full-width options, a thumb's height each. Tapping one answers it. The feedback rises from the bottom as a sheet: the named confusion in ink, the re-teach in the same serif, one button.
-- Motion: one kind only. Cards slide in from the right and out to the left, 240 ms, ease-out. The rung segment fills with a 400 ms ease-out. Nothing bounces, nothing spins, no confetti.
+- Motion: on a pass and on the rung, nowhere else. Cards slide in from the right, 240 ms, ease-out. The chosen option glides and pops on a pass (420 ms). The rung segment fills with a 400 ms ease-out. One confetti burst, in the paper palette, when a chapter is done, once a night. Nothing spins, nothing moves for reading or tapping. (Changed 4 Oct morning after the first user test: "the glide when you get it right", "a wow moment".)
 - The main button: full width, low on the screen, accent fill with ink text, one per screen. Says what happens.
 
 ## 2. References, one per component
@@ -118,7 +118,8 @@ Five-second test: not yet run. First two coursemates on Monday.
 - One main action per screen, full width, low enough for a thumb. Says what happens, never "Continue" or "Get started".
 - Reading is the product. The serif column is the largest thing on every teaching screen; nothing decorative competes with it.
 - The accent appears in two places only: the main button and the filled rung segments. If it appears anywhere else, that's a bug.
-- The rung moves only on a passed check. Nothing moves for reading, tapping or time.
+- The rung moves only on a passed check. Motion is spent on a pass and the rung, never on reading or time.
+- The prose carries the engagement: one vivid or dry-funny example per chapter, bold for the one idea. No memes, no clips, no feed inside the chapter: the feed is the habit being fired. (Added 4 Oct after the first user test.)
 - Feedback names the confusion, never "wrong" or "incorrect", and always offers the next tap.
 - Every screen has its empty, loading, error and done words written here before it is built. A loading state says what is happening and roughly how long.
 - No sign-in, no name, no permission, no tour before the first exercise is passed.
