@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "A bed holds you up without you doing anything. You lie down, you let go, and the bed does the rest. Water is the same bed. Floating is not a skill you add; it is what happens when you stop fighting the water and let it hold you."
-   },
-   {
-    "type": "teach",
-    "title": "Your lungs are the float",
-    "body": "A chest full of air floats. It works like a sealed bottle: push it under, and it comes back up. When you take a big breath in and hold it, your chest becomes that bottle.\n\nThis is why floating starts with a breath, not a movement. Breathe in deep, keep the air in, and your chest will rise to the surface on its own.\n\nThe rest of your body hangs off that chest. Your legs are heavy and will sink a little. That is normal. Hips a bit lower than the chest is still a float.\n\nOn your back, the water should cover your ears. If your ears are dry, your head is lifted, and a lifted head pushes your hips down. Chin up, ears in, and look at the ceiling.\n\nYour hands do one small job: palms up, out to the sides, fingers open. Keep them under the water. Hands out of the water are weight on the wrong side of the bed."
+    "body": "Picture a lilo on a pool: nobody holds it up, it's full of air, so the water holds it. **Your chest, with a full breath in, is that lilo.** Floating is lying down on the water like a bed, ears in and hips up, and letting the water do the holding.",
+    "simpler": "Think of an air bed on a swimming pool. No one holds it up. It is full of air, so the water lifts it. **Your chest, with a full breath in, is that air bed.** Floating is lying down on the water like it is a bed. Your ears go in, your hips come up, and the water does the holding. You do not have to do anything else."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You lie back, and your hips keep sinking. From what you have read, what is the most likely cause?",
+    "prompt": "Priya lies back in chest-deep water, ears dry, chin tucked so she can watch her toes. Her feet sink and she folds at the hips. What's the most likely fix?",
     "options": [
      {
       "id": "a",
-      "text": "You are not kicking hard enough"
+      "text": "Kick harder to keep her feet up"
      },
      {
       "id": "b",
-      "text": "Your head is lifted and your ears are out of the water"
+      "text": "Put her ears in the water and look at the ceiling"
      },
      {
       "id": "c",
-      "text": "You have too much air in your lungs"
+      "text": "Take a smaller breath so she's lighter"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's kicking, not floating: a float is still, and legs hanging a little low is normal.",
-     "c": "That's backwards: a full chest is the float. More air lifts you, not sinks you."
+     "a": "That's kicking, not floating: kicking fights the water instead of lying on it, and it tires you in seconds.",
+     "c": "That's backwards: a full lungful of air is what makes your chest float. Smaller breaths make you sit lower."
     },
-    "reteach": "Think of a seesaw. Your head is one end, your hips the other. Lift the head and the hips go down. Lay the head back until your ears are under, and the hips come up."
-   },
-   {
-    "type": "example",
-    "title": "Back float at the wall, 30 seconds",
-    "body": "Stand in chest-deep water with your back to the wall and one hand on the edge behind you. Take a deep breath in and hold it. Lean back until your ears go under and your eyes see the ceiling. Let your legs drift up, keep the hand on the wall, and count to 10. Next try, let the hand go for 5 seconds, then put it back. Then 15. Then 30, with no hands at all."
+    "reteach": "Your head is the heaviest thing on the seesaw. Lift it to look at your feet and your hips drop to balance it. Put your ears in and look straight up, and your hips come back to the surface."
    },
    {
     "type": "teach",
-    "title": "Front float, and getting back up",
-    "body": "The front float is the same idea, face down. Hold the wall with both hands, breathe in, put your face in the water, and let your legs lift behind you. Breathe out slowly through your nose like in chapter 2. You will sink a little as the air leaves; that is fine for 10 seconds.\n\nFirst do it holding the wall. Then let one hand go. Then both. Count to 10 and stand up.\n\nStanding up from a back float is the same move as chapter 1 in reverse order. Tuck your knees to your chest, press your arms forward and down, and your body rolls upright. Feet find the floor.\n\nFrom a front float: knees in, hands press down, head comes up, feet down. Do it slowly the first few times. Rushing is what makes you swallow water."
+    "title": "Back float: ears in, hips up",
+    "body": "Stand in chest-deep water with your back to the wall or a rail you can hold. Take a full breath in and hold it. Lean back until your *ears are in the water*, that muffled feeling is correct, and look straight up at the ceiling.\n\nYour body is a seesaw with your lungs in the middle. **Head back and chest up, and your hips rise.** Head up to check your feet, and your hips sink.\n\nLet your arms drift out to the sides, palms up. Breathe out slowly, then in deep. You bob down a little on the out breath and up on the in. That bob is normal.",
+    "simpler": "Stand in water up to your chest, with your back to the wall or a rail you can hold. Breathe in fully and hold it. Lean back until your ears are under the water. That muffled sound is right. Look straight up at the ceiling. Your body is like a seesaw with your lungs in the middle. **Head back and chest up, and your hips rise.** Lift your head to check your feet, and your hips sink. Let your arms drift out, palms up. Breathe out slowly, then in deep. You dip a little as you breathe out and rise as you breathe in. That is normal."
+   },
+   {
+    "type": "example",
+    "title": "Belly button to the ceiling",
+    "body": "Dev, at a Tuesday evening adult beginners' class, holds the rail behind him, leans back, ears in. The instructor says \"belly button to the ceiling.\" He pushes his hips up and lets go with one hand, then the other. He floats for about 8 seconds, says \"oh\" out loud, and gets water up his nose. He laughs, stands, and goes again: 22 seconds. Nothing changed between the two tries except he stopped lifting his head to check whether he was floating.",
+    "simpler": "Dev is at a Tuesday evening beginners' class for adults. He holds the rail behind him, leans back, and puts his ears in. The instructor says \"belly button to the ceiling.\" He pushes his hips up and lets go with one hand, then the other. He floats for about 8 seconds, says \"oh\" out loud, and gets water up his nose. He laughs, stands, and tries again: 22 seconds. **Nothing changed except he stopped lifting his head to check whether he was floating.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You are floating on your back, and you feel yourself start to tilt and sink. What do you do?",
+    "prompt": "Sam is floating on their back nicely. They want to check their feet are still up, so they lift their head to look. What happens next?",
     "options": [
      {
       "id": "a",
-      "text": "Breathe out and kick your legs to stay up"
+      "text": "Their feet rise even more, because the head balances them"
      },
      {
       "id": "b",
-      "text": "Lift your head to see where the wall is"
+      "text": "Their hips and feet drop, and they start to fold up"
      },
      {
       "id": "c",
-      "text": "Keep the air in, lay your head back, and if it still sinks, tuck your knees and stand"
+      "text": "Nothing, head position stops mattering once you're floating"
      }
     ],
-    "answer": "c",
+    "answer": "b",
     "whyNot": {
-     "a": "That's letting the air out, not holding it: breathing out empties the float and you sink faster.",
-     "b": "That's the seesaw problem: lifting your head pushes your hips down and makes the sink worse."
+     "a": "That's the seesaw the wrong way round: head up pushes the other end, the hips, down, not up.",
+     "c": "That's the lilo, not you: a lilo has no heavy head. Yours moves the whole seesaw every time you lift it."
     },
-    "reteach": "Two things fix a sinking float: keep the air in and drop the head back. If neither works in a second or two, there is nothing to save. Tuck, press down, stand. You are in chest-deep water."
+    "reteach": "Floating is a balance, not a switch. The moment your head comes up, something has to go down to pay for it, and that's your hips. Eyes on the ceiling the whole time, even to check your feet, and your feet will stay where they are."
+   },
+   {
+    "type": "teach",
+    "title": "Front float, and the breath that holds you up",
+    "body": "The front float is the same lie-down, face first. Hold the wall with both hands, breathe in deep, put your face in and start chapter 2's bubbles, and let your legs float up behind you. Then let go of the wall for 3 seconds, then 5, then 10.\n\n**A full lungful of air is the float.** Your lungs are a balloon inside your chest. Full, your chest sits at the surface. Breathe it all out and you sink a few centimetres, which is why a front float is short: you stand to breathe, not because you've failed.\n\nTo stand from either float: knees in, hands press down, feet plant. Same move as chapter 1, same 2 seconds.",
+    "simpler": "The front float is the same lie-down, but face first. Hold the wall with both hands and breathe in deep. Put your face in, start the bubbles from chapter 2, and let your legs float up behind you. Then let go of the wall for 3 seconds, then 5, then 10. **A full lungful of air is the float.** Your lungs are like a balloon in your chest. When it is full, your chest sits at the surface. Breathe it all out and you sink a few centimetres. That is why a front float is short. You stand up to breathe, not because you failed. To stand from either float: knees in, hands press down, feet plant. Same move as chapter 1, same 2 seconds."
    },
    {
     "type": "mistake",
-    "body": "The big mistake is holding your head up to keep your face dry. It feels safer. It is the opposite: your head is heavy, and holding it up drags your hips and legs down. You can spot it in yourself when your ears are dry and your neck is tense. Ears in, neck loose, chin to the ceiling."
+    "body": "Lena gets her back float working, then decides to really hold it: she tenses her stomach, locks her legs straight and sticks her arms out stiff. Within 5 seconds she's sinking at the hips and gulping. Tensing doesn't make you lighter, it just stops you lying flat and bobbing with your breath. **The spot: if you can feel yourself working, you're not floating.** Go limp like a dropped coat.",
+    "simpler": "Lena gets her back float working. Then she decides to really hold it. She tightens her stomach, locks her legs straight, and sticks her arms out stiff. Within 5 seconds her hips are sinking and she is gulping water. Tensing up does not make you lighter. It only stops you lying flat and rising and dipping with your breath. **The spot: if you can feel yourself working, you're not floating.** Go limp, like a coat dropped on the floor."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What keeps your chest at the surface when you float?",
+    "prompt": "Which single thing keeps your chest at the surface in both the back float and the front float?",
     "options": [
      {
       "id": "a",
-      "text": "A lungful of air that you hold in"
+      "text": "Kicking gently"
      },
      {
       "id": "b",
-      "text": "Moving your arms in small circles"
+      "text": "The air in your lungs"
      },
      {
       "id": "c",
-      "text": "Pressing your hands down on the water"
+      "text": "Moving your arms in small circles"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's treading water, later in the handbook, not floating. A float is still.",
-     "c": "That's the move for standing up, not floating. Pressing down brings your body upright."
+     "a": "That's moving along, not floating: kicking comes in chapter 5, and it isn't what holds your chest up.",
+     "c": "That's the arms doing a job, not the lungs: in a float your arms just drift at your sides, palms up."
     },
-    "reteach": "Your chest full of air is a sealed bottle. It floats on its own. Breathe in, hold, lie back, and let it do the work. Nothing else is needed."
+    "reteach": "Strip the float down to its parts. No kick, no arm movement, no tension. What's left is a chest full of air lying on the water, and that alone is enough to hold you up."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Floating is lying down on the water with a full breath in, ears in and hips up, because **the air in your chest is what holds you at the surface**. When you want to stop, knees in, hands press down, feet plant.",
+    "simpler": "Floating is lying down on the water with a full breath in. Your ears go in and your hips come up. It works because **the air in your chest is what holds you at the surface**. Nothing else is needed. When you want to stop, pull your knees in, press your hands down, and plant your feet. Then you are standing again."
    },
    {
     "type": "try",
-    "body": "Tonight in a bath: lie back, breathe in deep, ears under, hands palm up. Feel your chest lift. Let the air out and feel it drop."
+    "body": "Tonight, in the bath or lying on your bed: breathe in deep, hold for 3 seconds, feel your ribs lift. That lift is your float. Breathe out, feel them drop. Do 5, eyes on the ceiling.",
+    "simpler": "Tonight, in the bath or lying on your bed, breathe in deep. Hold it for 3 seconds and feel your ribs lift. **That lift is your float.** Breathe out and feel your ribs drop. Do this 5 times with your eyes on the ceiling. You are learning what the water will feel from your chest, without getting wet."
    }
   ],
-  "outcomeLine": "You can now float on your back for 30 seconds and on your front for 10 seconds with no hands on anything, and return to standing calmly from both."
+  "outcomeLine": "You can now float on your back for 30 seconds and on your front for 10, with no hands on anything, and stand up calmly from both."
  },
- "seconds": 39.741393089294434
+ "seconds": 78.80426287651062
 }

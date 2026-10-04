@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "In the bazaar you don't haggle with the shopkeeper yourself. You write a slip and hand it to your broker, the runner. A market order slip says: buy 1 now, whatever the going rate. A limit order slip says: buy 1, but only if it costs \u20b9995 or less. The runner carries your slip to the exchange, where it waits in a queue until a seller's slip matches it."
-   },
-   {
-    "type": "teach",
-    "title": "Two kinds of slip",
-    "body": "A market order means: buy right now at the best price any seller is asking this second. It fills almost instantly. The catch is you don't control the price. If the share jumps \u20b98 in the moment your order travels, you pay the \u20b98.\n\nA limit order means: buy only at my price or better. You type the most you'll pay. If a seller is already asking that or less, it fills at once. If not, your slip waits in the queue.\n\nA waiting limit order can sit all day. If nobody sells at your price by 3:30 pm, the exchange cancels it. You pay nothing and own nothing. That's not a failure, it's the order doing its job.\n\nQuantity is in whole shares. 1 is allowed. There's no minimum and no shame in it.\n\nOne more box on the slip: product type. Pick Delivery (some apps call it CNC). That means you keep the shares. The other option, Intraday or MIS, means you must sell before the day ends."
+    "body": "You walk up to a stall in the bazaar and say what you want. You can say *buy now, whatever the going rate is*, or *buy, but only if it's \u20b9500 or less, and if not, I'll wait*. That one sentence is your **order**, and your broker is the runner who carries it to the counter.",
+    "simpler": "Think of a market stall. You walk up and say what you want. You can say buy now at today's price. Or you can say buy only if it costs \u20b9500 or less, and if not, I'll wait. That one sentence is your **order**. Your broker is the runner who carries your order to the counter for you."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "A share is trading at \u20b91,000. You place a limit buy at \u20b9990. What happens?",
+    "prompt": "A chai stall's price flips between \u20b910 and \u20b912 every few seconds. You tell your friend: 'get me one, but only if it's \u20b910.' It stays at \u20b912. What happens?",
     "options": [
      {
       "id": "a",
-      "text": "You get it immediately at \u20b91,000"
+      "text": "Your friend buys at \u20b912 anyway. You did say 'get me one'."
      },
      {
       "id": "b",
-      "text": "It waits. It fills only if someone sells at \u20b9990 or less, otherwise it's cancelled at 3:30 pm"
+      "text": "Your friend waits. No chai until \u20b910 shows up."
      },
      {
       "id": "c",
-      "text": "It fills at \u20b9990 straight away because you named a price"
+      "text": "Your friend pays \u20b910 and argues the stall into it."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a market order, not a limit order: a market order takes the current asking price, a limit order refuses to go above yours.",
-     "c": "Naming a price doesn't create a seller: a limit order only fills when a real seller's price meets yours or goes lower."
+     "a": "That's a market order, not a limit: 'get me one' with no price means pay whatever is showing.",
+     "c": "A limit order waits for your price. It doesn't force the seller down to it."
     },
-    "reteach": "Think of the limit as a ceiling you set. The exchange will never charge you above it. But it also can't force anyone to sell to you at it. So your order sits waiting until a seller comes down to your ceiling, or the day ends and it quietly dies."
-   },
-   {
-    "type": "example",
-    "title": "One share, one slip",
-    "body": "Say a Nifty 50 share is quoting at \u20b91,000 at 11 am. You place a limit buy for 1 share at \u20b9995, product type Delivery. At 1:40 pm a seller drops to \u20b9995 and your order fills. Money leaves your trading balance: \u20b9995 plus charges of roughly \u20b91.50, mostly Securities Transaction Tax, which is 0.1% of the trade value, and stamp duty at 0.015%. Brokerage on delivery trades is \u20b90 at most discount brokers. The share appears in your demat account the next working day."
+    "reteach": "A limit is a line you draw: this much and no more. If nobody will sell at that line, nothing happens and your money stays with you. Only a market order says 'any price, just do it now'."
    },
    {
     "type": "teach",
-    "title": "When it lands, and what it costs",
-    "body": "India settles trades on T+1. T is the trade day, so the shares reach your demat locker on the next working day. If you buy on Friday, they land Monday. Your app may show the share right away, but it's officially yours only after settlement.\n\nThe charges on a buy are small and automatic. Securities Transaction Tax (STT) at 0.1% goes to the government. Stamp duty at 0.015% also goes to the government. The exchange and SEBI take tiny turnover fees, a few paise on a \u20b91,000 trade. GST of 18% applies on brokerage and exchange fees, not on the share price.\n\nWhen you sell, you'll see one extra line: a flat depository charge, usually under \u20b920, for moving shares out of your locker. Your app shows all of this in a charges preview before you confirm. Read it once so the numbers stop looking scary."
+    "title": "Two ways to say buy",
+    "body": "A *market order* means buy now at whatever the next seller is asking. It fills in a second. The catch: the price you get can be a few rupees off the one you saw, because the screen moves while your order travels.\n\nA *limit order* means buy only at your price or better. You type \u20b9500, so you pay \u20b9500 or less, never more. If no seller comes down to \u20b9500, the order sits open until 3:30 pm and then cancels.\n\n**Limit orders trade speed for certainty.** For your first share, certainty is the better deal.",
+    "simpler": "A market order means buy now at whatever the next seller asks. It fills fast. The price can be a few rupees off what you saw, because prices move while your order travels. A limit order means buy only at your price or lower. Type \u20b9500 and you pay \u20b9500 or less, never more. If nobody sells at \u20b9500, the order waits until 3:30 pm, then cancels. **Limit orders trade speed for certainty.** For a first share, certainty wins."
+   },
+   {
+    "type": "example",
+    "title": "Meera's \u20b92 and 11 minutes",
+    "body": "Meera wants 1 share of an IT company on the Nifty 50. The screen says \u20b91,520. She types a limit order for 1 share at \u20b91,518 and picks *delivery*, which means she intends to keep the share, not sell it by evening. **Nothing happens for 11 minutes.** Then the price dips, the order fills at \u20b91,518, and she has saved \u20b92, learned what *pending* means, and spent 11 minutes staring at her phone. Worth it, she says.",
+    "simpler": "Meera wants 1 share of an IT company on the Nifty 50. The screen shows \u20b91,520. She types a limit order for 1 share at \u20b91,518. She picks delivery, which means she plans to keep the share, not sell it the same day. **Nothing happens for 11 minutes.** Then the price dips and her order fills at \u20b91,518. She saved \u20b92, learned what pending means, and spent 11 minutes staring at her phone. Worth it, she says."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You want 1 share of a company whose price is bouncing between \u20b91,480 and \u20b91,520 today. You're happy to pay up to \u20b91,500 but not more. Which order?",
+    "prompt": "Ravi wants 1 share of a Nifty 50 cement company. The screen shows \u20b92,350. He'd happily pay \u20b92,350 but not a rupee more, and he doesn't mind waiting. Which order?",
     "options": [
      {
       "id": "a",
-      "text": "Market order, so it fills fast"
+      "text": "Market order, 1 share."
      },
      {
       "id": "b",
-      "text": "Limit order at \u20b91,500, product type Delivery"
+      "text": "Limit order, 1 share, price \u20b92,350."
      },
      {
       "id": "c",
-      "text": "Limit order at \u20b91,450, to get a better deal"
+      "text": "Limit order, 1 share, price \u20b92,300, to save \u20b950."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's speed, not price control: a market order could fill at \u20b91,520 while the price is bouncing, which breaks your 'not more than \u20b91,500' rule.",
-     "c": "That's a wish, not today's range: \u20b91,450 is below everything the share has traded at today, so the order will likely sit unfilled and cancel at 3:30 pm."
+     "a": "That's the 'any price, right now' option: it might fill at \u20b92,352, which is the rupee more he refused.",
+     "c": "That's a limit below the market: it only fills if the price drops \u20b950, which may never happen today. He said \u20b92,350 was fine."
     },
-    "reteach": "The limit price is the most you'll pay, so set it at your real ceiling. \u20b91,500 sits inside today's bouncing range, so there's a fair chance a seller meets you there. A market order gives up the ceiling. A limit far below the range gives up the share."
+    "reteach": "The limit price is the most you'll pay. Set it at the price you're happy with. Above it, you overpay. Far below it, you may wait forever."
+   },
+   {
+    "type": "teach",
+    "title": "When it lands, and what it costs",
+    "body": "Your order fills, but the share isn't in your demat locker yet. India settles trades on *T+1*: T is the trade day, so the share arrives the next working day. Buy on Friday, see it on Monday. The money leaves your trading account at once.\n\nEvery trade carries small charges: *brokerage* (the broker's fee, \u20b90 for delivery at many discount brokers), *STT* (securities transaction tax, 0.1% of the buy value), plus tiny stamp duty, exchange fees and GST. **On 1 share of \u20b91,500, the total is usually a few rupees.** The exact breakup arrives that night in an email called a *contract note*.",
+    "simpler": "Your order fills, but the share reaches your demat account only the next working day. That rule is called T+1. Buy on Friday, see it Monday. The money leaves at once. Brokerage is the broker's fee, often \u20b90 for delivery. STT is a 0.1% tax on the buy value. Tiny stamp duty, exchange fees and GST add on. **On 1 share of \u20b91,500, the total is usually a few rupees.** A contract note email that night lists it all."
    },
    {
     "type": "mistake",
-    "body": "The common slip is leaving product type on Intraday (MIS) because it's often the default tab. The broker then force-sells your share around 3:20 pm whether you like it or not, and you wonder where it went. Spot it before confirming: the order screen must say Delivery or CNC. If you see MIS or Intraday, change it."
+    "body": "Arjun saw a share at \u20b9870 and typed a limit order for \u20b9800, thinking the discount was free. He checked every hour. At 3:30 pm the order quietly cancelled, and he decided the app was broken. Spot it: an order marked *open* or *pending* **is not a bug**. It's the bazaar telling you nobody will sell at your line yet.",
+    "simpler": "Arjun saw a share at \u20b9870 and typed a limit order for \u20b9800. He thought the discount came free. He checked every hour. At 3:30 pm the order quietly cancelled, and he decided the app was broken. Here is the lesson. An order marked open or pending **is not a bug**. It is the market telling you nobody wants to sell at your price yet."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What does a limit buy order actually promise you?",
+    "prompt": "Which line, said at the counter, is a market order?",
     "options": [
      {
       "id": "a",
-      "text": "You'll own the share by 3:30 pm today"
+      "text": "'One share, \u20b9640 or less, I'll wait.'"
      },
      {
       "id": "b",
-      "text": "You'll never pay more than your price, but you might not get the share"
+      "text": "'One share, whatever it's going for right now.'"
      },
      {
       "id": "c",
-      "text": "You'll pay no STT or stamp duty on the trade"
+      "text": "'One share, but only once it lands in my demat tomorrow.'"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the market order's near-promise, not the limit order's: a limit order can expire unfilled if no seller meets your price.",
-     "c": "That's mixing up order type with charges: STT and stamp duty apply to every buy, limit or market, and are taken automatically."
+     "a": "That's the limit order: a price line, and patience.",
+     "c": "That's T+1 settlement, not an order type: the share landing next day happens after any order fills."
     },
-    "reteach": "A limit order controls one thing: the price. It cannot control whether a seller shows up. So the trade-off is always the same. You give up certainty of getting the share in exchange for certainty of the price."
+    "reteach": "Market order: no price, instant fill, small surprise possible. Limit order: your price, possible wait, no surprise. Settlement is separate: whichever you pick, the share reaches your locker the next working day."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "A market order buys now at whatever price is showing; a limit order buys only at your price or better, and **waits if it has to**. The share lands in your demat the next working day, and the charges on 1 share come to a few rupees.",
+    "simpler": "A market order buys now at whatever price is showing. A limit order buys only at your price or better, and **waits if it has to**. The share lands in your demat account the next working day. The charges on 1 share come to a few rupees."
    },
    {
     "type": "try",
-    "body": "Open your broker app. Pick a Nifty 50 share, tap Buy, set quantity 1, switch to Limit, type a price \u20b95 under the current one, choose Delivery (CNC). Read the charges preview. Don't confirm unless you mean to."
+    "body": "Open your broker app, pick any Nifty 50 share, tap Buy, and switch between Market and Limit without placing anything. **Notice which one asks for a price.** Then close it.",
+    "simpler": "Open your broker app. Pick any share from the Nifty 50 list. Tap Buy. Now switch between Market and Limit, but do not place anything. **Notice which one asks you for a price.** That is the whole exercise. Then close the app."
    }
   ],
-  "outcomeLine": "You can now buy 1 share with a limit order, say it lands in your demat the next working day, and list the charges you paid."
+  "outcomeLine": "You can now buy 1 share with a limit order, say when it lands in your demat, and list the charges you paid."
  },
- "seconds": 69.59438896179199
+ "seconds": 79.64029598236084
 }

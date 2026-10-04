@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "The water is a bed. For 6 chapters you learned to lie on it, then add one movement at a time. Crossing the pool is just lying on the bed while moving for 12 metres. And when you get tired, you stop moving and lie still: roll onto your back, breathe, rest. The 4 safety habits in this chapter all do one job. They make sure you are always on the bed, never off it."
-   },
-   {
-    "type": "teach",
-    "title": "Join it up, and know your way out",
-    "body": "Push off the wall into your long glide. Let it slow. Start your small kick. Add the arms, one reaching, one pulling. Face in, bubbles out. This is chapters 4, 5 and 6 in a row, nothing new.\n\nBreathe by lifting your head straight forward for one quick breath in, then face back down. Side breathing comes later, around day 14. Forward is fine for a width.\n\nGo slow. Slow swimming floats better than fast swimming, because your body stays long and flat. Count your strokes in your head. Counting keeps you calm.\n\nAt the far wall, reach, grab, and stand. You have two ways out at any moment. One: stand, from chapter 1. Two: roll onto your back and float, from chapter 3.\n\nTo roll, let one arm drop, turn your head and shoulder towards it, push your hips up, ears in. You are now on your back, face in the air, breathing. Practise this roll 3 times in chest-deep water before you try the width."
+    "body": "Every chapter so far added one movement on top of the bed. Today you lie on it and let it carry you the whole way. Picture the far wall, 12 metres off, and your hand reaching it. **Nothing between here and there is new**: push, glide, kick, arms, breath. The only new skill is knowing what to do when it wobbles.",
+    "simpler": "Each chapter so far added one small move. Today you put them all together and let the water carry you across. Picture the far wall, 12 metres away, and your hand touching it. **Nothing between here and there is new**: push off, glide, kick, arms, breathe. The only new thing you learn today is what to do if it goes wobbly."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You are halfway across. Your breath is short and your arms feel heavy. What is the best move?",
+    "prompt": "Halfway across the width, Ana's arms turn to lead and her breathing goes ragged. What fixes it fastest?",
     "options": [
      {
       "id": "a",
-      "text": "Swim faster so you reach the wall sooner"
+      "text": "Kick harder and get to the wall before the air runs out."
      },
      {
       "id": "b",
-      "text": "Stop, roll onto your back, float and breathe"
+      "text": "Roll onto her back, float, and breathe until it passes."
      },
      {
       "id": "c",
-      "text": "Keep your face down and hold your breath to the wall"
+      "text": "Lift her head high and paddle hard with both arms."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the push-for-the-wall reflex, not the way out: faster strokes use more air and sink your hips.",
-     "c": "That's holding your breath against the water, the chapter 2 habit you unlearned: no air in means no float."
+     "a": "That's sprinting, not resting: harder work burns the air faster, and the wall doesn't come closer because you hurry.",
+     "c": "That's the panic shape, not the rest shape: a high head makes the hips sink, and sinking hips make you work harder still."
     },
-    "reteach": "Tired is a signal, not an emergency. The bed is still under you. Roll onto your back, let your ears go in, and breathe for 10 seconds. Then roll back and carry on, or stand up."
-   },
-   {
-    "type": "example",
-    "title": "One width, counted",
-    "body": "The pool is 12 metres wide and chest-deep the whole way. You push off and glide about 3 metres. You kick 4 times, then start the arms. On stroke 4 you lift your head, breathe, face down. On stroke 8 you breathe again. Your chest starts to feel tight, so you roll onto your back and float for 10 seconds, breathing normally. You roll back, swim 4 more strokes, and your hand lands on the wall. You stand. That is a pass: 12 strokes, 2 breaths, 1 rest, 0 panic."
+    "reteach": "Tired in the water is not an emergency. It's a signal to stop working. On your back your face is in the air, and a full chest of air holds you up with no effort at all. Rest first, then decide."
    },
    {
     "type": "teach",
-    "title": "The 4 habits",
-    "body": "Habit 1: stay where you can stand. Until you can tread water for 1 minute, around day 14, your feet are your first way out. Keep them within reach of the floor.\n\nHabit 2: never swim alone. A lifeguard on duty counts. A friend on the side counts. An empty pool does not.\n\nHabit 3: never jump into water you don't know the depth of. Walk in by the steps, feet first. Shallow water hurts if you jump, and deep water takes your first way out before you have the second one.\n\nHabit 4: roll onto your back to rest, every time you feel tired. Not sometimes. Every time. Resting early is what stops a tired swim turning into a scared swim.\n\nAll 4 habits protect the same thing: your way out."
+    "title": "Joining it up",
+    "body": "Push off the wall into your long glide. Let it slow, then start the small kick from chapter 5. When the kick settles, add the arms: one reaches, one pulls, face down, breathing out slowly through your nose.\n\n**Breathe when you need to, not when you're desperate.** Lift your head forward, take a breath, face back in, carry on. Side breathing comes later. For now a lifted head every 3 or 4 strokes is fine.\n\nGo slow. Slow swimming floats. Fast swimming, for a new swimmer, mostly splashes.",
+    "simpler": "Push off the wall and glide. When the glide slows, start the kick from chapter 5. When the kick settles, add the arms: one reaches forward, one pulls back. Face down, breathing out through your nose.\n\n**Breathe when you need to, not when you're desperate.** Lift your head forward, breathe in, face back in, carry on. Side breathing comes later. A lifted head every 3 or 4 strokes is fine.\n\nSlow swimming floats. Fast swimming mostly splashes."
+   },
+   {
+    "type": "example",
+    "title": "Sam's boring crossing",
+    "body": "Sam pushes off, glides, kicks, and gets 4 strokes in before lifting to breathe. 3 more strokes, then at stroke 7 the arms go heavy. Sam rolls over onto the back float, looks at the ceiling lights for about 10 seconds, breathes, rolls back, and takes 4 more strokes to the wall. **The crossing took 40 seconds instead of 20, and the lifeguard never looked up.** That is the goal. Boring is what safe looks like.",
+    "simpler": "Sam pushes off, glides, kicks, and takes 4 strokes before lifting up to breathe. 3 more strokes. At stroke 7 the arms feel heavy. So Sam rolls over onto the back float, looks up at the ceiling lights for about 10 seconds, breathes, rolls back, and takes 4 more strokes to reach the wall. **The crossing took 40 seconds instead of 20, and the lifeguard never looked up.** That is the goal. Boring is what safe looks like."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You are at a friend's house. The pool is empty, nobody is around, and you can't tell how deep it is. What applies the habits correctly?",
+    "prompt": "Three friends at the pool. Who has set things up so that the rest on your back always works?",
     "options": [
      {
       "id": "a",
-      "text": "Jump in at the end that looks shallow and swim a width"
+      "text": "Dev swims alone at 6am in the deep end because it's quiet."
      },
      {
       "id": "b",
-      "text": "Wait for your friend, then walk in by the steps and stay where you can stand"
+      "text": "Maya swims widths in the chest-deep part, her sister on the side, and lies back whenever she's puffed."
      },
      {
       "id": "c",
-      "text": "Swim a width straight away, since you can now do one"
+      "text": "Leo swims widths where he can stand, but holds his breath the whole way and sprints to the wall."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's guessing the depth, which habit 3 forbids: looks shallow is not the same as known shallow.",
-     "c": "That's confusing a skill with safety: a width in a pool you know, with someone watching, is not the same as an empty pool of unknown depth."
+     "a": "That's quiet confused with safe: alone and deep means no one to notice and no floor to find if the float goes badly.",
+     "c": "That's the right place with chapter 2 undone: a held breath and a sprint are how you arrive gasping. Breathe out, go slow."
     },
-    "reteach": "Ask one question before you get in: if I get tired or scared in 5 seconds, what is my way out? If the answer needs the floor, you must know where the floor is. If the answer needs a person, they must be there now."
+    "reteach": "The back float is your rest button. The habits are what keep you where the button works: water you can stand in, a person who can see you, a slow pace with the breath going out. Maya has all three."
+   },
+   {
+    "type": "teach",
+    "title": "The 4 habits",
+    "body": "Every habit here is the same sentence: **stay where the water can hold you up and someone can see you.**\n\nOne: swim where you can stand, until the deep-end chapters later. Two: swim with someone, or where a lifeguard can see you. A quiet empty pool is not a bonus. Three: never jump into water you don't know the depth of. Read the markings, get in feet first by the ladder. Four: when you're tired, roll onto your back and rest. Not later. Now.\n\nSay the four out loud once on the way home.",
+    "simpler": "All four habits say one thing: **stay where the water can hold you up and someone can see you.**\n\nOne: swim where you can stand, for now. Two: swim with a friend, or where a lifeguard can see you. Three: never jump in if you don't know the depth. Read the markings, get in feet first by the ladder. Four: when tired, roll onto your back and rest. Not later. Now.\n\nSay all four out loud going home."
    },
    {
     "type": "mistake",
-    "body": "The mistake is pushing for the wall when tired, because the wall feels like safety. Spot it in your own body: head lifting high, legs sinking, strokes getting short and fast. That is the exact moment to roll onto your back. The wall will still be there in 10 seconds."
+    "body": "Tom crosses once, feels brilliant, and turns straight round for the return with no rest. Halfway back the breath goes, the head comes up, the hips drop, and the arms start thrashing. The spot-it signal is **your head rising and your breathing getting loud**. That is the cue to stop and lie back, not the cue to swim harder.",
+    "simpler": "Tom crosses once, feels great, and turns straight round to swim back with no rest. Halfway back the breath runs out. The head comes up, the hips sink, and the arms start thrashing. The warning sign to watch for is **your head rising and your breathing getting loud**. That is your cue to stop and lie back on the water, not your cue to swim harder."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What is the one thing that makes a width swim safe?",
+    "prompt": "Why does lying on your back work as a rest, when front crawl doesn't?",
     "options": [
      {
       "id": "a",
-      "text": "Kicking hard enough to reach the wall without stopping"
+      "text": "Because your back floats better than your front."
      },
      {
       "id": "b",
-      "text": "Knowing you can always stop, roll onto your back, and breathe"
+      "text": "Because your face is out of the water, so you can breathe with no effort, and a lungful of air keeps your chest up."
      },
      {
       "id": "c",
-      "text": "Holding one big breath for the whole width"
+      "text": "Because kicking on your back is faster, so you reach the wall sooner."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's speed, not safety: a hard kick splashes, tires you, and sinks your hips, from chapter 5.",
-     "c": "That's the breath-holding habit from chapter 2: safe swimming means breathing out underwater and in above it, as often as you need."
+     "a": "That's the shape confused with the air: your body floats the same either way, as in chapter 3. The difference is where your mouth is.",
+     "c": "That's speed, not rest. A rest is when you stop moving and the bed holds you anyway."
     },
-    "reteach": "Safe doesn't mean never tired. Safe means tired has an answer. Your answer is stand if you can, roll onto your back if you can't. Everything else in this chapter exists to keep that answer available."
+    "reteach": "Front crawl needs your face in the water, so breathing takes work. On your back, breathing is free. Fill your lungs and the water does the holding, which is the whole picture of this handbook."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Push off, kick, add the arms, breathe out, lift to breathe in, and the width takes care of itself. **If anything goes wrong, roll onto your back**: the water holds you up, and that was the whole handbook.",
+    "simpler": "Push off, kick, add the arms, breathe out, lift your head to breathe in, and the width of the pool takes care of itself. **If anything goes wrong, roll onto your back.** The water holds you up while you rest, like lying on a mattress. That one move is what the whole handbook has been building to."
    },
    {
     "type": "try",
-    "body": "Next pool visit, in chest-deep water with someone nearby: swim 4 strokes, roll onto your back, float 5 seconds, stand. Do it 3 times before you try the full width."
+    "body": "Next swim, do one width. On the second, roll onto your back halfway on purpose, float 10 seconds, roll back and finish. Practise the rest when you don't need it, so it's there when you do.",
+    "simpler": "Next time you swim, do one width of the pool. On the second width, roll onto your back halfway across on purpose. Float for 10 seconds, roll back over, and finish the width. **Practise the rest when you don't need it**, so it is there, ready, on the day you do."
    }
   ],
-  "outcomeLine": "You can now swim a slow front crawl across the pool, roll onto your back to rest when tired, and name the 4 habits that keep your way out open every time you swim."
+  "outcomeLine": "You can now swim a slow front crawl across the pool, roll onto your back to rest when you need to, and name the 4 habits that keep you safe every swim."
  },
- "seconds": 54.25599718093872
+ "seconds": 103.55467081069946
 }

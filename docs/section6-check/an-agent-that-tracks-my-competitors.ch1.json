@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "A clipping service is a person, not a magic box. Every morning at 7 an alarm wakes them, they pick up the same 5 newspapers, read them, cut out the stories about your rivals, and leave one short note on your desk. An agent is that person, done by a program. The alarm, the papers, the reader and the note are its 4 parts."
-   },
-   {
-    "type": "teach",
-    "title": "The 4 boxes",
-    "body": "An agent is a program that runs on its own, without you pressing a button, and uses an AI model to read and write text. That is the whole definition. Everything else is detail.\n\nBox 1 is the trigger. The trigger is the alarm clock: a rule that says start now, for example every day at 7am. Without it, nothing happens until you remember to run it.\n\nBox 2 is the sources. Sources are the newspapers: the exact web pages the agent will open, like a rival's pricing page. The agent only knows what is on those pages. It does not know anything else about your rivals.\n\nBox 3 is the model. The model is the reader: an AI system, like Claude, that takes in text and writes text back. You hand it the page text and an instruction, and it hands you a few sentences.\n\nBox 4 is the output. The output is the note on your desk: an email, a chat message or a file where the summary lands. If the note never reaches you, the agent did nothing useful.\n\nDraw the 4 boxes left to right with arrows between them. Trigger starts it, sources feed it, the model reads, the output delivers. That drawing is the whole plan for the next 6 chapters."
+    "body": "Picture a small desk by the window. Every morning at 7, someone sits down with the same 5 newspapers, a pair of scissors, and a notepad. By 7:20 there is one note on your desk: 3 lines about your rivals, each clipping pinned next to it. **An agent is that person, done as a program.** It wakes on its own, reads the same places, and leaves you a note.",
+    "simpler": "Imagine a small desk by a window. Every morning at 7, someone sits down with the same 5 newspapers, a pair of scissors and a notepad. By 7:20 there is one note on your desk: 3 short lines about your rivals, with each clipping pinned beside it. **An agent is that person, turned into a program.** It wakes up on its own, reads the same places every day, and leaves you a note."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your friend says they built a competitor-tracking agent. Every Monday they open a chat window, paste in a rival's pricing page, and ask the AI what changed. Which box is missing?",
+    "prompt": "Your clipping person turns up every morning, reads the 5 papers, cuts out rival stories, writes the note. Which of these is NOT part of their job?",
     "options": [
      {
       "id": "a",
-      "text": "The model"
+      "text": "Showing up at 7 without being called"
      },
      {
       "id": "b",
-      "text": "The trigger"
+      "text": "Deciding on their own to also start reading 20 new magazines"
      },
      {
       "id": "c",
-      "text": "The sources"
+      "text": "Writing a short note and pinning the clippings to it"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the reader, and it is there: the AI in the chat window is the model.",
-     "c": "That's the newspapers, and they are there: the pasted pricing page is the source."
+     "a": "That's the trigger, the alarm clock: the agent starts on a schedule without you. It is very much part of the job.",
+     "c": "That's the output, the note on your desk. Without it you'd have to read the papers yourself."
     },
-    "reteach": "The trigger is the part that starts the work without a person. If your friend has to remember to open the chat on Monday, your friend is the alarm clock. An agent has its own alarm, so it runs even on the Monday you forget."
-   },
-   {
-    "type": "example",
-    "title": "One morning, box by box",
-    "body": "Say you sell a scheduling app and you watch 3 rivals. At 7:00 the trigger fires. The agent opens 3 pricing pages and 2 changelog pages, 5 sources in total, and pulls the text off each. It hands that text to the model with one instruction: say what changed in 2 sentences and quote the line it came from. At 7:04 the output lands in your inbox: Rival B raised its Team plan from $12 to $15 per seat, source: pricing page, line 'Team: $15/seat/month'. You never touched a keyboard."
+    "reteach": "The clipping person does a fixed, repeating job: wake up, read agreed sources, write a note. They do not wander off and invent new tasks. An agent is the same. It runs a set routine on its own. It does not decide its own goals."
    },
    {
     "type": "teach",
-    "title": "What an agent is not",
-    "body": "An agent is not a chatbot. A chatbot waits for you to type. An agent runs when the trigger says so, and you read the result later, often hours later.\n\nThe model is not the agent. The model is one box of four. It cannot open a web page, remember yesterday, or send an email by itself. The other 3 boxes do that work, and you will build them with ordinary code, not with AI.\n\nAn agent does not know anything you did not give it. If a rival announces a price cut on a page you did not list as a source, the agent will not see it. This is a feature: it means every line in the note can be traced to a page you chose."
+    "title": "A program that runs by itself",
+    "body": "An *agent* here means a small program that runs without you pressing a button each time. It starts on a schedule, does a fixed list of steps, and stops. **The key word is unattended.** You are asleep, and it still works.\n\nThe steps are ordinary. Download a web page. Compare it with yesterday's copy. Send a message. Most of an agent is plain plumbing that any script could do.\n\nThe one special step is the reader. The agent hands text to an *AI model*, a program that reads and writes language, and asks it to explain what changed in plain words. That step is what makes the note readable instead of a wall of raw text.",
+    "simpler": "An agent is a small program that runs without you pressing a button. It starts on a schedule, does its steps, and stops. **The key word is unattended.** It works while you sleep. Most steps are plain. Download a page. Compare it with yesterday's copy. Send a message. The one special step is the reader. The agent hands text to an AI model, a program that reads and writes language, and asks it to say what changed in plain words."
+   },
+   {
+    "type": "example",
+    "title": "Tuesday, 7:03am",
+    "body": "Maya runs a small invoicing tool. On Tuesday at 7:03am her agent woke, fetched 4 competitor pricing pages, and found that 3 had not changed at all. One had. The note on her phone said: \"Rival B's Pro plan went from $29 to $35 a month. Source: pricing page, line 'Pro \u2013 $35/mo'.\" Maya read it in 10 seconds over coffee. The agent had done 4 downloads, 4 comparisons and 1 model call, and she saw none of it.",
+    "simpler": "Maya runs a small invoicing tool. On Tuesday at 7:03am her agent woke up, fetched 4 competitor pricing pages, and found that 3 had not changed at all. One had. The note on her phone said: \"Rival B's Pro plan went from $29 to $35 a month. Source: pricing page, line 'Pro \u2013 $35/mo'.\" Maya read it in 10 seconds over coffee. Behind the scenes the agent did 4 downloads, 4 comparisons and 1 model call. **She saw none of it.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You want the agent to tell you when a rival hires a sales lead. Which change applies the 4-box idea correctly?",
+    "prompt": "Maya's note said \"Rival B's Pro plan went from $29 to $35.\" Which part of the agent wrote that sentence?",
     "options": [
      {
       "id": "a",
-      "text": "Add the rival's careers page to the sources"
+      "text": "The trigger, because it ran at 7:03"
      },
      {
       "id": "b",
-      "text": "Tell the model to also check for hires, and leave the sources as they are"
+      "text": "The model, because it turned the changed line into plain English"
      },
      {
       "id": "c",
-      "text": "Make the trigger run every hour instead of every day"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's the reader, not the newspapers: the model can only read pages it is handed, so a new instruction with no new page finds nothing.",
-     "c": "That's the alarm clock, not the newspapers: running more often re-reads the same pages, which still do not mention hires."
-    },
-    "reteach": "The agent sees exactly the pages in its sources box and nothing more. If you want it to notice something new, the first question is always: which page would that appear on? Add that page. Then the model has something to read."
-   },
-   {
-    "type": "mistake",
-    "body": "The common mistake is treating the model as if it were the whole agent, and asking it what your competitors are doing with no sources attached. It will answer with confidence, from old training data or from nothing. Spot it fast: if a claim in the note has no page it came from, the model guessed."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Which of these is the definition of an agent that this chapter uses?",
-    "options": [
-     {
-      "id": "a",
-      "text": "An AI model that is smarter than a chatbot"
-     },
-     {
-      "id": "b",
-      "text": "A program that runs on its own on a schedule and uses a model to read and write text"
-     },
-     {
-      "id": "c",
-      "text": "A tool that downloads web pages and saves them"
+      "text": "The source, because the pricing page contained the new price"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the model box on its own, the reader: a model is one part of an agent, not a smarter version of one.",
-     "c": "That's the sources box plus a download step: fetching pages is one part, with no reader and no note."
+     "a": "That's the alarm clock. It only decides when to start, it never writes a word.",
+     "c": "That's the newspaper. The page had the raw line 'Pro \u2013 $35/mo', but someone had to read it and say what it means."
     },
-    "reteach": "Four boxes: trigger, sources, model, output. Take any one away and it stops being an agent. A model alone is a chatbot. A downloader alone is a scraper. Together, on a schedule, with a note at the end, it is an agent."
+    "reteach": "Four parts: the trigger starts things, sources hold the raw pages, the model reads and explains, the output delivers the note. Only one of those produces sentences. The model is the reader with the pen."
+   },
+   {
+    "type": "teach",
+    "title": "The 4 boxes",
+    "body": "Every competitor-tracking agent has the same 4 parts. Draw them as 4 boxes left to right.\n\nBox 1 is the **trigger**: the alarm clock. A schedule that says \"run at 7am daily\". Box 2 is the **sources**: the newspapers. A short list of exact web addresses. Box 3 is the model: the reader. It gets the changed text and writes 2 plain sentences. Box 4 is the output: the note on your desk. An email, a chat message, a file.\n\nThe model is 1 box out of 4. People hear \"AI agent\" and imagine the model is everything. Here it is one worker in a small office of plumbing.",
+    "simpler": "Every competitor-tracking agent has the same 4 parts. Box 1 is the **trigger**, the alarm clock: a schedule that says run at 7am daily. Box 2 is the sources, the newspapers: a short list of exact web addresses. Box 3 is the model, the reader: it writes 2 plain sentences. Box 4 is the output, the note on your desk: an email, chat message or file. The model is only 1 box out of 4. The rest is plain plumbing."
+   },
+   {
+    "type": "mistake",
+    "body": "Dev heard \"agent\" and opened a chat window, pasted 5 competitor addresses, and typed \"watch these for me\". The chat replied warmly and then forgot everything when he closed the tab. He had a reader with no alarm clock, no saved newspapers and no note. You spot this mistake when the \"agent\" only works while you are typing to it. **If it needs you awake, it is not yet an agent.**",
+    "simpler": "Dev heard the word \"agent\" and opened a chat window. He pasted 5 competitor web addresses and typed \"watch these for me\". The chat answered warmly, then forgot everything when he closed the tab. He had a reader, but no alarm clock, no saved newspapers and no note. You can spot this mistake easily: the \"agent\" only works while you are typing to it. **If it needs you awake, it is not yet an agent.**"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend says: \"I built a competitor agent! I ask the AI every morning what changed on their sites.\" What is missing from the 4 boxes?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The model, because asking an AI is not the same as using a model"
+     },
+     {
+      "id": "b",
+      "text": "The trigger, because your friend is the alarm clock, not the program"
+     },
+     {
+      "id": "c",
+      "text": "Nothing, that is a complete agent"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the one box they do have: the AI they ask is the reader. The gap is elsewhere.",
+     "c": "That's the chat-window trap from the mistake card: if it needs a person to start it each day, the trigger box is empty."
+    },
+    "reteach": "Ask one question of any so-called agent: who starts it? If a person has to type something each morning, the trigger is a human, not a schedule. An agent needs its own alarm clock."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "An agent is a program that wakes on a schedule, reads a fixed set of pages, asks an AI model to say what changed, and drops a short note where you will see it. **It is 4 boxes: trigger, sources, model, output.** Only the third one is AI.",
+    "simpler": "An agent is a program that wakes up on a schedule, reads a fixed set of pages, asks an AI model to say what changed, and drops a short note where you will see it. **It is 4 boxes: trigger, sources, model, output.** Only the third box is AI. Everything else is ordinary plumbing."
    },
    {
     "type": "try",
-    "body": "Tonight, on paper, draw 4 boxes in a row: trigger, sources, model, output. Under sources, write 1 rival and the one page of theirs you would most want read every morning."
+    "body": "Take any scrap of paper. Draw 4 boxes in a row and label them trigger, sources, model, output. Under each, write one real thing: 7am, your top rival's pricing page, \"explain in 2 sentences\", your email. Keep it for chapter 2.",
+    "simpler": "Take any scrap of paper. **Draw 4 boxes in a row** and label them trigger, sources, model, output. Under each box, write one real thing from your own life: 7am, your top rival's pricing page, \"explain in 2 sentences\", your email address. Keep it for chapter 2."
    }
   ],
-  "outcomeLine": "You can now draw the 4 boxes of a competitor-tracking agent and say what each one does."
+  "outcomeLine": "You can now draw the 4 boxes of a competitor-tracking agent on paper and say what each one does."
  },
- "seconds": 59.636252880096436
+ "seconds": 51.29495716094971
 }

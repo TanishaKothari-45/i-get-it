@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Every walk ends somewhere. A good guide walks you to the viewpoint, says \"here it is\", and stands still so you can look. A bad guide keeps shuffling forward, mumbling \"so, yeah, that's about it\", until everyone wanders off.\n\nYour talk ends the same way. You arrive at your one sentence. You say it. You stop."
-   },
-   {
-    "type": "teach",
-    "title": "Rehearse out loud, 3 times, standing up",
-    "body": "Reading your card silently is not rehearsing. Your mouth has never said the words, so the first time it tries is in front of people. Rehearsing means saying the whole talk out loud, standing, as if the group were there.\n\nDo it 3 times. The first run is rough and you find the sentences that don't work. The second run fixes them. The third run proves the fix stuck. Fewer than 3 and you have not tested the talk, only read it.\n\nTime each run on your phone. A 3-minute talk should land between 2:40 and 3:20. If it is longer, cut a step. If it is shorter, do not pad it. Short and clear beats long and vague.\n\nSay the last line out loud every time, then shut your mouth and count 2 seconds of silence. You are practising the stop as much as the words. The stop is the part nobody practises, and it is the part that goes wrong."
+    "body": "You have led the walk all the way to the viewpoint. Now the only job left is to **stop at the destination and stay there**: say the one sentence you came to say, then go quiet. Picture a guide who reaches the view, points at it, and does not keep shuffling forward into the bushes mumbling \"so, yeah, anyway\".",
+    "simpler": "You have walked the group all the way to the viewpoint. The last job is to **stop at the destination and stay there**. Say the one sentence you came to say, then go quiet. Think of a guide who reaches the view, points at it, and stands still. A bad guide keeps shuffling forward into the bushes, mumbling \"so, yeah, anyway\". Do not be that guide."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You have read your index card 5 times and know it well. Have you rehearsed?",
+    "prompt": "Maya finishes her 3-minute talk on why the team should ship on Tuesdays. Which ending leaves people clearest about where they arrived?",
     "options": [
      {
       "id": "a",
-      "text": "Yes, 5 reads is plenty for a 3-minute talk."
+      "text": "\"So, yeah, that's basically it, I think. Thanks. Any questions, or...\""
      },
      {
       "id": "b",
-      "text": "No, rehearsing means saying it out loud, standing, 3 times, timed."
+      "text": "\"Ship on Tuesday, and Friday fires stop happening.\" Then she stops and looks at them."
      },
      {
       "id": "c",
-      "text": "Only if you also memorised it word for word."
+      "text": "\"Oh, and one more thing I forgot earlier about the test server...\""
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's reading, not rehearsing: your eyes know the words but your mouth has never said them.",
-     "c": "That's memorising a script, not rehearsing a talk: you want to know the route, not every word."
+     "a": "That's trailing off, not arriving: the words fade out, so nobody knows the walk has ended.",
+     "c": "That's starting a new walk, not finishing this one: a late extra point pulls people away from the destination."
     },
-    "reteach": "Think of the difference between looking at a map and walking the path. Reading the card is the map. Rehearsing is walking it, out loud, with your legs under you and a timer running, so the real walk is your fourth time, not your first."
-   },
-   {
-    "type": "example",
-    "title": "Dana's third run",
-    "body": "Dana's one sentence is: \"Our team should switch standup from 9:00 to 9:30.\" Her first run out loud takes 4:10 and ends with \"so, yeah, that's basically my thought.\" She cuts her third step, which was a story about traffic.\n\nSecond run: 3:05. She still trails off at the end. She writes the last line on her card in capitals: \"SO: MOVE STANDUP TO 9:30.\"\n\nThird run: 2:55. She says the capital-letter line, counts 2 seconds, and stops. That is the version she gives to her 4 teammates on Friday."
+    "reteach": "Your close is your one sentence from chapter 1, said once more, then silence. Anything added after it, whether an apology, a shrug or a new fact, drags the group past the viewpoint. End on the sentence and stand still."
    },
    {
     "type": "teach",
-    "title": "Close on the sentence, then stop",
-    "body": "Your last line is the sentence you wrote in chapter 1. Not a summary. Not \"any questions?\" Not \"thanks for listening.\" The one sentence, said slowly, and then nothing.\n\nThe urge to add something after it is strong. Your brain wants to soften the ending because silence feels like a mistake. It is not a mistake. Silence is how the group knows you have arrived. The 2 seconds after your last word are part of the talk.\n\nIf you must say anything after, make it one word: \"Thanks.\" Then sit down or step back. Moving your body tells the room it is over far better than any phrase.\n\nNow deliver it. Not to a mirror. To 2 or more real people, in the same room or on a call, standing up, from your card. Tell them before you start: \"I'm going to end on one sentence and stop. Tell me if I trail off.\" That one request turns a scary audience into a helpful one."
+    "title": "Rehearse out loud, 3 times",
+    "body": "Reading your card silently is not rehearsal. **Rehearsal means saying the words out loud, standing up, at full volume**, 3 times before the real thing. Your mouth has to learn the route, not just your eyes.\n\nRun 1 will be rough. You will lose a step and check your card. Fine. Run 2 is where you fix the sentences that felt clumsy in your mouth. Run 3 should be close to the real one, timed on your phone.\n\nIf run 3 is over 3 minutes 30, cut a step. Do not speed up. Cutting is the fix, speeding is the mistake from chapter 5.",
+    "simpler": "Reading your card quietly in your head is not practice. **Practice means saying the words out loud, standing up, at full volume**, 3 times before the real talk. Your mouth needs to learn the route, not just your eyes. Run 1 will be rough and you will check your card. Run 2 is for fixing sentences that felt clumsy. Run 3 should be close to the real thing, timed on your phone. If run 3 is over 3 minutes 30, cut a step. Do not speed up. Cutting is the fix."
+   },
+   {
+    "type": "example",
+    "title": "Run 3 in the kitchen",
+    "body": "Dev rehearsed his talk about switching the office coffee supplier while the kettle boiled. Run 1 took 4 minutes 10 and he said \"basically\" 9 times. Run 2 he cut the whole history of the old supplier, which nobody needed, and landed at 3 minutes 20. Run 3 he said the closing sentence, \"Same price, better coffee, one email to switch,\" and then stood in silence in his kitchen for 3 full seconds, feeling slightly ridiculous. The silence is the part that felt strange. It is also the part the room will remember.",
+    "simpler": "Dev practised his talk about changing the office coffee supplier while the kettle boiled. Run 1 took 4 minutes 10 and he said \"basically\" 9 times. In run 2 he cut the whole history of the old supplier, which nobody needed. That got him to 3 minutes 20. In run 3 he said his closing line, \"Same price, better coffee, one email to switch,\" then stood silent in his kitchen for 3 full seconds. It felt silly. That silence is the part the room will remember."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You have just said your one sentence to your 3 listeners. The room is silent. What do you do next?",
+    "prompt": "Your third rehearsal runs 3 minutes 50. Your one sentence is clear and your 3 steps all land. What do you change?",
     "options": [
      {
       "id": "a",
-      "text": "Say \"so, yeah, that's it, I guess\" to fill the gap."
+      "text": "Talk faster on the real day to shave the extra 50 seconds."
      },
      {
       "id": "b",
-      "text": "Quickly recap your 3 steps so they remember them."
+      "text": "Cut or shorten one of the 3 steps, then run it once more."
      },
      {
       "id": "c",
-      "text": "Hold still for 2 seconds, say \"Thanks\" if you need to, and step back."
+      "text": "Drop the closing sentence, since everyone will have got the point by then."
      }
     ],
-    "answer": "c",
+    "answer": "b",
     "whyNot": {
-     "a": "That's filler, not a close: it tells the room you doubt your own sentence.",
-     "b": "That's a second ending after the real one: a recap after the one sentence buries it under more words."
+     "a": "That's speeding up, not cutting: the pace from chapter 5 is the thing you should protect, so shrink the route instead.",
+     "c": "That's removing the destination, not the detour: the closing sentence is the one thing you can never cut."
     },
-    "reteach": "Your one sentence is the viewpoint. Once you have shown it, every extra word is you dragging the group back down the path. The silence after the sentence is not empty. It is the group looking at the view."
+    "reteach": "When a rehearsal runs long, the route is too long, not the pace. Trim one step and keep the opening sentence and the closing sentence exactly as they are. Then run it one more time to check the new length."
+   },
+   {
+    "type": "teach",
+    "title": "Close on the sentence, then stop",
+    "body": "Your last line is the one sentence from chapter 1, word for word. **Say it, hold still, and count 2 seconds in your head** before you move, sit or say \"thanks\". Those 2 seconds feel like 20. They are not.\n\nThe urge to fill the silence is strong. People add \"so, yeah\", \"that's it really\", or an apology. Each one quietly tells the room that you are not sure you have arrived. The silence tells them you are.\n\nThen do it for real, to 2 or more people. A pet or a mirror does not count. Two humans watching is what makes your legs shake, and shaking legs are what you practised for in chapter 6.",
+    "simpler": "Your last line is the one sentence from chapter 1, word for word. **Say it, hold still, and count 2 seconds in your head** before you move, sit, or say \"thanks\". Those 2 seconds feel like 20. They are not. You will want to fill the quiet with \"so, yeah\" or an apology. Each one tells the room you are not sure you have finished. The silence tells them you are. Then do it for real, to 2 or more people. A pet or a mirror does not count. Two humans watching is what makes your legs shake, and that is what you practised for."
    },
    {
     "type": "mistake",
-    "body": "The mistake is treating the close as the moment you are allowed to relax. Relief arrives, the voice drops, the eyes go to the floor, and \"so, yeah\" slips out before the brain can stop it.\n\nSpot it in rehearsal: if your recording ends with any word after your one sentence other than \"Thanks\", you have trailed off. Write the sentence in capitals on your card and practise saying it, then counting 2 seconds, 3 more times."
+    "body": "Priya delivered a sharp talk on a new rota, hit her closing sentence perfectly, and then said \"...so, um, yeah, I don't know, that's kind of it, sorry.\" The room, which had been nodding, looked down. You can spot this mistake in your own rehearsal: if anything comes out of your mouth after the one sentence, you have walked past the viewpoint. Record run 3 and listen only to the last 10 seconds.",
+    "simpler": "Priya gave a sharp talk about a new rota and said her closing sentence perfectly. Then she added \"...so, um, yeah, I don't know, that's kind of it, sorry.\" The room, which had been nodding, looked down. You can catch this in your own practice. If anything comes out of your mouth after the one sentence, you have walked past the viewpoint. Record run 3 and listen only to the last 10 seconds."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What are the 3 things this chapter asks you to do before you call the talk done?",
+    "prompt": "Which of these is the real sign that a talk has arrived at its destination?",
     "options": [
      {
       "id": "a",
-      "text": "Rehearse out loud 3 times, close on your one sentence, deliver it to 2 or more people."
+      "text": "The speaker says the one sentence from chapter 1 and then goes quiet."
      },
      {
       "id": "b",
-      "text": "Memorise every word, add a summary at the end, deliver it to a mirror."
+      "text": "The speaker runs out of things to say and thanks everyone."
      },
      {
       "id": "c",
-      "text": "Read the card 3 times, end with \"any questions?\", send it to a friend to read."
+      "text": "The speaker finishes every point on the card, including the extra ones."
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's a script and a second ending: you want the route not the words, and the one sentence is the summary.",
-     "c": "That's reading and sharing, not rehearsing and delivering: the test is your mouth and a live listener."
+     "b": "That's running out of road, not reaching the destination: the talk ends because the words stopped, not because the point was made.",
+     "c": "That's completeness, not arrival: covering everything is the opposite of the one-destination walk from chapter 1."
     },
-    "reteach": "The chapter has one idea with three parts. Walk it out loud 3 times so the real walk is not your first. Arrive at the one sentence you wrote in chapter 1 and stop there. Then do it for real with at least 2 people watching."
+    "reteach": "A talk arrives when the room hears the one sentence you built it around, and then nothing else. The sentence marks the viewpoint. The silence after it tells people they are allowed to look."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "**Say it out loud 3 times, cut if it runs long, then deliver it to 2 real people.** End on your one sentence, hold still for 2 seconds, and let the silence do the closing for you.",
+    "simpler": "**Say it out loud 3 times, cut if it runs long, then deliver it to 2 real people.** Finish on your one sentence. Hold still for 2 seconds. Let the silence do the closing for you. That quiet moment is not empty. It is the full stop at the end of your talk, and the room hears it as confidence."
    },
    {
     "type": "try",
-    "body": "Tonight: stand up, start your phone's voice recorder, and give the full 3-minute talk once. Play back only the last 10 seconds. Did it end on your one sentence?"
+    "body": "Tonight: stand up, set a 3-minute 30 timer, and do run 1 out loud to an empty room. Record it. Listen only to the last 10 seconds.",
+    "simpler": "Tonight, stand up and set a timer for 3 minutes 30. Do run 1 out loud to an empty room, at full volume, as if people were there. Record it on your phone. Then listen only to the last 10 seconds. That is where you find out whether you stopped at the viewpoint or kept walking."
    }
   ],
   "outcomeLine": "You can now deliver your 3-minute talk to a small group, end on your one sentence, and stop."
  },
- "seconds": 47.92673182487488
+ "seconds": 49.64004588127136
 }

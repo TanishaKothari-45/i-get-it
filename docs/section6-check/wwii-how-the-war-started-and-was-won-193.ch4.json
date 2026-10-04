@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "In 1941 two more houses catch fire, and they are the two biggest on the street. Germany lights the Soviet house itself on 22 June. On 7 December Japan throws a match at the American house, and four days later Germany shouts that it is America's enemy too.\n\nEach new house has its own deep well. From now on the fire is fighting more water than it can outlast."
-   },
-   {
-    "type": "teach",
-    "title": "22 June 1941: the biggest invasion ever",
-    "body": "In August 1939 Hitler and Stalin had promised not to fight each other. On 22 June 1941 Hitler broke that promise. About 3 million German and allied soldiers crossed into the Soviet Union along a front of more than 1,000 miles. No invasion before or since has been bigger.\n\nWhy, with Britain still unbeaten? Hitler had always said what he wanted: land and grain in the east. He also believed the Soviet state was rotten and would fall within months.\n\nThis was not a war like the one against France. Hitler called it a war of annihilation, meaning the aim was to destroy whole peoples, not just beat an army. Behind the front, killing squads shot Jews, Communist officials and others by the hundreds of thousands in 1941 alone. Soviet prisoners were penned in open fields and left to starve. More than 3 million of them died in German hands over the war.\n\nFor five months it looked like Hitler was right. German troops took huge numbers of prisoners and reached the edge of Moscow by late November. Then the winter, the distances and fresh Soviet troops stopped them. On 5 December 1941 the Soviet army counterattacked. The quick war had become a long one, and a long war is where size counts."
+    "body": "In 1941 the fire jumps twice. On 22 June it leaps east into the Soviet house, **the biggest building on the street**, with a reservoir in the back garden. On 7 December Japan sets the American house alight across the ocean, and four days later Hitler walks over and adds his own match.",
+    "simpler": "Think of the war as a fire spreading along a street of houses. In 1941 it jumps twice. On 22 June it leaps east into the Soviet house, **the biggest building on the street**, with a huge water supply out the back. On 7 December Japan sets the American house on fire across the ocean. Four days later Hitler walks over and adds his own match to that fire too."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Hitler planned to beat the Soviet Union in a few months. Why did finishing fast matter so much to him?",
+    "prompt": "June 1941. You're taking bets on the fire. It ate France in six weeks. Now it jumps into the Soviet house, by far the biggest on the block, with a reservoir out back. Do its odds of burning the whole street go up or down?",
     "options": [
      {
       "id": "a",
-      "text": "The 1939 pact with Stalin was about to expire, so he had to strike before it did."
+      "text": "Up. A bigger house is more timber."
      },
      {
       "id": "b",
-      "text": "The longer the fight lasted, the more the Soviet Union's far larger population and factories would count."
+      "text": "Down. The biggest houses hold the most water, if they get time to reach the taps."
      },
      {
       "id": "c",
-      "text": "Japan had promised to attack the Soviet Union from the east, but only if Germany won by winter."
+      "text": "No change. One house is one house."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the pact, not the plan: Hitler broke the pact by choice on 22 June 1941. It had no expiry date forcing his hand.",
-     "c": "That's the Axis alliance, not a real deal: Japan never promised to attack the Soviet Union, and it never did."
+     "a": "That's size as fuel, not size as water: a big house also has the most people and factories to fight back with.",
+     "c": "That's counting houses, not weighing them: the Soviet house had more than twice Germany's people."
     },
-    "reteach": "Germany was a mid-sized country fighting a huge one. In a short war, surprise and skill decide. In a long war, the side with more people, more fuel and more factories catches up and then overtakes. Hitler needed the short war because he could not win the long one."
-   },
-   {
-    "type": "example",
-    "title": "7 December 1941: Japan makes the same bet",
-    "body": "Japan had been fighting in China since 1937 and needed oil. In the summer of 1941 the United States, which sold Japan most of its oil, cut off the supply. Japan's leaders saw two choices: give up their gains in China, or seize the oilfields of South-East Asia and knock out the one fleet that could stop them.\n\nOn 7 December 1941 about 350 Japanese planes struck the US fleet at Pearl Harbor in Hawaii. All 8 battleships in the harbour were hit and 4 were sunk. About 2,400 Americans died. The US aircraft carriers were at sea and untouched. The next day the United States declared war on Japan.\n\nJapan had made Hitler's bet: win fast, before a far bigger country's size could count."
+    "reteach": "A street fire only wins by burning fast, before anyone reaches a tap. The Soviet Union had more people, more land and more room to retreat than anything Germany had fought. Attacking it was a bet on finishing before it recovered."
    },
    {
     "type": "teach",
-    "title": "11 December 1941: a fight Hitler did not have to pick",
-    "body": "Pearl Harbor put America at war with Japan, not Germany. Germany's treaty with Japan only promised help if Japan was attacked. Japan was the attacker, so Hitler could have stayed out.\n\nOn 11 December 1941 he declared war on the United States anyway. America was already sending ships and supplies to Britain, so he reckoned it would fight sooner or later. He also hoped Japan would keep America busy in the Pacific.\n\nNow look at the sums. Germany had roughly 80 million people. Against it stood Britain with about 48 million, the Soviet Union with about 190 million and the United States with about 130 million. America pumped around 6 of every 10 barrels of the world's oil. Germany had almost none of its own. American factories were not yet building weapons at full speed, but everyone could see they soon would.\n\nThe Axis also never fought as one team. Japan did not attack the Soviet Union, so Stalin could move troops from Siberia to save Moscow. Germany and Japan made no joint plans. The Allies did the opposite: within three weeks Churchill and Roosevelt met in Washington and agreed to beat Germany first."
+    "title": "The jump east",
+    "body": "On 22 June 1941 Hitler tore up his 1939 pact with Stalin and sent about 3 million soldiers into the Soviet Union, the largest invasion in history. The plan was *Blitzkrieg* again, the fast tank-and-plane attack that had beaten France: **knock the Soviets over before winter**.\n\nThis was a *war of extermination*, a war meant to kill whole peoples, not just to win. Soviet prisoners were starved by the million, and killing squads shot Jews behind the front.\n\nBy early December German soldiers could see Moscow. Then the Soviets counterattacked in the snow. The quick win was gone.",
+    "simpler": "On 22 June 1941 Hitler broke his deal with Stalin and sent 3 million soldiers into the Soviet Union, history's biggest invasion. He used Blitzkrieg, the fast tank-and-plane attack that beat France, to **knock the Soviets over before winter**. It was a war of extermination, meant to kill whole peoples. Soviet prisoners starved by the million. Killing squads shot Jews behind the front. By December Germans could see Moscow. Then the Soviets hit back in the snow and the quick win was gone."
+   },
+   {
+    "type": "example",
+    "title": "Breakfast at Pearl Harbor",
+    "body": "Sunday 7 December 1941, Hawaii. Japanese planes hit the American fleet at breakfast time, sinking four battleships and killing about 2,400 people. Japan struck because America had cut off its oil that summer, and Japan's war in China ran on American oil. The sour note for Japan: **not one American aircraft carrier was in the harbour** that morning. All of them survived, and the next chapter is about what carriers can do.",
+    "simpler": "Sunday 7 December 1941, Hawaii. Japanese planes hit the American fleet at breakfast time. They sank four battleships and killed about 2,400 people. Why? That summer America had cut off Japan's oil, and Japan's war in China ran on American oil. But there was a sour note for Japan: **not one American aircraft carrier was in the harbour** that morning. Carriers are ships that planes fly from. Every one survived, and the next chapter shows what carriers can do."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "It is 11 December 1941. Which statement best describes what Hitler's declaration of war on the United States did?",
+    "prompt": "11 December 1941. A friend says: \"Hitler had no choice, his treaty with Japan forced him to declare war on America.\" Which reply uses this chapter?",
     "options": [
      {
       "id": "a",
-      "text": "It added the world's biggest economy to Germany's enemies, just as the attack on Moscow had stalled."
+      "text": "Right. If Japan went to war, Germany had to follow."
      },
      {
       "id": "b",
-      "text": "It changed nothing, because Pearl Harbor had already put America at war with Germany."
+      "text": "No. The pact only covered Japan being attacked, and Japan did the attacking. Hitler chose to add the richest house himself."
      },
      {
       "id": "c",
-      "text": "It brought Japan into the fight against the Soviet Union from the east."
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's Japan's war, not Germany's: Pearl Harbor put America at war with Japan only. Hitler's declaration is what brought America in against Germany.",
-     "c": "That's what Hitler hoped the alliance might give him, not what happened: Japan never attacked the Soviet Union."
-    },
-    "reteach": "On 5 December the Soviet counterattack showed that Germany's quick war in the east had failed. Six days later Hitler, by his own choice, took on a second giant. From that day Germany faced the three largest Allied powers at once, while its own allies fought separate wars."
-   },
-   {
-    "type": "mistake",
-    "body": "People say \"America joined the war after Pearl Harbor\" and stop there. Pearl Harbor put America at war with Japan only. It was Hitler's own declaration on 11 December that put America at war with Germany.\n\nSpot it by asking two questions: against whom, and who declared?"
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Why did 1941 put Germany at a disadvantage on paper?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Germany lost outside Moscow, so its army was broken from then on."
-     },
-     {
-      "id": "b",
-      "text": "Germany was now at war with Britain, the Soviet Union and the United States at once, and together they had far more people, oil and factories."
-     },
-     {
-      "id": "c",
-      "text": "Italy and Japan left the alliance, so Germany stood alone."
+      "text": "It makes no difference. America was already fighting German troops in 1941."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a setback, not the point: the German army fought on for three and a half more years. The disadvantage was in size, not in one battle.",
-     "c": "That's a mix-up: both stayed in the alliance. The trouble was that they fought their own separate wars and never joined Germany's."
+     "a": "That's a defensive pact read as an offensive one: it promised help if Japan was attacked, not if Japan attacked.",
+     "c": "That's American weapons for Britain, not American soldiers at war: the United States armed Britain but was not fighting Germany."
     },
-    "reteach": "Count the houses. In 1940 Germany fought one, Britain. By December 1941 it fought three, and the two new ones were the largest on earth. The Axis never pooled its strength. The Allies agreed a shared plan within weeks."
+    "reteach": "Japan's attack gave Hitler an excuse, not an order. He declared war on the United States on 11 December 1941, and from that day Germany faced Britain, the Soviet Union and America all at once."
+   },
+   {
+    "type": "teach",
+    "title": "Count the houses",
+    "body": "Hitler's pact with Japan only bound him to help if Japan was attacked, and Japan had attacked. America was arming Britain but not at war with Germany. On 11 December Hitler declared war on the United States anyway, **adding the richest enemy on earth by his own hand**.\n\nNow count. Germany, about 80 million people, faced Britain and its empire, the Soviet Union with about 190 million, and the United States, whose factories alone could outbuild Germany, Italy and Japan together.\n\nHitler had always bet on speed: win before the big houses reached their taps. Outside Moscow, speed had already failed. From 11 December 1941 the sums favoured the Allies. Paper does not fight, though, and three and a half hard years remained.",
+    "simpler": "Japan had attacked, so Hitler's deal with Japan did not force him in. Yet on 11 December he declared war on the United States, **adding the richest enemy on earth by his own hand**. Germany's 80 million faced Britain's empire, the Soviet Union's 190 million, and America, whose factories outbuilt Germany, Italy and Japan combined. His fast win had died outside Moscow. On paper the Allies had won. Paper does not fight, and three and a half hard years remained."
+   },
+   {
+    "type": "mistake",
+    "body": "A pub quiz team is asked why America went to war with Germany. \"Pearl Harbor,\" they say. But Japan bombed Pearl Harbor, and on 8 December Congress declared war on Japan alone. It was Hitler, three days later, who put Germany and America at war. Spot the slip whenever someone treats 7 December as the day Germany gained its last enemy. That was 11 December, and **Germany chose it**.",
+    "simpler": "A pub quiz team is asked why America went to war with Germany. \"Pearl Harbor,\" they say. But Japan bombed Pearl Harbor, not Germany. On 8 December Congress declared war on Japan only. It was Hitler, three days later, who put Germany and America at war. So watch for the slip when someone treats 7 December as the day Germany got its last enemy. That day was 11 December, and **Germany chose it**."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Quiz question: why did fighting Britain, the Soviet Union and the United States at once put Germany at a disadvantage on paper from December 1941?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Together the three had far more people, factories and oil than Germany, and Germany's quick-win plan had already stalled outside Moscow."
+     },
+     {
+      "id": "b",
+      "text": "The German army was smaller and weaker than the Soviet army from the first day."
+     },
+     {
+      "id": "c",
+      "text": "Britain was already beating Germany alone by 1941, so the other two just finished the job."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the long game mistaken for the first day: in June 1941 the Germans won battle after battle. The trouble began when the quick win failed.",
+     "c": "That's holding mistaken for winning: in 1941 Britain had kept Germany out, as in chapter 3, but was nowhere near beating it."
+    },
+    "reteach": "Paper strength is people, factories and fuel added up. Germany's three enemies had far more of each, and American factories alone could outbuild the whole Axis. Germany's only answer was speed, and in December 1941 speed ran out in the snow."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "In 1941 Germany attacked the Soviet Union, Japan attacked America, and Hitler then declared war on America himself, so by 11 December the Axis was fighting **the three biggest powers on earth at once**. Germany's only hope was a quick win, and the quick win had already died in the snow outside Moscow.",
+    "simpler": "Here is the chapter in one breath. In 1941 Germany attacked the Soviet Union. Japan attacked America. Then Hitler declared war on America himself. So by 11 December the Axis, meaning Germany and its partners, was fighting **the three biggest powers on earth at once**. Germany's only hope was a quick win, and that quick win had already died in the snow outside Moscow."
    },
    {
     "type": "try",
-    "body": "Tonight, say three dates aloud to someone or into a voice note: 22 June, 7 December, 11 December 1941. Give one line each on who joined the fight and who chose it."
+    "body": "Tonight, in any map app, tap Moscow and say 22 June, tap Pearl Harbor and say 7 December, tap Berlin and say 11 December 1941. **Say the three dates out loud.** That is the whole chapter.",
+    "simpler": "Tonight, open any map app on your phone. Tap Moscow and say 22 June. Tap Pearl Harbor and say 7 December. Tap Berlin and say 11 December 1941. **Say the three dates out loud.** Three taps, three dates, and you have the whole chapter in your head."
    }
   ],
-  "outcomeLine": "You can now explain why 1941 turned a European war into a world war, and why the sums were against Germany from December 1941 on."
+  "outcomeLine": "You can now explain how 1941 turned a European fire into a world war, and why from 11 December Germany was outnumbered on paper."
  },
- "seconds": 125.60841774940491
+ "seconds": 145.6482081413269
 }

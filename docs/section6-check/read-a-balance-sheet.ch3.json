@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Look at the house photo again and sort what you own into two piles. The cash in the drawer, the food in the fridge, and the money a friend still owes you can all turn into spendable cash within a few months. The house, the car and the boiler are worth far more, but you cannot spend them this month. A balance sheet sorts what a company owns into the same two piles: fast and slow."
-   },
-   {
-    "type": "teach",
-    "title": "Two piles, fast on top",
-    "body": "An asset is anything the company owns that is worth money. The balance sheet lists them with the ones closest to cash at the top and the ones furthest from cash at the bottom.\n\nThe fast pile is called current assets. Current means the company expects it to turn into cash within 12 months. The usual lines are cash itself, inventory (goods sitting in a warehouse waiting to be sold, often called stock) and receivables (bills the company has sent to customers who have not paid yet).\n\nThe slow pile is called non-current assets, or long-term assets. These are things the company plans to keep and use for years: buildings, land, machines, vehicles and computer systems.\n\nThe slow pile also holds things you cannot touch. Intangibles are rights like patents or brand names bought from someone else. Goodwill is the extra a company paid when it bought another company for more than its parts were worth.\n\nEvery asset line sits in one pile or the other. The sheet gives a subtotal for each: total current assets, and total non-current assets. Add them and you get total assets, the number you met in chapter 1."
+    "body": "Walk through the house. In the kitchen drawer there is some cash, in the fridge there is food you will eat this week, and the neighbour still owes you 50 for the old lawnmower. Those are *fast*: they are cash, or will be soon. The house, the boiler and the car on the drive are *slow*: you could sell them, but not this month and not without fuss. **A balance sheet lists what a company owns from fastest to slowest.**",
+    "simpler": "Think about your own home. There is some cash in a drawer, food in the fridge you will eat this week, and a neighbour who owes you 50 for an old lawnmower. These are fast. They are cash now or will be soon. The house, the boiler and the car are slow. You could sell them, but not this month and not easily. **A balance sheet lists what a company owns from fastest to slowest.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Which of these lines belongs in the fast pile, the current assets?",
+    "prompt": "Mo runs a bakery and needs 500 by Friday. Which of these turns into cash soonest?",
     "options": [
      {
       "id": "a",
-      "text": "A factory building"
+      "text": "The brick oven"
      },
      {
       "id": "b",
-      "text": "Goods in a warehouse waiting to be sold"
+      "text": "The 40 loaves cooling on the shelf"
      },
      {
       "id": "c",
-      "text": "A brand name bought from another company"
+      "text": "The 10-year lease on the shop"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a slow asset, not a fast one: a factory is kept and used for years, not turned into cash within 12 months.",
-     "c": "That's an intangible in the slow pile, not a fast asset: a bought brand is held for years and cannot be sold off next month."
+     "a": "That's a slow asset, not a fast one: an oven can be sold, but not by Friday and not for what she paid.",
+     "c": "That's the slowest kind, not a fast one: a lease is a right to use the shop for years, not something she can cash in this week."
     },
-    "reteach": "Ask one question of each line: does the company expect this to become cash within 12 months? Cash, stock and customer bills pass that test. Buildings, machines, brands and goodwill do not, so they go in the slow pile."
-   },
-   {
-    "type": "example",
-    "title": "A bakery chain's two piles",
-    "body": "Picture a small bakery chain with 3 shops. Its fast pile reads: cash 40,000, stock of flour and packaging 15,000, and bills owed by caf\u00e9s that buy its bread wholesale 25,000. Total current assets: 80,000.\n\nIts slow pile reads: ovens and delivery vans 120,000, shop fittings 60,000. Total non-current assets: 180,000. Total assets: 260,000.\n\nAsked what this company owns, you would say: mostly ovens and vans, then shop fittings, with 80,000 that can turn into cash this year, of which only 40,000 is cash right now."
+    "reteach": "Ask one question of each thing: how soon could this be money in the till? Bread sells today. Ovens and leases sit still. The sheet sorts by that question, nothing fancier."
    },
    {
     "type": "teach",
-    "title": "Fast is a promise, not a fact",
-    "body": "Only one line in the fast pile is already cash: the one called cash. Stock becomes cash only if someone buys it. A customer bill becomes cash only if the customer pays. So the fast pile tells you what should arrive, not what has arrived.\n\nThe slow pile has its own catch. Buildings and machines are shown at what they cost, minus a yearly deduction for wear called depreciation. That number is not what they would fetch if sold tomorrow.\n\nGoodwill is the odd one. It is not a thing at all, only a record of a price paid in the past. It cannot be sold on its own. When goodwill is the biggest line, the company owns less touchable stuff than the total suggests.\n\nSo when you name the two or three biggest things a company owns, add one word to each: cash, stock, bills, buildings, or goodwill. That word says how real the number is."
+    "title": "The line at 12 months",
+    "body": "Accountants draw one line, at 12 months. Anything the company expects to turn into cash within a year sits above it and is called a *current asset*, which just means fast.\n\nThree things live there in nearly every company. Cash, which needs no explaining. *Receivables*, invoices the company has sent to customers who have not paid yet. And *inventory*, the stock sitting on shelves or in a warehouse, waiting to be sold.\n\n**They appear in that order, most cash-like first.** A customer's invoice is usually closer to money than a box of unsold stock.",
+    "simpler": "Accountants draw one line at 12 months. Anything the company expects to turn into cash within a year goes above the line. These are called current assets, which means fast.\n\nThree things almost always sit there. Cash. Receivables, which are bills sent to customers who have not paid yet. And inventory, which is stock on shelves waiting to be sold.\n\n**They appear in that order, most cash-like first.** An unpaid bill is usually closer to money than unsold stock."
+   },
+   {
+    "type": "example",
+    "title": "Rosa's bike shop, 31 December",
+    "body": "Rosa's balance sheet shows cash 12,000, customer invoices 5,000, bikes in stock 48,000, the shop building 200,000 and workshop tools 15,000. Total assets: 280,000. Rosa feels like a woman with 280,000. But **only 65,000 is fast**, and 48,000 of that is bicycles in a town where it is snowing. The money she can actually spend tomorrow is 12,000. The building is most of her wealth and the least useful thing for paying January's electricity bill.",
+    "simpler": "Rosa's bike shop closes its books on 31 December. She has cash of 12,000, unpaid customer bills of 5,000, bikes in stock worth 48,000, a shop building worth 200,000 and tools worth 15,000. Total: 280,000. Rosa feels rich. But **only 65,000 is fast**, and 48,000 of that is bicycles in a snowy town. The money she can spend tomorrow is 12,000. The building is most of her wealth, yet it cannot pay January's electricity bill."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A company's biggest asset lines are goodwill 500 million, buildings 100 million and cash 50 million. A friend says: \"They own 650 million of stuff they could sell.\" Which reply applies the idea correctly?",
+    "prompt": "A courier firm's sheet lists: two vans bought last year, 3,000 of invoices customers have not paid yet, and a 20-year lease on its depot. Which line is a current asset?",
     "options": [
      {
       "id": "a",
-      "text": "Agree: all three lines are assets, so all 650 million could be sold."
+      "text": "The two vans"
      },
      {
       "id": "b",
-      "text": "Disagree: goodwill is a slow asset that cannot be sold on its own, so the sellable pile is closer to 150 million."
+      "text": "The 3,000 of unpaid customer invoices"
      },
      {
       "id": "c",
-      "text": "Disagree: goodwill is a fast asset because it was paid for in cash, so only the buildings are hard to sell."
+      "text": "The 20-year depot lease"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That treats goodwill like a building or a van, not what it is: a record of an old purchase price with nothing to hand over to a buyer.",
-     "c": "That's the fast-pile test misapplied: goodwill was bought with cash once, but it will never turn back into cash within 12 months, so it sits in the slow pile."
+     "a": "That's a long-term asset, not a current one: vans are used for years, not turned into cash within 12 months.",
+     "c": "That's a long-term asset, not a current one: a 20-year lease is a right to stay, and it stays slow for 20 years."
     },
-    "reteach": "Sort each line first, then ask how real it is. Buildings are slow but touchable. Cash is fast and already cash. Goodwill is slow and not touchable, so it is the least sellable number on the whole sheet."
+    "reteach": "Current means cash within 12 months. Invoices get paid in weeks, so they count. Vans and leases are kept and used, so they sit below the line as slow."
+   },
+   {
+    "type": "teach",
+    "title": "Below the line",
+    "body": "Under the 12-month line sit the *non-current assets*, the slow ones: land, buildings, machines, vehicles. The sheet shows them at what they cost minus *depreciation*, the accountant's steady guess at wear and tear. That is not what they would sell for today.\n\nOne odd line hides here: *goodwill*, or *intangibles*. When a company buys another company and pays more than its stuff is worth, the extra is parked here. It stands for a brand, a customer list, a reputation. It cannot be sold on its own.\n\n**Your job is to find the two or three biggest lines** and ask of each: how soon could this be cash?",
+    "simpler": "Below the 12-month line sit the slow ones, called non-current assets: buildings, machines, vehicles. They appear at cost minus depreciation, a steady guess at wear and tear, not today's selling price.\n\nOne odd line hides here: goodwill, or intangibles. If a company buys another for more than its stuff is worth, the extra sits here. It stands for a brand or reputation and cannot be sold alone.\n\n**Find the two or three biggest lines** and ask when each could be cash."
    },
    {
     "type": "mistake",
-    "body": "The common slip is reading receivables as money in the bank. It is a bill the company has sent, not cash it has received. Spot it by comparing two lines: if receivables are bigger than cash, and bigger than last year, the company is lending to its customers and waiting to be paid."
+    "body": "Priya reads total assets of 9 million and relaxes. Then she looks closer: 7 million of it is one line, goodwill from buying a rival 3 years ago. Nothing in that 7 million can be sold, and the company has 400,000 in cash. **Spot it by finding the biggest line first**, then asking when it could become money. If the honest answer is never on its own, the total is mostly a memory of a purchase.",
+    "simpler": "Priya sees total assets of 9 million and relaxes. Then she looks closer. 7 million of it is one line: goodwill from buying a rival 3 years ago. None of that 7 million can be sold, and the company has only 400,000 in cash. **Spot it by finding the biggest line first**, then ask when it could become money. If the honest answer is never on its own, the total is mostly a memory of a purchase."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What makes an asset count as current, the fast pile?",
+    "prompt": "Why does a balance sheet split what a company owns into two groups?",
     "options": [
      {
       "id": "a",
-      "text": "It is worth more than 10,000."
+      "text": "To show which things cost the most"
      },
      {
       "id": "b",
-      "text": "The company expects it to turn into cash within 12 months."
+      "text": "To show which things could become cash within 12 months and which cannot"
      },
      {
       "id": "c",
-      "text": "It is something you can physically touch."
+      "text": "To show which things were bought this year"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's size, not speed: a 2 million warehouse is slow, a 500 customer bill is fast.",
-     "c": "That's touchable versus intangible, not fast versus slow: an oven can be touched but is slow, a customer bill cannot be touched but is fast."
+     "a": "That's size, not speed: a building can be the biggest line and still the slowest to turn into cash.",
+     "c": "That's the purchase date, not the cash date: a van bought last week is still a slow asset because it will be used for years."
     },
-    "reteach": "The only test is time. Within 12 months to cash means current. Longer than that means non-current. Nothing else about the item matters for which pile it goes in."
+    "reteach": "The split is about time to cash. Above the line: cash, unpaid customer invoices and stock, all expected to be money within a year. Below the line: buildings, machines and bought brands, which the company keeps and uses."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Everything a company owns is listed fastest to slowest: cash, unpaid customer invoices and stock above the 12-month line, buildings, machines and bought-in brands below it. **Find the biggest two or three lines and ask how soon each could be cash.**",
+    "simpler": "Everything a company owns is listed from fastest to slowest. Above the 12-month line sit cash, unpaid customer bills and stock. Below it sit buildings, machines and bought-in brands. **Find the biggest two or three lines and ask how soon each could be cash.**"
    },
    {
     "type": "try",
-    "body": "Search the name of a company you buy from plus \"annual report balance sheet\". Find the line \"Total current assets\". Write down the three lines above it and the one biggest line below it."
+    "body": "Search online for any listed company's annual report and find the balance sheet. Write down total current assets, total assets and the single biggest line. Say out loud whether that biggest line is fast or slow.",
+    "simpler": "Search online for the annual report of any listed company, meaning one whose shares you can buy on a stock exchange. Find the balance sheet inside it. Write down three numbers: total current assets, total assets and the single biggest line. Then say out loud whether that biggest line is fast or slow."
    }
   ],
-  "outcomeLine": "You can now sort every asset line into fast or slow and name the two or three biggest things a company owns."
+  "outcomeLine": "You can now sort every asset line into fast or slow and name the biggest things a company owns."
  },
- "seconds": 54.63946795463562
+ "seconds": 75.8831250667572
 }

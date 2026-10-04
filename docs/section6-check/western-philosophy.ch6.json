@@ -5,12 +5,14 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Mill and Kant sit on opposite sides of the table. Kant, speaking in 1785, says a right act is one whose rule everyone could follow. Mill, replying in 1861, says a right act is one that leaves the most people happiest. Nearly every argument about right and wrong since then has a guest leaning toward one of those two chairs."
+    "body": "Mill and Kant sit on opposite sides of the table. Kant, speaking in 1785, says a right act is one whose rule everyone could follow. Mill, replying in 1861, says a right act is one that leaves the most people happiest. Nearly every argument about right and wrong since then has a guest leaning toward one of those two chairs.",
+    "simpler": "Picture two thinkers facing each other across a table. On one side sits Kant, writing in 1785. He says an act is right when **its rule is one everyone could follow**. On the other side sits Mill, answering in 1861. He says an act is right when it leaves the most people happiest. Almost every argument about right and wrong since then has leaned toward one of those two chairs."
    },
    {
     "type": "teach",
     "title": "Two tests, two questions",
-    "body": "Mill's test looks at results. An act is right if it produces the most happiness and the least suffering for everyone it affects, with each person counted once. This view is called utilitarianism, from 'utility', an old word for usefulness. You add up the good and the harm for everyone touched by the act, not just for yourself.\n\nKant's test looks at the rule behind the act. Before you act, state the rule you are following, such as 'break a promise when it suits me'. Then ask: could everyone act on that rule? If the rule would fall apart or wreck something once everyone followed it, the act is forbidden. Kant called this the categorical imperative: 'categorical' means no exceptions, 'imperative' means a command.\n\nKant gave a second way to say the same thing: never treat a person merely as a tool for your own purposes.\n\nNotice the direction each test faces. Mill looks forward at what the act will cause. Kant looks down at the rule you are acting on right now."
+    "body": "Mill's test looks at results. An act is right if it produces the most happiness and the least suffering for everyone it affects, with each person counted once. This view is called utilitarianism, from 'utility', an old word for usefulness. You add up the good and the harm for everyone touched by the act, not just for yourself.\n\nKant's test looks at the rule behind the act. Before you act, state the rule you are following, such as 'break a promise when it suits me'. Then ask: could everyone act on that rule? If the rule would fall apart or wreck something once everyone followed it, the act is forbidden. Kant called this the categorical imperative: 'categorical' means no exceptions, 'imperative' means a command.\n\nKant gave a second way to say the same thing: never treat a person merely as a tool for your own purposes.\n\nNotice the direction each test faces. Mill looks forward at what the act will cause. Kant looks down at the rule you are acting on right now.",
+    "simpler": "Mill asks what the act will cause. It is right if it brings the most happiness and least suffering to everyone it touches, each counted once. He called this utilitarianism. Kant asks instead: **could everyone follow the rule you are acting on?** If the rule would fall apart once everyone used it, the act is forbidden. He called this the categorical imperative, a command with no exceptions. He also said: never treat a person merely as a tool. Mill looks ahead. Kant looks at the rule."
    },
    {
     "type": "exercise",
@@ -40,12 +42,14 @@
    {
     "type": "example",
     "title": "Dilemma 1: the false promise",
-    "body": "Kant's own case from 1785: a man needs money and borrows it, promising to pay it back, while knowing he never will. Kant states his rule: 'make a false promise when I am in trouble.' Could everyone act on it? If they did, nobody would believe any promise, so promising itself would stop working. The rule destroys itself, so the act fails Kant's test.\n\nMill reaches the same verdict a different way. The lender loses his money, and every broken promise chips at the trust that lets strangers deal with each other. The harm to everyone outweighs the borrower's gain. On this dilemma the two tests agree."
+    "body": "Kant's own case from 1785: a man needs money and borrows it, promising to pay it back, while knowing he never will. Kant states his rule: 'make a false promise when I am in trouble.' Could everyone act on it? If they did, nobody would believe any promise, so promising itself would stop working. The rule destroys itself, so the act fails Kant's test.\n\nMill reaches the same verdict a different way. The lender loses his money, and every broken promise chips at the trust that lets strangers deal with each other. The harm to everyone outweighs the borrower's gain. On this dilemma the two tests agree.",
+    "simpler": "Kant's own example from 1785: a man borrows money, promising to repay it, knowing he never will. His rule is 'make a false promise when I am in trouble.' Could everyone do that? If they did, nobody would believe any promise, so **promising itself would stop working**. Kant says no. Mill says no too. The lender loses money, and every broken promise wears away the trust strangers rely on. The harm outweighs the gain. Both tests agree."
    },
    {
     "type": "teach",
     "title": "Where the tests split",
-    "body": "Dilemma 2: your friend gives you a gift you dislike and asks if you love it. Mill counts: one small lie, one happy friend, nobody harmed, so the lie is probably right. He did warn that lies weaken trust, so the count is close. Kant states the rule 'lie when it is kinder' and asks if everyone could follow it. If they did, no compliment would mean anything. The rule collapses, so Kant says tell the truth.\n\nDilemma 3: someone who means to harm your friend knocks and asks where your friend is hiding. Kant wrote in 1797 that even here you must not lie. Mill says lie without a second thought, because one life weighs far more than one rule.\n\nMost people side with Mill on dilemma 3. But Kant's test has a strength that shows up when the numbers point the other way. Mill's sum can justify hurting one person if enough others gain. Kant's rule forbids using a person merely as a tool, no matter how many benefit.\n\nNeither test asks how you feel afterwards. Guilt or relief is a reaction, not a verdict."
+    "body": "Dilemma 2: your friend gives you a gift you dislike and asks if you love it. Mill counts: one small lie, one happy friend, nobody harmed, so the lie is probably right. He did warn that lies weaken trust, so the count is close. Kant states the rule 'lie when it is kinder' and asks if everyone could follow it. If they did, no compliment would mean anything. The rule collapses, so Kant says tell the truth.\n\nDilemma 3: someone who means to harm your friend knocks and asks where your friend is hiding. Kant wrote in 1797 that even here you must not lie. Mill says lie without a second thought, because one life weighs far more than one rule.\n\nMost people side with Mill on dilemma 3. But Kant's test has a strength that shows up when the numbers point the other way. Mill's sum can justify hurting one person if enough others gain. Kant's rule forbids using a person merely as a tool, no matter how many benefit.\n\nNeither test asks how you feel afterwards. Guilt or relief is a reaction, not a verdict.",
+    "simpler": "A friend asks if you love a gift you dislike. Mill counts one small lie against one happy friend, so the lie is probably fine. Kant says tell the truth: if everyone lied to be kind, no compliment would mean anything. Then someone who means harm asks where your friend is hiding. Kant, in 1797, still says never lie. Mill says lie at once. But **Mill's sum can justify hurting one person if enough others gain**. Kant's rule never can."
    },
    {
     "type": "exercise",
@@ -74,7 +78,8 @@
    },
    {
     "type": "mistake",
-    "body": "The common slip is to borrow one thinker's reason for the other thinker's verdict, such as 'Kant forbids lying because lying makes people unhappy.' That is Mill's reason wearing Kant's conclusion. Spot it fast: if the reason mentions results or happiness, it is Mill's test, whatever name is attached. If the reason mentions what would happen if everyone followed the rule, it is Kant's."
+    "body": "The common slip is to borrow one thinker's reason for the other thinker's verdict, such as 'Kant forbids lying because lying makes people unhappy.' That is Mill's reason wearing Kant's conclusion. Spot it fast: if the reason mentions results or happiness, it is Mill's test, whatever name is attached. If the reason mentions what would happen if everyone followed the rule, it is Kant's.",
+    "simpler": "A common slip is to mix the two: giving one thinker's reason for the other thinker's answer. 'Kant forbids lying because lying makes people unhappy' sounds right, but that is Mill's reason wearing Kant's verdict. There is a quick check. **If the reason talks about results or happiness, it is Mill's test**, whatever name is attached. If the reason talks about what happens when everyone follows the rule, it is Kant's."
    },
    {
     "type": "exercise",
@@ -103,7 +108,8 @@
    },
    {
     "type": "try",
-    "body": "Tonight, pick one small choice you made today, such as a white lie or a shortcut. Write two lines: Mill's count of who gained and who lost, and Kant's rule stated as 'everyone does this when...'."
+    "body": "Tonight, pick one small choice you made today, such as a white lie or a shortcut. Write two lines: Mill's count of who gained and who lost, and Kant's rule stated as 'everyone does this when...'.",
+    "simpler": "Tonight, pick one small choice you made today. A white lie or a shortcut will do. Write two lines about it. The first is Mill's line: **who gained and who lost** from what you did. The second is Kant's line: state your rule as 'everyone does this when...' and finish the sentence. Two lines, two tests, one real choice."
    }
   ],
   "outcomeLine": "You can now run one moral dilemma through Mill's happiness test and Kant's everyone-rule test and say where they give different answers."

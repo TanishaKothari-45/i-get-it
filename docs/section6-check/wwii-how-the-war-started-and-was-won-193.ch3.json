@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "The fire did not burn the French house slowly from the front, where everyone stood with hoses. It found the one back door nobody was watching, rushed through, and the house was full of smoke before the hoses turned around.\n\nThen it reached the gap between houses: about 33 km of open water. Fire cannot cross water. All it could do was throw sparks over from the air, and the next house had people on the roof swatting them out."
-   },
-   {
-    "type": "teach",
-    "title": "One punch at the unguarded door",
-    "body": "In May 1940 France and Britain together had about as many soldiers and tanks as Germany. On paper it was an even fight. France also had the Maginot Line, a chain of concrete forts along its border with Germany.\n\nGermany did not attack the forts. On 10 May 1940 it marched into the Netherlands and Belgium to the north. The best French and British armies rushed north to meet them, exactly as the Germans hoped.\n\nThe main German tank force went somewhere else: through the Ardennes, a hilly forest in southern Belgium that French planners thought too thick for tanks. It crossed the river Meuse near Sedan on 13 May and then drove west, toward the sea.\n\nThe tanks did not stop to clear each town. Dive-bombers flew ahead and broke up whatever stood in the road. By 20 May the tanks reached the Channel coast. The armies that had rushed north were now cut off from the rest of France.\n\nThis way of fighting is often called Blitzkrieg, a German word meaning lightning war: tanks, planes and radios used together to move faster than the enemy can react. French orders went by messenger and telephone, and by the time they arrived the situation they described was gone."
+    "body": "In May 1940 the fire reached the biggest house on the street. France had an army about as large as Germany's and a long concrete wall, the *Maginot Line*, facing the German border. The flames never climbed the wall. They came through a gap in the hedge nobody was watching: the Ardennes forest, which both sides had called too thick for tanks. **Speed through the gap beat size behind the wall.**",
+    "simpler": "In May 1940 the fire reached the biggest house on the street: France. France had an army about as big as Germany's, and a long concrete wall called the Maginot Line facing the German border. The Germans never climbed that wall. They came through the Ardennes forest instead, a gap both sides thought was too thick for tanks, like a hedge nobody bothered to watch. **Speed through the gap beat size behind the wall.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "France and Britain had about as many tanks as Germany. So what beat them in May 1940?",
+    "prompt": "It is 12 May 1940. You command the French army. German tanks are coming out of the Ardennes, a hilly forest you were told tanks could not cross. You still have more soldiers than they do. What matters most in the next 5 days?",
     "options": [
      {
       "id": "a",
-      "text": "Germany had secretly built far more tanks than anyone knew."
+      "text": "How many soldiers you have in total."
      },
      {
       "id": "b",
-      "text": "Germany packed its tanks into one fast punch through a spot France had left unguarded, and moved faster than French orders could follow."
+      "text": "How fast you can move troops to where the tanks actually are."
      },
      {
       "id": "c",
-      "text": "The French army refused to fight."
+      "text": "How strong the Maginot Line is."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the old myth, not what happened: the numbers were about even. The difference was how the tanks were used, not how many there were.",
-     "c": "That's the story told afterwards, not the battle: French soldiers fought hard. The trouble was they were sent north while the real blow came through the Ardennes."
+     "a": "That's paper strength, not the fight: France had the numbers all along and lost anyway, because they were in the wrong place.",
+     "c": "That's the wall, not the gap: the Line held fine. The Germans simply went round its northern end."
     },
-    "reteach": "Picture two boxers of equal weight. One spreads his strength along a wall of forts and up north where he expects the blow. The other puts everything into one fist and swings it at the gap. Speed and where you hit matter more than size."
-   },
-   {
-    "type": "example",
-    "title": "Dunkirk, and six weeks",
-    "body": "The trapped British and French troops fell back to the port of Dunkirk. From 26 May to 4 June 1940, warships and hundreds of small boats carried about 338,000 soldiers across the Channel to England. Nearly all their tanks, trucks and guns were left on the beach.\n\nBritain kept its soldiers but had to arm them again from nothing. Paris fell on 14 June. France signed an armistice, an agreement to stop fighting, on 22 June. From first shot to surrender: six weeks."
+    "reteach": "Having more of something only helps if it is where the fight is. The Germans put their tanks at one point and moved fast. The French spread theirs along a long line and moved slowly. Numbers lose to speed when the fast side picks the spot."
    },
    {
     "type": "teach",
-    "title": "Why the trick stopped at the water",
-    "body": "Hitler's method needed tanks on the ground. Between France and England lies the Channel, about 33 km wide at its narrowest. Tanks cannot drive across water, and Britain's navy was far larger than Germany's. To land an army, Germany first had to clear the sky so its slow invasion boats would not be bombed.\n\nSo the summer of 1940 was fought in the air. From July to October German planes attacked British airfields, then cities. This is the Battle of Britain. Britain had two helps. One was radar, a new system that spotted incoming planes with radio waves, so fighters took off only when needed instead of patrolling until they ran out of fuel. The other was simple: a British pilot shot down over Britain could fly again the next day. A German pilot shot down became a prisoner.\n\nIn early September Germany switched from bombing airfields to bombing London. On 17 September 1940 Hitler put off the invasion. He never came back to it. The fire had reached a gap it could not jump."
+    "title": "Lightning through the forest",
+    "body": "Germany attacked on 10 May 1940. The main thrust went not through Belgium, where France and Britain expected it, but through the Ardennes further south. By 13 May German tanks had crossed the River Meuse near Sedan.\n\nThe method was called *Blitzkrieg*, German for lightning war: tanks and dive-bombers punch one narrow hole, then race on before the defender can react. Radios in every tank kept them moving while French orders travelled by messenger and telephone.\n\n**The French army was not smaller. It was slower.** Its best units had marched north into Belgium and could not turn round in time.",
+    "simpler": "Germany attacked on 10 May 1940 through the Ardennes, not through Belgium where France and Britain were waiting. By 13 May its tanks had crossed the Meuse near Sedan. This was Blitzkrieg, meaning lightning war: tanks and dive-bombers punch one narrow hole and race on before anyone reacts. German tanks had radios. French orders went by messenger and telephone. **The French army was not smaller. It was slower.** Its best troops were in Belgium and could not turn back in time."
+   },
+   {
+    "type": "example",
+    "title": "Dunkirk, 26 May to 4 June 1940",
+    "body": "By 20 May German tanks reached the Channel coast, cutting the British and French armies in the north off from the rest of France. They fell back on the port of Dunkirk. Over 9 days about 338,000 British and French soldiers were lifted off the beaches by navy ships and a crowd of fishing boats, ferries and pleasure yachts. They left nearly every gun, truck and tank on the sand. Churchill called it a miracle and, in the same speech, reminded everyone that wars are not won by evacuations.",
+    "simpler": "By 20 May German tanks reached the Channel coast, cutting the British and French armies in the north off from the rest of France. They fell back to the port of Dunkirk. Over nine days about 338,000 soldiers were carried off the beaches by navy ships, fishing boats, ferries and pleasure yachts. **They left nearly every gun, truck and tank on the sand.** Churchill called it a miracle, then reminded everyone that wars are not won by getting away."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "It is August 1940. A German general says: \"We beat France in six weeks. We will do England the same way.\" What is he missing?",
+    "prompt": "A friend says: \"France lost because its army was too small and badly equipped.\" Which reply applies this chapter's idea?",
     "options": [
      {
       "id": "a",
-      "text": "Britain's army on land is much bigger than France's was."
+      "text": "\"Yes. Germany had far more tanks and men, so the result was never in doubt.\""
      },
      {
       "id": "b",
-      "text": "His method needs ground under the tanks. The Channel and the Royal Navy stop the tanks, and the Royal Air Force stops the planes meant to clear the way."
+      "text": "\"Not quite. France had roughly as many soldiers and tanks. It lost because Germany hit one unexpected point fast and France could not shift its forces in time.\""
      },
      {
       "id": "c",
-      "text": "Britain has a Maginot Line of its own."
+      "text": "\"Yes. The Maginot Line was smashed in the first week, so the wall failed.\""
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the opposite of the situation: Britain's army had just left its weapons at Dunkirk. Its strength was at sea and in the air, not on land.",
-     "c": "That's France's wall, not Britain's: the Maginot Line sat on the French-German border, and the Germans simply drove round it."
+     "a": "That's the common guess, not the record: the two armies were about the same size, so size cannot explain six weeks.",
+     "c": "That's the wall, not the gap: the Line was never broken through. The Germans went round it via the Ardennes."
     },
-    "reteach": "The thing that beat France was fast tanks on a road. Take away the road and the trick has nothing to run on. Water plus a big navy took away the road; radar plus fighters took away the air cover that might have replaced it."
+    "reteach": "Picture two equal football teams. One keeps every player in a long line across the pitch. The other sends everyone at one spot and runs. The crowded spot breaks before the line can bend back. That is France in May 1940."
+   },
+   {
+    "type": "teach",
+    "title": "Why the fire stopped at the water",
+    "body": "France signed an *armistice*, an agreement to stop fighting, on 22 June 1940, about six weeks after the attack began. Germany now stood on the Channel coast, roughly 34 km from England at the narrowest point.\n\nBlitzkrieg needs ground to race across. The sea took that away. To land an army, Germany first had to control the sky over the water, or British ships and planes would sink the barges. So from July to October 1940 the German air force tried to destroy Britain's Royal Air Force. This was the *Battle of Britain*.\n\n**The sea turned a war of speed into a war of grinding,** and in a grind Britain's radar, home airfields and fast-built fighters counted. In September 1940 Hitler postponed the invasion.",
+    "simpler": "France signed an armistice and stopped fighting on 22 June 1940. Germany stood 34 km from England. Blitzkrieg needs ground, and the sea has none. Germany could not cross until it ruled the sky above the water. From July to October 1940 it fought the Royal Air Force: the Battle of Britain. **The sea turned a war of speed into a war of grinding,** which suited Britain's radar, airfields and fast-built fighters. In September Hitler called the invasion off."
    },
    {
     "type": "mistake",
-    "body": "People say \"France had a weak army\" or \"the French just gave up\". Spot it whenever someone explains the defeat by numbers or by courage.\n\nThe French army was large and mostly fought. It lost because its plan and its speed of command were built for the last war, and the Germans bet everything on one fast move through the one place France had not guarded."
+    "body": "Tom tells the story of 1940 and says Britain \"won\" that summer. Spot the slip: Britain did not defeat Germany, it stopped being invaded. The German army stood intact on the far shore and held all of France. **Holding is not the same as winning.** It took five more years, and two more houses on the street, to turn one into the other.",
+    "simpler": "Tom tells the story of 1940 and says Britain \"won\" that summer. Here is the slip. Britain did not beat Germany. It stopped Germany from landing. The German army was still there on the far shore, untouched, and it held all of France. **Holding is not the same as winning.** Think of a goalkeeper who saves a shot: the match is not over. It took five more years, and two more houses on the street, to turn holding into winning."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "In one line: why did France fall and Britain not?",
+    "prompt": "Same German army, same method, two results in 1940: France fell in six weeks, Britain was not invaded. What is the single biggest reason for the difference?",
     "options": [
      {
       "id": "a",
-      "text": "France was outnumbered; Britain was not."
+      "text": "Britain had a much bigger army than France."
      },
      {
       "id": "b",
-      "text": "Germany's fast tank punch worked on land in France, but it needed ground, and water plus air defence took that ground away in Britain."
+      "text": "German tanks could race across French ground but not across 34 km of sea, so the fight became a slow air battle Britain could sustain."
      },
      {
       "id": "c",
-      "text": "France fought alone; Britain had America's help in 1940."
+      "text": "The Maginot Line protected Britain's coast."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the numbers myth again: in France the sides were about even. The Ardennes gap and speed decided it, not headcount.",
-     "c": "That's 1941, not 1940: America joined the war after December 1941, which is chapter 4. In 1940 Britain held with its own navy and air force."
+     "a": "That's the numbers trap again: Britain's army had just left most of its weapons at Dunkirk. It was weaker, not stronger.",
+     "c": "That's France's wall, not Britain's: the Maginot Line sat on the French-German border and had nothing to do with the Channel."
     },
-    "reteach": "Same fire, two houses. The French house had an unlocked back door and the fire rushed through it in six weeks. The British house sat across 33 km of water, so the fire could only throw sparks from the air, and the sparks were put out."
+    "reteach": "Blitzkrieg is a running game: punch a hole, drive through, never stop. Water has no hole to punch. Germany had to win in the air first, slowly, and in that slow fight British radar and home airfields mattered more than German speed."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "France had as many soldiers as Germany but lost in six weeks because the Germans came fast through the one gap nobody guarded, the Ardennes, and the French could not turn round in time. **Britain held because the same fast method cannot cross 34 km of sea,** and the slow air battle that replaced it favoured the defender.",
+    "simpler": "France had as many soldiers as Germany, yet it lost in six weeks. The Germans came fast through the one gap nobody was guarding, the Ardennes forest, and the French army could not turn round in time. **Britain held because the same fast method cannot cross 34 km of sea.** What replaced it was a slow air battle, and a slow fight suits the side defending its own home."
    },
    {
     "type": "try",
-    "body": "Open a map app. Measure Sedan to Calais: roughly what German tanks covered in about a week. Then measure Calais to Dover. That short strip of blue is the whole difference between the two halves of this chapter."
+    "body": "Open any map app tonight. Find Sedan in France, then Dunkirk, then Dover. Trace the tank route from Sedan to the coast, covered in 10 days. Then look at the water between Dunkirk and Dover. That strip is the whole chapter.",
+    "simpler": "Open any map app tonight. Find Sedan in France. Then find Dunkirk, on the French coast, and Dover, on the English side. Run your finger from Sedan to the coast: German tanks covered that in 10 days. Now look at the narrow water between Dunkirk and Dover. **That strip of sea is the whole chapter.** Everything on the French side fell to speed. Everything on the English side was saved by the water."
    }
   ],
-  "outcomeLine": "You can now explain how an evenly matched France lost in six weeks, and why the same method could not cross the Channel to Britain."
+  "outcomeLine": "You can now explain how France, with an army as big as Germany's, lost in six weeks, and why Britain alone did not."
  },
- "seconds": 75.96209502220154
+ "seconds": 87.82542896270752
 }

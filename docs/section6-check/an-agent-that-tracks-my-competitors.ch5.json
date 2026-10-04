@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Your clipping service has already cut out the changed lines with scissors. Now you hand that one small clipping to the reader, not the whole newspaper, and say: tell me what this means in 2 sentences, and copy out the exact line you got it from. The reader works faster and makes fewer mistakes because there is less to get lost in."
-   },
-   {
-    "type": "teach",
-    "title": "Send the clipping, not the newspaper",
-    "body": "A prompt is the instruction you type to an AI model, the same way you type a question into a chat app. The model reads everything you send it, then writes a reply. What you send decides what you get back.\n\nIf you send the whole page, the model has to find the change itself. A pricing page can be 400 lines. If 3 of them changed, those 3 lines are buried, and the model often summarises the page instead of the change.\n\nSo you send only the diff from chapter 4: the lines marked added or removed. Most days that is 3 to 20 lines. The model cannot wander off into the rest of the page because the rest of the page is not there.\n\nThen comes the instruction. It has 3 parts: what to do (say what changed), how long (2 sentences), and what proof to give (quote one added or removed line word for word).\n\nAdd one escape hatch: if the change is only a date or formatting, reply with the words \"no meaningful change\". Without this, the model will dress up nothing as news."
+    "body": "Yesterday the agent found the changed lines. Now it hands them to the reader. **Give the reader only the clipping, not the whole newspaper.**\n\nPicture the clipping service's desk: one cut-out strip, 4 lines long, and a sticky note that says 'What changed? 2 sentences. Quote the line.' Not a stack of 5 full papers with a vague 'anything interesting?'",
+    "simpler": "Yesterday the agent found the lines that changed. Today it passes them to the reader. **Give the reader only the clipping, not the whole newspaper.** Think of a clipping service. On the desk sits one cut-out strip, 4 lines long, with a sticky note: 'What changed? 2 sentences. Quote the line.' That beats a stack of 5 full papers and a vague 'anything interesting?'"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "A rival's pricing page is 400 lines long. Today's diff shows 3 changed lines. What do you send to the model?",
+    "prompt": "Your clipping-service reader gets two desks to pick from. Desk A: the full 40-page Monday paper and a note saying 'tell me about Quillpad.' Desk B: a 4-line strip cut from the pricing page and a note saying 'what changed, 2 sentences, quote the line.' Which desk gets you a note you can trust?",
     "options": [
      {
       "id": "a",
-      "text": "The whole 400 lines, so the model has full context"
+      "text": "Desk A. More pages means a fuller answer."
      },
      {
       "id": "b",
-      "text": "The 3 changed lines plus a short instruction"
+      "text": "Desk B. A small strip and a strict note."
      },
      {
       "id": "c",
-      "text": "The page address, and let the model fetch it"
+      "text": "Either. The reader is smart enough to cope with both."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the whole newspaper, not the clipping: the 3 lines get buried and the model summarises the page instead of the change.",
-     "c": "That's the fetch step from chapter 3, not the summarise step: the model cannot see your saved copies, so it cannot know what changed."
+     "a": "That's the whole newspaper, not the clipping: 40 pages gives the reader room to summarise things that never changed.",
+     "c": "That's hope, not a check: a reader with 40 pages and a vague note fills the gaps with guesses."
     },
-    "reteach": "The diff already did the hard work of finding what changed. The model's only job is to put those few lines into plain English. Giving it more text gives it more ways to get distracted, so give it less."
-   },
-   {
-    "type": "example",
-    "title": "One diff, one prompt, one answer",
-    "body": "Yesterday's copy of a rival's pricing page had the line \"Pro plan: $29 per month\". Today's diff shows 3 lines: \"- Pro plan: $29 per month\", \"+ Pro plan: $39 per month\", \"+ Includes 5 seats\".\n\nThe prompt reads: \"Below are lines that changed on a competitor's pricing page today. Lines starting with - were removed, lines starting with + were added. In 2 sentences, say what changed. Then quote one added or removed line exactly, between quote marks. If the change is only formatting or a date, reply: no meaningful change.\"\n\nThe model replies: \"The Pro plan price rose from $29 to $39 per month. The plan now lists 5 seats as included. Source: '+ Pro plan: $39 per month'.\"\n\nThat is 2 sentences, 1 quote, and nothing the diff did not contain."
+    "reteach": "The model is a fast reader, not a careful one. Hand it 4 changed lines and it has nowhere to wander. Hand it the whole page and it describes the page instead of the change."
    },
    {
     "type": "teach",
-    "title": "Why the quote matters more than the sentences",
-    "body": "Models sometimes state things that are not in the text. The quote is your guard against this. If every claim must point to a quoted line, you can check the quote against the diff with your own eyes, or later with a few lines of code. A quote that is not in the diff means the claim was invented. Chapter 7 builds that check.\n\nKeep the reply shape fixed: 2 sentences, then \"Source:\" and the quote. The same shape every day means you can scan it in seconds, and a program can read it too.\n\nKeep the instruction the same every day too. Save it in a file. Only the pasted lines change. If the instruction drifts, the replies drift, and you stop trusting them."
+    "title": "Less text, better answer",
+    "body": "An AI model is a reader that writes back. Everything you send it is called the *prompt*: your instruction plus any text you want it to read. **The smaller the prompt, the less room the model has to drift.**\n\nYesterday's diff is already the smallest useful text: just the lines that are new or gone. Send those. Do not send the whole page, and never send both days' full copies and ask the model to find the difference itself. It will miss things, and it will invent things.\n\nA diff of 6 lines costs almost nothing to send. A full pricing page is often 2,000 words of menus and footers.",
+    "simpler": "An AI model is a reader that writes back. What you send it is the prompt: your instruction plus the text to read. **The smaller the prompt, the less room the model has to drift.** Send only yesterday's diff, the lines that are new or gone. Never send the whole page, or both days' copies with 'find the difference'. It will miss things and invent things. A 6-line diff is cheap. A full page is often 2,000 words of menus and footers."
+   },
+   {
+    "type": "example",
+    "title": "Two lines in, two sentences out",
+    "body": "Say your rival is a fictional note-taking app called Quillpad. Tuesday's diff of their pricing page is 2 lines. Gone: 'Pro plan: $8 per month'. New: 'Pro plan: $12 per month. Now includes offline sync.'\n\nYou send those 2 lines with the note: 'Say what changed in 2 sentences. Quote the exact line each claim comes from.'\n\nThe model writes back: 'Quillpad raised its Pro plan from $8 to $12 a month. The new line reads: Pro plan: $12 per month. Now includes offline sync.' Two sentences, one quote, **nothing you cannot check.**",
+    "simpler": "Quillpad is a made-up rival note app. Tuesday's pricing-page diff is 2 lines. Gone: 'Pro plan: $8 per month'. New: 'Pro plan: $12 per month. Now includes offline sync.' Send them with the note: 'What changed, in 2 sentences? Quote the line for each claim.' The model replies: 'Quillpad raised its Pro plan from $8 to $12 a month. The new line reads: Pro plan: $12 per month. Now includes offline sync.' Two sentences, one quote, **nothing you cannot check.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Today's diff has 2 lines: \"- \u00a9 2025\" and \"+ \u00a9 2026\". The model replies: \"The company has refreshed its site for the new year and may be planning a relaunch.\" Which change to the prompt stops this?",
+    "prompt": "Wednesday the agent fetches Quillpad's changelog. The diff is 3 new lines about a dark mode release. What do you send the model?",
     "options": [
      {
       "id": "a",
-      "text": "Ask for 4 sentences instead of 2, so the model explains its reasoning"
+      "text": "The 3 new lines, plus the strict note."
      },
      {
       "id": "b",
-      "text": "Add the escape hatch for dates and formatting, and require a quoted source line"
+      "text": "Today's full changelog page, so the model has context."
      },
      {
       "id": "c",
-      "text": "Send the whole page so the model understands the company better"
+      "text": "Yesterday's and today's full pages, and ask the model to spot the difference."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's more room to invent, not less: a longer reply about a copyright year is still a guess dressed up as news.",
-     "c": "That's the newspaper instead of the clipping: more text gives the model more to speculate about, and the date line is still just a date."
+     "b": "That's the whole newspaper, not the clipping: the model will happily summarise old entries that did not change.",
+     "c": "That's asking the model to do the diff's job: the comparison from chapter 4 already found the change exactly, with no guessing."
     },
-    "reteach": "A changed year is a change, but not a meaningful one. The prompt needs a named way out, the words \"no meaningful change\", so the model is not pushed into finding a story. The required quote then makes any leftover guess easy to spot, because there is no line about a relaunch to quote."
+    "reteach": "The diff is the clipping. The model's only job is to put the clipping into plain words. Keep each tool to its job: the diff finds, the model explains."
+   },
+   {
+    "type": "teach",
+    "title": "The strict note",
+    "body": "The instruction has 3 parts, and each one closes a door. **Task, limit, source.**\n\n*Task*: 'Say what changed.' Not 'summarise this', which invites a description of everything. *Limit*: '2 sentences.' A number, not 'briefly'. *Source*: 'Quote the exact line each claim comes from.' This is the part that lets you check the model's work in chapter 7.\n\nAdd one escape hatch: 'If nothing meaningful changed, say so.' Without it, the model will find something to say about a changed copyright year.",
+    "simpler": "The note has 3 parts. Each closes a door. **Task, limit, source.** The task is 'Say what changed.' Not 'summarise this', which invites a tour of everything. The limit is '2 sentences.' A number, not 'briefly'. The source is 'Quote the exact line each claim comes from.' That part lets you check its work in chapter 7. Add one escape hatch: 'If nothing meaningful changed, say so.' Without it, the model will comment on a changed copyright year."
    },
    {
     "type": "mistake",
-    "body": "People write a long, friendly prompt: \"You are an expert market analyst. Consider the wider strategy and tell me what this means for the industry.\" The model obliges, with confident claims the diff never contained. Spot it by reading the summary and asking, for each sentence, which quoted line it came from. If a sentence has no line, the prompt asked for opinion instead of a report."
+    "body": "Priya built her agent in an evening and, to be safe, sent the model the full page every day with 'tell me anything important.' The summaries read well. On day 4 one said Quillpad had 'launched a new team plan.' The team plan had been on the page for a year. **The model described the page, not the change.** You spot this when a summary mentions something you cannot find in the diff.",
+    "simpler": "Priya built her agent in one evening. To be safe, she sent the model the full page every day with 'tell me anything important.' The summaries read well. On day 4 one said Quillpad had 'launched a new team plan.' The team plan had been on the page for a year. **The model described the page, not the change.** You spot this when a summary mentions something you cannot find in the diff."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What are the 3 parts of the instruction you give the model in the summarise step?",
+    "prompt": "A friend asks why your prompt insists on 'quote the exact line.' Which answer is the one this chapter gave?",
     "options": [
      {
       "id": "a",
-      "text": "The whole page, the company name, and a request for the model's opinion"
+      "text": "It makes the summary longer and more detailed."
      },
      {
       "id": "b",
-      "text": "Only the changed lines, a 2-sentence limit, and a word-for-word quote of one source line"
+      "text": "It lets you check every claim against a real line, so an invented claim has nowhere to hide."
      },
      {
       "id": "c",
-      "text": "The page address, yesterday's date, and the model's name"
+      "text": "It helps the model find the change in the first place."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the opinion prompt from the mistake card, not the strict one: whole page plus opinion is how claims with no source get in.",
-     "c": "That's bookkeeping from the fetch and save steps, not the instruction: the model does not need the address or the date to explain a few changed lines."
+     "a": "That's the opposite of the point: the 2-sentence limit keeps it short, and the quote is there to be checked, not to pad.",
+     "c": "That's the diff's job, not the quote's: the comparison already found the change before the model saw anything."
     },
-    "reteach": "Think of what the reader at the clipping service needs on their desk: the clipping, a limit on how much to write, and a rule to copy out the line they used. Nothing else. Less in, cleaner out."
+    "reteach": "The quote is a receipt. The model says 'price went up' and hands you the line it read. If that line is not in the diff, the claim is made up, and you know in 10 seconds."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Send the model only the changed lines, never the whole page, so it has nothing to drift into. Give it a 3-part note, **what changed, 2 sentences, quote the line**, and every claim arrives with its receipt.",
+    "simpler": "Send the model only the lines that changed, never the whole page. Then it has nothing extra to wander into. Give it a 3-part note: **what changed, 2 sentences, quote the line.** Every claim then arrives with its receipt, like a shop receipt you can hold up against the diff and check."
    },
    {
     "type": "try",
-    "body": "Open any chat AI you already use. Paste 3 made-up changed lines, one starting with - and two with +, then the instruction from the example card. Check that the quoted line matches one you pasted."
+    "body": "Open any AI chat you already use. Paste the 2 Quillpad lines from the example with the 3-part note. Then paste a whole pricing page with 'anything interesting?' and compare how much of each answer you could check.",
+    "simpler": "Open any AI chat you already use. Paste the 2 Quillpad lines from the example, along with the 3-part note. Read the answer. Then paste a whole pricing page and ask 'anything interesting?' **Compare how much of each answer you could check** against the text you gave it. Count the claims you can trace back to a line."
    }
   ],
-  "outcomeLine": "You can now write a short, strict prompt that turns a diff into a 2-sentence summary with a quoted source line."
+  "outcomeLine": "You can now write a 3-part prompt that turns a diff into a 2-sentence summary with a quoted source line."
  },
- "seconds": 59.53618502616882
+ "seconds": 81.61087083816528
 }

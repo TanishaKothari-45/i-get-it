@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Stand in front of the house and ask three quick questions. Do the bills due this year fit inside what you could collect or sell this year? How much of the house really belongs to the bank, compared with you? And is there enough cash in the drawer for the loan payment due next month? Three questions, three divisions, one answer: can this house pay its way this year."
-   },
-   {
-    "type": "teach",
-    "title": "Three divisions, one question",
-    "body": "Every check on a balance sheet is the same move: take a number the company can pay with, and compare it with a number it must pay. Bigger on the paying side is good. Smaller is a warning.\n\nCheck 1 is current assets divided by current liabilities. Current assets are the fast things from chapter 3: cash, stock, bills customers owe. Current liabilities are the debts due within 12 months from chapter 4. If the answer is above 1, the company has more coming in this year than going out. Many people treat 1.5 to 2 as comfortable and below 1 as a flag.\n\nCheck 2 is total debt divided by equity. Total debt is every loan, short and long. Equity is the owners' share from chapter 5. The answer tells you how much of the house belongs to lenders for every 1 that belongs to the owners. A result of 1 means lenders and owners have put in about the same. Above 2 means the lenders own most of the house, and a bad year hurts fast.\n\nCheck 3 is cash against short-term debt, meaning loans and overdrafts due within 12 months. This one is the strictest. Stock has to be sold before it is money. Customer bills have to be collected. Cash is money today. If cash is smaller than the debt due this year, the company is relying on selling and collecting in time.\n\nYou only need the totals. Each check is one division on a phone calculator."
+    "body": "Stand in the kitchen of the house on photo day. On the table are three pairs of envelopes. First pair: this year's bills, and the cash plus money arriving soon. Second pair: the loan payments due this year, and the cash in the bank right now. Third pair: the whole mortgage, and your own share of the house.\n\n**Three checks are just three comparisons.** For each pair, ask one question: is the paying envelope thicker than the owing one?",
+    "simpler": "Stand in the kitchen of a house on the day it is photographed. Three pairs of envelopes sit on the table. One pair holds this year's bills and the cash plus money arriving soon. The next holds loan payments due this year and the cash in the bank today. The last holds the whole mortgage and your share of the house. **Three checks are just three comparisons.** For each pair, ask: is the paying envelope fatter than the owing one?"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "A company shows current assets of 120 and current liabilities of 80. What does check 1 say?",
+    "prompt": "Your neighbour Dev has 3,000 in the bank, a car he could sell for 8,000, and 5,000 of bills due this year. Can Dev pay this year's bills without selling the car?",
     "options": [
      {
       "id": "a",
-      "text": "Comfortable: it has 1.5 of fast assets for every 1 due within the year"
+      "text": "Yes, he has 11,000 of stuff"
      },
      {
       "id": "b",
-      "text": "A warning: 80 of bills is a large amount to owe"
+      "text": "No, 3,000 cash is less than 5,000 due"
      },
      {
       "id": "c",
-      "text": "Can't tell until you know this year's profit"
+      "text": "Only if the bills turn out small"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's reading the size of the number, not the comparison: 80 only matters next to the 120 that can pay it.",
-     "c": "That's the income statement, not the balance sheet: profit over a year is not what you have on hand to pay bills today."
+     "a": "That's the total of everything he owns, not what he can pay with quickly: the car is not cash until someone buys it.",
+     "c": "The bills are already known, 5,000. The question is whether cash covers them, and 3,000 does not."
     },
-    "reteach": "Check 1 is a division, not a size judgement. Fast assets 120 divided by bills due soon 80 gives 1.5. Above 1 means more can be paid than is due, and 1.5 sits in the range most people call comfortable."
-   },
-   {
-    "type": "example",
-    "title": "A furniture shop on 31 March",
-    "body": "The shop's balance sheet shows current assets of 300: cash 50, stock 150, customer bills 100. Current liabilities are 250, of which 90 is a bank loan due within the year. Total debt is 400 and equity is 200.\n\nCheck 1: 300 divided by 250 is 1.2. It passes, but not by much. Check 2: 400 divided by 200 is 2. Lenders have put in twice what the owners have. Check 3: cash 50 against a 90 loan due soon. It fails. The shop cannot pay that loan from cash. It needs to sell sofas or collect from customers first.\n\nOne sentence: the shop can cover this year on paper, but it is thin on cash and heavy on borrowing."
+    "reteach": "Each check pairs one thing that must be paid with one thing that can pay it. For this year's bills, cash is the quickest payer. If cash is smaller than the bills, Dev must sell something or borrow."
    },
    {
     "type": "teach",
-    "title": "Why one check is never enough",
-    "body": "The shop passed check 1 and failed check 3. That is common, and it is the reason you run all three. Check 1 counts stock and customer bills as if they will turn into money on time. Check 3 refuses to count them. When the two disagree, the gap tells you where the risk sits: in the warehouse, or in the customers who have not paid.\n\nCheck 2 answers a different worry. A company can pay this year's bills and still be mostly owned by its lenders. High debt against equity means interest keeps coming whether sales do or not, and lenders, not owners, decide what happens if a payment is missed.\n\nAfter the three divisions, write one sentence. Name which checks pass, which fail, and what the company is leaning on to close the gap. That sentence is the whole point of this chapter."
+    "title": "Checks 1 and 2: this year's bills",
+    "body": "Check 1 compares *current assets*, things that turn into cash within 12 months, with *current liabilities*, bills due within 12 months. Divide the first by the second. **Above 1 means the fast stuff covers the near bills.** Around 1.5 to 2 is comfortable. Below 1 is the first warning sign.\n\nCheck 2 is stricter. Take only cash and compare it with *short-term debt*, the loans due within 12 months. Stock might not sell and customers might pay late, but cash is cash. If cash is smaller than short-term debt, the company needs new borrowing or quick sales just to stay current.",
+    "simpler": "Check 1 divides current assets, what turns into cash within a year, by current liabilities, bills due this year. **Above 1 means the fast stuff covers the near bills.** Around 1.5 to 2 is comfortable. Below 1 is a warning. Check 2 is stricter. Compare only cash with short-term debt, loans due this year. Stock may not sell, customers may pay late, but cash is cash. If cash is smaller, the company needs fresh borrowing or quick sales to cope."
+   },
+   {
+    "type": "example",
+    "title": "The bakery that passed and failed",
+    "body": "Picture a bakery chain, call it Oven Street. Its balance sheet shows current assets of 600,000 and current liabilities of 400,000. Divide: 1.5, so check 1 passes. Now check 2: cash is 90,000, but a 250,000 bank loan falls due in 8 months. The ovens are paid for and the shops are full, yet the owner spends every Tuesday on the phone to the bank. Check 1 said fine. Check 2 said: not without a new loan.",
+    "simpler": "Picture a bakery chain called Oven Street. Its balance sheet shows current assets of 600,000 and current liabilities of 400,000. Divide and you get 1.5, so check 1 passes. Now check 2. Cash is 90,000, but a 250,000 bank loan is due in 8 months. The ovens are paid for and the shops are busy, yet the owner spends every Tuesday on the phone to the bank. **Check 1 said fine, but check 2 said not without a new loan.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A company shows current assets 500, current liabilities 400, cash 20, short-term loans 150, total debt 600, equity 300. Which sentence applies the three checks correctly?",
+    "prompt": "A toy shop shows current assets 300,000, current liabilities 500,000, cash 40,000 and short-term debt 30,000. Which sentence reads the checks right?",
     "options": [
      {
       "id": "a",
-      "text": "It covers this year on paper at 1.25 to 1, but holds only 20 cash against 150 of loans due soon, so it is leaning on selling stock and collecting bills in time."
+      "text": "Check 2 passes, so the shop is fine for the year"
      },
      {
       "id": "b",
-      "text": "It is safe, because total assets are bigger than total liabilities and the sheet balances."
+      "text": "Check 1 fails: fast assets are 0.6 of near bills, so the year looks tight even though cash covers the loan"
      },
      {
       "id": "c",
-      "text": "It fails check 1, because 400 of current liabilities is far more than 20 of cash."
+      "text": "Check 1 passes because 300,000 is a big number"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's chapter 1's equation, not a health check: the two sides always balance, so balancing proves nothing about paying bills.",
-     "c": "That's mixing check 1 with check 3: check 1 uses all current assets, 500 against 400, which passes. Cash against short-term debt is check 3."
+     "a": "That's check 2 on its own, not the full picture: cash covers the loan, but the other 470,000 of bills still outrun the fast assets.",
+     "c": "That's the size of the pile, not the comparison: 300,000 against 500,000 is 0.6, which sits below 1."
     },
-    "reteach": "Run each division with its own pair of numbers. Check 1: 500 against 400 passes. Check 2: 600 against 300 means lenders have put in twice the owners' share. Check 3: 20 cash against 150 due soon fails. The sentence names all three and says what fills the gap."
+    "reteach": "The checks are divisions, not sizes. Current assets divided by current liabilities says whether the near bills are covered. Cash against short-term debt says whether the loans alone are covered. One can pass while the other fails."
+   },
+   {
+    "type": "teach",
+    "title": "Check 3: who really owns the house",
+    "body": "Check 3 looks past this year. Compare *total debt*, everything borrowed, soon and later, with *equity*, the owners' share from chapter 5. Divide debt by equity. **Below 1 means the owners hold more of the house than the lenders do.** Above 2 means the lenders hold most of it, and every bad year hurts twice.\n\nThe healthy number depends on the trade. A power company with steady bills can live at 2. A small software firm at 2 is worrying. So compare with the same company a year earlier, or a rival in the same trade, before judging.",
+    "simpler": "Check 3 looks ahead. Total debt is everything borrowed, soon or later. Equity is the owners' share. Divide debt by equity. **Below 1 means the owners hold more of the house than the lenders do.** Above 2, lenders hold most of it and every bad year hurts twice. It depends on the trade. A power company can live at 2. A small software firm at 2 is worrying. So compare with last year or a rival in the same trade."
    },
    {
     "type": "mistake",
-    "body": "The common mistake is to stop at check 1 and treat stock and unpaid customer bills as if they were cash. A current ratio of 1.3 looks fine until you notice that 20 of cash sits against 150 of loans due in months. Spot it by always doing check 3 straight after check 1. If the first passes and the third fails, ask what has to be sold or collected, and how fast."
+    "body": "Tomas reads a balance sheet, sees total assets of 40 million, and relaxes. He never divides. The 40 million is mostly a factory, while current liabilities are 9 million against current assets of 5 million. **Spot it when someone quotes one big number and no comparison.** A check always has two sides.",
+    "simpler": "Tomas reads a balance sheet, sees total assets of 40 million, and relaxes. He never divides anything. Most of that 40 million is a factory, not cash. Meanwhile current liabilities are 9 million and current assets are only 5 million. **Spot it when someone quotes one big number and no comparison.** A check always has two sides, like weighing two envelopes against each other."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What do all three checks have in common?",
+    "prompt": "A friend says: 'Debt to equity is 3, current ratio is 0.8, and cash is half the short-term debt. But look at the size of those assets!' Which worry comes first?",
     "options": [
      {
       "id": "a",
-      "text": "Each compares something the company can pay with against something it must pay or has borrowed"
+      "text": "Check 3: debt is 3 times equity, so lenders own most of it"
      },
      {
       "id": "b",
-      "text": "Each compares this year's figure with last year's to see the trend"
+      "text": "Checks 1 and 2: near bills and loans outrun both fast assets and cash, so this year is the problem"
      },
      {
       "id": "c",
-      "text": "Each adds the two sides of the sheet to confirm they match"
+      "text": "None, the big assets settle it"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's chapter 2's two-dates comparison, not the health checks: these work on a single day's numbers.",
-     "c": "That's the balancing equation from chapter 1: the sheet always matches, so matching tells you nothing about paying bills."
+     "a": "That's the long-run check: it matters, but a debt pile does not all fall due this year. The checks that fail on 12-month bills come first.",
+     "c": "That's the one-big-number trap from the mistake card: a number with no comparison is not a check."
     },
-    "reteach": "Every check is one division: a number that can pay, over a number that is owed. Current assets over current liabilities. Total debt over equity. Cash over short-term debt. Above 1 on the paying side is good, below 1 is a flag."
+    "reteach": "Checks 1 and 2 ask about the next 12 months. Check 3 asks about the long run. When the short ones fail, the company can run out of money before the long run ever arrives, so they come first."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "**Three divisions, five minutes**: fast assets over near bills (want above 1), cash against short-term debt (want cash bigger), total debt over equity (want below 1, judged against the same trade). If the first two pass, the company can pay its bills this year.",
+    "simpler": "**Three divisions, five minutes.** First, fast assets divided by near bills, and you want above 1. Second, cash set against short-term debt, and you want cash to be bigger. Third, total debt divided by equity, and you want below 1, judged against others in the same trade. If the first two pass, the company can pay its bills this year."
    },
    {
     "type": "try",
-    "body": "Open any listed company's latest annual report on your phone, find the balance sheet page, and do the three divisions on your calculator. Write one sentence on whether it can pay this year."
+    "body": "Open the latest annual report of any company you buy from. Find total current assets and total current liabilities. Divide on your phone. Write the number down and say aloud: above 1 or below 1.",
+    "simpler": "Pick any company you buy from and open its latest annual report. Look for two lines: total current assets and total current liabilities. Divide the first by the second on your phone. Write the number down. **Then say it out loud: above 1 or below 1.** That is check 1."
    }
   ],
-  "outcomeLine": "You can now run three divisions on any balance sheet and say in one sentence whether the company can pay its bills this year."
+  "outcomeLine": "You can now run three checks on a real balance sheet and say in one sentence whether the company can pay its bills this year."
  },
- "seconds": 51.659525871276855
+ "seconds": 82.38977718353271
 }

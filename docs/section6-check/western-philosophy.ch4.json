@@ -5,12 +5,14 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Around the dinner table, Aristotle has just said: look closely at the world and you will learn the truth. In 1641 a new guest, Ren\u00e9 Descartes, interrupts with a rude question: how do you know your eyes are telling the truth at all?\n\nHe does not attack any one belief. He attacks the table itself, to see if anything is left standing."
+    "body": "Around the dinner table, Aristotle has just said: look closely at the world and you will learn the truth. In 1641 a new guest, Ren\u00e9 Descartes, interrupts with a rude question: how do you know your eyes are telling the truth at all?\n\nHe does not attack any one belief. He attacks the table itself, to see if anything is left standing.",
+    "simpler": "Picture a dinner table where Aristotle has just said: look closely at the world and you will learn the truth. In 1641 a new guest, Ren\u00e9 Descartes, cuts in with a rude question. How do you know your eyes tell the truth at all? He does not pick on one belief. He **kicks the legs out from under the whole table** to see if anything is left standing."
    },
    {
     "type": "teach",
     "title": "Doubt everything, on purpose",
-    "body": "Descartes was a French thinker who lived through a shaky time for knowledge. New science was saying the sun does not move and the earth is not still, even though every eye sees the opposite. If the senses could be that far off, what else might be off?\n\nSo in a short book called the Meditations, published in 1641, he tried an experiment. He would treat any belief he could possibly doubt as if it were false. Not because he believed it was false. He wanted to find out what, if anything, could not be doubted.\n\nFirst to go: the senses. They mislead sometimes, so they cannot be fully trusted. Next: the whole world around him. He might be dreaming, and dreams feel real while you are in them.\n\nThen he went further. Imagine a powerful deceiver who feeds you false thoughts on purpose. Then even simple sums could be a trick. At this point almost nothing is left.\n\nAlmost."
+    "body": "Descartes was a French thinker who lived through a shaky time for knowledge. New science was saying the sun does not move and the earth is not still, even though every eye sees the opposite. If the senses could be that far off, what else might be off?\n\nSo in a short book called the Meditations, published in 1641, he tried an experiment. He would treat any belief he could possibly doubt as if it were false. Not because he believed it was false. He wanted to find out what, if anything, could not be doubted.\n\nFirst to go: the senses. They mislead sometimes, so they cannot be fully trusted. Next: the whole world around him. He might be dreaming, and dreams feel real while you are in them.\n\nThen he went further. Imagine a powerful deceiver who feeds you false thoughts on purpose. Then even simple sums could be a trick. At this point almost nothing is left.\n\nAlmost.",
+    "simpler": "Descartes was a French thinker living when knowledge felt shaky. New science said the sun stands still and the earth moves, though our eyes see the opposite. In 1641, in a short book, the Meditations, he ran a test. **He treated any belief he could doubt as if it were false**, to find what held. Senses went first. Then the world, since he might be dreaming. Then a powerful trickster who could fake simple sums. Almost nothing survived. Almost."
    },
    {
     "type": "exercise",
@@ -40,12 +42,14 @@
    {
     "type": "example",
     "title": "By the fire, in a dressing gown",
-    "body": "In the first Meditation, Descartes describes himself sitting by the fire in a winter dressing gown, holding a piece of paper. It feels as certain as anything can.\n\nThen he remembers that he has dreamed exactly this scene before, and in the dream it felt just as real. So the fire, the gown, the paper and even his own body go on the doubt pile.\n\nIn the second Meditation he notices the one thing the doubt cannot reach. Whenever he thinks 'maybe I am being fooled', there has to be an 'I' there to be fooled. The famous summary is 'I think, therefore I am'."
+    "body": "In the first Meditation, Descartes describes himself sitting by the fire in a winter dressing gown, holding a piece of paper. It feels as certain as anything can.\n\nThen he remembers that he has dreamed exactly this scene before, and in the dream it felt just as real. So the fire, the gown, the paper and even his own body go on the doubt pile.\n\nIn the second Meditation he notices the one thing the doubt cannot reach. Whenever he thinks 'maybe I am being fooled', there has to be an 'I' there to be fooled. The famous summary is 'I think, therefore I am'.",
+    "simpler": "In the first Meditation, Descartes pictures himself by the fire in a dressing gown, holding a piece of paper. It feels rock solid. Then he remembers dreaming this scene, and it felt as real. So the fire, gown, paper and even his body go on the doubt pile. In the second Meditation he finds what doubt cannot touch. **To think 'maybe I am being fooled', someone must be there to be fooled.** In short: 'I think, therefore I am'."
    },
    {
     "type": "teach",
     "title": "Why this moved the argument indoors",
-    "body": "Notice what survived. Not the world, not the body, not other people. Only this: a mind is here, having thoughts. That is the one brick Descartes could build on.\n\nThis flipped the order of the whole argument. Before Descartes, philosophers mostly started with the world and asked how we fit into it. After him, the question became: I am sure of my own mind, so how do I get from in here back out to the world?\n\nDescartes himself tried to climb back out. He argued that a good God exists and would not let him be fooled about everything, so the clear parts of the world must be real. Most later thinkers found that climb shaky. But the starting point stuck, and the next 300 years of the argument happen inside the mind."
+    "body": "Notice what survived. Not the world, not the body, not other people. Only this: a mind is here, having thoughts. That is the one brick Descartes could build on.\n\nThis flipped the order of the whole argument. Before Descartes, philosophers mostly started with the world and asked how we fit into it. After him, the question became: I am sure of my own mind, so how do I get from in here back out to the world?\n\nDescartes himself tried to climb back out. He argued that a good God exists and would not let him be fooled about everything, so the clear parts of the world must be real. Most later thinkers found that climb shaky. But the starting point stuck, and the next 300 years of the argument happen inside the mind.",
+    "simpler": "Only one thing survived: a mind, thinking. That was Descartes's solid brick. **This flipped the order of the argument.** Earlier thinkers started with the world and asked how we fit in. The question became: I am sure of my mind, how do I get back out to the world? Descartes tried, arguing a good God would not let him be fooled about everything. Later thinkers found that step shaky, but the argument stayed inside the mind for 300 years."
    },
    {
     "type": "exercise",
@@ -74,7 +78,8 @@
    },
    {
     "type": "mistake",
-    "body": "People stretch 'I think, therefore I am' to prove more than it does. It proves only that a thinking thing exists, right now, while it thinks. It says nothing about your body, your memories, or whether anyone else is real.\n\nSpot it when someone uses the line to settle an argument about the outside world. Descartes needed several extra steps to get there, and those steps are the weak part."
+    "body": "People stretch 'I think, therefore I am' to prove more than it does. It proves only that a thinking thing exists, right now, while it thinks. It says nothing about your body, your memories, or whether anyone else is real.\n\nSpot it when someone uses the line to settle an argument about the outside world. Descartes needed several extra steps to get there, and those steps are the weak part.",
+    "simpler": "People stretch 'I think, therefore I am' to prove more than it does. **It proves only that a thinking thing exists right now, while it thinks.** It says nothing about your body, your memories, or whether anyone else is real. Watch for someone using the line to settle an argument about the outside world. Descartes needed several extra steps to get there, and those steps are the weak part."
    },
    {
     "type": "exercise",
@@ -103,7 +108,8 @@
    },
    {
     "type": "try",
-    "body": "Tonight in bed, pick 3 things you are sure of. For each, ask: could a vivid dream make me believe this? Notice which one belief would still hold even inside the dream."
+    "body": "Tonight in bed, pick 3 things you are sure of. For each, ask: could a vivid dream make me believe this? Notice which one belief would still hold even inside the dream.",
+    "simpler": "Tonight, lying in bed, pick three things you feel sure of. For each one, ask yourself: could a vivid dream make me believe this just as strongly? Dreams feel real while you are in them, so most of your three will wobble. **Notice which one belief would still hold even inside the dream.** That is the one Descartes was left with."
    }
   ],
   "outcomeLine": "You can now explain 'I think, therefore I am', say why it survives even the worst doubt, and say what problem Descartes was trying to solve with it."

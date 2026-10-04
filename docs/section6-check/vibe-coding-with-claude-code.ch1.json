@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "You've hired a builder, but they won't start until you walk them to the plot of land. The terminal is the front gate where you meet them. The folder you open it in is the plot. Everything the builder makes goes on that plot, and nowhere else."
-   },
-   {
-    "type": "teach",
-    "title": "The terminal is a text window, the folder is the plot",
-    "body": "The terminal is a window where you type a command and press Enter instead of clicking. On a Mac, press Cmd+Space, type Terminal, press Enter. A blank window with a blinking cursor appears. That blink means it is waiting for you.\n\nA folder in the terminal is the same folder you see in Finder. The terminal is always standing inside one folder. Type pwd (print working directory) and press Enter to see which one.\n\nTo make a new folder, type mkdir hello-page (make directory). To step into it, type cd hello-page (change directory). Now pwd ends in hello-page. You are standing on the plot.\n\nClaude Code is a program you start from the terminal by typing claude and pressing Enter. It works only inside the folder you were standing in. That one rule decides where your files land, so check pwd first.\n\nTo install it, open the Claude Code install page in the official docs, copy the one install line, paste it in the terminal, press Enter. The first time you type claude, it asks you to sign in with your Claude account in the browser."
+    "body": "You've hired a builder, and the *terminal* is the driveway where you meet them: a plain text window where you type instead of click. Picture a black screen with one blinking cursor, like an empty lot with a single flag in the ground. **Whichever folder you're standing in when you say \"start\" is the house the builder works on.**",
+    "simpler": "The terminal is a plain window where you type words instead of clicking buttons. It looks like a black screen with one blinking line. Think of it as the driveway where you meet a builder you've hired. You stand in a folder, then tell the builder to start. **Whichever folder you're standing in when you say \"start\" is the house the builder works on.** So pick your spot first."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You open Terminal, it is standing in your Downloads folder, you type claude and ask for a one-page site. Where does the new file land?",
+    "prompt": "You open the terminal, step into a folder on your Desktop called pet-rock-fanpage, and start Claude Code. You ask for a web page. Where does the new file land?",
     "options": [
      {
       "id": "a",
-      "text": "In Downloads, because that is where the terminal was standing"
+      "text": "Inside pet-rock-fanpage, the folder you were standing in"
      },
      {
       "id": "b",
-      "text": "On the Desktop, so you can see it"
+      "text": "In Downloads, like everything else on this computer"
      },
      {
       "id": "c",
-      "text": "Wherever Claude thinks is tidiest"
+      "text": "Somewhere hidden that only Claude can see"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's where you might look for it, not where the builder works: the builder only builds on the plot you walked them to.",
-     "c": "That's the builder picking the plot, which never happens: you pick it by where the terminal is standing when you type claude."
+     "b": "That's where browsers drop files, not where the builder works: Claude Code builds in the folder you opened it from.",
+     "c": "That's a worry, not how it works: every file Claude makes is an ordinary file you can open and see."
     },
-    "reteach": "Claude Code is tied to one folder: the one the terminal is in at the moment you start it. It reads and writes there. If you want files in hello-page, step into hello-page with cd before typing claude."
-   },
-   {
-    "type": "example",
-    "title": "One page, two minutes",
-    "body": "Sam makes a folder with mkdir hello-page, steps in with cd hello-page, and types claude. After sign-in, Sam types: \"Make one file called index.html that shows the words Hello, Sam in big letters. Then open it in my browser.\"\n\nClaude says it will create index.html and shows the plan. It asks for a yes before writing the file. Sam presses Enter to allow it. A browser tab opens with Hello, Sam in large text.\n\nThat is the whole first job: 1 folder, 1 file, 1 request, and Sam saw it work with their own eyes."
+    "reteach": "The builder only works on the house you walked them into. Start Claude Code inside a folder, and that folder is where every file appears. Change folders, and you've changed houses."
    },
    {
     "type": "teach",
-    "title": "Say yes on purpose, then look with your own eyes",
-    "body": "Before Claude writes or changes a file, it stops and asks. Read the one line that says what it wants to do. If it matches what you asked, allow it. If not, type no and say what you meant. You hold the keys; the builder does not get in without you.\n\nClaude then tells you what it did in plain words. Do not take its word for it. Open the file or the browser tab and check. A first request should be something you can see in under a minute, like a page with your name on it.\n\nWhen you are done, type /exit to leave Claude Code and get back to the normal terminal. Your folder and files stay exactly where they are."
+    "title": "Open the driveway",
+    "body": "On a Mac the terminal app is called Terminal. Open it and you'll see a short line of text and a cursor. It's waiting for you to type.\n\nFirst make a *folder*, also called a directory, for the project. Then step into it with the command `cd`, which means change directory. For a folder named hello-site on your Desktop you'd type `cd Desktop/hello-site` and press Enter.\n\nInstall Claude Code once with `npm install -g @anthropic-ai/claude-code`. After that, **typing `claude` inside a folder starts the builder in that folder.** You'll see a prompt where you can type plain English.",
+    "simpler": "On a Mac the terminal app is called Terminal. Open it. You'll see a short line of text and a blinking cursor waiting for you.\n\nMake a folder for your project. Then step into it by typing `cd` and the folder name. For a folder called hello-site on your Desktop, type `cd Desktop/hello-site` and press Enter.\n\nInstall Claude Code once with `npm install -g @anthropic-ai/claude-code`. After that, **typing `claude` inside a folder starts the builder in that folder.** Then you can type in plain English."
+   },
+   {
+    "type": "example",
+    "title": "Maya's green hello",
+    "body": "Maya makes an empty folder called hello-site on her Desktop. In Terminal she types `cd Desktop/hello-site`, then `claude`. She writes: \"Make one web page that says Hello from Maya in big green letters, and open it in my browser.\"\n\nClaude asks if it may create a file called index.html. She presses Enter to say yes. Her browser opens. The letters are green, which is somehow the most surprising part.",
+    "simpler": "Maya makes an empty folder called hello-site on her Desktop. In Terminal she types `cd Desktop/hello-site`, then `claude`. She writes: \"Make one web page that says Hello from Maya in big green letters, and open it in my browser.\"\n\nClaude asks if it can make a file called index.html. She presses Enter to say yes. Her browser opens. **The letters are green**, which is somehow the most surprising part."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Which first request fits this chapter's rule, something tiny you can see work?",
+    "prompt": "Jonas opens Terminal and types `claude` right away, without stepping into any folder. He's in his home folder, the big one that holds Documents, Pictures, everything. Then he asks for a to-do page. What's the catch?",
     "options": [
      {
       "id": "a",
-      "text": "Build me a budgeting app with sign-in and charts."
+      "text": "Claude can't make files from there, so nothing happens"
      },
      {
       "id": "b",
-      "text": "Make one page that says Hello, Priya in big letters and open it in my browser."
+      "text": "It works, but the builder is now standing in his whole house; the file lands among all his stuff, so he should make a project folder first"
      },
      {
       "id": "c",
-      "text": "Explain how websites work."
+      "text": "He has to type `claude` a second time to confirm"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a whole house, not a first visit to the plot: there are 3 or 4 jobs in there and nothing you can check in a minute.",
-     "c": "That's a chat, not a build: nothing appears in your folder, so there is nothing to see work."
+     "a": "That's the permission step, not a dead end: Claude can build anywhere you start it, which is exactly the problem here.",
+     "c": "That's the yes-or-no permission prompt, not a repeat command: you type `claude` once and answer its questions after."
     },
-    "reteach": "The first request has one job and one thing to look at. One file, one visible result, under a minute. You are testing that the builder, the plot, and your eyes all line up, not building the house yet."
+    "reteach": "Where you stand is where the builder works. Starting in your home folder means every new file mixes with your personal files. One empty folder per project keeps each house separate."
+   },
+   {
+    "type": "teach",
+    "title": "Say yes, then look",
+    "body": "Before Claude creates or runs anything, it asks. You'll see a question like \"Create index.html?\" with a yes option. Press Enter or type y. This is the builder checking with you before cutting a hole in the wall.\n\nThen comes the part most people skip. **Look at the result with your own eyes.** Open the folder and find the new file. If the page opened in your browser, read what's on it.\n\nIf you can't point at the thing and say \"that's what I asked for,\" the job isn't done yet. When you're finished for the day, type `/exit` to leave.",
+    "simpler": "Before Claude makes or runs anything, it asks you first. You'll see a question like \"Create index.html?\" Press Enter or type y to say yes. It's like a builder checking before cutting into a wall.\n\nThen comes the step most people skip. **Look at the result with your own eyes.** Open the folder and find the new file. If a page opened in your browser, read it.\n\nIf you can't point at it and say \"that's what I asked for,\" it isn't done. When you're finished, type `/exit`."
    },
    {
     "type": "mistake",
-    "body": "People type claude from their home folder or the Desktop, where hundreds of unrelated files live. Claude then reads things it should not and drops new files in a mess. Spot it: when Claude Code starts, it shows the folder path at the top. If that path does not end in the project folder you meant, type /exit, cd into the right folder, and start again."
+    "body": "Priya's first ever request is \"Build me a budgeting app with login, charts and dark mode.\" Twenty minutes later there are 14 files and nothing she can open and check. She can't tell if it worked, so she can't tell what to fix. *Spot it:* if your first request can't be judged in one glance at the screen, it's too big for day one. Ask for one page you can see.",
+    "simpler": "Priya's very first request is \"Build me a budgeting app with login, charts and dark mode.\" Twenty minutes later there are 14 files and nothing she can open and check. She can't tell if it worked, so she can't tell what to fix. **If your first request can't be judged in one glance at the screen, it's too big for day one.** Ask for one page you can see instead."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What decides where Claude Code reads and writes files?",
+    "prompt": "Your friend texts: \"Claude Code said it made the file, but there's nothing there.\" What's the most likely reason?",
     "options": [
      {
       "id": "a",
-      "text": "The folder the terminal is standing in when you type claude"
+      "text": "They started Claude Code in one folder and are looking in a different one"
      },
      {
       "id": "b",
-      "text": "The words you use in your request"
+      "text": "Claude Code only works with the internet switched off"
      },
      {
       "id": "c",
-      "text": "Which browser tab is open"
+      "text": "They typed the request in capital letters"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's what gets built, not where: the request is the work order, the folder is the plot.",
-     "c": "That's where you look at the result, not where it is stored: the browser only shows the file that already landed in the folder."
+     "b": "That's backwards: Claude Code needs the internet to talk to Claude, and that has nothing to do with where files land.",
+     "c": "That's a style choice, not a rule: Claude reads plain English in any case, and the file still lands in the folder you started from."
     },
-    "reteach": "Think of the terminal as standing on one square of ground. Type pwd to see which square. Claude builds on that square and only that square. Move first with cd, then start the builder."
+    "reteach": "The file is always in the folder Claude Code was started from. Ask your friend which folder they typed `claude` in, and look there. The builder never leaves the house you walked them into."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "The terminal is a text window; step into an empty folder with `cd`, type `claude`, and that folder is where the builder works. **Ask for one small thing you can see, say yes when it asks, then look at the result yourself.**",
+    "simpler": "The terminal is a text window. Step into an empty folder with `cd`, type `claude`, and that folder is where the builder works. **Ask for one small thing you can see, say yes when it asks, then look at the result yourself.** That's the whole loop. Small request, quick yes, then check with your own eyes before asking for more."
    },
    {
     "type": "try",
-    "body": "Open Terminal. Type mkdir first-build, then cd first-build, then claude. Ask for one page that shows your name and today's date, opened in your browser. Then type /exit."
+    "body": "Tonight: make an empty folder on your Desktop, open Terminal, type `cd Desktop/your-folder`, then `claude`. Ask for one page with your name on it, opened in your browser. Then go find the file.",
+    "simpler": "Tonight, try it for real. Make an empty folder on your Desktop. Open Terminal and type `cd Desktop/your-folder`, then type `claude`. Ask for one page with your name on it, opened in your browser. Say yes when it asks. **Then go find the file yourself** and look at it. That one small page is the whole point of day one."
    }
   ],
-  "outcomeLine": "You can now start Claude Code inside a folder you chose, make one plain-English request, and see the file it built open in your browser."
+  "outcomeLine": "You can now start Claude Code in a folder, type a plain-English request, and see a file appear and run."
  },
- "seconds": 54.53158402442932
+ "seconds": 73.46688508987427
 }

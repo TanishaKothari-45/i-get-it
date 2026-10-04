@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "You have three kinds of help in the office. A photocopier does the same thing every time and never thinks. A colleague across the desk answers your question, then you go do the thing yourself. The intern takes the whole task and works through it alone while you do something else.\n\nA script is the photocopier. A chatbot is the colleague. An agent is the intern. Most mistakes with AI come from handing the intern a photocopier job, or a job where one slip costs real money."
-   },
-   {
-    "type": "teach",
-    "title": "Three tools, three questions",
-    "body": "A script is a fixed list of steps a person wrote once. It runs the same way every time and never decides anything. A chatbot answers one question, then stops; you do all the acting. An agent runs the loop from chapter 2: it picks a step, runs it, reads the result, and picks again until the goal is done.\n\nTo choose between them, ask 3 questions about the task.\n\nQuestion 1: do I know the exact steps before I start? If you can write them as a numbered list now, and the list never changes, you want a script. No model needed at all.\n\nQuestion 2: does each step need judgement? Judgement means reading what came back and choosing what to do next. If yes, a script cannot do it. It has to be a chatbot or an agent.\n\nQuestion 3: how bad is a mistake, and can I undo it? This decides who does the acting. If a slip is cheap or reversible, let the agent act. If a slip is costly or permanent, keep the acting with you: use a chatbot, or an agent that must ask before the risky step."
+    "body": "You have 3 people in the office. A clerk who follows a checklist to the letter, never tires, never thinks. A friend you can ask anything, who answers and then goes back to their desk. And the new intern, who will go off and do a multi-step job for you, with judgement, and sometimes get it wrong. **Picking the right one for each task is the whole skill.**",
+    "simpler": "Picture three helpers in an office. One is a clerk who follows a checklist word for word. The clerk never gets tired and never thinks. One is a friend you can ask anything. They answer, then go back to their desk. The third is a new intern. They will go off and do a job with many steps, using their own judgement, and sometimes get it wrong. **Picking the right helper for each task is the whole skill.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You have 500 photos named IMG_0001.jpg to IMG_0500.jpg. You want them renamed to trip-0001.jpg through trip-0500.jpg. Which tool fits?",
+    "prompt": "Your photo folder has 500 files named IMG_0001 to IMG_0500. You want each renamed to the date it was taken. Who gets the job?",
     "options": [
      {
       "id": "a",
-      "text": "An agent, because 500 is a lot of steps"
+      "text": "The intern, so they can use judgement on each photo"
      },
      {
       "id": "b",
-      "text": "A script, because the steps are known before you start"
+      "text": "The clerk with a checklist: same exact steps, 500 times"
      },
      {
       "id": "c",
-      "text": "A chatbot, so you can rename each one as it tells you"
+      "text": "The friend at the desk, who can tell you how renaming works"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's confusing many steps with judgement: the agent loop is for steps you can't list in advance, and here every step is identical.",
-     "c": "That's the chatbot for a task that needs no judgement: you would type 500 times for a job a script finishes in 1 second."
+     "a": "That's handing judgement to a job that needs none: the path is identical for every file, so the intern just adds cost and risk.",
+     "c": "That's the chatbot: it can explain the steps, but it stops after answering. Nothing gets renamed."
     },
-    "reteach": "Ask question 1 first. Can you write the steps now, and will they stay the same for all 500 files? Yes: take the number from the old name, put it after 'trip-'. A fixed list of steps is a script. Models only earn their cost when some step needs a decision."
-   },
-   {
-    "type": "example",
-    "title": "Researching a laptop",
-    "body": "You want a laptop for video editing under a set budget. You cannot list the steps in advance: you don't know which reviews exist, which models are in stock, or which price pages are stale. Question 1 says no script.\n\nEach step needs judgement. After one search the agent must decide: open this review, or skip it? Is this price current? Question 2 says a model is needed.\n\nA mistake is cheap. The worst case is a weak recommendation, and you still click buy yourself. Question 3 says let it act. Verdict: an agent with the search and read-page tools from chapter 3, a step cap of about 30, and no payment tool."
+    "reteach": "When every step is known before you start, you want a script: ordinary code that does the same thing every time. There is nothing to decide, so there is nothing for a model to think about."
    },
    {
     "type": "teach",
-    "title": "Sorting email, and mixed tasks",
-    "body": "Sorting email looks like one task but the 3 questions split it. Deciding which emails matter needs judgement, so a model is involved. Putting a label on an email is reversible; deleting or replying is not.\n\nSo the answer is an agent with two speeds. It may label freely. Before any delete or any reply, it must stop and get a human yes, the guardrail from chapter 6. Question 3 does not pick one tool for the whole job. It picks who acts at each risky step.\n\nMany real tasks are mixed like this. Split them. Use a script for the fixed part and an agent only for the part that needs judgement. When you are unsure, start with the chatbot: it is cheaper, and you stay in the loop until you trust the task."
+    "title": "Question 1: is the path known in advance?",
+    "body": "Before you reach for an agent, ask one question first. **Could you write down every step before starting?** If yes, that is a *script*: plain code that runs the same steps every time. Renaming files, resizing photos, copying rows from one sheet to another. A script is cheaper, faster, and never invents anything.\n\nIf the steps depend on what you find along the way, a script cannot do it. 'Find out which of these 3 laptops is best for me' has no fixed path. You read one review, that changes what you search next. That is where thinking in the loop earns its keep.",
+    "simpler": "Before you use an agent, ask one thing. **Could you write down every step before you start?** If yes, use a script. A script is plain code that runs the same steps every time, like a recipe. It is cheaper, faster, and never makes things up. If each step depends on what you found before, a script cannot help. Picking the best of three laptops has no fixed path. One review changes your next search. That needs an agent."
+   },
+   {
+    "type": "example",
+    "title": "The 500 files, done 3 ways",
+    "body": "Priya has 500 photos to rename. She tries the chatbot first. It writes her a perfect 6-line script and wishes her luck. She tries an agent next. It renames 490 files correctly, gets confused by 10 with missing dates, and quietly names them all 'unknown'. Then she runs the chatbot's script. 500 files, 2 seconds, and the 10 with missing dates stop with an error so she can see them. The clerk wins. The agent took 4 minutes and hid the problem.",
+    "simpler": "Priya has 500 photos to rename. She asks the chatbot first. It writes a short script for her and wishes her luck. Next she tries an agent. It renames 490 files right, gets confused by 10 with missing dates, and quietly calls them all 'unknown'. Then she runs the chatbot's script. 500 files, 2 seconds. The 10 with missing dates stop with an error so she can see them. **The clerk wins.** The agent took 4 minutes and hid the problem."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A friend runs a small shop and has 40 customer emails to answer. Each one asks something different. Which setup applies the 3 questions correctly?",
+    "prompt": "Your inbox has 300 unread emails. You want them sorted into 'needs reply', 'read later', and 'ignore'. The rules are fuzzy: it depends who sent it and what it asks. What fits?",
     "options": [
      {
       "id": "a",
-      "text": "An agent that reads each email and sends its reply straight away"
+      "text": "A script, since sorting email is a known task"
      },
      {
       "id": "b",
-      "text": "A script that sends the same thank-you reply to all 40"
+      "text": "An agent, since each email needs a judgement call and the mistake cost is low"
      },
      {
       "id": "c",
-      "text": "An agent that drafts each reply, and the friend clicks send on every one"
+      "text": "A chatbot, since you can paste each email in and ask"
      }
     ],
-    "answer": "c",
+    "answer": "b",
     "whyNot": {
-     "a": "That skips question 3: a wrong reply sent to a customer cannot be unsent, so the send step needs a human yes.",
-     "b": "That's the script for a job that needs judgement: each email asks something different, so no fixed list of steps fits."
+     "a": "That's the clerk on a job with no checklist: 'depends who sent it' means the path is not known in advance, so plain code cannot do it.",
+     "c": "That's the friend at the desk, 300 times. It can judge one email, but it will not go through the inbox for you."
     },
-    "reteach": "Run the three questions. Steps known in advance? No, each email is different. Judgement per step? Yes, so a model. Mistake costly and permanent? Yes, a bad reply reaches a real customer. So the model does the thinking and drafting, and the human keeps the one action that cannot be undone: send."
+    "reteach": "Ask the 3 questions. Path known? No, each email is different. Mistake bad? No, a mislabelled email is easy to fix. Needs judgement at each step? Yes. All 3 point to the intern: an agent."
+   },
+   {
+    "type": "teach",
+    "title": "Questions 2 and 3: how bad is a mistake, and does it need judgement?",
+    "body": "**Question 2: how bad is one mistake?** A mislabelled email costs you 10 seconds. A wrongly sent payment costs you a week. The worse the mistake, the more you want a script you can test, or an agent with a human 'yes' before the risky step.\n\n**Question 3: does it need judgement at each step?** If the answer is 'no, just once, then I'll act', that is a chatbot. 'Which laptop should I buy?' is a chatbot question. 'Research 3 laptops, compare prices today, and put a table in my notes' is an agent task. Same topic, different tool, because the second one keeps going without you.",
+    "simpler": "Two more questions. **How bad is one mistake, and does it need judgement at each step?** A mislabelled email costs seconds. A wrong payment costs a week. The worse the mistake, the more you want a tested script, or an agent that asks you first. One answer and then you act is a chatbot, like asking which laptop to buy. 'Research 3 laptops and put the prices in my notes' is an agent task. It keeps going without you."
    },
    {
     "type": "mistake",
-    "body": "The common mistake is reaching for an agent because agents are exciting, when a script would do. Agents cost more per run, are slower, and can wander off into the failure types from chapter 5. The test for spotting it: if you can write the steps as a numbered list before starting, and the list is the same every time, you have described a script. Build that instead."
+    "body": "Marcus is excited about agents, so he builds one to back up his work folder every night. It works for 3 weeks. Then one night the model decides a half-finished file 'looks like junk' and skips it. Nobody notices for a month. The tell: he gave judgement to a job that needed none. **If you could have written the steps on a sticky note, use a script.**",
+    "simpler": "Marcus loves agents, so he builds one to back up his work folder every night. It runs fine for 3 weeks. Then one night the model decides a half-finished file looks like junk and skips it. Nobody notices for a month. The warning sign: he gave judgement to a job that needed none. A backup should copy everything, no opinions. **If you could have written the steps on a sticky note, use a script.**"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "You are choosing between the three tools. Which answer points to a plain script?",
+    "prompt": "Dana wants to know whether a used car listing is a good deal. She has the listing open and will decide herself. Which tool?",
     "options": [
      {
       "id": "a",
-      "text": "\"The steps are the same every time and I can list them right now.\""
+      "text": "A chatbot: one question, one answer, then she acts"
      },
      {
       "id": "b",
-      "text": "\"Each step depends on what the last step found.\""
+      "text": "An agent, because it involves money"
      },
      {
       "id": "c",
-      "text": "\"A mistake would be costly and hard to undo.\""
+      "text": "A script, because checking a price is a fixed step"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's question 2, judgement at each step: it rules a script out and points to a chatbot or agent.",
-     "c": "That's question 3, cost of a mistake: it decides who holds the risky action, not whether a script is enough."
+     "b": "That's the agent's cue, but only when the task has many steps and she is not in the loop. Here she decides herself after one answer. Money alone does not call for an intern.",
+     "c": "That's the clerk's cue, but 'is this a good deal' has no fixed checklist. It needs judgement, just once."
     },
-    "reteach": "Question 1 is the script question. A known, unchanging list of steps means no decisions are needed, so no model is needed. Questions 2 and 3 only come into play once the path is unknown and something has to be judged along the way."
+    "reteach": "The chatbot fits when you need one judgement and then you take over. An agent fits when the judgement has to happen again and again across steps you are not watching. Dana is watching, so one answer is enough."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "**Three questions pick the tool:** is the path known, how bad is a mistake, does it need judgement at each step. Known path means script, one judgement means chatbot, many judgements across steps you won't watch means agent, and the worse the mistake, the more you want a human click before the risky step.",
+    "simpler": "**Three questions pick the tool.** Is the path known? How bad is a mistake? Does it need judgement at each step? A known path means a script. One judgement means a chatbot. Many judgements across steps you will not watch means an agent. And the worse a mistake would be, the more you want a human to click 'yes' before the risky step."
    },
    {
     "type": "try",
-    "body": "Write 3 tasks from your week on paper. Next to each, answer the 3 questions with one word. Circle script, chatbot, or agent. Keep the paper for day 14."
+    "body": "Write down 3 chores from your week. Next to each, put S, C or A for script, chatbot or agent, and one word for why. Keep the note. Day 14 will revisit it.",
+    "simpler": "**Write down 3 chores from your week.** Next to each one, put S, C or A. S is script, C is chatbot, A is agent. Add one word for why you chose it. Keep the note somewhere you will find it again. Day 14 will revisit it."
    }
   ],
-  "outcomeLine": "You can now run any task through the 3-question test and say whether it deserves a script, a chatbot, or an agent, with the reason."
+  "outcomeLine": "You can now take 3 tasks from your own week, run each through the 3-question test, and say which deserves an agent, which a chatbot, and which a plain script, with the reason."
  },
- "seconds": 59.59029197692871
+ "seconds": 44.42458415031433
 }

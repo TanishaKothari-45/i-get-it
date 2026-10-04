@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "In our small assembly line, every box in n8n is a station. A station does exactly one job: add a label, check a weight, pack a box. The thing moving down the belt is a tray with named compartments. Each station can only see the tray the station before it put on the belt, nothing else."
-   },
-   {
-    "type": "teach",
-    "title": "Nodes, items, and the belt",
-    "body": "A node is one box on the n8n canvas. It does one job. The Schedule Trigger from chapter 1 is a node. A Slack node that sends a message is a node. Nothing in n8n happens outside a node.\n\nWhat travels between nodes is called an item. An item is a small packet of named fields, like name = Priya, team = Sales. One run can carry 1 item or 200 items down the line. Every node runs its job on every item it receives.\n\nThe line you drag from one node to the next is the belt. It has a direction. Whatever comes out of node 1 goes into node 2. Whatever comes out of node 2 goes into node 3. A node never reaches back to see what an earlier node had.\n\nYou can watch this happen. Open a node and press its test button, and n8n runs just that one step. The panel on the right is the output panel. It shows how many items came out and every field inside them.\n\nThe output panel has 3 views. Table shows fields as columns, which is easiest to read. JSON shows the raw packet with curly braces. Schema lists just the field names. Table is enough for now."
+    "body": "Chapter 1 rang the bell. Now watch what moves. Every box on the n8n canvas is a *node*: one station on the line, with one job. What slides along the belt between stations is an *item*: a small tray of named fields, like name: Priya, order: 2 lattes.\n\n**Each station takes the tray, does its one job, and slides it on.** Lift the lid at any station and you can see exactly what is on the tray as it leaves.",
+    "simpler": "Chapter 1 showed how a workflow starts. Now look at what moves. Every box on the n8n canvas is a node. Think of it as one station on a factory line with one job. The thing that slides between stations is an item: a small tray of named fields, like name: Priya, order: 2 lattes. **Each station takes the tray, does its one job, and slides it on.** Lift the lid at any station and you see exactly what is on the tray as it leaves."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Node 1 hands over 1 item with 3 fields. Node 2 adds 1 field and keeps the others. What does node 3 receive?",
+    "prompt": "Station 2 is supposed to stamp a date on Priya's tray. Station 3 says no date ever arrived. Where do you look to find out what station 2 actually put on the tray?",
     "options": [
      {
       "id": "a",
-      "text": "Only the 1 new field"
+      "text": "Read station 2's instruction card, the settings you typed in"
      },
      {
       "id": "b",
-      "text": "1 item with 4 fields"
+      "text": "Lift the lid at station 2 and look at the tray leaving it"
      },
      {
       "id": "c",
-      "text": "Nothing until the whole workflow has finished"
+      "text": "Ask station 1, since it handled the tray first"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's what node 2 added, not what it hands on: it kept the 3 fields too, so all 4 travel down the belt.",
-     "c": "That's how a report works, not a belt: each node hands its output to the next node as soon as it finishes."
+     "a": "That's what the station was told to do, not what it did: a card can read fine while the tray leaves without a stamp.",
+     "c": "That's upstream: station 1 only knows what it handed over. The belt moves one way, and the question is what left station 2."
     },
-    "reteach": "Picture the tray. It arrives at station 2 with 3 labelled compartments. Station 2 adds a fourth and slides the same tray on. Station 3 gets the tray with all 4."
-   },
-   {
-    "type": "example",
-    "title": "Three nodes, step by step",
-    "body": "Build this: Schedule Trigger, then Edit Fields, then a second Edit Fields. Press the test button on the Schedule Trigger. The output panel says 1 item, with fields such as timestamp, Readable date and Day of week.\n\nIn the first Edit Fields node, add a field named owner with the value Priya, and turn on the switch Include Other Input Fields. Test it. The output is still 1 item, now with owner = Priya plus all the date fields.\n\nIn the second Edit Fields node, add a field named note with the value checked, and leave Include Other Input Fields off. Test it. The output is 1 item with one field: note. The owner and the dates are gone."
+    "reteach": "A station's settings are a promise. The tray leaving it is the truth. When something is missing downstream, look at what actually left the station you suspect, not at what you asked it to do."
    },
    {
     "type": "teach",
-    "title": "A station can add, keep, or drop",
-    "body": "The second Edit Fields node shows the nuance. A node does not just add to the tray. It decides what goes out. With that switch off, it hands on only the fields it set itself. Everything else stops at that station.\n\nSo the question to ask about any node is never \"what data is in this workflow?\" It is \"what did the node right before this one hand over?\" The output panel of that node is the only honest answer.\n\nThe same holds for item counts. If a node receives 10 items and the output panel says 3 items, that node dropped 7. The nodes after it will only ever see 3. Reading the count at each station tells you where the belt got narrower."
+    "title": "One box, one job",
+    "body": "On the canvas, click the small plus on a node's right edge to add the next node. The line that appears is the belt. **A node does one job**: it gets data, changes data, or sends data somewhere. If you want two things done, you add two nodes.\n\nAn *item* is what travels. It is a packet of named fields, written in *JSON*, a text format that lists name and value pairs inside curly braces. A run may carry 1 item or 40. Most nodes do their job once per item, so 40 trays in means 40 jobs done.",
+    "simpler": "On the canvas, click the small plus on the right edge of a node to add the next one. The line that appears is the belt. **A node does one job**: it gets data, changes data, or sends data somewhere. Want two things done? Add two nodes. An item is what travels. It is a packet of named fields written in JSON, a text format that lists names and values inside curly braces. A run may carry 1 item or 40. Most nodes do their job once per item, so 40 trays in means 40 jobs done."
+   },
+   {
+    "type": "example",
+    "title": "Rosa's three empty stations",
+    "body": "Rosa builds three nodes with no apps attached: a Manual Trigger, then an Edit Fields node that sets name to Rosa and drink to flat white, then a second Edit Fields that adds size: large, with *Include Other Input Fields* switched on so the first two ride along. She clicks Test workflow. The trigger shows 1 item with almost nothing in it. Node 2 shows 1 item with 2 fields. Node 3 shows 1 item with 3 fields. Without that switch, node 3 would have handed on a tray carrying only size, and Rosa would be ordering a large nothing.",
+    "simpler": "Rosa builds three nodes with no apps attached. First a Manual Trigger. Then an Edit Fields node that sets name to Rosa and drink to flat white. Then a second Edit Fields that adds size: large, with Include Other Input Fields switched on so the first two fields ride along. She clicks Test workflow. The trigger shows 1 item with almost nothing in it. Node 2 shows 1 item with 2 fields. Node 3 shows 1 item with 3 fields. Without that switch, node 3 would hand on a tray carrying only size. Rosa would be ordering a large nothing."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Your last node, a Slack message, sends a blank where the name should be. What is the right first check?",
+    "prompt": "Dev's workflow has three nodes. The third builds a greeting and comes out as 'Hello, undefined'. He wants to know what node 2 really handed over. What does he click?",
     "options": [
      {
       "id": "a",
-      "text": "Open the node just before Slack and read its output panel for a name field"
+      "text": "Node 2, then reads its output panel on the right in JSON view"
      },
      {
       "id": "b",
-      "text": "Open the trigger's output only, since all data starts there"
+      "text": "Node 3's settings, and retypes the greeting more carefully"
      },
      {
       "id": "c",
-      "text": "Rename the Slack node to something clearer"
+      "text": "The trigger, to run the whole thing again and hope"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's the start of the belt, not the end: a middle station may have dropped the name, so the trigger having it proves nothing.",
-     "c": "That's the node's label, not its input: renaming a station changes nothing about what arrives on its tray."
+     "b": "That's the station's instruction card, not the tray: the greeting can be typed perfectly while the field it asks for never arrived.",
+     "c": "That's the bell: it starts the run, but only node 2's output panel shows what node 2 passed on."
     },
-    "reteach": "A node only sees what the previous node handed over. If Slack has no name, the node before Slack did not pass one. Test that node and look at its output panel. If the name is missing there too, step back one more node."
+    "reteach": "Undefined means node 3 reached for a field that was not on the tray. The tray came from node 2, so node 2's output is where the answer lives. Open it and read the field names as they are actually spelled."
+   },
+   {
+    "type": "teach",
+    "title": "Reading the panel",
+    "body": "Click any node after a run. The panel opens with what came in on the left and **what went out on the right**. The output has three views: Table for a glance, JSON for the exact spelling of every field name, Schema for a plain list of names.\n\nThe top of the panel says how many items: 1 item, 12 items. If the count drops between two nodes, that node dropped trays.\n\nBefore a run the panels are empty. Press *Test step* on one node to run just that station, using the previous node's last output. You do not need to ring the bell every time.",
+    "simpler": "After a run, click any node. A panel opens. What came in is on the left. **What went out is on the right.** The output has three views. Table gives a quick glance. JSON shows the exact spelling of every field name. Schema gives a plain list of names. The top of the panel says how many items, like 1 item or 12 items. If the count drops between two nodes, that node dropped trays. Before a run the panels are empty. Press Test step on one node to run just that station, using the previous node's last output. You do not need to start the whole workflow every time."
    },
    {
     "type": "mistake",
-    "body": "The common mistake is assuming a field is still there because an earlier node had it. The trigger showed a date, so people expect the Slack node to see a date, even after a middle node dropped it. Spot it fast: test the node immediately before the one that misbehaves, and read its output panel. If the field is not there, it is gone for every node after it."
+    "body": "Marcus's second node creates a field called Customer Name, with a space. His third node asks for customerName. It comes back blank, and he spends 20 minutes re-reading node 3's settings. **The fix was one click away**: open node 2's output in JSON view and read the name letter by letter. Spelling, spaces and capitals must match exactly, or the next station is reaching for a tray that does not exist.",
+    "simpler": "Marcus's second node creates a field called Customer Name, with a space. His third node asks for customerName. It comes back blank. He spends 20 minutes re-reading the settings of node 3. **The fix was one click away**: open the output of node 2 in JSON view and read the name letter by letter. Spelling, spaces and capitals must match exactly. If they do not, the next station reaches for a tray that does not exist."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "In n8n, what is an item?",
+    "prompt": "After a run, node 2's output panel says 12 items. Node 3 is a node that adds a field. How many times does node 3 do its job?",
     "options": [
      {
       "id": "a",
-      "text": "A packet of named fields that moves from one node to the next"
+      "text": "Once, on the whole batch"
      },
      {
       "id": "b",
-      "text": "The name you give a node"
+      "text": "12 times, once per item"
      },
      {
       "id": "c",
-      "text": "The line connecting two nodes"
+      "text": "Depends how long you leave it running"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the node's label, not the data: a name tells you what the station is for, not what it is holding.",
-     "c": "That's the belt, not the tray: the line carries items, it is not an item itself."
+     "a": "That's the workflow run, which happens once: inside it, a node works tray by tray, and 12 trays arrived.",
+     "c": "That's thinking of it like a machine with a speed dial: a node does its job exactly once per item that arrives, no more, no less."
     },
-    "reteach": "Each node hands the next node a tray. The tray is an item. Its compartments are fields with names, like owner or Readable date. The output panel shows you the trays a node sent on."
+    "reteach": "Items are trays. A node is a station that handles each tray that reaches it. 12 trays in means the station does its one job 12 times and, unless it drops some, 12 trays go out."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Every box is a node that does one job on each item, a packet of named fields, then hands it to the next box. **After a run, click a node and its output panel shows exactly what it passed on**, every field name spelled as it really is.",
+    "simpler": "Every box is a node. It does one job on each item, which is a packet of named fields. Then it hands the item to the next box. **After a run, click a node and its output panel shows exactly what it passed on.** Every field name appears spelled as it really is. This is like checking a tray at the end of a station before it moves down the line."
    },
    {
     "type": "try",
-    "body": "Open any workflow in your n8n. Click the node after the trigger, press its test button, and switch the output panel between Table and JSON. Count the items and the fields."
+    "body": "Open yesterday's workflow. Add an Edit Fields node after the trigger and set one field, name, to your name. Click Test workflow, then open that node and read its output in JSON view. Count the items.",
+    "simpler": "Open the workflow you built yesterday. Add an Edit Fields node right after the trigger. Set one field, called name, to your own name. Click Test workflow. Then open that node and read its output in JSON view. Count how many items it shows. This is the same lid-lifting check from earlier, done on your own line."
    }
   ],
-  "outcomeLine": "You can now connect three nodes and read exactly what each one hands to the next."
+  "outcomeLine": "You can now connect three nodes in a row and read exactly what each station hands to the next."
  },
- "seconds": 75.40019607543945
+ "seconds": 116.18874335289001
 }

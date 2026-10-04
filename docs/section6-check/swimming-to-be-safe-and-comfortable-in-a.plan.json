@@ -15,45 +15,115 @@
     "n": 1,
     "title": "Getting in and standing up",
     "covers": "Entering by the steps or ladder, walking in chest-deep water, and the one move that fixes almost every panic: pulling your knees in, pressing your hands down, and planting your feet to stand.",
-    "outcome": "You can get into chest-deep water, walk 10 metres across the pool, and go from lying forward in the water to standing on your feet in under 2 seconds, every time."
+    "outcome": "You can get into chest-deep water, walk 10 metres across the pool, and go from lying forward in the water to standing on your feet in under 2 seconds, every time.",
+    "hook": "Holding your breath is what makes water feel scary. Breathing out fixes it."
    },
    {
     "n": 2,
     "title": "Face in, breath out",
     "covers": "Putting your face in the water with your eyes open, blowing bubbles out through your nose and mouth, and lifting up to breathe in, so the water stops being something you hold your breath against.",
-    "outcome": "You can put your face in the water 10 times in a row, breathing out underwater each time for 3 seconds and in above the water, without wiping your eyes or holding your nose."
+    "outcome": "You can put your face in the water 10 times in a row, breathing out underwater each time for 3 seconds and in above the water, without wiping your eyes or holding your nose.",
+    "hook": "Full lungs make most bodies float. Here's what to do with the rest of you."
    },
    {
     "n": 3,
     "title": "Lying on the bed: floating",
     "covers": "Back float with ears in the water and hips up, then front float with your face in, holding the wall first and then letting go, and the fact that a lungful of air is what keeps your chest at the surface.",
-    "outcome": "You can float on your back for 30 seconds and on your front for 10 seconds with no hands on anything, and return to standing calmly from both."
+    "outcome": "You can float on your back for 30 seconds and on your front for 10 seconds with no hands on anything, and return to standing calmly from both.",
+    "hook": "Where you look decides whether your legs float or sink."
    },
    {
     "n": 4,
     "title": "Push off and glide",
     "covers": "Pushing off the wall with both feet into a long thin shape, arms stretched ahead, face down, and letting the glide run out before you stand, which is the position every stroke starts from.",
-    "outcome": "You can push off the wall and glide 3 to 5 metres on your front with your face in the water, then stand up without grabbing anything."
+    "outcome": "You can push off the wall and glide 3 to 5 metres on your front with your face in the water, then stand up without grabbing anything.",
+    "hook": "Bending your knees hard is the kick that goes nowhere. Oars don't bend."
    },
    {
     "n": 5,
     "title": "Kicking from the hips",
     "covers": "A small, steady flutter kick with straight-ish legs and loose ankles, first holding the wall, then holding a kickboard, then from a glide, and why a big splashy kick moves you less.",
-    "outcome": "You can kick from a glide across the width of the pool (about 10 to 15 metres) holding a kickboard, with your face in the water and breath out, lifting your head to breathe when you need to."
+    "outcome": "You can kick from a glide across the width of the pool (about 10 to 15 metres) holding a kickboard, with your face in the water and breath out, lifting your head to breathe when you need to.",
+    "hook": "Most of your speed comes from your arms, not your legs. Here's the pull."
    },
    {
     "n": 6,
     "title": "Adding the arms",
     "covers": "Front crawl arms on top of the kick: one arm reaches forward and pulls back under your body while the other recovers over the water, practised standing first, then from a glide with 3 strokes, then 6.",
-    "outcome": "You can swim 6 to 8 front crawl strokes from a push-off with your face in the water, then stand up, 5 times in a row without feeling out of breath."
+    "outcome": "You can swim 6 to 8 front crawl strokes from a push-off with your face in the water, then stand up, 5 times in a row without feeling out of breath.",
+    "hook": "You never lift your head to breathe. You turn it, one ear still in the water."
    },
    {
     "n": 7,
     "title": "Across the pool, and staying safe",
     "covers": "Joining it up: push off, kick, arms, lift your head to breathe when you need to, and reach the far wall; plus the pool safety rules you now have the skills to follow, like staying where you can stand, swimming with someone, never jumping into water you don't know the depth of, and rolling onto your back to rest if you get tired.",
-    "outcome": "You can swim a slow front crawl across the width of the pool without stopping, roll onto your back to rest when tired, and name the 4 safety habits you'll keep every time you swim."
+    "outcome": "You can swim a slow front crawl across the width of the pool without stopping, roll onto your back to rest when tired, and name the 4 safety habits you'll keep every time you swim.",
+    "hook": "Tired swimmers don't need to reach the wall. They need to roll over."
    }
   ]
  },
- "seconds": 41.17210912704468
+ "seconds": 81.873055934906,
+ "hooksFrom": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Safe, comfortable pool swimming",
+  "outcome7": "By day 7 you'll be able to put your face in the water and breathe out calmly, float on your front and on your back and stand up again by yourself, push off the wall and glide, swim one width of a pool in water you can stand in using a basic front crawl with side breathing, and roll onto your back to rest if you get tired.",
+  "horizon14": "Later, with practice: one full 25-metre length of front crawl, breathing to the side, without stopping.",
+  "horizon28": "Later still: treading water for 2 minutes and swimming calmly in the deep end with no wall within reach.",
+  "picture": {
+   "name": "Your body is a boat",
+   "line": "Full lungs are the hull that keeps you up, your head is the rudder that sets your angle, and your arms and legs are the oars."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "Face in, breathe out",
+    "covers": "Standing in chest-deep water, putting your face in, blowing bubbles out through nose and mouth, and bobbing under and up 10 times in a row without wiping your eyes.",
+    "outcome": "You can bob under 10 times in a row, breathing out under the water and in above it, without panic or wiping your face.",
+    "hook": "Holding your breath is what makes water feel scary. Breathing out fixes it."
+   },
+   {
+    "n": 2,
+    "title": "Float, then stand back up",
+    "covers": "The front float with arms wide, the back float with ears in the water and hips up, and the recovery: tuck your knees, press your hands down, find the floor with your feet.",
+    "outcome": "You can float on your front and your back for 10 seconds each and stand up on your own every time.",
+    "hook": "Full lungs make most bodies float. Here's what to do with the rest of you."
+   },
+   {
+    "n": 3,
+    "title": "Push off and glide",
+    "covers": "Pushing from the wall with arms stretched and head tucked between them, eyes down, gliding as far as it carries you, then standing. Why looking forward makes your legs sink.",
+    "outcome": "You can push off the wall and glide 3 to 5 metres on your front with your face down, then stand up.",
+    "hook": "Where you look decides whether your legs float or sink."
+   },
+   {
+    "n": 4,
+    "title": "A kick that moves you",
+    "covers": "The flutter kick: small, fast kicks from the hip with loose ankles, first holding a kickboard, then in a glide. Why big bent-knee bicycle kicks go nowhere.",
+    "outcome": "You can kick one width of the pool holding a kickboard, face in, breathing out and lifting your head only to breathe in.",
+    "hook": "Bending your knees hard is the kick that goes nowhere. Oars don't bend."
+   },
+   {
+    "n": 5,
+    "title": "Arms: the pull",
+    "covers": "The front crawl arm cycle: reach forward, press the water back to your hip, swing the arm over the top. One arm at a time holding the board, then both arms with your face down.",
+    "outcome": "You can swim 5 to 10 metres of front crawl with your face down, breathing out, before stopping to breathe.",
+    "hook": "Most of your speed comes from your arms, not your legs. Here's the pull."
+   },
+   {
+    "n": 6,
+    "title": "Breathe without stopping",
+    "covers": "Turning your head to the side as one arm swings over, keeping one ear in the water, breathing out the whole time underwater so you only have to breathe in. Side-kick drills with the board.",
+    "outcome": "You can breathe to the side every second or third stroke and swim one width without standing up.",
+    "hook": "You never lift your head to breathe. You turn it, one ear still in the water."
+   },
+   {
+    "n": 7,
+    "title": "Resting, treading, and the deep end",
+    "covers": "Rolling onto your back to rest mid-swim, treading water for 30 seconds with sculling hands and a gentle kick, getting in and out safely, reading depth markers, and what to do if you swallow water.",
+    "outcome": "You can roll onto your back and rest when tired, tread water for 30 seconds, and get yourself to the wall from the middle of the pool.",
+    "hook": "Tired swimmers don't need to reach the wall. They need to roll over."
+   }
+  ]
+ }
 }

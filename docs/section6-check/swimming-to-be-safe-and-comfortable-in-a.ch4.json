@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "You've lain on the bed and let it hold you. Now you push away from the headboard and slide along it. The water keeps doing the holding. All you add is one shove with your feet and a long thin shape, then you lie still and let the slide run out."
-   },
-   {
-    "type": "teach",
-    "title": "One push, one shape, then nothing",
-    "body": "A glide is the simplest move in swimming: push off the wall and travel through the water without moving your arms or legs. Every stroke you learn later starts from this position, so it's worth getting right.\n\nStart standing in chest-deep water with your back to the wall. Put one foot flat on the wall behind you, about knee height. Hold the edge or the lane rope lightly with one hand if you like.\n\nBefore you push, make the shape. Stretch both arms straight out in front of you. Put one hand on top of the other. Squeeze your upper arms against your ears, so your head is tucked between them. Swimmers call this 'streamline', which just means the thinnest shape your body can make.\n\nTake a breath, put your face in the water, and push through your foot. Both feet come up to the wall and shove together. Keep your eyes looking at the bottom of the pool, not forward. Looking forward lifts your head, and your head lifting sinks your hips.\n\nThen do nothing. Don't kick, don't pull. Hold the shape and feel yourself slow down. When you stop, do the stand-up from Chapter 1: knees in, hands press down, feet plant. You're aiming for 3 to 5 metres before the glide runs out."
+    "body": "Think of sliding a tray across a wet kitchen counter: one shove, then it slides on by itself. The *glide* is that shove, done on the water-bed. **You push off the wall once, make yourself long and thin like an arrow, and the water carries you** while you do nothing at all.\n\nThis is the shape every stroke starts from. Learn it here, and chapters 5 to 7 just add things on top.",
+    "simpler": "Picture sliding a tray across a wet counter. One shove, and it slides on by itself. The glide is that shove, done in the water. **You push off the wall once, make your body long and thin like an arrow, and the water carries you** while you do nothing.\n\nEvery stroke starts from this shape. Learn it now, and chapters 5 to 7 just add things on top."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Two people push off the same wall with the same force. One holds arms tight over their ears, face down. The other has arms a bit wide and head lifted to look ahead. Who glides further?",
+    "prompt": "Two friends push off the same wall with the same shove. Priya stretches both arms ahead, hands stacked, face looking at the pool floor. Tom keeps his head up to watch the far wall, arms at his sides. Who glides further?",
     "options": [
      {
       "id": "a",
-      "text": "The one looking ahead, because they can see where they're going and steer"
+      "text": "Tom. Head up, he can see where he is going and steer."
      },
      {
       "id": "b",
-      "text": "The one with arms over ears and face down, because they're a thinner shape"
+      "text": "Priya. Long and thin slips through the water; a lifted head and loose arms drag."
      },
      {
       "id": "c",
-      "text": "About the same, since the push was the same"
+      "text": "The same. Same wall, same push, same distance."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's about seeing, not about shape: a lifted head makes your body wider and drops your hips, so you slow down sooner.",
-     "c": "That's the push, not the shape: the push gives you the speed, but the shape decides how fast the water takes it back."
+     "a": "That's a wish to see, not a way to glide: a lifted head drops your hips, and dropped hips act like a brake.",
+     "c": "That's only the push. The push is the same, but shape decides how far the push carries you."
     },
-    "reteach": "Water pushes back on everything it has to flow around. A thin pointed shape gives it less to push on, so your speed lasts longer. A wide or bent shape gives it more, so you stop sooner, even with the same shove."
-   },
-   {
-    "type": "example",
-    "title": "Three tries at the wall",
-    "body": "On the first try, you push hard but your arms are out to the sides like a starfish. You go about 1 metre and stop. On the second try, you stack your hands and squeeze your ears, but you look forward at the far wall. Your hips sink and you stop at about 2 metres with your feet dragging. On the third try, same shape, eyes on the tiles below. You glide 4 metres and feel yourself slowing gently before you stand. Same push each time. Only the shape changed."
+    "reteach": "Picture the tray again. Slide it flat and it travels. Tip one end up and it stops dead. Your body on the water works the same way: flat and long goes far, head up and arms out to the sides stops you."
    },
    {
     "type": "teach",
-    "title": "Let it run out, then stand",
-    "body": "The hardest part of a glide for a new swimmer isn't the push. It's the waiting. You'll want to do something with your arms the moment you leave the wall. Don't. The glide is over when you've nearly stopped, not when you start to feel unsure.\n\nIf you feel your feet sinking, that's normal. Your legs are heavier than your chest, which is full of air. A small sink is fine. If your feet touch the bottom, just stand up calmly. That's the end of the glide, not a failure.\n\nWhen you're ready to stop, don't lift your head first. Lifting your head first is what tips people over and makes them splash. Instead: knees to chest, both hands press down, feet find the floor. It's the same stand-up you've already practised, just arriving from a glide.\n\nDo it 10 times tonight if you can. Count your glide in body lengths: 1 means about a metre, 3 to 5 is where you're heading."
+    "title": "Make the arrow first",
+    "body": "The glide is a shape before it is a push. Stand in chest-deep water, back to the wall, and make the shape while you are still standing: **both arms stretched ahead, one hand on top of the other, upper arms squeezing your ears**. Swimmers call this *streamline*, which just means the thinnest shape your body can make.\n\nNow the head. Tuck your chin so your face points at the pool floor, not at the far wall. Your head is heavy. Where it goes, your hips follow: head down, hips up, body flat.\n\nLegs together, toes pointed behind you. Now you are an arrow, not a starfish.",
+    "simpler": "First the shape, then the push. Stand in chest-deep water, back to the wall, and make the shape while standing: **both arms stretched ahead, one hand on the other, upper arms squeezing your ears**. Swimmers call this streamline, the thinnest shape you can make.\n\nTuck your chin so your face points at the floor. Your heavy head leads, and your hips follow: head down, hips up, body flat. Legs together, toes pointed. You are an arrow, not a starfish."
+   },
+   {
+    "type": "example",
+    "title": "The quietest 3 metres",
+    "body": "Maya, at her first adult lesson, has been told to push off and count until she stops. She puts both feet on the wall, stacks her hands, tucks her chin, and shoves. Then she does nothing, which feels deeply unnatural.\n\nOne, two, three, four. She slows, pulls her knees in, and stands. She is nearly 3 metres from the wall. Nobody kicked, nobody paddled. The water did all of it. She says it was the quietest 3 metres of her life.",
+    "simpler": "At her first adult lesson, Maya is told to push off and count until she stops. She puts both feet on the wall, stacks her hands, tucks her chin, and shoves. Then she does nothing, which feels strange.\n\nOne, two, three, four. She slows, pulls her knees in, and stands. She is nearly 3 metres from the wall. **Nobody kicked and nobody paddled. The water did all of it.** She calls it the quietest 3 metres of her life."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You push off, hold the shape, and after 2 metres you feel your feet start to sink. What do you do?",
+    "prompt": "You push off nicely, but after a second your legs start sinking and you grind to a halt. What is the most likely cause?",
     "options": [
      {
       "id": "a",
-      "text": "Start kicking hard to get your feet back up"
+      "text": "Your chin came up to look where you were going, so your hips dropped."
      },
      {
       "id": "b",
-      "text": "Lift your head quickly and look for the wall"
+      "text": "You did not push hard enough off the wall."
      },
      {
       "id": "c",
-      "text": "Hold the shape, let it slow, then knees in, hands down, stand"
-     }
-    ],
-    "answer": "c",
-    "whyNot": {
-     "a": "That's the next chapter's kick, not this one's glide: the glide is about adding no movement and letting it run out.",
-     "b": "That's the head-lift that tips you over: lifting your head first sinks your hips faster and makes standing up messier."
-    },
-    "reteach": "A slow sink of the feet is normal near the end of a glide. The job is to stay long and still until you've nearly stopped. Then stand the calm way: knees in, hands press down, feet plant."
-   },
-   {
-    "type": "mistake",
-    "body": "The common mistake is pushing with arms bent at the elbows or hands apart, because it feels safer with your hands near your face. Spot it by asking: can I feel my upper arms squeezing my ears? If not, your arms aren't straight and your shape is wide. Fix it before you push, not after."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "What are the 3 parts of a good glide, in order?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Make the thin shape, push with both feet, then hold still until it runs out"
-     },
-     {
-      "id": "b",
-      "text": "Push with both feet, then kick, then pull with your arms"
-     },
-     {
-      "id": "c",
-      "text": "Push with both feet, look forward to aim, then hold still"
+      "text": "You breathed out too early and lost your air."
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's a full stroke, not a glide: the glide is the part before any kick or pull, where you add nothing.",
-     "c": "That's aiming with your head, not gliding: looking forward lifts your head and sinks your hips, so eyes stay on the bottom."
+     "b": "That's push strength, which changes how far you go, not whether your legs sink. Sinking legs come from the shape.",
+     "c": "That's chapter 2's breath. Breathing out slowly during a glide is fine; your lungs still hold plenty to keep your chest up."
     },
-    "reteach": "Shape first, then push, then nothing. Hands stacked, arms on ears, face down. Shove with both feet. Hold still and let it run out before you stand."
+    "reteach": "Your head is the heaviest thing on the water-bed. Lift it and the other end of you, your hips and legs, goes down to balance it. Face at the floor keeps you flat, and flat is what glides."
+   },
+   {
+    "type": "teach",
+    "title": "Then the push, then nothing",
+    "body": "Now add the push. Crouch with your shoulders under the water and **both feet flat on the wall, like a frog about to jump**. Arms already stretched ahead before you leave. If you push first and reach second, you lose the glide in the gap.\n\nPush through both feet at once, straight ahead, not upwards. Your face goes in as you go. Breathe out slowly through your nose, as in chapter 2.\n\nThen the hard part: do nothing. No kick, no paddle. Count. When you feel almost still, finish it the chapter 1 way: knees in, hands press down, feet plant, stand. 3 to 5 metres is a good glide.",
+    "simpler": "Now add the push. Crouch, shoulders under the water, **both feet flat on the wall, like a frog about to jump**. Stretch your arms ahead before you leave, or you lose the glide. Push through both feet at once, straight ahead, not up. Face in, breathe out slowly through your nose.\n\nThen the hard part: do nothing. No kick, no paddle. Count. When you feel almost still, stand the chapter 1 way. 3 to 5 metres is a good glide."
+   },
+   {
+    "type": "mistake",
+    "body": "Dev pushes off well, and the instant his feet leave the tiles he starts windmilling his arms. He is trying to help. He never finds out how far the push alone would have taken him, so he never trusts it, so he keeps windmilling.\n\nSpot it in yourself: **if anything moved before you slowed down, you did not glide**. You swam badly from a standing start. Push, hold the arrow, count, then stand.",
+    "simpler": "Dev pushes off well. The moment his feet leave the wall, he starts windmilling his arms. He is trying to help. But he never finds out how far the push alone would take him, so he never trusts it, so he keeps windmilling.\n\nSpot it in yourself: **if anything moved before you slowed down, you did not glide**. You swam badly from a standing start. Push, hold the arrow, count, then stand."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which of these is the glide, as this chapter means it?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Pushing off the wall and kicking hard all the way across the pool."
+     },
+     {
+      "id": "b",
+      "text": "Pushing off into a long thin shape, face down, and doing nothing until you slow, then standing."
+     },
+     {
+      "id": "c",
+      "text": "Lying on your back with ears in the water and drifting wherever you end up."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's kicking, which is chapter 5. A glide is the stretch of travel before you add anything.",
+     "c": "That's the back float from chapter 3. A glide starts with a push and moves you forward on your front."
+    },
+    "reteach": "The glide has 3 parts: an arrow shape made before you leave, one push with both feet, and a stretch of doing nothing while the water carries you. Everything that moves after that belongs to a later chapter."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "**Make the arrow before you push**: hands stacked, ears squeezed, chin tucked, legs together. Then one shove off the wall with both feet, hold still while the water carries you 3 to 5 metres, and stand the chapter 1 way when you slow.",
+    "simpler": "**Make the arrow before you push**: hands stacked, ears squeezed, chin tucked, legs together. Then one shove off the wall with both feet. Hold still while the water carries you 3 to 5 metres. When you slow down, stand the chapter 1 way. That is the whole glide."
    },
    {
     "type": "try",
-    "body": "Tonight, in chest-deep water: 10 push-offs. Before each one, check your upper arms touch your ears. Count body lengths. Write down your best number."
+    "body": "Next time you are in the shallow end: shoulders under, both feet on the wall, arms already out ahead, face down. Push once and count seconds until you stop. Then stand. Write the count down. Beat it tomorrow.",
+    "simpler": "Next time you are in the shallow end, try this. Shoulders under the water, both feet on the wall, arms already out ahead, face down. **Push once and count the seconds until you stop.** Then stand. Write the number down. Tomorrow, try to beat it."
    }
   ],
-  "outcomeLine": "You can now push off the wall in a thin shape, glide 3 to 5 metres with your face in, and stand up calmly when it runs out."
+  "outcomeLine": "You can now push off the wall into a long thin shape and glide 3 to 5 metres with your face in the water, then stand up without grabbing anything."
  },
- "seconds": 42.77728605270386
+ "seconds": 71.09290981292725
 }

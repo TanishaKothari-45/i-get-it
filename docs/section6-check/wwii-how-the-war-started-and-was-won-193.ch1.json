@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "A fire needs dry timber before it needs a match. The peace treaty of 1919 stacked Germany's house with timber: lost land, a tiny army, a bill it could not pay, and a line saying the whole war had been its fault. The crash of 1929 dried the timber out. In 1933 Germany handed the house to a man who had promised to light it."
-   },
-   {
-    "type": "teach",
-    "title": "What 1919 did to Germany",
-    "body": "Germany lost the First World War in November 1918. The winners wrote the peace at Versailles, near Paris, and Germany signed it on 28 June 1919 without being allowed to negotiate a word.\n\nThe treaty took about 13 percent of Germany's land. Alsace-Lorraine went to France. A strip of land went to the new state of Poland, cutting the German province of East Prussia off from the rest of the country. Every German colony was taken away.\n\nThe army was capped at 100,000 men, with no tanks, no submarines and no air force. Germany also had to pay reparations, meaning money for war damage. In 1921 the bill was set at 132 billion gold marks.\n\nOne clause stung most. Article 231 made Germany accept responsibility for starting the war. Germans of every political colour called the treaty a Diktat, a dictated peace, and almost every party promised to undo it.\n\nThat is the key point. Anger at 1919 was not a Nazi invention. It was ordinary German opinion for 14 years before Hitler took power. The Nazis only had to promise to act on it."
+    "body": "Picture a street where one house, Germany, lost a fight in 1918 and was told to pay for the whole brawl. The 1919 peace deal did not clear the yard. **It stacked dry timber against the walls**: lost land, a tiny army, a bill it could not pay, and a grudge every family in the house could feel.\n\nTen years later a hard winter hit the whole street, and the timber was still there, drier than ever.",
+    "simpler": "Think of a street of houses. One house, Germany, lost a fight in 1918 and was told to pay for the whole brawl. The 1919 peace deal did not clean up the yard. **It piled dry timber against the walls**: lost land, a tiny army, a bill it could not pay, and a grudge the whole family felt.\n\nTen years later a hard winter hit the street. The timber was still there, drier than ever."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "It is 1920. Germans are angry about the treaty. Who in Germany shared that anger?",
+    "prompt": "Hamburg, 1930. Klaus, a dockworker, has lost his job and his savings. A man on a crate at the corner shouts that the 1919 treaty is to blame for everything and promises to tear it up. Why does Klaus stop to listen?",
     "options": [
      {
       "id": "a",
-      "text": "Only the Nazi party"
+      "text": "He has read the treaty and wants to check the speaker's facts."
      },
      {
       "id": "b",
-      "text": "Almost every party, from left to right"
+      "text": "He is broke and angry, and the speaker gives both feelings one target."
      },
      {
       "id": "c",
-      "text": "Only the army generals"
+      "text": "He hopes Germany will join the new international peace club."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the party that later used the grievance, not its source. In 1920 the Nazis were a tiny club in Munich; the anger was already everywhere.",
-     "c": "That's one group, not the whole. Generals hated the 100,000-man cap, but workers, shopkeepers and farmers hated the lost land and the guilt clause too."
+     "a": "That's what a historian does, not a hungry man on a street corner: Klaus has no job, and the speaker is offering a feeling, not a footnote.",
+     "c": "That's the opposite mood: the peace club was part of the 1919 world the speaker is blaming, so that is not what pulls Klaus in."
     },
-    "reteach": "Think of the treaty as a bill pinned to every German front door. Communists, conservatives and liberals all read the same bill and all wanted it torn up. The Nazis were not special for hating it. They were special for what they later did about it."
-   },
-   {
-    "type": "example",
-    "title": "How a fringe party became the biggest",
-    "body": "In the election of May 1928 the Nazis won 2.6 percent of the vote, a fringe result. The Wall Street crash came in October 1929. American loans that had propped up Germany dried up, factories closed, and by early 1932 about 6 million Germans were out of work, roughly 1 worker in 3. In September 1930 the Nazi vote jumped to 18.3 percent. In July 1932 it reached 37.3 percent, the largest party in the country, and on 30 January 1933 President Hindenburg appointed Hitler chancellor, the head of government."
+    "reteach": "The timber was two things stacked together. 1919 gave Germans a grievance: lost land, a shrunken army, a bill. 1929 gave them desperation: no work, no savings. The speaker's trick is to point at the grievance as the cause of the desperation, true or not."
    },
    {
     "type": "teach",
-    "title": "What Hitler said he wanted",
-    "body": "Hitler had written his aims down in Mein Kampf, meaning My Struggle, published in 1925 and 1926. There were two. First, tear up 1919: rebuild the army, take back the lost land, and bring all German speakers into one state. Second, Lebensraum, meaning living space: farmland in the east, in Poland and Russia, taken from the people living there.\n\nThe first aim was popular. Most Germans wanted the treaty gone. The second aim meant war with Poland and the Soviet Union sooner or later, and Hitler knew it. From 1933 he rebuilt the army in secret breach of the treaty. By March 1935 he announced it openly, and nobody stopped him.\n\nGermany was not the only angry house on the street. Japan had seized Manchuria from China in 1931 and was fighting a full war in China from July 1937. Italy under Mussolini invaded Ethiopia in October 1935. All three felt the world had been carved up before they got their share, and all three meant to take more."
+    "title": "1919: the bill",
+    "body": "Germany signed the *Treaty of Versailles*, the peace deal ending the First World War, on 28 June 1919. It was not allowed to negotiate. It lost about 13 percent of its land, including a strip handed to Poland that cut Germany in two.\n\nIts army was capped at 100,000 men. It had to accept blame for the war and pay *reparations*, money for the damage, set in 1921 at 132 billion gold marks.\n\n**Most Germans did not feel defeated. They felt cheated.** Their army had still been standing on French soil when the fighting stopped. The treaty became a wound any politician could press.",
+    "simpler": "In June 1919 Germany signed the Treaty of Versailles, the war's peace deal. It was given no say. It lost about 13 percent of its land, including a strip handed to Poland that cut Germany in two.\n\nIts army was capped at 100,000 men. It had to accept blame and pay reparations, money for damage, set in 1921 at 132 billion gold marks.\n\n**Most Germans felt cheated, not beaten.** Their army was still in France when the fighting stopped."
+   },
+   {
+    "type": "example",
+    "title": "The vote that followed the breadline",
+    "body": "In the May 1928 election the Nazi party won 2.6 percent of the vote. Nobody serious was worried.\n\nIn October 1929 the American stock market crashed, and the American loans Germany had been living on dried up. By September 1930 the Nazis had 18.3 percent. By July 1932, with about 6 million Germans out of work, they had 37.3 percent.\n\n**The message had barely changed. The audience had.**",
+    "simpler": "In May 1928 the Nazi party won 2.6 percent of the vote. Nobody important was worried.\n\nIn October 1929 share prices in America collapsed. The American loans Germany had been living on dried up. By September 1930 the Nazis had 18.3 percent. By July 1932, with about 6 million Germans out of work, they had 37.3 percent.\n\n**The message had barely changed. The audience had.** The same speech lands differently in a room full of hungry people."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "It is July 1932. A factory worker in Hamburg who voted for a moderate party in 1928 now votes Nazi. Which explanation fits this chapter best?",
+    "prompt": "Your friend Priya says: 'Germany went Nazi because Germans were just angrier than everyone else.' Which reply uses what you have just read?",
     "options": [
      {
       "id": "a",
-      "text": "He has read Mein Kampf and wants farmland in Russia."
+      "text": "'Germans were angry from 1919 on, but the Nazis got 2.6 percent in 1928. The anger only turned into votes once the 1929 crash took people's jobs.'"
      },
      {
       "id": "b",
-      "text": "He has been out of work since 1930, and the Nazis promise jobs and to undo 1919."
+      "text": "'Right. The treaty made everyone furious, so the Nazis won big straight away in 1919.'"
      },
      {
       "id": "c",
-      "text": "He is frightened by Japan's war in China."
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's Hitler's own aim, not the voter's. Few voters read Mein Kampf; most voted for jobs and national pride, not for Russian farmland.",
-     "c": "That's a different fire on the street. Japan's full war in China began in 1937, five years later, and it moved no German votes."
-    },
-    "reteach": "Grievance alone did not win elections: in 1928, with the same treaty in force, the Nazis got 2.6 percent. The crash added hunger to anger. Jobs and pride together are what pulled ordinary voters across."
-   },
-   {
-    "type": "mistake",
-    "body": "People say the Nazis wanted war and dragged an unwilling Germany behind them. Closer to the truth: most Germans wanted 1919 undone and cheered rearmament, but there was no cheering in Berlin in September 1939 as there had been in 1914. Spot the mistake when someone treats \"undo the treaty\" and \"conquer the east\" as one wish. They overlapped in Hitler's head, not in most voters'."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Why was Germany in 1939 willing to start a war it had lost so badly 21 years earlier? Pick the answer with all three pieces.",
-    "options": [
-     {
-      "id": "a",
-      "text": "The 1919 treaty left a shared grievance, the 1929 crash left millions desperate, and in 1933 power went to a man who had promised to undo the treaty and take land in the east."
-     },
-     {
-      "id": "b",
-      "text": "The 1919 treaty was mild, so Germany felt strong enough to try again."
-     },
-     {
-      "id": "c",
-      "text": "Hitler alone wanted war, and he dragged a country that had made its peace with 1919."
+      "text": "'The treaty did not matter. It was all about the stock market.'"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's backwards. The treaty cut land, army and money, and Germans called it a dictated peace. The grievance was the fuel, not any mildness.",
-     "c": "That's the mistake card. Anger at 1919 was shared across German politics before Hitler. He added the eastern land and the timing."
+     "b": "That's the grievance alone, not grievance plus desperation: the Nazis were a fringe party for 9 years after the treaty. Anger without hunger did not win elections.",
+     "c": "That's the desperation alone, not the pair: the crash hit Britain and America too, and they did not elect anyone like Hitler. It was the crash landing on an old grievance."
     },
-    "reteach": "Three layers, in order. 1919: the treaty, resented by nearly all Germans. 1929: the crash, which made millions desperate enough to try an extreme party. 1933: Hitler, who added a plan for land in the east to the shared wish to undo 1919."
+    "reteach": "Think of two ingredients. The grievance from 1919 sat there for a decade and produced a 2.6 percent party. The desperation from 1929 arrived on top of it, and within 3 years that party was the biggest in Germany. Either one alone does not get you there."
+   },
+   {
+    "type": "teach",
+    "title": "What Hitler said he wanted",
+    "body": "Hitler became *chancellor*, head of the government, on 30 January 1933. He had written his aims down in his book *Mein Kampf* years earlier, and he did not hide them. First, undo 1919: rebuild the army, take back lost land, bring all German speakers into one state.\n\nSecond, and bigger, *Lebensraum*, meaning living space: farmland in the east, in Poland and Russia, cleared of the people living there. **Undoing 1919 was the slogan. Land in the east was the plan.**\n\nGermany was not the only house full of timber. Japan, short of oil and iron, had been at war in China since July 1937 for an empire of its own. Italy under Mussolini had invaded Ethiopia in 1935 and wanted more.",
+    "simpler": "Hitler became chancellor, head of government, on 30 January 1933. His book Mein Kampf had set out his aims years before. First, undo 1919: rebuild the army, win back land, unite German speakers. Second, bigger: Lebensraum, living space, meaning farmland in Poland and Russia cleared of its people.\n\n**Undoing 1919 was the slogan. Land in the east was the plan.**\n\nJapan, short of oil and iron, had fought in China since 1937. Italy had invaded Ethiopia in 1935. Both wanted empires."
+   },
+   {
+    "type": "mistake",
+    "body": "Tom finishes a documentary and tells his flatmate the treaty 'caused' Hitler, as if 1919 made 1939 unavoidable. But for 9 years after Versailles the Nazis stayed on the fringe, and in 1928 they got 2.6 percent.\n\n**Spot the mistake when someone jumps from 1919 straight to 1933** with nothing in between. The missing piece is 1929, when the money ran out.",
+    "simpler": "Tom watches a documentary and tells his flatmate the treaty 'caused' Hitler, as if 1919 made 1939 certain. But for 9 years after Versailles the Nazis stayed small and ignored. In 1928 they won just 2.6 percent.\n\n**Watch for the jump from 1919 straight to 1933** with nothing in between. The missing step is 1929, the year the money ran out. A dry pile of timber still needs a match."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A pub quiz asks: what turned Germany from a sore loser in 1919 into a country ready to fight in 1939? Pick the fullest answer.",
+    "options": [
+     {
+      "id": "a",
+      "text": "The 1919 treaty alone. Humiliation always leads to war."
+     },
+     {
+      "id": "b",
+      "text": "A grievance from 1919, desperation from the 1929 crash, and from 1933 a leader who promised to turn both into revenge and land."
+     },
+     {
+      "id": "c",
+      "text": "Hitler alone. Without him Germans would have been content."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the timber without the match: humiliated countries do not always fight. For 9 years after 1919 the Nazis stayed on the fringe.",
+     "c": "That's the match without the timber: Hitler had the same message in 1928 and got 2.6 percent. He needed the crash to be heard."
+    },
+    "reteach": "Three dates, three layers. 1919 left a wound. 1929 left millions without work and made the wound feel like the cause. 1933 put in charge a man who had promised, in writing, to tear up the treaty and take land in the east."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "**Germany in 1939 was a house of dry timber**: 1919 left it humiliated and in debt, 1929 left it broke and jobless, and from 1933 Hitler promised to turn both into revenge on the treaty and farmland in the east.\n\nJapan and Italy had their own grudges and wanted empires too, so three houses on the street were ready to burn.",
+    "simpler": "**Germany in 1939 was a house of dry timber.** The 1919 treaty left it shamed and in debt. The 1929 crash left it broke and out of work. From 1933 Hitler promised to turn both into revenge on the treaty and farmland in the east.\n\nJapan and Italy carried their own grudges and wanted empires too. So three houses on the street were ready to burn."
    },
    {
     "type": "try",
-    "body": "Open a map app and find Gda\u0144sk, Poland. Until 1919 it was the German city of Danzig. The treaty made it a free city and gave Poland the land west of it, splitting Germany in two. This was the land Germany wanted back most."
+    "body": "Tonight, tell someone the story in three sentences: what 1919 did, what 1929 did, what Hitler promised. If it takes you more than 30 seconds, you are adding too much.",
+    "simpler": "Tonight, tell someone the story in three sentences. One for what 1919 did. One for what 1929 did. One for what Hitler promised. Time yourself. If it takes more than 30 seconds, you are adding too much. **Three sentences, 30 seconds, nothing extra.** Think of it like giving directions: the shortest route is the one people remember."
    }
   ],
-  "outcomeLine": "You can now explain in three plain sentences why Germany in 1939 was willing to fight a war it had lost so badly in 1918."
+  "outcomeLine": "You can now explain in three plain sentences why Germany in 1939 was willing to fight a war it had lost so badly 21 years earlier."
  },
- "seconds": 100.47224020957947
+ "seconds": 117.37131118774414
 }

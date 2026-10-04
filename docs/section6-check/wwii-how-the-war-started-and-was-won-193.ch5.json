@@ -5,108 +5,113 @@
   "cards": [
    {
     "type": "picture",
-    "body": "By the middle of 1942 the fire had reached the far ends of the street. In Russia, in North Africa and across the Pacific the flames were still moving outward. Then, within 8 months, they hit three walls and stopped. The fire was not out. But from this point on it only shrank."
-   },
-   {
-    "type": "teach",
-    "title": "Three walls",
-    "body": "In the first half of 1942 the Axis (Germany, Italy and Japan) were still winning almost everywhere. Japan had taken the Philippines, Malaya, Singapore and the Dutch East Indies in about 6 months. German tanks were deep inside Russia and 60 miles from Alexandria in Egypt.\n\nA turning point in a war is the moment one side stops gaining ground and starts losing it. It is not the end. It is the furthest the fire ever reaches.\n\nThree battles mark that line. Midway, an island in the middle of the Pacific, in June 1942. El Alamein, in Egypt, in October and November 1942. Stalingrad, in southern Russia, ending on 2 February 1943.\n\nEach one stopped a specific move. Midway stopped Japan's navy pushing further across the Pacific. El Alamein stopped Germany and Italy reaching the Suez Canal and the oil of the Middle East. Stalingrad stopped Germany taking southern Russia and its oilfields.\n\nThe way to hold them in your head is not as three victories but as three \"no further\" lines. For the rest of the war the Axis defended ground instead of taking it."
+    "body": "By the summer of 1942 the fire has reached both ends of the street. Then, in three places within 8 months, it stops. Picture a hedge at the end of a garden: the flames reach it, flare up, and go no further.\n\n**A fire that stops spreading is not out, but it has lost.** Midway, El Alamein and Stalingrad are three hedges. Each one stopped the Axis from doing one specific thing, and after each one the Axis never got that thing back."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "At Midway, Japan lost 4 aircraft carriers in one day, 4 June 1942. The United States lost 1. Guess what that meant for the next year.",
+    "prompt": "Your neighbour Dev has been spraying the street fire all night. At 3am it is still burning in three houses, but no new house has caught in an hour. Dev wipes his face and says, \"That's the turn.\" What does he mean?",
     "options": [
      {
       "id": "a",
-      "text": "Japan could still attack anywhere it liked; 4 ships is a small number."
+      "text": "The fire is out and everyone can go to bed."
      },
      {
       "id": "b",
-      "text": "Japan could no longer push its fleet into new areas; it had to hold what it had."
+      "text": "The fire has stopped spreading, so from now on it can only shrink."
      },
      {
       "id": "c",
-      "text": "Japan surrendered within a few months."
+      "text": "The fire has jumped to a different street."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's counting hulls, not air power: a carrier is a floating airfield, and the 4 lost were Japan's main ones. Without them the fleet could not protect a landing far from home.",
-     "c": "That's the end of the fire, not the turn: Japan fought on for more than 3 years. Midway stopped the spread; it did not put the fire out."
+     "a": "That's the end of the fire, not the turn: three houses are still burning, and they will take hours more.",
+     "c": "That's the fire spreading, not stopping: a jump to a new street would be the opposite of a turn."
     },
-    "reteach": "Think of a carrier as a floating airfield. Japan's power at sea came from a handful of them. Losing 4 at once meant it could no longer send planes to cover a landing somewhere new. So the spread stopped, even though Japan still held every island it had already taken."
-   },
-   {
-    "type": "example",
-    "title": "Stalingrad, August 1942 to February 1943",
-    "body": "In August 1942 the German Sixth Army reached Stalingrad, a city on the Volga river in southern Russia. Street fighting lasted for months and the Germans took most of the city, block by block. On 19 November 1942 the Soviets attacked the weakly held ground on either side of the city and closed a ring behind the Germans within 4 days. Hitler refused to let the army fight its way out. On 2 February 1943 about 90,000 starving survivors surrendered, the first time a whole German army had been lost."
+    "reteach": "A turning point is the moment the enemy stops gaining ground, not the moment the war ends. Think of a tide: the turn is one quiet minute, then hours of water going out. In 1942 and 1943 the Axis stopped gaining, and everything after that is the water going out."
    },
    {
     "type": "teach",
-    "title": "The quiet battle under it all",
-    "body": "Britain is an island. Its food, fuel and American weapons arrived by ship across the Atlantic. German submarines, called U-boats, spent the whole war trying to sink those ships.\n\nThis was not one battle but a fight every day from 1939 to 1945. Merchant ships sailed in groups called convoys, with warships guarding them. In 1942 the U-boats were sinking ships about as fast as Allied yards could build them.\n\nIn spring 1943 that flipped. Better radar, code-breaking that read the U-boats' own orders, and aircraft that could fly far out to sea turned the hunters into the hunted. In May 1943 Germany lost so many U-boats that it pulled them off the main convoy routes.\n\nIt belongs beside the three battles because nothing in the next chapters happens without it. D-Day in 1944 needed more than a million American soldiers and their equipment shipped to Britain first. The hoses only reach the fire if the water keeps flowing."
+    "title": "Two hedges: Midway and El Alamein",
+    "body": "In June 1942 Japan sent its main fleet to take *Midway*, a tiny US island in the middle of the Pacific. The Americans had cracked Japan's radio code and were waiting. On 4 June, US planes sank 4 Japanese aircraft carriers in a single day. **Japan never again had the ships to push further east.**\n\nEl Alamein is a railway stop in the Egyptian desert. In October and November 1942 the British and Commonwealth army under Montgomery beat Rommel's German and Italian force there and chased it west. That stopped the Axis reaching the Suez Canal and the oilfields beyond it."
+   },
+   {
+    "type": "example",
+    "title": "The third hedge: Stalingrad",
+    "body": "Stalingrad sits on the river Volga. Germany's Sixth Army fought into the city street by street from August 1942 until it held most of the ruins. In November the Soviets attacked the thin lines far outside the city and closed a ring behind it. Hitler forbade a breakout.\n\nOn 30 January 1943 Hitler promoted the trapped commander, Paulus, to field marshal, on the grounds that no German field marshal had ever surrendered. Paulus surrendered the next day. The last pocket gave up on 2 February: **a whole German army gone**, about 90,000 men marched off into the snow."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "It is late November 1942. A German staff officer is listing plans for the next year. Which plan is no longer possible after El Alamein?",
+    "prompt": "A friend says, \"Stalingrad mattered because Germany lost a city with a famous name.\" Which answer gets closer to why it was a turning point?",
     "options": [
      {
       "id": "a",
-      "text": "Drive east through Egypt to the Suez Canal and the oilfields beyond."
+      "text": "It was the first city Germany had failed to capture."
      },
      {
       "id": "b",
-      "text": "Defend Tunisia against the Allies closing in from both sides."
+      "text": "A whole German army was destroyed, and after it the Germans in the east only ever moved west."
      },
      {
       "id": "c",
-      "text": "Hold the line in Russia through the winter."
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's holding ground, not taking it: after El Alamein, defending is exactly what the Axis in North Africa was reduced to.",
-     "c": "That's the eastern front, not North Africa: holding in Russia was still being tried in late 1942, until Stalingrad showed what it cost."
-    },
-    "reteach": "El Alamein was the furthest east Germany and Italy ever got in North Africa. When their line broke in early November 1942, Rommel's army retreated west for months, all the way to Tunisia. Any plan that needed them to go forward from Egypt was finished."
-   },
-   {
-    "type": "mistake",
-    "body": "People hear \"turning point\" and skip straight to 1945, as if the war was decided by February 1943. It was not. After Stalingrad there were still 27 months of war in Europe, and Germany still held most of the continent. Spot the mistake when someone says \"after Stalingrad it was over\": ask what the Axis could no longer do, not who was winning."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "What is the one thing Midway, El Alamein and Stalingrad have in common?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Each ended with an Axis army surrendering."
-     },
-     {
-      "id": "b",
-      "text": "Each marked the furthest point the Axis reached in that region; after it they only lost ground there."
-     },
-     {
-      "id": "c",
-      "text": "Each was won mainly by American forces."
+      "text": "It stopped Japan's fleet pushing further across the Pacific."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's Stalingrad only: a whole German army surrendered there, but at Midway Japan's fleet sailed home and at El Alamein the Axis army retreated.",
-     "c": "That's Midway only: El Alamein was fought by British and Commonwealth troops, meaning soldiers from Australia, New Zealand, India and South Africa too, and Stalingrad by the Soviets."
+     "a": "That's a fact about a city, not a turn: what mattered was the army inside the ring, not the ruins.",
+     "c": "That's Midway, not Stalingrad: Midway was the hedge in the Pacific, Stalingrad was the hedge on the Volga."
     },
-    "reteach": "Three different places, three different attackers, one shared meaning. Before each battle the Axis was still advancing in that region. After it, they never advanced there again. That is what makes them the turn: the fire's high-water mark, not its end."
+    "reteach": "Ask of each battle: what could the Axis do before it that it could not do after? Before Stalingrad, Germany could still attack east. After it, with the Sixth Army gone, it could only hold or fall back. That change of direction is the turn."
+   },
+   {
+    "type": "teach",
+    "title": "The quiet battle under all three",
+    "body": "Under all three sat a slower battle. Britain and Russia needed food, fuel, tanks and planes from America, and every ton crossed the Atlantic by ship. German submarines, called *U-boats*, hunted those ships in packs. In early 1943 they were sinking ships faster than shipyards could build them.\n\nBy May 1943 the balance flipped. Ships sailed in guarded groups called *convoys*, code-breakers read U-boat orders, and long-range planes closed the gap mid-ocean. Germany pulled its U-boats back. **The hoses now had water.** After the middle of 1943 the Axis never again gained ground it could keep."
+   },
+   {
+    "type": "mistake",
+    "body": "Maya reads that Stalingrad ended on 2 February 1943 and asks why the war in Europe lasted 27 more months. She has mixed up the turn with the end. After these three battles the Axis stopped growing, but it still held almost all of Europe and half the Pacific. Spot it: if a telling of the war jumps from Stalingrad straight to Berlin, it has skipped the two hardest years."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Three hedges, three stops. Which line matches each battle to the one thing it stopped the Axis from doing?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Midway stopped the Axis reaching Suez; El Alamein stopped Japan's fleet pushing east; Stalingrad sank 4 carriers."
+     },
+     {
+      "id": "b",
+      "text": "Midway stopped Japan's fleet pushing east; El Alamein stopped the Axis reaching Suez; Stalingrad destroyed a whole German army."
+     },
+     {
+      "id": "c",
+      "text": "Midway destroyed a German army; El Alamein sank 4 carriers; Stalingrad stopped the Axis reaching Suez."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the three battles with their stops shuffled: Suez is Egypt, so it belongs to El Alamein, and the carriers belong to Midway.",
+     "c": "That's the places swapped round: a German army surrendered on the Volga, not in the Pacific, and carriers are ships, so they go with Midway."
+    },
+    "reteach": "Put each battle on its map. Midway is an island in the Pacific, so it is about Japan's fleet. El Alamein is in Egypt, so it is about the road to Suez. Stalingrad is on the Volga, so it is about Germany's army in the east."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "In 8 months from June 1942, Midway, El Alamein and Stalingrad each stopped the Axis from doing one thing: pushing east across the Pacific, reaching Suez, and holding the Volga. Add the Atlantic convoys getting through by May 1943, and **the fire never spread again**, though it took 2 more years to put out."
    },
    {
     "type": "try",
-    "body": "Open any map app. Find Midway Atoll, El Alamein in Egypt, and Volgograd, the city once called Stalingrad. Notice how far apart the three walls were."
+    "body": "Tonight, say the three names out loud in date order to someone, with one \"stopped\" sentence each: Midway, June 1942; El Alamein, November 1942; Stalingrad, February 1943. Under 30 seconds."
    }
   ],
-  "outcomeLine": "You can now name the three battles of 1942 and 1943 and say exactly what each one stopped the Axis from doing."
+  "outcomeLine": "You can now name the three battles of 1942 and 1943 in order and say exactly what each one stopped the Axis from doing."
  },
- "seconds": 95.62189078330994
+ "seconds": 75.31539416313171
 }

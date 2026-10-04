@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Our bazaar has two market buildings, NSE and BSE, and most big shops have a stall in both. At the gate of each building hangs one price board: Nifty 50 at NSE tracks 50 of the biggest shops, Sensex at BSE tracks 30. The board shows a single number that moves as those shops' prices move. SEBI, the inspector, walks both buildings."
-   },
-   {
-    "type": "teach",
-    "title": "Two buildings, open 9:15 to 3:30",
-    "body": "NSE (National Stock Exchange) and BSE (Bombay Stock Exchange) are India's two main exchanges, meaning the organised places where shares change hands. Both are in Mumbai. A company can list on both, and most large ones do, so you can buy the same share in either building.\n\nBoth open at 9:15 am and close at 3:30 pm, Monday to Friday, and shut on market holidays. Outside those hours your app may let you queue an order, but nothing actually trades until the next open.\n\nThe same share costs nearly the same in both buildings. If it were cheaper on BSE, buyers would rush there and push the price back up, so any gap closes fast.\n\nSEBI, the Securities and Exchange Board of India, is the government regulator. It licenses exchanges and brokers, writes the rules, and punishes cheating. Your first rule: deal only with a SEBI-registered broker.\n\nNifty 50 and Sensex are indexes. An index is one number built from the prices of a chosen basket of shares. Nifty 50 is NSE's board for 50 large companies. Sensex is BSE's board for 30. When the news says 'the market fell', it means one of these two numbers fell."
+    "body": "Our bazaar has two market buildings, *NSE* and *BSE*, with thousands of shops inside and the same inspector, SEBI, walking both floors. Above each door hangs a price board. **The board does not list every shop**: Nifty 50 shows one number for the 50 biggest shops in the NSE building, and Sensex shows one number for the 30 biggest in the BSE building.",
+    "simpler": "Think of the stock market as a bazaar with two big buildings, NSE and BSE. Each holds thousands of shops, and one inspector, SEBI, walks both floors. Over each door hangs a price board. **The board does not list every shop.** Nifty 50 gives one number for the 50 biggest shops in the NSE building. Sensex gives one number for the 30 biggest in the BSE building."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "The news says 'Nifty closed 0.8% down'. What do you know for sure?",
+    "prompt": "You walk past the NSE building at 4 pm. The board reads 'Nifty 50: down 0.8%'. Your cousin says, 'so every company fell today.' What is the board actually telling you?",
     "options": [
      {
       "id": "a",
-      "text": "All 50 companies in it fell by about 0.8% each."
+      "text": "Every one of the 50 big shops dropped 0.8%"
      },
      {
       "id": "b",
-      "text": "The 50 companies taken together, bigger ones counting for more, ended 0.8% lower. Some may have risen."
+      "text": "The 50 biggest shops, taken together, are worth 0.8% less than yesterday"
      },
      {
       "id": "c",
-      "text": "Every share on NSE fell today."
+      "text": "Every company in India fell 0.8%"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's reading the board as each shop's price tag, not an average: one number for 50 shops hides that some rose and some fell.",
-     "c": "That's the whole building, not the board: NSE has thousands of listed companies, and the Nifty 50 tracks only 50 of them."
+     "a": "That's reading one average as 50 separate readings: the board is a combined number, and some of the 50 can rise on a day it falls.",
+     "c": "That's the whole bazaar, not the board: Nifty 50 tracks only 50 shops out of the thousands listed."
     },
-    "reteach": "Think of Nifty 50 as the average height of 50 people, with heavier people counting more. If the average drops, you know the group got shorter overall. You do not know that any one person shrank."
-   },
-   {
-    "type": "example",
-    "title": "One day on the board",
-    "body": "Suppose, on one day, a large bank in the Nifty 50 falls 3% after weak results, and two big IT companies fall 2% each. The same day a paint maker rises 1% and a car maker rises 2%. Three fell, two rose, so why isn't the board flat? Because the board weights each company by its market value, and the bank and the IT firms are far bigger than the paint maker. Their falls pull harder, and the board ends the day down 0.8%."
+    "reteach": "Think of a cricket team's total. If the team scored fewer runs than last match, that does not mean every batter did worse. Nifty 50 is a team score for 50 companies, so one number can hide very different days for the players."
    },
    {
     "type": "teach",
-    "title": "Bigger shops pull harder, and points lie",
-    "body": "Nifty 50 and Sensex are weighted averages. Each company's move counts in proportion to its size, measured by market value. A 2% fall in the biggest bank moves the board more than a 2% rise in the smallest company on the list.\n\nSo the board tells you the mood of the biggest shops, taken together. It does not tell you what your one share did. Your share can rise on a red day and fall on a green day. Always check its own price.\n\nRead percentages, not points. 'Nifty fell 200 points' means nothing on its own. If the board sits at 25,000, 200 points is 0.8%, a normal day. The same 200 points at 10,000 would be 2%, a rough day."
+    "title": "Two buildings, one inspector",
+    "body": "India has two stock exchanges, the *National Stock Exchange* (NSE) and the *Bombay Stock Exchange* (BSE), both based in Mumbai. Most large companies are listed in both, so the same share can be bought in either building at almost the same price.\n\nBoth open at 9:15 am and close at 3:30 pm, Monday to Friday, shut on market holidays. Outside those hours no trading happens, so a price you see at 8 pm is the 3:30 pm closing price.\n\n**SEBI is the inspector for both.** The Securities and Exchange Board of India writes the rules, licenses brokers and punishes cheating. It does not set prices.",
+    "simpler": "India has two stock exchanges, the National Stock Exchange (NSE) and the Bombay Stock Exchange (BSE), both in Mumbai. Most big companies are listed on both, at almost the same price. Both open 9:15 am to 3:30 pm on weekdays and shut on market holidays. A price you see at 8 pm is the 3:30 pm closing price. **SEBI is the inspector for both.** It writes the rules, licenses brokers and punishes cheating, but does not set prices."
+   },
+   {
+    "type": "example",
+    "title": "Meera's bad headline",
+    "body": "Meera checks her phone on a made-up Tuesday: 'Nifty 50 closes 0.8% lower.' She owns 1 share of a bank that sits in the index, so she braces. Her bank is up 1.2%. On this invented day, 21 of the 50 rose and 29 fell, but the giants fell, and **the biggest shops pull the board hardest**. The headline was true. It just was not about her share.",
+    "simpler": "Meera checks her phone on a made-up Tuesday. The headline says Nifty 50 closed 0.8% lower. She owns one share of a bank that is in the index, so she expects bad news. But her bank is up 1.2%. On this invented day, 21 of the 50 companies rose and 29 fell. The giants fell, and **the biggest shops pull the board hardest**. The headline was true. It just was not about her share."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Your friend owns 1 share of a company that is in the Nifty 50. Tonight's headline: 'Sensex up 1.2%'. What can they say about their share?",
+    "prompt": "It is 9 pm on a Wednesday. Your friend texts: 'Reliance just moved 2% on the BSE, check now!' Which reply is right?",
     "options": [
      {
       "id": "a",
-      "text": "It rose 1.2% today."
+      "text": "Can't be. Both exchanges closed at 3:30 pm, so the last price is the 3:30 close."
      },
      {
       "id": "b",
-      "text": "Nothing for sure. Sensex is BSE's board of 30 shops, size-weighted, and their company may not even be one of the 30. They should check its own price."
+      "text": "BSE closes later than NSE, so it might be true."
      },
      {
       "id": "c",
-      "text": "It rose, though maybe not by exactly 1.2%."
+      "text": "SEBI must have approved an evening session for Reliance."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's the board's number, not the share's: an index is an average of 30 shops, and no single shop has to match it.",
-     "c": "That's still treating a green board as a green day for every shop: a weighted average can rise while some of its members fall, and this company may not be in Sensex at all."
+     "b": "That's mixing up the two buildings: NSE and BSE keep the same hours, 9:15 am to 3:30 pm.",
+     "c": "That's the inspector confused with the exchange: SEBI sets rules, it does not open the doors for one shop."
     },
-    "reteach": "Sensex is BSE's board of 30 large companies. Nifty 50 is NSE's board of 50. A company can be in one, both, or neither. Even if it is on the board, the board rising only means the 30 together, bigger ones counting more, rose. The share itself could have fallen."
+    "reteach": "Both market buildings keep the same hours, 9:15 am to 3:30 pm, Monday to Friday. Anything you see after 3:30 pm is the closing price, or news that will matter tomorrow. A price cannot move while the doors are shut."
+   },
+   {
+    "type": "teach",
+    "title": "What the board weighs",
+    "body": "The board is not a plain average. **Bigger shops pull the board harder.** Each company's share of the number depends on its size, measured by *market cap*, the price of one share times all the shares that exist. Chapter 5 goes deeper on that.\n\nSo a 2% fall in the largest company moves Nifty 50 far more than a 2% fall in the smallest of the 50. A 0.8% drop can mean three giants had a bad day while 30 others rose.\n\nAnd the board says nothing at all about the thousands of smaller companies that are not in the 50 or the 30.",
+    "simpler": "The board is not a plain average. **Bigger shops pull the board harder.** Each company counts by its market cap, meaning one share's price times all its shares. So a 2% fall in the largest company moves Nifty 50 far more than the same fall in the smallest of the 50. A 0.8% drop can mean three giants had a bad day while 30 others rose. And it ignores the thousands of smaller companies outside the 50 or 30."
    },
    {
     "type": "mistake",
-    "body": "The common slip is to treat the board as the market. Someone hears 'Sensex crashed' and sells a share that actually rose that day. Spot it by asking three things: which board, by what percent, and what did my share do? If you cannot answer the third, you do not know yet."
+    "body": "Arjun sees 'Sensex at record high' and buys shares of a small textile company that afternoon, sure the whole bazaar is booming. His company is not one of the 30 on the Sensex board, and it drifts down 6% that week while the headline stays cheerful. Spot it: whenever a headline names Nifty or Sensex, **ask 'is my shop one of those 50 or 30?'** If not, the headline is about someone else's shelf.",
+    "simpler": "Arjun sees 'Sensex at record high' and buys shares of a small textile company that afternoon. He thinks the whole bazaar is booming. But his company is not one of the 30 on the Sensex board. It drifts down 6% that week while the headline stays cheerful. Spot it: whenever a headline names Nifty or Sensex, **ask 'is my shop one of those 50 or 30?'** If not, the headline is about someone else's shelf."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "In one line, what is the Nifty 50?",
+    "prompt": "Which sentence is the only one the price board can back up?",
     "options": [
      {
       "id": "a",
-      "text": "The 50 cheapest shares you can buy on NSE."
+      "text": "Sensex is up 1% today, so the 30 biggest BSE companies together gained about 1%."
      },
      {
       "id": "b",
-      "text": "One number that tracks the size-weighted prices of 50 large NSE companies."
+      "text": "Sensex is up 1% today, so every Indian company gained about 1%."
      },
      {
       "id": "c",
-      "text": "The building in Mumbai where the 50 biggest companies trade."
+      "text": "Sensex is up 1% today, so SEBI approved the market's rise."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's price per share, not size: the list is picked by how large the companies are, and a large company can have a cheap or expensive share.",
-     "c": "That's the exchange, not the index: NSE is the building where thousands of companies trade, and Nifty 50 is the board at its gate tracking 50 of them."
+     "b": "That's the whole bazaar, not the board: Sensex covers 30 companies out of thousands.",
+     "c": "That's the inspector mixed up with the price: SEBI polices honesty, it does not set or approve prices."
     },
-    "reteach": "An index is one number built from a basket of share prices. Nifty 50 is the basket of 50 large NSE companies, weighted by size. It is a board, not a building and not a list of bargains."
+    "reteach": "A board is one combined number for a short list of the biggest shops. It tells you how that group did, with big shops counting more. It cannot tell you about any single company, or about shops outside the list."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "NSE and BSE are India's two exchanges, open 9:15 am to 3:30 pm on weekdays, with SEBI policing both. **Nifty 50 and Sensex are one-number scoreboards** for the 50 and 30 biggest companies, with big ones counting more, so a board moving tells you about the group, not about any one share.",
+    "simpler": "NSE and BSE are India's two stock exchanges. They open 9:15 am to 3:30 pm on weekdays, and SEBI polices both. **Nifty 50 and Sensex are one-number scoreboards** for the 50 and 30 biggest companies. Big companies count more. So when a board moves, it tells you about the group, not about any one share."
    },
    {
     "type": "try",
-    "body": "Tonight, search 'Nifty 50 today'. Note the percent change. Then find one of the 50 companies that moved the opposite way to the board, and say in one line why the board didn't tell you that."
+    "body": "Tonight, search 'Nifty 50 today' or open any finance app. Note the % change. Then look up one Nifty 50 company you have heard of. Did it move the same way as the board?",
+    "simpler": "Tonight, search 'Nifty 50 today' or open any finance app. Write down the % change, up or down. Then pick one Nifty 50 company you have heard of and look up its price change for the same day. **Did it move the same way as the board?** If not, you have just seen for yourself that the board is about the group, not any one share."
    }
   ],
   "outcomeLine": "You can now read 'Nifty closed 0.8% down' and say what it does and does not tell you about the 50 companies behind it."
  },
- "seconds": 79.78504085540771
+ "seconds": 82.6075541973114
 }

@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "On the assembly line, station 1 stamps a name on a part. Station 3 needs that name to print a label. Nobody carries it by hand. Each station reads the tag on the part as it arrives on the belt.\n\nIn n8n, an expression is that tag. It tells a node: do not use fixed text here, read this field from the item that just arrived."
-   },
-   {
-    "type": "teach",
-    "title": "Double curly braces",
-    "body": "Every field in a node has 2 modes, shown as a small switch above the box: Fixed and Expression. Fixed means the text is used exactly as typed. Expression means n8n works out the value for each item when the workflow runs.\n\nAn expression sits between double curly braces, like this: {{ $json.first_name }}. Read it as one sentence: take the field called first_name from the item that arrived from the previous node. $json is the item, the dot means inside it, and first_name is the field name.\n\nYou rarely type this. Run the earlier node once, open the next node, and the left panel shows the incoming item with its fields. Drag a field from that panel into the box. n8n switches the box to Expression and writes the braces for you.\n\nExpressions mix with plain text. Hi {{ $json.first_name }}, we got your request becomes Hi Priya, we got your request. The braces part is swapped, the rest stays.\n\nUnder the box, n8n shows a preview of the result using the first item. If the preview shows a value, the tag is being read. If it shows [undefined], the field name does not match what arrived."
+    "body": "A part rolls down the belt with a paper tag tied to it: *name: Priya*, *team: Sales*. Three stations later, the message-writing station does not ask anyone; it reads the tag and types Hi Priya.\n\nIn n8n, **an expression is a station reading the tag**: a tiny instruction, written between double curly braces, that says which field to copy from an earlier node into this one.",
+    "simpler": "A part moves down the belt with a paper tag tied on: name Priya, team Sales. Three stations later, the message station does not stop to ask anyone. It reads the tag and types Hi Priya. In n8n, **an expression is a station reading the tag**. It is a tiny instruction, written between double curly braces, that says which field to copy from an earlier node into this one."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "A Slack node's message box is set to Expression and says: Hi {{ $json.first_name }}, thanks! The item arriving has first_name = Priya. What does Slack receive?",
+    "prompt": "A sign-up form arrives with the name Priya. You want the Slack node to post: New signup: Priya. Tomorrow it will be someone else. What do you put in the message box?",
     "options": [
      {
       "id": "a",
-      "text": "Hi {{ $json.first_name }}, thanks!"
+      "text": "Type the word Priya into the message by hand"
      },
      {
       "id": "b",
-      "text": "Hi Priya, thanks!"
+      "text": "An expression that reads the name field from the form node"
      },
      {
       "id": "c",
-      "text": "Nothing, Slack rejects the curly braces"
+      "text": "Add a second form so Slack can ask for the name itself"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's what Fixed mode would send, not Expression: in Expression mode the braces are swapped for the field's value before the message leaves.",
-     "c": "That's a guess about Slack, not about n8n: Slack never sees the braces, because n8n swaps them for the value first."
+     "a": "That's a fixed value, not an expression: every run would say Priya, even when Tomasz fills in the form.",
+     "c": "That's adding a station, not reading the tag: the name is already on the item from the first node."
     },
-    "reteach": "Think of the braces as a hole in the message. When the item arrives, n8n fills the hole with the value of that field. Only the filled-in text goes to Slack."
-   },
-   {
-    "type": "example",
-    "title": "Form to Slack, 3 nodes",
-    "body": "A workflow has 3 nodes: Form Trigger, Edit Fields, Slack. The form has 2 questions, Full name and Email. Priya Nair fills it in.\n\nThe item leaving Form Trigger has a field called Full name, with a space in it. A field name with a space cannot use the dot, so the expression is {{ $json['Full name'] }}, with square brackets and quotes.\n\nIn Edit Fields you add a new field called name, set to Expression, with {{ $json['Full name'] }}. Now the item leaving Edit Fields has a clean field: name = Priya Nair.\n\nThe Slack message is New request from {{ $json.name }}. Slack receives: New request from Priya Nair."
+    "reteach": "The name is already travelling down the belt from the form node. An expression tells a later node to look back at that item and copy one field. Each run then carries its own name."
    },
    {
     "type": "teach",
-    "title": "Reaching back, and tidying first",
-    "body": "$json always means the item from the node directly before. If the name you want came from 2 nodes back, you name that node instead: {{ $('Form Trigger').item.json.name }}. Read it as: go to the node called Form Trigger, take its matching item, read the field name.\n\nThat is why the Edit Fields node is useful early in a line. It is a station that renames and tidies parts. Rename Full name to name, trim spaces, add a field you will need later. Every node after it then uses short clean names with plain $json.\n\nA habit worth keeping: tidy once with Edit Fields right after the trigger, and every later station gets the same clean part."
+    "title": "Double curly braces",
+    "body": "Every field in a node has two modes. *Fixed* means you type the value once and it never changes. *Expression* means n8n works the value out fresh on each run. Hover over a field and click Expression to switch.\n\nAn expression lives inside double curly braces. {{ $json.name }} means: from the item that just arrived, take the field called name. The *$json* part is the item's tag, and the dot picks one line on it.\n\nThe easy way to write one: open the node, find the field in the Input panel on the left, and **drag it into the box**. n8n writes the braces for you.",
+    "simpler": "Every box in a node works one of two ways. Fixed means you type a value once and it never changes. Expression means n8n fills in the value fresh on each run. An expression sits inside double curly braces. {{ $json.name }} means: from the item that just arrived, take the field called name. The easy way to write one: find the field in the Input panel and **drag it into the box**. n8n adds the braces for you."
+   },
+   {
+    "type": "example",
+    "title": "Lena orders staplers",
+    "body": "Lena runs the office supplies form. It has three fields: Name, Item and Qty. Her Slack message reads: {{ $json.Name }} wants {{ $json.Qty }} x {{ $json.Item }}.\n\nShe tests it with her own answers and the channel shows: Lena wants 200 x staplers. She meant 20. The expression did its job perfectly: **it copies the tag, it never judges it**.",
+    "simpler": "Lena runs the office supplies form. It asks for Name, Item and Qty. Her Slack message says: {{ $json.Name }} wants {{ $json.Qty }} x {{ $json.Item }}. She tests it with her own answers. The channel shows: Lena wants 200 x staplers. She meant 20. The expression did exactly its job. **It copies the tag, it never judges it**. Like a photocopier, it repeats whatever you hand it, typo and all."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Workflow: Form Trigger, then HTTP Request, then Slack. The Slack message needs the name from the form, but the item arriving at Slack comes from HTTP Request and has no name field. What goes in the Slack message?",
+    "prompt": "Dev's form has a field called email. He wants the Slack message to end with the person's email address. Which setup works?",
     "options": [
      {
       "id": "a",
-      "text": "{{ $json.name }}"
+      "text": "Switch the message field to Expression and write {{ $json.email }}"
      },
      {
       "id": "b",
-      "text": "{{ $('Form Trigger').item.json.name }}"
+      "text": "Leave the field on Fixed and type {{ $json.email }}"
      },
      {
       "id": "c",
-      "text": "Type the name as fixed text"
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's the item from the node directly before, which is HTTP Request: it has no name field, so the preview would show [undefined].",
-     "c": "That's Fixed mode: it would send the same name on every run, no matter who filled in the form."
-    },
-    "reteach": "$json only looks one station back. To read a tag stamped 2 stations back, say the station's name: $('Form Trigger').item.json.name. Or add an Edit Fields node after the trigger so the name travels on every item."
-   },
-   {
-    "type": "mistake",
-    "body": "The most common slip is leaving the box on Fixed and typing the braces in anyway. The message arrives as literal text: Hi {{ $json.first_name }}, thanks!\n\nSpot it 2 ways: the switch above the box says Fixed, not Expression, and there is no result preview under the box. Flip the switch and the preview appears."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "What does {{ $json.email }} mean in a node's field?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Read the field called email from the item that arrived from the previous node"
-     },
-     {
-      "id": "b",
-      "text": "Send the literal text $json.email"
-     },
-     {
-      "id": "c",
-      "text": "Use the email address of the n8n account"
+      "text": "Switch the field to Expression and write {{ email }}"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's Fixed mode: in Expression mode the braces are swapped for the field's value.",
-     "c": "That's a credential, not a field on the item: $json is only ever the data arriving on the belt."
+     "b": "That's Fixed mode, not Expression: n8n treats the braces as plain text, so Slack shows them word for word.",
+     "c": "That's the field name without the tag: n8n needs $json to know you mean a field on the arriving item, not a word called email."
     },
-    "reteach": "$json is the item that just arrived. The dot goes inside it. The word after the dot is the field name. Together they say: read this field from this item."
+    "reteach": "Two things must both be true. The field has to be in Expression mode, so n8n knows to work it out. And the expression has to start with $json, which points at the item that just arrived."
+   },
+   {
+    "type": "teach",
+    "title": "Reaching further back",
+    "body": "$json only reads the item from the node directly before. If Slack sits after Google Sheets, $json holds the row Sheets wrote, not the form answer. To reach further back, name the station: {{ $('Form Trigger').item.json.name }} reads the form's item no matter how many nodes sit between.\n\nWhen the tags get messy, add an *Edit Fields* node. It is a tidying station: you list the fields you want, give each a clean name like first_name, and set each value with an expression. Everything after it sees only the clean tag.\n\nA good habit: one Edit Fields node right after the trigger, so every later node reads **short, predictable names**.",
+    "simpler": "$json only reads the item from the node just before. If Slack sits after Sheets, $json holds the Sheets row, not the form answer. To reach further back, name the station: {{ $('Form Trigger').item.json.name }} reads the form's item whatever sits between. For messy tags, add an Edit Fields node. List the fields you want, give each a clean name, and fill each with an expression. Add one after the trigger so every later node reads **short, predictable names**."
+   },
+   {
+    "type": "mistake",
+    "body": "Marco builds Form to Slack, runs a test, and Slack cheerfully posts: New request from {{ $json.name }}. The braces are right there in the channel. He typed the expression but left the field on *Fixed*, so n8n sent it as plain text.\n\nSpot it fast: a field in Expression mode shows **a preview of the real value** underneath it. If you see no preview, you are still in Fixed.",
+    "simpler": "Marco builds Form to Slack, runs a test, and Slack happily posts: New request from {{ $json.name }}. The braces show up right there in the channel. He typed the expression but left the box on Fixed, so n8n sent it as plain text. Spot it fast: a box in Expression mode shows **a preview of the real value** underneath it. No preview means you are still on Fixed."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Ana's line runs Form Trigger, then Google Sheets, then Slack. In Slack she wrote {{ $json.name }}, but the message comes out with an empty gap where the name should be. Why?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The form never collected a name"
+     },
+     {
+      "id": "b",
+      "text": "$json reads the item from Google Sheets, the node just before, and that item has no name field; she should name the form node instead"
+     },
+     {
+      "id": "c",
+      "text": "Slack cannot show text that came from a form"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a guess at the form, not at the belt: the name was on the form's item, it just did not survive the Sheets station.",
+     "c": "That's blaming the app, not the expression: Slack shows whatever text the expression hands it."
+    },
+    "reteach": "$json always means the item that arrived from the previous node, not the first one. Google Sheets handed Slack its own item, the row it wrote. To read the form's tag from three stations back, use $('Form Trigger').item.json.name."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "An expression in double curly braces **copies one field from an earlier item** into a later node, so each run carries its own names and numbers. Use $json for the node right before, name the node for anything further back, and add an Edit Fields node to keep the field names clean.",
+    "simpler": "An expression in double curly braces **copies one field from an earlier item** into a later node. That way each run carries its own names and numbers, like a tag riding along on the belt. Use $json for the node right before. Name the node for anything further back. Add an Edit Fields node to keep the field names clean."
    },
    {
     "type": "try",
-    "body": "Open any node after your trigger, flip one box to Expression, drag a field in from the left input panel, and watch the preview under the box."
+    "body": "Open any workflow with two nodes. In the second node, switch one text field to Expression, drag a field from the Input panel into it, and watch the preview underneath show the real value.",
+    "simpler": "Open any workflow that has two nodes. In the second node, pick one text box and switch it to Expression. Then **drag a field from the Input panel** into that box. Look underneath it. The preview should show the real value from the first node, not the braces. If you see it, the station is now reading the tag."
    }
   ],
-  "outcomeLine": "You can now take a name from step 1 and drop it into a message sent in step 3."
+  "outcomeLine": "You can now take a name from step 1 and put it into a message sent in step 3."
  },
- "seconds": 58.22389888763428
+ "seconds": 71.95986199378967
 }

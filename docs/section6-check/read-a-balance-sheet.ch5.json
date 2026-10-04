@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Picture the house again. It is worth 400,000 and the mortgage is 300,000. The 100,000 gap is yours. Where did it come from? Partly the deposit you paid in on day one, and partly the mortgage payments you have made since.\n\nEquity on a balance sheet is that gap, and it has exactly two sources: money the owners put in, and profits the business kept instead of handing back."
-   },
-   {
-    "type": "teach",
-    "title": "Two pots make up equity",
-    "body": "Equity is what belongs to the owners after every debt is paid. It is the number that makes the sheet balance: assets minus liabilities.\n\nOn the sheet, equity is split into two pots. The first pot is money the owners put in when they bought shares. Companies call it share capital or paid-in capital. It is the deposit on the house.\n\nThe second pot is profit kept inside the business over the years. It is called retained earnings. Each year the company earns a profit, pays some of it out as dividends, and keeps the rest. The kept part is added to the pot.\n\nSo retained earnings is a running total, not one year's profit. A 20-year-old company has 20 years of kept profit stacked up in that line.\n\nThat is the whole idea. Equity is not cash sitting in a drawer. It is a record of where the owners' share came from."
+    "body": "Equity is **the part of the house that is yours**. Picture the deed on the kitchen table: you paid a 60,000 deposit on day one, and every mortgage payment since has moved a little more of the house from the bank's column into yours.\n\nBorrow extra against the house for a new kitchen and your share shrinks again. Same photo, same house, thinner slice.",
+    "simpler": "Think of owning a house with a mortgage. Equity is **the part of the house that is yours**. You paid a 60,000 deposit on day one. Every mortgage payment since then moves a little more of the house from the bank's side to your side.\n\nIf you borrow more against the house, say for a new kitchen, your share shrinks again. Same house, same photo, but a thinner slice belongs to you."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "A company has made a profit every year for 10 years and paid out half of each year's profit as dividends. What happened to the other half?",
+    "prompt": "Maya bought a flat for 300,000 with a 60,000 deposit and a 240,000 mortgage. Three years on she has paid 30,000 off the mortgage and the flat's price has not moved. On a balance sheet, Maya's share today is:",
     "options": [
      {
       "id": "a",
-      "text": "It sits in the retained earnings line, added up over the 10 years"
+      "text": "60,000, the deposit she paid"
      },
      {
       "id": "b",
-      "text": "It was returned to the owners, so it is no longer on the balance sheet"
+      "text": "90,000, the deposit plus what she has paid off"
      },
      {
       "id": "c",
-      "text": "It is counted as a liability, since the company owes it to shareholders"
+      "text": "300,000, the whole flat"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the dividend half, not the kept half: the paid-out part leaves the sheet, the kept part stays in retained earnings.",
-     "c": "That's a debt, not equity: kept profit is not owed to anyone, it belongs to the owners already."
+     "a": "That's only the day-one money, not the share today: every mortgage payment since has added to Maya's slice.",
+     "c": "That's the asset, not the owner's share: 210,000 of the flat still belongs to the bank."
     },
-    "reteach": "Think of retained earnings as a jar. Each year the company drops in the profit it did not pay out as dividends. After 10 years the jar holds 10 years of kept profit. Nothing is owed on it; it is simply the owners' share growing."
-   },
-   {
-    "type": "example",
-    "title": "A bakery, three years in",
-    "body": "Three friends start a bakery and each put in 20,000. Share capital is 60,000.\n\nYear 1 profit is 15,000. They pay out 5,000 in dividends and keep 10,000. Retained earnings: 10,000.\n\nYear 2 profit is 25,000. They pay out 10,000 and keep 15,000. Retained earnings: 25,000.\n\nYear 3 is a loss of 8,000, with no dividend. Retained earnings fall to 17,000.\n\nEquity at the end of year 3 is 60,000 plus 17,000, which is 77,000."
+    "reteach": "Her share is what she owns minus what she owes. Flat 300,000, mortgage now 210,000, so 90,000 is hers. The deposit started the slice; the repayments grew it."
    },
    {
     "type": "teach",
-    "title": "When equity shrinks or turns negative",
-    "body": "The bakery example shows the pot can go down. A loss year takes money out of retained earnings. A dividend bigger than that year's profit does the same.\n\nIf losses pile up long enough, retained earnings turn negative. Then the sheet calls them an accumulated deficit. If the deficit is bigger than share capital, total equity is negative. In the house picture, the mortgage is now bigger than the house.\n\nA second surprise: equity is not what the company is worth. The balance sheet records assets at what they cost, less wear and tear, not what someone would pay today. A brand the company built itself is not on the sheet at all. So the market price of all the shares can be far above equity, or below it.\n\nEquity tells you what the owners have put in and kept. It does not tell you what a buyer would pay."
+    "title": "Two ways money becomes yours",
+    "body": "Equity on a company's sheet comes from **two sources only**. The first is *share capital*: money the owners paid in when they bought their shares, like Maya's deposit. The second is *retained earnings*: profit the company made and chose to keep rather than hand out.\n\nEach year the company makes a choice. Profit can go out to owners as a *dividend*, a cash payout per share, or it can stay inside the business. Only the kept part lands in retained earnings.\n\nSo the recipe is: money put in, plus profit kept, minus losses, minus dividends paid out.",
+    "simpler": "A company's equity comes from **two sources only**. The first is share capital: money the owners paid in when they bought their shares, like a house deposit. The second is retained earnings: profit the company made and chose to keep.\n\nEach year, profit can either go out to owners as a dividend, a cash payout per share, or stay inside. Only the kept part becomes retained earnings. So equity is money put in, plus profit kept, minus losses and dividends."
+   },
+   {
+    "type": "example",
+    "title": "Where is the 90,000?",
+    "body": "Rosa and her brother Tomas started a bakery with 50,000 of their own money. Year one made a 20,000 profit and they kept all of it. Year two made 30,000 and they paid themselves a 10,000 dividend.\n\nEquity: 50,000 + 20,000 + 30,000 - 10,000 = 90,000.\n\nTomas looked at the sheet and asked where the 90,000 was kept. Nowhere. It is not a pile of cash in a drawer. It is a label for **the slice of the ovens, the flour and the bank account that is theirs** once the suppliers and the bank are paid.",
+    "simpler": "Rosa and her brother Tomas started a bakery with 50,000 of their own money. Year one made 20,000 profit, all kept. Year two made 30,000, and they paid themselves a 10,000 dividend.\n\nEquity: 50,000 + 20,000 + 30,000 - 10,000 = 90,000.\n\nTomas asked where the 90,000 was kept. Nowhere. It is not cash in a drawer. It is a label for **the slice of the ovens, the flour and the bank account that is theirs** once the suppliers and the bank are paid."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A company's balance sheet shows share capital of 50,000 and an accumulated deficit of 70,000. A friend says the business is clearly worth nothing. Which is the fair reading?",
+    "prompt": "Pinecone Ltd shows share capital of 100,000 and retained earnings of 40,000. This year it lost 60,000 and paid no dividend. What is its equity now?",
     "options": [
      {
       "id": "a",
-      "text": "Equity is negative 20,000. Losses have eaten all the money put in and more, but the sheet does not say what a buyer would pay"
+      "text": "80,000"
      },
      {
       "id": "b",
-      "text": "Equity is 120,000, since both lines add to the owners' share"
+      "text": "140,000"
      },
      {
       "id": "c",
-      "text": "Equity is negative 20,000, so the shares must be worthless"
+      "text": "40,000"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's adding instead of subtracting: a deficit is kept losses, so it comes off share capital, not on top of it.",
-     "c": "That's mixing equity with market value: the sheet records costs, not what someone would pay, so negative equity is a warning, not a price."
+     "b": "That's last year's equity, not this year's: the 60,000 loss still has to come off.",
+     "c": "That's the loss taken off share capital alone: equity is both lines added together, 140,000, and the loss comes off that total."
     },
-    "reteach": "Start with what owners put in: 50,000. Take away the losses the company has stacked up: 70,000. The result is negative 20,000, so debts now exceed what the company owns on paper. That is a serious sign. But the sheet uses historic costs, so it is not a price tag."
+    "reteach": "Add the two sources first: 100,000 put in plus 40,000 kept is 140,000. A loss is the opposite of kept profit, so take it off: 140,000 minus 60,000 leaves 80,000. The owners' slice got thinner."
+   },
+   {
+    "type": "teach",
+    "title": "It can shrink, and it is not a price",
+    "body": "Losses eat retained earnings. Lose more than you ever kept and they start eating the share capital too. Keep going and equity turns **negative: the company owes more than it owns**, like a house worth less than its mortgage. That is a warning sign, not a typo.\n\nTo see whether profits were kept or paid out, compare retained earnings this year with last year. If profit was 30,000 but retained earnings grew by only 5,000, about 25,000 went out as dividends.\n\nEquity is a sum of the past at purchase prices, not what a buyer would pay today. A brand the company built itself is not even on the sheet.",
+    "simpler": "Losses eat retained earnings first, then share capital. Keep losing and equity turns **negative: the company owes more than it owns**, like a house worth less than its mortgage. That is a warning sign.\n\nTo see if profit was kept, compare retained earnings with last year. Profit of 30,000 but growth of only 5,000 means about 25,000 went out as dividends.\n\nEquity adds up the past at purchase prices, not today's value. A self-built brand is not even on the sheet."
    },
    {
     "type": "mistake",
-    "body": "The common slip is reading retained earnings as cash the company is holding. It is not. Kept profit was spent long ago on ovens, stock, or paying down loans.\n\nTo spot it: look at the cash line in assets. If retained earnings is 2 million and cash is 50,000, the profit was reinvested, not saved. Equity records where money came from, never where it is now."
+    "body": "Dev opens a report, sees total equity of 2 million, and tells his friend the company is worth 2 million. His friend asks if that means the owners could take 2 million out tomorrow. Dev goes quiet.\n\nSpot it by asking: is this a price or a leftover? Equity is **the leftover from the past**, sitting in ovens and stock and bank balances. A price is what someone pays today, and it lives nowhere on this sheet.",
+    "simpler": "Dev opens a report, sees total equity of 2 million, and tells his friend the company is worth 2 million. His friend asks if the owners could take 2 million out tomorrow. Dev goes quiet.\n\nSpot this mistake by asking: is this a price or a leftover? Equity is **the leftover from the past**. It sits in ovens, stock and bank balances. A price is what someone pays today, and it is nowhere on this sheet."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What are the two sources of equity on a balance sheet?",
+    "prompt": "Your cousin asks what the 'total equity' line on a balance sheet actually means. Which answer is right?",
     "options": [
      {
       "id": "a",
-      "text": "Money the owners put in, and profit the company kept over the years"
+      "text": "The cash the owners could pull out tomorrow"
      },
      {
       "id": "b",
-      "text": "Cash in the bank, and money customers still owe"
+      "text": "What the owners put in plus profit kept, minus losses and dividends paid"
      },
      {
       "id": "c",
-      "text": "Share capital, and the total of all past profits before dividends"
+      "text": "The price a buyer would pay for the whole company today"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "Those are assets, not equity: they are things the company owns, not a record of where the owners' share came from.",
-     "c": "That's profit before dividends: retained earnings only counts the part kept after paying owners out."
+     "a": "That's cash, not equity: cash is one asset line near the top, while equity is a leftover spread across everything the company owns.",
+     "c": "That's market value, not equity: the sheet records what went in and what was kept, at the prices things were bought for."
     },
-    "reteach": "Equity has two pots. The first is what shareholders paid in for their shares. The second is a running total of profit the company kept rather than paid out as dividends. Add them together and you have the owners' share."
+    "reteach": "Think of Maya's flat. Her share is deposit plus repayments, not the cash in her wallet and not what an estate agent would quote. Equity is the same: put in, plus kept, minus lost and paid out."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Equity is what the owners put in plus every profit they kept, minus losses and dividends, and it can shrink to nothing or below. It is **a leftover from the past, not a price**, so never read it as what the company is worth or has in the bank.",
+    "simpler": "Equity is what the owners put in, plus every profit they kept, minus losses and dividends. It can shrink to nothing or even below zero. It is **a leftover from the past, not a price**. So never read it as what the company is worth, or as money sitting in the bank."
    },
    {
     "type": "try",
-    "body": "Search for any listed company's annual report, find the balance sheet, and locate the retained earnings line. Then compare it with the cash line. Say in one sentence whether kept profit was saved or reinvested."
+    "body": "Search 'annual report' plus the name of any listed company. In the balance sheet, find total equity, then the two lines inside it: share capital and retained earnings. Did retained earnings grow since last year?",
+    "simpler": "Try this. Search for 'annual report' plus the name of any company listed on a stock exchange. Open the balance sheet and find total equity. Inside it, look for the two lines: share capital and retained earnings. Then compare retained earnings with last year's number. **Did retained earnings grow since last year?** If so, the company kept some profit."
    }
   ],
-  "outcomeLine": "You can now explain where the equity number came from, split it into money put in and profit kept, and say why it is not the company's price tag."
+  "outcomeLine": "You can now explain where a company's equity number came from and say whether past profits were kept or paid out."
  },
- "seconds": 42.124937295913696
+ "seconds": 89.37284183502197
 }

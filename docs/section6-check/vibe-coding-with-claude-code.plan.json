@@ -15,45 +15,115 @@
     "n": 1,
     "title": "Meet the builder: the terminal and your first request",
     "covers": "Install Claude Code, open it inside a folder (the terminal is a text window where you type commands instead of clicking), and ask it for one tiny thing you can see work.",
-    "outcome": "You can start Claude Code in a folder, type a plain-English request, and see a file appear and run."
+    "outcome": "You can start Claude Code in a folder, type a plain-English request, and see a file appear and run.",
+    "hook": "Your first working program is about three sentences away, and none of them are code."
    },
    {
     "n": 2,
     "title": "Writing a brief the builder can't misread",
     "covers": "How to describe what you want so Claude builds the right thing: the user, the one job, what it should look like when done, and what to leave out.",
-    "outcome": "You can write a 5-line request that gets a working first version without going back and forth more than twice."
+    "outcome": "You can write a 5-line request that gets a working first version without going back and forth more than twice.",
+    "hook": "Why 'make it better' is the worst instruction you can give a builder."
    },
    {
     "n": 3,
     "title": "Walking the site: reading what got built",
     "covers": "The 4 kinds of files in a small web project (the page, the styling, the logic, the settings) and how to ask Claude to explain any of them in plain words.",
-    "outcome": "You can open a project folder, name what each main file is for, and ask Claude to explain a piece you don't follow."
+    "outcome": "You can open a project folder, name what each main file is for, and ask Claude to explain a piece you don't follow.",
+    "hook": "You don't need to read the code. You need to know what to click."
    },
    {
     "n": 4,
     "title": "When something breaks: describing the leak, not guessing the pipe",
     "covers": "How to copy an error message, tell Claude exactly what you did and what you saw, and check the fix yourself before moving on.",
-    "outcome": "You can take an error from a red screen to a fixed and tested app by giving Claude the message and the steps that caused it."
+    "outcome": "You can take an error from a red screen to a fixed and tested app by giving Claude the message and the steps that caused it.",
+    "hook": "One sentence undoes an hour of bad changes, if you set this up first."
    },
    {
     "n": 5,
     "title": "Keeping the keys: saving every good version with Git and GitHub",
     "covers": "Git is a save-point system for code and GitHub is where those save points live online; you learn to commit (save), push (upload), and go back to a working version.",
-    "outcome": "You can save a working version, upload it to GitHub, and restore yesterday's version when today's attempt goes wrong."
+    "outcome": "You can save a working version, upload it to GitHub, and restore yesterday's version when today's attempt goes wrong.",
+    "hook": "Claude forgets everything when you close the window, unless you leave it a note."
    },
    {
     "n": 6,
     "title": "Work orders in small pieces: one feature at a time",
     "covers": "Why asking for one feature, testing it, and saving beats asking for 5 at once; and how to split a big idea into a numbered list of small jobs.",
-    "outcome": "You can turn an app idea into 5 to 8 small jobs and build them one by one, with a saved version after each."
+    "outcome": "You can turn an app idea into 5 to 8 small jobs and build them one by one, with a saved version after each.",
+    "hook": "That error message was written for Claude, not you. Hand it over."
    },
    {
     "n": 7,
     "title": "Inspecting the work: the 3 checks before you trust a build",
     "covers": "How to test as a user, ask Claude to list what it changed and why, and keep your own notes file so the builder remembers your rules next session.",
-    "outcome": "You can finish a session by testing the app, reading Claude's summary of changes, and writing the 3 to 5 rules you want followed next time."
+    "outcome": "You can finish a session by testing the app, reading Claude's summary of changes, and writing the 3 to 5 rules you want followed next time.",
+    "hook": "What three things should you never let a builder do without watching?"
    }
   ]
  },
- "seconds": 30.50982928276062
+ "seconds": 78.24881792068481,
+ "hooksFrom": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Vibe coding with Claude Code",
+  "outcome7": "By day 7 you'll be able to open Claude Code in a project folder, describe a small web app in plain English, test it in your browser, save working versions, get errors fixed, and put it online, without typing code yourself.",
+  "horizon14": "Later, not promised: a small app with sign-in and saved data, built over a few evenings.",
+  "horizon28": "Later, not promised: you can look at a feature idea and judge in minutes whether to build it yourself this way or bring in a developer.",
+  "picture": {
+   "name": "Hiring a contractor",
+   "line": "You're the homeowner: you say what you want, a fast skilled builder does the work, and you walk the site every day to check it."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "Your first job: open the site and give one instruction",
+    "covers": "What the terminal is (the text window where you type commands), installing Claude Code, starting it inside a folder, and asking for one small web page you can open in your browser.",
+    "outcome": "You can start Claude Code in a folder, ask for a small web page in plain words, and open the result in your browser.",
+    "hook": "Your first working program is about three sentences away, and none of them are code."
+   },
+   {
+    "n": 2,
+    "title": "Writing a brief the builder can't misread",
+    "covers": "How to describe what you want so it comes back right: who it's for, what it should do, what 'done' looks like, one job per request.",
+    "outcome": "You can write a request that gets the right thing on the first try more often, and fix a vague one when it doesn't.",
+    "hook": "Why 'make it better' is the worst instruction you can give a builder."
+   },
+   {
+    "n": 3,
+    "title": "The daily walkthrough: checking work without reading code",
+    "covers": "Running what was built, clicking through it like a user, describing what's wrong in plain words, and asking Claude to explain any file in one paragraph.",
+    "outcome": "You can test what Claude built, find a problem, and report it clearly enough that it gets fixed.",
+    "hook": "You don't need to read the code. You need to know what to click."
+   },
+   {
+    "n": 4,
+    "title": "Photos before you knock down a wall: saving versions",
+    "covers": "What git is (a save-point system for your files), asking Claude to save a snapshot after each working step, and going back to the last good one.",
+    "outcome": "You can save a snapshot after every working step and roll back when a change breaks things.",
+    "hook": "One sentence undoes an hour of bad changes, if you set this up first."
+   },
+   {
+    "n": 5,
+    "title": "The note pinned to the wall: keeping Claude on track",
+    "covers": "The CLAUDE.md file (standing instructions Claude reads every time), why long sessions drift, when to start a fresh conversation, and asking for a plan before any building.",
+    "outcome": "You can write a short standing-instructions file for your project and know when to clear the slate and start fresh.",
+    "hook": "Claude forgets everything when you close the window, unless you leave it a note."
+   },
+   {
+    "n": 6,
+    "title": "Something's leaking: getting errors fixed",
+    "covers": "Copying the full error message, describing the exact steps that caused it, asking for the smallest fix, and knowing when to roll back instead of patching.",
+    "outcome": "You can take an error you don't understand and get it fixed, or undo it, in one sitting.",
+    "hook": "That error message was written for Claude, not you. Hand it over."
+   },
+   {
+    "n": 7,
+    "title": "Opening day: putting it online and what you still check yourself",
+    "covers": "Putting a small project live on a hosting service, the three things to always check by hand (passwords and keys, anything that deletes data, anything that spends money), and what this way of building is and isn't good for.",
+    "outcome": "You can put a small project on the internet and name the three things you never let Claude do without looking.",
+    "hook": "What three things should you never let a builder do without watching?"
+   }
+  ]
+ }
 }

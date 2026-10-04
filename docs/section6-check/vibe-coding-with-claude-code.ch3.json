@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "When a contractor says \"come walk the site,\" you don't inspect every nail. You learn which part is which: the walls and doors, the paint, the wiring hidden behind the walls, and the folder of permits on the counter.\n\nA small web project has the same 4 parts. You don't need to build any of them. You need to tell them apart, so you can point the builder at the right one."
-   },
-   {
-    "type": "teach",
-    "title": "The 4 kinds of files",
-    "body": "Open the folder Claude built. It might hold 4 files or 40. Almost every one is one of 4 kinds, and the ending of the file name tells you which.\n\nThe page. Files ending in .html. This is what the screen shows: headings, buttons, boxes to type in. In the house, these are the walls and doors.\n\nThe styling. Files ending in .css. Colours, sizes, spacing, fonts. This is the paint. Change it and the app works exactly the same, it just looks different.\n\nThe logic. Files ending in .js (or .ts, a stricter cousin). This is what happens when someone clicks, what gets added up, what gets saved. This is the wiring. Change it and the app behaves differently.\n\nThe settings. Files like package.json, README.md, or anything with \"config\" in the name. They list what the project needs and how to start it. This is the permits folder. You almost never edit it yourself; Claude does.\n\nYou are not reading these files yet. You are learning to name them. When something is off, naming the kind of file is half the fix."
+    "body": "Your builder has finished a small house. Before you pay, you walk through it. **Every small web project is the same 4 things seen from the hallway**: the walls and rooms, the paint, the wiring behind the switches, and the clipboard of permits hung by the door.\n\nPicture a folder with 4 files in it. Each file is one of those four.",
+    "simpler": "Imagine a builder just finished a small house for you. Before you pay, you walk through it. A small web project works the same way. **It is always the same 4 things seen from the hallway**: the walls and rooms, the paint, the wiring behind the switches, and the clipboard of permits by the door.\n\nNow picture a folder with 4 files in it. Each file is one of those four things."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your app works, but the Save button is grey and you wanted it green. Which kind of file most likely needs the change?",
+    "prompt": "Claude built your recipe app. The Save button works, but it's a sickly yellow-green. In house terms, which part needs attention?",
     "options": [
      {
       "id": "a",
-      "text": "The logic file (.js)"
+      "text": "The walls: where the button sits on the page"
      },
      {
       "id": "b",
-      "text": "The styling file (.css)"
+      "text": "The paint: how the button looks"
      },
      {
       "id": "c",
-      "text": "The settings file (package.json)"
+      "text": "The wiring: what the button does when pressed"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the wiring, not the paint: logic changes what the button does, not how it looks.",
-     "c": "That's the permits folder, not the paint: settings say how to start the project, not what colour anything is."
+     "a": "That's the page, not the styling: the page decides a button exists and where it sits, not its colour.",
+     "c": "That's the logic, not the styling: the wiring handles what happens on press, and the button already works."
     },
-    "reteach": "Ask one question: did it look wrong or act wrong? Looks are paint, so that's .css. Actions are wiring, so that's .js. A grey button that works fine is a paint problem."
-   },
-   {
-    "type": "example",
-    "title": "A bill-splitter, 4 files",
-    "body": "Say you asked Claude for a page that splits a restaurant bill. You open the folder and see 4 files: index.html, style.css, app.js and package.json.\n\nindex.html holds the 2 boxes (bill total, number of people) and the Split button. style.css makes the button blue and centres everything. app.js has the part that divides the total by the number of people and shows the answer. package.json is 10 lines saying what the project needs to run.\n\nYou type: \"Explain app.js in plain words, 5 sentences max, as if I've never coded.\" Claude answers: it waits for a click, reads both numbers, divides one by the other, rounds to 2 decimal places, and writes the result under the button. You now know what the wiring does without reading a line of it."
+    "reteach": "Split any complaint into three questions. Is it there? That's the page. Does it look right? That's the styling. Does it do the right thing? That's the logic. A bad colour is a looks question."
    },
    {
     "type": "teach",
-    "title": "Asking the builder to explain",
-    "body": "The first thing to do after any build is ask for a map: \"List every file in this project and one line on what each is for.\" Claude reads the folder and gives you a labelled list. Do this before anything else.\n\nTo understand one file, name it and set the level: \"Explain style.css in plain words, as if I've never coded.\" You can go smaller: \"In app.js, what does the part that starts with the word function do?\"\n\nIf the answer uses a word you don't know, ask again: \"What's a function, in one sentence?\" Claude does not get tired of this, and each answer gets you one step closer to reading it yourself.\n\nThis chapter is about knowing where to look. Fixing what you find is chapter 4."
+    "title": "The rooms and the paint",
+    "body": "The *page file* ends in .html, often named index.html. It is the rooms and walls: every heading, box, button and bit of text, in the order they appear on screen. If something is missing from the screen, it is missing here.\n\nThe *styling file* ends in .css, often style.css. It is the paint and fixtures: colours, sizes, fonts, spacing. It never adds a button. It only decides how the button looks.\n\n**You can tell a file's job from its ending.** You do not need to read it yet. Just know which door you are standing at.",
+    "simpler": "The page file ends in .html, often index.html. It is the rooms and walls: every heading, box, button and bit of text, in the order they appear. Missing from the screen means missing here.\n\nThe styling file ends in .css, often style.css. It is the paint: colours, sizes, fonts, spacing. It never adds a button, only decides how it looks.\n\n**The file ending tells you the file's job.** Don't read it yet. Just know which door you are at."
+   },
+   {
+    "type": "example",
+    "title": "Priya's tip calculator",
+    "body": "Priya asks Claude Code for a tip calculator. The folder comes back with 4 files: index.html, style.css, app.js and package.json.\n\nShe opens index.html and recognises her own words: Bill amount, Tip percent, Total. She opens style.css and finds color: #2e7d32, the green she asked for.\n\nShe opens package.json hoping to find the maths. It is 14 lines of names and version numbers. **The maths is in app.js**, line 9: total = bill + bill * percent / 100. That one line is the entire product.",
+    "simpler": "Priya asks Claude Code for a tip calculator. Back come 4 files: index.html, style.css, app.js and package.json.\n\nIn index.html she sees her own words: Bill amount, Tip percent, Total. In style.css she finds color: #2e7d32, the green she asked for.\n\nShe opens package.json looking for the maths. It is 14 lines of names and version numbers. **The maths is in app.js**, line 9: total = bill + bill * percent / 100. That one line is the whole product."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A friend tries your bill-splitter. The page looks fine, but 3 people splitting 90 shows 45 each. You want Claude to explain the relevant part. Which request fits?",
+    "prompt": "Your to-do app adds a task when you click Add, but pressing Enter does nothing. You want to look before asking Claude. Which file do you open first?",
     "options": [
      {
       "id": "a",
-      "text": "\"Explain what style.css does in plain words.\""
+      "text": "index.html"
      },
      {
       "id": "b",
-      "text": "\"Explain the part of app.js that works out the amount per person.\""
+      "text": "style.css"
      },
      {
       "id": "c",
-      "text": "\"Explain what package.json is for.\""
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's the paint, not the wiring: the page looks right, so styling isn't where the maths lives.",
-     "c": "That's the permits folder, not the wiring: settings don't do any dividing."
-    },
-    "reteach": "A wrong number is a behaviour problem, and behaviour lives in the logic file. Name the file (app.js) and the job you care about (the amount per person), and Claude will show you just that piece."
-   },
-   {
-    "type": "mistake",
-    "body": "The common mistake is treating the folder as one blob and telling Claude \"something's wrong with the code.\" Claude then guesses, and often guesses in the wrong file.\n\nSpot it in your own typing: if your request doesn't say whether it's the look, the behaviour, or the setup, you're guessing too. Say which, and the right kind of file follows."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Which kind of file holds what happens when a user clicks a button?",
-    "options": [
-     {
-      "id": "a",
-      "text": "The page (.html)"
-     },
-     {
-      "id": "b",
-      "text": "The styling (.css)"
-     },
-     {
-      "id": "c",
-      "text": "The logic (.js)"
+      "text": "app.js"
      }
     ],
     "answer": "c",
     "whyNot": {
-     "a": "That's the walls, not the wiring: the page puts the button on screen but doesn't decide what it does.",
-     "b": "That's the paint, not the wiring: styling sets how the button looks, not what a click triggers."
+     "a": "That's the page, not the logic: index.html says there is a text box, not what happens when you press a key inside it.",
+     "b": "That's the styling, not the logic: style.css only changes how the box looks, and it looks fine."
     },
-    "reteach": "Four parts: page is what you see, styling is how it looks, logic is what it does, settings is how it starts. A click doing something is \"what it does,\" so it's the logic file."
+    "reteach": "Ask what kind of problem it is. Enter doing nothing is a behaviour problem: a key was pressed and nothing happened. Behaviour lives in the wiring, the .js file. Looks live in .css. Presence lives in .html."
+   },
+   {
+    "type": "teach",
+    "title": "The wiring and the clipboard",
+    "body": "The *logic file* ends in .js, often app.js or main.js. It is the wiring and plumbing: what happens when you click, type or load the page. Any 'it does not do X' problem lives here.\n\nThe *settings files* are the builder's clipboard: package.json and anything with config in its name. They list the project's name, the tools it uses and their version numbers. You read them. You almost never edit them by hand.\n\n**When a file makes no sense, ask the builder to read it to you.** Try: 'Explain app.js in plain words, one paragraph, no code.' Or: 'What does line 9 do, and what breaks if I delete it?'",
+    "simpler": "The logic file ends in .js, often app.js or main.js. It is the wiring: what happens when you click, type or load the page. 'It does not do X' problems live here.\n\nSettings files are the builder's clipboard: package.json and anything named config. They list the project's name, tools and version numbers. Read them. Almost never edit them by hand.\n\n**Ask the builder to read any confusing file to you.** Try: 'Explain app.js in plain words, no code.'"
+   },
+   {
+    "type": "mistake",
+    "body": "Marcus opens package.json, sees 20 lines he does not understand, and deletes 6 of them to keep things tidy. The app will not start the next morning, and Claude needs 10 minutes to work out why.\n\nSpot it: a file that is mostly names, quotes and numbers like 4.2.1 is settings. **Read settings, never tidy them.** If you want it shorter, ask Claude whether anything can go.",
+    "simpler": "Marcus opens package.json and sees 20 lines he does not understand. He deletes 6 of them to tidy up. Next morning the app will not start, and Claude needs 10 minutes to work out why.\n\nHow to spot it: a file that is mostly names, quotes and numbers like 4.2.1 is a settings file. **Read settings, never tidy them.** If you want it shorter, ask Claude whether anything can go."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Claude reports: 'I made the title bigger and moved it above the search box.' Which 2 files did it most likely change?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The page and the styling"
+     },
+     {
+      "id": "b",
+      "text": "The logic and the settings"
+     },
+     {
+      "id": "c",
+      "text": "The styling and the settings"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the wiring and the clipboard, not looks and layout: nothing changed about behaviour or about which tools the project uses.",
+     "c": "Half right: bigger is styling, but moving the title above the search box changes the page order, not the settings."
+    },
+    "reteach": "Match each word in Claude's report to a file. Bigger is a looks word, so style.css. Moved above is an order word, so index.html. Nothing here is about what happens on click, and nothing is about tools or versions."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "A small web project is 4 kinds of files: the page is the rooms, the styling is the paint, the logic is the wiring, and the settings are the builder's clipboard. **Guess the job from the file ending, then ask Claude to explain it in plain words before you touch anything.**",
+    "simpler": "A small web project is 4 kinds of files. The page is the rooms. The styling is the paint. The logic is the wiring. The settings are the builder's clipboard. **Guess each file's job from its ending, then ask Claude to explain it in plain words before you touch anything.**"
    },
    {
     "type": "try",
-    "body": "Open Claude Code in your chapter 1 folder and type: \"List every file here and one line on what each is for.\" Then ask it to explain the one you understood least."
+    "body": "Open the folder from chapter 1 in Claude Code and type: 'List every file here and say in one line what each one does.' Sort its answer into rooms, paint, wiring and clipboard.",
+    "simpler": "Open the folder from chapter 1 in Claude Code. Type this: 'List every file here and say in one line what each one does.' When the answer comes back, **sort each file into rooms, paint, wiring or clipboard.** Use each file's ending to decide which is which."
    }
   ],
-  "outcomeLine": "You can now open a project folder, name which of the 4 kinds each main file is, and ask Claude to explain any piece in plain words."
+  "outcomeLine": "You can now open a project folder, name what each main file is for, and ask Claude to explain any piece you don't follow."
  },
- "seconds": 59.08942675590515
+ "seconds": 83.6231689453125
 }

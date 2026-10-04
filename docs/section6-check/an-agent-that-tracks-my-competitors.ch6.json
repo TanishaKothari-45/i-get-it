@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "The clipping service only works if the person shows up at 7 every morning without you phoning them. That is what a schedule does: it is the alarm clock that gets them out of bed.\n\nThe note on your desk is the other half. If they read all 5 papers but leave the note in their own drawer, you paid for nothing. Delivery is where the note lands, and it has to be your desk."
-   },
-   {
-    "type": "teach",
-    "title": "Two things make it run without you",
-    "body": "So far you have run each step by typing a command. That means you are the alarm clock. This chapter hands that job to the computer.\n\nA scheduler is a small program already on your computer that runs a command at a set time. On Mac and Linux it is called cron. On Windows it is called Task Scheduler. You tell it \"at 7:00 every day, run this file\" and it does, with nobody at the keyboard.\n\nThe file it runs is one script that does chapters 3, 4 and 5 in a row: fetch the pages, compare with yesterday's copy, send the changed lines to the model. One command, start to finish.\n\nDelivery is the second half. The script's last step must put the summary somewhere you already look: your inbox, a chat channel, or a folder that syncs to your phone. A file sitting on a server you never open is not delivery.\n\nOne catch. A scheduler only fires if the computer is awake at that moment. A laptop asleep in a bag at 7:00 runs nothing, and cron does not catch up later."
+    "body": "Your clipping person is good, but so far you have had to walk into the office each morning and say \"go\". Today you hand over a key and an alarm clock. **At 7am they let themselves in, read the 5 papers, and leave the note on your desk whether or not you are there.** You find it next to your coffee.",
+    "simpler": "Picture a helper who reads the newspapers for you. Until now, you had to walk in each morning and tell them to start. Today you give them a key and an alarm clock. **At 7am they let themselves in, read the 5 papers, and leave a note on your desk, whether you are there or not.** When you arrive, the note is waiting next to your coffee."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You schedule the agent for 7:00 on your laptop. At 7:00 the laptop is shut in your bag. What happens?",
+    "prompt": "Your clipper's note is excellent. But they leave it in a locked filing cabinet in the basement. You never read it. What is the problem?",
     "options": [
      {
       "id": "a",
-      "text": "It runs anyway, because the schedule is saved"
+      "text": "The note is too long"
      },
      {
       "id": "b",
-      "text": "Nothing runs that day"
+      "text": "The note lands somewhere you never look"
      },
      {
       "id": "c",
-      "text": "It runs the moment you open the laptop"
+      "text": "The clipper reads too slowly"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the schedule being remembered, not the job being run: the schedule is saved, but a sleeping computer cannot run anything.",
-     "c": "That's what a reminder app does, not cron: cron checks the clock only at the set minute, and a missed minute is skipped."
+     "a": "That's the summary's length, which chapter 5 handled: a 2-sentence note is short enough. The trouble here is where it ends up.",
+     "c": "That's a speed problem, and the agent takes seconds either way: the note is written fine, it is just put where you won't see it."
     },
-    "reteach": "Think of cron as a person who glances at the clock once a minute. If the computer is asleep, nobody is glancing. When it wakes up, 7:00 has passed, and cron does not look backwards. So the agent needs a computer that is awake at the scheduled time."
-   },
-   {
-    "type": "example",
-    "title": "One line that is the alarm clock",
-    "body": "A cron schedule is one line: 5 time slots, then the command to run. For example: 0 7 * * * python3 /Users/you/agent/run.py\n\nThe 5 slots mean minute 0, hour 7, any day of the month, any month, any day of the week. A star means \"any\". So this reads: at 7:00, every day.\n\nThe rest of the line is the file to run. Inside run.py, the last step sends the summary to your email with a subject line like \"Rivals, 4 Oct\". At 7:01 you have a note on your desk, and you never opened a terminal."
+    "reteach": "An agent that runs on time but writes to a place you never open is the same as an agent that never ran. Half of \"running without you\" is the alarm clock. The other half is the note landing where your eyes already go each morning."
    },
    {
     "type": "teach",
-    "title": "Where to run it, and where to send it",
-    "body": "There are 3 places to put the alarm clock. Your own laptop: easiest to set up, but it must be on and awake. A small always-on machine, like a cheap cloud server or a spare computer at home. Or GitHub Actions, a GitHub feature that runs a script on GitHub's computers at a time you set in a file in your repo.\n\nFor delivery, pick the channel you check before 9 in the morning without thinking. For most people that is email. Send it to yourself, and put the date in the subject line. Send a message even on a day with no changes, with the words \"no changes\". Silence should mean something broke, not that it was a quiet day.\n\nTest it once before you trust it. Set the schedule for 2 minutes from now, wait, and check your inbox. When the message arrives, change the time to 7:00. You have just watched the alarm clock ring."
+    "title": "The alarm clock",
+    "body": "So far you have typed a command to run each step. A *scheduler* is a small program on your computer or a server that runs a command for you at a set time, every day, with nobody typing anything.\n\nOn a Mac or Linux machine the built-in scheduler is called *cron*. You give it 2 things: a time, like 7:00 each morning, and the command to run. It keeps doing that until you tell it to stop.\n\n**One schedule, one command.** That command should run all 3 steps in order: fetch, compare, summarise. If they are 3 separate scripts today, wrap them in 1 script first, so the clock only has to ring once.",
+    "simpler": "So far you have typed each command yourself. A scheduler is a small program that runs commands at set times, like an alarm clock. On a Mac or Linux computer the built-in one is called cron. You give it a time and a command, and it repeats that daily until you stop it. **One schedule, one command.** That command should run all 3 steps in order: fetch, compare, summarise. If they are 3 separate scripts, join them into 1 first."
+   },
+   {
+    "type": "example",
+    "title": "The note before standup",
+    "body": "Say you track 4 rivals and want the note before a 9am standup. You put 1 line in cron: run track.sh at 7:00. That script fetches the 4 pricing pages, compares them with yesterday's saved copies, and sends only the changed lines to the model.\n\nThe model's 2 sentences go into an email to yourself with the subject \"Rival clippings, 4 Oct\". Monday's email says: \"No changes on 4 pages.\" Tuesday's says one rival cut its Starter plan from $29 to $19, and quotes the line. You read it on your phone in the coffee queue. **You did not open a terminal.**",
+    "simpler": "Say you watch 4 rivals and want the note by 9am. You add 1 line to cron: run track.sh at 7:00. It fetches the pricing pages, compares them with yesterday's copies, and sends the changed lines to the model. Its 2 sentences land in your inbox. Monday's says: \"No changes on 4 pages.\" Tuesday's says one rival cut its Starter plan from $29 to $19. You read it on your phone in the coffee queue. **You never opened a terminal.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You want a summary in your inbox at 7:00 tomorrow without touching anything. Which setup does that?",
+    "prompt": "You set cron to run the fetch script at 7:00 and the compare script at 7:01. Some mornings the summary says \"no changes\" even though a page did change. What most likely happened?",
     "options": [
      {
       "id": "a",
-      "text": "Run the script by hand each morning and read the terminal output"
+      "text": "The fetch sometimes takes over 1 minute, so compare ran before the new copy existed"
      },
      {
       "id": "b",
-      "text": "Schedule the script on an always-on machine, with its last step emailing you"
+      "text": "The model refused to summarise"
      },
      {
       "id": "c",
-      "text": "Schedule the script on your laptop, with its last step printing to the terminal"
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's you being the alarm clock, not the computer: it works, but the chapter's point is that nobody should have to be at the keyboard.",
-     "c": "That's half the job, the schedule without delivery: printing to a terminal that nobody is looking at is a note left in the drawer, and the laptop may be asleep anyway."
-    },
-    "reteach": "Two boxes have to be ticked. First, something fires the script on time with no human present, which means a scheduler on a machine that is awake. Second, the result lands where you already look, which means email or chat, not a screen you have to go and open."
-   },
-   {
-    "type": "mistake",
-    "body": "People schedule the script, see it work once by hand, and assume it is running. Three weeks later they notice nothing has arrived since day 1.\n\nSpot it with one rule: if no message came today, the agent did not run today. The date in the subject line makes a missing day obvious at a glance."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "What are the 2 things the agent needs so it runs without you?",
-    "options": [
-     {
-      "id": "a",
-      "text": "A scheduler on an awake machine, and delivery to a place you already look"
-     },
-     {
-      "id": "b",
-      "text": "More competitors, and a bigger AI model"
-     },
-     {
-      "id": "c",
-      "text": "A diff of the changed lines, and a strict prompt"
+      "text": "Cron only runs on weekdays"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's about what the agent reads and how well it writes, not about whether it runs on its own: neither one fires the script at 7:00.",
-     "c": "That's chapters 4 and 5, the scissors and the reader: they are inside the script, but they do not start it or hand you the note."
+     "b": "That's a model failure, chapter 7 territory: here nothing new ever reached the model, because compare looked at an old copy.",
+     "c": "That's a schedule setting, not a timing clash: cron runs at the time you give it every day, weekends included, unless you say otherwise."
     },
-    "reteach": "Picture the clipping service. The alarm clock gets the person up at 7 with no phone call from you. The note on your desk is where their work lands. Take away either one and you are back to doing it yourself."
+    "reteach": "The clock should ring once and start one script that does the 3 steps in order. Two alarms 1 minute apart are a race: if step 1 is slow, step 2 starts with yesterday's copy and finds nothing new."
+   },
+   {
+    "type": "teach",
+    "title": "Where the note lands",
+    "body": "The second half is delivery. The scheduler can run your agent at 7:00 forever, but if the result sits in a file on a server, you will check it for 3 days and then forget. **Deliver to a place you already open every morning.**\n\nThe simplest 3 are: an email to yourself, a message in the chat app your team already uses, or a file in a folder that syncs to your phone. Email is the easiest start, because many small free tools can send one from a script.\n\nKeep the subject line boring and the same every day, with the date on the end. Then, the one morning it says something new, you will notice.",
+    "simpler": "Delivery is the second half. A note left in a file on a server gets forgotten within days. **Send the note somewhere you already look every morning.** Try an email to yourself, your team's chat app, or a folder that syncs to your phone. Email is the simplest start, because small free tools can send one from a script. Keep the subject line the same every day, with the date on the end, so the one new morning stands out."
+   },
+   {
+    "type": "mistake",
+    "body": "A founder set the agent to run at midnight on their laptop, writing to a file called today.txt. Then they closed the lid, and a sleeping laptop does not run cron: for 9 days the file never changed, and they read the same \"no changes\" line 9 times. **Spot it by putting the date inside the message** and checking it matches today. Run the clock on a machine that stays awake, or on a small always-on server.",
+    "simpler": "A founder set the agent to run at midnight on their laptop, writing to a file called today.txt. Then they closed the lid. A sleeping laptop does not run cron, so for 9 days the file never changed, and they read the same \"no changes\" line 9 times without noticing. **Put the date inside the message** and check it matches today. Run the clock on a machine that stays awake, or on a small server that is always on."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which of these is a complete \"running without you\" setup, in the newspaper-clipping picture?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The clipper has a key and an alarm, and leaves the note on your desk"
+     },
+     {
+      "id": "b",
+      "text": "The clipper has an alarm but waits for you to unlock the door"
+     },
+     {
+      "id": "c",
+      "text": "The clipper has a key and leaves the note in the basement"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the schedule without the self-running part: an alarm that needs you at the door is still you typing the command each morning.",
+     "c": "That's the schedule without delivery: the agent ran, but the note is in a place you never look, so it may as well not have."
+    },
+    "reteach": "Two halves, both needed. The alarm clock plus the key means the agent starts and finishes on its own. The note on the desk means the result is pushed to a place you already check, not a place you must remember to visit."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "**A scheduler like cron runs your one script at the same time each day, with no one at the keyboard.** The script ends by sending its 2-sentence note, with the date in it, to a place you already open each morning, so you can tell at a glance that the clock really rang.",
+    "simpler": "**A scheduler like cron runs your one script at the same time each day, with nobody at the keyboard.** The script finishes by sending its 2-sentence note, with the date inside, to a place you already open each morning. That way you can see at a glance that the alarm really went off. If the date is old, you know something stopped."
    },
    {
     "type": "try",
-    "body": "Open Terminal on your Mac and type crontab -l. It lists any schedules already on your machine. An empty list is fine. You have just looked at the alarm clock's page."
+    "body": "Tonight, pick the time. Open your calendar and find the 15 minutes you most reliably check email each morning. Write that down. Your cron time is 30 minutes before it.",
+    "simpler": "Tonight, pick the time. Open your calendar and find the 15 minutes each morning when you most reliably check email. Write that time down. **Your cron time is 30 minutes before it**, so the note is waiting when you look."
    }
   ],
-  "outcomeLine": "You can now set the agent to run once a day on its own and get the summary without opening a terminal."
+  "outcomeLine": "You can now set the agent to run once a day on its own and receive the summary without opening a terminal."
  },
- "seconds": 81.39353585243225
+ "seconds": 88.28931975364685
 }

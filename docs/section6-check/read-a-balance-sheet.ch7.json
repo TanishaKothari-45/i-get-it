@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "You have learned the rooms of the house. Now you walk through a real one with the estate agent's sheet in your hand. You start at the front door, go room by room in the order the sheet lists them, and you keep a short checklist of three things that would worry you: a loan due soon with no cash to pay it, a stack of IOUs from people who owe the household money, and a family that says it is earning well while the bank balance keeps falling."
-   },
-   {
-    "type": "teach",
-    "title": "Where it is and how it is laid out",
-    "body": "A listed company publishes its balance sheet inside its annual report, usually a PDF on the investor page of its website. Search the PDF for \"balance sheet\" or \"statement of financial position\", which is the other name for the same page.\n\nThe first line to read is the units line, near the top. It says something like \"in millions\" or \"in thousands\". Every number on the page is in those units, so 4,200 under \"in thousands\" means 4,200,000.\n\nThere are two columns of numbers: this year's date and last year's date. Read the newer column first. Then glance at the older one for anything that moved a lot.\n\nThe lines run in a fixed order. Assets first, fast ones at the top (cash, then customer bills owed, then stock), slow ones below (buildings, machines, and goodwill, which is the extra paid when buying another company). Then liabilities, soon-due first, later-due below. Equity, the owners' share, comes last.\n\nA narrow column of small numbers sits beside the lines. Those are note numbers. Each points to a page later in the report that explains that line in words. The notes are where the odd items get explained."
+    "body": "A published balance sheet is the house photo, but taken by an estate agent: every room listed, plus the loft, the garage and the shed. **The order is always the same**: what it owns on top, fast things first, then what it owes, then what is left for the owners.\n\nThe footnotes are the small print on the back of the photo. That is where the odd rooms get explained.",
+    "simpler": "A company's published balance sheet is like a photo of a house taken by an estate agent. Every room is listed, even the loft, the garage and the shed. **The order is always the same.** First comes what the company owns, with cash and quick-to-sell things at the top. Then what it owes. Then what is left for the owners. The footnotes are the small print on the back of the photo. That is where the odd rooms get explained."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "On a balance sheet you see cash of 40 and loans due within 12 months of 110. Before reading on, what is the worry?",
+    "prompt": "You open a listed company's annual report and find the balance sheet. It runs over 2 pages and 40 lines. Where do you start?",
     "options": [
      {
       "id": "a",
-      "text": "It owns too little property"
+      "text": "The three totals: total assets, total liabilities, total equity. Check that assets equal the other two added together."
      },
      {
       "id": "b",
-      "text": "It may not have the cash to repay this year's loans unless more cash comes in"
+      "text": "The biggest number on the page, whatever it is."
      },
      {
       "id": "c",
-      "text": "The owners have put in too much money"
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's the slow-assets question, not the cash one: property does not pay a loan due next month unless it is sold.",
-     "c": "That's the equity side: owners' money is never a debt the company has to repay on a date."
-    },
-    "reteach": "Loans due within 12 months must be paid in cash, soon. If cash on hand is smaller than those loans, the company needs new cash from sales, new borrowing or selling something to get through the year. That gap is the first warning sign."
-   },
-   {
-    "type": "example",
-    "title": "Harbor Tools, a made-up company, 31 December",
-    "body": "Units: in millions. Current assets: cash 40, bills owed by customers 180, stock 90, total 310. Slow assets: buildings and machines 400. Total assets 710.\n\nCurrent liabilities: supplier bills 120, loans due within 12 months 110, total 230. Long-term debt 200. Equity 280. Check: 230 + 200 + 280 = 710, which matches total assets.\n\nLast year's column shows cash was 70 and customer bills were 100. The income statement says profit for the year was 60. So the company says it earned 60, yet its cash fell by 30 while unpaid customer bills nearly doubled."
-   },
-   {
-    "type": "teach",
-    "title": "The three warning signs",
-    "body": "Sign one: short-term loans bigger than cash. Harbor Tools has 110 due this year and 40 in the bank. It can still make it if customers pay up, but it has no cushion.\n\nSign two: a big pile of unpaid customer bills. At 180, customers owe Harbor Tools more than four times its cash, and the pile grew from 100 to 180 in a year. Either sales jumped, or customers are slow to pay. The notes will often say which.\n\nSign three: a growing gap between profit and cash. Profit is a number from the income statement that counts a sale when it is made, not when the money arrives. If profit is up and cash is down, the profit is sitting in customer bills or stock instead of the bank. Harbor Tools shows exactly this: profit 60, cash down 30.\n\nOne sign alone can have an innocent reason. Two or three together, in the same year, are worth asking about. You do not need to know the answer; you need to notice the question."
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "A company reports profit of 50 for the year. Its cash fell from 90 to 30 and the money customers owe it doubled. Which warning sign is this?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Short-term loans bigger than cash"
-     },
-     {
-      "id": "b",
-      "text": "Unpaid customer bills piling up, so profit is not turning into cash"
-     },
-     {
-      "id": "c",
-      "text": "None, because profit was positive"
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's the loan check: the scenario gives no loan figure, only cash, customer bills and profit.",
-     "c": "That's the income statement talking: a positive profit says sales were made, not that the money arrived."
-    },
-    "reteach": "Profit counts a sale on the day it is made. Cash only arrives when the customer pays. When customer bills grow and cash shrinks while profit looks fine, the profit is real on paper but stuck in bills nobody has paid yet. Signs two and three usually appear together."
-   },
-   {
-    "type": "mistake",
-    "body": "The common mistake is to read the big totals, feel reassured that total assets are large and the two sides match, and stop. The warning signs never live in the totals. They live in three small lines: cash, loans due within 12 months, and bills owed by customers. You can spot the mistake in yourself: if you have finished and cannot say the short-term loan figure out loud, you skipped it."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Which three things do you check for on a real balance sheet to spot trouble?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Short-term loans above cash, a big pile of customer bills, profit rising while cash falls"
-     },
-     {
-      "id": "b",
-      "text": "Total assets smaller than last year, equity positive, some long-term debt"
-     },
-     {
-      "id": "c",
-      "text": "The two sides not matching, no notes column, round numbers"
+      "text": "The first footnote, since that is where the secrets are."
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "Those are ordinary facts about almost any company, not danger signs: smaller assets can mean a dividend was paid, and long-term debt is normal.",
-     "c": "Those would mean a mistake in the document itself, not a warning about the business: a published sheet always balances."
+     "b": "That's a headline, not a reading: the biggest number is nearly always total assets anyway, and you need to see what it is made of.",
+     "c": "That's the small print for one line. Read the lines first, then open the note for the one that puzzles you."
     },
-    "reteach": "Three lines, three questions. Cash against loans due this year: can it pay? Customer bills against cash: is the money owed instead of in the bank? Profit against the change in cash: is the earning turning into money? Each one is a quick comparison of two numbers you can find on the page."
+    "reteach": "Think of the house photo. Before you look at any room, you check the frame: everything owned on one side, owed plus owners' share on the other, same number. Three totals, one check, then you walk the rooms."
+   },
+   {
+    "type": "teach",
+    "title": "Walk the rooms in order",
+    "body": "Every listed company lays the sheet out the same way. Assets first, starting with cash and ending with buildings and brands. Then liabilities, soonest due first. Then equity. Two columns of numbers, this year and last year, so you can see what moved.\n\n**Read it top to bottom and say each line in plain words.** *Trade receivables* is customers who have not paid yet. *Inventories* is stock on shelves. *Borrowings* is loans. A small number beside a line points to a footnote that says what the line is made of.\n\nOdd items will appear. *Goodwill* is the extra paid when buying another company. *Deferred tax* is tax owed later. Translate, then move on.",
+    "simpler": "Every listed company lays the sheet out the same way. What it owns comes first, from cash down to buildings. Then what it owes, soonest bills first. Then what is left for the owners. **Read it top to bottom and say each line in plain words.** Trade receivables means customers who have not paid yet. Inventories means stock on shelves. Borrowings means loans. Odd items like goodwill will appear. A small number beside a line points to a footnote that explains it."
+   },
+   {
+    "type": "example",
+    "title": "Harbour Bikes, 31 March",
+    "body": "Take an invented shop, Harbour Bikes, on 31 March. Cash 40,000. Customers owe it 180,000. Stock 90,000. Shop and tools 210,000. Total assets 520,000.\n\nSupplier bills 70,000, a bank loan due within the year 150,000, a long-term loan 100,000. Liabilities 320,000, so equity is 200,000, and 520,000 equals 320,000 plus 200,000. **The sheet balances.** It also has 150,000 of debt due this year and 40,000 of cash to pay it with. The sheet balances. The owner may not.",
+    "simpler": "Picture an invented shop, Harbour Bikes, on 31 March. Cash is 40,000. Customers owe it 180,000. Stock is 90,000. Shop and tools are 210,000. It owns 520,000 in total. It owes suppliers 70,000, a bank loan due this year of 150,000, and a long-term loan of 100,000. That is 320,000 owed, leaving 200,000 for the owner. **The sheet balances.** But 150,000 is due this year, with only 40,000 of cash to pay it. The sheet balances. The owner may not."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Reading Harbour Bikes, a friend says 'it balances, so it is fine.' Which line should make you pause?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Shop and tools at 210,000: too much money tied up in the building."
+     },
+     {
+      "id": "b",
+      "text": "The 150,000 loan due this year, next to 40,000 of cash."
+     },
+     {
+      "id": "c",
+      "text": "Equity of 200,000: the owners are taking too much."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a slow asset, and slow assets are normal for a shop that has a shop. The question is what is due soon and what can pay it.",
+     "c": "That's the owners' share, and a bigger one is a cushion, not a worry. The pressure sits on the owe side."
+    },
+    "reteach": "Balancing is arithmetic. Every sheet balances, including the sheets of companies that go bust the next week. The health check is a pairing: debt due within 12 months next to the cash that could pay it."
+   },
+   {
+    "type": "teach",
+    "title": "The three warning signs",
+    "body": "Once you have walked the lines, look for three pairs.\n\n**Sign one: short-term debt bigger than cash.** Loans due within 12 months against cash. If the debt is 2 times the cash or more, ask how the gap gets paid. Sign two: a big pile of customer bills. Receivables far bigger than cash, or growing faster than sales, means the company is selling but not collecting. Sign three: profit kept, cash not. Retained earnings climbing year on year while cash sits flat or falls. Profit is on paper. Rent is paid in cash.\n\nCompare the two years' columns for each pair. One year is a photo. Two years is a direction.",
+    "simpler": "Once you have read the lines, look for three pairs. **Sign one: short-term debt bigger than cash.** Loans due within a year at twice the cash or more means asking how the gap gets paid. Sign two: customers owe far more than the cash held, or the pile grows faster than sales. That means selling but not collecting. Sign three: kept profit climbs each year while cash stays flat or falls. Compare both years. One year is a photo, two years is a direction."
+   },
+   {
+    "type": "mistake",
+    "body": "Priya read a listed retailer's balance sheet and stopped at the first page, relieved: assets 2 billion, liabilities 1.2 billion, plenty left. She never opened the note on borrowings, where 900 million of that 1.2 billion was due inside 12 months, against 150 million of cash. **The totals said it balanced. The note said it was in trouble.** Spot it in yourself: if you have not read one footnote, you have read the frame, not the house.",
+    "simpler": "Priya read a big shop chain's balance sheet and stopped at the first page, relieved. It owned 2 billion and owed 1.2 billion, so plenty was left. She never opened the note on borrowings. It showed 900 million of that 1.2 billion was due within 12 months, against only 150 million of cash. **The totals said it balanced. The note said it was in trouble.** If you have not read one footnote, you have seen the frame, not the house."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Two years of the same company. Retained earnings went from 300,000 to 420,000. Cash went from 95,000 to 30,000. Receivables went from 110,000 to 260,000. Which warning signs are showing?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Only sign one: short-term debt bigger than cash."
+     },
+     {
+      "id": "b",
+      "text": "Signs two and three: customer bills piling up, and profit kept while cash fell."
+     },
+     {
+      "id": "c",
+      "text": "None. Equity grew, so the company is healthier."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the pairing of loans due soon with cash, and no loan line was given here. The lines you have are receivables, retained earnings and cash.",
+     "c": "That's the equity line on its own. Retained earnings rising while cash falls is sign three: the profit went into unpaid customer bills, not the bank."
+    },
+    "reteach": "Three signs, three pairs. Short-term debt against cash. Customer bills against cash. Profit kept against cash. Each asks the same question in a different voice: can it actually pay?"
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "A real balance sheet is the same house photo with more rooms, so check the three totals match, then **read every line top to bottom in plain words** and open the footnote on anything odd.\n\nThen look for three pairs: debt due soon against cash, customer bills against cash, profit kept against cash.",
+    "simpler": "A real balance sheet is the same house photo with more rooms. Check that the three totals match. Then **read every line top to bottom in plain words**, and open the footnote on anything odd. Finally look for three pairs: debt due soon against cash, customer bills against cash, and profit kept against cash. Two years of columns show which way things are moving."
    },
    {
     "type": "try",
-    "body": "Open the latest annual report PDF of any listed company you know. Search \"financial position\". Find the units line and the date, then write down cash and loans due within 12 months and compare them."
+    "body": "Tonight: search any listed company's name plus 'annual report', open the PDF, find the balance sheet, and say its first 5 lines out loud in plain words. Then find cash and short-term borrowings. Which is bigger?",
+    "simpler": "Tonight, pick any company listed on a stock market. Search its name plus the words annual report and open the PDF. Find the balance sheet. Say its first five lines out loud in plain words. Then find two numbers: cash, and **short-term borrowings**, which means loans due within a year. Which one is bigger?"
    }
   ],
-  "outcomeLine": "You can now read a real published balance sheet in 20 minutes, say what the company owns and owes, and point to any of the three warning signs if they are there."
+  "outcomeLine": "You can now read a real published balance sheet from the totals down, say each line in plain words, and name any of the three warning signs it shows."
  },
- "seconds": 63.48499298095703
+ "seconds": 84.01373982429504
 }

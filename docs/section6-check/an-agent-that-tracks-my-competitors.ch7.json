@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Your clipping person can let you down in 3 ways. The newspaper never arrived, so they had nothing to read. Nothing in it changed, so they wrote a note anyway to look busy. Or the note on your desk says something no clipping actually says. A careful boss does not trust the note. They check it against the clippings, every morning, before acting on it."
-   },
-   {
-    "type": "teach",
-    "title": "Three checks, in order",
-    "body": "An agent that runs alone needs its own checks, because nobody is watching it. Add 3, and run them in this order.\n\nCheck 1: did the fetch work? A fetch is the download of a page. It fails when the site is down, blocks automated visitors, or moves the page. Your agent should record 2 things: the status code (a number the website sends back; 200 means fine) and how many characters of text came back. If the status is not 200, or the text is shorter than a limit you pick, such as 500 characters, mark the page \"fetch failed\" and stop there for that page.\n\nCheck 2: is the diff empty? The diff is the list of lines added or removed since yesterday. If it is empty, the page did not change. Write \"no change\" and do not call the model at all. Sending nothing to a model and asking \"what changed?\" invites it to make something up.\n\nCheck 3: does every claim quote a real line? In chapter 5 you told the model to quote the source line. Now use that. Take the quoted text and search for it, character for character, in today's saved copy. Found: the claim is grounded. Not found: mark it \"unverified\".\n\nEach check leaves a short status next to the page in your summary: ok, no change, fetch failed, or unverified. That status line is what you read first."
+    "body": "Your clipping service leaves a note: \"Acme cut prices by 40%.\" You walk to the folder and it is empty. No clipping, no newspaper, just a confident note.\n\n**A note without a clipping is a rumour.** Every morning you ask the agent 3 questions: did the paper arrive, did anything change, and can you show me the line.",
+    "simpler": "Imagine a helper who reads newspapers for you and leaves notes. One morning the note says Acme cut prices by 40%. You open the folder to see the clipping. It is empty. No clipping, no newspaper, just a confident note. **A note without a clipping is a rumour.** So each morning you ask the helper three questions. Did the paper arrive? Did anything change? Can you show me the exact line?"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "The agent fetches a competitor's pricing page and gets back only 12 characters of text. What should it do next?",
+    "prompt": "The summary on your desk says \"Acme launched a free plan.\" Today's saved copy of Acme's pricing page is 0 bytes. What do you believe?",
     "options": [
      {
       "id": "a",
-      "text": "Compare it with yesterday's copy as normal"
+      "text": "Acme launched it so quietly the page does not mention it yet"
      },
      {
       "id": "b",
-      "text": "Mark the page \"fetch failed\" and skip the compare and model steps"
+      "text": "Nothing yet. The fetch failed, so the claim has no source and cannot be trusted"
      },
      {
       "id": "c",
-      "text": "Send the 12 characters to the model and ask what changed"
+      "text": "The claim is fine, the file just saved badly"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's skipping check 1: comparing a broken download with a good copy makes every line look removed.",
-     "c": "That's skipping checks 1 and 2: the model would be asked to explain a page that never really arrived."
+     "a": "That's a guess about Acme, not a check on the agent: an empty file means the agent never read the page, so it cannot know anything about a free plan.",
+     "c": "That's hope, not a check: a bad save and a failed fetch look the same from here, and either way there is no line to point to."
     },
-    "reteach": "The first check is about the download itself, before anything else. A page that comes back tiny or with a status other than 200 did not really arrive. The agent should say so and go no further with that page today."
-   },
-   {
-    "type": "example",
-    "title": "The pricing page that vanished",
-    "body": "Say you track a rival's pricing page, and on Tuesday the site adds a \"please verify you are human\" screen. Your agent downloads 300 characters of that screen instead of the 9,000-character pricing page. Without check 1, the diff shows every pricing line as removed, and the model writes: \"The competitor has pulled all 3 pricing plans from its site.\" You might spend your morning on that. With check 1, the limit of 500 characters catches it, and the summary says only: \"Pricing page: fetch failed (300 characters, expected more).\" Nothing is invented, and you know to look at the site yourself."
+    "reteach": "The summary is only as good as the saved copy it came from. If the copy is empty, the model was handed nothing and filled the gap itself. Check the file first, then the claim."
    },
    {
     "type": "teach",
-    "title": "Why the quote check matters most",
-    "body": "Checks 1 and 2 stop bad input. Check 3 catches bad output. A model asked to summarise a diff will usually be right, but when the diff is messy or small it can fill gaps with things that sound likely. An invented claim reads exactly like a true one. The only way to tell them apart is to look for the quoted line in the real page.\n\nMake the search strict. Look for the exact quoted text in today's saved copy. If the model paraphrased instead of quoting, the search fails, and that is the right result: a paraphrase is not evidence.\n\nThen read a day's summary like this. For each page, read the status. For each claim marked ok, the quote is already proven to exist. For anything marked unverified or fetch failed, open the diff or the site yourself. With 3 to 5 pages, this takes about 2 minutes."
+    "title": "Check 1 and check 2: did the paper arrive, did it change",
+    "body": "**Check the fetch before anything else.** A good fetch returns a status code of 200 (the server's way of saying \"here you go\") and a file with real words in it. A failed fetch gives 403 or 429 (\"go away\" and \"slow down\") or a tiny page saying \"Just a moment\" or \"Verify you are human.\" Log one line per page: date, status, file size.\n\nThen check the *diff*, the list of changed lines from chapter 4. If it is empty, stop. Do not send an empty diff to the model and ask \"anything interesting?\" It will find something.\n\nIf the diff is huge, hundreds of lines gone, be suspicious too. That is usually a block page replacing the real page, not a rival deleting their business.",
+    "simpler": "**Check the download first.** The website answers each download with a number. 200 means here you go. 403 or 429 mean go away or slow down. A tiny page saying Just a moment or Verify you are human also means failure. Log date, number and size. Look at the diff, the changed lines. Empty? Stop. Ask the model about nothing and it will invent something. Hundreds of lines gone? Suspect a block page, not a rival closing shop."
+   },
+   {
+    "type": "example",
+    "title": "The Tuesday Northwind scare",
+    "body": "On Tuesday Priya's summary read: \"Northwind has removed its Enterprise tier.\" Her boss was already typing a message to sales.\n\nPriya opened the Tuesday file for Northwind. It was 412 bytes long and said \"Please verify you are human.\" Monday's file was 38 KB. The diff showed 300 lines removed, and the model had summarised that honestly: everything was gone.\n\nThe only thing Northwind had removed was Priya's access. A fetch check (\"file under 2 KB, status 403\") would have caught it before the model ever saw the diff.",
+    "simpler": "On Tuesday Priya's summary said Northwind had removed its Enterprise tier. Her boss started typing a message to sales. Priya opened Tuesday's saved Northwind file. It was 412 bytes and said Please verify you are human. Monday's file was 38 KB. The diff showed 300 lines removed, and the model had described that honestly. **The only thing Northwind removed was Priya's access.** A quick check, file under 2 KB or status 403, would have caught it first."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Today's summary says \"Competitor B launched a mobile app\" and quotes the line \"Now available on iOS and Android.\" You search today's saved copy of the page and that line is not there. What is the right move?",
+    "prompt": "Wednesday's run: Globex pricing page fetched fine, 200 status, 36 KB. The diff is 0 lines added, 0 removed. What should the agent do next?",
     "options": [
      {
       "id": "a",
-      "text": "Trust it anyway; the model is usually right"
+      "text": "Send the page to the model anyway and ask if anything looks notable"
      },
      {
       "id": "b",
-      "text": "Mark the claim unverified and read the raw diff for that page yourself"
+      "text": "Skip the model, write \"Globex pricing: no change\" in the summary"
      },
      {
       "id": "c",
-      "text": "Re-run the fetch, because a missing quote means the download failed"
+      "text": "Fetch again every 10 minutes until the diff is not empty"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's hope, not a check: a quote that cannot be found is the exact sign of an invented claim.",
-     "c": "That's check 1, not check 3: the page downloaded fine; the model's quote is what does not match."
+     "a": "That's asking the model to invent a change: with nothing new to explain, it will explain something anyway, and you cannot trace it to a changed line.",
+     "c": "That's confusing a quiet day with a broken fetch: the fetch worked, the page simply did not change, and that is a fine answer."
     },
-    "reteach": "Check 3 asks one question: does the quoted line exist in the saved page? If not, the claim has no evidence behind it, however plausible it sounds. Flag it, then look at the diff with your own eyes."
+    "reteach": "Empty diff, successful fetch: that is good news, not a problem. The honest summary is \"no change.\" The model only gets involved when there are changed lines for it to explain."
+   },
+   {
+    "type": "teach",
+    "title": "Check 3: show me the line",
+    "body": "**Every claim must carry a quote, and the program must find that quote.** In chapter 5 you told the model to quote the source line. Now the agent checks it: take the quoted text, search for it word-for-word in today's saved copy. Found: keep the claim. Not found: mark the claim *unverified* and show it in grey, or drop it.\n\nThis is a plain text search, no AI involved. That is the point. The model's job is to explain. The program's job is to verify. Models fill gaps with confident sentences, and a quote that does not exist is the tell.\n\nOne more line in the summary helps: \"3 pages fetched, 2 unchanged, 1 changed, 1 claim verified.\" Now the note tells you how much to trust it.",
+    "simpler": "**Every claim must carry a quote, and the program must find that quote.** Take the quoted words and search for them, exactly, in today's saved copy. Found? Keep the claim. Not found? Mark it unverified in grey, or drop it. This is a plain text search, like Ctrl+F, with no AI involved. The model explains. The program verifies. A quote that does not exist is the giveaway. Add one summary line: 3 pages fetched, 2 unchanged, 1 changed, 1 claim verified."
    },
    {
     "type": "mistake",
-    "body": "The common mistake is checking only when a summary looks surprising. The dangerous summaries look boring and believable, so they slip through. Put the 3 checks in the code, so they run every day whether or not you feel suspicious. You can spot the mistake quickly: if your summary has no status line per page, nothing is being checked."
+    "body": "Dev reads the summary: \"Initech now offers a 14-day trial.\" Plausible, well written, has a quote. He forwards it to the team. Two days later someone asks where the trial is. Dev searches the saved Initech file for \"14-day\" and finds nothing. The model paraphrased a line about a 7-day refund into a trial that never existed.\n\nSpot it in 10 seconds: open the saved file and search for the quote. If the search finds nothing, the claim is not yours to repeat.",
+    "simpler": "Dev reads the summary: Initech now offers a 14-day trial. It reads well and has a quote. He forwards it to the team. Two days later someone asks where it is. Dev searches the saved Initech file for 14-day and finds nothing. The model turned a line about a 7-day refund into a trial that never existed. **Open the saved file and search for the quote.** Ten seconds. If nothing comes up, the claim is not yours to repeat."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Which of these is what \"trust comes from checks, not from hope\" means for this agent?",
+    "prompt": "Three summary lines land on your desk. Which one passes all 3 checks?",
     "options": [
      {
       "id": "a",
-      "text": "Use a bigger model so it makes fewer mistakes"
+      "text": "\"Globex raised its Pro price.\" Source: pricing page."
      },
      {
       "id": "b",
-      "text": "Fetch every page twice and keep the longer copy"
+      "text": "\"Globex raised Pro from $29 to $39.\" Quote: \"Pro: $39/month\", found in today's copy. Fetch 200, 2 lines changed."
      },
      {
       "id": "c",
-      "text": "Run 3 checks each day: the fetch worked, the diff is not empty, and every quoted line is found in the saved page"
+      "text": "\"Globex seems to be planning a price rise soon.\" Fetch 200, 0 lines changed."
      }
     ],
-    "answer": "c",
+    "answer": "b",
     "whyNot": {
-     "a": "That's hoping the reader is better, not checking the note: even a strong model can invent a claim.",
-     "b": "That's a fetch tweak, not the 3 checks: it does nothing about empty diffs or invented quotes."
+     "a": "That's a source without a quote: naming the page is not the same as a line the program can search for and find.",
+     "c": "That's a claim with an empty diff: nothing changed, so the model had no changed line to work from and guessed."
     },
-    "reteach": "The agent is trusted because each step is tested, not because it is clever. Did the page arrive? Did anything change? Can every claim be found in the page? Three questions, every day."
+    "reteach": "A trustworthy claim has three stamps on it: the fetch worked, the diff had real changed lines, and the quoted text exists in the saved copy. Missing any one stamp, the claim goes grey."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "The agent earns trust with **3 checks, not with good writing**: did the page download, did any lines change, and does every quoted line exist in the saved copy. If a claim fails a check, it is a rumour, and rumours do not go on your desk.",
+    "simpler": "The agent earns your trust with **three checks, not with good writing**. Did the page actually download? Did any lines change? Does every quoted line really exist in the saved copy? Think of a receipt: no receipt, no refund. If a claim fails any check, it is a rumour, and rumours do not go on your desk."
    },
    {
     "type": "try",
-    "body": "Open your latest summary. Copy the quoted line from one claim. Open that day's saved page copy and search for the text. Write down whether it was found."
+    "body": "Open the newest summary your agent made. Pick one claim. Open the saved page copy from the same day and search for the quoted text. Found or not found: now you know which kind of note you have.",
+    "simpler": "Open the newest summary your agent produced. Pick one claim from it. Now open the saved copy of the page from that same day. Search it for the quoted words, exactly as written. Found or not found, you now know which kind of note you are holding: **a clipping or a rumour**."
    }
   ],
-  "outcomeLine": "You can now read one day's summary, trace each claim to its source line, and spot a fetch failure or an invented claim within 2 minutes."
+  "outcomeLine": "You can now read one day's summary, trace each claim back to its source line, and spot a failed fetch or an invented claim within 2 minutes."
  },
- "seconds": 56.56112599372864
+ "seconds": 67.36544489860535
 }

@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Every morning the intern walks in with no memory of yesterday. None. So you hand them a folder: the task, every note so far, every result from every step. They read the whole folder, do one step, add the result to the folder, and go home.\n\nThe folder is the memory. The intern never was."
-   },
-   {
-    "type": "teach",
-    "title": "The model keeps nothing between calls",
-    "body": "Each time the agent asks the model to think, that is one call: a block of text goes in, an answer comes out. The moment the answer is out, the model has forgotten the call ever happened.\n\nSo how does an agent on step 12 know what happened at step 5? The agent's ordinary code re-sends everything. The goal, every past step, every tool result, all pasted into the text for the step-12 call. The model reads it fresh and picks the next step.\n\nThat is the whole trick. Memory lives in the text the agent sends, not in the model. Builders call this text the context: the pile of words the model reads for this one call.\n\nThe pile has a size limit. That limit is the context window, the most text the model can read in one go. It is measured in tokens, where a token is roughly three quarters of a word. Models differ in size, but every model has a limit.\n\nKeep that in mind for later: a pile that grows every step will hit a ceiling that does not move."
+    "body": "Every morning the intern walks in with no memory of yesterday, none at all, so you hand them a folder: the task, every note so far, what happened at each step. They read it, do one thing, and the folder gets one page thicker. **The agent's memory is that folder, re-read from page 1 every single turn**, and by step 40 it is a brick.",
+    "simpler": "Picture a new intern who forgets everything each night. Every morning you hand them a folder: the task, every note so far, and what happened at each step. They read it all, do one thing, and add one page. **The agent's memory is that folder, read again from the first page every turn.** By step 40 the folder is as thick as a brick."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "An agent is on step 12. How does the model know what happened at step 5?",
+    "prompt": "The intern has done 12 steps on a task. Before step 13, what does the folder they are handed contain?",
     "options": [
      {
       "id": "a",
-      "text": "The model remembered it from the step-5 call."
+      "text": "Just the goal and the last step. The rest is in their head."
      },
      {
       "id": "b",
-      "text": "The agent re-sends step 5's result inside the text for step 12."
+      "text": "The goal plus all 12 steps and their results, read again from the start."
      },
      {
       "id": "c",
-      "text": "The tool that ran step 5 reminds the model."
+      "text": "Nothing. The intern remembers it all from yesterday."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's how a person's memory works, not a model's: the model keeps nothing once a call ends.",
-     "c": "That's the tool's job at step 5 only: it returns a result once, and the agent has to keep it."
+     "a": "That's what a person would do, not a model: there is no 'in their head'. If it isn't in the folder, it doesn't exist.",
+     "c": "That's a human intern. The model is wiped after every single call, not just overnight."
     },
-    "reteach": "Picture the folder. The intern does not remember step 5. The folder has a page for step 5, and the intern reads the whole folder each morning. The agent's code is the one keeping the folder, and it hands the full thing over on every call."
-   },
-   {
-    "type": "example",
-    "title": "The flight agent at step 40",
-    "body": "An agent is told: find me a flight under 400, and I hate layovers. Step 1 searches and gets back a list of flights, about 2,000 words of text. Every later step adds more: baggage rules, price checks, seat maps.\n\nBy step 10 the pile is around 15,000 words, and every call re-reads all of it. By step 40 the pile would not fit in the window, so the agent's code drops the oldest text to make room.\n\nThe line \"I hate layovers\" was in the oldest text. At step 41 the agent proudly proposes a flight with 2 layovers. It did not get dumber. It just never saw the rule on that call."
+    "reteach": "A model call is a one-off: text goes in, text comes out, and then it forgets everything. So the agent code pastes the whole history back in every turn. Step 13 sees the goal and steps 1 to 12, all over again."
    },
    {
     "type": "teach",
-    "title": "What breaks, and the 2 things builders do",
-    "body": "Two problems arrive as the pile grows. First, cost and speed: step 40 re-reads 40 steps of text, so it is slower and pricier than step 4. Second, the ceiling: when the pile hits the window, something must be cut. Cut the wrong thing and the agent forgets a rule, or forgets it already did a step and does it again. That is the agent repeating itself at step 40.\n\nFix 1 is summarising. Every so often the agent asks the model to write a short summary of everything so far, then replaces the long history with that summary. It is the intern writing a one-page handover instead of keeping every email.\n\nFix 2 is notes outside the pile. The agent keeps a small file or table and writes the key facts there: budget 400, no layovers, flights already checked. Each call reads just that file back instead of the whole history. Builders call this external memory. It is only a file the agent reads and writes.\n\nBoth fixes throw away detail on purpose. The skill is deciding what must survive."
+    "title": "No memory, by design",
+    "body": "A *model call* is one request: you send text, it sends text back. After that the model keeps nothing. Ask it the same question twice and it meets you fresh both times.\n\nSo how does an agent seem to remember? The agent code around the model keeps a *transcript*: the goal, every tool it asked for, every result that came back. Each turn, it sends the whole transcript to the model again.\n\n**The agent remembers only what is written down and re-sent.** Nothing lives in the model between turns. That is the whole trick, and it is simpler than most people guess.",
+    "simpler": "A model call is one request. You send text, it sends text back. After that the model keeps nothing. Ask it the same question twice and it starts fresh both times.\n\nSo how does an agent seem to remember? The code around the model keeps a transcript: the goal, every tool it asked for, every answer that came back. Each turn it sends the whole transcript again.\n\n**The agent remembers only what is written down and sent again.** Nothing stays in the model between turns."
+   },
+   {
+    "type": "example",
+    "title": "Step 7 of the hotel search",
+    "body": "Maya asks an agent to find a hotel in Lisbon under 120 euros a night. By step 7 the transcript holds her request, 4 web searches, 2 page reads, and the prices they returned. Step 7 is the model reading all of that, top to bottom, and saying 'compare the two cheapest'. It does not remember doing steps 1 to 6. **It just reads about them**, the way you would read a stranger's notes, and then acts as if they were its own.",
+    "simpler": "Maya asks an agent to find a hotel in Lisbon for under 120 euros a night. By step 7 the transcript holds her request, 4 web searches, 2 page reads, and the prices they found. At step 7 the model reads all of that from top to bottom and says 'compare the two cheapest'. It does not remember doing steps 1 to 6. **It just reads about them**, like reading a stranger's notes, then carries on as if they were its own."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "An agent is labelling 300 emails. At email 180 it starts re-labelling emails it already finished. Which change fixes the cause?",
+    "prompt": "An agent read a file at step 3. At step 9, the model needs a number from that file. Where can it get it?",
     "options": [
      {
       "id": "a",
-      "text": "Give it more tools so it can check each email faster."
+      "text": "From its own memory of doing step 3."
      },
      {
       "id": "b",
-      "text": "Keep a file listing the emails already done, and send only that list plus the next email on each call."
+      "text": "From the transcript, if the step 3 result is still in there."
      },
      {
       "id": "c",
-      "text": "Restart from email 1 with a longer, clearer goal statement."
+      "text": "It can't. Results from earlier steps are gone for good."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the hands, not the memory: the agent did not lack an action, it lost track of what it had done.",
-     "c": "That's replaying the same growth: the pile fills up again and the forgetting returns around the same point."
+     "a": "That's a human's memory, not a model's. The model forgot step 3 the moment that call ended.",
+     "c": "That's the failure case, not the normal one. Earlier results stay available as long as they are still in the transcript being re-sent."
     },
-    "reteach": "The agent re-labels because the record of email 50 fell out of the pile. A notes file keeps a tiny, permanent list of what is done. Each call reads the short list, not 180 emails of history, so nothing has to be dropped."
+    "reteach": "Think of the folder. The file's contents were written into it at step 3. At step 9 the model reads the folder from page 1, so it sees that number again, unless someone trimmed the folder."
+   },
+   {
+    "type": "teach",
+    "title": "The folder has a size limit",
+    "body": "The model can only read so much text in one go. That limit is its *context window*: the most text one call can take in, prompt and transcript together. Think of it as how thick the folder may get.\n\nA 10-step task fits easily. By step 40, with long tool results pasted in, the transcript nears the limit. The oldest pages get cut, the model loses the goal or a key result, and it repeats a step because it can no longer see that it already did it.\n\n**Builders do 2 things about this.** They *summarise*: swap old steps for a short note of what was learned. And they keep *notes outside the transcript*: a file the agent writes to and reads back only when needed.",
+    "simpler": "The model can only read so much text at once. That limit is called its context window. A 10-step task fits easily. By step 40 the transcript nears the limit. The oldest pages get cut, the model loses the goal, and it repeats a step it already did.\n\n**Builders do 2 things about this.** They summarise old steps into a short note. And they keep notes in a file outside the transcript, read only when needed."
    },
    {
     "type": "mistake",
-    "body": "People assume the agent knows something because they said it once at step 1. If the history was trimmed or summarised, that line may be gone.\n\nSpot it when the agent breaks a rule it followed earlier, or asks a question you already answered. Then check what text was actually sent on that call, not what you said 30 steps ago."
+    "body": "Dev watches his agent sort 300 support tickets. Steps 1 to 25 are smooth. Around step 35 it starts re-opening tickets it already filed, politely, like a new person each time. He assumes the model got tired. It didn't: the transcript hit the window, the early steps dropped off, and the agent had no record it had done them. The tell is **repeating finished work with no sign it knows**.",
+    "simpler": "Dev watches his agent sort 300 support tickets. Steps 1 to 25 go smoothly. Around step 35 it starts re-opening tickets it already filed, politely, like a new person each time. He thinks the model got tired. It did not. The transcript hit the window, the early steps fell off, and the agent had no record it had done them. The clue is **repeating finished work with no sign it knows**."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Where does an agent's memory actually live?",
+    "prompt": "A friend says: 'My agent was great for 15 steps, then around step 45 it started asking the same question again. The model must be broken.' What's the better explanation?",
     "options": [
      {
       "id": "a",
-      "text": "Inside the model, which learns as the task goes on."
+      "text": "The transcript outgrew the context window. Early steps got cut, so the model can't see it already asked."
      },
      {
       "id": "b",
-      "text": "In the text the agent re-sends each call: history, results and notes."
+      "text": "The model got bored of the task and lost focus."
      },
      {
       "id": "c",
-      "text": "In the tools, which remember what they returned."
+      "text": "The tool it was using stopped working at step 45."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's training, not a task: the model learns nothing while working, it only reads what is sent.",
-     "c": "That's a one-time handover: a tool returns a result once and keeps nothing."
+     "b": "That's a human intern's problem, not a model's. A model has no mood, only the text in front of it.",
+     "c": "That's a tool failure, which shows up as an error in the log, not as the agent redoing a step it already finished."
     },
-    "reteach": "The model is the intern with no memory. The agent's code is the folder. Everything the model knows on a given step is whatever was pasted into that step's text, and nothing more."
+    "reteach": "The agent's whole memory is the transcript it re-sends each turn. When that transcript gets longer than the context window, the oldest parts are dropped. The agent then has no record it did step 12, so it does it again."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "**A model forgets everything the moment a call ends, so an agent fakes memory by re-sending the whole transcript every turn.** That transcript has a size limit, the context window, and when a long task hits it the agent starts losing the goal and repeating itself, which is why builders summarise old steps and keep notes in a file.",
+    "simpler": "**A model forgets everything the moment a call ends, so an agent fakes memory by sending the whole transcript again every turn.** That transcript has a size limit, called the context window. When a long task hits it, the agent starts losing the goal and repeating itself. That is why builders summarise old steps and keep notes in a file."
    },
    {
     "type": "try",
-    "body": "Open any chat AI you use. Ask it something, then start a brand-new chat and ask what you just asked. That blank stare is where every agent step begins, before the folder is handed over."
+    "body": "Open any chatbot you use. Tell it your favourite colour. Start a **brand-new chat** and ask what it is. Most draw a blank. If yours remembers, it is using a notes file: thing 2 from this chapter.",
+    "simpler": "Open any chatbot you use. Tell it your favourite colour. Then start a **brand-new chat** and ask what your favourite colour is. Most will have no idea. If yours does remember, it is using a notes file, which is the second fix from this chapter."
    }
   ],
-  "outcomeLine": "You can now explain why an agent that worked for 10 steps starts repeating itself at step 40, and name 2 fixes: summarise the history, or keep key facts in a notes file."
+  "outcomeLine": "You can now explain why an agent that worked for 10 steps can start repeating itself at step 40, and name the 2 things builders do about it."
  },
- "seconds": 74.78000068664551
+ "seconds": 85.44873189926147
 }

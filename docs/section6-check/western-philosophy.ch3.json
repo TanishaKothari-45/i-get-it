@@ -5,12 +5,14 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Socrates has just been carried out of the dinner, executed in 399 BC. His student Plato takes the chair and talks for 40 years. Then Plato's own student, Aristotle, who sat at that table for about 20 years, leans in and says: teacher, I think you have it backwards. This chapter is that one exchange."
+    "body": "Socrates has just been carried out of the dinner, executed in 399 BC. His student Plato takes the chair and talks for 40 years. Then Plato's own student, Aristotle, who sat at that table for about 20 years, leans in and says: teacher, I think you have it backwards. This chapter is that one exchange.",
+    "simpler": "Socrates was put to death in 399 BC. His student Plato then taught for about 40 years. Plato's own student, Aristotle, sat in that classroom for about 20 years. Then he spoke up and said his teacher had things backwards. **This chapter is that one disagreement**, between a teacher and his best student, about where the real world is."
    },
    {
     "type": "teach",
     "title": "The cave",
-    "body": "Plato tells a story in his book the Republic. Picture prisoners chained in a cave since birth, facing a wall. Behind them a fire burns, and people carry puppets past it, so shadows move across the wall. The prisoners have only ever seen shadows, so they call the shadows real things.\n\nOne prisoner is unchained and turned around. The fire hurts his eyes. He is dragged up out of the cave into daylight, and slowly he sees trees, animals and finally the sun itself. When he goes back to tell the others, they think he has gone mad.\n\nHere is what Plato means. The things we see every day, chairs, horses, acts of kindness, are like the shadows. Behind them sit what he calls forms: the perfect pattern of a chair, of a horse, of kindness. The forms are the real things, and you reach them by thinking, not by looking.\n\nSo for Plato, the world your eyes show you is a copy. The original is somewhere your eyes cannot go."
+    "body": "Plato tells a story in his book the Republic. Picture prisoners chained in a cave since birth, facing a wall. Behind them a fire burns, and people carry puppets past it, so shadows move across the wall. The prisoners have only ever seen shadows, so they call the shadows real things.\n\nOne prisoner is unchained and turned around. The fire hurts his eyes. He is dragged up out of the cave into daylight, and slowly he sees trees, animals and finally the sun itself. When he goes back to tell the others, they think he has gone mad.\n\nHere is what Plato means. The things we see every day, chairs, horses, acts of kindness, are like the shadows. Behind them sit what he calls forms: the perfect pattern of a chair, of a horse, of kindness. The forms are the real things, and you reach them by thinking, not by looking.\n\nSo for Plato, the world your eyes show you is a copy. The original is somewhere your eyes cannot go.",
+    "simpler": "Plato tells this story in the Republic. Prisoners sit chained in a cave, facing a wall. A fire behind them throws puppet shadows onto the wall. The prisoners have only seen shadows, so they call them real. One prisoner is freed, climbs into daylight and sees the sun. Plato's point: **everyday things are like those shadows**. Behind them sit perfect patterns he calls forms, and those are the real things. You reach forms by thinking, not by looking."
    },
    {
     "type": "exercise",
@@ -40,12 +42,14 @@
    {
     "type": "example",
     "title": "The triangle on the napkin",
-    "body": "Draw a triangle on a napkin and measure its 3 angles with a protractor. You will get something like 179 or 181 degrees, never exactly 180, because pencil lines have width and your hand shakes.\n\nPlato says: the true triangle, whose angles add to exactly 180, exists only as a form. Your napkin drawing is a shadow of it, and you know the 180 rule by thinking, not by measuring.\n\nAristotle says: there is no second triangle floating somewhere else. The shape is in the drawings. Look at 50 of them, notice what they all share, and that shared pattern is all a triangle ever was."
+    "body": "Draw a triangle on a napkin and measure its 3 angles with a protractor. You will get something like 179 or 181 degrees, never exactly 180, because pencil lines have width and your hand shakes.\n\nPlato says: the true triangle, whose angles add to exactly 180, exists only as a form. Your napkin drawing is a shadow of it, and you know the 180 rule by thinking, not by measuring.\n\nAristotle says: there is no second triangle floating somewhere else. The shape is in the drawings. Look at 50 of them, notice what they all share, and that shared pattern is all a triangle ever was.",
+    "simpler": "Draw a triangle on a napkin and measure its three angles. You get 179 or 181 degrees, never exactly 180, because hands shake. Plato says the true triangle, whose angles add to exactly 180, exists only as a form. Your drawing is its shadow, and you know the 180 rule by thinking. Aristotle says **there is no second triangle somewhere else**. Look at 50 drawings, notice what they share, and that shared shape is all a triangle ever was."
    },
    {
     "type": "teach",
     "title": "Aristotle turns around",
-    "body": "Aristotle studied under Plato in Athens for about 20 years, then set up his own school. His reply was blunt: there is no separate world of forms. The pattern of a horse is in the horses. Want to know what a horse is? Go and look at horses, lots of them.\n\nHe lived this. He cracked open hen's eggs on different days to watch how the chick forms, and he wrote long descriptions sorting animals into groups. His method was: observe closely, compare many cases, then state the general rule.\n\nThat is roughly what a scientist does today, so a scientist is closer to Aristotle. But Plato has not left the table. When a physicist trusts a clean formula over a messy reading from the lab, saying the instrument must be off, that is a Platonic move: the perfect law is more real than the noisy measurement."
+    "body": "Aristotle studied under Plato in Athens for about 20 years, then set up his own school. His reply was blunt: there is no separate world of forms. The pattern of a horse is in the horses. Want to know what a horse is? Go and look at horses, lots of them.\n\nHe lived this. He cracked open hen's eggs on different days to watch how the chick forms, and he wrote long descriptions sorting animals into groups. His method was: observe closely, compare many cases, then state the general rule.\n\nThat is roughly what a scientist does today, so a scientist is closer to Aristotle. But Plato has not left the table. When a physicist trusts a clean formula over a messy reading from the lab, saying the instrument must be off, that is a Platonic move: the perfect law is more real than the noisy measurement.",
+    "simpler": "After about 20 years with Plato, Aristotle opened his own school and said there is no separate world of forms. **The pattern of a horse is in the horses**, so go look at horses. He cracked open hen's eggs on different days to watch chicks grow, and sorted animals into groups. Look closely, compare many cases, state the rule. A scientist today works this way. But a physicist who trusts a clean formula over messy lab readings is making Plato's move."
    },
    {
     "type": "exercise",
@@ -74,7 +78,8 @@
    },
    {
     "type": "mistake",
-    "body": "People hear the cave story and say Plato thought the everyday world is fake or does not exist. He did not. Shadows are real shadows, cast by real objects. His claim is that the seen world is real but lesser, a copy of something more perfect. Spot the mistake when someone says Plato thought nothing we see is real. That is too strong by half."
+    "body": "People hear the cave story and say Plato thought the everyday world is fake or does not exist. He did not. Shadows are real shadows, cast by real objects. His claim is that the seen world is real but lesser, a copy of something more perfect. Spot the mistake when someone says Plato thought nothing we see is real. That is too strong by half.",
+    "simpler": "People hear the cave story and say Plato thought the everyday world is fake or does not exist. He did not think that. Shadows are real shadows, thrown by real objects. His claim is that **the world we see is real but lesser**, a copy of something more perfect, like a photo of a face. So when someone says Plato thought nothing we see is real, that is the mistake. It goes too far."
    },
    {
     "type": "exercise",
@@ -103,7 +108,8 @@
    },
    {
     "type": "try",
-    "body": "Pick up your cup. Ask out loud: is the cup-ness in this cup, or is this cup a rough copy of a perfect cup I can only think about? Say which man you just sided with."
+    "body": "Pick up your cup. Ask out loud: is the cup-ness in this cup, or is this cup a rough copy of a perfect cup I can only think about? Say which man you just sided with.",
+    "simpler": "Pick up your cup and ask out loud: **is the cup-ness inside this cup**, or is this cup a rough copy of a perfect cup that you can only think about? If you said the cup-ness is in the cup, you sided with Aristotle. If you said the cup is a copy of a perfect one, you sided with Plato. Say which man you just agreed with."
    }
   ],
   "outcomeLine": "You can now tell the cave story in 3 sentences and say whether a scientist works more like Plato or Aristotle."

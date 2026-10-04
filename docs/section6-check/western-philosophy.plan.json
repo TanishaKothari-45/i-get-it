@@ -15,45 +15,115 @@
     "n": 1,
     "title": "What counts as a good argument",
     "covers": "A claim, the reasons behind it, and how to spot when the reasons do not actually support the claim, using 3 everyday examples.",
-    "outcome": "You can take any opinion, split it into its claim and its reasons, and say whether the reasons hold it up."
+    "outcome": "You can take any opinion, split it into its claim and its reasons, and say whether the reasons hold it up.",
+    "hook": "Athens put a 70-year-old man to death for asking questions. What was so dangerous?"
    },
    {
     "n": 2,
     "title": "Socrates and the habit of asking why",
     "covers": "How Socrates questioned people in Athens around 400 BC, why it got him executed, and how to run his question-and-answer method on your own beliefs.",
-    "outcome": "You can ask 5 'why' questions in a row about a belief you hold and notice where your answers run out."
+    "outcome": "You can ask 5 'why' questions in a row about a belief you hold and notice where your answers run out.",
+    "hook": "Plato's best student spent 20 years with him, then told him he had it backwards."
    },
    {
     "n": 3,
     "title": "Plato and Aristotle: is the real world the one we see?",
     "covers": "Plato's cave story and his idea that perfect forms sit behind everyday things, then Aristotle's reply that we learn by looking closely at the world itself.",
-    "outcome": "You can explain the cave story in 3 sentences and say which side, Plato or Aristotle, a scientist is closer to."
+    "outcome": "You can explain the cave story in 3 sentences and say which side, Plato or Aristotle, a scientist is closer to.",
+    "hook": "For a thousand years the argument had a referee: God. Then the referee needed defending."
    },
    {
     "n": 4,
     "title": "Descartes and the question of what we can know",
     "covers": "Descartes doubting everything in 1641 until he hit one thing he could not doubt, and why that moved the argument from the world to the mind.",
-    "outcome": "You can explain 'I think, therefore I am' and say what problem it was trying to solve."
+    "outcome": "You can explain 'I think, therefore I am' and say what problem it was trying to solve.",
+    "hook": "Could you be dreaming right now? Descartes took that question seriously, and found one thing he couldn't doubt."
    },
    {
     "n": 5,
     "title": "Hume and Kant: where knowledge comes from",
     "covers": "Hume's claim that everything we know comes through the senses and habit, and Kant's reply that the mind brings its own rules to experience.",
-    "outcome": "You can explain, with the example of cause and effect, why Hume said we never actually see one thing cause another and how Kant answered."
+    "outcome": "You can explain, with the example of cause and effect, why Hume said we never actually see one thing cause another and how Kant answered.",
+    "hook": "Hume argued you have never once seen one thing cause another. Hard to refute."
    },
    {
     "n": 6,
     "title": "How should I act: Mill against Kant",
     "covers": "Two rival tests for right and wrong: Mill's 'does it produce the most happiness' and Kant's 'could everyone act this way', applied to the same 3 dilemmas.",
-    "outcome": "You can run one moral dilemma through both tests and say where they give different answers."
+    "outcome": "You can run one moral dilemma through both tests and say where they give different answers.",
+    "hook": "Kant said he was waking from Hume's challenge. His fix changed the argument for 200 years."
    },
    {
     "n": 7,
     "title": "Nietzsche and the modern turn: who decides what is true or good",
     "covers": "Nietzsche's challenge in the 1880s that our values have a history and were made by people, and how that question still shapes today's arguments about truth and power.",
-    "outcome": "You can hear a modern claim such as 'that is just your opinion' and place it in the long argument, naming which earlier thinker it echoes and who would push back."
+    "outcome": "You can hear a modern claim such as 'that is just your opinion' and place it in the long argument, naming which earlier thinker it echoes and who would push back.",
+    "hook": "Wittgenstein said most philosophical problems are language misfiring. If he's right, what was the argument about?"
    }
   ]
  },
- "seconds": 33.48310089111328
+ "seconds": 37.14790320396423,
+ "hooksFrom": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Western philosophy, Socrates to today",
+  "outcome7": "By day 7 you'll be able to tell the 2,400-year story of Western philosophy as one running argument: name about 12 key thinkers in order, say in one line what question each was answering, and explain how each answer created the problem the next thinker took up.",
+  "horizon14": "Later, maybe by day 14: read a short primary text (a Plato dialogue, Descartes' first Meditation) and spot which move in the argument it is making.",
+  "horizon28": "Later still, by day 28 if you keep going: pick one live debate (free will, what makes an act right, whether truth is objective) and lay out the two strongest sides with the thinkers behind each.",
+  "picture": {
+   "name": "a long dinner argument",
+   "line": "Western philosophy is one dinner-table argument that has run for 2,400 years: each new guest sits down, hears the last claim, and says 'yes, but'."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "The question that started the argument",
+    "covers": "Socrates in Athens, around 400 BC: why he asked 'what do you actually mean?' until it got him executed, and why that one habit is the whole method.",
+    "outcome": "You can explain what Socrates was doing when he questioned people, and run a three-step Socratic check on any claim.",
+    "hook": "Athens put a 70-year-old man to death for asking questions. What was so dangerous?"
+   },
+   {
+    "n": 2,
+    "title": "Plato's perfect world and Aristotle's messy one",
+    "covers": "Plato's answer to Socrates (true things live in a perfect world beyond the senses) and his student Aristotle's reply (no, look at the actual things in front of you).",
+    "outcome": "You can state Plato's and Aristotle's answers to 'where does truth live?' and say which one a modern scientist sounds like.",
+    "hook": "Plato's best student spent 20 years with him, then told him he had it backwards."
+   },
+   {
+    "n": 3,
+    "title": "Faith takes the chair for a thousand years",
+    "covers": "How Augustine fitted Plato to Christianity and Aquinas fitted Aristotle to it, and why the question shifted from 'what is true?' to 'how do reason and God fit together?'",
+    "outcome": "You can explain why Augustine and Aquinas count as philosophers and not just churchmen, and what question they handed to the next guest.",
+    "hook": "For a thousand years the argument had a referee: God. Then the referee needed defending."
+   },
+   {
+    "n": 4,
+    "title": "Descartes doubts everything and finds one solid floor",
+    "covers": "Descartes in the 1600s wiping the table clean: doubt every belief, keep the one that survives ('I think, therefore I am'), and rebuild knowledge from there.",
+    "outcome": "You can walk through Descartes' doubt step by step and explain why 'I think, therefore I am' is meant to be the one unshakeable fact.",
+    "hook": "Could you be dreaming right now? Descartes took that question seriously, and found one thing he couldn't doubt."
+   },
+   {
+    "n": 5,
+    "title": "The great split: trust your reason or trust your senses",
+    "covers": "Locke and Hume saying all knowledge comes in through the senses, Descartes' heirs saying reason gets there first, and Hume's unsettling claim that we never actually see cause and effect.",
+    "outcome": "You can say what the rationalist side and the empiricist side each claim, and explain Hume's problem with cause and effect in plain words.",
+    "hook": "Hume argued you have never once seen one thing cause another. Hard to refute."
+   },
+   {
+    "n": 6,
+    "title": "Kant's truce and the century of big systems",
+    "covers": "Kant in the 1780s combining both sides (the mind shapes what it receives), then Hegel, Marx and Nietzsche each taking Kant's move somewhere he never intended.",
+    "outcome": "You can explain Kant's compromise in one sentence and trace how it leads, step by step, to Marx's view of history and Nietzsche's 'God is dead'.",
+    "hook": "Kant said he was waking from Hume's challenge. His fix changed the argument for 200 years."
+   },
+   {
+    "n": 7,
+    "title": "The argument today: words, choices and minds",
+    "covers": "The 1900s split into two tables: analytic philosophers (Russell, Wittgenstein) asking what sentences mean, and existentialists (Sartre, de Beauvoir) asking how to live without a given purpose, plus where the live questions sit now.",
+    "outcome": "You can describe the two main ways philosophy is done today, place the whole 2,400-year story on one page, and name the question you would ask next.",
+    "hook": "Wittgenstein said most philosophical problems are language misfiring. If he's right, what was the argument about?"
+   }
+  ]
+ }
 }

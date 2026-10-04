@@ -5,108 +5,113 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Walking the bazaar stall by stall, buying one share here and one there, takes time and 50 separate decisions. Instead, you hand a helper one note and say: buy me a tiny slice of all 50 biggest shops. That helper is an index fund. For doing the walking, the helper keeps a small cut of your basket every year. That cut is the expense ratio."
-   },
-   {
-    "type": "teach",
-    "title": "One ticket, fifty shops",
-    "body": "A mutual fund pools money from thousands of people and buys shares with it. In return you get units. One unit is your slice of the whole basket, the way one share is your slice of one shop.\n\nThere are two kinds of helper. An index fund copies a list. A Nifty 50 index fund buys the same 50 companies as the Nifty 50, in the same proportions, and changes nothing until the list changes. No opinions, no guessing.\n\nAn active fund hires a fund manager, a paid shopper who decides which shops to buy and when to sell. You pay for that judgement whether it turns out right or not.\n\nBoth kinds charge an expense ratio: a yearly fee, written as a percentage, taken out of the fund's money a little every day. You never get a bill. The fund's value is simply a bit lower than it would have been.\n\nIndex funds are cheaper because copying a list needs no expert. A Nifty 50 index fund's direct plan often charges around 0.2% a year or less. Active funds often charge several times that, roughly 1% to 2%."
+    "body": "Walking the bazaar, you could pick one shop and bet on it. Or you could buy a **basket with a slice of all 50 big shops** inside, in one trip.\n\nThat basket is an *index fund*: a fund that copies the Nifty 50 list exactly, with no picking and no opinions. Picture a steel tiffin carrier with 50 small compartments. You own one carrier."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You put \u20b95,000 into a Nifty 50 index fund. What do you now own?",
+    "prompt": "Priya has \u20b9500 and 10 minutes before dinner. She wants to own a tiny bit of all 50 Nifty companies tonight. What gets her there?",
     "options": [
      {
       "id": "a",
-      "text": "1 share of the biggest company in the Nifty 50"
+      "text": "Buy 1 share each of all 50 companies"
      },
      {
       "id": "b",
-      "text": "A small slice of all 50 Nifty companies"
+      "text": "Put \u20b9500 into a Nifty 50 index fund"
      },
      {
       "id": "c",
-      "text": "A promise that your \u20b95,000 cannot fall"
+      "text": "Buy 1 share of the biggest Nifty company"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's buying a single share, not a fund: a fund spreads one payment across every company on the list.",
-     "c": "That's a bank fixed deposit, not a fund: the fund's value rises and falls with the 50 shops every day."
+     "a": "That's 50 separate trades, not one basket: a single share of some Nifty companies costs more than \u20b9500 on its own.",
+     "c": "That's one shop, not the whole bazaar: the index fund is the thing that holds all 50."
     },
-    "reteach": "Think of the fund as one basket already filled with a bit of every Nifty 50 shop. Your \u20b95,000 buys units of that basket, not a share of one shop. If the 50 companies rise 1% together, your units rise about 1% too, minus the fee."
-   },
-   {
-    "type": "example",
-    "title": "Same shops, different cut",
-    "body": "Say you invest \u20b910,000 in two funds and leave it for 1 year. Both hold the same 50 Nifty shops, and both baskets grow 12% before fees, to \u20b911,200. Fund A is an index fund charging 0.2%. It keeps about \u20b922 and you are left with about \u20b911,178. Fund B is an active fund charging 1.5%. It keeps about \u20b9168 and you are left with about \u20b911,032. Same shops, about \u20b9146 apart after one year, and the gap grows every year you stay."
+    "reteach": "An index fund is one purchase that holds all 50 Nifty shops in the same proportions as the index. You don't pick, and you don't need enough money for 50 separate shares. \u20b9500 buys a tiny slice of the whole basket."
    },
    {
     "type": "teach",
-    "title": "SIP, and the word 'Direct'",
-    "body": "SIP stands for Systematic Investment Plan. It means a fixed amount, say \u20b9500 or \u20b92,000, pulled from your bank on a fixed date every month and turned into fund units at that day's price. Many funds let you start at \u20b9500 a month.\n\nThe point of a SIP is that you stop choosing the day. Some months the price is high and you get fewer units. Some months it is low and you get more. You never have to guess whether today is a good day to buy.\n\nOne last thing to read on the fund page: every fund comes as a direct plan and a regular plan. The regular plan pays a commission to the distributor or app that sold it to you, and that commission hides inside a higher expense ratio. The direct plan is the same fund, same 50 shops, without the middleman. Pick direct."
+    "title": "Two kinds of basket",
+    "body": "A *mutual fund* is a basket of shares that many people pay into together, run by a fund company. There are two main kinds.\n\nAn *index fund* just copies a list. A Nifty 50 index fund holds the same 50 shops, in the same proportions, as the Nifty 50 board. Nobody decides anything. If the index rises 1%, your basket rises about 1%.\n\nAn *active fund* hires a shopper, called a *fund manager*, to pick which shops to buy and when, hoping to beat the index. **Copying is cheap, hiring a shopper costs more**, and you pay that cost whether or not they beat it."
+   },
+   {
+    "type": "example",
+    "title": "Ravi's two baskets",
+    "body": "Ravi puts \u20b910,000 into two funds in January. Fund A is a Nifty 50 index fund charging 0.2% a year. Fund B has a well-known manager and charges 1.5% a year.\n\nBy December both baskets have grown 12% before fees. Fund A leaves Ravi with about \u20b911,180. Fund B leaves him about \u20b911,030. The **manager did exactly as well as the index**, and Ravi paid \u20b9150 for the company."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Two apps show the same Nifty 50 index fund. One lists 'Regular plan, expense ratio 0.5%'. The other lists 'Direct plan, expense ratio 0.15%'. You want a \u20b92,000 monthly SIP. Which do you pick?",
+    "prompt": "Meena's broker app shows two Nifty 50 index funds. Both track the same 50 companies. One shows an expense ratio of 0.1%, the other 0.6%. Which should she pick?",
     "options": [
      {
       "id": "a",
-      "text": "Regular, because a higher fee means better shops are chosen"
+      "text": "The 0.6% one, because a higher fee means a better manager"
      },
      {
       "id": "b",
-      "text": "Direct, because it holds the same 50 shops for a smaller yearly cut"
+      "text": "The 0.1% one, because they hold the same shops and the fee is the only difference"
      },
      {
       "id": "c",
-      "text": "Either, because the fee is only charged when you sell"
+      "text": "Either, since the fee is paid by the fund company, not by her"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a sales commission, not better picking: both plans hold exactly the same 50 companies in the same proportions.",
-     "c": "That's how tax works, not the expense ratio: the fee comes out of the fund's value a little every day whether you sell or not."
+     "a": "That's active-fund thinking applied to an index fund: both copy the same list, so nobody is picking anything to pay extra for.",
+     "c": "That's mixing up who the fee is paid to with where it comes from: the expense ratio is shaved off your money, every year."
     },
-    "reteach": "An index fund has no picking to pay for, so the only thing that differs between its two plans is the fee. Regular adds a commission for whoever sold it to you. Direct skips that, so more of each \u20b92,000 stays yours."
+    "reteach": "The expense ratio is the yearly slice taken from your money to run the fund. Two index funds copying the same 50 shops will grow the same before fees. So the one with the lower fee leaves you more."
+   },
+   {
+    "type": "teach",
+    "title": "SIP, and the fee you never see",
+    "body": "A *SIP*, short for systematic investment plan, is a standing instruction: a fixed amount, say \u20b91,000, leaves your bank on a fixed date each month and buys fund units. When prices are high, \u20b91,000 buys fewer units. When prices dip, it buys more. You stop guessing the right day.\n\nThe *expense ratio* is the yearly fee, shown as a percentage of your money. You never get a bill. It's quietly shaved off the fund's value a little every day. **A 1% fee on \u20b91 lakh is \u20b91,000 gone every year**, and it grows as your money grows."
    },
    {
     "type": "mistake",
-    "body": "People compare funds by last year's return and never look at the fee. A fund that beat the Nifty last year may not beat it next year, but its 1.5% fee is charged every year regardless. Spot it in yourself: if the fund page shows a big green return number and you still have not found the expense ratio, you have not finished reading."
+    "body": "Arjun sets up a \u20b92,000 SIP, watches the Nifty fall 4% in a week, and pauses it \"until things calm down\". That month's \u20b92,000 would have bought more units than any month before.\n\nSpot it in yourself: if you're stopping a SIP because prices fell, you're doing **the one thing a SIP exists to stop you doing**."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What is an expense ratio?",
+    "prompt": "Your cousin says: \"Index funds are for lazy people. A fund manager works for you all day, so of course that fund does better.\" What's the catch?",
     "options": [
      {
       "id": "a",
-      "text": "The tax you pay when you sell your fund units"
+      "text": "Index funds also have a manager, so they cost the same anyway"
      },
      {
       "id": "b",
-      "text": "The yearly fee, as a percentage of your money, that the fund keeps for running itself"
+      "text": "The manager's fee comes out of your money every year, whether or not they beat the index"
      },
      {
       "id": "c",
-      "text": "The share of the fund invested in its largest company"
+      "text": "SIPs don't work with active funds, so you'd have to invest a lump sum"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's capital gains tax, not the fund's fee: tax goes to the government once, when you sell; the expense ratio goes to the fund company every year.",
-     "c": "That's the fund's weight in one shop, not its cost: weights tell you what the basket holds, the expense ratio tells you what you pay to hold it."
+     "a": "That's the opposite of how an index fund works: it copies a list, needs no picker, and usually charges far less.",
+     "c": "That's mixing up SIP with fund type: a SIP is just a monthly auto-payment and works with either kind of fund."
     },
-    "reteach": "Picture the helper carrying your basket round the bazaar. Each year the helper takes a small pinch from the basket as payment. That pinch, written as a percentage of the basket, is the expense ratio. Smaller pinch, more left for you."
+    "reteach": "Hiring a shopper is not free. An active fund charges a higher expense ratio every year, taken from your money, so the manager has to beat the index by more than that fee just for you to break even. You can't know in advance which managers will."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "An index fund buys you a slice of all 50 Nifty shops in one go, and a SIP buys a fixed amount of it every month so you never have to pick the day.\n\nThe one number to check before you start is **the expense ratio**, the yearly fee shaved off your money, and lower is better."
    },
    {
     "type": "try",
-    "body": "Open your broker app, search 'Nifty 50 index fund', open any one, and find two things: the word 'Direct' and the expense ratio number. Write both down. Don't buy yet."
+    "body": "Open your broker app, search \"Nifty 50 index fund\", and open any two. Find the expense ratio on each page and write both numbers down. **Don't buy anything yet.**"
    }
   ],
-  "outcomeLine": "You can now set up a monthly SIP in a Nifty 50 index fund, choose the direct plan, and say what expense ratio you are paying."
+  "outcomeLine": "You can now set up a monthly SIP in a Nifty 50 index fund and say what expense ratio you are paying."
  },
- "seconds": 76.15804624557495
+ "seconds": 87.0536241531372
 }

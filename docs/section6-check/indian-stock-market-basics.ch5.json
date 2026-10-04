@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "In the bazaar, the price tag on one slice tells you almost nothing about the shop behind it. A \u20b950 slice can belong to a giant shop cut into billions of slices, and a \u20b95,000 slice to a small shop cut into very few. To size up a shop you read five numbers off its board: how big it is, how many years of profit you pay for, where its price has been over the year, and how much cash it hands back."
-   },
-   {
-    "type": "teach",
-    "title": "Price is the least useful number",
-    "body": "Price is what one share last changed hands for. It moves every second, as you saw in chapter 1. On its own it does not tell you if the company is big or small, or if it is cheap or dear.\n\nMarket cap is the price of one share multiplied by the total number of shares. It is the price of the whole shop if you bought every slice. A company with 100 crore shares at \u20b9200 each has a market cap of \u20b920,000 crore. In India, SEBI ranks the 100 biggest companies by market cap as large cap, the next 150 as mid cap, and the rest as small cap.\n\nP/E stands for price to earnings. You take the share price and divide it by the profit the company made per share in one year. The answer is how many years of today's profit you are paying for. A P/E of 20 means you pay 20 years of current profit to own a slice.\n\nA high P/E means buyers expect profit to grow fast, so they pay more now. A low P/E means buyers expect slow growth, or they do not trust the profit. Neither is good or bad by itself, but it is the first number to compare a shop against its rivals."
+    "body": "Two shops in the bazaar both sell one slice for \u20b9500. One is a tiny stall cut into 100 slices. The other is a huge store cut into 10 lakh slices. **The price on the tag tells you almost nothing on its own.** A quote page gives you five numbers that turn one price into the size of the shop and what you are paying for its profit.",
+    "simpler": "Two shops in the bazaar both sell one slice for \u20b9500. One is a tiny stall cut into 100 slices. The other is a huge store cut into 10 lakh slices. **The price on the tag tells you almost nothing on its own.** Like knowing a cake slice costs \u20b9500, but not the size of the cake. A quote page gives five numbers that turn one price into the shop's size and what you pay for its profit."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Share A trades at \u20b950. Share B trades at \u20b95,000. Which company is bigger?",
+    "prompt": "Two shares. Asha Autos trades at \u20b93,000. Bela Biscuits trades at \u20b960. Which is the bigger company?",
     "options": [
      {
       "id": "a",
-      "text": "Company A, because a lower price means more people can afford it, so it must be bigger"
+      "text": "Asha Autos. A higher price means a bigger company."
      },
      {
       "id": "b",
-      "text": "Company B, because a higher price means a bigger shop"
+      "text": "Bela Biscuits. Cheap shares mean more people buy, so it must be big."
      },
      {
       "id": "c",
-      "text": "You cannot tell from price alone. You need the number of shares too"
+      "text": "Cannot tell yet. You need to know how many shares each company has."
      }
     ],
     "answer": "c",
     "whyNot": {
-     "a": "That's affordability of one slice, not size of the shop: how many people can buy a share says nothing about how many shares exist.",
-     "b": "That's the price of one slice, not the whole shop: a \u20b95,000 share from a company with very few shares can be a small company."
+     "a": "That's the price of one slice, not the size of the shop: a shop cut into few slices has pricey slices.",
+     "b": "That's a guess about popularity, not size: a cheap slice can belong to a huge shop or a tiny one."
     },
-    "reteach": "Think of a cake. One cake cut into 1,000 slices gives tiny cheap slices. The same cake cut into 10 slices gives big dear slices. The cake is the same size. Share price is the slice price. Market cap is the whole cake."
-   },
-   {
-    "type": "example",
-    "title": "One quote page, five numbers",
-    "body": "Say a quote page shows a company at \u20b9400 a share, with 50 crore shares in total. Multiply them and the market cap is \u20b920,000 crore, so this is a mid-sized shop by SEBI's ranking, not a giant.\n\nThe page says profit per share last year was \u20b920. Divide \u20b9400 by \u20b920 and the P/E is 20. You pay 20 years of today's profit for a slice.\n\nThe 52-week high is \u20b9480 and the low is \u20b9300. Today's \u20b9400 sits in the middle of where it has been over the past year.\n\nThe company paid \u20b98 per share as dividend last year. Divide \u20b98 by \u20b9400 and the dividend yield is 2%. For every \u20b9100 you put in, you got \u20b92 back in cash last year."
+    "reteach": "Price is the cost of one slice. Size is the cost of all the slices together. A pizza cut into 4 has big, expensive slices. Cut into 40, small cheap ones. Same pizza."
    },
    {
     "type": "teach",
-    "title": "The other three, and one warning",
-    "body": "The 52-week high and low are the highest and lowest prices in the past year. They tell you where today's price sits in its own recent range. Near the high means buyers have been winning lately. Near the low means sellers have. They say nothing about whether the shop is good value.\n\nDividend yield is the cash the company paid out per share in a year, divided by the price, as a percent. A yield of 2% means \u20b92 back for every \u20b9100 of shares you hold. Many fast-growing companies pay little or nothing, because they keep the profit to grow the shop.\n\nP/E only makes sense when you compare like with like. A bank and a software company earn money in very different ways, so their normal P/E ranges differ. Compare an IT company's P/E with other IT companies, not with a bank.\n\nIf a company made a loss, there is no profit to divide by. The quote page then shows P/E as a dash or leaves it blank. That blank is a warning, not a bargain."
+    "title": "Price and market cap",
+    "body": "*Price* is what one share last traded for. It changes every second, as chapter 1 showed, and it only tells you the cost of one slice.\n\n*Market cap* (market capitalisation) is the price multiplied by the total number of shares. **It is the size of the whole shop.** \u20b960 a share times 50 crore shares is \u20b93,000 crore. \u20b93,000 a share times 1 crore shares is also \u20b93,000 crore. Same size, very different price tags.\n\nIndian sites sort shops by this: *large cap* for the 100 biggest companies, *mid cap* for the next 150, *small cap* for the rest. Every Nifty 50 company is a large cap.",
+    "simpler": "*Price* is what one share last sold for. It only tells the cost of one slice. *Market cap* is price times total shares. **It is the size of the whole shop.** \u20b960 a share times 50 crore shares is \u20b93,000 crore. \u20b93,000 a share times 1 crore shares is \u20b93,000 crore too. Same size, different tags. Sites sort by size: large cap is the 100 biggest, including every Nifty 50 company, mid cap the next 150, small cap the rest."
+   },
+   {
+    "type": "example",
+    "title": "The wedding tip",
+    "body": "At a cousin's wedding, Rohan is told a \u20b945 share is a bargain and a \u20b92,800 share is 'too expensive for people like us'. He opens both quote pages that night. The \u20b945 shop has 60 crore shares: market cap \u20b92,700 crore, a small cap. The \u20b92,800 shop has 250 crore shares: market cap \u20b97 lakh crore, one of the biggest in the bazaar. **The 'expensive' slice came from the shop about 260 times larger.**",
+    "simpler": "At a cousin's wedding, Rohan hears a \u20b945 share is a bargain and a \u20b92,800 share is 'too expensive for people like us'. That night he opens both quote pages. The \u20b945 shop has 60 crore shares, so its market cap is \u20b92,700 crore, a small cap. The \u20b92,800 shop has 250 crore shares, so its market cap is \u20b97 lakh crore, one of the biggest in the bazaar. **The 'expensive' slice came from a shop about 260 times larger.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Two IT companies both made a profit last year. Company X has a share price of \u20b91,500 and a P/E of 35. Company Y has a share price of \u20b94,000 and a P/E of 22. Which is priced lower against its profit?",
+    "prompt": "A quote page shows: Price \u20b9120. Total shares 200 crore. Yearly profit per share \u20b910. What is the market cap?",
     "options": [
      {
       "id": "a",
-      "text": "Company X, because \u20b91,500 is less than \u20b94,000"
+      "text": "\u20b9120 crore"
      },
      {
       "id": "b",
-      "text": "Company Y, because you pay 22 years of profit instead of 35"
+      "text": "\u20b924,000 crore"
      },
      {
       "id": "c",
-      "text": "Company X, because a higher P/E means more profit"
+      "text": "\u20b91,200 crore"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the slice price, not the price against profit: the share price alone cannot say which is cheaper.",
-     "c": "That's backwards. P/E is price divided by profit, so a higher P/E means you pay more for each rupee of profit, not that there is more profit."
+     "a": "That's the price with 'crore' stuck on the end, not price times shares: the multiplication got skipped.",
+     "c": "That's price times profit per share, not price times number of shares: profit comes into the P/E on the next card."
     },
-    "reteach": "P/E is a price tag per rupee of yearly profit. Company X charges \u20b935 for every \u20b91 of profit it makes. Company Y charges \u20b922. Both are IT companies, so the comparison is fair, and Y is the cheaper one against its profit."
+    "reteach": "Market cap is the price of one slice times the number of slices. \u20b9120 times 200 crore slices is \u20b924,000 crore. The number of shares is on the same quote page, usually labelled shares outstanding."
+   },
+   {
+    "type": "teach",
+    "title": "P/E: years of profit you pay for",
+    "body": "Size is one question. The other: **how much are you paying for the shop's profit?**\n\n*EPS* (earnings per share) is the yearly profit divided by the number of shares: the profit behind one slice. *P/E* is the price divided by EPS. A \u20b9120 share with EPS \u20b910 has a P/E of 12. Say it as 'I pay 12 years of today's profit for this slice.' A P/E of 60 means buyers expect profit to grow fast. A P/E of 8 means they expect little, or fear trouble. Compare P/E only with shops in the same trade.\n\nTwo smaller numbers round out the page. *52-week high and low*: the top and bottom price of the past year. *Dividend yield*: cash the shop paid out last year, as a percent of today's price.",
+    "simpler": "**How much do you pay for the shop's profit?** *EPS* is the yearly profit behind one slice. *P/E* is price divided by EPS. A P/E of 12 means paying 12 years of profit for a slice. A P/E of 60 means buyers expect fast growth; 8 means they expect little or fear trouble. Compare P/E only within the same trade. The *52-week high and low* is last year's price range. *Dividend yield* is last year's cash payout as a percent of today's price."
    },
    {
     "type": "mistake",
-    "body": "The common mistake is calling a \u20b930 share cheap and a \u20b93,000 share expensive. That is judging the shop by the price of one slice. You can spot it in yourself when you feel drawn to a share because the number looks small. Before you call anything cheap or dear, you should be able to say its market cap and its P/E against two rivals in the same sector."
+    "body": "Priya sees a share at \u20b918, near its 52-week low of \u20b917 and far below its high of \u20b960, and buys 500 because 'it cannot fall much further'. She never looked at the P/E, which showed only a dash: the shop had made a loss, so there was no profit to divide by. **A price near its 52-week low is a fact about the past year, not a floor.** Spot it in yourself: if you call a share cheap and cannot say its P/E, you have only read the price tag.",
+    "simpler": "Priya sees a share at \u20b918, near its 52-week low of \u20b917, far below its high of \u20b960. She buys 500 because 'it cannot fall much further'. She never checked the P/E. It showed only a dash: the shop made a loss, with no profit to divide. **A price near its 52-week low is a fact about the past year, not a floor.** If you call a share cheap but cannot say its P/E, you only read the price tag."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A quote page shows a P/E of 25. What does that mean?",
+    "prompt": "Two hospital chains, same market cap. Dr Mehta's chain has a P/E of 25. Dr Rao's chain has a P/E of 70. Which line is true?",
     "options": [
      {
       "id": "a",
-      "text": "The price is 25% above its 52-week low"
+      "text": "Dr Rao's chain is the bigger company, because its P/E is higher."
      },
      {
       "id": "b",
-      "text": "You are paying 25 years of the company's current yearly profit for each share"
+      "text": "Buyers pay 70 years of today's profit for Dr Rao's slice and 25 for Dr Mehta's. They expect Dr Rao's profit to grow faster."
      },
      {
       "id": "c",
-      "text": "The company pays back 25% of your money as dividend each year"
+      "text": "Dr Mehta's chain is cheaper per share, so it is the better buy."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the 52-week range, not P/E: the high and low describe where the price has been, not how it compares to profit.",
-     "c": "That's dividend yield, not P/E: yield is cash paid out divided by price, and 25% would be extraordinarily high."
+     "a": "That's market cap, not P/E: size comes from price times shares, and the question says both sizes are the same.",
+     "c": "That's the price per share, which you were not given: P/E compares price with profit, and a lower P/E alone does not make a better buy."
     },
-    "reteach": "P/E is price divided by profit per share. If a share costs \u20b9500 and the company earns \u20b920 per share a year, 500 divided by 20 is 25. At today's profit it would take 25 years of earnings to add up to the price you paid."
+    "reteach": "P/E says nothing about size. It says how many years of this year's profit you are paying for one slice. A higher P/E means buyers pay more for each rupee of profit, usually because they expect that profit to grow."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "**Price is one slice, market cap is the whole shop, and P/E is how many years of profit you pay for a slice.** Glance at the 52-week range for where today sits and the dividend yield for cash paid out, then compare P/E only with shops in the same trade.",
+    "simpler": "**Price is one slice, market cap is the whole shop, and P/E is how many years of profit you pay for a slice.** Glance at the 52-week range to see where today's price sits in the past year. Glance at the dividend yield to see cash paid out. Then compare P/E only with shops in the same trade."
    },
    {
     "type": "try",
-    "body": "Open your broker app or nseindia.com. Search any Nifty 50 company. Find its market cap and P/E. Write one line: large, mid or small, and how many years of profit the price equals."
+    "body": "Search 'Reliance share price' on your phone. On the quote card, find market cap and P/E. Say out loud: large or small shop, and how many years of profit the price is.",
+    "simpler": "Pick up your phone and search 'Reliance share price'. A quote card will appear. **Find two numbers on it: market cap and P/E.** Then say out loud, in your own words: is this a large shop or a small shop, and how many years of today's profit does the price equal?"
    }
   ],
-  "outcomeLine": "You can now look at a quote page and say whether a company is large or small from its market cap, and whether it is priced high or low against its profit from its P/E."
+  "outcomeLine": "You can now open any quote page and say whether a company is large or small, and whether its price is high or low against its profit."
  },
- "seconds": 62.92244601249695
+ "seconds": 107.8592882156372
 }

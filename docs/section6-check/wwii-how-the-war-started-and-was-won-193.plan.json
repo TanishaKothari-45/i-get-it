@@ -15,45 +15,115 @@
     "n": 1,
     "title": "The dry timber: why Germany wanted to fight again",
     "covers": "The 1919 Treaty of Versailles, the 1929 Depression, Hitler's rise to power in 1933, and what he said he wanted: land in the east and the undoing of 1919. Also why Japan, already fighting in China from 1937, and Italy wanted more too.",
-    "outcome": "You can explain in three plain sentences why Germany in 1939 was willing to start a war that it had lost so badly 21 years earlier."
+    "outcome": "You can explain in three plain sentences why Germany in 1939 was willing to start a war that it had lost so badly 21 years earlier.",
+    "hook": "Britain and France declared war two days after Poland was invaded. Why not a year earlier?"
    },
    {
     "n": 2,
     "title": "The spark: from Munich to the invasion of Poland",
     "covers": "Hitler's step-by-step grabs from 1936 to 1939 (Rhineland, Austria, Czechoslovakia), why Britain and France let them pass at Munich in 1938 (called appeasement, meaning giving way to avoid war), the surprise Hitler-Stalin pact of August 1939, and the invasion of Poland on 1 September 1939.",
-    "outcome": "You can list the steps from Munich to Britain and France declaring war on 3 September 1939, and say why they did not act sooner."
+    "outcome": "You can list the steps from Munich to Britain and France declaring war on 3 September 1939, and say why they did not act sooner.",
+    "hook": "France had one of Europe's biggest armies and fell in six weeks. How?"
    },
    {
     "n": 3,
     "title": "The fire spreads: France falls, Britain holds",
     "covers": "How Germany beat France in about six weeks in May and June 1940 using fast tank and air attacks, the escape from Dunkirk, and why Britain was not invaded: the Battle of Britain in the air and the sea in between.",
-    "outcome": "You can explain how France, with an army as big as Germany's, lost in six weeks, and why Britain alone did not."
+    "outcome": "You can explain how France, with an army as big as Germany's, lost in six weeks, and why Britain alone did not.",
+    "hook": "Germany never landed a soldier in Britain. Twenty miles of water and radar explain why."
    },
    {
     "n": 4,
     "title": "Two more houses catch: Russia and America join",
     "covers": "Germany's invasion of the Soviet Union on 22 June 1941 and the war of extermination that followed, Japan's attack on Pearl Harbor on 7 December 1941, and Hitler's choice to declare war on the United States four days later.",
-    "outcome": "You can explain why 1941 turned a European war into a world war, and why fighting Britain, Russia and America at once put Germany at a disadvantage on paper from that point."
+    "outcome": "You can explain why 1941 turned a European war into a world war, and why fighting Britain, Russia and America at once put Germany at a disadvantage on paper from that point.",
+    "hook": "In six months of 1941, Hitler picked fights with the two biggest powers on earth. Why?"
    },
    {
     "n": 5,
     "title": "The turn: three battles that stopped the spread",
     "covers": "Midway in June 1942 (Japan loses four aircraft carriers), El Alamein in November 1942 (Germany pushed back in North Africa), and Stalingrad, where a whole German army surrendered on 2 February 1943. Plus the quiet battle under it all: whether supply ships could cross the Atlantic.",
-    "outcome": "You can name the three battles of 1942 and 1943 and say exactly what each one stopped the Axis from doing."
+    "outcome": "You can name the three battles of 1942 and 1943 and say exactly what each one stopped the Axis from doing.",
+    "hook": "A whole German army marched into Stalingrad in 1942. Almost none of it came home."
    },
    {
     "n": 6,
     "title": "Every hose on the street: Europe, 1944 to 1945",
     "covers": "D-Day on 6 June 1944 in the west, the Soviet advance in the east, the bombing campaign, and why the Allies' factories mattered as much as their soldiers. Ends with Berlin, Hitler's death on 30 April 1945, Germany's surrender on 8 May, and what the camps showed about what the war had been against.",
-    "outcome": "You can describe how Germany was squeezed from two sides in the last 11 months and why its surrender came in May 1945, not earlier or later."
+    "outcome": "You can describe how Germany was squeezed from two sides in the last 11 months and why its surrender came in May 1945, not earlier or later.",
+    "hook": "D-Day was the biggest seaborne landing ever, and the Germans expected it somewhere else."
    },
    {
     "n": 7,
     "title": "Putting out the last fire: Japan, and why the Allies won",
     "covers": "Island-by-island fighting across the Pacific, the atomic bombs on Hiroshima on 6 August and Nagasaki on 9 August 1945, the Soviet attack on Japan the same week, and the surrender signed on 2 September 1945. Then the whole war in one view: four reasons the Allies won.",
-    "outcome": "You can explain how the war in the Pacific ended and give four concrete reasons the Allies won, each tied to a chapter you have read."
+    "outcome": "You can explain how the war in the Pacific ended and give four concrete reasons the Allies won, each tied to a chapter you have read.",
+    "hook": "Japan surrendered in a week that saw two atomic bombs and a Soviet invasion. Which mattered?"
    }
   ]
  },
- "seconds": 60.59835696220398
+ "seconds": 74.4694652557373,
+ "hooksFrom": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "World War Two, 1939-1945",
+  "outcome7": "By day 7 you'll be able to tell the story of the war in order from the invasion of Poland to Japan's surrender, name the six decisions and battles that decided it, and explain in plain words why the Axis was winning in 1941 and beaten by 1945.",
+  "horizon14": "By day 14 (later, not promised): read one full book on a single front, such as the Eastern Front, and place every event in it on the timeline you already hold.",
+  "horizon28": "By day 28 (later, if you keep going): hold your own in an argument about one contested question, such as whether the atomic bombs were needed to end the war.",
+  "picture": {
+   "name": "A wildfire",
+   "line": "Think of the war as a wildfire: years of dry tinder, one spark in September 1939, a fast spread while nobody could fight it, a change in the wind in 1941 and 1942, and then the long, costly work of putting it out."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "The dry tinder",
+    "covers": "How the 1919 peace treaty, the 1930s Depression and Hitler's rise left Europe ready to burn, and why Britain and France kept hoping it wouldn't.",
+    "outcome": "You can explain why Germany, Italy and Japan wanted to redraw the map, and why nobody stopped them before 1939.",
+    "hook": "Britain and France declared war two days after Poland was invaded. Why not a year earlier?"
+   },
+   {
+    "n": 2,
+    "title": "The spark and the six-week fire",
+    "covers": "Poland in September 1939, the quiet winter that followed, then Blitzkrieg (a fast attack by tanks and planes working together) through France by June 1940, and the escape from Dunkirk.",
+    "outcome": "You can describe how Germany beat Poland and France so fast, and what Blitzkrieg actually means.",
+    "hook": "France had one of Europe's biggest armies and fell in six weeks. How?"
+   },
+   {
+    "n": 3,
+    "title": "The firebreak: Britain alone",
+    "covers": "Summer 1940 to spring 1941: Churchill, the Battle of Britain in the air, the Blitz on cities, and the U-boat war at sea.",
+    "outcome": "You can explain why Germany could not finish Britain off, and why that mattered for everything after.",
+    "hook": "Germany never landed a soldier in Britain. Twenty miles of water and radar explain why."
+   },
+   {
+    "n": 4,
+    "title": "The fire jumps continents",
+    "covers": "1941: Hitler invades the Soviet Union in June, Japan attacks Pearl Harbor in December, and a European war becomes a world war.",
+    "outcome": "You can explain why Hitler attacked Russia and why Japan attacked America, and why both turned out to be fatal mistakes.",
+    "hook": "In six months of 1941, Hitler picked fights with the two biggest powers on earth. Why?"
+   },
+   {
+    "n": 5,
+    "title": "The wind turns",
+    "covers": "Late 1942 to 1943: Stalingrad, Midway and El Alamein, plus the factory war in which the Allies simply out-built the Axis.",
+    "outcome": "You can name the three battles usually called the turning point and say what each one changed.",
+    "hook": "A whole German army marched into Stalingrad in 1942. Almost none of it came home."
+   },
+   {
+    "n": 6,
+    "title": "Putting it out in Europe",
+    "covers": "D-Day in June 1944, the Soviet advance from the east, the Battle of the Bulge, what the armies found in the camps, and Germany's surrender on 8 May 1945.",
+    "outcome": "You can explain how Germany was squeezed from two sides and why it fought to the end.",
+    "hook": "D-Day was the biggest seaborne landing ever, and the Germans expected it somewhere else."
+   },
+   {
+    "n": 7,
+    "title": "The last embers, and what was left",
+    "covers": "The island fighting in the Pacific, the atomic bombs on 6 and 9 August 1945, Japan's surrender, and the cost and the new world the fire left behind.",
+    "outcome": "You can explain why Japan surrendered when it did, and tell the whole 1939-1945 story in order in five minutes.",
+    "hook": "Japan surrendered in a week that saw two atomic bombs and a Soviet invasion. Which mattered?"
+   }
+  ]
+ }
 }

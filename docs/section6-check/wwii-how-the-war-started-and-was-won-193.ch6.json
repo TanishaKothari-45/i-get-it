@@ -5,108 +5,113 @@
   "cards": [
    {
     "type": "picture",
-    "body": "By the middle of 1944 the fire had been stopped from spreading. Now the neighbours turned every hose on the burning house at once: from the west, from the east, and from above.\n\nA fire that big does not go out in a day. It took 11 months of soaking from all sides before the last room went dark."
-   },
-   {
-    "type": "teach",
-    "title": "Two fronts at once",
-    "body": "Before June 1944 Germany fought one big land war, against the Soviet army in the east. Facing Britain in the west it had only a coastline to guard. When one side got hard, it could move soldiers from the quiet side to the busy side.\n\nOn 6 June 1944, D-Day, about 150,000 American, British and Canadian soldiers landed on the beaches of Normandy in northern France. From that morning Germany had a real second front in the west. A front is just the line where two armies meet and fight.\n\nSixteen days later, on 22 June 1944, the Soviet army launched its own huge attack in the east, called Operation Bagration. It destroyed a whole German army group in a few weeks. Now both sides of Germany needed soldiers at the same moment, and there was nowhere quiet left to take them from.\n\nParis was freed on 25 August 1944. By the end of the year the western Allies stood near Germany's own border. In the east the Soviets had pushed through Poland and were closing on Germany itself."
+    "body": "By June 1944 the fire is back in the house it started from. Now the hoses come from two sides at once: Americans, British and Canadians through the front door in France, the Soviets through the back from the east. **Two hoses at once, fed by factories that never ran dry.**\n\nPicture the last day of it: 25 April 1945, American and Soviet soldiers shaking hands on a broken bridge over the Elbe river at Torgau. Between them, nothing of Germany's army is left."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "The Soviets were already beating Germany in the east. Why did D-Day matter so much?",
+    "prompt": "It is June 1944. You are a German general with exactly one spare tank division. Where do you send it?",
     "options": [
      {
       "id": "a",
-      "text": "It gave Germany a second front it could not feed, because the east needed every soldier at the same time"
+      "text": "West, to Normandy, where the landings just happened"
      },
      {
       "id": "b",
-      "text": "Normandy held Germany's main weapons factories"
+      "text": "East, where the Soviets look ready to attack"
      },
      {
       "id": "c",
-      "text": "It ended the fighting in the west within a few weeks"
+      "text": "It does not matter: wherever it goes, the other side is left open"
      }
     ],
-    "answer": "a",
+    "answer": "c",
     "whyNot": {
-     "b": "That's the bombers' target, not D-Day's. Normandy was chosen for its beaches, not its factories.",
-     "c": "That's the hope, not what happened. The fighting in the west ran another 11 months, to May 1945."
+     "a": "That's the first hose, not the problem: send it west and the east is bare. The Soviets attacked there 16 days after D-Day.",
+     "b": "That's the second hose, not the problem: send it east and Normandy is bare. The Allies broke out of it by August."
     },
-    "reteach": "Picture a man holding a door shut with his back while someone forces the window. He can hold one. He cannot hold both. From June 1944 Germany had to hold both, with the same number of hands."
-   },
-   {
-    "type": "example",
-    "title": "The factory count",
-    "body": "In 1944 the United States built about 96,000 aircraft. Germany built about 40,000, its best year ever, even while being bombed. Add Britain's and the Soviet Union's output and the gap grows wider.\n\nEvery German plane shot down was hard to replace. Every Allied plane shot down was replaced within days. And from May 1944 Allied bombers hit Germany's fuel plants, so even the planes Germany did build often sat on the ground with empty tanks."
+    "reteach": "Two fronts means every soldier sent to one is a soldier missing from the other. From June 1944 Germany faced that choice every single day, and both answers were bad. That is what being squeezed means."
    },
    {
     "type": "teach",
-    "title": "The squeeze closes",
-    "body": "The bombing did two things. It wrecked rail yards and fuel plants, and it pulled German fighter planes and guns home to defend cities, away from the fronts. It also killed tens of thousands of German civilians, and historians still argue over how much it shortened the war. The fuel shortage it caused by 1945 is not argued over.\n\nIn December 1944 Hitler spent his last reserves on a surprise attack in Belgium, the Battle of the Bulge. It gained ground for a few weeks, then ran out of fuel and men. After that Germany had nothing left to attack with, only to defend.\n\nIn January 1945 the Soviets broke into Germany from the east. On 25 April American and Soviet soldiers met at the River Elbe, cutting Germany in two. Soviet troops fought into Berlin street by street. Hitler killed himself in his bunker on 30 April 1945. Germany surrendered a week later, and the war in Europe ended on 8 May.\n\nAs the armies advanced they reached the camps. Soviet soldiers reached Auschwitz on 27 January 1945, British soldiers Bergen-Belsen on 15 April. Around six million Jews had been murdered there and elsewhere, along with millions of others. What the soldiers saw made plain what the war had been against, and why the Allies had insisted on total surrender rather than a deal."
+    "title": "The two hoses",
+    "body": "On 6 June 1944, D-Day, about 156,000 Allied troops landed on 5 beaches in Normandy, France. It was the biggest sea landing ever tried. Paris was freed on 25 August.\n\nSixteen days after D-Day, on 22 June, the Soviets launched their own summer attack in the east and smashed a whole German army group, the largest force Germany had there.\n\n**This was the two-front war Germany had always feared.** In 1940 it had beaten France before Russia was even in the fight. Now it had to hold both doors at once, with fewer men than either enemy."
+   },
+   {
+    "type": "example",
+    "title": "A bomber an hour",
+    "body": "Ford's Willow Run plant in Michigan was nearly a mile long. At its peak in 1944 it rolled out a B-24 bomber roughly every hour.\n\nA German fighter pilot might shoot down three bombers in a morning, land, and know that by the time he woke up tomorrow about 24 more had come off the line in a country his planes could not reach. He was fighting a conveyor belt. **The Allies could replace what they lost. Germany could not.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Early 1945. Someone asks: 'Germany is still making 40,000 planes a year. Why is its air force barely flying?' Which answer fits this chapter?",
+    "prompt": "In December 1944 Germany gathers its last reserves and attacks through the Ardennes forest in the west. For about a week it gains ground. Why doesn't this change how the war ends?",
     "options": [
      {
       "id": "a",
-      "text": "The planes were being saved for the defence of Berlin"
+      "text": "The attack was too small to matter"
      },
      {
       "id": "b",
-      "text": "Bombers had hit the fuel plants, so planes existed but could not fly and new pilots could not train"
+      "text": "The Allies could replace every tank and plane they lost, Germany could not, and the eastern hose was still coming"
      },
      {
       "id": "c",
-      "text": "German factories had all been destroyed by 1944"
+      "text": "The Soviets had already taken Berlin"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a guess about tactics, not supply. Germany did not have the fuel to fly them anywhere.",
-     "c": "That's an overstatement. German factories set a production record in 1944. The shortage was fuel, not planes."
+     "a": "That's the size, not the problem: it was Germany's biggest attack in the west since 1940. Size was not what it lacked.",
+     "c": "That's April 1945, not December 1944: Berlin fell 4 months later."
     },
-    "reteach": "Building a weapon is only half the job. It also needs fuel, a trained crew, and a rail line to reach the front. In 1945 Germany often had the first and none of the rest."
+    "reteach": "Think of the conveyor belt. A week of German gains burned up tanks and fuel Germany could not replace, against enemies who could. And while it attacked west, the Soviets were preparing their next push in the east."
+   },
+   {
+    "type": "teach",
+    "title": "Why May 1945",
+    "body": "The second hose was heavier than the first. Allied factories outbuilt Germany in planes, tanks and trucks, and Allied bombers hit German oil plants until many German planes sat grounded for lack of fuel.\n\nSo why May, not earlier? Hitler refused any surrender, and the army kept obeying him. **It ended only when the two fronts met.** They touched at the Elbe on 25 April 1945. Soviet troops fought into Berlin. Hitler killed himself in his bunker on 30 April. Germany surrendered on 8 May.\n\nOn the way in, the armies found the camps: Soviets at Auschwitz in January, British at Bergen-Belsen in April. This is what the war had been against."
    },
    {
     "type": "mistake",
-    "body": "People assume Germany gave up once the Allies crossed its border. It did not. Germany fought on for months inside its own country, until Soviet soldiers were in the streets of Berlin.\n\nYou can spot this mistake when someone's story ends around Christmas 1944. The real end needed two armies to meet in the middle of Germany, and that took until spring 1945."
+    "body": "Dev watches a D-Day film and tells his friends the Americans won the war in Europe on the beaches. His friend asks one question: where was most of Germany's army that summer? In the east. Most German soldiers who died in the war died fighting the Soviets. **If your story of 1944 to 1945 has only one hose, you have lost half the street.** Spot it by checking: did you mention the Soviets at all?"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Why did Germany surrender in May 1945, and not in autumn 1944 or later in 1945?",
+    "prompt": "A friend asks: Germany was clearly losing by autumn 1944. Why did it only surrender in May 1945?",
     "options": [
      {
       "id": "a",
-      "text": "It took until spring 1945 for two armies to grind through Germany from both sides while bombing cut its fuel. By May Berlin had fallen and Hitler was dead"
+      "text": "Hitler refused any surrender, so it went on until the two fronts met and Berlin fell"
      },
      {
       "id": "b",
-      "text": "The Allies agreed a ceasefire deal with German generals after the Battle of the Bulge"
+      "text": "The Allies ran out of supplies in autumn 1944 and had to wait"
      },
      {
       "id": "c",
-      "text": "Germany ran out of weapons factories during 1944"
+      "text": "Germany was waiting for Japan to surrender first"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's the opposite of what happened. The Allies demanded total surrender and got it only after Berlin fell.",
-     "c": "That's mixing up planes with fuel. Factories set a record in 1944. What ran out was fuel, soldiers and ground."
+     "b": "That's backwards: Allied supply was the one thing that never ran out. The factories were the whole point.",
+     "c": "That's the Pacific war, not Europe: Japan fought on until September 1945, 4 months after Germany."
     },
-    "reteach": "Think of the two armies as two hands closing on a lump of clay. Autumn 1944 was the hands touching the edges. May 1945 was the hands meeting in the middle, at the Elbe and in Berlin. The squeeze had to finish before the surrender could come."
+    "reteach": "A fire does not go out because the house is clearly lost. It goes out when the hoses reach the last room. Hitler would not let anyone put it out, so the Allies had to walk all the way to Berlin from both sides."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "From June 1944 Germany was squeezed from Normandy in the west and by the Soviets in the east, while Allied factories replaced every loss and German ones could not. **Hitler refused to give up, so it ended only when the two fronts met:** Berlin fell, Hitler died on 30 April 1945, and Germany surrendered on 8 May."
    },
    {
     "type": "try",
-    "body": "Open a map app tonight. Find Normandy, Berlin and the River Elbe near Torgau. Trace a line from Normandy east and one from Poland west until they meet. That picture is this chapter."
+    "body": "Open a map app. Trace Normandy to Torgau on the Elbe: that is the western hose, 11 months of fighting. Then trace Warsaw to Berlin: the last stretch of the eastern one. Notice which is longer."
    }
   ],
-  "outcomeLine": "You can now describe how Germany was squeezed from west and east in its last 11 months, and why its surrender came on 8 May 1945 and not earlier."
+  "outcomeLine": "You can now describe how Germany was squeezed from two sides in the last 11 months of the war in Europe, and say why its surrender came in May 1945 and not before."
  },
- "seconds": 89.80800271034241
+ "seconds": 84.71196699142456
 }

@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "You would not lead a 6-year-old and a mountain guide on the same walk. One needs you to point out every root in the path. The other is bored by the second one. A talk works the same way: the people walking with you decide which steps you explain and which you skip. You cannot know the route until you know who is on it."
-   },
-   {
-    "type": "teach",
-    "title": "Three lines about your listeners",
-    "body": "Before you plan a single step, write 3 lines about the people who will hear you. Line 1: what they already know about your topic. Line 2: what they care about, meaning the thing they would want to walk away with. Line 3: how they feel about the topic right now, such as curious, bored, or worried.\n\nLine 1 tells you what to leave out. If they already know a thing, explaining it wastes their time and makes them stop listening. If they do not know it, skipping it leaves them lost at the first turn.\n\nLine 2 tells you how to say your one sentence from chapter 1. The same point lands differently for a parent and for a manager, because they want different things from it.\n\nLine 3 tells you how to open. A worried room needs you to name the worry early. A bored room needs a reason to care in the first 20 seconds.\n\nYou are not guessing at strangers. For a 3-minute talk to a small group, you usually know these people. Picture 2 or 3 of them by name and write the lines about them."
+    "body": "Picture leading a walk to a lighthouse. If the 4 people with you grew up in this town, you skip the bit about where the harbour is. If they arrived this morning, that bit is the whole walk. **The route changes with who is walking it.** Same destination, different steps, because the steps are for them, not for you.",
+    "simpler": "Imagine you are leading a walk to a lighthouse with 4 people. If they grew up in this town, you skip the part about where the harbour is. If they arrived this morning, that part is the whole walk. **The route changes with who is walking it.** Same place at the end, different steps along the way, because the steps are for them, not for you."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You are giving a 3-minute talk about why your team should try a new meeting format. The listeners are the 5 people in that team. Which line about them changes your talk the most?",
+    "prompt": "You're giving a 3-minute talk on why your cafe should switch to oat milk. The listeners are the 3 baristas who make 200 coffees a day. Which part do you cut?",
     "options": [
      {
       "id": "a",
-      "text": "Their job titles and how long they have worked here"
+      "text": "The 40 seconds explaining what a flat white is"
      },
      {
       "id": "b",
-      "text": "What they already know about the current meetings and what annoys them"
+      "text": "The 40 seconds on how oat milk foams differently"
      },
      {
       "id": "c",
-      "text": "Whether they prefer slides or no slides"
+      "text": "The one sentence saying what you're asking them to do"
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's a description of the people, not of what they know or care about: a job title does not tell you what to leave out.",
-     "c": "That's a delivery choice, not an audience fact: it does not change which steps you explain or skip."
+     "b": "That's the part they don't know yet, not the part they already know: foaming is new to them and it's the thing that affects their day.",
+     "c": "That's your destination from chapter 1, not background: the one sentence always stays."
     },
-    "reteach": "The 3 lines are about the listeners' heads, not their badges. What do they know, what do they want, how do they feel. For a team talk, what they already know about the meetings and what annoys them tells you exactly which parts to cut and which to keep."
-   },
-   {
-    "type": "example",
-    "title": "The same talk, two rooms",
-    "body": "Maya has one sentence: \"Our weekly report takes 2 hours and nobody reads it, so we should replace it with a 5-line summary.\" She gives it to her 4 teammates first. Her 3 lines about them: they know the report well, they care about getting those 2 hours back, and they are tired of it. So she skips explaining what the report is and spends her 3 minutes on the 5-line version.\n\nThe next week she gives the same talk to 3 managers. Her 3 lines change: they have never opened the report, they care about not missing bad news, and they are nervous about losing visibility. So she cuts the detail about the 5 lines and spends her time on how the summary flags problems faster. One sentence, two routes."
+    "reteach": "Cut what the listeners already know, keep what they don't. Baristas know what a flat white is. They don't know how oat milk behaves, and that's what they'll care about, so it stays."
    },
    {
     "type": "teach",
-    "title": "Cutting is the job",
-    "body": "Once you have your 3 lines, read each part of your draft talk and ask one question: does this group need this step to reach my one sentence? If the answer is no, cut it. It does not matter how much you like it.\n\nMost beginners cut nothing. They add everything they know in case someone asks. The talk gets long, the listeners get lost, and the one sentence drowns.\n\nA useful test is the 2-second rule. Say the step to yourself and picture one named listener. If they would nod and think \"I know that\" within 2 seconds, cut it. If they would frown and think \"wait, what?\", keep it.\n\nWhen you are not sure what they know, pick the simpler guess and explain. A short explanation to someone who knew it costs 10 seconds. A missing explanation to someone who did not costs the whole talk."
+    "title": "Three lines about them",
+    "body": "Before you plan a single step, write 3 lines about the people listening. Line 1: what they already know about your topic. Line 2: what they care about, meaning what would make their week better or worse. Line 3: what they'll be thinking when you stand up, like *hungry*, *sceptical* or *I've heard this pitch before*.\n\n**Anything they already know gets cut.** Not shortened. Cut. A 3-minute talk has room for about 400 words, and every word spent telling people something they know is a word not spent getting them to the destination.",
+    "simpler": "Before you plan anything, write 3 lines about the people who will listen. Line 1: what they already know about your topic. Line 2: what they care about, meaning what would make their week better or worse. Line 3: what they will be thinking when you stand up, like *hungry*, *sceptical* or *I've heard this before*.\n\n**Anything they already know gets cut.** Not made shorter. Cut. A 3-minute talk holds about 400 words. Every word spent on what they already know is a word lost."
+   },
+   {
+    "type": "example",
+    "title": "The same talk, twice",
+    "body": "Dev had to pitch a shared team calendar. To the 5 engineers, his 3 lines read: *know we miss meetings, care about fewer interruptions, thinking 'another tool?'* To the office manager, Rita, they read: *knows nothing about our tools, cares about room bookings, thinking 'will this make my job harder?'*\n\nFor the engineers he cut the whole explanation of what a shared calendar does. For Rita he cut everything about notifications and kept 30 seconds on room bookings. Same destination, 2 different routes. Rita said yes in the meeting. The engineers asked for a link.",
+    "simpler": "Dev had to pitch a shared team calendar. For the 5 engineers, his 3 lines read: *know we miss meetings, care about fewer interruptions, thinking 'another tool?'* For Rita, the office manager, they read: *knows nothing about our tools, cares about room bookings, thinking 'will this make my job harder?'*\n\nFor the engineers he cut the whole explanation of what a shared calendar does. For Rita he cut everything about notifications and kept 30 seconds on room bookings. Same goal, 2 different routes. Rita said yes in the meeting. The engineers asked for a link."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Sam is talking to 6 neighbours about starting a shared compost bin. Sam's 3 lines: they know nothing about composting, they care about less smell from their bins, and 2 of them worry about rats. Which version of the talk fits those lines?",
+    "prompt": "Your talk is 'we should run the Saturday 5k in the park, not on the road'. Your listeners are 6 people who have done the road route 20 times. Which 3 lines fit them?",
     "options": [
      {
       "id": "a",
-      "text": "Spend 2 minutes on the chemistry of how compost breaks down, then 1 minute on the plan."
+      "text": "Know nothing about the route, care about safety, thinking 'what's a 5k?'"
      },
      {
       "id": "b",
-      "text": "Skip what composting is, since everyone has heard the word, and go straight to the rota for emptying it."
+      "text": "Know the road route by heart, care about not getting bored, thinking 'why change what works?'"
      },
      {
       "id": "c",
-      "text": "Explain composting in 2 sentences, spend most of the time on less smell, and name the rat worry before the close."
-     }
-    ],
-    "answer": "c",
-    "whyNot": {
-     "a": "That's talking about what you find interesting, not what they care about: nobody in the 3 lines asked about chemistry.",
-     "b": "That's assuming they know more than line 1 says: having heard a word is not the same as knowing what it means."
-    },
-    "reteach": "Match each part of the talk to a line. Line 1 says they know nothing, so give a short explanation. Line 2 says they care about smell, so that gets most of the time. Line 3 says 2 of them are worried about rats, so name that worry out loud instead of hoping nobody mentions it."
-   },
-   {
-    "type": "mistake",
-    "body": "The common mistake is writing the 3 lines about yourself by accident: what you know, what you find interesting, what you are nervous about. You can spot it when every line could be true of any audience. If your line 2 says \"they care about the topic\", that is you talking. A real line names something specific, like \"they want the 2 hours back\"."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "What are the 3 lines you write about your listeners before planning a talk?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Their names, their roles, and how many of them there are"
-     },
-     {
-      "id": "b",
-      "text": "What they know, what they care about, and how they feel about the topic"
-     },
-     {
-      "id": "c",
-      "text": "Your one sentence, your 3 steps, and your closing line"
+      "text": "Know the park well, care about parking, thinking 'I'm late'"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a headcount, not an audience picture: names and roles do not tell you what to cut.",
-     "c": "That's the route plan from chapter 3, not the lines about who is walking with you."
+     "a": "That's a group of beginners, not people who've run it 20 times: they know the route, so you'd be writing lines for the wrong walkers.",
+     "c": "That's guessing at details you don't have, not using what you know: nothing says they know the park or drive there. Start from what the scenario tells you."
     },
-    "reteach": "Three lines, all about the people hearing you. What they already know decides what you leave out. What they care about decides how you say your one sentence. How they feel decides how you open."
+    "reteach": "The 3 lines come from what you actually know about the listeners. These 6 have run the road 20 times, so line 1 is 'they know the route'. People who repeat something 20 times often fear change and boredom, so lines 2 and 3 follow from that."
+   },
+   {
+    "type": "teach",
+    "title": "What they care about decides what stays",
+    "body": "Line 2 does the real work. **What they care about is the only reason they'll follow you.** Dev's engineers cared about interruptions, so his talk became 'this cuts interruptions'. Rita cared about rooms, so hers became 'this stops double bookings'. Same tool, 2 different sentences.\n\nThis isn't bending the truth. It's choosing which true thing to say first. You have 3 minutes. Spend them on the part of your point that touches their week, and leave the rest for the questions afterwards.\n\nIf you can't fill line 2, you're not ready to plan the route. Ask someone who'll be in the room. One text message is enough.",
+    "simpler": "Line 2 does the real work. **What they care about is the only reason they'll follow you.** Dev's engineers cared about interruptions, so his talk became 'this cuts interruptions'. Rita cared about rooms, so hers became 'this stops double bookings'. Same tool, 2 different sentences.\n\nThis is not bending the truth. It is choosing which true thing to say first. You have 3 minutes. Spend them on the part that touches their week. Save the rest for questions afterwards.\n\nIf you cannot fill line 2, you are not ready to plan. Ask someone who will be in the room. One text message is enough."
+   },
+   {
+    "type": "mistake",
+    "body": "Sam gave a talk about a new filing system to 8 colleagues who had used the old one for 6 years. He opened with 2 minutes on how filing works. By the time he reached the new part, people were checking phones. You can spot this one yourself: read your draft and mark every sentence your listeners could have said to you. If more than 1 or 2 are marked, you've written it for strangers.",
+    "simpler": "Sam gave a talk about a new filing system to 8 colleagues. They had used the old system for 6 years. He opened with 2 minutes on how filing works. By the time he reached the new part, people were checking their phones. You can catch this yourself. Read your draft and mark every sentence your listeners could have said to you. If more than 1 or 2 are marked, you have written it for strangers."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "You've written your 3 lines and your draft. A friend asks: 'how do you decide what to cut?' What do you tell them?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Cut whatever makes the talk longer than 3 minutes, starting from the end"
+     },
+     {
+      "id": "b",
+      "text": "Cut whatever the listeners already know, and keep what touches what they care about"
+     },
+     {
+      "id": "c",
+      "text": "Cut whatever you feel least confident saying out loud"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's trimming by the clock, not by the listener: you could cut the one thing they needed and keep 40 seconds they already knew.",
+     "c": "That's about your nerves, not their needs: chapter 6 covers nerves. Here the listener decides, not your comfort."
+    },
+    "reteach": "Your 3 lines tell you two things: what they know and what they care about. Cut the first, build around the second. Length sorts itself out once you stop telling people what they already know."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Write 3 lines about your listeners before you plan: what they know, what they care about, what they're thinking. **Cut anything they already know**, and build the talk around what they care about.",
+    "simpler": "Before you plan, write 3 lines about your listeners: what they know, what they care about, and what they are thinking. Think of it like packing for a trip. You only bring what the people with you will need. **Cut anything they already know**, and build the whole talk around what they care about. Everything else can wait for the questions afterwards."
    },
    {
     "type": "try",
-    "body": "Pick the 2 or 3 people you will give your 3-minute talk to. Write the 3 lines about them on your phone now, naming one specific thing in each line."
+    "body": "Take the one sentence from chapter 1. Write 3 lines about the people you'd most likely say it to. Then text one of them a single question: 'what do you already know about this?'",
+    "simpler": "Take the one sentence you wrote in chapter 1. Now write 3 lines about the people you would most likely say it to: what they know, what they care about, what they will be thinking. Then text one of them a single question: 'what do you already know about this?' Their answer tells you where the walk really starts. **One text message is enough** to find out."
    }
   ],
   "outcomeLine": "You can now describe your audience in 3 lines and cut any part of your talk they don't need."
  },
- "seconds": 35.0262017250061
+ "seconds": 46.684906005859375
 }

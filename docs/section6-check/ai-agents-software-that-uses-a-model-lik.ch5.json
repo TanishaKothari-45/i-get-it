@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Your intern has worked all morning and hands you a report. You cannot see what is in their head, but you can read the notes they kept: what they tried, what came back, what they did next. Interns go wrong in 3 ways. They repeat the same dead-end call 20 times. They write down a number nobody gave them. Or they do a beautiful job on the wrong task. Every agent failure you will meet is one of these 3."
-   },
-   {
-    "type": "teach",
-    "title": "The 3 failure types",
-    "body": "An agent log is the written record of the loop from chapter 2. Each line shows what the model decided (the think step), what tool ran (the act step), and what came back (the check step). Reading a log is how you find out where things went wrong, because the agent itself will often tell you it succeeded.\n\nFailure 1 is the loop. The agent tries a step, it fails or returns nothing useful, and the agent tries the exact same step again. And again. It never changes its approach because each turn it only sees that the task is not done yet. You spot it when 2 or more lines are identical, or nearly identical.\n\nFailure 2 is the made-up fact. The model requests a tool, the tool returns an error or an empty result, and the model carries on as if it got a real answer. It writes a price, a date, or a file name that never appeared in any tool result. You spot it by checking: does every fact in the final answer trace back to a line where a tool actually returned it?\n\nFailure 3 is the wrong turn. Every step runs cleanly and every fact is real, but the agent misread the goal. Asked to find cheap flights to Lisbon, it researches Lisbon hotels. You spot it only by comparing the first line (the goal) with the last line (the result), because the middle will look fine.\n\nThe quickest diagnosis: a repeating log is a loop, a fact with no source line is made-up, a clean log answering a different question is a wrong turn."
+    "body": "Picture the intern's notepad at 6pm. Every agent keeps one like it: a *log*, one line per step, saying what it tried and what came back.\n\nWhen the intern goes wrong, it happens in exactly **3 ways**, and each leaves a different mark on that notepad: the same line copied 12 times, a result nobody actually handed them, or a neat answer to a question nobody asked.",
+    "simpler": "Think of a helper who writes down every step of their day in a notebook. Every agent keeps one like it, called a *log*: one line per step, saying what it tried and what came back.\n\nWhen the helper goes wrong, it happens in exactly **3 ways**. Each leaves its own mark on the page: the same line written 12 times, a result nobody actually gave them, or a tidy answer to a question nobody asked."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "An agent's log shows the same line 6 times: 'Searching web for: company phone number'. No results came back each time. Which failure type is this?",
+    "prompt": "The intern was asked to find the office printer's model number. Their notepad reads: 'Checked the supply cupboard. Not there. Checked the supply cupboard. Not there. Checked the supply cupboard. Not there.' Which kind of going-wrong is this?",
     "options": [
      {
       "id": "a",
-      "text": "The loop. It keeps repeating a step that does not work."
+      "text": "Stuck in a loop, repeating a step that already failed"
      },
      {
       "id": "b",
-      "text": "The made-up fact. It is inventing a phone number."
+      "text": "Made up a result nobody gave them"
      },
      {
       "id": "c",
-      "text": "The wrong turn. It should not be searching at all."
+      "text": "Solved the wrong problem"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's the made-up fact, not the loop: a made-up fact means a result appears that no tool gave. Here, nothing has been invented yet. It is just stuck.",
-     "c": "That's the wrong turn, not the loop: a wrong turn means the agent solved a different problem. Searching for a phone number matches the task fine. The problem is the repeating."
+     "b": "That's the made-up fact, not this: every result here really came back from the cupboard. It just came back the same 3 times.",
+     "c": "That's the wrong turn, not this: the intern is still on the right task, the printer. They're just not moving."
     },
-    "reteach": "A loop is when the agent does the same step over and over and never changes its plan. The giveaway is repetition in the log: identical or near-identical lines. The content of the step can be perfectly sensible. It is the repeating that is the failure."
-   },
-   {
-    "type": "example",
-    "title": "A 10-line log, read slowly",
-    "body": "Goal: 'Find the opening hours of the Oak Street library and add them to my notes file.' Line 2: the model asks the web search tool for 'Oak Street library hours'. Line 3: the tool returns an error, 'connection timed out'. Line 4: the model writes: 'The library is open 9am to 6pm, Monday to Saturday.' Line 5: it asks the file tool to append that text to notes.txt. Line 6: the file tool says 'done'. Line 7: the model reports 'Task complete.'\n\nThe log looks tidy and it finished in 7 steps. But line 3 gave an error and line 4 states hours that no tool ever returned. That is a made-up fact, and it is now sitting in a real file."
+    "reteach": "Look at what repeats. A loop shows up as the same action with the same result, line after line, with no new information between them. A healthy log changes a little every step."
    },
    {
     "type": "teach",
-    "title": "Why the tidy ones are the dangerous ones",
-    "body": "Loops are the easiest failure to catch. They burn time and money, but they rarely do damage, because nothing new gets done. Many agents have a step cap for exactly this reason, which chapter 6 covers.\n\nMade-up facts and wrong turns are worse because the log ends with 'Task complete'. The intern is confident. The only defence is the habit of tracing: pick each fact in the final answer and find the exact log line where a tool handed it over. If you cannot find that line, the fact was invented.\n\nFor a wrong turn, you trace differently. You reread the goal in line 1, then read the final result, and ask whether a stranger would say they match. Skip the middle at first. The middle is where the agent looks competent, which is exactly what fools you."
+    "title": "Two failures you can see in the log",
+    "body": "An agent's log is the notepad: one line per turn, saying what the model asked for and what the tool sent back. Reading it is mostly about **spotting what should not be there**.\n\nFailure 1 is the *loop*: the agent tries a step, it fails or gives nothing new, and the agent tries the exact same step again. And again. The clue is repetition with no change.\n\nFailure 2 is the *made-up fact*: the model writes down a result that no tool returned. The clue is a fact appearing in the model's text with no tool line above it to explain where it came from.",
+    "simpler": "An agent's log is that notebook. One line per turn, saying what the model asked for and what the tool sent back. Reading it is mostly about **spotting what should not be there**.\n\nFailure 1 is the *loop*. The agent tries a step, it fails or brings nothing new, and the agent tries the exact same step again. And again. The clue is repetition with no change.\n\nFailure 2 is the *made-up fact*. The model writes down a result that no tool returned. The clue is a fact in the model's text with no tool line above it to explain where it came from."
+   },
+   {
+    "type": "example",
+    "title": "The weather that never arrived",
+    "body": "An agent was asked for tomorrow's weather in Lisbon. Step 1: it called the weather tool. Step 2: the tool returned 'service unavailable'. Step 3: the model wrote, 'Tomorrow in Lisbon will be 24 degrees and sunny, pack light.'\n\n**Nothing above step 3** says 24, or sunny, or anything about Lisbon's sky. The agent did not look it up. It remembered what Lisbon usually feels like and served it with a straight face.",
+    "simpler": "An agent was asked for tomorrow's weather in Lisbon. Step 1: it called the weather tool. Step 2: the tool answered 'service unavailable'. Step 3: the model wrote, 'Tomorrow in Lisbon will be 24 degrees and sunny, pack light.'\n\n**Nothing above step 3** says 24, or sunny, or anything about Lisbon's sky. The agent did not look it up. It remembered what Lisbon usually feels like and said it with a straight face."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Goal: 'Email the 3 newest invoices to the accountant.' The log shows the agent searched the inbox, found 3 invoices from last year, attached them, and sent the email. Every tool call succeeded. Which failure is this?",
+    "prompt": "You're reading a log. Step 4: the model asks the calendar tool for free slots on Friday. Step 5: the tool replies with an empty list. Step 6: the model says 'Booked you in for Friday at 3pm.' Which failure is step 6?",
     "options": [
      {
       "id": "a",
-      "text": "The loop. It did 3 of the same thing."
+      "text": "A loop: it keeps asking about Friday"
      },
      {
       "id": "b",
-      "text": "The wrong turn. The invoices were real but they were not the newest."
+      "text": "A made-up fact: the 3pm slot came from nowhere"
      },
      {
       "id": "c",
-      "text": "The made-up fact. The invoices did not exist."
+      "text": "A wrong turn: it should have checked Thursday"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the loop, not the wrong turn: a loop repeats a step without progress. Attaching 3 different files is progress, not repetition.",
-     "c": "That's the made-up fact, not the wrong turn: made-up means a tool never returned it. The inbox tool really did return those invoices. They were just the wrong ones."
+     "a": "That's the loop, not this: nothing is repeated here. Each step is new. It's just that step 6 isn't backed by step 5.",
+     "c": "That's the wrong turn, not this: Friday was the right task. The problem is that 3pm appears with no tool line that produced it."
     },
-    "reteach": "A wrong turn is a clean run at the wrong target. Every tool call succeeds and every fact is real, but the result does not match the goal. You catch it by holding the first line and the last line side by side, not by checking the steps in between."
+    "reteach": "For every fact the model states, look one line up. Is there a tool result that contains it? If the tool said 'empty' and the model said '3pm', the 3pm is invented."
+   },
+   {
+    "type": "teach",
+    "title": "The quiet one: solving the wrong problem",
+    "body": "Failure 3 is the *wrong turn*: every step works, every tool result is real, and the agent finishes something that was never the goal. It is the hardest to spot because the log looks healthy. Nothing repeats, nothing is invented.\n\nThe clue lives at the top. Re-read the goal line, then read the last line. Do they match? An agent asked to 'find the cheapest flight to Rome' that ends with 'found the fastest flight to Rome' took a wrong turn, usually at the step where it first wrote 'fastest'.\n\nSo the reading order is **top and bottom first**, then scan the middle for repeats and for facts with no source.",
+    "simpler": "Failure 3 is the *wrong turn*. Every step works, every tool result is real, and the agent finishes something that was never the goal. It is the hardest to spot, because the log looks healthy. Nothing repeats, nothing is invented.\n\nThe clue sits at the top. Read the goal line, then read the last line. Do they match? An agent asked to 'find the cheapest flight to Rome' that ends with 'found the fastest flight to Rome' took a wrong turn, usually at the step where it first wrote 'fastest'.\n\nSo read **top and bottom first**, then scan the middle for repeats and facts with no source."
    },
    {
     "type": "mistake",
-    "body": "The common mistake is trusting the last line. 'Task complete' is the model's opinion, not a tool's report, and the model writes it after made-up facts and wrong turns too. Spot the habit in yourself: if you only read the final message and not the tool results above it, you are grading the intern on their own self-review."
+    "body": "Dev read a 10-line log where the agent had cheerfully renamed 200 photos by date and signed off with 'all done'. The ending looked perfect, so Dev marked it a pass. The goal line said 'rename by location'.\n\nSpot it by **never trusting a tidy ending**: check the first line against the last before you read anything else.",
+    "simpler": "Dev read a 10-line log where the agent had happily renamed 200 photos by date and signed off with 'all done'. The ending looked perfect, so Dev marked it a pass. The goal line said 'rename by location'.\n\nIt is like checking a delivery by looking only at the wrapping. Catch it by **never trusting a tidy ending**: check the first line against the last before you read anything else."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Which check catches a made-up fact in an agent log?",
+    "prompt": "A friend says: 'My agent's log looks totally fine. Every step worked, no errors, no repeats. But the result is useless.' Which failure is most likely, and where do you look?",
     "options": [
      {
       "id": "a",
-      "text": "Look for the same step repeated several times."
+      "text": "A loop; look for repeated lines"
      },
      {
       "id": "b",
-      "text": "Compare the goal in line 1 with the final result."
+      "text": "A made-up fact; look for results with no tool behind them"
      },
      {
       "id": "c",
-      "text": "Find the tool result line that gave each fact in the answer."
+      "text": "A wrong turn; compare the goal line with the final line"
      }
     ],
     "answer": "c",
     "whyNot": {
-     "a": "That's the check for a loop, not a made-up fact: repetition shows the agent is stuck, not that it invented something.",
-     "b": "That's the check for a wrong turn, not a made-up fact: matching goal to result catches a misread task, but a made-up fact can appear in an answer that matches the goal perfectly."
+     "a": "That's the loop, not this: a loop leaves repeated lines, and your friend said there are none.",
+     "b": "That's the made-up fact, not this: an invented result usually sits on top of a failed or empty tool call, and your friend said every step worked."
     },
-    "reteach": "A made-up fact is a claim with no source. The model wrote it, but no tool returned it. So the test is to take each fact in the final answer and look upward in the log for the tool line that produced it. No line, no source, made up."
+    "reteach": "When the log is clean but the answer is useless, the steps were right and the destination was not. Read the goal, read the ending, and find the step where the agent started heading somewhere else."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Agents fail in **3 ways**: they repeat a step forever, they state a result no tool gave them, or they neatly finish the wrong task.\n\nRead the log top and bottom first, then scan the middle for repeats and for facts with no source.",
+    "simpler": "Agents fail in **3 ways**. They repeat a step forever, they state a result no tool gave them, or they neatly finish the wrong task.\n\nRead the log top and bottom first, then scan the middle for repeats and for facts with no source."
    },
    {
     "type": "try",
-    "body": "Ask any chatbot you use for a fact it cannot know, like today's weather in a small town. Notice whether it says 'I cannot check' or confidently invents one. That is the made-up fact habit in miniature."
+    "body": "Next time a chatbot gives you a specific number or date, reply: **'where did that come from?'** Watch whether it points to a real source or quietly changes the number. That second one is a made-up fact, caught live.",
+    "simpler": "Next time a chatbot gives you a specific number or date, reply: **'where did that come from?'** Watch what happens. It will either point to a real source or quietly change the number. That second one is a made-up fact, caught live."
    }
   ],
-  "outcomeLine": "You can now read a short agent log, point to the line where it went wrong, and name it as a loop, a made-up fact, or a wrong turn."
+  "outcomeLine": "You can now read a 10-line agent log, point to the step where it went wrong, and name which of the 3 failures it is."
  },
- "seconds": 49.0047652721405
+ "seconds": 77.5071918964386
 }

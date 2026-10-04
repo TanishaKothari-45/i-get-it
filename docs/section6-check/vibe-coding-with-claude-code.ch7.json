@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "The contractor packs up and says \"all done.\" You don't take their word for it. You walk the room, flip the switches, run the taps. You ask what they did today and why. Then you add a line to the house notes on the fridge: \"no nails in the north wall, there are pipes behind it.\" Next week's crew reads the notes before they start."
-   },
-   {
-    "type": "teach",
-    "title": "Three checks, every time",
-    "body": "Claude saying \"done\" means it finished typing. It does not mean the app works for a real person. So you close every session with 3 checks.\n\nCheck 1: walk it. Open the app in your browser and use it like a user, not like a builder. Do the one job the app is for, start to finish. Then try one thing that worked before today, to make sure it still does.\n\nCheck 2: read the change list. Ask Claude: \"List every file you changed this session, with one line on why.\" You are looking for surprises: a file you did not expect, or a change you did not ask for.\n\nCheck 3: write the rules. Claude Code reads a file called CLAUDE.md (a plain text notes file) from your project folder at the start of each session. Put 3 to 5 house rules in it. Next session, the builder starts already knowing them.\n\nThe order matters a little. Test first, because the test tells you what to ask about. Rules last, because the session tells you which rules were missing."
+    "body": "It's the end of the day and the builder says the kitchen is done. **You don't sign off from the doorway.** You walk in, turn on every tap, open every cupboard, ask what got done today, and pin a note to the wall for tomorrow's crew: *no more surprises with the plumbing.*\n\nThree checks, every time, before you trust the work.",
+    "simpler": "It's the end of the day. The builder says the kitchen is finished. **You don't sign off from the doorway.** You walk in. You turn on every tap and open every cupboard. You ask what got done today. Then you pin a note to the wall for tomorrow's crew: no more surprises with the plumbing. Do these three checks every time, before you trust the work."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Claude says: \"Done, the delete button now works.\" What do you do first?",
+    "prompt": "Claude says: *Done! The 'Clear all' button now empties your shopping list.* What's your first move?",
     "options": [
      {
       "id": "a",
-      "text": "Ask Claude to list what it changed."
+      "text": "Say thanks and ask for the next feature."
      },
      {
       "id": "b",
-      "text": "Open the app and click delete yourself."
+      "text": "Open the app and click 'Clear all' yourself, like a user would."
      },
      {
       "id": "c",
-      "text": "Write a rule in CLAUDE.md saying delete must work."
+      "text": "Ask Claude to read its own code again and double-check."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's check 2, not check 1: the change list is more useful after you know whether the app actually works.",
-     "c": "That's check 3, not check 1: rules are for next session; right now you need to know if this session's work holds up."
+     "a": "That's taking the builder's word for the walkthrough: you haven't seen the tap run yet.",
+     "c": "That's asking the builder to inspect the builder. Your own click takes 5 seconds and catches more."
     },
-    "reteach": "\"Done\" is the builder's word, not yours. The first check is always you, in the browser, using the feature like a stranger would. Only after that do you ask what changed and write down lessons."
-   },
-   {
-    "type": "example",
-    "title": "The to-do app and the extra file",
-    "body": "You asked Claude to add a delete button to your to-do app. It says done. Check 1: you open the app, add \"buy milk\", click delete, and it disappears. You also tick a task as done, which worked yesterday. Still works. Check 2: you ask for the change list. Claude names 3 files: the page, the logic, and the styling file. You never mentioned styling. Claude explains it changed all the button colors \"to match.\" Check 3: you did not want that, so you add a rule to CLAUDE.md: \"Do not change styling unless I ask for it.\""
+    "reteach": "Claude saying *done* means it believes the code is right. It has not clicked the button. You are the only one in the room who can act like a real user, so that comes first."
    },
    {
     "type": "teach",
-    "title": "What goes in the rules file",
-    "body": "A rule earns its place when you have said it twice, or when skipping it cost you time. The styling surprise above is a good rule. \"Make the app nice\" is not a rule, it is a wish.\n\nGood rules are short and checkable. \"After every change, tell me how to test it in the browser.\" \"One feature per request; stop and wait after each.\" \"Ask before adding any new tool or service.\" Each one is a sentence a builder can follow or break, nothing in between.\n\nKeep the file under about 15 lines. A long rules file gets skimmed, by people and by Claude. If you reach 8 rules, cut the ones that have not mattered lately.\n\nThe file lives in your project folder, so save it with Git like any other file (chapter 5). Then it travels with the project to GitHub and to any other computer."
+    "title": "Check 1 and 2: click it, then ask for the list",
+    "body": "**Test as a user first.** Open the app in your browser and do the thing you asked for, start to finish. Not the code, the app. If a button was added, click it. If a form was added, fill it in with something silly and submit it.\n\nThen ask the builder for the day's report: *List every file you changed and what you changed in each, in plain words.* Claude will give you a short list.\n\nRead it looking for one thing: a file you didn't expect. That surprise is where the hidden damage usually lives.",
+    "simpler": "**Try the app yourself first.** Open it in your browser and do the whole thing you asked for. The app, not the code. If a button was added, click it. If a form was added, type something silly into it and send it. Then ask Claude for a plain list of every file it changed and what changed in each. Read that list for one thing: a file you didn't expect. That surprise is where hidden damage hides."
+   },
+   {
+    "type": "example",
+    "title": "The 3-file surprise",
+    "body": "You ask Claude to add a 'Clear all' button to a shopping-list app. Claude says done. You click it: the list empties. Good.\n\nThen you ask for the change list. Claude names 3 files: the page, the styling, and the file that saves the list between visits. You never mentioned saving. One question, *why that third file?*, and Claude admits it rewrote the save function 'while it was in there'. Items now vanish on refresh. **Caught in 40 seconds**, before you'd moved on and forgotten.",
+    "simpler": "You ask Claude to add a 'Clear all' button to a shopping-list app. Claude says done. You click it. The list empties. Then you ask what files changed. Claude names three: the page, the styling, and the file that saves your list between visits. You never mentioned saving. You ask why that third file. Claude admits it also rewrote the save code. Now items vanish when you refresh. **Caught in 40 seconds**, before you moved on and forgot."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "The app works. Claude's change list shows it edited the settings file, which you never mentioned. What is the right move?",
+    "prompt": "You asked for a dark-mode toggle. Claude's change list shows 4 files. One is the file that handles sign-in, which you never mentioned. What do you do?",
     "options": [
      {
       "id": "a",
-      "text": "Ignore it. The app works, so the change must be fine."
+      "text": "Nothing. The toggle works, so the build is fine."
      },
      {
       "id": "b",
-      "text": "Ask Claude why it changed that file and whether the change is needed, then decide to keep or undo it."
+      "text": "Ask: *Why did you change the sign-in file, and what exactly did you change?*"
      },
      {
       "id": "c",
-      "text": "Delete the settings file so the unasked change is gone."
+      "text": "Ask Claude to delete the sign-in file so nothing's hidden in it."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's trusting \"done\" again, not inspecting: a working app today can hide a settings change that bites you next week.",
-     "c": "That's demolition, not inspection: settings files usually hold things the app needs to start at all. Ask first, then undo only the one change if needed."
+     "a": "That's check 1 only. The toggle working says nothing about what happened to sign-in.",
+     "c": "That's panic, not inspection. Ask first; the change may be harmless, or easy to undo."
     },
-    "reteach": "The change list exists so surprises get questioned, not ignored and not panicked over. A surprise file means one question to Claude: \"why this, and is it needed?\" Then you choose. If the answer is no, Claude can undo just that change, or you restore the last saved version."
+    "reteach": "The change list is a map of where the builder went. A room you didn't send it into is the first room you look in. Ask why, then test that room too."
+   },
+   {
+    "type": "teach",
+    "title": "Check 3: the note pinned to the wall",
+    "body": "Every new Claude Code session starts with a blank memory. Yesterday's 'please don't touch the save file' is gone. The fix is a *CLAUDE.md*: a plain text file in your project folder that Claude Code reads automatically at the start of every session.\n\n**Write 3 to 5 rules in it**, each one line, in plain English. Good ones sound like: 'Ask before changing any file I didn't mention.' 'After each change, tell me how to test it in the browser.' 'One feature per request, no extras.'\n\nGrow it slowly. Each time you correct Claude on the same thing twice, that correction becomes a line.",
+    "simpler": "Every new Claude Code session starts with an empty memory. Yesterday's 'please don't touch the save file' is forgotten. The fix is a file called CLAUDE.md. It's a plain text file in your project folder that Claude Code reads at the start of every session. **Write 3 to 5 rules in it**, one line each. For example: 'Ask before changing any file I didn't mention.' Each time you correct Claude on the same thing twice, that correction becomes a line."
    },
    {
     "type": "mistake",
-    "body": "The mistake is taking \"done\" as proof. Claude writes \"done\" when it finishes its own steps, which is not the same as the feature working on your screen. You can spot it in yourself: if you have not opened the app since the last change, you have not checked anything yet. Open it before you reply."
+    "body": "Sam finishes Tuesday's session with everything working and closes the terminal. On Wednesday, Claude rewrites the save file again, uninvited, and Sam types the same frustrated correction as yesterday. **Saying the same correction twice is the signal.** The moment you notice you're repeating yourself, stop and put that sentence in CLAUDE.md. Then it's the last time.",
+    "simpler": "Sam ends Tuesday's session with everything working and closes the terminal. On Wednesday, Claude rewrites the save file again without being asked. Sam types the same annoyed correction as the day before. **Typing the same correction twice is the signal.** The moment you catch yourself repeating a sentence to Claude, stop and put that sentence in CLAUDE.md. Then it's the last time you have to say it."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What are the 3 checks before you trust a build?",
+    "prompt": "You're closing a session. Which of these belongs in your CLAUDE.md file?",
     "options": [
      {
       "id": "a",
-      "text": "Test it as a user, read Claude's list of changes, write the rules for next time."
+      "text": "Today I fixed the login bug and added dark mode."
      },
      {
       "id": "b",
-      "text": "Commit, push, restore."
+      "text": "Always ask before changing a file I didn't mention."
      },
      {
       "id": "c",
-      "text": "Describe the user, the one job, and what done looks like."
+      "text": "The full red error message from this morning."
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the save-point routine from chapter 5, not the inspection: Git keeps versions, it doesn't tell you whether this version works.",
-     "c": "That's the brief from chapter 2, not the inspection: that happens before building, the 3 checks happen after."
+     "a": "That's a diary of what happened, which Git already keeps. The notes file holds rules for how to work, not history.",
+     "c": "That's a one-time problem from chapter 4. It's fixed now; a rule outlives any single error."
     },
-    "reteach": "Picture the contractor leaving: you walk the room, you ask what they did, you update the fridge notes. Walk, ask, write. Same three, every session."
+    "reteach": "CLAUDE.md is the note for tomorrow's crew, so it holds standing orders: how you want the builder to behave every day. Not what got done, not what broke once."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Claude saying *done* is a claim, not a check. **Click through the app yourself**, ask for the list of changed files and question any surprise, then write the rules you keep repeating into CLAUDE.md so tomorrow's session already knows them.",
+    "simpler": "When Claude says done, that is a claim, not proof. Those are the three checks. **Click through the app yourself.** Then ask for the list of files that changed and question anything you didn't expect. Finally, write the rules you keep repeating into CLAUDE.md, so tomorrow's session already knows them before you start."
    },
    {
     "type": "try",
-    "body": "In your project folder, create a file named CLAUDE.md. Write 3 rules you wish Claude had followed this week. Save it, then start Claude Code and ask: \"What rules are you following in this project?\""
+    "body": "Open your project folder, create a file called CLAUDE.md, and type 3 rules you'd want followed tomorrow. Start the first one with 'Ask before...'. Then start Claude Code and ask: *what rules are you following?*",
+    "simpler": "Open your project folder and make a new file called CLAUDE.md. Type three rules you'd want followed tomorrow, one short line each. **Start the first one with 'Ask before...'** Then start Claude Code and ask it one question: what rules are you following?"
    }
   ],
-  "outcomeLine": "You can now end a session by testing the app yourself, reading what Claude changed, and leaving 3 to 5 rules the builder reads next time."
+  "outcomeLine": "You can now finish a session by testing the app yourself, reading Claude's list of changes, and writing 3 to 5 rules into CLAUDE.md for next time."
  },
- "seconds": 60.16275191307068
+ "seconds": 86.26813697814941
 }

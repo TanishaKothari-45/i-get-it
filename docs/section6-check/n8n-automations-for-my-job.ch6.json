@@ -5,108 +5,120 @@
   "cards": [
    {
     "type": "picture",
-    "body": "When one station on an assembly line jams, the whole belt stops. A good factory has a red light above the jammed station and a logbook of every run. n8n has both. The Executions list is the logbook, and the node that broke is marked red. You do not rebuild the line. You walk to the red light."
-   },
-   {
-    "type": "teach",
-    "title": "Read the logbook first",
-    "body": "Every single run of a workflow is called an execution. n8n keeps a list of them. Open your workflow and click the Executions tab, next to Editor at the top. Each row shows when the run started, how long it took, and whether it succeeded or failed.\n\nFailed runs are saved by default, so you can look at them hours later. Click a failed row and n8n shows the canvas exactly as it was during that run. Nodes that worked are green and still hold the data they passed on. The node that broke is marked red.\n\nClick the red node to read the error. Most errors say one of three things. A field the node needed was empty. The app said no, usually a permission problem or an ID that does not exist. Or the data was in the wrong shape, like text where a number was expected.\n\nThe green nodes are your friends here. If stations 1 and 2 are green, they did their job. The problem is in station 3 or in what station 3 was told to do. That is where you spend your time."
+    "body": "On a real assembly line, when one station jams, a red light comes on above that station and the belt stops. Nobody tears down the factory. The foreman walks to the red light, reads the fault, and fixes that one station.\n\nn8n works the same way. **Every run is logged, and the node that failed is marked red.** Your job is to walk to the light, not rebuild the line.",
+    "simpler": "Think of a factory line where one machine gets stuck. A red light turns on above that machine and the belt stops. No one knocks the factory down. The foreman walks to the red light, reads the fault, and fixes that one machine.\n\nn8n does the same. **Every run is logged, and the node that failed is marked red.** Your job is to walk to the light, not rebuild the line."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your Slack message workflow ran at 9:00 and nothing posted. Where do you look first?",
+    "prompt": "Your Monday workflow posts a daily summary to Slack. Tuesday, nothing arrived and the office is quietly blaming you. What do you do first?",
     "options": [
      {
       "id": "a",
-      "text": "Delete the workflow and build it again carefully"
+      "text": "Delete the workflow and rebuild it from scratch, carefully this time"
      },
      {
       "id": "b",
-      "text": "Open the Executions tab and click the 9:00 run"
+      "text": "Open the Executions list and look at Tuesday's run"
      },
      {
       "id": "c",
-      "text": "Log in to Slack and check its settings"
+      "text": "Add a second Slack node in case the first one is unreliable"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's rebuilding the whole line because one station jammed: the Executions list already shows you which station, so you only need to fix that one.",
-     "c": "That's checking the app before checking the logbook: the error in the Executions list tells you whether Slack is even the problem."
+     "a": "That's rebuilding the factory, not reading the red light: the fault is still unknown, so the same thing may break again.",
+     "c": "That's adding a station, not finding the jam: you don't yet know the Slack node is the one that failed."
     },
-    "reteach": "The Executions list is the logbook of every run. Open the failed run and n8n shows which node turned red and why. Start there, every time, before touching anything else."
-   },
-   {
-    "type": "example",
-    "title": "The renamed channel",
-    "body": "Monday 9:00, a 3-node workflow fails: Google Sheets Trigger, then Edit Fields, then Slack. In the Executions tab the Sheets node and the Edit Fields node are green, with the new row's data sitting inside them. The Slack node is red. Its error reads channel_not_found. Someone renamed the channel from #sales-leads to #leads on Friday. The fix is one change in the Slack node's channel field. Two minutes, nothing rebuilt."
+    "reteach": "n8n keeps a record of every run, good and bad. Before changing anything, look at that record. It tells you which run failed and which single node stopped the belt."
    },
    {
     "type": "teach",
-    "title": "Re-run the same data, then stop it happening again",
-    "body": "After you change the node, do not wait for the next real event to test it. On the failed execution there is a Retry button. Choose to retry with the currently saved workflow. n8n pushes the exact same input data through your fixed version. If every node goes green, you are done.\n\nTwo settings guard against future jams. Open any node, click its Settings tab, and turn on Retry On Fail. Set Max Tries to 3 and Wait Between Tries to 5000 milliseconds, which is 5 seconds. This helps when an app is slow or times out now and then.\n\nThe second setting is in the workflow's own settings, under Error Workflow. You point it at a second, tiny workflow that starts with an Error Trigger node and sends you a message. Now a failure tells you about itself, instead of you finding out on Thursday that nothing ran since Monday."
+    "title": "The shift log",
+    "body": "Inside any workflow, next to the Editor tab, there is an *Executions* tab, a log of every time the workflow ran. Each row shows when it ran, how long it took, and a status: Succeeded or Error.\n\nClick a failed row and the canvas opens showing that exact run. Nodes that worked have a green tick. **The node that failed is marked red.** Click it and the error message appears in its output panel.\n\nRead the message slowly. It usually says what the outside app complained about, in its own words, and n8n often adds a plain hint beneath.",
+    "simpler": "Open any workflow. Next to the Editor tab is an Executions tab. It lists every time the workflow ran. Each row shows the time, how long it took, and whether it succeeded or hit an error.\n\nClick a failed row and the canvas shows that exact run. Nodes that worked have a green tick. **The node that failed is marked red.** Click it and the error message appears in its output panel.\n\nRead the message slowly. It usually repeats what the outside app complained about, and n8n often adds a plain hint underneath."
+   },
+   {
+    "type": "example",
+    "title": "Thursday, 9:14",
+    "body": "Priya's form-to-spreadsheet workflow ran fine for 3 weeks. Thursday at 9:14 the Executions list showed a red row. She clicked it: the Form Trigger, Edit Fields and IF nodes were green. The Google Sheets node was red.\n\nThe message said the sheet could not be found. A colleague had renamed the tab from Responses to Responses 2025 on Wednesday evening. Priya changed one field in one node, re-ran it, and watched the row land. Total repair time: shorter than the coffee she made first.",
+    "simpler": "Priya's form-to-spreadsheet workflow had worked for 3 weeks. Thursday at 9:14 the Executions list showed a red row. She clicked it. The Form Trigger, Edit Fields and IF nodes were green. The Google Sheets node was red.\n\nThe message said the sheet could not be found. A colleague had renamed the tab from Responses to Responses 2025 on Wednesday evening. Priya changed one field in one node, re-ran it, and watched the row land. The fix took less time than making her coffee."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A colleague says the whole workflow is broken and wants to rebuild it. You open the failed execution. Nodes 1 and 2 are green. Node 3, Google Sheets, is red with the error Invalid spreadsheet ID. What do you do?",
+    "prompt": "A red run. Three nodes have green ticks, the fourth, a Slack node, is red. Where do you make a change?",
     "options": [
      {
       "id": "a",
-      "text": "Open node 3, check the spreadsheet ID, fix it, then Retry the failed run"
+      "text": "The trigger node, because every run starts there"
      },
      {
       "id": "b",
-      "text": "Delete all three nodes and rebuild from the trigger"
+      "text": "Only the Slack node, after reading its error message"
      },
      {
       "id": "c",
-      "text": "Reconnect the credentials on node 1, the trigger"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's rebuilding the line when the red light already points at one station: nodes 1 and 2 are green and did their job.",
-     "c": "That's fixing a green station: node 1 passed its data on fine, and the error names a spreadsheet ID, not a login problem."
-    },
-    "reteach": "Green nodes worked. The red node is where the run stopped, and its error message says why. Fix only that node, then use Retry on the failed run so the same data goes through again."
-   },
-   {
-    "type": "mistake",
-    "body": "People turn on Retry On Fail to cure a wrong setting. Retry helps with errors that come and go, like a timeout. A wrong channel name or spreadsheet ID fails the same way 3 times in a row. Spot it: open the failed execution and read the error. If it is the same exact message every try, something is misconfigured, and you fix the node instead."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "In a failed execution, what does a red node tell you?",
-    "options": [
-     {
-      "id": "a",
-      "text": "The whole workflow is corrupted and must be rebuilt"
-     },
-     {
-      "id": "b",
-      "text": "This is the station that broke; click it to read why"
-     },
-     {
-      "id": "c",
-      "text": "The trigger never fired, so nothing ran"
+      "text": "All four nodes, to be safe"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's treating one jammed station as a broken line: the green nodes before it worked and keep their data.",
-     "c": "That's a run that never started: if a node is red, the trigger did fire and the belt moved until that station."
+     "a": "That's the bell, not the jam: the green tick means the trigger did its job and passed items on.",
+     "c": "That's rebuilding, not repairing: three stations worked, so changing them can only add new problems."
     },
-    "reteach": "A run that fails stops at one node. n8n colours that node red and keeps the error message inside it. Everything before it is green and worked. Click the red one, read the message, fix that node."
+    "reteach": "Green ticks mean those nodes finished and handed items on. The red node is where the belt stopped. Fix there, and only there, guided by what its message says."
+   },
+   {
+    "type": "teach",
+    "title": "Re-run with the same part, then add a safety net",
+    "body": "Fixing is easier when you can test with the exact item that broke. On a failed execution, n8n offers to load that run into the editor. Now the broken item sits in your canvas, so you can fix the red node and re-run it without waiting for another form to be submitted.\n\nTwo settings stop small faults becoming your problem. In a node's Settings tab, **Retry On Fail** tells n8n to try that node again, for example 3 times with a few seconds between, which handles a flaky connection.\n\nIn the workflow's own settings, *Error Workflow* names a second workflow that runs whenever this one fails. Make that one send you a message.",
+    "simpler": "Fixing is easier when you can test with the exact item that broke. On a failed run, n8n offers to load that run into the editor. The broken item now sits in your canvas. You can fix the red node and re-run it without waiting for a new form to come in.\n\nTwo settings keep small faults from becoming your problem. In a node's Settings tab, **Retry On Fail** tells n8n to try that node again, say 3 times with a short pause between. That handles a shaky connection.\n\nIn the workflow's own settings, Error Workflow names a second workflow that runs whenever this one fails. Make that one send you a message."
+   },
+   {
+    "type": "mistake",
+    "body": "Dev saw a red run, sighed, deleted the whole workflow and rebuilt it over lunch. It failed again at the same node, for the same reason: the sheet tab had been renamed, and no amount of rebuilding renames it back.\n\nThe tell is simple. If your hands are rebuilding before your eyes have read the error message, stop and go read it.",
+    "simpler": "Dev saw a red run, sighed, deleted the whole workflow and rebuilt it over lunch. It failed again at the same node, for the same reason. The sheet tab had been renamed, and rebuilding does not rename it back.\n\nThe warning sign is easy to spot. If your hands are rebuilding before your eyes have read the error message, stop and go read it. It is like replacing a car because one tyre is flat."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend texts: \"My n8n thing broke, I'm starting over.\" What is the one line you send back?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Open Executions, click the red run, read the red node's message"
+     },
+     {
+      "id": "b",
+      "text": "Switch Active off and on, that clears the error"
+     },
+     {
+      "id": "c",
+      "text": "Turn on Retry On Fail for every node so it can never fail"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the on switch, not the log: toggling Active changes whether the workflow runs, not why it failed.",
+     "c": "That's the safety net, not the diagnosis: retries help with flaky connections, but a renamed sheet fails every one of the 3 tries."
+    },
+    "reteach": "The Executions list is the shift log. A failed run shows exactly which node went red and keeps its error message. Reading that message is the whole first step, every time."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "When a workflow fails, open the Executions tab, click the red run, and the one node that broke is marked red with its error message waiting. **Fix that node, re-run with the same data, and add a retry or an error workflow** so next time it tells you itself.",
+    "simpler": "When a workflow fails, open the Executions tab and click the red run. The one node that broke is marked red, with its error message waiting for you. **Fix that node, re-run with the same data, and add a retry or an error workflow** so next time the workflow tells you itself. You fix the one stuck machine. You do not rebuild the whole factory line."
    },
    {
     "type": "try",
-    "body": "Open a workflow you built this week. Click Executions and open the newest run. If nothing has failed, mistype the Slack channel name on purpose, run it, and find the red node and its error."
+    "body": "Open the Executions tab on the workflow you built in chapter 3. Click the newest run. Open each node and look at the output it passed on. Then open the last node's Settings tab and find Retry On Fail.",
+    "simpler": "Open the Executions tab on the workflow you built in chapter 3. Click the newest run. Open each node one at a time and look at the output it passed on to the next one. Then open the last node's Settings tab and find Retry On Fail. You do not need to change anything yet. Just find where these things live so they feel familiar when something breaks."
    }
   ],
-  "outcomeLine": "You can now open a failed run, find the red node, read why it broke, fix that one node and re-run it with the same data."
+  "outcomeLine": "You can now find which node failed, read why, and fix it without rebuilding the workflow."
  },
- "seconds": 74.68871092796326
+ "seconds": 64.98760080337524
 }

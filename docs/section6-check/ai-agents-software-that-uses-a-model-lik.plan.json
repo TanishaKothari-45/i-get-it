@@ -15,45 +15,115 @@
     "n": 1,
     "title": "The model only talks. The agent does things.",
     "covers": "The one difference between a chatbot (answers a question, then stops) and an agent (keeps taking steps toward a goal until done), and why that difference changes everything about risk and usefulness.",
-    "outcome": "You can explain to a friend, in 2 sentences, why asking ChatGPT a question is not an agent and why booking a flight with it would be."
+    "outcome": "You can explain to a friend, in 2 sentences, why asking ChatGPT a question is not an agent and why booking a flight with it would be.",
+    "hook": "A chatbot and an agent can use the same model. One step apart."
    },
    {
     "n": 2,
     "title": "The loop: goal, think, act, check, repeat",
     "covers": "The cycle every agent runs: it gets a goal, the model picks the next step, something runs that step, the result goes back to the model, and it decides whether it is done. Walked through with one example from start to finish.",
-    "outcome": "You can draw the agent loop on paper and trace a 5-step task around it, saying what the model sees at each turn."
+    "outcome": "You can draw the agent loop on paper and trace a 5-step task around it, saying what the model sees at each turn.",
+    "hook": "The model can't open a web page. So how does an agent browse?"
    },
    {
     "n": 3,
     "title": "Tools: what the intern is allowed to touch",
     "covers": "How an agent acts on the world: a tool is a named action the model can request (search the web, read a file, send an email) that ordinary code then performs. Why the model never acts directly, and why the tool list is the single biggest safety lever.",
-    "outcome": "You can list the tools a given agent would need for a task like 'find and summarise 3 recent news stories', and say which one is the riskiest to hand over."
+    "outcome": "You can list the tools a given agent would need for a task like 'find and summarise 3 recent news stories', and say which one is the riskiest to hand over.",
+    "hook": "The model never clicks anything. It writes a note, and software does the clicking."
    },
    {
     "n": 4,
     "title": "Memory: the intern forgets everything overnight",
     "covers": "Why a model has no memory between calls, how an agent fakes memory by re-sending the conversation and notes each turn, and what breaks when the task gets longer than the model can hold at once (its context window, the amount of text it can read in one go).",
-    "outcome": "You can explain why an agent that worked for 10 steps can start repeating itself at step 40, and name 2 things builders do about it."
+    "outcome": "You can explain why an agent that worked for 10 steps can start repeating itself at step 40, and name 2 things builders do about it.",
+    "hook": "Every agent has amnesia. The good ones just take better notes."
    },
    {
     "n": 5,
     "title": "When it goes wrong: loops, made-up facts, and wrong turns",
     "covers": "The 3 failure types you will actually see: the agent repeats the same step forever, it invents a result a tool never gave, or it confidently solves the wrong problem. How to spot each one in a step-by-step log.",
-    "outcome": "You can read a 10-line agent log, point to the step where it went wrong, and name which of the 3 failure types it is."
+    "outcome": "You can read a 10-line agent log, point to the step where it went wrong, and name which of the 3 failure types it is.",
+    "hook": "'Book me a table' is one sentence. Watch it become eleven steps."
    },
    {
     "n": 6,
     "title": "Guardrails: how much rope to give the intern",
     "covers": "The practical controls: limiting tools, capping the number of steps, requiring a human 'yes' before risky actions, and running in a sandbox (a sealed copy of a system where mistakes do no real damage). Why 'ask before sending' beats 'trust it fully'.",
-    "outcome": "You can pick guardrails for a given agent and defend each choice with a one-line reason, including which single action should always need a human click."
+    "outcome": "You can pick guardrails for a given agent and defend each choice with a one-line reason, including which single action should always need a human click.",
+    "hook": "An agent read a web page. The web page told it what to do next. It obeyed."
    },
    {
     "n": 7,
     "title": "Agent, chatbot, or plain script: picking the right tool",
     "covers": "A 3-question test for any task: is the path known in advance, how bad is a mistake, and does it need judgement at each step. Applied to real cases such as sorting email, renaming 500 files, and researching a purchase.",
-    "outcome": "You can take 3 tasks from your own week, run each through the test, and say which deserves an agent, which a chatbot, and which an ordinary script, with the reason."
+    "outcome": "You can take 3 tasks from your own week, run each through the test, and say which deserves an agent, which a chatbot, and which an ordinary script, with the reason.",
+    "hook": "The brief you write on day 7 fits on one page. Most people's doesn't."
    }
   ]
  },
- "seconds": 27.54938292503357
+ "seconds": 53.98782396316528,
+ "hooksFrom": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "AI agents",
+  "outcome7": "By day 7 you'll be able to explain how an agent turns one request into a chain of actions, read the log of an agent's run and point to each place it decided, acted and checked, and write the brief, tool list and limits for a small agent task of your own.",
+  "horizon14": "Later, around day 14: run a simple agent on a real chore of yours and fix it when it goes off track.",
+  "horizon28": "Later, around day 28: judge an agent product's claims and know which jobs to hand it and which to keep.",
+  "picture": {
+   "name": "A new hire on day one",
+   "line": "An agent is a smart new hire with a to-do list, a phone, a notepad and a manager who decides what they're allowed to sign."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "The loop that makes it an agent",
+    "covers": "The four-step cycle every agent runs: read the task, decide the next move, act, check the result, repeat until done. Why a chatbot stops after one reply and an agent doesn't.",
+    "outcome": "You can draw the four-step loop and say which step a plain chatbot is missing.",
+    "hook": "A chatbot and an agent can use the same model. One step apart."
+   },
+   {
+    "n": 2,
+    "title": "The brain is only a brain",
+    "covers": "What the model inside actually does: it reads text and writes the most likely next text. It has no hands, no eyes and no memory between calls unless someone gives it those.",
+    "outcome": "You can list three things the model cannot do on its own and say what has to be added for each.",
+    "hook": "The model can't open a web page. So how does an agent browse?"
+   },
+   {
+    "n": 3,
+    "title": "Tools: how the brain gets hands",
+    "covers": "A tool is a piece of ordinary software the agent is allowed to call. The model writes a short request, the software runs it, the answer comes back as text. Reading one tool call line by line.",
+    "outcome": "You can read a tool call in an agent's log and say what the software did and what came back.",
+    "hook": "The model never clicks anything. It writes a note, and software does the clicking."
+   },
+   {
+    "n": 4,
+    "title": "The notepad: memory and context",
+    "covers": "The model only sees what is in front of it right now, called the context. Why agents forget, how they keep notes in files, and what happens when the notepad fills up.",
+    "outcome": "You can explain why an agent forgot something and name two ways agents keep notes.",
+    "hook": "Every agent has amnesia. The good ones just take better notes."
+   },
+   {
+    "n": 5,
+    "title": "From one goal to many steps",
+    "covers": "How an agent breaks a goal into steps, picks the next one, and retries when a step fails. Why 'done' is a judgement the agent makes, and where that judgement goes wrong.",
+    "outcome": "You can take a real chore and write it as the steps an agent would plan, including the check at the end.",
+    "hook": "'Book me a table' is one sentence. Watch it become eleven steps."
+   },
+   {
+    "n": 6,
+    "title": "When the new hire goes wrong",
+    "covers": "The four common failures: making things up, looping on the same step, using the wrong tool, and following instructions hidden in a web page or email. Plain explanation of each and the guardrails: permissions, approval before risky actions, limits on steps.",
+    "outcome": "You can spot which of the four failures a run shows and name the guardrail that would have caught it.",
+    "hook": "An agent read a web page. The web page told it what to do next. It obeyed."
+   },
+   {
+    "n": 7,
+    "title": "Write the brief for your own agent",
+    "covers": "Putting it together: pick one small task, write the brief, choose the tools, set the limits and the approval points, then read the run log and grade it.",
+    "outcome": "You can write the brief, tool list and limits for a small agent task and judge from its log whether the run went right.",
+    "hook": "The brief you write on day 7 fits on one page. Most people's doesn't."
+   }
+  ]
+ }
 }
