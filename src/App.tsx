@@ -38,6 +38,13 @@ export default function App() {
   const [view, setView] = useState<View>('auto')
   const [doneN, setDoneN] = useState<number | null>(null)
   const [draftTopic, setDraftTopic] = useState('')
+  // The writer comparison is for testers only: open the app once with ?compare=1 and this phone remembers it.
+  const [tester] = useState(() => {
+    try {
+      if (new URLSearchParams(window.location.search).get('compare') === '1') localStorage.setItem('igetit.tester', '1')
+      return localStorage.getItem('igetit.tester') === '1'
+    } catch { return false }
+  })
 
   const hb = data?.handbook ?? null
   const progress = hb?.progress ?? null
@@ -187,7 +194,7 @@ export default function App() {
         voiceNote={(chapter as any)?.stale ? 'You changed how you want to be taught after this chapter was written. Tap start and it gets rewritten for you first, about 30 seconds.' : hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
         onStart={() => { if ((chapter as any)?.stale) { refreshIfStale({ handbookId: hb._id, n: currentN, deviceToken: token }).catch(() => {}) ; return } setView('chapter') }}
         onTune={() => setView('tune')}
-        onCompare={() => { if (chapter?.variants?.length) { setView('compare'); return } compareModels({ handbookId: hb._id, n: currentN, deviceToken: token }).then(() => setView('compare')).catch(() => {}) }}
+        onCompare={!tester ? undefined : () => { if (chapter?.variants?.length) { setView('compare'); return } compareModels({ handbookId: hb._id, n: currentN, deviceToken: token }).then(() => setView('compare')).catch(() => {}) }}
         comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
         onRetry={() => { retry({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }}
         onChangeLine={() => { setDraftTopic(hb.topic); setView('start-again') }}

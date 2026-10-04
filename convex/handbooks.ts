@@ -18,6 +18,7 @@ const limiter = new RateLimiter(components.rateLimiter, {
   generateDevice: { kind: "token bucket", rate: 6, period: HOUR, capacity: 3 },
   simplerDevice: { kind: "token bucket", rate: 30, period: HOUR, capacity: 10 },
   askDevice: { kind: "token bucket", rate: 40, period: HOUR, capacity: 8 },
+  compareAll: { kind: "fixed window", rate: 10, period: HOUR },   // three expensive-model calls each: hard cap across the app
 });
 
 export function topicKeyOf(topic: string) {
@@ -622,9 +623,10 @@ export const compareModels = mutation({
     if (!h.plan) throw new Error("No plan yet");
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     if (ch?.variants && ch.variants.length === 3) return { started: false };
+    const cmp = await limiter.limit(ctx, "compareAll");
     const all = await limiter.limit(ctx, "generateAll");
     const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
-    if (!all.ok || !mine.ok) throw new Error("busy");
+    if (!cmp.ok || !all.ok || !mine.ok) throw new Error("busy");
     const order = ["sonnet", "opus", "fable"].sort(() => Math.random() - 0.5);
     const variants = order.map((k, i) => ({ key: ["A", "B", "C"][i], model: MODELS[k], status: "writing" }));
     if (ch) await ctx.db.patch(ch._id, { variants });

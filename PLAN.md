@@ -12,6 +12,8 @@ Before milestone 1: DESIGN.md (done 4 Oct night, taste choices marked MISSING fo
 7. I can open it on another device after sign-in and land on the same rung.   DONE (device token removed, sign-in kept, two rungs shown)
 Last: I can close it, reopen it, and my plan and my rungs are still there.   DONE on dev; on production only the first screen and the failure path were checked   <- next: a real phone on mobile data
 
+FROZEN 4 Oct 16:50 (Shaktimaan): no new features until one coursemate has used the live link on their phone with no help and we've written down where they stopped. Then Prateek's own phone test.
+
 Acceptance test (not a milestone): a stranger, logged out, on their own phone, gets through night 1 without Prateek saying a word.
 
 Parked (not now), in the order they'd come:
