@@ -15,7 +15,7 @@
     "options": [
      {
       "id": "a",
-      "text": "Allied troops to occupy all of Germany; country split into five states"
+      "text": "Allied troops to occupy all of Germany; country split into four zones"
      },
      {
       "id": "b",
@@ -73,8 +73,8 @@
    {
     "type": "teach",
     "title": "The hot summer",
-    "body": "For ten years the timber just sat there. Then in October 1929 the American stock market crashed, American loans to Germany dried up, and by 1932 about 6 million Germans had no job. **Hunger turned an old grievance into an urgent one.**\n\nHitler's Nazi party won 2.6% of the vote in 1928. In July 1932 it won 37%. He promised to tear up Versailles, rebuild the army and take *Lebensraum*, living space, from Poland and Russia. He had already set this out in his book *Mein Kampf* in the mid-1920s. On 30 January 1933 he became chancellor.\n\nOther houses on the street were already smoking. Italy attacked Ethiopia in 1935. Japan was at full war in China from 1937.",
-    "simpler": "Ten years passed. In October 1929 America's stock market crashed. American loans stopped, and by 1932 about 6 million Germans had no job. **Hunger turned an old grudge into an urgent one.** Hitler's Nazi party won 2.6% of votes in 1928 and 37% in July 1932. He promised to tear up the treaty, rebuild the army and take Lebensraum, living space, from Poland and Russia. He became chancellor, Germany's leader, in January 1933. Other houses on the street were already smoking: Italy and Japan were grabbing land too."
+    "body": "For ten years the timber just sat there. Then in October 1929 the American stock market crashed, American loans to Germany dried up, and by 1932 about 6 million Germans had no job. In photos from those years, men stand on Berlin street corners wearing signs offering to do any work at all. **Hunger turned an old grievance into an urgent one.**\n\nHitler's Nazi party won 2.6% of the vote in 1928. In July 1932 it won 37%. He promised to tear up Versailles, rebuild the army and take *Lebensraum*, living space, from Poland and Russia. He had already set this out in his book *Mein Kampf* in the mid-1920s. On 30 January 1933 he became chancellor.",
+    "simpler": "Ten years passed. In October 1929 America's stock market crashed. American loans stopped, and by 1932 about 6 million Germans had no job. Picture men on Berlin street corners wearing signs that said they would do any work at all. **Hunger turned an old grudge into an urgent one.** Hitler's Nazi party won 2.6% of votes in 1928 and 37% in July 1932. He promised to tear up the treaty, rebuild the army and take Lebensraum, living space, from Poland and Russia. He became chancellor, Germany's leader, in January 1933."
    },
    {
     "type": "mistake",
@@ -114,27 +114,24 @@
    },
    {
     "type": "try",
-    "body": "Search for a map of Germany's borders in 1914 next to 1920. Find the strip of Polish land that cut East Prussia off from the rest of Germany. Chapter 2's fire starts right there.",
-    "simpler": "Try this now. Search online for a map of Germany's borders in 1914, placed next to one from 1920. Look for the strip of Polish land that **cut East Prussia off from the rest of Germany**. It is like a garden path that suddenly has a neighbour's fence running across it. Chapter 2's fire starts right there."
+    "body": "Search for a map of Germany's borders in 1914 next to 1920. Find the strip of Polish land that cut East Prussia off from the rest of Germany. Keep that map handy: the story comes back to this strip in 1939.",
+    "simpler": "Try this now. Search online for a map of Germany's borders in 1914, placed next to one from 1920. Look for the strip of Polish land that **cut East Prussia off from the rest of Germany**. It is like a garden path that suddenly has a neighbour's fence running across it. Keep that map handy: the story comes back to this strip in 1939."
    }
   ],
   "outcomeLine": "You can now explain in three plain sentences why Germany in 1939 was ready to start a war it had lost so badly in 1918.",
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8 172Q160 166 312 172\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"20\" y=\"112\" width=\"58\" height=\"60\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"16,112 49,84 82,112\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"42\" y=\"142\" width=\"14\" height=\"30\" fill=\"#1B1A17\"/><rect x=\"244\" y=\"112\" width=\"58\" height=\"60\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"240,112 273,84 306,112\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"266\" y=\"142\" width=\"14\" height=\"30\" fill=\"#1B1A17\"/><rect x=\"112\" y=\"98\" width=\"84\" height=\"74\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"106,98 154,60 202,98\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"146\" y=\"142\" width=\"16\" height=\"30\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"154\" y=\"126\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">1919</text><rect x=\"202\" y=\"160\" width=\"36\" height=\"10\" rx=\"5\" fill=\"#F2A93B\"/><rect x=\"202\" y=\"148\" width=\"36\" height=\"10\" rx=\"5\" fill=\"#F2A93B\"/><rect x=\"208\" y=\"136\" width=\"24\" height=\"10\" rx=\"5\" fill=\"#F2A93B\"/></svg>"
  },
  "repairedFrom": {
-  "score": 10,
+  "score": 11,
   "failed_checks": [
-   "concrete_images",
    "facts_ok"
   ],
   "dubious_claims": [
-   "Card 1: 'no enemy soldier stood on German soil' in December 1918 is false. US and British troops had entered the Rhineland by 1\u20136 December 1918, before Ebert's 10 December speech.",
-   "Card 2: 'after the first war no Allied army occupied Germany' is false. The Versailles treaty itself set up an Allied occupation of the Rhineland, which lasted until 1930.",
-   "Card 3: 'Germany was neither [broken up nor] occupied' overstates the case for the same reason.",
-   "Card 6 (minor): Lebensraum is mostly in Mein Kampf volume 2 (1926), so 'in print since 1925' is loose. The Italy and Japan lines also drift away from the Germany-only idea and carry no concrete image."
+   "Exercise 1, option a feedback says 'That's 1945' about a Germany 'split into five states', but in 1945 Germany was split into four occupation zones, not five states.",
+   "The 'try' card says 'Chapter 2's fire starts right there' about the Polish Corridor, but the teaser says Chapter 2 is about Britain and France letting Hitler grab land; the war over Poland in 1939 comes after that, so the two endings contradict each other."
   ],
-  "weakest_card": 2,
-  "why": "Its feedback for option a says 'no Allied army occupied Germany' after 1918, but Allied troops held the Rhineland from December 1918 to 1930, so the chapter's central 'not occupied' point is taught with a false fact.",
-  "fix": "Rewrite whyNot.a as: 'That's 1945. In 1919 Allied troops held only the Rhineland strip in the west; the rest of Germany stayed whole and self-governing.' Also change card 3's 'Germany was neither' to 'Germany was neither broken up nor fully occupied'."
+  "weakest_card": 6,
+  "why": "'The hot summer' is 119 words, right at the limit, and reads as a list of dates and percentages with no scene to picture; the closing Italy and Japan lines also drift away from the chapter's one question, which is about Germany.",
+  "fix": "Cut the last three sentences (Italy/Ethiopia, Japan/China) and use the space for one scene from 1932, such as men queuing outside a Berlin job centre holding signs offering to take any work."
  }
 }

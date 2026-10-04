@@ -5,39 +5,39 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Tom's Friday sales report never sent: his laptop was asleep in his bag. By the end of this chapter you'll know why, and you can build your first working line in about 10 minutes. In n8n, think of a small assembly line: a bell rings, each station does one job, and the item rides the belt to the end. **Nothing moves until the bell rings**, and in n8n that bell is called the *trigger*.",
-    "simpler": "Tom's Friday sales report never sent. His laptop was asleep in his bag. By the end of this chapter you'll know why, and you can build your first line in about 10 minutes. Picture a small assembly line in n8n. A bell rings. Each station does one job. The item rides the belt to the end. **Nothing moves until the bell rings**, and in n8n that bell is called the trigger."
+    "body": "Tom's Friday sales report never sent. His laptop was asleep in his bag, but that was only half the reason. By the end of this chapter you'll know the whole story, and you can build your first working line in about 10 minutes. In n8n, think of a small assembly line: a bell rings, each station does one job, and the item rides the belt to the end. **Nothing moves until the bell rings**, and in n8n that bell is called the *trigger*.",
+    "simpler": "Tom's Friday sales report never sent. His laptop was asleep in his bag, but that was only half the reason. By the end of this chapter you'll know the whole story, and you can build your first line in about 10 minutes. Picture a small assembly line in n8n. A bell rings. Each station does one job. The item rides the belt to the end. **Nothing moves until the bell rings**, and in n8n that bell is called the trigger."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "The belt is loaded, both stations are staffed, and the clock says 9:00. Nobody has rung the bell. What happens?",
+    "prompt": "Your workflow has a Google Sheets node and a Gmail node, but no trigger. A new row lands in the sheet. What happens?",
     "options": [
      {
       "id": "a",
-      "text": "Station one starts anyway, because it's 9:00."
+      "text": "The Google Sheets node notices the new row and starts the line."
      },
      {
       "id": "b",
-      "text": "Nothing. The line sits still."
+      "text": "Nothing. The workflow doesn't run."
      },
      {
       "id": "c",
-      "text": "The last station starts and works backwards."
+      "text": "The Gmail node sends an email on its own."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's confusing the clock with the bell: a time only starts the line if you've made that time the bell.",
-     "c": "That's confusing the end of the line with the start: items always move from the first station forward."
+     "a": "That's confusing a station with the bell: a Google Sheets node only reads the sheet once the line is already running. Watching for new rows is a trigger's job.",
+     "c": "That's confusing the end of the line with the start: the Gmail node only acts when an item reaches it, and with no bell, nothing ever does."
     },
-    "reteach": "A workflow stays asleep until its trigger fires. It doesn't matter that the stations and belt are ready. Without the bell, no station moves."
+    "reteach": "A workflow stays asleep until its trigger fires. It doesn't matter that the stations are set up, or that something changed in the sheet. Without the bell, no station moves."
    },
    {
     "type": "teach",
     "title": "Three common bells",
-    "body": "A *trigger* is the first box in every n8n workflow. It's the event that wakes the workflow up. **No trigger, no run.**\n\nThere are more kinds of bell than this, but three common ones will take you a long way. A time on the clock, like every weekday at 8:30 (the *Schedule Trigger*). A form being filled in, like a holiday request (the *Form Trigger*). Or a change in another app, like a new row landing in a spreadsheet. Some apps ping n8n at a private web address (a *webhook*); with others, like Google Sheets, n8n checks every few minutes for anything new.\n\nTo pick the bell, ask one question: what moment should start this?",
-    "simpler": "A trigger is the first box in every n8n workflow. It wakes the workflow up. **No trigger, no run.** There are more kinds of bell, but three common ones go a long way. A clock time, like every weekday at 8:30, is the Schedule Trigger. A filled-in form, like a holiday request, is the Form Trigger. A change in another app, like a new spreadsheet row, is the third. Some apps ping n8n at a private web address, called a webhook. With others, like Google Sheets, n8n checks every few minutes. To choose, ask what moment should start this."
+    "body": "A *trigger* is the first box in every n8n workflow. It's the event that wakes the workflow up. **No trigger, no run.**\n\nThere are more kinds of bell than this, but three common ones will take you a long way. A time on the clock, like every weekday at 8:30 (the *Schedule Trigger*). A form being filled in, like a holiday request (the *Form Trigger*). Or a change in another app, like a new row landing in a spreadsheet. Some apps ping n8n at a web address made for that workflow (a *webhook*); with others, like Google Sheets, n8n checks for anything new on a regular timer, which you can change.\n\nTo pick the bell, ask one question: what moment should start this?",
+    "simpler": "A trigger is the first box in every n8n workflow. It wakes the workflow up. **No trigger, no run.** There are more kinds of bell, but three common ones go a long way. A clock time, like every weekday at 8:30, is the Schedule Trigger. A filled-in form, like a holiday request, is the Form Trigger. A change in another app, like a new spreadsheet row, is the third. Some apps ping n8n at a web address made for that workflow, called a webhook. With others, like Google Sheets, n8n checks for new things on a regular timer. To choose, ask what moment should start this."
    },
    {
     "type": "example",
@@ -122,20 +122,17 @@
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"60\" y1=\"22\" x2=\"60\" y2=\"38\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M40 72 Q38 38 60 38 Q82 38 80 72 L88 84 L32 84 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><circle cx=\"60\" cy=\"91\" r=\"6\" fill=\"#1B1A17\"/><path d=\"M96 52 q9 10 0 20 M106 46 q14 16 0 32\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><rect x=\"30\" y=\"140\" width=\"270\" height=\"18\" rx=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"50\" cy=\"149\" r=\"4\" fill=\"#1B1A17\"/><circle cx=\"165\" cy=\"149\" r=\"4\" fill=\"#1B1A17\"/><circle cx=\"280\" cy=\"149\" r=\"4\" fill=\"#1B1A17\"/><rect x=\"140\" y=\"92\" width=\"44\" height=\"48\" rx=\"3\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"222\" y=\"92\" width=\"44\" height=\"48\" rx=\"3\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"104\" y=\"122\" width=\"18\" height=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"62,110 62,128 92,128\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><text x=\"60\" y=\"188\" font-family=\"sans-serif\" font-size=\"15\" fill=\"#1B1A17\" text-anchor=\"middle\">ding!</text></svg>"
  },
  "repairedFrom": {
-  "score": 9,
+  "score": 11,
   "failed_checks": [
-   "hook",
-   "facts_ok",
-   "open_loop"
+   "facts_ok"
   ],
   "dubious_claims": [
-   "Card 3 says n8n hears a new spreadsheet row through a webhook. n8n's Google Sheets Trigger and many other app triggers poll on a timer instead, so this is misleading.",
-   "Card 3 says 'Most bells are one of three kinds.' n8n also has manual, polling app, chat, email and error triggers, so this is an oversimplification.",
-   "The 'switched on' wording may be out of date. Newer n8n versions (2.x) replaced the Active toggle with Publish, so check the label against the current UI.",
-   "The ending fails because the last card is the 'try' card, so the 'Tomorrow:' teaser is buried in card 8, and the teaser itself is flat."
+   "Calling a webhook a 'private web address' is misleading. Anyone who has the link can reach it, because it is a hard-to-guess public link, not a private one.",
+   "'n8n checks every few minutes' for Google Sheets is loose. The Google Sheets Trigger checks every minute by default, and you can change that.",
+   "Card 1 says Tom's report failed because 'his laptop was asleep', but card 7 shows he also never switched the workflow on, so it would have failed even with the laptop awake. The hook gives only half the cause."
   ],
-  "weakest_card": 1,
-  "why": "The opening line promises 'three parts' but never names them, and that claim is too familiar to stop a scroll, so the chapter's best moment (Tom's silent Friday) is wasted at card 7.",
-  "fix": "Open card 1 with Tom's failure in one line ('Tom's Friday sales report never sent: his laptop was asleep in his bag') and cut the unnamed 'three parts' sentence."
+  "weakest_card": 2,
+  "why": "The first exercise only tests the assembly-line metaphor, not n8n, so the answer is obvious and the card adds nothing a reader can use.",
+  "fix": "Rewrite card 2 as an n8n question: 'Your workflow has a Google Sheets node and a Gmail node but no trigger. A new row lands in the sheet. What happens?' Keep 'nothing runs' as the right answer."
  }
 }

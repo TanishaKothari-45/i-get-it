@@ -42,8 +42,8 @@
    {
     "type": "example",
     "title": "The umbrella question",
-    "body": "Dev gives a 5-minute talk at work pitching a cycle-to-work scheme. At the end, a colleague holding a dripping umbrella asks, 'What happens when it rains?'\n\nDev pauses, counts to two silently, then answers. *What:* 'Rain is the real reason people stop cycling.' *So what:* 'If we ignore it, this scheme is dead by November.' *Now what:* 'There are lockers and a drying rail on floor 2, so try it for one wet week.'\n\nThat took forty seconds. The umbrella's owner signed up.",
-    "simpler": "Dev gives a five-minute talk at work pitching a cycle-to-work scheme. At the end, a colleague with a dripping umbrella asks, 'What happens when it rains?' Dev **pauses for two silent seconds**, then answers. What: 'Rain is the real reason people stop cycling.' So what: 'If we ignore it, this scheme is dead by November.' Now what: 'There are lockers and a drying rail on floor 2, so try it for one wet week.' Forty seconds. The umbrella's owner signed up."
+    "body": "Dev gives a 5-minute talk at work pitching a cycle-to-work scheme. At the end, a colleague holding a dripping umbrella asks, 'What happens when it rains?'\n\nDev pauses, counts to two silently, then answers. *What:* 'You change at work: there are lockers and a drying rail on floor 2.' *So what:* 'Rain is a big reason people stop cycling, so this is what keeps the scheme alive past November.' *Now what:* 'Try it for one wet week.'\n\nThat took forty seconds. The umbrella's owner signed up.",
+    "simpler": "Dev gives a five-minute talk at work pitching a cycle-to-work scheme. At the end, a colleague with a dripping umbrella asks, 'What happens when it rains?' Dev **pauses for two silent seconds**, then answers. What: 'You change at work: there are lockers and a drying rail on floor 2.' So what: 'Rain is a big reason people stop cycling, so this is what keeps the scheme alive past November.' Now what: 'Try it for one wet week.' Forty seconds. The umbrella's owner signed up."
    },
    {
     "type": "exercise",
@@ -72,9 +72,9 @@
    },
    {
     "type": "teach",
-    "title": "Before you start, and when it's fuzzy",
-    "body": "Nerves are your body packing for a climb: a fast heart, a dry mouth, shaky hands. In the minute before you speak, **breathe out slower than you breathe in**, three times, and feel both feet flat on the floor.\n\nIf a question is fuzzy, don't guess what they meant. **Ask, then wait**: 'Do you mean cost or time?' Then say nothing until they answer.\n\nThe same patience works the other way round. When you ask a room a question, wait for an answer, even after the silence starts to feel uncomfortable.",
-    "simpler": "Nerves are your body getting ready for a climb: fast heart, dry mouth, shaky hands. In the minute before you speak, breathe out slower than you breathe in, three times, feet flat on the floor. If a question is unclear, don't guess. **Ask, then wait**: 'Do you mean cost or time?' Then stay quiet until they answer. The same patience works the other way round: when you ask a room a question, wait for an answer, even when the silence gets uncomfortable."
+    "title": "Before you start",
+    "body": "Nerves are your body packing for a climb: a fast heart, a dry mouth, shaky hands.\n\nIn the minute before you speak, standing by the projector, **breathe out slower than you breathe in**: in for a count of four, out for a count of six. Do it three times, and feel both feet flat on the floor.",
+    "simpler": "Nerves are your body getting ready for a climb: fast heart, dry mouth, shaky hands. In the minute before you speak, standing by the projector, **breathe out slower than you breathe in**: in for a count of four, out for a count of six. Do it three times, feet flat on the floor."
    },
    {
     "type": "mistake",
@@ -109,32 +109,30 @@
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "When a question surprises you, **stop for two seconds, then answer in three steps**: what you think, why it matters to them, and what happens next. Before you speak, breathe out slowly. When a question is fuzzy, or when you ask the room one, ask, then wait.\n\nTomorrow: why your last slide should never say 'thank you'.",
-    "simpler": "When a question surprises you, **stop for two seconds, then answer in three steps**: what you think, why it matters to them, and what happens next. Before you speak, breathe out slowly. When a question is unclear, ask and then wait. Do the same when you ask the room a question. Tomorrow: why your last slide should never say 'thank you'."
+    "body": "When a question surprises you, **stop for two seconds, then answer in three steps**: what you think, why it matters to them, and what happens next. Before you speak, breathe out slowly.\n\nBe the guide on the trail: stop, plant your feet, point the way.",
+    "simpler": "When a question surprises you, **stop for two seconds, then answer in three steps**: what you think, why it matters to them, and what happens next. Before you speak, breathe out slowly. Be the guide on the trail: stop, plant your feet, point the way."
    },
    {
     "type": "try",
-    "body": "Tonight, ask someone at home to throw one random question at you, like 'Best meal of your life?' Pause for two seconds, then answer with What, So what, Now what. Time it. Aim for under a minute.",
-    "simpler": "Tonight, ask someone at home to throw one random question at you, like 'Best meal of your life?' **Pause for two seconds**, then answer in three steps: What, So what, Now what. Time yourself while you do it. Try to finish in under a minute."
+    "body": "Tonight, ask someone at home to throw one random question at you, like 'Best meal of your life?' Pause for two seconds, then answer with What, So what, Now what. Time it. Aim for under a minute.\n\nTomorrow: why your last slide should never say 'thank you'.",
+    "simpler": "Tonight, ask someone at home to throw one random question at you, like 'Best meal of your life?' **Pause for two seconds**, then answer in three steps: What, So what, Now what. Time yourself while you do it. Try to finish in under a minute. Tomorrow: why your last slide should never say 'thank you'."
    }
   ],
   "outcomeLine": "You can now answer a question you didn't expect in under a minute, with a clear beginning, middle and end.",
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"10,190 130,50 190,115 240,70 310,190\" fill=\"#1F7A4D\"/><polygon points=\"118,64 130,50 142,64\" fill=\"#F2A93B\"/><path d=\"M30 190 Q90 170 120 150 T200 130 T250 100\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-dasharray=\"1 9\"/><ellipse cx=\"152\" cy=\"143\" rx=\"15\" ry=\"8\" fill=\"#1B1A17\"/><circle cx=\"118\" cy=\"112\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"118\" y1=\"118\" x2=\"118\" y2=\"136\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polyline points=\"111,150 118,136 125,150\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"118\" y1=\"124\" x2=\"134\" y2=\"114\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><rect x=\"20\" y=\"18\" width=\"56\" height=\"36\" rx=\"12\" fill=\"#F2A93B\"/><polygon points=\"40,54 54,54 34,72\" fill=\"#F2A93B\"/><text x=\"48\" y=\"45\" font-size=\"24\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">?</text><text x=\"210\" y=\"34\" font-size=\"18\" fill=\"#1B1A17\" font-family=\"sans-serif\">pause</text></svg>"
  },
  "repairedFrom": {
-  "score": 7,
+  "score": 9,
   "failed_checks": [
-   "hook",
    "concrete_images",
    "one_idea",
-   "would_keep_reading",
    "open_loop"
   ],
   "dubious_claims": [
-   "Patrick Winston (MIT, 'How to Speak') did advise waiting out the silence after asking a room a question, but the chapter states it without his specific advice; worth checking the exact wording before attributing it."
+   "Minor issue: Dev's 'What' line ('Rain is the real reason people stop cycling') doesn't actually answer 'What happens when it rains?', so the example models the What step weakly. Matt Abrahams teaching at Stanford and the What/So what/Now what structure are both accurate."
   ],
-  "weakest_card": 1,
-  "why": "The first card opens on a credentials line ('Matt Abrahams, who teaches at Stanford, says...'), which is throat-clearing, and the trail scene that should hook the reader comes second.",
-  "fix": "Open card 1 with the moment itself, \"Halfway up a trail, someone behind you shouts, 'Wait, why this way?'\", and move the Abrahams line to the teach card where his What/So what/Now what shape is introduced."
+  "weakest_card": 6,
+  "why": "Card 6 crams three new ideas into one card (breathing, asking what a fuzzy question means, waiting after you ask the room something), no exercise tests any of them, and the final 'In one breath' teach card has no concrete image.",
+  "fix": "Cut card 6 down to the breathing tip with one physical moment (e.g. 'standing by the projector, breathe out for a count of six'). Move the fuzzy-question and wait-for-the-room tips to a later chapter, and move the 'Tomorrow: thank-you slide' teaser after the try card so it's the chapter's last line."
  }
 }

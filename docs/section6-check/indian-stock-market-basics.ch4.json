@@ -36,8 +36,14 @@
    {
     "type": "teach",
     "title": "Two notes: market and limit",
-    "body": "A *market order* says: buy now, at the best price any seller is asking. It almost always *fills*, which means the trade actually happens, and it happens within a second. For a busy Nifty 50 share on a calm day, you usually pay within a few paise of the board. **You're sure to buy, but not sure of the price.**\n\nA *limit order* works the other way round. You name the most you'll pay, and your order waits in the exchange's queue like a slip stuck on a spike at the counter.\n\nIt fills only if a seller meets your price or goes lower. While it waits, your broker usually sets that cash aside so you can't spend it twice. If nobody meets your price by 3:30 pm, a normal day order is cancelled and the cash is freed. Nothing was spent.",
-    "simpler": "A *market order* buys now, at the best price on offer. It almost always *fills* (the trade happens) within a second. On a busy Nifty 50 share you pay within a few paise of the shown price. **You're sure to buy, but not sure of the price.** A *limit order* names your top price and waits in line. It fills only if a seller meets that price or lower. While it waits, the cash for it is set aside. If nobody meets your price by 3:30 pm, it's cancelled and the cash is freed. Nothing was spent."
+    "body": "A *market order* says: buy now, at the best price any seller is asking. It almost always *fills*, which means the trade actually happens, and it happens within a second. For a busy Nifty 50 share on a calm day, you usually pay within a few paise of the board. **You're sure to buy, but not sure of the price.**\n\nA *limit order* works the other way round. You name the most you'll pay, and your order waits in the exchange's queue like a slip stuck on a spike at the counter.",
+    "simpler": "A *market order* buys now, at the best price on offer. It almost always *fills* (the trade happens) within a second. On a busy Nifty 50 share you pay within a few paise of the shown price. **You're sure to buy, but not sure of the price.** A *limit order* names your top price and waits in line, like a slip stuck on a spike at the counter."
+   },
+   {
+    "type": "teach",
+    "title": "While your limit order waits",
+    "body": "Your slip on the spike fills only if a seller meets your price or goes lower. While it waits, your broker usually sets that cash aside so you can't spend it twice.\n\nIf nobody meets your price by 3:30 pm, a normal day order is cancelled and the cash is freed. **Nothing was spent.**",
+    "simpler": "A limit order fills only if a seller meets your price or lower. While it waits, the cash for it is usually set aside. If nobody meets your price by 3:30 pm, it's cancelled and the cash is freed. **Nothing was spent.**"
    },
    {
     "type": "example",
@@ -122,18 +128,16 @@
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"60,40 260,40 280,80 40,80\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M40 80 q20 14 40 0 q20 14 40 0 q20 14 40 0 q20 14 40 0 q20 14 40 0 q20 14 40 0\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"70\" y1=\"90\" x2=\"70\" y2=\"170\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"250\" y1=\"90\" x2=\"250\" y2=\"170\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"55\" y=\"132\" width=\"210\" height=\"38\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"20\" y1=\"172\" x2=\"300\" y2=\"172\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polygon points=\"118,96 214,88 219,124 123,130\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/><circle cx=\"166\" cy=\"94\" r=\"3\" fill=\"#1B1A17\"/><text x=\"130\" y=\"117\" font-family=\"sans-serif\" font-size=\"15\" font-weight=\"bold\" fill=\"#1B1A17\" transform=\"rotate(-5 168 110)\">MAX \u20b91,600</text><circle cx=\"230\" cy=\"151\" r=\"9\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"212\" cy=\"153\" r=\"7\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/></svg>"
  },
  "repairedFrom": {
-  "score": 9,
+  "score": 8,
   "failed_checks": [
+   "short_cards",
    "concrete_images",
    "one_idea",
    "open_loop"
   ],
-  "dubious_claims": [
-   "'Your money never moved' (card 3) is loose: an open limit order blocks the cash in the trading account until the order fills or is cancelled.",
-   "The fee rates (STT 0.1% and stamp duty 0.015% on a delivery buy) and T+1 settlement are accurate as of 2025, but SEBI and state governments revise them, so they need checking before publishing."
-  ],
-  "weakest_card": 6,
-  "why": "The T+1 and fees card brings in a second topic that no exercise tests, and its list of tax rates is the driest part of the chapter, coming right after the Riya story that carried it.",
-  "fix": "Shrink card 6 to one line ('Buy on Friday, and it lands in your demat on Monday') and move the STT, stamp duty and depository fee breakdown into its own later chapter."
+  "dubious_claims": [],
+  "weakest_card": 3,
+  "why": "At about 140 words, the market-vs-limit teach card is over the 120-word limit and packs fill speed, the order queue, cash blocking and the 3:30 pm cancel into one long phone scroll.",
+  "fix": "Split card 3 in two: keep the market order paragraph plus 'A limit order works the other way round...' with the spike image in the first card, and move the 'fills only if... cash set aside... cancelled at 3:30 pm' lines into a second card."
  }
 }

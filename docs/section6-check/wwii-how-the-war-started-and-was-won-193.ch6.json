@@ -73,8 +73,14 @@
    {
     "type": "teach",
     "title": "Why it took until May",
-    "body": "So why did Germany hold out until May 1945? Mostly because one man would not quit.\n\n**The surrender came only after the two fronts met and Hitler was dead.** American and Soviet soldiers shook hands on the river Elbe on 25 April. Hitler killed himself in Berlin on 30 April. Germany signed the surrender on 7 May, and it took effect on 8 May.\n\nAs they advanced, the armies found what Germany had been doing behind its fronts: Auschwitz in January, Bergen-Belsen in April, about six million Jews murdered.",
-    "simpler": "Germany held out until May 1945 mostly because Hitler would not quit. **The surrender came only after the two fronts met and Hitler was dead.** Americans and Soviets shook hands on the river Elbe on 25 April. Hitler killed himself on 30 April. Germany signed the surrender on 7 May, and it took effect on 8 May. As they advanced, the armies found the camps, like Auschwitz and Bergen-Belsen. About six million Jews had been murdered."
+    "body": "So why did Germany hold out until May 1945? Because Hitler refused to quit, and his regime shot or hanged Germans who tried to. The Allies, for their part, would accept nothing short of total surrender.\n\n**The surrender came only after the two fronts met and Hitler was dead.** American and Soviet soldiers shook hands on the river Elbe on 25 April. Hitler killed himself in Berlin on 30 April. Germany signed the surrender on 7 May, and it took effect on 8 May.",
+    "simpler": "Germany held out until May 1945 because Hitler would not quit, and his regime shot or hanged Germans who tried to give up. The Allies would accept nothing short of total surrender. **The surrender came only after the two fronts met and Hitler was dead.** Americans and Soviets shook hands on the river Elbe on 25 April. Hitler killed himself on 30 April. Germany signed the surrender on 7 May, and it took effect on 8 May."
+   },
+   {
+    "type": "teach",
+    "title": "What the armies found",
+    "body": "As they advanced, the armies found what Germany had been doing behind its fronts. Soviet soldiers reached Auschwitz in January 1945. When British soldiers entered Bergen-Belsen in April, they found thousands of unburied dead and tens of thousands of starving prisoners.\n\n**About six million Jews had been murdered.**",
+    "simpler": "As they moved forward, the armies found the camps Germany had been running behind its fronts. Soviet soldiers reached Auschwitz in January 1945. In April, British soldiers walked into Bergen-Belsen. They found thousands of dead people who had never been buried, and tens of thousands of prisoners who were starving. **About six million Jews had been murdered.**"
    },
    {
     "type": "mistake",
@@ -88,7 +94,7 @@
     "options": [
      {
       "id": "a",
-      "text": "Hitler refused to quit, so it took both fronts closing in until they met, and his death eight days earlier."
+      "text": "Hitler refused to quit and his regime punished Germans who tried to, so it took both fronts closing in until they met, and his death eight days earlier."
      },
      {
       "id": "b",
@@ -104,40 +110,36 @@
      "b": "That's mixing up the landing and the squeeze: D-Day was one day, and the 11 months were the two fronts closing in.",
      "c": "That's the factory story, not the ending: factories wore Germany down, but the surrender came after the fronts met and Hitler was gone."
     },
-    "reteach": "Losing and surrendering are not the same thing. Germany lost ground for 11 months, but Hitler would not stop while he lived. The surrender came only after the hoses met in the middle, at the river Elbe, and he was dead."
+    "reteach": "Losing and surrendering are not the same thing. Germany lost ground for 11 months, but Hitler would not stop while he lived, and his regime punished Germans who tried to give up. The surrender came only after the hoses met in the middle, at the river Elbe, and he was dead."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "After June 1944, Germany was squeezed from the west by D-Day, from the east by a bigger Soviet army and from above by bombers, all fed by Allied factories it could never match. **It held out mostly because Hitler refused to quit, and it surrendered about a week after his death.**\n\nTomorrow: the last house still burning, and why Japan's surrender is still argued about.",
-    "simpler": "After June 1944, Germany was squeezed from three sides. D-Day pushed in from the west. A bigger Soviet army pushed in from the east. Bombers hit from above. All of them were supplied by Allied factories that Germany could never keep up with. **It held out mostly because Hitler refused to quit, and it surrendered about a week after his death.** Tomorrow: the last house still burning, and why people still argue about Japan's surrender."
+    "body": "After June 1944, Germany was squeezed from the west by D-Day, from the east by a bigger Soviet army and from above by bombers, all fed by Allied factories it could never match. **It held out largely because Hitler refused to quit and his regime punished anyone who tried to, and it surrendered about a week after his death.**",
+    "simpler": "After June 1944, Germany was squeezed from three sides. D-Day pushed in from the west. A bigger Soviet army pushed in from the east. Bombers hit from above. All of them were supplied by Allied factories that Germany could never keep up with. **It held out largely because Hitler refused to quit and his regime punished anyone who tried to, and it surrendered about a week after his death.**"
    },
    {
     "type": "try",
-    "body": "Open the map app on your phone. Measure Cologne to Berlin, then Kostrzyn, on the Polish border, to Berlin. In March 1945 those were roughly where the two fronts stood. You'll see who was knocking first.",
-    "simpler": "Open the map app on your phone. Measure the distance from Cologne to Berlin. Then measure from Kostrzyn, a town on the Polish border, to Berlin. In March 1945, those two places were roughly where the two fronts stood. Compare the two lines, the way you might check which of two neighbours lives closer to your door. **You'll see who was knocking first.**"
+    "body": "Open the map app on your phone. Measure Cologne to Berlin, then Kostrzyn, on the Polish border, to Berlin. In March 1945 those were roughly where the two fronts stood. You'll see who was knocking first.\n\nTomorrow: the last house still burning, and why Japan's surrender is still argued about.",
+    "simpler": "Open the map app on your phone. Measure the distance from Cologne to Berlin. Then measure from Kostrzyn, a town on the Polish border, to Berlin. In March 1945, those two places were roughly where the two fronts stood. Compare the two lines, the way you might check which of two neighbours lives closer to your door. **You'll see who was knocking first.** Tomorrow: the last house still burning, and why people still argue about Japan's surrender."
    }
   ],
   "outcomeLine": "You can now describe how Germany was squeezed from two sides in its last 11 months of war, and why it surrendered in May 1945, not earlier or later.",
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"10\" y1=\"172\" x2=\"310\" y2=\"172\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"125\" y=\"95\" width=\"70\" height=\"77\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"117,97 160,60 203,97\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"150\" y=\"135\" width=\"20\" height=\"37\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M140 82 q4 -22 12 -10 q2 -24 12 -6 q6 -18 10 10 q-16 10 -34 6z\" fill=\"#F2A93B\"/><path d=\"M15 168 C40 140 70 150 95 128\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"5\"/><path d=\"M305 168 C280 140 250 150 225 128\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"5\"/><path d=\"M60 15 C90 20 120 30 135 45\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"5\"/><path d=\"M98 126 L122 112M222 126 L198 112M138 48 L150 62\" stroke=\"#1F7A4D\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><text x=\"20\" y=\"192\" font-size=\"13\" fill=\"#1B1A17\">WEST</text><text x=\"262\" y=\"192\" font-size=\"13\" fill=\"#1B1A17\">EAST</text></svg>"
  },
  "repairedFrom": {
-  "score": 7,
+  "score": 9,
   "failed_checks": [
-   "hook",
-   "concrete_images",
    "one_idea",
    "facts_ok",
    "open_loop"
   ],
   "dubious_claims": [
-   "'That was what the war had been against': the Allies did not go to war to stop the Holocaust, and saying so rewrites what they were fighting for.",
-   "Exercise 3, option a, says 'both fronts closing on Berlin', and the reteach says the hoses met 'at the Elbe and in Berlin'. Only the Soviets took Berlin; the Americans and British stopped at the Elbe.",
-   "'The war in Europe ended only when the two fronts met and Hitler was dead' makes a simple cause-and-effect claim the chapter doesn't back up. Fine as a teaching shortcut, but it's stated as fact.",
-   "'Germany surrendered on 8 May' is fine as VE Day, but the first surrender was signed at Reims on 7 May and took effect on 8 May."
+   "'Mostly because one man would not quit': most historians also point to the Allies' demand for unconditional surrender, Nazi terror against Germans who tried to give up, officers staying loyal, and fear of the Soviets.",
+   "Not a factual error, but a structural one: the 'Tomorrow:' teaser sits in card 9, and the chapter actually ends on the map exercise in card 10, so the open-loop line is buried."
   ],
   "weakest_card": 6,
-  "why": "Card 6 fits a second idea (Hitler refusing to quit) plus the bomb plot, the Elbe, his suicide, the surrender and the Holocaust into about 108 words, so the camps get two rushed lines with a misleading moral framing.",
-  "fix": "Cut the briefcase-bomb story and end on the two fronts meeting at the Elbe. Then give the camps their own sentence without 'That was what the war had been against', for example: 'As they advanced, the armies found what Germany had been doing behind its fronts: Auschwitz in January, Bergen-Belsen in April, about six million Jews murdered.'"
+  "why": "It says the war lasted 'mostly because one man would not quit', which is too simple, and it squeezes the Holocaust into one closing sentence, so a second topic arrives with no room to land.",
+  "fix": "Change the opener to 'Because Hitler refused to quit, and his regime shot or hanged Germans who tried to', and move the camps line into its own short card with one concrete image."
  }
 }

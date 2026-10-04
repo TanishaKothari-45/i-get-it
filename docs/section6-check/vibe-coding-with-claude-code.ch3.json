@@ -5,8 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Claude just built your app, and the folder has 9 files in it. Which one do you open to change a button's colour?\n\nWalk it like a homeowner on a site visit. Every house has walls, paint, wiring and a stack of paperwork, and **most files you'll touch in a small web app fall into the same 4 kinds**.",
-    "simpler": "Claude just built your app. The folder has 9 files in it. Which one do you open to change the colour of a button? Look around like a homeowner visiting a building site. Every house has walls, paint, wiring and a pile of paperwork. In the same way, **most files you'll touch in a small web app come in 4 kinds**."
+    "body": "Claude just built your app, and the folder has 9 files in it. Which one do you open to change a button's colour?\n\nWalk it like a homeowner on a site visit. Every house has walls, paint, wiring and a stack of paperwork, and **the main files in a small web app usually fall into the same 4 kinds**, plus a few extras like backend or setup files.",
+    "simpler": "Claude just built your app. The folder has 9 files in it. Which one do you open to change the colour of a button? Look around like a homeowner visiting a building site. Every house has walls, paint, wiring and a pile of paperwork. In the same way, **the main files in a small web app usually come in 4 kinds**, plus a few extras."
    },
    {
     "type": "exercise",
@@ -36,8 +36,8 @@
    {
     "type": "teach",
     "title": "Walls and paint",
-    "body": "The *page* file, usually called index.html, is the walls and rooms. It says what exists: a heading here, a text box there, a button under it. *HTML* is just the language pages are written in.\n\nThe *styling* file, usually ending in .css, is the paint, the tiles, the light fittings. Colours, sizes, fonts, spacing. **The page says what's there; the styling says how it looks.**\n\nYou'd think one file would do both. Keeping them apart means you can repaint the whole house without moving a single wall.",
-    "simpler": "The page file, usually called index.html, is the walls and rooms. It says what is there: a heading, a text box, a button below it. HTML is the language pages are written in. The styling file, ending in .css, is the paint. It sets colours, sizes, fonts and spacing. **The page says what's there; the styling says how it looks.** Keeping them apart means you can repaint the whole house without moving a wall."
+    "body": "The *page* file, often called index.html in a plain web app, is the walls and rooms. It says what exists: a heading here, a text box there, a button under it. *HTML* is just the language pages are written in. If your app uses React, the walls live in .jsx or .tsx files inside src/, and index.html is just the front door.\n\nThe *styling* file, usually ending in .css, is the paint, the tiles, the light fittings. Colours, sizes, fonts, spacing. **The page says what's there; the styling says how it looks.**\n\nYou'd think one file would do both. Keeping them apart means you can repaint the whole house without moving a single wall.",
+    "simpler": "The page file, often called index.html, is the walls and rooms. It says what is there: a heading, a text box, a button below it. HTML is the language pages are written in. If your app uses React, the walls are in .jsx or .tsx files inside src/, and index.html is just the front door. The styling file, ending in .css, is the paint. It sets colours, sizes, fonts and spacing. **The page says what's there; the styling says how it looks.** Keeping them apart means you can repaint the whole house without moving a wall."
    },
    {
     "type": "example",
@@ -56,7 +56,7 @@
      },
      {
       "id": "b",
-      "text": "index.html, because a new button is a new thing on the page"
+      "text": "the page file (index.html or a .tsx file), because a new button is a new thing on the page"
      },
      {
       "id": "c",
@@ -101,7 +101,7 @@
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the wiring, not the walls: index.html says the button exists, and the .js logic file makes it act.",
+     "a": "That's the wiring, not the walls: the page file says the button exists, and the logic makes it act.",
      "c": "That's the walls, not the paint: styling only changes how things look, not what's there."
     },
     "reteach": "Four trades, four jobs. The page says what's there, styling says how it looks, logic says what happens when you click, and settings hold the parts list and start commands."
@@ -122,19 +122,16 @@
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"55,92 135,38 215,92\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"70\" y=\"92\" width=\"130\" height=\"88\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"88\" y=\"110\" width=\"32\" height=\"28\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"104\" y1=\"110\" x2=\"104\" y2=\"138\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"145\" y=\"128\" width=\"32\" height=\"52\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"170\" cy=\"156\" r=\"2.5\" fill=\"#1B1A17\"/><polyline points=\"200,110 220,100 232,112 246,78\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><circle cx=\"250\" cy=\"62\" r=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><rect x=\"244\" y=\"76\" width=\"12\" height=\"8\" fill=\"#1B1A17\"/><rect x=\"232\" y=\"112\" width=\"42\" height=\"56\" rx=\"3\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><rect x=\"243\" y=\"106\" width=\"20\" height=\"10\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"240\" y1=\"128\" x2=\"266\" y2=\"128\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"240\" y1=\"140\" x2=\"262\" y2=\"140\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"240\" y1=\"152\" x2=\"266\" y2=\"152\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"20\" y=\"30\" font-family=\"sans-serif\" font-size=\"18\" fill=\"#1B1A17\">4 files</text></svg>"
  },
  "repairedFrom": {
-  "score": 9,
+  "score": 11,
   "failed_checks": [
-   "concrete_images",
-   "facts_ok",
-   "open_loop"
+   "facts_ok"
   ],
   "dubious_claims": [
-   "'A small web app has the same 4 kinds of files' is too simple. Real projects also have package-lock.json (an exact record of every downloaded part), .gitignore, README, config files like vite.config, and often .jsx/.ts files or a convex/ folder. When the try card asks to sort every file into one of 4 kinds, it will hit files that don't fit any of them.",
-   "A plain index.html + styles.css + .js app doesn't need package.json or node_modules at all. The chapter treats them as always present.",
-   "'Claude downloaded it' (node_modules): the parts are downloaded by npm install (npm is the tool that fetches code parts), which Claude may run but doesn't always. That's loose but mostly harmless."
+   "The page file is 'usually called index.html' and holds the buttons: true for plain HTML apps, false for React/Vite apps, where index.html is a nearly empty shell.",
+   "'Most files you'll touch fall into the same 4 kinds': leaves out backend folders (e.g. convex/) and config files (vite.config, tsconfig.json) that Claude commonly creates."
   ],
-  "weakest_card": 9,
-  "why": "Card 9 nearly repeats card 8's reteach word for word and drops the house picture, so it has no concrete image. It also puts the 'Tomorrow' teaser before the try card, so the chapter ends on an instruction instead of a pull to read on.",
-  "fix": "Rewrite card 9's summary in house terms ('walls, paint, wiring, clipboard') and move the 'Tomorrow: why that scary red error message is a gift\u2026' line to the end of the try card so it is the chapter's last line."
+  "weakest_card": 3,
+  "why": "It says buttons live in index.html, but in React/Vite apps like a Convex project the buttons live in .jsx/.tsx files and index.html is nearly empty, so readers could repeat Maya's twenty-minute search in the wrong file.",
+  "fix": "Add one line to card 3: \"If your app uses React, the walls live in .jsx or .tsx files inside src/, and index.html is just the front door.\" Then change exercise 2's answer text to say \"the page file (index.html or a .tsx file)\"."
  }
 }

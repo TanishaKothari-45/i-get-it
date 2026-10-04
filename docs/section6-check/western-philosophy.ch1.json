@@ -5,8 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "None of Socrates' writing survives, and Athens put him on trial and to death after a lifetime of asking awkward questions. Western philosophy is one dinner-table argument that has run for about 2,500 years, and he was the guest who kept turning to whoever had just spoken and asking *why*. An opinion is only a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing.",
-    "simpler": "None of Socrates' own writing survives. The city of Athens put him on trial and to death after a lifetime of asking awkward questions. Western philosophy is like one long dinner-table argument that has lasted about 2,500 years. Socrates was the guest who kept asking whoever had just spoken why they believed it. Having an opinion only gets you a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing."
+    "body": "As far as anyone knows, Socrates wrote nothing, and Athens put him on trial and to death after a lifetime of asking awkward questions. Western philosophy is one dinner-table argument that has run for about 2,500 years, and he was the guest who kept turning to whoever had just spoken and asking *why*. An opinion is only a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing.",
+    "simpler": "As far as anyone knows, Socrates never wrote anything down. The city of Athens put him on trial and to death after a lifetime of asking awkward questions. Western philosophy is like one long dinner-table argument that has lasted about 2,500 years. Socrates was the guest who kept asking whoever had just spoken why they believed it. Having an opinion only gets you a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing."
    },
    {
     "type": "exercise",
@@ -68,18 +68,18 @@
      "a": "That's familiarity, not support: knowing one phone well tells you about that phone, not how it ranks against the ones she has never used.",
      "c": "That's a different claim: 'I'm happy with mine' would be held up by her being happy. 'Best you can buy' needs a comparison, and none was offered."
     },
-    "reteach": "Ask one question: if the reason is completely true, does the claim have to follow? She really does own that phone. 'Best you can buy' still doesn't follow, because 'best' is a comparison and she compared it with nothing."
+    "reteach": "Ask one question: if the reason is completely true, does the claim follow, or at least become likely? She really does own that phone. 'Best you can buy' still isn't supported, because 'best' is a comparison and she compared it with nothing."
    },
    {
     "type": "teach",
     "title": "The test: grant it, then ask",
-    "body": "Here is the one test. **Grant the reason completely**, pretend it is 100% true, then ask: does the claim now have to be true? If yes, the reason holds. If the claim could still be false, the reason is decoration.\n\nThis is why a reason can be true and still useless. 'Everyone's rent is rising' was true. 'Therefore 12%' did not follow. Picture the reason as a bolt. A solid bolt fitted to the wrong door keeps nothing shut.\n\nSo a good argument is not one with true-sounding reasons. It is one where the reasons, once granted, leave the claim nowhere to hide.",
-    "simpler": "Here is the one test. **Grant the reason completely**, as if it were fully true, then ask whether the claim now has to be true. If yes, the reason holds. If the claim could still be false, the reason is only decoration. 'Everyone's rent is rising' was true. 'So 12%' did not follow. A strong bolt on the wrong door keeps nothing shut. Good reasons, once granted, leave the claim nowhere to hide."
+    "body": "Here is the one test. **Grant the reason completely**, pretend it is 100% true, then ask: does the claim now have to be true, or at least become much more likely? If yes, the reason holds. If the claim is left as open as before, the reason is decoration.\n\nThis is why a reason can be true and still useless. 'Everyone's rent is rising' was true. It makes some rise likely, but 'therefore 12%' did not follow. Picture the reason as a bolt. A solid bolt fitted to the wrong door keeps nothing shut.\n\nSo a good argument is not one with true-sounding reasons. It is one where the reasons, once granted, leave the claim little room to hide.",
+    "simpler": "Here is the one test. **Grant the reason completely**, as if it were fully true, then ask whether the claim now has to be true, or at least becomes much more likely. If yes, the reason holds. If the claim is left as open as before, the reason is only decoration. 'Everyone's rent is rising' was true. It makes some rise likely, but 'so 12%' did not follow. A strong bolt on the wrong door keeps nothing shut. Good reasons, once granted, leave the claim little room to hide."
    },
    {
     "type": "mistake",
-    "body": "Marco posts that a new bike lane will cut traffic on his street. Someone replies: 'You don't even drive.' Marco spends an hour defending his licence, and nobody mentions traffic again. Spot it this way: **when the reply is about the person, not the claim**, the argument has left the table. Ask where the claim went.",
-    "simpler": "Marco posts that a new bike lane will cut traffic on his street. Someone replies that he does not even drive. Marco spends an hour defending his driving licence, and nobody mentions traffic again. Here is how to spot it: **when the reply is about the person, not the claim**, the argument has left the table. It is like answering a question about the food by talking about the cook. Ask where the claim went."
+    "body": "Priya nearly signed. 'Everyone's rent is rising' was true, and **a true reason feels like support**. That feeling is the trap. Spot it this way: the moment a reason checks out, grant it, then ask whether the 12% follows from it. Some rise, maybe. That exact number, not yet.",
+    "simpler": "Priya almost agreed to the 12%. 'Everyone's rent is rising' was true, and **a true reason feels like support**. That feeling is the trap. It is like a key that is real but belongs to a different lock. Here is how to spot it: the moment a reason checks out, grant it, then ask whether the 12% follows from it. Some rise, maybe. That exact number, not yet."
    },
    {
     "type": "exercise",
@@ -88,7 +88,7 @@
     "options": [
      {
       "id": "a",
-      "text": "'We have to leave by 7. The film starts at 7:30 and the drive takes 30 minutes.'"
+      "text": "'We have to leave by 7 to catch the start. The film starts at 7:30 and the drive takes 30 minutes.'"
      },
      {
       "id": "b",
@@ -104,13 +104,13 @@
      "b": "That's a claim with a mood, not a reason: a feeling tells you about the speaker, not about when the film starts.",
      "c": "That's a grievance, not a reason: who got blamed last time has no bearing on tonight's start time."
     },
-    "reteach": "Run the test. Grant that the film really starts at 7:30 and the drive really takes 30 minutes, and leaving by 7 follows. Grant the feeling, grant the old blame, and 7 still floats free, unsupported."
+    "reteach": "Run the test. Grant that the film really starts at 7:30, the drive really takes 30 minutes, and the goal is to catch the start, and leaving by 7 follows. Grant the feeling, grant the old blame, and 7 still floats free, unsupported."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Every opinion is a claim plus reasons, and the only test that matters is this: **if the reasons were fully true, would the claim have to follow?** Many arguments fail that test with reasons that are perfectly true and beside the point: a solid bolt fitted to the wrong door.",
-    "simpler": "Every opinion is a claim plus reasons. The only test that matters is this: **if the reasons were fully true, would the claim have to follow?** Many arguments fail that test. Their reasons are perfectly true and still beside the point, like a strong bolt on the wrong door that keeps nothing shut."
+    "body": "Every opinion is a claim plus reasons, and the key test is this: **if the reasons were fully true, would the claim have to follow, or at least be likely?** Many arguments fail that test with reasons that are perfectly true and beside the point: a solid bolt fitted to the wrong door.",
+    "simpler": "Every opinion is a claim plus reasons. The key test is this: **if the reasons were fully true, would the claim have to follow, or at least be likely?** Many arguments fail that test. Their reasons are perfectly true and still beside the point, like a strong bolt on the wrong door that keeps nothing shut."
    },
    {
     "type": "try",
@@ -122,19 +122,17 @@
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"28\" y=\"128\" width=\"264\" height=\"14\" rx=\"5\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"48\" y1=\"142\" x2=\"42\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"272\" y1=\"142\" x2=\"278\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"100\" cy=\"126\" rx=\"12\" ry=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"220\" cy=\"126\" rx=\"12\" ry=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"70\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M54 128 Q70 110 86 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"130\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M114 128 Q130 110 146 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"190\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M174 128 Q190 110 206 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"250\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M234 128 Q250 110 266 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"70\" cy=\"52\" rx=\"28\" ry=\"15\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"64,66 70,80 78,65\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"70\" y=\"57\" font-size=\"13\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"#1B1A17\">why?</text><ellipse cx=\"130\" cy=\"52\" rx=\"32\" ry=\"15\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"124,66 130,80 138,65\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"130\" y=\"57\" font-size=\"12\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"#1B1A17\">because</text><ellipse cx=\"190\" cy=\"52\" rx=\"24\" ry=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"184,65 190,80 198,64\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"190\" y=\"57\" font-size=\"13\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"#1B1A17\">why?</text><ellipse cx=\"250\" cy=\"52\" rx=\"24\" ry=\"14\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><circle cx=\"242\" cy=\"52\" r=\"2\" fill=\"#1B1A17\"/><circle cx=\"250\" cy=\"52\" r=\"2\" fill=\"#1B1A17\"/><circle cx=\"258\" cy=\"52\" r=\"2\" fill=\"#1B1A17\"/></svg>"
  },
  "repairedFrom": {
-  "score": 9,
+  "score": 11,
   "failed_checks": [
-   "concrete_images",
-   "facts_ok",
-   "open_loop"
+   "facts_ok"
   ],
   "dubious_claims": [
-   "'Athens executed him for asking questions': the formal charges were impiety and corrupting the young, so this is a loose simplification stated as fact.",
-   "'Socrates never wrote a word': none of his writing survives, but Plato's Phaedo says he put Aesop's fables into verse in prison.",
-   "Exercise 3, option a breaks the chapter's own test: granting a 7:30 film and a 20-minute drive does not force leaving at exactly 7, since 7:05 also works. It holds up 'leave by about 7:10', not 'have to leave at 7'."
+   "'None of Socrates' writing survives' suggests he wrote things that were lost. As far as anyone knows he wrote nothing, apart from a mention in Plato's Phaedo that he put Aesop's fables into verse in prison. 'He wrote nothing' is the accurate line.",
+   "'The only test that matters: if the reasons were fully true, would the claim have to follow?' This is the test for logical proof only (called deductive validity). It wrongly rules out strong evidence-based arguments, where true reasons make the claim likely but not certain. 'Everyone's rent is rising' is a fair reason for some rise.",
+   "The answer to exercise 3, option a, doesn't fully pass the chapter's own must-follow test. It only works if you assume they want to arrive on time and nothing goes wrong, like traffic or parking."
   ],
-  "weakest_card": 9,
-  "why": "The 'In one breath' recap has no concrete image. Its teaser promises the Athens execution that card 1 already gave away, and because the 'try' card comes after it, the chapter ends on 'Just notice.' instead of a hook.",
-  "fix": "Make the last card a fresh teaser instead of repeating card 1, for example: 'Tomorrow: the reply that never touches your claim, and why it beat Socrates in front of 501 jurors.' Then put the rent bolt image back into the recap."
+  "weakest_card": 7,
+  "why": "The Marco card teaches a second idea, the reply that attacks the person instead of the claim. It never uses the chapter's grant-the-reason test, and it gives away what the closing line promises for tomorrow.",
+  "fix": "Swap Marco for a mistake that uses this chapter's test: Priya almost accepts the 12% because 'everyone's rent is rising' is true. The tell is that a true reason feels like support. Grant it and ask whether the 12% has to follow. Save the reply-about-the-person for tomorrow."
  }
 }

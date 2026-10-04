@@ -5,13 +5,13 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Your line ran 40 times yesterday and one run failed. Which station dropped the item? By default, n8n keeps a record of each trip down the belt, and the station that jammed shows up in red. **When one station jams, you find that station and fix it. You don't rebuild the line.**",
-    "simpler": "Your line ran 40 times yesterday, and one run failed. Which station dropped the item? By default, n8n keeps a record of each trip down the belt. The station that jammed shows up in red. **When one station jams, you find it and fix just that one.** You don't rebuild the whole line. It's like a flat tire: you change the tire, not the car."
+    "body": "Picture your line once it runs on its own: 40 runs in a day, and one fails. Which station dropped the item? In most setups, n8n keeps a record of each trip down the belt, and the station that jammed shows up in red. **When one station jams, you find that station and fix it. You don't rebuild the line.**",
+    "simpler": "Picture your line once it runs on its own. It runs 40 times in a day, and one run fails. Which station dropped the item? In most setups, n8n keeps a record of each trip down the belt. The station that jammed shows up in red. **When one station jams, you find it and fix just that one.** You don't rebuild the whole line. It's like a flat tire: you change the tire, not the car."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your form-to-Slack line ran 40 times yesterday. This morning, run 23 shows an error. What's your first move?",
+    "prompt": "Say your form-to-Slack line is running on its own and ran 40 times yesterday. This morning, run 23 shows an error. What's your first move?",
     "options": [
      {
       "id": "a",
@@ -31,19 +31,19 @@
      "a": "That's rebuilding the whole line, not finding the jam: 39 runs worked, so most of it is fine.",
      "c": "That's a new item on the belt, not the one that jammed: it may go through fine and hide the problem."
     },
-    "reteach": "With its usual settings, n8n saves your runs, including the broken ones. The failed run shows exactly which station stopped and what it was holding. So you start there, not with a rebuild."
+    "reteach": "In most setups, n8n saves the runs your line makes on its own, including the broken ones. The failed run shows exactly which station stopped and what it was holding. So you start there, not with a rebuild."
    },
    {
     "type": "teach",
     "title": "Each trip is recorded",
-    "body": "With its usual settings, n8n saves each run of your workflow as an *execution*, a record of one trip down the belt. The Executions list shows them, each with a time and a status: succeeded or error.\n\nOpen a failed one and you see your line frozen at the moment it jammed. **The node that failed is marked in red.** Click it to see the error message, n8n's note on what went wrong, plus the item it was holding.\n\nIt's like a plane's black box, minus the drama. It recorded the trip, so you don't have to guess.",
-    "simpler": "Usually, each time your workflow runs, n8n saves a record of that one trip down the belt, called an *execution*. The Executions list shows them, with the time and whether each worked or hit an error. Open a failed one and you see your line stopped where it jammed. **The failed station, called a node, is marked in red.** Click it to see what went wrong and the item it held. It's like a plane's black box."
+    "body": "In most setups, n8n saves each run your workflow makes on its own as an *execution*, a record of one trip down the belt. The Executions list shows them, each with a time and a status: succeeded or error.\n\nOpen a failed one and you see your line frozen at the moment it jammed. **The node that failed is marked in red.** Click it to see the error message, n8n's note on what went wrong, plus the item it was holding.\n\nIt's like a plane's black box, minus the drama. It recorded the trip, so you don't have to guess.",
+    "simpler": "Usually, each time your workflow runs on its own, n8n saves a record of that one trip down the belt, called an *execution*. The Executions list shows them, with the time and whether each worked or hit an error. Open a failed one and you see your line stopped where it jammed. **The failed station, called a node, is marked in red.** Click it to see what went wrong and the item it held. It's like a plane's black box."
    },
    {
     "type": "example",
     "title": "Priya's lead line",
-    "body": "Priya's workflow takes a new website form, adds a row to Google Sheets, then posts in Slack. On Tuesday at 9:12, run 14 failed. In the Executions list the Slack node was red, with the message *channel_not_found*. Her Slack node had the channel typed in by name, #sales-leads, and someone had renamed it #leads over the weekend. Nobody told the robot. She picked #leads from the list in the Slack node, retried run 14 with the saved workflow, and the message landed. That took two minutes, with no rebuild.",
-    "simpler": "Priya's workflow takes a new website form, adds a row to Google Sheets, then posts in Slack. On Tuesday at 9:12, run 14 failed. In Executions, the Slack station was red with the note *channel_not_found*. Her Slack station had the channel name typed in: #sales-leads. Over the weekend, someone renamed that channel to #leads. Nobody told the robot. Priya picked #leads from the list in the Slack station and retried run 14 using her saved fix. The message landed. **Two minutes, no rebuild.**"
+    "body": "Priya's workflow takes a new website form, adds a row to Google Sheets, then posts in Slack. On Tuesday at 9:12, run 14 failed. In the Executions list the Slack node was red, with an error saying it couldn't find the channel. Her Slack node was set to post in #sales-leads, and over the weekend someone had deleted that channel and moved the team to a new one, #leads. Nobody told the robot. She picked #leads from the list in the Slack node, retried run 14 from the Executions list, and the message landed. That took two minutes, with no rebuild.",
+    "simpler": "Priya's workflow takes a new website form, adds a row to Google Sheets, then posts in Slack. On Tuesday at 9:12, run 14 failed. In Executions, the Slack station was red, with a note saying it couldn't find the channel. Her Slack station was set to post in #sales-leads. Over the weekend, someone deleted that channel and moved the team to a new one, #leads. Nobody told the robot. Priya picked #leads from the list in the Slack station and retried run 14 from Executions. The message landed. **Two minutes, no rebuild.**"
    },
    {
     "type": "exercise",
@@ -73,8 +73,8 @@
    {
     "type": "teach",
     "title": "Hiccups versus real faults",
-    "body": "Not every jam needs you. Sometimes an app is just slow for a second, like a door that sticks once. For that, open the node's Settings and switch on *Retry On Fail*, which makes n8n try that station again a few times before giving up.\n\nRetry won't fix a wrong channel or a missing field. **A real fault fails the same way every time**, so retry just jams three times instead of once.\n\nTo hear about jams without checking, give the workflow an *error workflow*: a second small line that starts with an Error Trigger node and messages you when the main one fails.",
-    "simpler": "Sometimes an app is slow for a second, like a door that sticks once. For that, turn on *Retry On Fail* in the station's Settings, so n8n tries again a few times. Retry can't fix a wrong channel or a missing field. **A real fault fails the same way every time.** To hear about jams, add an *error workflow*: a small second line, starting with an Error Trigger node, that messages you when the main one fails."
+    "body": "Not every jam needs you. Sometimes an app is just slow for a second, like a door that sticks once. For that, open the node's Settings and switch on *Retry On Fail*, which makes n8n try that station again a few times before giving up.\n\nRetry won't fix a wrong channel or a missing field. **A real fault fails the same way every time**, so retry just jams three times instead of once. For those, you fix the station.",
+    "simpler": "Sometimes an app is slow for a second, like a door that sticks once. For that, turn on *Retry On Fail* in the station's Settings, so n8n tries again a few times. Retry can't fix a wrong channel or a missing field. **A real fault fails the same way every time.** For those, you fix the station itself."
    },
    {
     "type": "mistake",
@@ -84,7 +84,7 @@
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Run 52 failed. The Gmail node is red with 'no recipient', and its input shows the email field arrived empty. Where does the fix go?",
+    "prompt": "Run 52 failed. The Gmail node is red, and its input shows the email field arrived empty. Where does the fix go?",
     "options": [
      {
       "id": "a",
@@ -114,28 +114,28 @@
    },
    {
     "type": "try",
-    "body": "Open n8n, click Executions, and open your last run. Click each node and look at what went in and what came out. Then open one node's Settings and find Retry On Fail.\n\nTomorrow: one switch, and your line runs while you're asleep.",
-    "simpler": "Open n8n, click Executions, and open your last run. Click each station, one at a time. For each one, **look at what went in and what came out**. It's like peeking inside each box on the belt. Then open one station's Settings and find the switch called Retry On Fail. Tomorrow: one switch, and your line runs while you sleep."
+    "body": "Open n8n, click Executions, and open the latest run you see there. Click each node and look at what went in and what came out. Then open one node's Settings and find Retry On Fail.\n\nTomorrow: one switch, and your line runs while you're asleep.",
+    "simpler": "Open n8n, click Executions, and open the latest run you see there. Click each station, one at a time. For each one, **look at what went in and what came out**. It's like peeking inside each box on the belt. Then open one station's Settings and find the switch called Retry On Fail. Tomorrow: one switch, and your line runs while you sleep."
    }
   ],
   "outcomeLine": "You can now find which node failed, read why, and fix it without rebuilding the workflow.",
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20 140 Q160 137 300 141\" stroke=\"#1B1A17\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"154\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"160\" cy=\"154\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"270\" cy=\"154\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"38\" y=\"78\" width=\"56\" height=\"50\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"132\" y=\"74\" width=\"56\" height=\"54\" rx=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" transform=\"rotate(-5 160 100)\"/><rect x=\"226\" y=\"78\" width=\"56\" height=\"50\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"160\" y1=\"88\" x2=\"160\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"5\" stroke-linecap=\"round\"/><circle cx=\"160\" cy=\"116\" r=\"3\" fill=\"#1B1A17\"/><rect x=\"104\" y=\"124\" width=\"14\" height=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"148,62 156,48 163,58 172,42\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><text x=\"160\" y=\"186\" font-family=\"sans-serif\" font-size=\"16\" text-anchor=\"middle\" fill=\"#1B1A17\">jammed here</text></svg>"
  },
  "repairedFrom": {
-  "score": 9,
+  "score": 10,
   "failed_checks": [
-   "facts_ok",
-   "would_keep_reading",
-   "open_loop"
+   "one_idea",
+   "facts_ok"
   ],
   "dubious_claims": [
-   "Renaming a Slack channel keeps its ID, and n8n's Slack node usually stores the ID when you pick a channel from the list, so renaming #sales-leads to #leads would only cause channel_not_found if the channel was typed in by name.",
-   "Same issue with the Google Sheets rename: picking a sheet from the list stores its ID, so renaming 'Leads 2026' to 'Leads' only breaks a node that was set up by name.",
-   "The open loop 'your line runs while you're asleep' clashes with card 1, where the line already ran 40 times overnight; also the chapter ends on the 'try' card, not on that line.",
-   "'n8n saves every run' depends on the save settings and how long the plan keeps records; it's true by default but not guaranteed."
+   "Slack node with the channel 'typed in by name': current n8n Slack node versions offer From list / By ID / By URL, so a name-typed channel may only match older node versions",
+   "'Retried run 14 with the saved workflow': n8n 2.0 split saving from publishing, so the retry menu's wording and behaviour may have changed",
+   "'With its usual settings, n8n saves each run': true for live production runs, but whether manual test runs are saved depends on version and settings, so the claim is too broad",
+   "Logic gap: card 1 says the line already 'ran 40 times yesterday', but the closing teaser says the next chapter's switch is what makes it run 'while you're asleep'. That suggests it wasn't running on its own yet",
+   "'No recipient' as the Gmail node's error text looks made up; the real n8n message probably reads differently"
   ],
-  "weakest_card": 7,
-  "why": "Sam's 'fix it upstream' lesson doesn't hold up: if the form question changed from 'Email' to 'Work email', the item arrived carrying the address under the new name, and the quickest fix is changing the field name inside the Gmail node, so the card teaches the opposite of what really happens.",
-  "fix": "Add a real station in between, e.g. an Edit Fields node that copies 'Email' into 'to', so the empty field is clearly made one station back and the fix clearly belongs there."
+  "weakest_card": 6,
+  "why": "Card 6 crams three ideas into about 104 words: hiccups versus real faults, Retry On Fail, and a whole separate error-workflow feature that no exercise tests, so the chapter's one idea gets diluted.",
+  "fix": "Cut the error-workflow paragraph and save it for a later chapter, so card 6 only contrasts a sticky door (retry it) with a real fault (fix the station)."
  }
 }

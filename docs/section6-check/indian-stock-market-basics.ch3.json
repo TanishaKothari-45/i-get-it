@@ -78,8 +78,8 @@
    },
    {
     "type": "mistake",
-    "body": "Meera sells 3 shares for \u20b94,500 and checks her bank app the next day. Nothing. She's halfway through an angry message to her broker when she spots it: the money is sitting in her trading account, waiting for her to tap withdraw. Money from a sale lands in the middle account first, so **when cash looks missing, check the trading account before you panic**.",
-    "simpler": "Meera sells 3 shares for \u20b94,500. The next day she checks her bank app and sees nothing. She's halfway through an angry message to her broker when she finds it. The money is sitting in her trading account, waiting for her to tap withdraw. Money from a sale lands in the middle account first. So **when cash looks missing, check the trading account before you panic**."
+    "body": "Meera sells 3 shares for \u20b94,500 and checks her bank app the next day. Nothing. She's halfway through an angry message to her broker when she spots it: the money is sitting in her trading account, ready for her to tap withdraw (if she doesn't, brokers send unused cash back to the bank on a regular schedule anyway). Money from a sale lands in the middle account first, so **when cash looks missing, check the trading account before you panic**.",
+    "simpler": "Meera sells 3 shares for \u20b94,500. The next day she checks her bank app and sees nothing. She's halfway through an angry message to her broker when she finds it. The money is sitting in her trading account, ready for her to tap withdraw. (If she doesn't, brokers send unused cash back to the bank on a regular schedule anyway.) Money from a sale lands in the middle account first. So **when cash looks missing, check the trading account before you panic**."
    },
    {
     "type": "exercise",
@@ -109,30 +109,30 @@
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "You need three accounts: a bank account for rupees, a trading account with a SEBI-registered broker to place orders, and **a demat account, recorded at NSDL or CDSL, that holds your shares in your name**. Money goes from your bank to your trading account, and the shares land in your demat, in your name, not the broker's.\n\nTomorrow: the one setting that stops you paying more than you meant to.",
-    "simpler": "You need three accounts. A bank account holds your rupees. A trading account with a SEBI-registered broker places your orders. And **a demat account, recorded at NSDL or CDSL, holds your shares in your name**. Money moves from your bank to your trading account. Your shares land in your demat, in your name, not the broker's.\n\nTomorrow: the one setting that stops you paying more than you meant to."
+    "body": "Purse pays, agent shops, locker holds: **bank, trading, demat (at NSDL or CDSL)**. Rupees travel from your purse to the agent at the gate, and whatever he buys goes into a locker with your name on it, not the broker's.",
+    "simpler": "The purse pays, the agent shops, the locker holds. That's **your bank, your trading account and your demat (kept at NSDL or CDSL)**. Rupees go from your bank to your trading account. Your shares land in your demat, in your name, not the broker's."
    },
    {
     "type": "try",
-    "body": "Tonight, open the income tax e-filing website and **check that your PAN is linked to your Aadhaar**. If it isn't linked, your PAN stops working and KYC (the identity check a broker does) can't go through. Two minutes, no broker needed.",
-    "simpler": "Tonight, go to the income tax e-filing website and **check that your PAN is linked to your Aadhaar**. If they aren't linked, your PAN stops working, and your KYC (the identity check a broker does) can't go through. It takes two minutes, and you don't need a broker for it."
+    "body": "Tonight, open the income tax e-filing website and **check that your PAN is linked to your Aadhaar**. If it isn't linked, your PAN stops working and KYC (the identity check a broker does) can't go through. Two minutes, no broker needed.\n\nTomorrow: the one setting that stops you paying more than you meant to.",
+    "simpler": "Tonight, go to the income tax e-filing website and **check that your PAN is linked to your Aadhaar**. If they aren't linked, your PAN stops working, and your KYC (the identity check a broker does) can't go through. It takes two minutes, and you don't need a broker for it.\n\nTomorrow: the one setting that stops you paying more than you meant to."
    }
   ],
   "outcomeLine": "You can now name your three accounts and say which one holds your shares and which one holds your cash.",
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M30 92 Q30 72 50 72 L90 72 Q110 72 110 92 L110 132 L30 132 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"70\" cy=\"104\" r=\"9\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M116 104h22m-7-7l8 7-8 7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"142,82 168,62 194,82\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"148\" y=\"82\" width=\"40\" height=\"50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"168\" cy=\"102\" r=\"7\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M198 104h22m-7-7l8 7-8 7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"228\" y=\"60\" width=\"70\" height=\"72\" rx=\"4\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"280\" cy=\"96\" r=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"70\" y=\"166\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">BANK</text><text x=\"168\" y=\"166\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">BROKER</text><text x=\"263\" y=\"166\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">DEMAT</text></svg>"
  },
  "repairedFrom": {
-  "score": 9,
+  "score": 8,
   "failed_checks": [
    "concrete_images",
-   "one_idea",
+   "would_keep_reading",
    "open_loop"
   ],
   "dubious_claims": [
-   "Simplification: the demat account is usually opened through a depository participant (an agent licensed to open demat accounts, often your broker), and only recorded at NSDL/CDSL. So 'never with the broker' and 'hand the key to a new broker' make switching sound easier than it is, since moving to a new broker means formally transferring your shares to a new demat account."
+   "Meera's sale money 'waiting for her to tap withdraw' is only partly true: under SEBI's running-account settlement, brokers must send unused money back to the bank every month or quarter, so the cash doesn't wait there forever (minor detail, not false)."
   ],
-  "weakest_card": 6,
-  "why": "Card 6 starts with the chapter's best surprise (the locker isn't at the broker's) and then piles on a KYC document list and a three-fee checklist, so one idea turns into three. The exercises test none of that extra material.",
-  "fix": "Cut the KYC and fees paragraphs from card 6 and move them to their own chapter, then end card 6 on the image of a new broker picking up the key to the same locker."
+  "weakest_card": 9,
+  "why": "The 'In one breath' recap has no concrete image, and its 'Tomorrow' teaser sits above an unrelated PAN\u2013Aadhaar card, so the chapter doesn't end on the open loop.",
+  "fix": "Rewrite card 9 as 'Purse pays, agent shops, locker holds: bank, trading, demat (at NSDL or CDSL)' and move the 'Tomorrow: the one setting that stops you paying more than you meant to' line to the end of card 10."
  }
 }

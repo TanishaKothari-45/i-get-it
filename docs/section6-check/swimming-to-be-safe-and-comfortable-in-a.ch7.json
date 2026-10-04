@@ -5,8 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "When you're tired in the middle of the pool, you don't have to race for the wall. You can rest on your back.\n\nThe bed doesn't stop at the edges. It's under you in every square metre of the pool, so **a rest is always one roll away**. Today you join every move into one trip across, and you learn to lie down whenever you need to.",
-    "simpler": "When you get tired in the middle of the pool, you don't have to hurry to the wall. You can rest on your back. Think of the water as a bed that doesn't stop at the edges. It is under you everywhere in the pool, so **a rest is always one roll away**. Today you put every move together into one trip across. You also learn to lie down on your back whenever you need to."
+    "body": "When you're tired in the middle of the pool, you don't have to race for the wall. You can rest on your back.\n\nThe water that holds you up in a back float isn't only near the wall. It's under you in every square metre of the pool, so **a rest is usually just one roll away**. Today you join every move into one trip across, and you learn to lie back whenever you need to.",
+    "simpler": "When you get tired in the middle of the pool, you don't have to hurry to the wall. You can rest on your back. The water that holds you up in a back float is not only near the wall. It is under you everywhere in the pool, so **a rest is usually just one roll away**. Today you put every move together into one trip across. You also learn to lie back whenever you need to."
    },
    {
     "type": "exercise",
@@ -31,13 +31,13 @@
      "a": "That's treading water, not resting: your arms and legs keep working the whole time.",
      "c": "That's the front float, not a rest: it holds you up, but you can't breathe in, so it only lasts a few seconds."
     },
-    "reteach": "A rest has to let you breathe and stop moving, both at once. On your back, your face stays out and the water does the holding, anywhere in the pool."
+    "reteach": "A rest has to let you breathe and stop working hard, both at once. On your back, your face stays out and the water does most of the holding. At most you add a gentle kick."
    },
    {
     "type": "teach",
     "title": "Joining it up",
-    "body": "Crossing the pool is four things you already know, in a row: push off and glide, start the kick, add the arms, and breathe when you need to. Slow wins. Ten calm strokes beat twenty frantic ones.\n\nAround the middle, most beginners run out of breath before they run out of strength. So **turn onto your back**: drop one shoulder, roll, ears in the water, hips up, chest full of air. It's your day-3 back float.\n\nLifting your head high to gulp air doesn't work. Your head goes up like one end of a seesaw, your legs go down, and you end up half standing in the water you're trying to cross.",
-    "simpler": "Crossing is four things you already know: push off and glide, kick, add arms, and breathe when needed. Ten calm strokes beat twenty rushed ones. Around the middle, most beginners run out of breath before strength. So **turn onto your back**: drop a shoulder, roll, ears in, hips up, chest full of air, like your day-3 float. Don't lift your head to gulp air. Like a seesaw, head up means legs down, and you end up half standing."
+    "body": "Crossing the pool is four things you already know, in a row: push off and glide, start the kick, add the arms, and breathe when you need to. Slow wins. Ten calm strokes beat twenty frantic ones.\n\nAround the middle, many beginners run short of breath before they run short of strength. So **turn onto your back**: drop one shoulder, roll, ears in the water, hips up, chest full of air. If your legs start to sink, a small, slow kick keeps them up.\n\nLifting your head high to gulp air doesn't work. Your head goes up like one end of a seesaw, your legs go down, and you end up half standing in the water you're trying to cross.",
+    "simpler": "Crossing is four things you already know: push off and glide, kick, add arms, and breathe when needed. Ten calm strokes beat twenty rushed ones. Around the middle, many beginners run short of breath before strength. So **turn onto your back**: drop a shoulder, roll, ears in, hips up, chest full of air. If your legs sink, a small, slow kick keeps them up. Don't lift your head to gulp air. Like a seesaw, head up means legs down, and you end up half standing."
    },
    {
     "type": "example",
@@ -48,7 +48,7 @@
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Sam is 5 metres into an 11-metre crossing, in chest-deep water, and swallows a mouthful. Coughing starts. Which move fits this chapter?",
+    "prompt": "Sam is 5 metres into an 11-metre crossing, in chest-deep water, and is suddenly short of breath. No coughing, just tired. Which move fits this chapter?",
     "options": [
      {
       "id": "a",
@@ -56,25 +56,25 @@
      },
      {
       "id": "b",
-      "text": "Put the feet down, stand, cough it out, then carry on"
+      "text": "Roll onto the back, take a few slow breaths, then carry on"
      },
      {
       "id": "c",
-      "text": "Swim faster to finish before the cough gets worse"
+      "text": "Swim faster to finish before the tiredness gets worse"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the seesaw, not a rest: paddling with your head up sinks your legs and costs breath you need for coughing.",
-     "c": "That's pushing through, not resting: going faster uses up breath you're already short of."
+     "a": "That's the seesaw, not a rest: paddling with your head up sinks your legs and costs breath you're already short of.",
+     "c": "That's pushing through, not resting: going faster uses up breath you don't have."
     },
-    "reteach": "In standing depth, your feet are your backup. Stand, cough with your head up, and wait until your breathing settles. Then swim on."
+    "reteach": "Short of breath means roll over. On your back your face stays out, so you can breathe slowly until you're ready to swim on."
    },
    {
     "type": "teach",
     "title": "Your backup",
-    "body": "The roll is your rest. **Standing depth and someone watching are your backup.** So check the depth markings on the pool edge before you set off, swim with a friend or a lifeguard there, and get in by the steps.\n\nIf you're just tired, roll onto your back. If something goes wrong, like a mouthful of water, put your feet down and stand first.",
-    "simpler": "The roll is your rest. **Water you can stand in, and someone watching, are your backup.** So check the depth signs on the pool edge first, swim with a friend or a lifeguard there, and get in by the steps. If you're just tired, roll onto your back. If something goes wrong, like swallowing water, put your feet down and stand up first."
+    "body": "Before she pushes off, Priya reads the marking on the pool edge: **1.2 m**, water she can stand in. A lifeguard sits in the red chair.\n\nThat's her backup, and the rule fits in one line: **tired means roll over, coughing means stand up.**",
+    "simpler": "Before she starts, Priya reads the sign on the pool edge: **1.2 m**. She can stand in that. A lifeguard sits in the red chair. That is her backup. The rule is short: **if you're tired, roll onto your back. If you're coughing, stand up.**"
    },
    {
     "type": "mistake",
@@ -84,7 +84,7 @@
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend asks why you'd rest on your back in the middle of the pool instead of just heading for the wall. Best answer?",
+    "prompt": "A friend asks why you'd rest on your back mid-pool instead of heading for the wall. Best answer?",
     "options": [
      {
       "id": "a",
@@ -101,41 +101,45 @@
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's about distance, not the reason: reaching the wall is fine, just not by using up your last breath sprinting.",
-     "c": "That's the kick from chapter 5, not resting: the back float works because you stop working."
+     "b": "That's about distance, not the reason: heading for the wall is fine, just not on your last breath.",
+     "c": "That's kicking, not resting: the point is to work as little as you can."
     },
-    "reteach": "The wall stays in one place. Your back float goes wherever you go. Lying on it lets you breathe freely while the water holds you up, so you get your breath back, and after that the wall is easy."
+    "reteach": "The wall stays put. Your back float goes wherever you go, so you can get your breath back first. Then the wall is easy."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Swimming across is push, glide, kick, arms, and a breath when you need one, all done slowly. When you're tired, **roll onto your back** and let the water hold you. Your backup is water you can stand in, with someone there.\n\nNext: breathing to the side, the trick that turns a width into a full 25-metre length.",
-    "simpler": "Swimming across is push, glide, kick, arms, and a breath when you need one, all done slowly. When you get tired, **roll onto your back** and let the water hold you up. Your backup is water you can stand in, with someone there. Next comes breathing to the side, the trick that turns one width into a full 25-metre length."
+    "body": "Swimming across is push, glide, kick, arms, and a breath when you need one, all done slowly. When you're tired, **roll onto your back** and let the water do most of the holding. Your backup is water you can stand in, with someone there: if you start coughing, stand up.",
+    "simpler": "Swimming across is push, glide, kick, arms, and a breath when you need one, all done slowly. When you get tired, **roll onto your back** and let the water do most of the holding. Your backup is water you can stand in, with someone there. If you start coughing, stand up."
    },
    {
     "type": "try",
-    "body": "Next time you're at the pool, in chest-deep water: swim 4 strokes, roll onto your back, float for 5 slow breaths, then tuck your knees and stand. Do it 3 times.",
-    "simpler": "Next time you're at the pool, go to water that comes up to your chest. Swim 4 strokes. Then **roll onto your back** and float there for 5 slow breaths. After that, pull your knees in toward your chest and stand up. Do the whole thing 3 times."
+    "body": "Next time you're at the pool, in chest-deep water: swim 4 strokes, roll onto your back, float for 5 slow breaths, then tuck your knees and stand. Do it 3 times.\n\nNext: breathing to the side, the trick that turns a width into a full 25-metre length.",
+    "simpler": "Next time you're at the pool, go to water that comes up to your chest. Swim 4 strokes. Then **roll onto your back** and float there for 5 slow breaths. After that, pull your knees in toward your chest and stand up. Do the whole thing 3 times. Next comes breathing to the side, the trick that turns one width into a full 25-metre length."
    }
   ],
-  "outcomeLine": "You can now swim slowly across the pool, roll onto your back to rest when tired, and stand up when something goes wrong.",
+  "outcomeLine": "You can now swim slowly across the pool, roll onto your back to rest when tired, and stand up if you start coughing.",
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"276\" y=\"50\" width=\"28\" height=\"130\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M16 118 Q46 108 76 118 T136 118 T196 118 T256 118\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M16 150 Q46 140 76 150 T136 150 T196 150 T256 150\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-linecap=\"round\" opacity=\".5\"/><ellipse cx=\"140\" cy=\"114\" rx=\"52\" ry=\"9\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><circle cx=\"204\" cy=\"110\" r=\"12\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><path d=\"M168 108 L190 96 M110 108 L92 98\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"200\" cy=\"107\" r=\"1.5\" fill=\"#1B1A17\"/><circle cx=\"208\" cy=\"107\" r=\"1.5\" fill=\"#1B1A17\"/><path d=\"M199 114 Q204 117 209 114\" stroke=\"#1B1A17\" stroke-width=\"2\" fill=\"none\"/><text x=\"96\" y=\"58\" font-family=\"sans-serif\" font-size=\"18\" fill=\"#1B1A17\">rest here</text><polyline points=\"140,66 140,92\" stroke=\"#1B1A17\" stroke-width=\"2\" fill=\"none\"/><polygon points=\"134,88 146,88 140,98\" fill=\"#1B1A17\"/></svg>"
  },
  "repairedFrom": {
-  "score": 8,
+  "score": 7,
   "failed_checks": [
+   "short_cards",
    "one_idea",
    "facts_ok",
    "would_keep_reading",
    "open_loop"
   ],
   "dubious_claims": [
-   "Sam exercise: telling a coughing swimmer in chest-deep water to roll onto their back before standing is questionable safety advice. Standing up is the safer first move, and lying back while coughing risks taking in more water.",
-   "Card 1: 'the wall is not your safest option, your back is' conflicts with the chapter's own rule to stay where you can stand. In standing depth, putting your feet down is the safest option.",
-   "Exercise cards 2 and 5: counting prompt, options, both wrong-answer notes and the reteach, they come to about 126 and 133 words. That breaks the 120-word limit if the whole card counts. I passed short_cards only because a reader sees one note at a time."
+   "'a rest is always one roll away' / 'the water does the holding, anywhere in the pool': overstated. Many adult beginners, especially lean or muscular ones, find their legs sink on their back without a small flutter kick or hand movement.",
+   "'the back float works because you stop working' (exercise 3 feedback): same overstatement.",
+   "'most beginners run out of breath before they run out of strength': sounds right but has no source.",
+   "Continuity slip: card 3 says 'day-3 back float' but exercise 3 says 'the kick from chapter 5'. Days and chapters are mixed up.",
+   "Card 1 says 'The bed doesn't stop at the edges' but never explains the bed comparison in this chapter.",
+   "Exercise 3 runs to about 139 words once its feedback and reteach are counted, which breaks the 120-word card limit."
   ],
   "weakest_card": 6,
-  "why": "The four-habits card is a bolted-on checklist that no exercise tests, so the chapter teaches two things. Its 'stay where you can stand' rule also undercuts the hook: if you can stand, standing beats rolling onto your back.",
-  "fix": "Shrink the four habits to one line tied to the roll ('the roll is your rest; standing depth and a watcher are your backup'), and rewrite the Sam exercise so the right answer is 'stand up, cough, then carry on', which tests that line."
+  "why": "'Your backup' is a list of safety rules with no scene, and it adds a second idea (stand up when in trouble) that pulls the chapter away from 'roll onto your back to rest'. Exercise 2 then tests that second idea instead of the roll.",
+  "fix": "Turn card 6 into a two-line moment: Priya reads the '1.2 m' marking before she pushes off, and a lifeguard sits in the red chair. Put the rule in one sentence: tired means roll over, coughing means stand up. Then move the 'Next: breathing to the side' line so it comes after the try card and is the chapter's last line."
  }
 }
