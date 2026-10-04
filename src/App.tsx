@@ -10,7 +10,7 @@ import Nav from './components/Nav'
 import ActionBar from './components/ActionBar'
 import Start from './screens/Start'
 import Plan from './screens/Plan'
-import Chapter, { type AnswerResult, type Card } from './screens/Chapter'
+import Chapter, { type AnswerResult, type Card, type Recap } from './screens/Chapter'
 import Done from './screens/Done'
 import SignIn from './screens/SignIn'
 import Library from './screens/Library'
@@ -41,7 +41,8 @@ export default function App() {
     case 'signin': screen = <SignInRoute token={token} />; break
     case 'handbook':
     case 'chapter':
-    case 'done': screen = <HandbookRoute key={route.id} route={route} token={token} />; break
+    case 'done':
+    case 'deeper': screen = <HandbookRoute key={route.id} route={route} token={token} />; break
     default: screen = <NotFound />
   }
 
@@ -159,6 +160,14 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
   const passed = progress?.chaptersPassed ?? []
   const isReady = (n: number) => hb.chapters.some((c) => c.n === n && c.status === 'ready' && Array.isArray(c.cards))
   const topic = plan.topic ?? hb.topic
+  const unlocked = progress?.deeperUnlocked ?? []
+  const bonusDone = progress?.bonusPassed ?? []
+
+  if (route.name === 'deeper') {
+    // Only a bonus they've earned.
+    if (!unlocked.includes(route.n)) return <Redirect to={paths.handbook(id)} />
+    return <DeeperRoute key={`${id}-deeper-${route.n}`} hb={hb} n={route.n} token={token} />
+  }
 
   if (route.name === 'chapter') {
     // Only chapters they've reached, once written.
@@ -182,6 +191,7 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
         onKeep={() => navigate(paths.signin, { state: { next: paths.done(id, n) } })}
         onPickTime={async (at) => { await setTomorrow({ handbookId: id, at, deviceToken: token }) }}
         onContinue={() => navigate(paths.handbook(id))}
+        deeper={unlocked.includes(n) ? { done: bonusDone.includes(n), onGo: () => navigate(paths.deeper(id, n)) } : undefined}
       />
     )
   }
@@ -196,6 +206,7 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
       chapterReady={isReady(currentN)}
       chapterFailed={current?.status === 'failed'}
       chapterLink={(n) => (n <= currentN && isReady(n) ? paths.chapter(id, n) : null)}
+      bonusFor={(n) => (unlocked.includes(n) ? { href: paths.deeper(id, n), done: bonusDone.includes(n) } : null)}
       voiceNote={hb.source === 'seed' && hb.voice !== hb.bookVoice ? `This one was written in the friendly voice ahead of time. Your "${hb.voice}" choice applies to handbooks written fresh.` : undefined}
       onStart={() => navigate(paths.chapter(id, currentN))}
       onRetry={() => { retry({ handbookId: id, deviceToken: token }).catch(() => {}) }}
@@ -225,6 +236,7 @@ function ChapterRoute({ hb, n, token }: { hb: HandbookView; n: number; token: st
       n={n}
       title={chapter.title ?? plan.chapters?.[n - 1]?.title ?? `Chapter ${n}`}
       cards={chapter.cards as Card[]}
+      recap={recapOf(hb.chapters.find((c) => c.n === n - 1), plan)}
       recall={(recall ?? []) as any}
       passed={progress?.chaptersPassed ?? []}
       passedExercises={progress?.passedExercises ?? []}
@@ -235,6 +247,82 @@ function ChapterRoute({ hb, n, token }: { hb: HandbookView; n: number; token: st
       onFinish={async () => { await finishChapter({ handbookId: hb._id, n, deviceToken: token }); navigate(paths.done(hb._id, n)) }}
       onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
     />
+  )
+}
+
+type ChapterView = HandbookView['chapters'][number]
+
+// The previous chapter's "In one breath" card, or its outcome line if it has none.
+function recapOf(prev: ChapterView | undefined, plan: any): Recap | null {
+  if (!prev || prev.status !== 'ready' || !Array.isArray(prev.cards)) return null
+  const title = prev.title ?? plan?.chapters?.[prev.n - 1]?.title ?? `Chapter ${prev.n}`
+  const summary = (prev.cards as Card[]).find((c) => c.type === 'teach' && /in one breath/i.test(c.title ?? ''))
+  if (summary) return { chapter: prev.n, title, card: summary }
+  if (prev.outcomeLine) return { chapter: prev.n, title, card: { type: 'teach', title: 'In one breath', body: prev.outcomeLine } }
+  return null
+}
+
+// "Go deeper": the bonus lesson for chapter n. Written the first time anyone asks, shared after.
+function DeeperRoute({ hb, n, token }: { hb: HandbookView; n: number; token: string }) {
+  const requestDeeper = useMutation(api.handbooks.requestDeeper)
+  const recordAnswer = useMutation(api.handbooks.recordAnswer)
+  const finishDeeper = useMutation(api.handbooks.finishDeeper)
+  const bonus = hb.bonus.find((b) => b.n === n)
+  const chapterTitle = hb.chapters.find((c) => c.n === n)?.title ?? hb.plan?.chapters?.[n - 1]?.title ?? `chapter ${n}`
+  const [error, setError] = useState<string | null>(null)
+  const [slow, setSlow] = useState(false)
+  const writing = !bonus || bonus.status === 'writing'
+
+  const ask = async () => {
+    setError(null)
+    try { await requestDeeper({ handbookId: hb._id, n, deviceToken: token }) }
+    catch (e) { setError(String((e as Error)?.message ?? e).includes('busy') ? 'Busy right now. Try again in a few minutes.' : "Couldn't start the bonus just now. Try again in a minute.") }
+  }
+  // First visit: ask for it. A failed one waits for "Try again".
+  useEffect(() => { if (!bonus) ask() }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!writing) { setSlow(false); return }
+    const t = setTimeout(() => setSlow(true), 8000)
+    return () => clearTimeout(t)
+  }, [writing])
+
+  if (bonus?.status === 'ready' && Array.isArray(bonus.cards)) {
+    return (
+      <Chapter
+        topic={hb.plan?.topic ?? hb.topic}
+        n={n}
+        title={bonus.title ?? `Going deeper on chapter ${n}`}
+        cards={bonus.cards as Card[]}
+        recall={[]}
+        passed={hb.progress?.chaptersPassed ?? []}
+        passedExercises={[]}
+        startAt={0}
+        label={`Bonus · chapter ${n}`}
+        finishLabel="Finish the bonus"
+        allowSimpler={false}
+        handbookPath={paths.handbook(hb._id)}
+        onPosition={() => {}}
+        onAnswer={async (item, optionId, attempt) => (await recordAnswer({ handbookId: hb._id, chapter: n, cardIndex: item.cardIndex, optionId, attempt, bonus: true, deviceToken: token })) as AnswerResult}
+        onFinish={async () => { await finishDeeper({ handbookId: hb._id, n, deviceToken: token }); navigate(paths.handbook(hb._id)) }}
+        onSimpler={async () => ({ ready: false })}
+      />
+    )
+  }
+
+  const failed = bonus?.status === 'failed'
+  return (
+    <>
+      <p className="label" style={{ marginTop: 'var(--l)' }}>Bonus · chapter {n}</p>
+      <h1 style={{ marginTop: 6 }}>Going deeper.</h1>
+      <p className="lede">One layer deeper on {chapterTitle}: the nuance, the edge cases, a harder real case. Optional, and it doesn't change your plan.</p>
+      {(failed || error) && <p className="error">{error ?? "The bonus didn't come through. Your chapter is saved; try again."}</p>}
+      <ActionBar busy={writing && !error} note={writing && !error && slow ? 'About 30 seconds. It reads the chapter you just did first.' : undefined}>
+        {failed || error
+          ? <button className="btn" onClick={ask}>Try again</button>
+          : <button className="btn" disabled>Writing your bonus…</button>}
+        <Link to={paths.handbook(hb._id)} className="quiet">Back to the handbook</Link>
+      </ActionBar>
+    </>
   )
 }
 

@@ -8,9 +8,11 @@ import { internal } from "./_generated/api";
 const PLAN_MAX_OUT = 3000;
 const CHAPTER_MAX_OUT = 4500;
 const SIMPLER_MAX_OUT = 600;
+const DEEPER_MAX_OUT = 3500;
 
 // How long one call may take before it's abandoned, per kind of call.
-const TIMEOUT_MS = { plan: 90_000, chapter: 120_000, simpler: 30_000 };
+const TIMEOUT_MS = { plan: 90_000, chapter: 120_000, simpler: 30_000, deeper: 120_000 };
+const MAX_OUT = { plan: PLAN_MAX_OUT, chapter: CHAPTER_MAX_OUT, simpler: SIMPLER_MAX_OUT, deeper: DEEPER_MAX_OUT };
 // One retry, after a short wait (or the provider's Retry-After, capped).
 const MAX_ATTEMPTS = 2;
 const RETRY_DELAY_MS = 2_000;
@@ -92,9 +94,9 @@ function extractJson(text: string): any {
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler")), system: v.string(), user: v.string() },
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("deeper")), system: v.string(), user: v.string() },
   handler: async (ctx, { kind, system, user }): Promise<Result> => {
-    const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
+    const maxOut = MAX_OUT[kind];
     const provider = process.env.ANTHROPIC_API_KEY ? "anthropic" : process.env.OPENAI_API_KEY ? "openai" : null;
     const input = user.slice(0, 2000);
     if (!provider) {

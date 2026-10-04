@@ -121,6 +121,17 @@ Status lines: "Being written…" · "Waiting on one answer from you" · "Didn't 
 Main action: Start a new handbook → /new.
 Empty: "Nothing here yet. Type the one thing you keep meaning to learn, and its handbook starts here."
 
+Recap (added 8 Oct, agent)
+For: picking up where you left off. Chapter 2 onward opens with the previous chapter's "In one breath" card (its outcome line if it has none), before recall and the new cards. Header: "Recap · from chapter N". Kicker: "Last time · Chapter N: [title]". No "Say it simpler" on it. The summary also stays as the last teaching card of its own chapter.
+
+Go deeper (bonus) (added 8 Oct, agent)
+For: someone who got every exercise in a chapter right first time and wants more of the same idea. Optional; never the main action, never moves the rung.
+Done screen, under the night's lines: a dashed box (like the "try it" card), label "Bonus, if you want it", "Every exercise right, first time. Want to go one layer deeper on this idea?", an outlined button "Go deeper". After it's done: "You've done this chapter's bonus." / "Read the bonus again".
+Plan: under that chapter's line, "Go deeper (bonus)", then "Bonus done · read it again".
+Bonus screen (/h/:id/chapter/:n/deeper): the card stack, header "Bonus · chapter N · card x of y", last button "Finish the bonus" → back to the plan.
+Loading: "Bonus · chapter N" / "Going deeper." / "One layer deeper on [chapter title]: the nuance, the edge cases, a harder real case. Optional, and it doesn't change your plan." Button "Writing your bonus…" with the thin bar; after 8 s: "About 30 seconds. It reads the chapter you just did first." Quiet link: "Back to the handbook".
+Error: "The bonus didn't come through. Your chapter is saved; try again." Button: Try again. Busy: "Busy right now. Try again in a few minutes."
+
 Someone else's handbook link (added 7 Oct, agent)
 "This handbook is someone else's." / "You can start your own on the same thing: [topic]." Button: Start my own (busy: "Starting yours…").
 A link that leads nowhere: "Nothing here." / "This link doesn't lead to a handbook." Button: Go to my handbooks.

@@ -15,6 +15,8 @@ type Props = {
   onKeep: () => void
   onPickTime: (at: string) => Promise<void>
   onContinue: () => void
+  // Offered only when every exercise in the chapter was right first time. Optional, never the main action.
+  deeper?: { done: boolean; onGo: () => void }
 }
 
 const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
@@ -27,7 +29,7 @@ function pretty(t: string) {
 }
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, deeper }: Props) {
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
   const last = n >= 7
@@ -40,6 +42,14 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
+
+      {deeper && (
+        <div className="bonus-offer">
+          <p className="label">Bonus, if you want it</p>
+          <p className="serif">{deeper.done ? "You've done this chapter's bonus." : 'Every exercise right, first time. Want to go one layer deeper on this idea?'}</p>
+          <button type="button" className="btn btn-ghost" onClick={deeper.onGo}>{deeper.done ? 'Read the bonus again' : 'Go deeper'}</button>
+        </div>
+      )}
 
       {signedIn && (
         <>

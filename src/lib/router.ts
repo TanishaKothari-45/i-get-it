@@ -11,6 +11,7 @@ export type Route =
   | { name: 'handbook'; id: string }
   | { name: 'chapter'; id: string; n: number }
   | { name: 'done'; id: string; n: number }
+  | { name: 'deeper'; id: string; n: number }
   | { name: 'notFound' }
 
 export const paths = {
@@ -21,6 +22,7 @@ export const paths = {
   handbook: (id: string) => `/h/${id}`,
   chapter: (id: string, n: number) => `/h/${id}/chapter/${n}`,
   done: (id: string, n: number) => `/h/${id}/chapter/${n}/done`,
+  deeper: (id: string, n: number) => `/h/${id}/chapter/${n}/deeper`,
 }
 
 export function matchRoute(pathname: string): Route {
@@ -36,6 +38,7 @@ export function matchRoute(pathname: string): Route {
     const validChapter = parts[2] === 'chapter' && Number.isInteger(n) && n >= 1 && n <= 7
     if (validChapter && parts.length === 4) return { name: 'chapter', id, n }
     if (validChapter && parts.length === 5 && parts[4] === 'done') return { name: 'done', id, n }
+    if (validChapter && parts.length === 5 && parts[4] === 'deeper') return { name: 'deeper', id, n }
   }
   return { name: 'notFound' }
 }
