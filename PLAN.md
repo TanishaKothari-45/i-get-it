@@ -7,10 +7,10 @@ Before milestone 1: DESIGN.md (done 4 Oct night, taste choices marked MISSING fo
 2. I can see the 7-chapter plan with "by day 7 you'll be able to X" and chapter 1 marked tonight.   DONE
 3. I can finish chapter 1: all exercises, a re-teach card on a miss, the rung lit, chapter 2 named.   DONE (checked on dev, 4 Oct 05:05)
 4. I can close the tab, reopen it on the same phone, and I'm on the same card, no account.   DONE (checked by reload on dev)
-5. I can sign in after the rung, pick when tomorrow is, and my night is attached to me.   sign-in DONE; time picker built, checking   <- now
-6. I can come back, answer recall on chapter 1, and get chapter 2.   recall cards DONE; chapter 2 in progress
-7. I can open it on another device after sign-in and land on the same rung.
-Last: I can close it, reopen it, and my plan and my rungs are still there.
+5. I can sign in after the rung, pick when tomorrow is, and my night is attached to me.   DONE (checked on dev)
+6. I can come back, answer recall on chapter 1, and get chapter 2.   DONE (checked on dev, chapter 2 passed)
+7. I can open it on another device after sign-in and land on the same rung.   DONE (device token removed, sign-in kept, two rungs shown)
+Last: I can close it, reopen it, and my plan and my rungs are still there.   DONE on dev; on production only the first screen and the failure path were checked   <- next: a real phone on mobile data
 
 Acceptance test (not a milestone): a stranger, logged out, on their own phone, gets through night 1 without Prateek saying a word.
 
