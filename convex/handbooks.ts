@@ -4,7 +4,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
+import { ASK_PROMPT, CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, askUserMessage, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
@@ -17,6 +17,7 @@ const limiter = new RateLimiter(components.rateLimiter, {
   generateAll: { kind: "fixed window", rate: 60, period: HOUR },
   generateDevice: { kind: "token bucket", rate: 6, period: HOUR, capacity: 3 },
   simplerDevice: { kind: "token bucket", rate: 30, period: HOUR, capacity: 10 },
+  askDevice: { kind: "token bucket", rate: 40, period: HOUR, capacity: 8 },
 });
 
 export function topicKeyOf(topic: string) {
@@ -673,4 +674,65 @@ export const voteModel = mutation({
     else await ctx.db.insert("profiles", { userId: userId ?? undefined, deviceToken, preferredModel: picked.model, line: "", updatedAt: Date.now() });
     return { model: picked.model };
   },
+});
+
+// Read-only, for the LLM-judge run: the three writers' versions of a chapter (internal; run from the CLI).
+export const readVariants = internalQuery({
+  args: { handbookId: v.id("handbooks"), n: v.number() },
+  handler: async (ctx, { handbookId, n }) => {
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+    return ch?.variants ?? [];
+  },
+});
+
+// ---------- the two-way street: ask about this card ----------
+
+export const questionsFor = query({
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, chapter, cardIndex, deviceToken }) => {
+    await ownedHandbook(ctx, handbookId, deviceToken);
+    const rows = await ctx.db.query("cardQuestions").withIndex("by_card", (q) => q.eq("handbookId", handbookId).eq("chapter", chapter).eq("cardIndex", cardIndex)).collect();
+    return rows.sort((a, b) => a.at - b.at).map((r) => ({ _id: r._id, question: r.question, answer: r.answer, status: r.status }));
+  },
+});
+
+export const ask = mutation({
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), question: v.string(), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, chapter, cardIndex, question, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    const q = question.trim().slice(0, 300);
+    if (q.length < 3) throw new Error("Ask in a few words.");
+    const mine = await limiter.limit(ctx, "askDevice", { key: deviceToken ?? String(h.userId) });
+    if (!mine.ok) throw new Error("busy");
+    const id = await ctx.db.insert("cardQuestions", { handbookId, chapter, cardIndex, question: q, status: "thinking", at: Date.now() });
+    await ctx.scheduler.runAfter(0, internal.handbooks.answerQuestionAboutCard, { questionId: id });
+    return id;
+  },
+});
+
+export const answerQuestionAboutCard = internalAction({
+  args: { questionId: v.id("cardQuestions") },
+  handler: async (ctx, { questionId }) => {
+    const row = await ctx.runQuery(internal.handbooks.readQuestion, { questionId });
+    if (!row) return;
+    const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId: row.handbookId });
+    const ch = await ctx.runQuery(internal.handbooks.readChapter, { handbookId: row.handbookId, n: row.chapter });
+    const card = ch?.cards?.[row.cardIndex];
+    if (!h || !ch || !card) { await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: "", failed: true }); return; }
+    const prof = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId: row.handbookId });
+    const body = card.type === "exercise" ? `${card.prompt}\n${(card.options ?? []).map((o: any) => `${o.id}) ${o.text}`).join("\n")}` : card.body;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "ask", system: ASK_PROMPT, user: askUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${row.chapter}`, { type: card.type, title: card.title, body }, row.question, prof.line) });
+    const text = r.ok && typeof r.json?.answer === "string" ? r.json.answer.trim() : "";
+    await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: text, failed: !text });
+  },
+});
+
+export const readQuestion = internalQuery({
+  args: { questionId: v.id("cardQuestions") },
+  handler: async (ctx, { questionId }) => ctx.db.get(questionId),
+});
+
+export const setAnswer = internalMutation({
+  args: { questionId: v.id("cardQuestions"), answer: v.string(), failed: v.boolean() },
+  handler: async (ctx, { questionId, answer, failed }) => { await ctx.db.patch(questionId, failed ? { status: "failed" } : { status: "ready", answer }); },
 });

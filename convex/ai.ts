@@ -62,10 +62,10 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler")), system: v.string(), user: v.string(), model: v.optional(v.string()) },
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask")), system: v.string(), user: v.string(), model: v.optional(v.string()) },
   handler: async (ctx, { kind, system, user, model }): Promise<Result> => {
     const started = Date.now();
-    const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
+    const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
     const provider = process.env.ANTHROPIC_API_KEY ? "anthropic" : process.env.OPENAI_API_KEY ? "openai" : null;
     if (!provider) {
       await ctx.runMutation(internal.handbooks.logAiCall, { kind, model: "none", input: user.slice(0, 2000), output: "", ms: 0, ok: false, error: "no provider key set" });

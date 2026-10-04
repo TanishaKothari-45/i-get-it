@@ -198,3 +198,10 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .watch-who { font-weight: 700; }
 .watch-what { font-family: var(--serif); font-size: var(--body); }
 .watch-go { color: var(--ink-2); font-size: var(--small); margin-top: 6px; }
+.ask { margin-top: var(--l); border-top: 1px solid var(--tint); padding-top: var(--m); }
+.ask-row { display: flex; gap: var(--s); margin-top: var(--s); }
+.ask-row .input { min-height: 48px; padding: 10px 14px; font-size: var(--ui); }
+.ask-send { width: auto; min-height: 48px; padding: 0 18px; }
+.ask-qa { margin-bottom: var(--m); }
+.ask-q { font-weight: 600; font-size: var(--ui); }
+.ask-a { margin-top: 6px; }

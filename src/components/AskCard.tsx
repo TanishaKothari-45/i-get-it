@@ -1,0 +1,51 @@
+import { useState } from 'react'
+import { useMutation, useQuery } from 'convex/react'
+import { api } from '../../convex/_generated/api'
+import type { Id } from '../../convex/_generated/dataModel'
+import { inline } from './Rich'
+
+type Props = { handbookId: Id<'handbooks'>; chapter: number; cardIndex: number; deviceToken: string }
+
+// The two-way street: ask or object about this card. Answered from the card only, in the handbook's voice.
+export default function AskCard({ handbookId, chapter, cardIndex, deviceToken }: Props) {
+  const [open, setOpen] = useState(false)
+  const [text, setText] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const rows = useQuery(api.handbooks.questionsFor, open ? { handbookId, chapter, cardIndex, deviceToken } : 'skip') ?? []
+  const ask = useMutation(api.handbooks.ask)
+
+  const send = async () => {
+    const q = text.trim(); if (q.length < 3) return
+    setBusy(true); setError(null)
+    try { await ask({ handbookId, chapter, cardIndex, question: q, deviceToken }); setText('') }
+    catch (e: any) { setError(String(e?.message ?? e).includes('busy') ? 'A few too many questions in a row. Give it a minute.' : "Couldn't send that. Try again.") }
+    finally { setBusy(false) }
+  }
+
+  return (
+    <div className="ask">
+      {!open ? (
+        <button type="button" className="quiet" onClick={() => setOpen(true)}>Ask or object about this</button>
+      ) : (
+        <>
+          {rows.map((r) => (
+            <div key={String(r._id)} className="ask-qa">
+              <p className="ask-q">{r.question}</p>
+              {r.status === 'thinking' && <p className="note">Thinking…</p>}
+              {r.status === 'failed' && <p className="error">Couldn't answer that one right now.</p>}
+              {r.answer && <p className="serif ask-a">{inline(r.answer)}</p>}
+            </div>
+          ))}
+          <div className="ask-row">
+            <input className="input" value={text} onChange={(e) => setText(e.target.value)} placeholder="What do you mean by…? / I don't buy that because…"
+              onKeyDown={(e) => { if (e.key === 'Enter') send() }} disabled={busy} aria-label="Your question or objection" />
+            <button type="button" className="btn btn-ghost ask-send" onClick={send} disabled={busy || text.trim().length < 3}>{busy ? '…' : 'Ask'}</button>
+          </div>
+          {error && <p className="error">{error}</p>}
+          <p className="note">Answered from this card only, in the handbook's voice. Short on purpose.</p>
+        </>
+      )}
+    </div>
+  )
+}

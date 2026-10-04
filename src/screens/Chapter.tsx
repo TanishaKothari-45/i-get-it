@@ -4,6 +4,8 @@ import RungBar from '../components/RungBar'
 import Sheet from '../components/Sheet'
 import Rich, { inline } from '../components/Rich'
 import Illustration from '../components/Illustration'
+import AskCard from '../components/AskCard'
+import type { Id } from '../../convex/_generated/dataModel'
 
 export type Card =
   | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number }
@@ -31,6 +33,8 @@ type Props = {
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
   svg?: string
   onExit: () => void
+  handbookId: Id<'handbooks'>
+  deviceToken: string
 }
 
 // The card stack: teaching cards and exercises, one at a time.
@@ -40,7 +44,7 @@ function safeUrl(u: string): string {
   return '#'
 }
 
-export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, onExit }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -197,6 +201,8 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
           </>
         )}
       </div>
+
+      {!item.recall && item.card.type !== 'try' && <AskCard handbookId={handbookId} chapter={item.chapter} cardIndex={item.cardIndex} deviceToken={deviceToken} />}
 
       {error && <p className="error">{error}</p>}
       <p className="kbd-hint">Keys: → or Enter next · ← back · 1 2 3 to answer</p>

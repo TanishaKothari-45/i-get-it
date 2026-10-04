@@ -95,6 +95,17 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_device", ["deviceToken"]),
 
+  // The two-way street: one question about one card, answered from that card and the chapter title only.
+  cardQuestions: defineTable({
+    handbookId: v.id("handbooks"),
+    chapter: v.number(),
+    cardIndex: v.number(),
+    question: v.string(),
+    answer: v.optional(v.string()),
+    status: v.union(v.literal("thinking"), v.literal("ready"), v.literal("failed")),
+    at: v.number(),
+  }).index("by_card", ["handbookId", "chapter", "cardIndex"]),
+
   modelVotes: defineTable({
     handbookId: v.id("handbooks"),
     chapter: v.number(),

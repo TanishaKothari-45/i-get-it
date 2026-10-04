@@ -168,6 +168,8 @@ export default function App() {
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
           onExit={() => setView('plan')}
+          handbookId={hb._id}
+          deviceToken={token}
         />
       </Shell>
     )

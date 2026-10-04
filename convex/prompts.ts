@@ -23,3 +23,9 @@ export const SIMPLER_PROMPT = "Rewrite one card from a short handbook for someon
 export function simplerUserMessage(topic: string, chapterTitle: string, card: { type: string; title?: string; body: string }) {
   return `Topic: ${topic}\nChapter: ${chapterTitle}\nCard type: ${card.type}${card.title ? `\nCard title: ${card.title}` : ""}\nCard text:\n${card.body}`;
 }
+
+export const ASK_PROMPT = "You are the voice of a short teaching handbook, answering one reader's question about one card they just read. Answer only from the card text and the chapter title given; if the answer isn't there, say so in one line and point to what the card does say. Match the reader's profile if given. Plain words, at most 90 words, one everyday comparison if it helps, no headings, no lists, no emoji, never 'great question'. If the reader objects or disagrees, take the objection seriously: concede what is true, then say what the card would answer. Return JSON only: {\"answer\": \"...\"}";
+
+export function askUserMessage(topic: string, chapterTitle: string, card: { type: string; title?: string; body: string }, question: string, reader?: string) {
+  return `Topic: ${topic}\nChapter: ${chapterTitle}${reader ? `\nReader: ${reader}` : ""}\nCard (${card.type}${card.title ? `, ${card.title}` : ""}):\n${card.body}\n\nReader asks: ${question.slice(0, 300)}`;
+}
