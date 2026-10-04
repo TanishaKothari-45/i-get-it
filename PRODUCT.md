@@ -133,7 +133,7 @@ Doesn't (not this sprint: parked, not forgotten):
 
 Nice to have (only after the must-haves work, in this order):
 1. Regenerate the plan with comments. Done chapters are kept; the rest regenerates.
-2. Change level or language mid-path, same mechanism.
+2. "Go deeper" (the other direction of "Say it simpler") and language change mid-path.
 3. The tutor chat, scoped to the mission, casual. Reads the plan and the rungs as its memory.
 4. A second topic, which brings the three-slot rule and the forfeit with it.
 5. "Don't remember" on a recall exercise, counted as a miss, never a block.

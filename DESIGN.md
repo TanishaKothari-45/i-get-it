@@ -76,6 +76,7 @@ Chapter (the card stack: teaching cards and exercises)
 For: reading one thing and being checked on it, one card at a time.
 Top to bottom: the rung bar, "Chapter 1 of 7 · card 3 of 9" small, the card (heading, serif body), the main button low. On an exercise card: the question in serif, three options, no button until one is tapped.
 Main action: Next → the next card. On the last card: Finish chapter → Done.
+Quiet row under every teaching card: "Lost? Say it simpler" → the card is rewritten in plainer words (pre-written for ready topics, live otherwise, "Rewriting in plainer words…" while it happens), and the handbook stays simple until "Show the original" is tapped. Never a second main button. (Added 4 Oct afternoon, first user test.)
 Empty: never empty.
 Loading: cards are already written; nothing to load. If the chapter failed to save, the Plan screen's error.
 Error (an exercise tapped offline): "Couldn't save that answer. It still counts here; try the next one when you're back online."

@@ -5,7 +5,7 @@ import Sheet from '../components/Sheet'
 import Rich, { inline } from '../components/Rich'
 
 export type Card =
-  | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string }
+  | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number }
   | { type: 'exercise'; kind: 'guess' | 'apply' | 'recall'; prompt: string; options: { id: string; text: string }[] }
 
 export type AnswerResult =
@@ -26,10 +26,11 @@ type Props = {
   onPosition: (cardIndex: number) => void
   onAnswer: (item: Item, optionId: string, attempt: number) => Promise<AnswerResult>
   onFinish: () => Promise<void>
+  onSimpler: (item: Item) => Promise<{ ready: boolean }>
 }
 
 // The card stack: teaching cards and exercises, one at a time.
-export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -46,6 +47,11 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
   const [sending, setSending] = useState(false)
   const [finishing, setFinishing] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // "Say it simpler": a per-handbook preference the phone remembers, plus the one card being rewritten right now.
+  const [simple, setSimple] = useState<boolean>(() => { try { return localStorage.getItem('igetit.simple') === '1' } catch { return false } })
+  const [showOriginal, setShowOriginal] = useState(false)
+  const [rewriting, setRewriting] = useState<string | null>(null)
+  const [rewriteError, setRewriteError] = useState<string | null>(null)
 
   const item = items[i]
   const isLast = i === items.length - 1
@@ -55,7 +61,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
   useEffect(() => { window.scrollTo({ top: 0 }) }, [i])
   useEffect(() => { if (!item.recall) onPosition(item.cardIndex) }, [i]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const reset = () => { setAttempt(1); setPicked(null); setMissed([]); setResult(null) }
+  const reset = () => { setAttempt(1); setPicked(null); setMissed([]); setResult(null); setShowOriginal(false); setRewriteError(null) }
   const next = () => { if (!isLast) { setI(i + 1); reset() } }
 
   const choose = async (optionId: string) => {
@@ -82,6 +88,21 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
     finally { setFinishing(false) }
   }
 
+  const teaching = item.card.type !== 'exercise' ? item.card : null
+  const showingSimpler = !!teaching && !!teaching.simpler && simple && !showOriginal
+  useEffect(() => { if (rewriting === key && teaching?.simpler) { setRewriting(null); setSimple(true); setShowOriginal(false); try { localStorage.setItem('igetit.simple', '1') } catch {} } }, [teaching?.simpler, rewriting, key])
+  useEffect(() => { if (rewriting === key && teaching?.simplerFailedAt) { setRewriting(null); setRewriteError("Can't rewrite this one right now. Try again in a minute.") } }, [teaching?.simplerFailedAt, rewriting, key])
+  const saySimpler = async () => {
+    if (!teaching) return
+    setRewriteError(null)
+    if (teaching.simpler) { setSimple(true); setShowOriginal(false); try { localStorage.setItem('igetit.simple', '1') } catch {}; return }
+    setRewriting(key)
+    try {
+      const r = await onSimpler(item)
+      if (r.ready) { setSimple(true); setShowOriginal(false) }
+      setTimeout(() => setRewriting((cur) => { if (cur === key) { setRewriteError("Can't rewrite this one right now. Try again in a minute."); return null } return cur }), 30000)
+    } catch (e: any) { setRewriting(null); setRewriteError(String(e?.message ?? e).includes('busy') ? 'A few too many rewrites in a row. Try again in a bit.' : "Can't rewrite this one right now. Try again in a minute.") }
+  }
   const chapterCardNo = item.recall ? null : item.cardIndex + 1
   const revealId = result && !result.correct && result.reveal ? result.reveal.id : null
 
@@ -105,7 +126,19 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
             {item.card.type === 'mistake' && <p className="kicker">The mistake people make</p>}
             {item.card.type === 'try' && <p className="kicker">If you want to try it tonight (optional)</p>}
             {item.card.title && item.card.type !== 'picture' && <h2>{item.card.title}</h2>}
-            <Rich text={item.card.body} className={`serif ${item.card.type === 'mistake' ? 'mistake' : ''} ${item.card.type === 'try' ? 'try' : ''}`} />
+            <Rich text={showingSimpler && item.card.simpler ? item.card.simpler : item.card.body} className={`serif ${item.card.type === 'mistake' ? 'mistake' : ''} ${item.card.type === 'try' ? 'try' : ''}`} />
+            {item.card.type !== 'try' && (
+              <p className="simpler-row">
+                {showingSimpler ? (
+                  <>Said simpler. <button type="button" className="quiet" onClick={() => { setShowOriginal(true); setSimple(false); try { localStorage.setItem('igetit.simple', '0') } catch {} }}>Show the original</button></>
+                ) : rewriting === key ? (
+                  <>Rewriting in plainer words…</>
+                ) : (
+                  <>Lost? <button type="button" className="quiet" onClick={saySimpler}>Say it simpler</button></>
+                )}
+                {rewriteError && <span className="error" style={{ display: 'block', marginTop: 4 }}>{rewriteError}</span>}
+              </p>
+            )}
           </>
         ) : (
           <>

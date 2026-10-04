@@ -110,6 +110,8 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .card.picture-card .serif { font-style: italic; }
 .card .kicker { font-size: var(--small); color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-top: var(--l); }
 .mistake { border-left: 3px solid var(--accent); padding-left: var(--m); }
+.simpler-row { margin-top: var(--l); color: var(--ink-2); font-size: var(--small); }
+.simpler-row .quiet { font-size: var(--small); padding: 0; }
 .try { border: 1.5px dashed var(--tint); border-radius: var(--radius); padding: var(--m); }
 
 /* exercise */

@@ -4,7 +4,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { CHAPTER_PROMPT, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
+import { CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
 
 const CHAPTERS = 7;
@@ -14,6 +14,7 @@ const LANGUAGE = "English";
 const limiter = new RateLimiter(components.rateLimiter, {
   generateAll: { kind: "fixed window", rate: 60, period: HOUR },
   generateDevice: { kind: "token bucket", rate: 6, period: HOUR, capacity: 3 },
+  simplerDevice: { kind: "token bucket", rate: 30, period: HOUR, capacity: 10 },
 });
 
 export function topicKeyOf(topic: string) {
@@ -400,6 +401,54 @@ export const attachToMe = mutation({
     const mine = await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).collect();
     for (const h of mine) if (!h.userId) await ctx.db.patch(h._id, { userId });
     return mine.length;
+  },
+});
+
+
+// ---------- "Say it simpler" ----------
+
+// Rewrites one teaching card in plainer words. Pre-generated for cached topics; live otherwise.
+export const requestSimpler = mutation({
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, chapter, cardIndex, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
+    const card = ch?.cards?.[cardIndex];
+    if (!ch || !card || card.type === "exercise") throw new Error("Not a teaching card");
+    if (card.simpler) return { ready: true as const };
+    const mine = await limiter.limit(ctx, "simplerDevice", { key: deviceToken ?? String(h.userId) });
+    if (!mine.ok) throw new Error("busy");
+    await ctx.scheduler.runAfter(0, internal.handbooks.writeSimpler, { handbookId, chapter, cardIndex });
+    return { ready: false as const };
+  },
+});
+
+export const writeSimpler = internalAction({
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number() },
+  handler: async (ctx, { handbookId, chapter, cardIndex }) => {
+    const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
+    const ch = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n: chapter });
+    const card = ch?.cards?.[cardIndex];
+    if (!h || !ch || !card) return;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "simpler", system: SIMPLER_PROMPT, user: simplerUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${chapter}`, card) });
+    const text = r.ok && typeof r.json?.simpler === "string" ? r.json.simpler.trim() : null;
+    await ctx.runMutation(internal.handbooks.setSimpler, { handbookId, chapter, cardIndex, simpler: text ?? "", failed: !text });
+  },
+});
+
+export const readChapter = internalQuery({
+  args: { handbookId: v.id("handbooks"), n: v.number() },
+  handler: async (ctx, { handbookId, n }) => ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique(),
+});
+
+export const setSimpler = internalMutation({
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), simpler: v.string(), failed: v.boolean() },
+  handler: async (ctx, { handbookId, chapter, cardIndex, simpler, failed }) => {
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
+    if (!ch?.cards?.[cardIndex]) return;
+    const cards = [...ch.cards];
+    cards[cardIndex] = failed ? { ...cards[cardIndex], simplerFailedAt: Date.now() } : { ...cards[cardIndex], simpler };
+    await ctx.db.patch(ch._id, { cards });
   },
 });
 

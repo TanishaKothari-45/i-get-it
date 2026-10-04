@@ -17,7 +17,7 @@ Acceptance test (not a milestone): a stranger, logged out, on their own phone, g
 Parked (not now), in the order they'd come:
 - Memes, AI-generated reels or clips inside a chapter (first user test, 4 Oct). Parked on purpose: the feed is the habit we're firing; the chapter earns attention with prose, examples and the checks instead.
 - Regenerate the plan with comments, done chapters kept.
-- Change level or language mid-path.
+- "Go deeper" on a card, and language change mid-path. ("Say it simpler" shipped 4 Oct afternoon after a user asked for it.)
 - The tutor chat, scoped to the mission.
 - A second topic, with the three-slot rule and the forfeit.
 - "Don't remember" on recall, counted as a miss.
