@@ -3,6 +3,10 @@ import { createElement, useSyncExternalStore, type AnchorHTMLAttributes, type Mo
 // A small router over the History API: every screen has its own address, so the
 // phone's back button, a refresh and a shared link all land where they should.
 
+// The two optional bonus lessons on a chapter, and the last part of their address.
+export type BonusKind = 'deeper' | 'another'
+const BONUS_SEGMENT: Record<BonusKind, string> = { deeper: 'deeper', another: 'another-way' }
+
 export type Route =
   | { name: 'home' }
   | { name: 'new' }
@@ -11,7 +15,7 @@ export type Route =
   | { name: 'handbook'; id: string }
   | { name: 'chapter'; id: string; n: number }
   | { name: 'done'; id: string; n: number }
-  | { name: 'deeper'; id: string; n: number }
+  | { name: 'bonus'; id: string; n: number; kind: BonusKind }
   | { name: 'notFound' }
 
 export const paths = {
@@ -22,7 +26,7 @@ export const paths = {
   handbook: (id: string) => `/h/${id}`,
   chapter: (id: string, n: number) => `/h/${id}/chapter/${n}`,
   done: (id: string, n: number) => `/h/${id}/chapter/${n}/done`,
-  deeper: (id: string, n: number) => `/h/${id}/chapter/${n}/deeper`,
+  bonus: (id: string, n: number, kind: BonusKind) => `/h/${id}/chapter/${n}/${BONUS_SEGMENT[kind]}`,
 }
 
 export function matchRoute(pathname: string): Route {
@@ -38,7 +42,8 @@ export function matchRoute(pathname: string): Route {
     const validChapter = parts[2] === 'chapter' && Number.isInteger(n) && n >= 1 && n <= 7
     if (validChapter && parts.length === 4) return { name: 'chapter', id, n }
     if (validChapter && parts.length === 5 && parts[4] === 'done') return { name: 'done', id, n }
-    if (validChapter && parts.length === 5 && parts[4] === 'deeper') return { name: 'deeper', id, n }
+    const kind = (Object.keys(BONUS_SEGMENT) as BonusKind[]).find((k) => BONUS_SEGMENT[k] === parts[4])
+    if (validChapter && parts.length === 5 && kind) return { name: 'bonus', id, n, kind }
   }
   return { name: 'notFound' }
 }

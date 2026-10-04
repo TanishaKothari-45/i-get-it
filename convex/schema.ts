@@ -47,10 +47,12 @@ export default defineSchema({
     startedAt: v.optional(v.number()),   // when the current write began, to spot a stuck one
   }).index("by_book_n", ["bookId", "n"]),
 
-  // "Go deeper": an optional bonus lesson on chapter n's idea, unlocked by getting every exercise
-  // right first time. Written live the first time it's asked for, then shared like chapters.
+  // Optional bonus lessons on chapter n's idea, written live the first time anyone asks, then shared
+  // like chapters. "deeper": unlocked by getting every exercise right first time (one layer deeper).
+  // "another": unlocked by missing at least one (the same idea explained another way).
   bonusChapters: defineTable({
     bookId: v.id("books"),
+    kind: v.union(v.literal("deeper"), v.literal("another")),
     n: v.number(),
     status: v.union(v.literal("writing"), v.literal("ready"), v.literal("failed")),
     title: v.optional(v.string()),
@@ -58,7 +60,7 @@ export default defineSchema({
     error: v.optional(v.string()),
     createdAt: v.number(),
     startedAt: v.optional(v.number()),
-  }).index("by_book_n", ["bookId", "n"]),
+  }).index("by_book_kind_n", ["bookId", "kind", "n"]),
 
   // One person's copy: what they typed, which book it points to, and who owns it.
   handbooks: defineTable({
@@ -93,6 +95,8 @@ export default defineSchema({
     tomorrowAt: v.optional(v.string()),     // "21:00"
     deeperUnlocked: v.optional(v.array(v.number())),  // chapters passed with every exercise right first time
     bonusPassed: v.optional(v.array(v.number())),     // chapters whose "go deeper" bonus they finished
+    anotherUnlocked: v.optional(v.array(v.number())), // chapters passed with at least one exercise missed
+    anotherPassed: v.optional(v.array(v.number())),   // chapters whose "another way" lesson they finished
     lastOpenedAt: v.number(),
     updatedAt: v.number(),
   }).index("by_handbook", ["handbookId"]),
@@ -105,7 +109,8 @@ export default defineSchema({
     correct: v.boolean(),
     attempt: v.number(),
     recall: v.boolean(),
-    bonus: v.optional(v.boolean()),         // an answer in a "go deeper" bonus lesson (never moves the rung)
+    bonus: v.optional(v.boolean()),         // an answer in a bonus lesson (never moves the rung)
+    bonusKind: v.optional(v.union(v.literal("deeper"), v.literal("another"))),   // which bonus; missing means "deeper"
     at: v.number(),
   }).index("by_handbook", ["handbookId"]),
 

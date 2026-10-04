@@ -4,7 +4,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { CHAPTER_PROMPT, DEEPER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, deeperUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
+import { ANOTHER_PROMPT, CHAPTER_PROMPT, DEEPER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, bonusUserMessage, chapterUserMessage, planUserMessage, simplerUserMessage, type BonusKind } from "./prompts";
 import { level, voice as voiceV } from "./schema";
 
 type Voice = "friend" | "straight" | "stories";
@@ -124,8 +124,18 @@ async function bookChapter(ctx: QueryCtx | MutationCtx, bookId: Id<"books">, n: 
   return ctx.db.query("chapters").withIndex("by_book_n", (q) => q.eq("bookId", bookId).eq("n", n)).unique();
 }
 
-async function bonusChapter(ctx: QueryCtx | MutationCtx, bookId: Id<"books">, n: number) {
-  return ctx.db.query("bonusChapters").withIndex("by_book_n", (q) => q.eq("bookId", bookId).eq("n", n)).unique();
+const bonusKindV = v.union(v.literal("deeper"), v.literal("another"));
+
+async function bonusChapter(ctx: QueryCtx | MutationCtx, bookId: Id<"books">, kind: BonusKind, n: number) {
+  return ctx.db.query("bonusChapters").withIndex("by_book_kind_n", (q) => q.eq("bookId", bookId).eq("kind", kind).eq("n", n)).unique();
+}
+
+// Which chapters' bonus of this kind a person has unlocked, and which they've finished.
+function bonusUnlocked(p: Doc<"progress"> | null, kind: BonusKind): number[] {
+  return (kind === "deeper" ? p?.deeperUnlocked : p?.anotherUnlocked) ?? [];
+}
+function bonusFinished(p: Doc<"progress"> | null, kind: BonusKind): number[] {
+  return (kind === "deeper" ? p?.bonusPassed : p?.anotherPassed) ?? [];
 }
 
 function exerciseIndexes(cards: any[] | undefined): number[] {
@@ -136,6 +146,11 @@ function exerciseIndexes(cards: any[] | undefined): number[] {
 function allRightFirstTime(p: Doc<"progress">, cards: any[] | undefined, n: number) {
   const keys = exerciseIndexes(cards).map((i) => `${n}:${i}`);
   return keys.length > 0 && keys.every((k) => p.passedExercises.includes(k) && !p.missedExercises.includes(k));
+}
+
+// At least one exercise of chapter n was missed along the way: this unlocks "another way".
+function anyMissed(p: Doc<"progress">, cards: any[] | undefined, n: number) {
+  return exerciseIndexes(cards).some((i) => p.missedExercises.includes(`${n}:${i}`));
 }
 
 // Make sure chapter n of a book is written or being written. Whoever reaches it first triggers
@@ -175,13 +190,16 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   const book = h.bookId ? await ctx.db.get(h.bookId) : null;
   const chapters = book ? await ctx.db.query("chapters").withIndex("by_book_n", (q) => q.eq("bookId", book._id)).collect() : [];
   const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
-  // Only the bonus lessons this person has unlocked.
-  const unlocked = progress?.deeperUnlocked ?? [];
-  const bonus = book && unlocked.length
-    ? (await ctx.db.query("bonusChapters").withIndex("by_book_n", (q) => q.eq("bookId", book._id)).collect()).filter((b) => unlocked.includes(b.n))
-    : [];
+  // Only the bonus lessons this person has unlocked, of either kind.
+  const bonus: Doc<"bonusChapters">[] = [];
+  for (const kind of ["deeper", "another"] as const) {
+    const unlocked = bonusUnlocked(progress, kind);
+    if (!book || unlocked.length === 0) continue;
+    const rows = await ctx.db.query("bonusChapters").withIndex("by_book_kind_n", (q) => q.eq("bookId", book._id).eq("kind", kind)).collect();
+    bonus.push(...rows.filter((b) => unlocked.includes(b.n)));
+  }
   return {
-    bonus: bonus.map((b) => ({ n: b.n, status: b.status, title: b.title, cards: publicCards(b.cards), error: b.error })),
+    bonus: bonus.map((b) => ({ kind: b.kind, n: b.n, status: b.status, title: b.title, cards: publicCards(b.cards), error: b.error })),
     _id: h._id, topic: h.topic, level: h.level, voice: h.voice, bookVoice: book?.voice ?? null, source: book?.source ?? null,
     status: h.status, question: h.question, plan: book?.plan ?? null, error: h.error,
     signedIn: !!h.userId,
@@ -189,7 +207,8 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
     progress: progress ? {
       currentChapter: progress.currentChapter, currentCard: progress.currentCard, chaptersPassed: progress.chaptersPassed,
       passedExercises: progress.passedExercises, missedExercises: progress.missedExercises, tomorrowAt: progress.tomorrowAt,
-      deeperUnlocked: unlocked, bonusPassed: progress.bonusPassed ?? [],
+      deeperUnlocked: bonusUnlocked(progress, "deeper"), bonusPassed: bonusFinished(progress, "deeper"),
+      anotherUnlocked: bonusUnlocked(progress, "another"), anotherPassed: bonusFinished(progress, "another"),
     } : null,
   };
 }
@@ -468,15 +487,16 @@ export const setPosition = mutation({
 
 // The check. Returns the feedback the client is allowed to see; the rung moves only on a pass.
 export const recordAnswer = mutation({
-  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), optionId: v.string(), attempt: v.number(), recall: v.optional(v.boolean()), bonus: v.optional(v.boolean()), deviceToken: v.optional(v.string()) },
-  handler: async (ctx, { handbookId, chapter, cardIndex, optionId, attempt, recall, bonus, deviceToken }) => {
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), optionId: v.string(), attempt: v.number(), recall: v.optional(v.boolean()), bonus: v.optional(v.boolean()), bonusKind: v.optional(bonusKindV), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, chapter, cardIndex, optionId, attempt, recall, bonus, bonusKind, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
-    const ch = !h.bookId ? null : bonus ? await bonusChapter(ctx, h.bookId, chapter) : await bookChapter(ctx, h.bookId, chapter);
+    const kind = bonusKind ?? "deeper";
+    const ch = !h.bookId ? null : bonus ? await bonusChapter(ctx, h.bookId, kind, chapter) : await bookChapter(ctx, h.bookId, chapter);
     const card = ch?.cards?.[cardIndex];
     if (!card || card.type !== "exercise") throw new Error("Not an exercise");
     const correct = card.answer === optionId;
     const key = `${chapter}:${cardIndex}`;
-    await ctx.db.insert("answers", { handbookId, chapter, cardIndex, optionId, correct, attempt, recall: !!recall, bonus: !!bonus, at: Date.now() });
+    await ctx.db.insert("answers", { handbookId, chapter, cardIndex, optionId, correct, attempt, recall: !!recall, bonus: !!bonus, bonusKind: bonus ? kind : undefined, at: Date.now() });
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     // A bonus answer is recorded but never touches the chapter's rung.
     if (p && !recall && !bonus) {
@@ -512,10 +532,15 @@ export const finishChapter = mutation({
     const chaptersPassed = p.chaptersPassed.includes(n) ? p.chaptersPassed : [...p.chaptersPassed, n];
     // Finishing a chapter re-read from earlier doesn't move them back.
     const advancing = n === p.currentChapter && n < CHAPTERS;
-    // Every exercise right first time unlocks "go deeper"; once earned, a later re-read can't take it away.
-    const unlocked = p.deeperUnlocked ?? [];
-    const deeperUnlocked = !unlocked.includes(n) && allRightFirstTime(p, ch?.cards, n) ? [...unlocked, n] : unlocked;
-    await ctx.db.patch(p._id, { chaptersPassed, deeperUnlocked, ...(advancing ? { currentChapter: n + 1, currentCard: 0 } : {}), updatedAt: Date.now() });
+    // Every exercise right first time unlocks "go deeper"; any miss unlocks "another way". Decided once,
+    // when the chapter is first passed, so a later re-read can't swap or take one away.
+    const firstPass = !p.chaptersPassed.includes(n);
+    const deeper = bonusUnlocked(p, "deeper");
+    const another = bonusUnlocked(p, "another");
+    const allRight = allRightFirstTime(p, ch?.cards, n);
+    const deeperUnlocked = firstPass && allRight && !deeper.includes(n) ? [...deeper, n] : deeper;
+    const anotherUnlocked = firstPass && !allRight && anyMissed(p, ch?.cards, n) && !another.includes(n) ? [...another, n] : another;
+    await ctx.db.patch(p._id, { chaptersPassed, deeperUnlocked, anotherUnlocked, ...(advancing ? { currentChapter: n + 1, currentCard: 0 } : {}), updatedAt: Date.now() });
     // Write the next chapter now if it isn't there yet (a shared book may already have it).
     if (n < CHAPTERS) await ensureChapter(ctx, book, n + 1);
   },
@@ -625,17 +650,23 @@ export const seedCache = internalMutation({
   },
 });
 
-// ---------- "Go deeper" (bonus lesson) ----------
+// ---------- bonus lessons: "go deeper" and "another way" ----------
 
-// Ask for chapter n's bonus. Only for a chapter they got all right first time; written once per
-// book and shared, so the second person to unlock it gets it straight away.
-export const requestDeeper = mutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), deviceToken: v.optional(v.string()) },
-  handler: async (ctx, { handbookId, n, deviceToken }) => {
+const BONUS_PROMPT: Record<BonusKind, string> = { deeper: DEEPER_PROMPT, another: ANOTHER_PROMPT };
+const BONUS_FALLBACK_TITLE: Record<BonusKind, (n: number) => string> = {
+  deeper: (n) => `Going deeper on chapter ${n}`,
+  another: (n) => `Chapter ${n}, another way`,
+};
+
+// Ask for chapter n's bonus of this kind. Only one they've unlocked; written once per book and
+// shared, so the second person to unlock it gets it straight away.
+export const requestBonus = mutation({
+  args: { handbookId: v.id("handbooks"), n: v.number(), kind: bonusKindV, deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, n, kind, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
-    if (!h.bookId || !p?.deeperUnlocked?.includes(n)) throw new Error("Not unlocked");
-    const existing = await bonusChapter(ctx, h.bookId, n);
+    if (!h.bookId || !bonusUnlocked(p, kind).includes(n)) throw new Error("Not unlocked");
+    const existing = await bonusChapter(ctx, h.bookId, kind, n);
     if (existing?.status === "ready") return { ready: true as const };
     const now = Date.now();
     if (existing?.status === "writing" && now - (existing.startedAt ?? existing.createdAt) < STUCK_WRITING_MS) return { ready: false as const };
@@ -643,67 +674,68 @@ export const requestDeeper = mutation({
     const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
     if (!all.ok || !mine.ok) throw new Error("busy");
     if (existing) await ctx.db.patch(existing._id, { status: "writing", error: undefined, startedAt: now });
-    else await ctx.db.insert("bonusChapters", { bookId: h.bookId, n, status: "writing", createdAt: now, startedAt: now });
-    await ctx.scheduler.runAfter(0, internal.handbooks.generateDeeper, { bookId: h.bookId, n });
+    else await ctx.db.insert("bonusChapters", { bookId: h.bookId, kind, n, status: "writing", createdAt: now, startedAt: now });
+    await ctx.scheduler.runAfter(0, internal.handbooks.generateBonus, { bookId: h.bookId, kind, n });
     return { ready: false as const };
   },
 });
 
-export const generateDeeper = internalAction({
-  args: { bookId: v.id("books"), n: v.number() },
-  handler: async (ctx, { bookId, n }) => {
+export const generateBonus = internalAction({
+  args: { bookId: v.id("books"), kind: bonusKindV, n: v.number() },
+  handler: async (ctx, { bookId, kind, n }) => {
     const book = await ctx.runQuery(internal.handbooks.readBook, { bookId });
     const chapter = await ctx.runQuery(internal.handbooks.readChapter, { bookId, n });
     if (!book?.plan || chapter?.status !== "ready") {
-      await ctx.runMutation(internal.handbooks.setBonusFailed, { bookId, n, error: "chapter not ready" });
+      await ctx.runMutation(internal.handbooks.setBonusFailed, { bookId, kind, n, error: "chapter not ready" });
       return;
     }
     const r = await ctx.runAction(internal.ai.generate, {
-      kind: "deeper", system: DEEPER_PROMPT,
-      user: deeperUserMessage(book.plan, book.level, book.language, book.voice, n, { title: chapter.title, cards: chapter.cards }),
+      kind, system: BONUS_PROMPT[kind],
+      user: bonusUserMessage(kind, book.plan, book.level, book.language, book.voice, n, { title: chapter.title, cards: chapter.cards }),
     });
-    if (!r.ok) { await ctx.runMutation(internal.handbooks.setBonusFailed, { bookId, n, error: r.error }); return; }
+    if (!r.ok) { await ctx.runMutation(internal.handbooks.setBonusFailed, { bookId, kind, n, error: r.error }); return; }
     const cards = r.json?.cards;
     const exercises = Array.isArray(cards) ? cards.filter((c: any) => c.type === "exercise") : [];
     const sane = Array.isArray(cards) && cards.length >= 4 && exercises.length >= 1 &&
       exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer));
-    if (!sane) { await ctx.runMutation(internal.handbooks.setBonusFailed, { bookId, n, error: "bonus failed the shape check" }); return; }
-    await ctx.runMutation(internal.handbooks.saveBonus, { bookId, n, title: String(r.json.title ?? `Going deeper on chapter ${n}`), cards });
+    if (!sane) { await ctx.runMutation(internal.handbooks.setBonusFailed, { bookId, kind, n, error: "bonus failed the shape check" }); return; }
+    await ctx.runMutation(internal.handbooks.saveBonus, { bookId, kind, n, title: String(r.json.title ?? BONUS_FALLBACK_TITLE[kind](n)), cards });
   },
 });
 
 export const saveBonus = internalMutation({
-  args: { bookId: v.id("books"), n: v.number(), title: v.string(), cards: v.any() },
-  handler: async (ctx, { bookId, n, title, cards }) => {
-    const existing = await bonusChapter(ctx, bookId, n);
-    const doc = { status: "ready" as const, title, cards: shuffleExercises(cards, `${bookId}:deeper:${n}`), error: undefined };
+  args: { bookId: v.id("books"), kind: bonusKindV, n: v.number(), title: v.string(), cards: v.any() },
+  handler: async (ctx, { bookId, kind, n, title, cards }) => {
+    const existing = await bonusChapter(ctx, bookId, kind, n);
+    const doc = { status: "ready" as const, title, cards: shuffleExercises(cards, `${bookId}:${kind}:${n}`), error: undefined };
     if (existing) await ctx.db.patch(existing._id, doc);
-    else await ctx.db.insert("bonusChapters", { bookId, n, createdAt: Date.now(), ...doc });
+    else await ctx.db.insert("bonusChapters", { bookId, kind, n, createdAt: Date.now(), ...doc });
   },
 });
 
 export const setBonusFailed = internalMutation({
-  args: { bookId: v.id("books"), n: v.number(), error: v.string() },
-  handler: async (ctx, { bookId, n, error }) => {
-    const existing = await bonusChapter(ctx, bookId, n);
+  args: { bookId: v.id("books"), kind: bonusKindV, n: v.number(), error: v.string() },
+  handler: async (ctx, { bookId, kind, n, error }) => {
+    const existing = await bonusChapter(ctx, bookId, kind, n);
     if (existing) await ctx.db.patch(existing._id, { status: "failed", error });
-    else await ctx.db.insert("bonusChapters", { bookId, n, status: "failed", error, createdAt: Date.now() });
+    else await ctx.db.insert("bonusChapters", { bookId, kind, n, status: "failed", error, createdAt: Date.now() });
   },
 });
 
-// The bonus is done once each of its exercises has been answered right (at any attempt).
-export const finishDeeper = mutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), deviceToken: v.optional(v.string()) },
-  handler: async (ctx, { handbookId, n, deviceToken }) => {
+// A bonus is done once each of its exercises has been answered right (at any attempt).
+export const finishBonus = mutation({
+  args: { handbookId: v.id("handbooks"), n: v.number(), kind: bonusKindV, deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, n, kind, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
-    const bonus = h.bookId ? await bonusChapter(ctx, h.bookId, n) : null;
+    const bonus = h.bookId ? await bonusChapter(ctx, h.bookId, kind, n) : null;
     if (!p || bonus?.status !== "ready") throw new Error("No bonus to finish");
     const answers = await ctx.db.query("answers").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).collect();
-    const rightOnes = new Set(answers.filter((a) => a.bonus && a.chapter === n && a.correct).map((a) => a.cardIndex));
+    const rightOnes = new Set(answers.filter((a) => a.bonus && (a.bonusKind ?? "deeper") === kind && a.chapter === n && a.correct).map((a) => a.cardIndex));
     if (!exerciseIndexes(bonus.cards).every((i) => rightOnes.has(i))) throw new Error("Finish the exercises first");
-    const done = p.bonusPassed ?? [];
-    if (!done.includes(n)) await ctx.db.patch(p._id, { bonusPassed: [...done, n], updatedAt: Date.now() });
+    const done = bonusFinished(p, kind);
+    if (done.includes(n)) return;
+    await ctx.db.patch(p._id, { ...(kind === "deeper" ? { bonusPassed: [...done, n] } : { anotherPassed: [...done, n] }), updatedAt: Date.now() });
   },
 });
 

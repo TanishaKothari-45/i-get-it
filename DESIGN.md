@@ -130,7 +130,14 @@ Done screen, under the night's lines: a dashed box (like the "try it" card), lab
 Plan: under that chapter's line, "Go deeper (bonus)", then "Bonus done · read it again".
 Bonus screen (/h/:id/chapter/:n/deeper): the card stack, header "Bonus · chapter N · card x of y", last button "Finish the bonus" → back to the plan.
 Loading: "Bonus · chapter N" / "Going deeper." / "One layer deeper on [chapter title]: the nuance, the edge cases, a harder real case. Optional, and it doesn't change your plan." Button "Writing your bonus…" with the thin bar; after 8 s: "About 30 seconds. It reads the chapter you just did first." Quiet link: "Back to the handbook".
-Error: "The bonus didn't come through. Your chapter is saved; try again." Button: Try again. Busy: "Busy right now. Try again in a few minutes."
+Error: "It didn't come through. Your chapter is saved; try again." Button: Try again. Busy: "Busy right now. Try again in a few minutes."
+
+Another way (added 8 Oct, agent)
+For: someone who missed at least one exercise in a chapter: the same idea explained from a different angle (a new comparison, a slower worked example, the usual confusion named, fresh gentler questions). Nothing new, nothing harder, never framed as a failure. The mirror of "go deeper": a chapter offers exactly one of the two. Optional; never moves the rung.
+Done screen: the same dashed box, label "If you want it", "That one took a few tries. Want to see it explained another way?", outlined button "Explain it another way". After: "You've seen it the other way too." / "Read it again".
+Plan: "See it another way", then "Seen it another way · read it again".
+Screen (/h/:id/chapter/:n/another-way): header "Another way · chapter N · card x of y", last button "Finish" → back to the plan.
+Loading: "Another way · chapter N" / "Another way in." / "[chapter title], explained from a different angle: a new comparison, a slower example, fresh questions. Optional, and it doesn't change your plan." Button "Writing it…". Error as for go deeper.
 
 Someone else's handbook link (added 7 Oct, agent)
 "This handbook is someone else's." / "You can start your own on the same thing: [topic]." Button: Start my own (busy: "Starting yours…").

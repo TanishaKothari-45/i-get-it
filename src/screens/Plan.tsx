@@ -16,8 +16,8 @@ type Props = {
   voiceNote?: string
   // The address of a chapter they can open (passed, or the current one once written); null if not yet.
   chapterLink?: (n: number) => string | null
-  // The "go deeper" bonus for a chapter, when they've unlocked it.
-  bonusFor?: (n: number) => { href: string; done: boolean } | null
+  // The chapter's optional bonus ("go deeper" or "another way"), when they've unlocked one.
+  bonusFor?: (n: number) => { href: string; label: string } | null
 }
 
 // The handbook cover: the plan before the first lesson, so starting isn't skipping levels.
@@ -42,7 +42,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
               <span className="n">{passed.includes(c.n) ? '✓' : c.n}</span>
               <span className="t">{href ? <Link to={href}>{c.title}</Link> : c.title}{c.n === current && !passed.includes(c.n) && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}</span>
               <span className="c">{c.covers}</span>
-              {bonus && <span className="c"><Link to={bonus.href} className="bonus-link">{bonus.done ? 'Bonus done · read it again' : 'Go deeper (bonus)'}</Link></span>}
+              {bonus && <span className="c"><Link to={bonus.href} className="bonus-link">{bonus.label}</Link></span>}
             </li>
           )
         })}

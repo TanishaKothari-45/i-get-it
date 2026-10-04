@@ -15,8 +15,22 @@ type Props = {
   onKeep: () => void
   onPickTime: (at: string) => Promise<void>
   onContinue: () => void
-  // Offered only when every exercise in the chapter was right first time. Optional, never the main action.
-  deeper?: { done: boolean; onGo: () => void }
+  // The chapter's optional bonus: "deeper" if every exercise was right first time, "another" if any
+  // was missed. Never the main action.
+  bonus?: { kind: 'deeper' | 'another'; done: boolean; onGo: () => void }
+}
+
+const BONUS_COPY = {
+  deeper: {
+    label: 'Bonus, if you want it',
+    offer: 'Every exercise right, first time. Want to go one layer deeper on this idea?', go: 'Go deeper',
+    done: "You've done this chapter's bonus.", again: 'Read the bonus again',
+  },
+  another: {
+    label: 'If you want it',
+    offer: 'That one took a few tries. Want to see it explained another way?', go: 'Explain it another way',
+    done: "You've seen it the other way too.", again: 'Read it again',
+  },
 }
 
 const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
@@ -29,7 +43,8 @@ function pretty(t: string) {
 }
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, deeper }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, bonus }: Props) {
+  const copy = bonus ? BONUS_COPY[bonus.kind] : null
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
   const last = n >= 7
@@ -43,11 +58,11 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
 
-      {deeper && (
+      {bonus && copy && (
         <div className="bonus-offer">
-          <p className="label">Bonus, if you want it</p>
-          <p className="serif">{deeper.done ? "You've done this chapter's bonus." : 'Every exercise right, first time. Want to go one layer deeper on this idea?'}</p>
-          <button type="button" className="btn btn-ghost" onClick={deeper.onGo}>{deeper.done ? 'Read the bonus again' : 'Go deeper'}</button>
+          <p className="label">{copy.label}</p>
+          <p className="serif">{bonus.done ? copy.done : copy.offer}</p>
+          <button type="button" className="btn btn-ghost" onClick={bonus.onGo}>{bonus.done ? copy.again : copy.go}</button>
         </div>
       )}
 
