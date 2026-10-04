@@ -517,7 +517,8 @@ export const myProfile = query({
     const userId = await getAuthUserId(ctx);
     const p = await profileFor(ctx, userId, deviceToken);
     if (!p) return null;
-    return { persona: p.persona, tone: p.tone, likes: p.likes ?? [], examplesFrom: p.examplesFrom, avoid: p.avoid, preferredModel: p.preferredModel ? (Object.entries(MODELS).find(([, id]) => id === p.preferredModel)?.[0] ?? "chosen") : null, updatedAt: p.updatedAt };
+    // The writer stays masked: the client only learns that a pick exists, never which model it is.
+    return { persona: p.persona, tone: p.tone, likes: p.likes ?? [], examplesFrom: p.examplesFrom, avoid: p.avoid, preferredModel: p.preferredModel ? "chosen" : null, updatedAt: p.updatedAt };
   },
 });
 

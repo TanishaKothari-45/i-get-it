@@ -47,7 +47,7 @@ export default function Tune({ initial, onSave, onBack }: Props) {
       <div className="field"><label htmlFor="tone">Anything else, in your words</label><input id="tone" className="input" value={tone} onChange={(e) => setTone(e.target.value)} placeholder="make me laugh once a chapter, never talk down to me" /></div>
       <div className="field"><label htmlFor="avoid">Avoid</label><input id="avoid" className="input" value={avoid} onChange={(e) => setAvoid(e.target.value)} placeholder="sports examples, long paragraphs" /></div>
 
-      {initial?.preferredModel && <p className="note" style={{ marginTop: 'var(--l)' }}>Writer you picked in the comparison: {initial.preferredModel}. Run the comparison again on any chapter to change it.</p>}
+      {initial?.preferredModel && <p className="note" style={{ marginTop: 'var(--l)' }}>Your chapters are written by the writer you picked in the comparison. Run it again on any chapter to change your pick.</p>}
       {done && <p className="note" style={{ marginTop: 'var(--l)', color: 'var(--pass)' }}>{done}</p>}
       {error && <p className="error">{error}</p>}
 

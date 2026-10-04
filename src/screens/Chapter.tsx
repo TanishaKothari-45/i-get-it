@@ -29,10 +29,11 @@ type Props = {
   onFinish: () => Promise<void>
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
   svg?: string
+  onExit: () => void
 }
 
 // The card stack: teaching cards and exercises, one at a time.
-export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, onExit }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -65,6 +66,21 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
 
   const reset = () => { setAttempt(1); setPicked(null); setMissed([]); setResult(null); setShowOriginal(false); setRewriteError(null) }
   const next = () => { if (!isLast) { setI(i + 1); reset() } }
+  const back = () => { if (i > 0) { setI(i - 1); reset() } else onExit() }
+
+  // Keyboard on a laptop: → or Enter for Next, ← for Back, 1/2/3 to pick an option, Esc closes the sheet.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return
+      if (result) { if (e.key === 'Escape' || e.key === 'Enter' || e.key === 'ArrowRight') { e.preventDefault(); if (result.correct) { setResult(null); if (!isLast) next() } else closeSheet() } return }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); back(); return }
+      if (item.card.type === 'exercise' && !exercisePassed && ['1', '2', '3'].includes(e.key)) { const o = item.card.options[Number(e.key) - 1]; if (o && !missed.includes(o.id)) choose(o.id); return }
+      if ((e.key === 'ArrowRight' || e.key === 'Enter') && (item.card.type !== 'exercise' || exercisePassed)) { e.preventDefault(); if (isLast) finish(); else next() }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
 
   const choose = async (optionId: string) => {
     if (item.card.type !== 'exercise' || sending || exercisePassed) return
@@ -113,7 +129,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
       <RungBar passed={passed} />
       <p className="sub" style={{ marginTop: 10, display: 'flex', justifyContent: 'space-between', gap: 12 }}>
         <span>
-          {i > 0 && <button type="button" className="quiet" style={{ padding: 0, marginRight: 10 }} onClick={() => { setI(i - 1); reset() }} aria-label="Previous card">← Back</button>}
+          <button type="button" className="quiet" style={{ padding: 0, marginRight: 10 }} onClick={back} aria-label={i > 0 ? 'Previous card' : 'Back to the handbook'}>{i > 0 ? '← Back' : '← Handbook'}</button>
           {item.recall ? `Recall · from chapter ${item.chapter}` : `Chapter ${n} of 7 · card ${chapterCardNo} of ${cards.length}`}
         </span>
         <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '48%' }}>{topic}</span>
@@ -166,6 +182,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
       </div>
 
       {error && <p className="error">{error}</p>}
+      <p className="kbd-hint">Keys: → or Enter next · ← back · 1 2 3 to answer</p>
 
       <ActionBar>
         {item.card.type === 'exercise' && !exercisePassed ? (

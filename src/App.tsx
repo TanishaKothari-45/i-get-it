@@ -72,6 +72,23 @@ export default function App() {
   }
 
   const plan = hb.plan as any
+  const rail = plan ? (
+    <>
+      <p className="rail-topic">{plan.topic ?? hb.topic}</p>
+      <p className="rail-sub">{passed.length} of 7 chapters done</p>
+      <ol>
+        {plan.chapters?.map((c: any) => (
+          <li key={c.n} className={passed.includes(c.n) ? 'done' : c.n === currentN ? 'now' : ''}><span className="n">{passed.includes(c.n) ? '✓' : c.n}</span><span>{c.title}</span></li>
+        ))}
+      </ol>
+      <div className="rail-links">
+        <button type="button" className="quiet" onClick={() => { setDoneN(null); setView('plan') }}>The handbook</button>
+        <button type="button" className="quiet" onClick={() => setView('tune')}>Make it yours</button>
+        <button type="button" className="quiet" onClick={() => { setDraftTopic(hb.topic); setView('start-again') }}>Start another topic</button>
+      </div>
+    </>
+  ) : undefined
+  const toPlan = { label: 'Handbook', onClick: () => { setDoneN(null); setView('plan') } }
   const chapterReady = chapter?.status === 'ready' && Array.isArray(chapter.cards)
   const chapterFailed = chapter?.status === 'failed'
 
@@ -83,7 +100,7 @@ export default function App() {
 
   if (resolved === 'tune') {
     return (
-      <Shell>
+      <Shell rail={rail} back={toPlan}>
         <Tune initial={profile ?? null} onSave={async (p) => saveProfile({ deviceToken: token, ...p })} onBack={() => setView('plan')} />
       </Shell>
     )
@@ -91,7 +108,7 @@ export default function App() {
 
   if (resolved === 'compare' && chapter?.variants?.length) {
     return (
-      <Shell>
+      <Shell rail={rail} back={toPlan}>
         <Compare topic={plan?.topic ?? hb.topic} n={chapter.n} variants={chapter.variants as any}
           onVote={async (key) => { await voteModel({ handbookId: hb._id, n: chapter.n, key, deviceToken: token }); setView('plan') }}
           onBack={() => setView('plan')} />
@@ -101,7 +118,7 @@ export default function App() {
 
   if (resolved === 'signin') {
     return (
-      <Shell>
+      <Shell rail={rail} back={{ label: 'Back', onClick: () => setView('done') }}>
         <SignIn onDone={async () => { await attachToMe({ deviceToken: token }); setView('done') }} onBack={() => setView('done')} />
       </Shell>
     )
@@ -110,7 +127,7 @@ export default function App() {
   if (resolved === 'done' && doneN) {
     const ch = hb.chapters.find((c) => c.n === doneN)
     return (
-      <Shell onSignOut={isAuthenticated ? signOut : undefined}>
+      <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail} back={toPlan}>
         <Done
           topic={plan?.topic ?? hb.topic}
           n={doneN}
@@ -118,6 +135,7 @@ export default function App() {
           outcomeLine={ch?.outcomeLine ?? plan?.chapters?.[doneN - 1]?.outcome ?? ''}
           nextTitle={plan?.chapters?.[doneN]?.title}
           nextHook={plan?.chapters?.[doneN]?.hook}
+          sources={plan?.sources}
           signedIn={isAuthenticated}
           tomorrowAt={progress?.tomorrowAt}
           onKeep={() => setView('signin')}
@@ -130,7 +148,7 @@ export default function App() {
 
   if (resolved === 'chapter' && chapter && chapterReady) {
     return (
-      <Shell onSignOut={isAuthenticated ? signOut : undefined}>
+      <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
         <Chapter
           key={`${hb._id}-${chapter.n}`}
           topic={plan?.topic ?? hb.topic}
@@ -146,13 +164,14 @@ export default function App() {
           onFinish={async () => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneN(chapter.n); setView('done') }}
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
+          onExit={() => setView('plan')}
         />
       </Shell>
     )
   }
 
   return (
-    <Shell onSignOut={isAuthenticated ? signOut : undefined}>
+    <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
       <Plan
         topic={plan?.topic ?? hb.topic}
         plan={plan}
@@ -172,13 +191,17 @@ export default function App() {
   )
 }
 
-function Shell({ children, onSignOut }: { children: React.ReactNode; onSignOut?: () => Promise<void> | void }) {
+function Shell({ children, onSignOut, rail, back }: { children: React.ReactNode; onSignOut?: () => Promise<void> | void; rail?: React.ReactNode; back?: { label: string; onClick: () => void } }) {
   return (
     <div className="shell">
       <header className="top">
         <p className="wordmark">I Get It<small>Seven chapters. Twenty minutes a night.</small></p>
-        {onSignOut && <button type="button" className="quiet" onClick={() => onSignOut()}>Sign out</button>}
+        <span style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+          {back && <button type="button" className="back-link" onClick={back.onClick}>← {back.label}</button>}
+          {onSignOut && <button type="button" className="quiet" onClick={() => onSignOut()}>Sign out</button>}
+        </span>
       </header>
+      {rail && <aside className="rail">{rail}</aside>}
       <main>{children}</main>
       <footer className="foot"><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
     </div>

@@ -8,11 +8,13 @@ Rules:
 - The day-7 outcome is specific and honest: what they will actually be able to do or explain after seven chapters at this level. Never "understand the basics" or "be confident with".
 - Day 14 and day 28 are one line each: a plausible horizon, clearly marked as later, not promised.
 - One picture for the whole topic: a single analogy the learner can carry through every chapter (as the GrowthX handbook uses "hiring" for product thinking or "a restaurant" for tech).
-- Each chapter teaches ONE thing, has a title in plain words, one line on what it covers, and an outcome that starts with "You can".
+- Each chapter teaches ONE thing, has a title in plain words, one line on what it covers, an outcome that starts with "You can", and a "hook": one line, under 18 words, that makes the reader want that chapter. Write it as an open loop: a specific question or a surprising, true claim. Never clickbait, never a promise the chapter doesn't keep.
 - Chapters build in order. Chapter 1 is the thing everything else rests on, not history or definitions for their own sake.
 - Plain words. No jargon without an explanation in the same line. Numbers over adjectives. No filler.
+- "sources": up to 3 real, widely known works the handbook's ideas genuinely trace to: a book, a paper, a famous talk or a standard reference, each as {"who":"author or body","what":"title","why":"one short clause on what it gives this handbook"}. Only works you are certain exist exactly as named; no URLs, no influencers, no made-up journals. If you are not certain of three, give fewer, or an empty list. These are shown to the reader as "Draws on", so a wrong one is worse than none.
 - Never invent facts, tools, names or statistics. If unsure of a specific, leave it out.
+- Voice (given with the request): "friend" = a sharp, warm friend who knows the subject; "straight" = no warm-up, no asides, the facts and the steps in the fewest words; "stories" = teach through named people, moments and consequences, then the rule. Default friend.
 - Level "new": assume no background. Level "some": assume they know the vocabulary and have tried once; skip the very first steps.
 
 Return JSON only, this shape:
-{"needsClarification":false,"question":null,"topic":"<clean topic, 2-6 words>","outcome7":"<By day 7 you'll be able to ...>","horizon14":"<...>","horizon28":"<...>","picture":{"name":"<the analogy in 2-4 words>","line":"<one sentence that sets it up>"},"chapters":[{"n":1,"title":"...","covers":"...","outcome":"You can ..."}, ... 7 items]}
+{"needsClarification":false,"question":null,"topic":"<clean topic, 2-6 words>","outcome7":"<By day 7 you'll be able to ...>","horizon14":"<...>","horizon28":"<...>","picture":{"name":"<the analogy in 2-4 words>","line":"<one sentence that sets it up>"},"chapters":[{"n":1,"title":"...","covers":"...","outcome":"You can ...","hook":"..."}, ... 7 items],"sources":[{"who":"...","what":"...","why":"..."}]}

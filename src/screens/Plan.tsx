@@ -4,7 +4,7 @@ import RungBar from '../components/RungBar'
 type Chapter = { n: number; title: string; covers: string; outcome: string }
 type Props = {
   topic: string
-  plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[] }
+  plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[] }
   passed: number[]
   current: number
   chapterReady: boolean
@@ -28,6 +28,9 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
       <h1 style={{ marginTop: 6 }}>{topic}</h1>
       <p className="outcome">{plan.outcome7}</p>
       {plan.picture && <p className="picture">The one picture for the whole thing: {plan.picture.name.toLowerCase()}. {plan.picture.line}</p>}
+      {plan.sources && plan.sources.length > 0 && (
+        <p className="sources"><span className="label">Draws on</span> {plan.sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em></span>)}</p>
+      )}
       {voiceNote && <p className="note" style={{ marginBottom: 'var(--m)' }}>{voiceNote}</p>}
 
       <ol className="chapters">
