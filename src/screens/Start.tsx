@@ -78,7 +78,7 @@ export default function Start({ initialTopic = '', status, question, error, onCr
       )}
 
       <ActionBar busy={writing} note={writing && slow ? 'About 30 seconds. Seven chapters take a moment to plan.' : undefined}>
-        {status === 'failed' && onRetry ? (
+        {status === 'failed' && onRetry && topic.trim() === initialTopic.trim() ? (
           <button className="btn" onClick={() => onRetry().catch((e) => setLocalError(friendly(e)))}>Try again</button>
         ) : (
           <button className="btn" onClick={submit} disabled={writing}>{writing ? 'Writing your handbook…' : 'Write my handbook'}</button>

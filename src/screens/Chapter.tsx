@@ -92,7 +92,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
           {i > 0 && <button type="button" className="quiet" style={{ padding: 0, marginRight: 10 }} onClick={() => { setI(i - 1); reset() }} aria-label="Previous card">← Back</button>}
           {item.recall ? `Recall · from chapter ${item.chapter}` : `Chapter ${n} of 7 · card ${chapterCardNo} of ${cards.length}`}
         </span>
-        <span>{topic}</span>
+        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '48%' }}>{topic}</span>
       </p>
 
       <div className={`card ${item.card.type}-card`} key={`${key}-${item.recall ? 'r' : 'c'}`}>
