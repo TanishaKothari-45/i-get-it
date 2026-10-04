@@ -13,10 +13,13 @@ type Props = {
   onRetry: () => void
   onChangeLine: () => void
   voiceNote?: string
+  onTune: () => void
+  onCompare?: () => void
+  comparing?: boolean
 }
 
 // The handbook cover: the plan before the first lesson, so starting isn't skipping levels.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -45,7 +48,15 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
         {plan.horizon28 && <p>Day 28, later: {plan.horizon28}</p>}
       </div>
 
-      <p style={{ marginTop: 'var(--l)' }}>
+      <p style={{ marginTop: 'var(--l)' }} className="topbar-links">
+        <button type="button" className="quiet" onClick={onTune}>Make it yours: who teaches you, and how</button>
+      </p>
+      {onCompare && (
+        <p style={{ marginTop: 6 }}>
+          <button type="button" className="quiet" onClick={onCompare}>{comparing ? `Three writers are on chapter ${current}…` : `Compare three writers on chapter ${current}`}</button>
+        </p>
+      )}
+      <p style={{ marginTop: 6 }}>
         <button type="button" className="quiet" onClick={onChangeLine}>Not what you meant? Change the line</button>
       </p>
 

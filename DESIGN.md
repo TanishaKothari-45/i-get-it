@@ -94,6 +94,19 @@ Empty/Loading: none.
 Error (sign-in failed): "Sign-in didn't go through. Your chapter is saved on this phone." Button: Try again.
 Done: the time is shown back: "See you at 9pm. Chapter 2 is ready when you are."
 
+Make it yours (the profile)
+For: saying how you want to be taught, once.
+Top to bottom: "Make it yours.", one line on cost (one line sent with every chapter), persona chips and a free box, "what works" chips, examples-from, your words, avoid, the main button.
+Main action: Save and use this from now on → back to Plan, with "N unread chapters will be rewritten when you open them".
+States: saving "Saving…", error "Couldn't save that. Try again in a minute.", done the green line.
+
+Compare (three writers, masked)
+For: picking the writer by reading, not by name.
+Top to bottom: topic and chapter, "Which one reads best?", tabs A B C (with "writing…" while a version is being written), the chosen version's illustration, title and cards stacked, the main button "A reads best".
+States: writing "Writing version A… about a minute", failed "Version A didn't come through. Pick from the others.", done back to Plan with the chosen text as the chapter.
+
+Illustration (on the picture card): a flat SVG in the two accent colours plus ink on white inside a tinted frame, max height 220 px, drawn by the model, sanitised. If it fails to parse, nothing shows; the card is still complete without it.
+
 Tonight (coming back, signed in or on the same phone)
 For: the daily 20 minutes from night 2.
 Top to bottom: the rung bar as it stands, "[topic] · Chapter N tonight", two or three recall exercises from earlier chapters first (same exercise card), then chapter N's cards.

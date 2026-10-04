@@ -8,8 +8,10 @@ import Plan from './screens/Plan'
 import Chapter, { type AnswerResult, type Card } from './screens/Chapter'
 import Done from './screens/Done'
 import SignIn from './screens/SignIn'
+import Tune from './screens/Tune'
+import Compare from './screens/Compare'
 
-type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again'
+type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again' | 'tune' | 'compare'
 
 export default function App() {
   const token = useMemo(() => deviceToken(), [])
@@ -26,6 +28,11 @@ export default function App() {
   const setTomorrow = useMutation(api.handbooks.setTomorrow)
   const attachToMe = useMutation(api.handbooks.attachToMe)
   const requestSimpler = useMutation(api.handbooks.requestSimpler)
+  const saveProfile = useMutation(api.handbooks.saveProfile)
+  const refreshIfStale = useMutation(api.handbooks.refreshIfStale)
+  const compareModels = useMutation(api.handbooks.compareModels)
+  const voteModel = useMutation(api.handbooks.voteModel)
+  const profile = useQuery(api.handbooks.myProfile, { deviceToken: token })
 
   const [view, setView] = useState<View>('auto')
   const [doneN, setDoneN] = useState<number | null>(null)
@@ -74,6 +81,24 @@ export default function App() {
     : (progress?.currentCard ?? 0) > 0 ? 'chapter'
     : 'plan'
 
+  if (resolved === 'tune') {
+    return (
+      <Shell>
+        <Tune initial={profile ?? null} onSave={async (p) => saveProfile({ deviceToken: token, ...p })} onBack={() => setView('plan')} />
+      </Shell>
+    )
+  }
+
+  if (resolved === 'compare' && chapter?.variants?.length) {
+    return (
+      <Shell>
+        <Compare topic={plan?.topic ?? hb.topic} n={chapter.n} variants={chapter.variants as any}
+          onVote={async (key) => { await voteModel({ handbookId: hb._id, n: chapter.n, key, deviceToken: token }); setView('plan') }}
+          onBack={() => setView('plan')} />
+      </Shell>
+    )
+  }
+
   if (resolved === 'signin') {
     return (
       <Shell>
@@ -120,6 +145,7 @@ export default function App() {
           onAnswer={async (item, optionId, attempt) => (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult}
           onFinish={async () => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneN(chapter.n); setView('done') }}
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
+          svg={(chapter as any).svg}
         />
       </Shell>
     )
@@ -134,8 +160,11 @@ export default function App() {
         current={currentN}
         chapterReady={!!chapterReady}
         chapterFailed={!!chapterFailed}
-        voiceNote={hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
-        onStart={() => setView('chapter')}
+        voiceNote={(chapter as any)?.stale ? 'You changed how you want to be taught after this chapter was written. Tap start and it gets rewritten for you first, about 30 seconds.' : hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
+        onStart={() => { if ((chapter as any)?.stale) { refreshIfStale({ handbookId: hb._id, n: currentN, deviceToken: token }).catch(() => {}) ; return } setView('chapter') }}
+        onTune={() => setView('tune')}
+        onCompare={() => { if (chapter?.variants?.length) { setView('compare'); return } compareModels({ handbookId: hb._id, n: currentN, deviceToken: token }).then(() => setView('compare')).catch(() => {}) }}
+        comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
         onRetry={() => { retry({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }}
         onChangeLine={() => { setDraftTopic(hb.topic); setView('start-again') }}
       />

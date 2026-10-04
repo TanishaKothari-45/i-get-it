@@ -147,3 +147,17 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .splash { flex: 1; display: grid; place-items: center; color: var(--ink-2); font-size: var(--small); }
 
 @media (prefers-reduced-motion: reduce) { .card, .sheet, .scrim, .rung span.filling::after, .busybar::after, .opt.pass, .sheet .verdict.pass { animation: none !important; } }
+
+/* illustration, tabs, compare */
+.illo { margin: var(--m) 0 var(--l); border: 1px solid var(--tint); border-radius: var(--radius); padding: var(--m); background: #fff; }
+.illo svg { display: block; width: 100%; height: auto; max-height: 220px; }
+.chips.wrap { flex-wrap: wrap; }
+.chips.wrap .chip { flex: 0 0 auto; padding: 0 14px; }
+.tabs { display: flex; gap: var(--s); margin: var(--m) 0; border-bottom: 1px solid var(--tint); }
+.tab { background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 12px; font-weight: 600; color: var(--ink-2); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.compare-body h2 { margin-top: var(--m); }
+.compare-body > div + div { margin-top: var(--l); }
+.compare-ex { border: 1.5px dashed var(--tint); border-radius: var(--radius); padding: var(--m); }
+.compare-ex ul { margin: 6px 0 0; padding-left: 18px; font-size: var(--ui); }
+.topbar-links { display: flex; gap: 14px; }

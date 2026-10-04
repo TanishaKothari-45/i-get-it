@@ -35,6 +35,11 @@ export default defineSchema({
     handbookId: v.id("handbooks"),
     n: v.number(),
     status: v.union(v.literal("writing"), v.literal("ready"), v.literal("failed")),
+    stale: v.optional(v.boolean()),          // preferences changed after this was written and before it was read
+    model: v.optional(v.string()),
+    variants: v.optional(v.any()),            // masked model comparison: [{ key: "A", model, title, cards, outcomeLine }]
+    vote: v.optional(v.string()),             // "A" | "B" | "C" once the person has chosen
+    svg: v.optional(v.string()),
     title: v.optional(v.string()),
     cards: v.optional(v.any()),   // array of cards, exercises include answer/whyNot/reteach (never sent raw to the client)
     outcomeLine: v.optional(v.string()),
@@ -70,6 +75,32 @@ export default defineSchema({
     chapter: v.number(),
     cardIndex: v.number(),
     optionId: v.optional(v.string()),
+    at: v.number(),
+  }),
+
+  // How this person wants to be taught. One per signed-in user, or per device before sign-in.
+  profiles: defineTable({
+    userId: v.optional(v.id("users")),
+    deviceToken: v.optional(v.string()),
+    persona: v.optional(v.string()),          // "a sharp friend", "a patient teacher", "a dry scientist" ...
+    tone: v.optional(v.string()),             // free text, their words: "no fluff", "make me laugh once"
+    likes: v.optional(v.array(v.string())),   // chips: stories, metaphors, humour, numbers, straight, examples-from-my-work
+    examplesFrom: v.optional(v.string()),     // "my job as a PM", "cricket", "cooking"
+    avoid: v.optional(v.string()),            // "no sports examples", "don't quiz me on dates"
+    preferredModel: v.optional(v.string()),   // set by the masked comparison
+    line: v.string(),                          // the compact rendering sent with every call (about 100 tokens)
+    updatedAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_device", ["deviceToken"]),
+
+  modelVotes: defineTable({
+    handbookId: v.id("handbooks"),
+    chapter: v.number(),
+    userId: v.optional(v.id("users")),
+    deviceToken: v.optional(v.string()),
+    picked: v.string(),                        // model id behind the letter they tapped
+    options: v.array(v.string()),              // the three model ids, in A/B/C order
     at: v.number(),
   }),
 

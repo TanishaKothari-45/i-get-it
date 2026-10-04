@@ -3,6 +3,7 @@ import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Sheet from '../components/Sheet'
 import Rich, { inline } from '../components/Rich'
+import Illustration from '../components/Illustration'
 
 export type Card =
   | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number }
@@ -27,10 +28,11 @@ type Props = {
   onAnswer: (item: Item, optionId: string, attempt: number) => Promise<AnswerResult>
   onFinish: () => Promise<void>
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
+  svg?: string
 }
 
 // The card stack: teaching cards and exercises, one at a time.
-export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -121,6 +123,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
         {item.card.type !== 'exercise' ? (
           <>
             {item.card.type === 'picture' && i === firstChapterItem && <h1 style={{ marginBottom: 6 }}>{title}</h1>}
+            {item.card.type === 'picture' && <Illustration svg={svg} />}
             {item.card.type === 'picture' && <p className="kicker">The one picture</p>}
             {item.card.type === 'example' && <p className="kicker">A worked example</p>}
             {item.card.type === 'mistake' && <p className="kicker">The mistake people make</p>}

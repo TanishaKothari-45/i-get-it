@@ -18,6 +18,7 @@ Parked (not now), in the order they'd come:
 - Memes, AI-generated reels or clips inside a chapter (first user test, 4 Oct). Parked on purpose: the feed is the habit we're firing; the chapter earns attention with prose, examples and the checks instead.
 - Regenerate the plan with comments, done chapters kept.
 - "Go deeper" on a card, and language change mid-path. ("Say it simpler" shipped 4 Oct afternoon after a user asked for it.)
+- Photo-real images per chapter (needs an image provider and credits: Prateek decides). Model-drawn SVG illustrations shipped 4 Oct afternoon instead.
 - The tutor chat, scoped to the mission: a two-way "ask or object" on any card, in the handbook's voice. First thing after credits (user feedback 4 Oct: "it has to be a two-way street").
 - More voices beyond friend / straight / stories (user feedback 4 Oct asked for many). Add one at a time, each read by Prateek before it ships.
 - A second topic, with the three-slot rule and the forfeit.

@@ -6,7 +6,7 @@ import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 
 const PLAN_MAX_OUT = 3000;
-const CHAPTER_MAX_OUT = 4500;
+const CHAPTER_MAX_OUT = 6000;
 const SIMPLER_MAX_OUT = 600;
 
 type Result = { ok: true; json: any; model: string } | { ok: false; error: string; model: string };
@@ -37,8 +37,8 @@ async function callOpenAI(system: string, user: string, maxOut: number): Promise
   return { text, tokensIn: data.usage?.input_tokens, tokensOut: data.usage?.output_tokens, model };
 }
 
-async function callAnthropic(system: string, user: string, maxOut: number): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
-  const model = process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001";
+async function callAnthropic(system: string, user: string, maxOut: number, modelOverride?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+  const model = modelOverride ?? process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001";
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: { "x-api-key": process.env.ANTHROPIC_API_KEY!, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },
@@ -62,8 +62,8 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler")), system: v.string(), user: v.string() },
-  handler: async (ctx, { kind, system, user }): Promise<Result> => {
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler")), system: v.string(), user: v.string(), model: v.optional(v.string()) },
+  handler: async (ctx, { kind, system, user, model }): Promise<Result> => {
     const started = Date.now();
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
     const provider = process.env.ANTHROPIC_API_KEY ? "anthropic" : process.env.OPENAI_API_KEY ? "openai" : null;
@@ -72,7 +72,7 @@ export const generate = internalAction({
       return { ok: false, error: "no provider key set", model: "none" };
     }
     try {
-      const r = provider === "anthropic" ? await callAnthropic(system, user, maxOut) : await callOpenAI(system, user, maxOut);
+      const r = provider === "anthropic" ? await callAnthropic(system, user, maxOut, model) : await callOpenAI(system, user, maxOut);
       const json = extractJson(r.text);
       await ctx.runMutation(internal.handbooks.logAiCall, {
         kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
