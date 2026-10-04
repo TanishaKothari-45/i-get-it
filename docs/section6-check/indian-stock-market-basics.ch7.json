@@ -5,7 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Every bazaar has an exit gate, and the tax office sits there with a ledger. **The toll is charged only on your profit**, never on the whole bag you walk out with. Picture two gates side by side: a quick-exit gate for shoppers who leave within 12 months of buying, and a patient gate for those who stayed longer. The patient gate charges less, and waves the first chunk through free."
+    "body": "Every bazaar has an exit gate, and the tax office sits there with a ledger. **The toll is charged only on your profit**, never on the whole bag you walk out with. Picture two gates side by side: a quick-exit gate for shoppers who leave within 12 months of buying, and a patient gate for those who stayed longer. The patient gate charges less, and waves the first chunk through free.",
+    "simpler": "Think of a market with one way out. At the exit sits a tax desk. **The tax is charged only on your profit**, not on everything you carry out. There are two gates. One is for people who leave within 12 months of buying. The other is for people who waited longer. The patient gate charges a lower rate, and it lets the first part of your profit through for free."
    },
    {
     "type": "exercise",
@@ -35,12 +36,14 @@
    {
     "type": "teach",
     "title": "Two gates, two rates",
-    "body": "Your *gain* is the sale price minus what you paid, including the small charges from chapter 4. If you sold at a loss, there is no gain, so there is no tax.\n\n**The holding period picks your gate.** Sell within 12 months of buying and it counts as *short-term*: the gain is taxed at 20%. Sell after 12 months and it counts as *long-term*: the gain is taxed at 12.5%.\n\nThe long-term gate has one more kindness. Each *financial year*, which runs 1 April to 31 March, your first \u20b91.25 lakh of long-term gains is tax-free. Only gains above that line pay the 12.5%."
+    "body": "Your *gain* is the sale price minus what you paid, including the small charges from chapter 4. If you sold at a loss, there is no gain, so there is no tax.\n\n**The holding period picks your gate.** Sell within 12 months of buying and it counts as *short-term*: the gain is taxed at 20%. Sell after 12 months and it counts as *long-term*: the gain is taxed at 12.5%.\n\nThe long-term gate has one more kindness. Each *financial year*, which runs 1 April to 31 March, your first \u20b91.25 lakh of long-term gains is tax-free. Only gains above that line pay the 12.5%.",
+    "simpler": "Your gain is what you sold for, minus what you paid, including the small charges from chapter 4. Sold at a loss? No gain, so no tax.\n\n**How long you held the share picks your gate.** Sold within 12 months? That is short-term, taxed at 20%. Sold after 12 months? That is long-term, taxed at 12.5%.\n\nEach financial year, 1 April to 31 March, your first \u20b91.25 lakh of long-term gains is tax-free. Only gains above that line pay 12.5%."
    },
    {
     "type": "example",
     "title": "Arjun and the calendar",
-    "body": "Arjun bought 10 shares of a Nifty 50 bank at \u20b91,200 each on 2 January, so \u20b912,000 in. On 20 November the same year he sold all 10 at \u20b91,500, so \u20b915,000 out. His gain was \u20b93,000, held about 10 months, so the quick gate took 20%: \u20b9600. Had he sold on 3 January instead, the gain would have been long-term, and since \u20b93,000 is well under the \u20b91.25 lakh free line, his tax would have been \u20b90. **Six weeks of patience was worth \u20b9600.** Arjun now owns a wall calendar."
+    "body": "Arjun bought 10 shares of a Nifty 50 bank at \u20b91,200 each on 2 January, so \u20b912,000 in. On 20 November the same year he sold all 10 at \u20b91,500, so \u20b915,000 out. His gain was \u20b93,000, held about 10 months, so the quick gate took 20%: \u20b9600. Had he sold on 3 January instead, the gain would have been long-term, and since \u20b93,000 is well under the \u20b91.25 lakh free line, his tax would have been \u20b90. **Six weeks of patience was worth \u20b9600.** Arjun now owns a wall calendar.",
+    "simpler": "Arjun bought 10 shares of a Nifty 50 bank on 2 January at \u20b91,200 each, \u20b912,000 in all. On 20 November he sold them at \u20b91,500 each, \u20b915,000 in all. Gain: \u20b93,000, held about 10 months. The quick gate took 20%, or \u20b9600. Had he waited until 3 January, the gain would be long-term, far under the \u20b91.25 lakh free line, so tax \u20b90. **Six more weeks would have saved him \u20b9600.** Arjun now owns a wall calendar."
    },
    {
     "type": "exercise",
@@ -70,11 +73,13 @@
    {
     "type": "teach",
     "title": "The traps near the gate",
-    "body": "The exit gate is honest. The crowd around it is not. **Three things to say no to in your first year.**\n\nFirst, *stock tips*: a message, video or cousin saying one share is a sure thing. Anyone shouting a sure thing has a reason, and it is rarely your profit. You learned in chapter 1 that price is just buyers versus sellers, and tipsters are often the sellers.\n\nSecond, *futures and options*, bets on where a price will be by a date. SEBI's 2023 study found 9 in 10 individual traders in them lost money. Third, *borrowing to buy shares*, which turns a bad month into a debt."
+    "body": "The exit gate is honest. The crowd around it is not. **Three things to say no to in your first year.**\n\nFirst, *stock tips*: a message, video or cousin saying one share is a sure thing. Anyone shouting a sure thing has a reason, and it is rarely your profit. You learned in chapter 1 that price is just buyers versus sellers, and tipsters are often the sellers.\n\nSecond, *futures and options*, bets on where a price will be by a date. SEBI's 2023 study found 9 in 10 individual traders in them lost money. Third, *borrowing to buy shares*, which turns a bad month into a debt.",
+    "simpler": "The gate is fair. The crowd is not. **Say no to three things in your first year.** One: stock tips, anyone calling one share a sure thing. Their reason is rarely your profit. Often they are the sellers. Two: futures and options, bets on where a price will land by a date. A 2023 SEBI study found 9 in 10 individual traders lost money on them. Three: borrowing to buy shares. That turns a bad month into a debt."
    },
    {
     "type": "mistake",
-    "body": "Rohan held a cement share for 11 months and 1 week, then saw a scary headline and sold the same afternoon to \"lock in\" his \u20b920,000 gain. The quick gate took \u20b94,000. Three weeks later it would have been long-term, under the free line, and taxed at \u20b90. **Spot it by checking the buy date before you tap sell**: if the 12-month mark is close, ask whether the news is really worth the toll."
+    "body": "Rohan held a cement share for 11 months and 1 week, then saw a scary headline and sold the same afternoon to \"lock in\" his \u20b920,000 gain. The quick gate took \u20b94,000. Three weeks later it would have been long-term, under the free line, and taxed at \u20b90. **Spot it by checking the buy date before you tap sell**: if the 12-month mark is close, ask whether the news is really worth the toll.",
+    "simpler": "Rohan held a cement share for 11 months and 1 week. Then a scary headline appeared, and he sold that same afternoon to lock in his \u20b920,000 gain. The quick gate took \u20b94,000. Had he waited three more weeks, the gain would have been long-term, under the free line, and taxed at \u20b90. **Check the buy date before you tap sell.** If the 12-month mark is close, ask whether the news is really worth the toll."
    },
    {
     "type": "exercise",
@@ -104,11 +109,13 @@
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**Tax hits only your gain**: 20% if you sold within 12 months, 12.5% after that, and the first \u20b91.25 lakh of long-term gains each year is free. Say no to tips, futures and options, and borrowed money, because the gate is fair but the crowd around it is not."
+    "body": "**Tax hits only your gain**: 20% if you sold within 12 months, 12.5% after that, and the first \u20b91.25 lakh of long-term gains each year is free. Say no to tips, futures and options, and borrowed money, because the gate is fair but the crowd around it is not.",
+    "simpler": "**Tax touches only your gain.** You pay 20% if you sold within 12 months, and 12.5% if you sold after that. Each year, the first \u20b91.25 lakh of long-term gains is free. Say no to tips, to futures and options, and to borrowed money. The gate is fair, but the crowd around it is not."
    },
    {
     "type": "try",
-    "body": "Open your broker app, find the 1 share you bought in chapter 4, and note its buy date. Add 12 months and write that date somewhere you will see it. That is your patient-gate day."
+    "body": "Open your broker app, find the 1 share you bought in chapter 4, and note its buy date. Add 12 months and write that date somewhere you will see it. That is your patient-gate day.",
+    "simpler": "Open your broker app and find the 1 share you bought in chapter 4. Look up the date you bought it. **Add 12 months to that date** and write the new date somewhere you will see it often, like a fridge note or a phone reminder. That is the day you reach the patient gate."
    }
   ],
   "outcomeLine": "You can now work out the tax on a sale you are planning and name three things you will say no to in your first year."

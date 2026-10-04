@@ -5,120 +5,114 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Picture the street in 1938. Smoke is already curling from one window of the German house, and the neighbours in Britain and France are standing on the pavement with their hoses coiled, saying: *let it burn out, he only wants that one room.* **Each time they waited, the fire took another room**, until on 1 September 1939 it jumped the fence into Poland.",
-    "simpler": "Imagine a street in 1938. Smoke is already coming from one window of the German house. The neighbours, Britain and France, stand on the pavement with their hoses still coiled up. They say: *let it burn out, he only wants that one room.* **Each time they waited, the fire took another room.** On 1 September 1939 it jumped the fence into Poland."
+    "body": "Britain and France went to war for Poland in September 1939, 12 months after refusing to go to war for Czechoslovakia. Nothing about Poland was worth more. What changed was a belief: on our shared street, the neighbours had watched the flames since 1936 and told themselves each one would stop at the fence. **This chapter is about the day that story stopped working.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "It's 1938. A neighbour keeps knocking through walls into the empty houses next door, swearing each time that this is the last one. You are the street. What do you most likely do?",
+    "prompt": "September 1938. Hitler demands the Sudetenland, the edge of Czechoslovakia where about 3 million German speakers live. Britain and France hand it over without a shot. Best guess at their thinking?",
     "options": [
      {
       "id": "a",
-      "text": "Call the fire brigade the first time, before anything spreads"
+      "text": "He only wants land where Germans live. Give him this and he is done."
      },
      {
       "id": "b",
-      "text": "Agree to the latest one if he promises, in writing, that it is the last"
+      "text": "Czechoslovakia is too far away to matter, so let it go."
      },
      {
       "id": "c",
-      "text": "Knock through his wall first, to show you mean it"
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's what hindsight says, not what the street did: in 1938 nobody wanted another 1914, so the hoses stayed coiled.",
-     "c": "That's starting the fire yourself, not stopping it: Britain and France were desperate to avoid a war, not to begin one."
-    },
-    "reteach": "Nobody on the street had forgotten the last war, which had killed millions and ended only 20 years earlier. So the neighbours chose the cheapest-looking option each time: give Hitler what he asked for and get a promise. That habit has a name, appeasement, and this chapter is about how it ran out."
-   },
-   {
-    "type": "teach",
-    "title": "Three grabs, no shots fired",
-    "body": "From 1936 to 1939 Hitler took land in steps, each one bigger than the last. In March 1936 he marched troops into the Rhineland, a strip of Germany along the French border that the 1919 treaty had said must stay free of soldiers. France protested and did nothing.\n\nIn March 1938 he took Austria whole. Then he demanded the Sudetenland, the German-speaking edge of Czechoslovakia.\n\n**At each step the pattern held**: a grab, a loud complaint from Britain and France, then acceptance. Hitler learned the lesson fast. The street talked a lot and never picked up a hose.",
-    "simpler": "From 1936 to 1939 Hitler took land in steps, each bigger than the last. In March 1936 he sent soldiers into the Rhineland, a strip of Germany beside France where the 1919 peace treaty banned troops. France complained and did nothing.\n\nIn March 1938 he took all of Austria. Then he demanded the Sudetenland, the German-speaking edge of Czechoslovakia.\n\n**Each time the same thing happened**: a grab, loud complaints from Britain and France, then acceptance. Hitler learned fast."
-   },
-   {
-    "type": "example",
-    "title": "A piece of paper, September 1938",
-    "body": "On 30 September 1938 Britain's prime minister, Neville Chamberlain, flew home from a meeting with Hitler in Munich. He and France had agreed that Germany could have the Sudetenland. Czechoslovakia, the country losing the land, had not been invited to the table. Chamberlain stepped off the plane waving a signed note in which Hitler promised the two countries would never go to war again, and told the crowd it meant *peace for our time*. The note held for just under a year.",
-    "simpler": "On 30 September 1938 Britain's prime minister, Neville Chamberlain, flew home from a meeting with Hitler in Munich. He and France had agreed to let Germany have the Sudetenland. Czechoslovakia, the country losing the land, had not been invited. Chamberlain got off the plane waving a signed note. In it Hitler promised Britain and Germany would never go to war again. Chamberlain told the crowd it meant *peace for our time*. **The note held for just under a year.**"
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "A pub quiz asks: what did Britain and France actually decide at Munich in September 1938?",
-    "options": [
-     {
-      "id": "a",
-      "text": "To let Germany take the Sudetenland from Czechoslovakia in exchange for a promise of no more grabs"
-     },
-     {
-      "id": "b",
-      "text": "To declare war on Germany if it moved one step further"
-     },
-     {
-      "id": "c",
-      "text": "To split Poland between Germany and the Soviet Union"
+      "text": "Their own armies are far stronger, so they are saving the fight for a better moment."
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's the guarantee they gave Poland in 1939, not the Munich deal: at Munich they gave way, they did not threaten.",
-     "c": "That's the Hitler-Stalin pact of August 1939, not Munich: Britain and France were not part of that one."
+     "b": "That's the excuse, not the reasoning: Chamberlain did call it a far-away country, but the real bet was that Hitler's demands had a limit.",
+     "c": "That's the reverse of the worry: in 1938 Britain's new fighter planes were still arriving, and nobody felt ready."
     },
-    "reteach": "Munich is the clearest case of appeasement, which means giving way to avoid a fight. Britain and France handed over a piece of Czechoslovakia that was not theirs to give, and took a promise in return. The promise was the whole point for them, and it was worth nothing to Hitler."
+    "reteach": "Think of the fence panel. The neighbour whose shed is burning says: give me this one panel and the fire stops here. Britain and France paid in Czech land because they believed the claim had a natural end: German speakers, and only German speakers."
    },
    {
     "type": "teach",
-    "title": "The promise breaks, then the shock",
-    "body": "In March 1939 Hitler took the rest of Czechoslovakia. Nobody had been asked, and there were no German speakers to rescue this time. **The excuse that he only wanted Germans back was dead.** Britain and France finally promised to fight if Poland, his obvious next target, was attacked.\n\nThen came the shock. On 23 August 1939 Nazi Germany and the Soviet Union, bitter enemies in public, signed a pact not to fight each other. A secret part of it carved Poland up between them.\n\nWith Stalin out of the way, Hitler attacked Poland on 1 September 1939. Britain and France declared war two days later, on 3 September.",
-    "simpler": "In March 1939 Hitler took the rest of Czechoslovakia. Nobody was asked, and no German speakers lived there to rescue. **His excuse of bringing Germans home was dead.** Britain and France now promised to fight if he attacked Poland, his next target.\n\nOn 23 August 1939 Germany and the Soviet Union, enemies in public, agreed not to fight each other and secretly split Poland between them.\n\nHitler attacked Poland on 1 September. Britain and France declared war on 3 September."
+    "title": "Three grabs, one story",
+    "body": "Hitler moved in steps, each with the same note attached. March 1936: German troops marched back into the *Rhineland*, Germany's own western strip, which the 1919 treaty said must stay empty of soldiers. March 1938: Germany swallowed Austria, where most people spoke German and many cheered. September 1938: the Sudetenland.\n\nThe note said: these people are German, 1919 was unfair to them, this is the last one. Each grab felt like a correction, not an attack.\n\nBritain and France gave way rather than fight. The word is *appeasement*. On the street, it means handing over your fence panel and trusting the fire to stop at the fence. **Each time, it seemed to.**"
    },
    {
-    "type": "mistake",
-    "body": "Sam, revising for a test, writes that Britain and France declared war because Germany invaded Czechoslovakia. It sounds right, because Czechoslovakia was the famous betrayal. But in March 1939 they protested and did nothing, again. The line they actually fought over was Poland, 6 months later. Spot the slip by asking: which country had the written guarantee? Only Poland did.",
-    "simpler": "Sam is revising for a test and writes that Britain and France declared war because Germany invaded Czechoslovakia. It sounds right, because Czechoslovakia was the famous betrayal. But when Hitler took it in March 1939, they complained and did nothing, again. **The country they actually went to war over was Poland**, six months later. To catch the slip, ask: which country had a written promise of help? Only Poland did."
+    "type": "example",
+    "title": "Munich, 29 September 1938",
+    "body": "Neville Chamberlain, Britain's prime minister, flew to Germany three times in two weeks to meet Hitler. On 29 and 30 September, in Munich, he, France's \u00c9douard Daladier, Mussolini and Hitler agreed that Germany would take the Sudetenland. The Czech delegates, whose country was being cut, waited outside the room and were told afterwards. Chamberlain flew home, held up the signed paper, and spoke of peace for our time. **The paper lasted less than six months.**"
    },
    {
     "type": "exercise",
-    "kind": "recall",
-    "prompt": "Four moments: Rhineland 1936, Austria 1938, the Sudetenland at Munich 1938, Poland 1939. What separates the last one from the first three?",
+    "kind": "apply",
+    "prompt": "15 March 1939. German troops drive into Prague and take the rest of the Czech lands, where almost nobody speaks German. You are a British minister who backed Munich. Which reaction applies the lesson?",
     "options": [
      {
       "id": "a",
-      "text": "Poland was the first grab with no German speakers to justify it"
+      "text": "Shrug. One more far-away country; the policy still holds."
      },
      {
       "id": "b",
-      "text": "Poland was the first one Britain and France had promised in advance to fight for"
+      "text": "The story is dead. He was never collecting Germans, he was collecting countries. Promise to fight for the next one."
      },
      {
       "id": "c",
-      "text": "Poland was the first time Hitler used soldiers rather than a vote"
+      "text": "Offer Germany a slice of Poland now, before he asks, to keep the peace."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the rest of Czechoslovakia in March 1939, not Poland: that grab killed the excuse, but the street still did not fight.",
-     "c": "That's not the dividing line: the Rhineland in 1936 was also done with marching troops, and nobody fought over it."
+     "a": "That's the 1938 reasoning carried past its expiry date: Prague had no German majority, so the 'only Germans' belief could not survive it.",
+     "c": "That's appeasement again, not the turn: after Prague, Britain and France did the opposite and guaranteed Poland on 31 March 1939."
     },
-    "reteach": "Three grabs passed because each time the neighbours chose a promise over a fight. What changed in 1939 was not Hitler, who did what he always did, but the street: after Czechoslovakia vanished, Britain and France had pledged in writing to defend Poland. When the tanks crossed on 1 September, the promise finally cost something."
+    "reteach": "Every grab before Prague could be explained as gathering German speakers. Prague could not. Once that belief broke, giving way looked like feeding the fire, so the neighbours finally reached for the hose: a promise to Poland."
+   },
+   {
+    "type": "teach",
+    "title": "Why so late, and why then",
+    "body": "You'd think the delay was weakness. Mostly it was memory. The last war had ended 20 years earlier and killed a generation of young men. Britain's fighter planes were only starting to reach squadrons in 1938. A. J. P. Taylor argued Hitler was less a planner than a gambler who took what was offered. For three years, plenty was.\n\nAfter Prague, on 31 March 1939, Britain and France promised to defend Poland. On 23 August Hitler signed a pact with Stalin, his loudest enemy, secretly agreeing to split Poland. He bet the shock would make the neighbours fold. On 1 September he invaded. On 3 September, **they kept their promise.**"
+   },
+   {
+    "type": "mistake",
+    "body": "At a dinner, Priya says Munich proves Chamberlain was a coward, and leaves it there. The tell is that her story has no date on which anything changed. Appeasement was a bet about Hitler's limits, placed by men who remembered the trenches, and it was lost and dropped on 15 March 1939. **If someone can't say what Prague changed, they have the mood but not the mechanism.**"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which single event turned Britain and France from giving way to promising to fight?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The invasion of Poland on 1 September 1939."
+     },
+     {
+      "id": "b",
+      "text": "German troops taking Prague and the Czech lands in March 1939."
+     },
+     {
+      "id": "c",
+      "text": "The Hitler-Stalin pact of 23 August 1939."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the trigger, not the turn: by 1 September the promise to Poland was already five months old.",
+     "c": "That's what made attacking Poland safe for Hitler, not what changed the neighbours' minds; the guarantee came in March, five months before the pact."
+    },
+    "reteach": "Follow the order: Prague in March broke the 'only Germans' story, the promise to Poland came at the end of that same month, the Stalin pact came in August, and the invasion in September called the promise in. The turn was Prague."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "From 1936 to 1938 Hitler grabbed the Rhineland, Austria and the Sudetenland, and Britain and France let each one pass to avoid another war, most famously at Munich. **When he swallowed the rest of Czechoslovakia in March 1939, then made a deal with Stalin and invaded Poland on 1 September, their patience was spent**, and they declared war on 3 September.",
-    "simpler": "Between 1936 and 1938 Hitler grabbed the Rhineland, Austria and the Sudetenland. Britain and France let each one go to avoid another war, most famously at the Munich meeting. **When he swallowed the rest of Czechoslovakia in March 1939, then made a deal with Stalin, the Soviet leader, and invaded Poland on 1 September, their patience ran out.** They declared war on 3 September."
+    "body": "From 1936 to 1938 Hitler took the Rhineland, Austria and the Sudetenland, and Britain and France let each pass because they **believed he only wanted German speakers** and this one was the last. In March 1939 he took Prague, where that story could not stretch, so they promised to fight for Poland, and on 3 September 1939 they did.\n\nTomorrow: France had an army as big as Germany's and lost in six weeks."
    },
    {
     "type": "try",
-    "body": "Tonight, say the chain aloud to someone in under a minute: Rhineland, Austria, Munich, rest of Czechoslovakia, Stalin pact, Poland, war. Six steps, then the match.",
-    "simpler": "Tonight, tell someone the chain of events out loud in under a minute: Rhineland, Austria, Munich, the rest of Czechoslovakia, the deal with Stalin, Poland, war. **Six steps, then the match is struck.** Saying it aloud is like walking a route once so you can find it again."
+    "body": "Say the five steps aloud in order, dates included, in under a minute: Rhineland March 1936, Austria March 1938, Munich September 1938, Prague March 1939, Poland September 1939. If one slips, that's the one to reread."
    }
   ],
-  "outcomeLine": "You can now list the steps from Munich to Britain and France declaring war on 3 September 1939, and say why they waited so long."
+  "outcomeLine": "You can now list the steps from the Rhineland to 3 September 1939 and say why Britain and France waited until Poland.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8 172H312M100 148v24M108 148v24M124 148v24M212 146v26M212 152l-12 8\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"28\" y=\"112\" width=\"60\" height=\"60\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"22,112 58,82 94,112\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M40 110Q46 80 56 98Q60 70 70 94Q78 82 82 110Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M110 152Q114 134 118 148Q120 140 124 154Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"134\" y=\"122\" width=\"56\" height=\"50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"128,122 162,96 196,122\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"236\" y=\"122\" width=\"56\" height=\"50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"230,122 264,96 298,122\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"212\" cy=\"140\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"196\" y=\"156\" width=\"16\" height=\"12\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"58\" y=\"190\" font-size=\"11\" text-anchor=\"middle\" fill=\"#1B1A17\">1936</text><text x=\"162\" y=\"190\" font-size=\"11\" text-anchor=\"middle\" fill=\"#1B1A17\">1938</text><text x=\"264\" y=\"190\" font-size=\"11\" text-anchor=\"middle\" fill=\"#1B1A17\">1939</text></svg>"
  },
- "seconds": 48.01433706283569
+ "seconds": 215.90204787254333
 }

@@ -5,7 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "The last house still burning is Japan, at the far end of the street across the water. By summer 1945 every hose on the street is pointed at it: American ships ring the islands, bombers come most nights, and in one August week the Soviet neighbour runs up with a hose of his own.\n\n**The war ends the way it was won: by weight, not by one clever stroke.**"
+    "body": "The last house still burning is Japan, at the far end of the street across the water. By summer 1945 every hose on the street is pointed at it: American ships ring the islands, bombers come most nights, and in one August week the Soviet neighbour runs up with a hose of his own.\n\n**The war ends the way it was won: by weight, not by one clever stroke.**",
+    "simpler": "Think of the war as a row of houses on fire. By summer 1945 only one is still burning: Japan, across the water. Every hose is now aimed at it. American ships circle the islands, bombers come most nights, and in one August week the Soviet neighbour runs over with a hose too. **The war ends the way it was won: by weight, not by one clever stroke.**"
    },
    {
     "type": "exercise",
@@ -35,12 +36,14 @@
    {
     "type": "teach",
     "title": "Island by island",
-    "body": "After Midway in June 1942, the Americans fought across the Pacific one island at a time: Guadalcanal from August 1942, Saipan in July 1944, Iwo Jima and Okinawa in the first half of 1945. Each was a step closer, and each cost thousands of lives on both sides.\n\nWhy islands? Each one captured was an airfield nearer Japan. From Saipan and its neighbours, B-29 bombers could reach Tokyo. American submarines sank the tankers bringing oil from the south.\n\n**By summer 1945 Japan could not fuel its planes or feed its cities, and its army still refused to quit.** An invasion of Japan itself was planned for November."
+    "body": "After Midway in June 1942, the Americans fought across the Pacific one island at a time: Guadalcanal from August 1942, Saipan in July 1944, Iwo Jima and Okinawa in the first half of 1945. Each was a step closer, and each cost thousands of lives on both sides.\n\nWhy islands? Each one captured was an airfield nearer Japan. From Saipan and its neighbours, B-29 bombers could reach Tokyo. American submarines sank the tankers bringing oil from the south.\n\n**By summer 1945 Japan could not fuel its planes or feed its cities, and its army still refused to quit.** An invasion of Japan itself was planned for November.",
+    "simpler": "After the sea battle at Midway in June 1942, the Americans fought their way across the Pacific one island at a time: Guadalcanal, then Saipan, then Iwo Jima and Okinawa. Each island was a step closer and cost thousands of lives on both sides. Each captured island gave the Americans an airfield nearer Japan. From Saipan, B-29 bombers could reach Tokyo. American submarines sank the ships bringing oil. **By summer 1945 Japan could not fuel its planes or feed its cities, and its army still refused to quit.** An invasion of Japan itself was planned for November."
    },
    {
     "type": "example",
     "title": "One week in August",
-    "body": "6 August 1945: an American plane drops an *atomic bomb*, a single bomb with the force of thousands of ordinary ones, on Hiroshima. 8 August: the Soviet Union declares war on Japan, and the next morning its tanks roll into Manchuria, the part of China Japan held. 9 August: a second bomb hits Nagasaki.\n\nJapan's leaders had been hoping Moscow would help them bargain for softer terms. That hope and two cities died in the same four days. On 15 August the Emperor spoke on the radio, the first time most Japanese had ever heard his voice, to say the war was over. **The papers were signed on 2 September 1945**, on the battleship Missouri in Tokyo Bay: six years and one day after Poland."
+    "body": "6 August 1945: an American plane drops an *atomic bomb*, a single bomb with the force of thousands of ordinary ones, on Hiroshima. 8 August: the Soviet Union declares war on Japan, and the next morning its tanks roll into Manchuria, the part of China Japan held. 9 August: a second bomb hits Nagasaki.\n\nJapan's leaders had been hoping Moscow would help them bargain for softer terms. That hope and two cities died in the same four days. On 15 August the Emperor spoke on the radio, the first time most Japanese had ever heard his voice, to say the war was over. **The papers were signed on 2 September 1945**, on the battleship Missouri in Tokyo Bay: six years and one day after Poland.",
+    "simpler": "On 6 August 1945 an American plane dropped an atomic bomb on Hiroshima. One bomb had the force of thousands of ordinary ones. On 8 August the Soviet Union declared war on Japan, and its tanks rolled into Manchuria. On 9 August a second bomb hit Nagasaki. Japan had hoped Moscow would help it get softer terms. That hope died in the same four days as two cities. On 15 August the Emperor said on the radio that the war was over. **The papers were signed on 2 September 1945**, six years and one day after Poland."
    },
    {
     "type": "exercise",
@@ -70,11 +73,13 @@
    {
     "type": "teach",
     "title": "Four reasons the Allies won",
-    "body": "Now step back and look at the whole street. **Four things, each from a chapter you've read.**\n\n*Numbers.* From December 1941 Germany and Japan were fighting Britain, the Soviet Union and the United States at once (chapter 4). Those three together had more people, oil and steel than the Axis by a wide margin.\n\n*Factories.* America built ships and planes faster than the Axis could sink or shoot them down, and Soviet factories moved east, out of reach (chapter 6).\n\n*Sea lanes.* Atlantic convoys got through, and Midway sank Japan's carriers (chapter 5).\n\n*Teamwork.* The Allies planned together. Germany and Japan fought separate wars: Japan never attacked the Soviet Union, so Stalin could throw everything at Germany (chapter 4)."
+    "body": "Now step back and look at the whole street. **Four things, each from a chapter you've read.**\n\n*Numbers.* From December 1941 Germany and Japan were fighting Britain, the Soviet Union and the United States at once (chapter 4). Those three together had more people, oil and steel than the Axis by a wide margin.\n\n*Factories.* America built ships and planes faster than the Axis could sink or shoot them down, and Soviet factories moved east, out of reach (chapter 6).\n\n*Sea lanes.* Atlantic convoys got through, and Midway sank Japan's carriers (chapter 5).\n\n*Teamwork.* The Allies planned together. Germany and Japan fought separate wars: Japan never attacked the Soviet Union, so Stalin could throw everything at Germany (chapter 4).",
+    "simpler": "Now step back and look at the whole street. **Four things, each from a chapter you've read.** Numbers: from December 1941 Germany and Japan fought Britain, the Soviet Union and the United States all at once. Those three had far more people, oil and steel. Factories: America built ships and planes faster than they could be sunk or shot down, and Soviet factories moved east, out of reach. Sea lanes: Atlantic convoys got through, and Midway sank Japan's carriers. Teamwork: the Allies planned together. Germany and Japan fought separate wars, so Stalin could throw everything at Germany."
    },
    {
     "type": "mistake",
-    "body": "At a pub quiz, Dev hears 'why did the Allies win?' and says 'the atom bomb', then stops. Spot the slip with one question: which side had more steel, oil, ships and soldiers in 1944? If the answer is the Allies by a mile, the bomb cannot be the whole story. **It ended the war. It did not win it.** Germany had already surrendered three months before Hiroshima."
+    "body": "At a pub quiz, Dev hears 'why did the Allies win?' and says 'the atom bomb', then stops. Spot the slip with one question: which side had more steel, oil, ships and soldiers in 1944? If the answer is the Allies by a mile, the bomb cannot be the whole story. **It ended the war. It did not win it.** Germany had already surrendered three months before Hiroshima.",
+    "simpler": "At a pub quiz, Dev hears 'why did the Allies win?' and says 'the atom bomb', then stops. Catch the slip with one question: which side had more steel, oil, ships and soldiers in 1944? The Allies, by a mile. So the bomb cannot be the whole story. **It ended the war. It did not win it.** Germany had already given up three months before Hiroshima, with no bomb at all."
    },
    {
     "type": "exercise",
@@ -104,11 +109,13 @@
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Japan was squeezed island by island until, in one August week of 1945, two atomic bombs and a Soviet invasion left its leaders no way out, and the surrender was signed on 2 September. **The Allies won because they had more people, more factories, open sea lanes and a shared plan**, not because of one bomb or one battle."
+    "body": "Japan was squeezed island by island until, in one August week of 1945, two atomic bombs and a Soviet invasion left its leaders no way out, and the surrender was signed on 2 September. **The Allies won because they had more people, more factories, open sea lanes and a shared plan**, not because of one bomb or one battle.",
+    "simpler": "Here is the whole chapter in one breath. Japan was squeezed island by island. Then, in one August week of 1945, two atomic bombs and a Soviet invasion left its leaders no way out. The surrender was signed on 2 September. **The Allies won because they had more people, more factories, open sea lanes and a shared plan**, not because of one bomb or one battle. Think of a tug of war: the heavier team wins, whatever the last pull looks like."
    },
    {
     "type": "try",
-    "body": "Tonight, tell someone the whole war in 10 minutes: 1919, Munich, Poland, France, 1941, the three turning battles, D-Day, Berlin, August 1945. Count the turning points on your fingers. Wherever you stall is tomorrow's reread."
+    "body": "Tonight, tell someone the whole war in 10 minutes: 1919, Munich, Poland, France, 1941, the three turning battles, D-Day, Berlin, August 1945. Count the turning points on your fingers. Wherever you stall is tomorrow's reread.",
+    "simpler": "Tonight, tell someone the whole war in ten minutes. Walk through it in order: 1919, Munich, Poland, France, 1941, the three turning battles, D-Day, Berlin, August 1945. Count the turning points on your fingers as you go, like counting stops on a bus route. Wherever you stall or go blank, that is the part to reread tomorrow. Stalling is useful: it shows you exactly where the gap is."
    }
   ],
   "outcomeLine": "You can now explain how the war with Japan ended in August 1945 and give four concrete reasons the Allies won, each tied to a chapter you have read."

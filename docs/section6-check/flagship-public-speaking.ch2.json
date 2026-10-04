@@ -1,0 +1,127 @@
+{
+ "chapter": {
+  "n": 2,
+  "title": "Open with a promise",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Patrick Winston's first rule for any talk: never open with a joke. His reason is practical: in minute one the room is still tuning to your voice, so the joke lands on nobody. A hike leader knows this too. At the trailhead, nobody wants banter; they want someone to point at the summit and say what you'll see from it. **Your first 30 seconds are for naming the view.**"
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Priya has 5 minutes on a Friday afternoon to tell her team about a new way of filing contracts. Which opening gets the room looking up?",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"Thanks so much for staying, I know it's late on a Friday and you've all got places to be.\""
+     },
+     {
+      "id": "b",
+      "text": "\"By the end of these 5 minutes you'll be able to find any contract we own in under a minute.\""
+     },
+     {
+      "id": "c",
+      "text": "\"So, funny story about filing cabinets. Last week I opened one and...\""
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a thank-you, not a promise: it spends the one moment everyone is looking at you on nothing they can use.",
+     "c": "That's Winston's joke-at-the-trailhead: the room hasn't tuned to her voice yet, so it lands on nobody."
+    },
+    "reteach": "Picture the trailhead. Nobody has started walking, and they want one thing: to know where they're going and why it's worth the climb. The opening that says what they'll be able to do by the end is the only one that answers that."
+   },
+   {
+    "type": "teach",
+    "title": "Name the view, not yourself",
+    "body": "Patrick Winston's name for it is the *empowerment promise*: one sentence that tells the room what they'll be able to do at the end that they can't do now. **Your first job is to name the view, not to say hello.**\n\nThe shape is dull on purpose. \"By the end of these 5 minutes, you'll be able to...\" then a verb. Find a contract. Stop a pipe bursting. Say no to a meeting.\n\nYou'd think a thank-you is polite. It's the reverse: the first 30 seconds are the only moment the whole room is looking at you, and a thank-you spends them on nothing. It's the guide at the trailhead reading out the parking rules."
+   },
+   {
+    "type": "example",
+    "title": "Tom and the dripping tap",
+    "body": "Tom has fixed pipes for 22 years and has 5 minutes at the village hall before winter. His first draft opened: \"Hi, I'm Tom, I've been a plumber a long time, I'll try to keep this short.\" Three facts about Tom, none for the room. Second draft: \"In 5 minutes you'll know which one tap to leave dripping tonight so your pipes don't burst by morning.\" Forty people put their phones face-down. One woman wrote *which tap* on the back of her hand."
+   },
+   {
+    "type": "watch",
+    "who": "Patrick Winston",
+    "what": "How to Speak",
+    "url": "https://www.youtube.com/watch?v=Unzc731iCUY",
+    "from": "",
+    "minutes": 5,
+    "watchFor": "The opening minutes: listen for his own empowerment promise, and notice there is no joke before it."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Dev runs the toddler room at a nursery and has 5 minutes with new parents about the morning drop-off. Which opening is a promise?",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"Our drop-off routine has 4 steps, and I'll go through them in order.\""
+     },
+     {
+      "id": "b",
+      "text": "\"By the end of this you'll be able to leave your child at the door in under 2 minutes, with no tears. Yours included.\""
+     },
+     {
+      "id": "c",
+      "text": "\"I'm Dev, I run the toddler room, and I've been here 6 years.\""
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the path, not the view: a list of steps tells them the route, not what they'll be able to do once they've walked it.",
+     "c": "That's a hello, not a promise: it's about Dev, and the parents came for themselves."
+    },
+    "reteach": "A promise has the listener in it and a thing they'll be able to do. Read each opening and ask: who is this sentence about, and what can the room do afterwards that they couldn't before?"
+   },
+   {
+    "type": "teach",
+    "title": "Make it theirs, and make it true",
+    "body": "The promise has to be theirs, and it has to be true. Two checks. Does the sentence contain *you*? \"I'll walk you through our Q3 numbers\" is about you and your slides. \"You'll be able to say which product is losing us money\" is about them.\n\nSecond: can 5 minutes actually deliver it? Promise a view you can reach. A signpost that says \"summit, 10 minutes\" above a 2-hour climb loses the group for good.\n\nYour summit sentence from day 1 is the raw material. **Turn \"I think X\" into \"you'll be able to X\", say it, then stop for a breath.** Then start walking."
+   },
+   {
+    "type": "mistake",
+    "body": "Lena stood up at the residents' meeting and began: \"Can everyone hear me at the back? Great. So, before I start, a little about me.\" Four sentences in, half the room was back on their phones, and she hadn't said one thing about them. Spot it this way: if your first 3 sentences could be cut and nobody would notice, they're a hello, not a promise. **Cut them.**"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend asks you: what actually makes the first line of a talk a promise?",
+    "options": [
+     {
+      "id": "a",
+      "text": "It thanks the people who invited you, warmly and briefly."
+     },
+     {
+      "id": "b",
+      "text": "It tells listeners what they'll be able to do by the end that they can't do now."
+     },
+     {
+      "id": "c",
+      "text": "It lists the sections of the talk in the order they'll come."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the hello, not the promise: polite, and empty for the room.",
+     "c": "That's the route map, not the view: an agenda says what's coming, not what they'll gain."
+    },
+    "reteach": "Think of the signpost at the trailhead. It doesn't say who built it or list every bend in the path. It names the summit and what you'll see from it. The promise does the same job in one sentence."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Spend your first 30 seconds telling the room what they'll be able to do by the end, not who you are or how glad you are to be there. **People lean in when they know what the view is.**\n\nTomorrow: two famous speeches share one hidden zigzag. Nancy Duarte found it."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, finish this sentence for a talk you might actually give: \"By the end of these 5 minutes, you'll be able to...\" Say it out loud once, standing up, to the kettle if nobody's home."
+   }
+  ],
+  "outcomeLine": "You can now write and say an opening line that tells the room what they'll be able to do by the end.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 172 Q80 152 160 167 T320 162 L320 200 L0 200Z\" fill=\"#1F7A4D\"/><polygon points=\"150,165 215,48 282,165\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"199,76 215,48 231,76 223,70 215,79 207,70\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M160 164 Q195 150 185 125 T214 82\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"272\" cy=\"36\" r=\"15\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"78\" y1=\"170\" x2=\"78\" y2=\"96\" stroke=\"#1B1A17\" stroke-width=\"4\"/><polygon points=\"56,100 126,100 140,112 126,124 56,124\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"62\" y=\"117\" font-size=\"11\" font-family=\"sans-serif\" fill=\"#1B1A17\">summit 5 min</text><circle cx=\"30\" cy=\"124\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"30\" y1=\"133\" x2=\"30\" y2=\"164\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"30\" y1=\"142\" x2=\"54\" y2=\"130\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"30\" y1=\"164\" x2=\"22\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"30\" y1=\"164\" x2=\"38\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2\"/></svg>"
+ },
+ "seconds": 123.32852411270142
+}

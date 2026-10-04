@@ -45,10 +45,13 @@ Token rules (added 4 Oct afternoon, when personalisation came in):
 - A profile change marks unread chapters stale; a stale chapter is rewritten once, when opened. Chapters already started are never rewritten.
 - "Say it simpler" rewrites one card (600 tokens out) and stores it, so the second tap is free. Pre-generated for cached topics.
 - The masked comparison writes one chapter three times (Sonnet, Opus, Fable) only when the person asks, on the chapter they're on. Opus and Fable cost about ten times Haiku per chapter, so the comparison is per-chapter and per-request, never automatic.
+- "Ask or object" answers from the one card plus the chapter title and the reader line, 600 tokens out max, 40 an hour per device.
+- Cached handbooks carry a version; an unread, unpersonalised chapter is swapped for the newer cached one when the handbook is opened. No model call.
+- Quality gate for the cache: every cached chapter is scored by an LLM judge on 12 binary checks (docs/section6-check/judge.py logic, report in judge-report.md); under 10, or any doubtful fact, is regenerated once and re-judged.
 - Illustrations are model-drawn SVG inside the chapter call (about 800 tokens), capped at 1,400 characters, sanitised before render. No image provider.
 Calls cap: at most 60 generations an hour across the app, 6 an hour per device token, 30 "simpler" rewrites an hour per device, checked in mutations before anything is scheduled (Convex rate limiter component). A comparison counts as one generation against both caps even though it makes three calls.
 Provider limit: a hard monthly limit set by Prateek at the provider (not set as of 4 Oct night: no credits on the account).
 When a cap is hit or the call fails: "Couldn't write it just now. Your line is still here; try once more in a minute." The typed line stays on screen.
 Every call is saved in aiCalls (in, out, tokens, ms) so the last 100 can be read.
 Login: Convex Auth, after chapter 1 is passed, never before. Anonymous nights live under a device token.
-The AI must never: invent facts, names, dates, tools or statistics; write exercises that test something the chapter didn't teach; use the words "incorrect" or "wrong"; give medical, legal or financial advice as instruction (it may teach how a balance sheet works, it may not tell someone what to buy); write more than seven chapters or fewer.
+The AI must never: invent facts, names, dates, tools or statistics; put quoted words after a real person's name unless a verified reference gives that phrase; attach a general claim to a named expert; link anywhere outside the verified reference list; write exercises that test something the chapter didn't teach; use the words "incorrect" or "wrong"; give medical, legal or financial advice as instruction (it may teach how a balance sheet works, it may not tell someone what to buy); write more than seven chapters or fewer.

@@ -1,0 +1,117 @@
+{
+ "chapter": {
+  "title": "Pick one destination",
+  "cards": [
+   {
+    "body": "Most talks fail before a word is spoken: the speaker can't say what the point is. Picture inviting a friend on a walk and answering \"where to?\" with \"oh, around.\" By the second junction they've stopped following you and started checking their phone.\n\nA talk is that walk, and your first job is to name **where it ends**.",
+    "type": "picture"
+   },
+   {
+    "answer": "c",
+    "kind": "guess",
+    "options": [
+     {
+      "id": "a",
+      "text": "Neither, because 3 minutes is too short for anything to stick"
+     },
+     {
+      "id": "b",
+      "text": "Tamsin's, because she covered more ground"
+     },
+     {
+      "id": "c",
+      "text": "Kenji's, because it has one clear destination"
+     }
+    ],
+    "prompt": "Two coworkers get 3 minutes each at Friday's meeting. Tamsin says: \"I'll touch on the kitchen: the fridge, the rota, the mugs, the microwave.\" Kenji says: \"Label your lunch, or it's fair game.\" Whose talk will people still be repeating on Monday?",
+    "reteach": "People remember a place they were taken to, not every shop they walked past. Kenji's one sentence is a place. Tamsin's list is a pavement.",
+    "type": "exercise",
+    "whyNot": {
+     "a": "That's the length of the talk, not its clarity: a single short sentence is exactly what survives 3 minutes.",
+     "b": "That's the amount of material, not the point: four stops with no destination leaves people remembering none of them."
+    }
+   },
+   {
+    "body": "A talk has room for **one point**: the single sentence you'd want a listener to repeat to a friend on the bus home. Everything else in the talk is just the path to it.\n\nWrite that sentence first, before slides, before notes, before research. Aim for about 15 words. It should *say* something, not just name a subject. \"Bins\" is a topic. \"Rotate bin duty weekly so nobody has to nag\" is a point.\n\nWhy first? Because every later choice becomes a yes-or-no question: does this step get us there?",
+    "title": "The one point",
+    "type": "teach"
+   },
+   {
+    "body": "Dev has 3 minutes to pitch his flatmates on a chore rota. His first draft of the point: \"Bins, recycling, the council's collection days, and the smell.\" That's a shopping list, not a destination.\n\nTen minutes of crossing things out later, he has: \"If we rotate bin duty weekly, nobody has to ask twice.\" Eleven words. He says it aloud in about four seconds, and for the first time he knows what his talk is for.",
+    "title": "Dev and the bins",
+    "type": "example"
+   },
+   {
+    "answer": "b",
+    "kind": "apply",
+    "options": [
+     {
+      "id": "a",
+      "text": "Recycling, bins, the kettle, and the council's rules."
+     },
+     {
+      "id": "b",
+      "text": "Move the recycling bins next to the kettle: people recycle where they already stand."
+     },
+     {
+      "id": "c",
+      "text": "Today I'll talk about recycling at our office."
+     }
+    ],
+    "prompt": "You're pitching a change at your office. Which line works as the one point of your talk?",
+    "reteach": "A point makes a claim someone could agree with, disagree with or act on. Option b has a verb and a reason, in 14 words. The others only name subjects.",
+    "type": "exercise",
+    "whyNot": {
+     "a": "That's a list of stops, not a destination: nothing in it says what listeners should think or do.",
+     "c": "That's a topic, not a point: it tells people where you're standing, not where you're taking them."
+    }
+   },
+   {
+    "body": "Check your sentence three ways. Can you say it in under 10 seconds? Does it make a claim, with a verb, rather than just naming a subject? Could a listener agree with it, argue with it, or act on it?\n\nIf you need two *and*s to hold it together, you're carrying two destinations. Pick one. The other isn't lost; it's a different walk for another day.\n\nThis feels like throwing things away. It is. Your listeners will be glad of every item you left on the pavement.",
+    "title": "The 15-word test",
+    "type": "teach"
+   },
+   {
+    "body": "Maria knows her subject cold, and it would be a shame to waste three good points. So her talk has three. Afterwards people say \"that was interesting!\" and can't repeat a word of it. **Spot it:** if your sentence has an *and* joining two separate claims, you've packed two walks into one.",
+    "type": "mistake"
+   },
+   {
+    "answer": "a",
+    "kind": "recall",
+    "options": [
+     {
+      "id": "a",
+      "text": "Choose the one claim you'd keep if listeners remembered only one, and cut the rest"
+     },
+     {
+      "id": "b",
+      "text": "Keep it all and speak a bit faster to fit it in"
+     },
+     {
+      "id": "c",
+      "text": "Turn it into a short title so it sounds neater"
+     }
+    ],
+    "prompt": "Your draft point is 31 words long and has two \"and\"s joining different claims. What do you do?",
+    "reteach": "A long sentence with two \"and\"s is two destinations wearing one coat. Ask which one you'd save if you could save only one. Write that as a single sentence of about 15 words.",
+    "type": "exercise",
+    "whyNot": {
+     "b": "That's squeezing the pace, not fixing the destination: two claims at double speed is still two walks at once.",
+     "c": "That's a topic label, not a point: a neat title hides the problem instead of choosing a destination."
+    }
+   },
+   {
+    "body": "Every talk needs exactly one point: one sentence of about 15 words, with a verb, that you can say in under 10 seconds. Write it before anything else, and let it decide what stays.\n\nNext: who's walking with you, and why they decide what you cut.",
+    "title": "In one breath",
+    "type": "teach"
+   },
+   {
+    "body": "Pick a talk you might give. On a sticky note, write your one sentence. Say it out loud with a phone timer running. Under 10 seconds and under 15 words? Done. If not, cut.",
+    "type": "try"
+   }
+  ],
+  "outcomeLine": "You can now write the one sentence your talk exists to deliver, and say it out loud in under 10 seconds.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M30 165 C90 165 90 110 160 112 S240 75 270 52\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M160 112 C185 150 230 165 295 170\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"5 6\" opacity=\"0.4\"/><path d=\"M100 128 C95 90 110 60 140 40\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"5 6\" opacity=\"0.4\"/><circle cx=\"30\" cy=\"165\" r=\"10\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"270\" y1=\"52\" x2=\"270\" y2=\"18\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"270,18 296,27 270,36\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"14\" y=\"190\" font-size=\"14\" fill=\"#1B1A17\">start</text><text x=\"232\" y=\"72\" font-size=\"14\" fill=\"#1B1A17\">point</text></svg>"
+ },
+ "model": "claude-sonnet-5-5"
+}

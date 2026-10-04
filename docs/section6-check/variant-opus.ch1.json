@@ -1,0 +1,117 @@
+{
+ "chapter": {
+  "title": "Pick one destination",
+  "cards": [
+   {
+    "body": "Most talks fail before a word is spoken: the speaker can't say what the point is.\n\nA talk is a walk you lead, and nobody follows a guide who says \"let's just head out and see.\" Before anything else, **you pick one destination**, and you can name it in one sentence.",
+    "type": "picture"
+   },
+   {
+    "answer": "b",
+    "kind": "guess",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"Let's just wander and see what we find.\""
+     },
+     {
+      "id": "b",
+      "text": "\"We're walking to the caf\u00e9 by the river. About 20 minutes.\""
+     },
+     {
+      "id": "c",
+      "text": "\"There's the caf\u00e9, the bridge, the old church, the market, the park...\""
+     }
+    ],
+    "prompt": "A friend offers to take you on a walk on a Sunday afternoon. Which opening line makes you happiest to follow them?",
+    "reteach": "People follow more easily when they know where they're going. One named place and a rough time tells them the walk has an end. A talk works the same way: one stated destination beats a tour of options.",
+    "type": "exercise",
+    "whyNot": {
+     "a": "That's a stroll, not a destination: you can't tell when you'll arrive, so you can't relax.",
+     "c": "That's a list, not a destination: five places means you don't know which one you're actually going to."
+    }
+   },
+   {
+    "body": "A *topic* is the area you'll talk about: \"the office move\", \"my trip to Lisbon\". It's a whole park. You can wander a park for an hour and arrive nowhere.\n\nA *point* is the bench you're walking to. **Your point is a full sentence that claims something**, so a listener could agree, argue, or act on it.\n\nQuick test: does it have a verb and a \"so what\"? \"Lisbon\" is a park. \"Go to Lisbon in March, before the crowds\" is a bench.",
+    "title": "A topic is a park, a point is a bench",
+    "type": "teach"
+   },
+   {
+    "body": "Sam has 3 minutes at Monday's team meeting about the office move. His first try at the point: \"The office move.\" That's a park.\n\nSecond try: \"There's a lot to say about the move: dates, boxes, parking.\" Still a park, now with signposts.\n\nThird try: **\"Pack your desk by Thursday, or it goes in the skip.\"** Eleven words. Every person in the room knows exactly what to do, and two of them are already eyeing their desks.",
+    "title": "Sam and the office move",
+    "type": "example"
+   },
+   {
+    "answer": "c",
+    "kind": "apply",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"The booking app: history, features, pricing and next steps.\""
+     },
+     {
+      "id": "b",
+      "text": "\"The new booking app.\""
+     },
+     {
+      "id": "c",
+      "text": "\"Book rooms in the app, not by email, and you'll never lose a room again.\""
+     }
+    ],
+    "prompt": "Maya has 3 minutes to present her team's new room-booking app. Which of these is a destination?",
+    "reteach": "A point is a full sentence that tells listeners something they could act on or argue with. Ask: \"So what?\" If the answer isn't already in the sentence, it's still a topic.",
+    "type": "exercise",
+    "whyNot": {
+     "a": "That's an agenda, not a point: four stops with no single place you arrive at.",
+     "b": "That's the topic, not the point: it names the park but no bench, and there's no claim to act on."
+    }
+   },
+   {
+    "body": "Write your point first, before slides, notes or jokes. Keep it to about 15 words. **If it won't fit in one sentence, you have two talks**, and you need to pick one.\n\nYou'd think three points give people more to take home. They give people three places to wander off to. One destination means everyone ends up at the same bench.\n\nThen say it out loud. If it takes longer than 10 seconds, or you need a breath in the middle, cut words until you don't.",
+    "title": "15 words, 10 seconds",
+    "type": "teach"
+   },
+   {
+    "body": "Leo builds 14 slides on the new expenses process, then asks himself what the point is. He doesn't know, so his talk ends with \"So... yeah, that's the process.\" Spot it early: **if you can't finish \"My point is that...\" in one breath**, stop building and write the sentence first.",
+    "type": "mistake"
+   },
+   {
+    "answer": "b",
+    "kind": "recall",
+    "options": [
+     {
+      "id": "a",
+      "text": "It's the title on your first slide."
+     },
+     {
+      "id": "b",
+      "text": "It's one sentence of about 15 words you can say aloud in under 10 seconds."
+     },
+     {
+      "id": "c",
+      "text": "It mentions everything you plan to cover."
+     }
+    ],
+    "prompt": "You've drafted a talk. How do you know you've actually got your one point?",
+    "reteach": "The point is a single claim, short enough to say in one breath. Time it: about 15 words, under 10 seconds. If it's longer, you're still describing the park instead of naming the bench.",
+    "type": "exercise",
+    "whyNot": {
+     "a": "That's a label, not a point: titles usually name the topic, the park, not the bench.",
+     "c": "That's the route, not the destination: covering everything turns one point back into a tour."
+    }
+   },
+   {
+    "body": "**Every talk needs one destination**: a single sentence of about 15 words that claims something your listeners can act on or argue with. Write it before anything else, and check you can say it aloud in under 10 seconds.\n\nTomorrow: who's walking with you, and why that decides what you cut.",
+    "title": "In one breath",
+    "type": "teach"
+   },
+   {
+    "body": "Pick a talk you might give, like a toast or a work update. Finish \"My point is that...\" in 15 words or fewer. Say it aloud with your phone's stopwatch running. Under 10 seconds? Done.",
+    "type": "try"
+   }
+  ],
+  "outcomeLine": "You can now write the one sentence your talk exists to deliver, and say it out loud in under 10 seconds.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M30 182 C100 172 60 125 135 120 S215 95 250 62\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"12\" stroke-linecap=\"round\"/><path d=\"M30 182 C100 172 60 125 135 120 S215 95 250 62\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 9\"/><line x1=\"256\" y1=\"64\" x2=\"256\" y2=\"18\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"256,18 292,28 256,38\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"52\" cy=\"150\" r=\"7\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"52\" y1=\"157\" x2=\"52\" y2=\"174\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"52\" y1=\"174\" x2=\"46\" y2=\"186\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"52\" y1=\"174\" x2=\"58\" y2=\"186\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"30\" cy=\"156\" r=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"30\" y1=\"162\" x2=\"30\" y2=\"177\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"190\" cy=\"150\" r=\"14\" fill=\"#1F7A4D\"/><line x1=\"190\" y1=\"164\" x2=\"190\" y2=\"180\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"90\" cy=\"70\" r=\"12\" fill=\"#1F7A4D\"/><line x1=\"90\" y1=\"82\" x2=\"90\" y2=\"96\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"222\" y=\"95\" font-family=\"sans-serif\" font-size=\"14\" fill=\"#1B1A17\">one point</text></svg>"
+ },
+ "model": "claude-opus-5-5"
+}

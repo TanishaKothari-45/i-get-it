@@ -5,120 +5,114 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Picture the intern's first morning. You hand them a laminated card: *may use: the company search engine, the shared drive (read only), the printer.* **Everything the intern can do to the world is on that card.** They can think all they like, but if 'send email' is not printed on it, no email leaves the building.",
-    "simpler": "Imagine a new intern's first morning. You hand them a small card that says what they may use: the company search engine, the shared drive for reading only, and the printer. **Everything the intern can do to the world is on that card.** They can think as much as they like. But if 'send email' is not on the card, no email goes out. The card is the whole limit."
+    "body": "The model never clicks anything. It writes a note, *send an email to Priya about the invoice*, and a piece of ordinary software reads the note and does the sending.\n\n**A tool is a named action the model may ask for.** The list of tools is the list of things our new intern is allowed to touch, and nothing else on the desk exists for them."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "The intern's card has 3 lines: search the web, read a file, add a calendar event. Halfway through a task they decide the best next step is to delete a file. What happens?",
+    "prompt": "Your agent gets one task: find out if the caf\u00e9 on Elm Street opens on Sundays. It has exactly one tool: *search the web*. What can it do?",
     "options": [
      {
       "id": "a",
-      "text": "The file gets deleted. A clever intern finds a way."
+      "text": "Search, read the results, and tell you the answer."
      },
      {
       "id": "b",
-      "text": "Nothing. Delete is not on the card, so the request has nowhere to go."
+      "text": "Phone the caf\u00e9 to double-check."
      },
      {
       "id": "c",
-      "text": "They ask the search engine to delete it instead."
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's imagining the intern has hands of their own. The model only writes requests; code performs them, and there is no delete code to perform this one.",
-     "c": "That's mixing up two tools. Search can only search; a tool does the one job its name says."
-    },
-    "reteach": "The model never touches anything directly. It writes a request like 'use tool: delete_file'. If no such tool is on the list, the request is just text that goes nowhere."
-   },
-   {
-    "type": "teach",
-    "title": "The card, and the request",
-    "body": "A *tool* is a named action the agent may ask for, with a short description: 'search_web: takes a phrase, returns the top 5 results.' The model reads this list at the start, like reading the laminated card.\n\nWhen the model decides to act, it does not act. It writes a small structured request: *tool: search_web, query: cheapest flight Lisbon March*. **The model only writes the request; ordinary code performs it** and hands the result back as plain text.\n\nSo the model's whole power over the world is borrowed. It can wish for anything, but it gets only what the code is willing to do.",
-    "simpler": "A tool is a named action the agent is allowed to ask for. It comes with a short note, like 'search_web: give it a phrase, get the top 5 results.' The model reads this list at the start, like reading the card. When the model wants to act, it does not act. It writes a short request: 'tool: search_web, query: cheapest flight Lisbon March.' **The model only writes the request; ordinary code performs it** and hands back the result as plain text. So the model's power is borrowed. It can wish for anything, but it only gets what the code will do."
-   },
-   {
-    "type": "example",
-    "title": "Priya's news agent",
-    "body": "Priya builds a tiny agent to find and summarise 3 recent news stories about electric bikes. She gives it 2 tools: search_web and fetch_page. The log shows the model asking search_web for 'electric bike news', then fetch_page 3 times, then writing the summary with no tool at all. At one point the model writes 'I will now email this to Priya.' **Nothing happens.** There is no email tool, so the sentence is just a sentence.",
-    "simpler": "Priya builds a small agent to find and sum up 3 recent news stories about electric bikes. She gives it 2 tools: search_web and fetch_page. The log shows the model asking search_web for 'electric bike news', then using fetch_page 3 times, then writing the summary with no tool at all. At one point the model writes 'I will now email this to Priya.' **Nothing happens.** There is no email tool, so that sentence is just a sentence."
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "Priya now wants the summary saved as a note on her laptop. Which change actually gets her there?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Write the goal more firmly: 'You MUST save the file.'"
-     },
-     {
-      "id": "b",
-      "text": "Add a write_file tool, with code behind it that really writes to disk."
-     },
-     {
-      "id": "c",
-      "text": "Describe her laptop in detail so the model understands where notes live."
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's changing the goal, not the card. A firmer wish is still only text, with no code to carry it out.",
-     "c": "That's more knowledge, not more reach. Knowing where notes live gives the model no way to put one there."
-    },
-    "reteach": "An agent gains a new ability only when a new tool is added: a name the model can ask for, plus code that does the job. More words in the prompt never add abilities."
-   },
-   {
-    "type": "teach",
-    "title": "The list is the lever",
-    "body": "Flip it round. Because every action goes through the list, **the tool list is the single biggest safety lever you have.** Shorten it and the worst the agent can do shrinks with it.\n\nTools are not equally risky. Reading things (search, open a file) is cheap to get wrong: a bad read gives a bad answer, and you can ignore it. Changing things (send, delete, pay, post) is where mistakes become real. An email sent to the wrong person cannot be unsent.\n\nSo before handing over a tool, ask: if the model calls this at the worst moment with the worst input, what breaks? That answer decides whether it goes on the card.",
-    "simpler": "Turn it around. Every action goes through the list, so **the tool list is the single biggest safety lever you have.** Make it shorter and the worst the agent can do gets smaller too. Tools are not all equally risky. Reading things, like search or open a file, is cheap to get wrong. A bad read gives a bad answer, and you can ignore it. Changing things, like send, delete, pay or post, is where mistakes become real. A wrong email cannot be unsent. So before you hand over a tool, ask: if the model calls this at the worst moment with the worst input, what breaks? That answer decides if it goes on the card."
-   },
-   {
-    "type": "mistake",
-    "body": "Tomas wanted his agent to tidy his inbox, so he gave it one big tool called 'gmail' that could read, archive, reply and delete. It read fine. Then it tidied 3 unread invoices into the bin. **Spot it by looking for a tool named after a whole app rather than one verb**: that tool is hiding a delete inside a read.",
-    "simpler": "Tomas wanted his agent to tidy his inbox. He gave it one big tool called 'gmail' that could read, archive, reply and delete. Reading went fine. Then it tidied 3 unread invoices into the bin. **Spot it by looking for a tool named after a whole app rather than one verb.** A tool like that is hiding a delete inside a read, the way one master key opens every door."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "A friend says: 'My agent can only search and read files, so it can't do much harm. But I'm worried it might book a hotel by accident.' What do you tell them?",
-    "options": [
-     {
-      "id": "a",
-      "text": "It can't. Booking is not a tool it has, so no request for it goes anywhere."
-     },
-     {
-      "id": "b",
-      "text": "It might, if the model is smart enough to work out booking on its own."
-     },
-     {
-      "id": "c",
-      "text": "It might, because reading a file about hotels teaches it how."
+      "text": "Add the opening hours to your calendar."
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's confusing cleverness with reach. The model's smarts change what it asks for, never what code exists to answer.",
-     "c": "That's mixing knowledge with ability. A read tool returns text; reading how to book gives it no booking tool."
+     "b": "That's an action it has no tool for: phoning needs a 'make a call' tool on the list, and there isn't one.",
+     "c": "That's a different tool: writing to a calendar is a separate action nobody put on the desk."
     },
-    "reteach": "The model's reach is exactly the tool list, nothing more. Search and read can produce bad answers, but they cannot change anything in the world."
+    "reteach": "The agent can only ask for actions on its list. Search is on the list, so it searches. Phoning and calendars are not, so however much the text says 'I'll call them', nothing happens."
+   },
+   {
+    "type": "teach",
+    "title": "What a tool actually is",
+    "body": "A *tool* is three things: a name like *search_web*, a one-line description the model reads, and a small piece of code that does the real work. The model sees only the name and the description, like a menu with no kitchen.\n\nWhen the model wants one, it writes a request in a fixed shape: tool name, then the details. *search_web, phrase: Elm Street caf\u00e9 Sunday hours.* That is text. Nothing has happened yet.\n\nThen the code runs the search for real and hands the result back as more text. **The model asks; the code acts.** Talking needs no tool at all: writing a summary is just the model's own words."
+   },
+   {
+    "type": "example",
+    "title": "The stapler it never had",
+    "body": "Mara builds an agent to tidy her downloads folder. She gives it 2 tools: *list files* and *move file*. On the first run it lists 212 files, then writes 212 move requests, one per file, and her code carries each one out.\n\nThen it writes a request for a tool called *delete file*. Her code answers: no such tool. The agent shrugs, in text, and reports it tidied everything it could. Nothing was deleted, because nothing in the office could delete."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You're building an agent to find and summarise 3 recent news stories about electric bikes. Which tool list is enough for the job?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Search the web, open a web page."
+     },
+     {
+      "id": "b",
+      "text": "Search the web, send an email."
+     },
+     {
+      "id": "c",
+      "text": "Open a web page, move file."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's a tool the task never needs: sending email adds risk and no help, and the summary needs no tool, it's just words.",
+     "c": "That's a tidying tool, not a reading one: with no search, the agent can't find the stories in the first place."
+    },
+    "reteach": "Ask what actions the task truly needs: finding pages and reading them. The summary itself is the model talking, which needs no tool. Anything beyond that is rope you're handing over for nothing."
+   },
+   {
+    "type": "teach",
+    "title": "The list is the safety lever",
+    "body": "You'd think the big safety question is how clever the model is. It's the opposite. A brilliant model with no tools can't hurt anything. A plain model with a *send money* tool can empty an account by lunch. **Risk lives in the tool list, not in the brain.**\n\nSo builders sort tools into readers and writers. Readers (search, open a page, list files) look at the world and change nothing. Writers (send, delete, pay, post) change it, and often can't be undone.\n\nThe riskiest tool to hand over is a writer that reaches outside your own computer. For the news task, that tool isn't on the list at all. That's the point."
+   },
+   {
+    "type": "mistake",
+    "body": "Dev gives his email-sorting agent one convenient tool: *run any command*. It can read mail with that. It can also delete mail, and it does, 40 messages, while 'tidying'. How to spot it: if a tool's description contains the word *any* or *everything*, it isn't a tool. It's the keys to the building."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which sentence is true about how an agent acts?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The model performs each action itself, like a person at a keyboard."
+     },
+     {
+      "id": "b",
+      "text": "The model writes a request naming a tool, and separate code performs the action."
+     },
+     {
+      "id": "c",
+      "text": "The model can use any tool it learned about in training, listed or not."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the picture from films, not the loop: the model only ever produces text, never a click.",
+     "c": "That's knowing about a tool, not having one: the intern may know what a phone is, but there's no phone on the desk."
+    },
+    "reteach": "Picture the intern at a desk with a short menu. They write 'search this' or 'move that' on a slip, and someone else carries it out. Off the menu, the slip goes nowhere."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "An agent acts only by asking for named tools that ordinary code then performs, so **the model never touches anything itself.** Keep the list short, and be slowest to hand over anything that changes the world rather than reads it.",
-    "simpler": "An agent acts only by asking for named tools, and ordinary code then performs them. So **the model never touches anything itself.** Keep the list short. Be slowest to hand over any tool that changes the world, and quicker with one that only reads it. A reading mistake gives a bad answer. A changing mistake, like a sent email, cannot be taken back."
+    "body": "An agent acts through tools: named actions the model asks for in text, which ordinary code then carries out. **Whatever is on that list is everything the agent can touch**, so the list is where the risk lives, not the cleverness.\n\nTomorrow: why an agent that worked for 10 steps starts repeating itself at 40."
    },
    {
     "type": "try",
-    "body": "Pick one chore you would hand an agent tonight. Write the tools it would need as single verbs: search, read, send. Circle the one that changes something. That is the one to watch.",
-    "simpler": "Pick one chore you would hand an agent tonight. Write down the tools it would need as single verbs: search, read, send. Then circle the one that changes something instead of just reading it. That is the one to watch. It is the tool that can do real harm if it runs at the wrong moment with the wrong input."
+    "body": "Open ChatGPT or Claude and ask: 'What tools do you have right now, and what can't you do?' Sort the answer into tools (search, run code) and plain talking."
    }
   ],
-  "outcomeLine": "You can now list the tools an agent needs for a task and point to the one that changes the world, so needs the most care."
+  "outcomeLine": "You can now list the tools an agent needs for a task and point to the one that is riskiest to hand over.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"30\" y=\"128\" width=\"260\" height=\"12\" rx=\"3\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"45\" y1=\"140\" x2=\"42\" y2=\"180\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"275\" y1=\"140\" x2=\"278\" y2=\"180\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"80\" cy=\"68\" r=\"17\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M80 85 L80 128 M80 98 L112 104 M80 100 L58 118\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><rect x=\"112\" y=\"90\" width=\"54\" height=\"32\" rx=\"3\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\" transform=\"rotate(-6 139 106)\"/><text x=\"124\" y=\"111\" font-size=\"12\" fill=\"#1B1A17\" font-family=\"sans-serif\">ask</text><polyline points=\"172,106 196,106 190,100 196,106 190,112\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><circle cx=\"218\" cy=\"108\" r=\"9\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\"/><line x1=\"225\" y1=\"115\" x2=\"234\" y2=\"126\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-linecap=\"round\"/><rect x=\"244\" y=\"104\" width=\"28\" height=\"22\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\"/><polyline points=\"244,104 258,116 272,104\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\"/><line x1=\"240\" y1=\"100\" x2=\"276\" y2=\"130\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"208\" y=\"160\" font-size=\"12\" fill=\"#1B1A17\" font-family=\"sans-serif\">tools</text><text x=\"60\" y=\"160\" font-size=\"12\" fill=\"#1B1A17\" font-family=\"sans-serif\">intern</text></svg>"
  },
- "seconds": 59.352789878845215
+ "seconds": 97.13680815696716
 }

@@ -1,0 +1,127 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "Pick one summit",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Why do people walk out of a 20-minute talk unable to say what it was about? Usually because the speaker packed 4 summits into one hike, and the group never got above the tree line on any of them. **A talk is a hike with one summit**: before you plan the path, the pace or the view, you pick the single peak everyone will be standing on at the end."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Priya has 5 minutes at Monday's team meeting. Her draft covers the new hiring process, why last quarter's hire took 11 weeks, and a scheduling tool she likes. How many summits is that?",
+    "options": [
+     {
+      "id": "a",
+      "text": "One: it's all about hiring."
+     },
+     {
+      "id": "b",
+      "text": "Three: each could be a talk on its own."
+     },
+     {
+      "id": "c",
+      "text": "None: 5 minutes is too short for a summit."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the topic, not the summit: 'hiring' is the mountain range. A summit is one specific idea you want them to carry back down.",
+     "c": "That's the time limit, not the idea count: 5 minutes is plenty for one summit, and far too short for three."
+    },
+    "reteach": "A topic is an area. A summit is one claim about it. 'Hiring' is an area. 'Our hiring takes 11 weeks because 4 people must say yes' is a summit. Priya's draft makes three separate claims, so it has three summits."
+   },
+   {
+    "type": "teach",
+    "title": "One summit, one sentence",
+    "body": "Chris Anderson's first rule for a TED talk is blunt: **one major idea**. Not a theme, not a topic, one idea. 'Meetings' is a topic. 'Meetings should open with the decision, not the background' is an idea.\n\nHere's the test. Write the sentence a listener would say to a friend in the car park afterwards. It has a verb, it makes a claim, and it fits in one breath. If you can't write it, you haven't picked your summit yet.\n\nYou'd think a longer talk earns a bigger idea. It's the reverse. The longer the hike, the more one clear peak matters, because people get tired."
+   },
+   {
+    "type": "example",
+    "title": "Dev's 5 minutes on the bike shed",
+    "body": "Dev had 5 minutes to pitch a bike shed to the residents' committee. His first draft had the cost, the planning rules, the story of his stolen bike, and 3 photos of sheds in Utrecht. He wrote the car-park sentence: 'A shed pays for itself in 2 years because fewer people will need the car park.' Then he read the draft again. The stolen bike was a lovely story. **It was on a different mountain**, so it went."
+   },
+   {
+    "type": "watch",
+    "who": "Chris Anderson",
+    "what": "TED's secret to great public speaking",
+    "url": "https://www.ted.com/talks/chris_anderson_ted_s_secret_to_great_public_speaking",
+    "from": "",
+    "minutes": 8,
+    "watchFor": "The moment he names the one thing every great talk shares, an idea, and why he insists on one, not several."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Dev's summit: 'A shed pays for itself in 2 years because fewer people will need the car park.' Which of these stays in the talk?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The story of his stolen bike, told well."
+     },
+     {
+      "id": "b",
+      "text": "The 3 photos of sheds in Utrecht."
+     },
+     {
+      "id": "c",
+      "text": "How many residents already keep a bike in the hallway."
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's a good story, not a step on the path: it argues that bikes get stolen, which is a different summit.",
+     "b": "That's decoration, not a step: pretty sheds don't show that the shed pays for itself."
+    },
+    "reteach": "Keep whatever moves people one step toward the summit sentence. Dev's summit is about money and parking. Bikes in hallways show there is demand for the shed, so they help. Theft and pretty photos are true, but they point elsewhere."
+   },
+   {
+    "type": "teach",
+    "title": "Build a fence around it",
+    "body": "Patrick Winston tells speakers to *build a fence around the idea*: say what it is, and what it is not, so nobody confuses it with its neighbours. The fence does a second job. It shows you what to cut.\n\nWalk through your draft one piece at a time and ask: does this move them one step toward the summit? If yes, keep it. If it is merely true, interesting, or took you a weekend to make, it goes. **Cutting is most of the work.**\n\nYou will mourn the cuts. Keep a 'next hike' note and drop them in. Most will make a better talk later."
+   },
+   {
+    "type": "mistake",
+    "body": "Maya's talk was about the new booking system. At minute 3 she said 'while I'm here, one more thing' and spent 90 seconds on the holiday rota. Afterwards 2 people asked about the rota. Nobody asked about the booking system. **Spot it by the phrase**: 'while I'm here', 'quick aside', 'one more thing'. Each one is a second summit."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend says: 'My talk is about remote work.' Which reply shows they've picked a summit?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Remote work: pros, cons and a bit of history."
+     },
+     {
+      "id": "b",
+      "text": "Remote teams should meet in person once a quarter, or they drift."
+     },
+     {
+      "id": "c",
+      "text": "Remote work, with a strong section on time zones."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a topic with a table of contents, not a claim: nothing there a listener could repeat in one breath.",
+     "c": "That's a topic with one emphasised section, not an idea: 'time zones' is still an area, not a claim with a verb."
+    },
+    "reteach": "Ask: could a listener say it to a friend afterwards as one sentence with a verb? 'Remote teams should meet once a quarter' passes. 'Remote work' and 'time zones' are places on the map, not a summit."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "A talk has **one summit**: a single idea you can write as one sentence with a verb, the one a listener repeats in the car park. Everything that doesn't move people one step toward it gets cut, however good it is.\n\nTomorrow: why starting with a joke or a thank-you costs you the first 30 seconds."
+   },
+   {
+    "type": "try",
+    "body": "Open your notes app. Write the **car-park sentence** for a talk you might one day give. Under it, list 3 things you'd normally say that aren't on the path to it."
+   }
+  ],
+  "outcomeLine": "You can now write the one idea of a talk in a single sentence, and name 3 things you'll leave out.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"10,180 120,40 230,180\" fill=\"#1F7A4D\"/><polygon points=\"108,56 120,40 132,56 126,52 120,60 114,52\" fill=\"#F2A93B\"/><path d=\"M40 180 Q85 160 95 125 T120 72\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"3\" stroke-dasharray=\"6 5\" stroke-linecap=\"round\"/><line x1=\"120\" y1=\"40\" x2=\"120\" y2=\"12\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"120,12 146,19 120,26\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><circle cx=\"50\" cy=\"166\" r=\"5\" fill=\"#1B1A17\"/><line x1=\"50\" y1=\"171\" x2=\"50\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"64\" cy=\"162\" r=\"4\" fill=\"#1B1A17\"/><line x1=\"64\" y1=\"166\" x2=\"64\" y2=\"178\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"245,180 278,118 311,180\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"1.5\" stroke-dasharray=\"4 4\"/><line x1=\"252\" y1=\"128\" x2=\"304\" y2=\"176\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"304\" y1=\"128\" x2=\"252\" y2=\"176\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"12\" y=\"196\" font-family=\"sans-serif\" font-size=\"13\" fill=\"#1B1A17\">one summit</text></svg>"
+ },
+ "seconds": 111.58806085586548
+}

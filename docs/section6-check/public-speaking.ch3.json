@@ -5,120 +5,114 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Picture leading three friends from the car park to a lighthouse. You point at it first: \"We're going there.\" Then you walk the path in **3 stretches, with a clear turn between each**. When you reach the lighthouse, you say \"Here it is.\" Nobody has to guess where they are, and nobody is counting their steps.",
-    "simpler": "Imagine you're leading three friends from the car park to a lighthouse. First you point at it and say, \"We're going there.\" Then you walk the path in **three stretches, with a clear turn between each one**. When you arrive, you say, \"Here it is.\" Nobody has to guess where they are on the way, and nobody has to count their steps."
+    "body": "Why do you remember three things from a good talk and nothing from a bad one? Because the good speaker told you where you were going, took you there in three steps, and told you when you'd arrived. **A route has a start, a few landmarks and an end**; a bad talk is a wander with no map."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You're leading the lighthouse walk. Which guide would your friends thank you for?",
+    "prompt": "Priya has 3 minutes to tell her running club why they should switch to morning runs. Which opening puts her listeners on the route?",
     "options": [
      {
       "id": "a",
-      "text": "Point at the lighthouse, walk the path in 3 stretches, then say \"Here it is\" when you arrive."
+      "text": "\"So, I've been thinking a lot about running lately, and there are so many factors...\""
      },
      {
       "id": "b",
-      "text": "Set off fast with no word about where you're going, and keep walking until everyone is tired."
+      "text": "\"Morning runs will get more of us to turn up. Here's why, in three steps.\""
      },
      {
       "id": "c",
-      "text": "Say \"Lighthouse!\" and then describe 9 different side paths in loving detail."
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's a walk with no destination named: nobody knows where they're going, so nobody can follow. Say it first.",
-     "c": "That's one destination with 9 steps, not 3. People lose the path somewhere around step 4."
-    },
-    "reteach": "A short talk has one shape: say where you're going, go there in 3 steps, say where you've arrived. Three steps is enough for a listener to hold in their head. Name the destination at both ends so nobody feels lost."
-   },
-   {
-    "type": "teach",
-    "title": "Three parts, one card",
-    "body": "A 3-minute talk has **3 parts: opening line, 3 steps, closing line**. The opening line is your one sentence from chapter 1, said straight out. It tells people where the walk ends.\n\nThe 3 steps are the route. Each one is a reason, an example or a stage that moves the listener closer to that sentence. Give each step a short name of 2 to 5 words so you can remember it.\n\nIt all fits on one *index card*, a small piece of card about the size of your palm. If it doesn't fit, you have too much.",
-    "simpler": "A 3-minute talk has **three parts: an opening line, three steps, and a closing line**. The opening line is your one sentence from chapter 1, said plainly. It tells people where you'll end up.\n\nThe three steps are the path. Each is a reason, an example, or a stage. Give each a short name of 2 to 5 words.\n\nIt fits on one index card, about the size of your palm. If it won't fit, you have too much."
-   },
-   {
-    "type": "example",
-    "title": "Dev's card for the running club",
-    "body": "Dev has 3 minutes to persuade 8 colleagues to join a lunchtime running club. His one sentence: \"A 20-minute run at lunch makes the afternoon easier.\" His 3 steps, written on the card: \"1. Sleepy 2pm meetings. 2. Tried it for 4 weeks. 3. Starts Tuesday, meet at the lifts.\" His closing line is the same sentence again, said slower. The card has 23 words on it. He gets 5 sign-ups and one person who asks about the lifts.",
-    "simpler": "Dev has 3 minutes to persuade 8 colleagues to join a lunchtime running club. His one sentence is: \"A 20-minute run at lunch makes the afternoon easier.\" On his card he writes 3 steps: \"1. Sleepy 2pm meetings. 2. Tried it for 4 weeks. 3. Starts Tuesday, meet at the lifts.\" His closing line is the same sentence again, said more slowly. The whole card holds 23 words. He gets 5 sign-ups, and one person asks about the lifts."
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "Priya is planning a 3-minute talk telling her book club why they should read shorter novels. Which plan follows the 3-part shape?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Open with 2 minutes of why she loves reading, then list 6 short novels, then stop when time runs out."
-     },
-     {
-      "id": "b",
-      "text": "Open with her one sentence, then list 3 short novels, then say \"Anyway, lots of good ones out there.\""
-     },
-     {
-      "id": "c",
-      "text": "Open: \"Short novels get finished, and finished books are the ones we talk about.\" Steps: 1. Half our picks go unfinished. 2. Her 3 short favourites. 3. Try one for next month. Close with the same sentence."
-     }
-    ],
-    "answer": "c",
-    "whyNot": {
-     "a": "That's a route with no destination named and no arrival, just steps until the clock stops. The opening line is missing, and so is the close.",
-     "b": "That's a good opening and 3 steps, but the close drifts away instead of landing. The closing line should be the destination, not a shrug."
-    },
-    "reteach": "Check for all 3 parts: an opening line that names the point, exactly 3 steps that lead to it, and a closing line that says the point again. If any part is missing or vague, the walk has no clear start or finish."
-   },
-   {
-    "type": "teach",
-    "title": "Why the ends match",
-    "body": "Your opening line and closing line are **the same sentence, said twice**. That feels like cheating when you write it. In the room it feels like arriving. Listeners hear it first as a promise and last as proof.\n\nThe 3 steps need to go in an order a listener can feel. Dev went problem, then test, then invitation. Priya went problem, then examples, then ask. Problem first, ask last, works for most short talks.\n\nIf a step doesn't push toward the closing sentence, cut it. It's a side path. You'll want to keep it. Don't.",
-    "simpler": "Your opening line and closing line are **the same sentence, said twice**. On paper that feels like cheating. In the room it feels like arriving. People hear it first as a promise and last as proof.\n\nPut your 3 steps in an order a listener can feel. Dev went problem, test, invitation. Problem first and ask last suits most short talks.\n\nIf a step doesn't push toward the closing sentence, cut it. You'll want to keep it. Don't."
-   },
-   {
-    "type": "mistake",
-    "body": "Marcus writes his card at 11pm: opening line, then 7 steps, each with 2 sub-points. He tells himself they're all important. On the day he reaches step 4 at the 3-minute mark and finishes in a rush, skipping his closing line. You can spot this before it happens: if your card has more than 3 numbered steps, or you need a second card, you have planned a 10-minute walk for a 3-minute slot.",
-    "simpler": "Marcus writes his card at 11pm. He writes his opening line, then 7 steps, each with 2 smaller points. He tells himself they all matter. On the day, he reaches step 4 as the 3 minutes run out. He finishes in a rush and skips his closing line. You can spot this coming. If your card has more than 3 numbered steps, or you need a second card, you have planned a 10-minute walk for a 3-minute slot."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "A friend hands you their index card for a 3-minute talk. What should be on it?",
-    "options": [
-     {
-      "id": "a",
-      "text": "The full script written out, word for word, in small handwriting."
-     },
-     {
-      "id": "b",
-      "text": "One opening sentence, 3 named steps, and a closing sentence that matches the opening."
-     },
-     {
-      "id": "c",
-      "text": "The 3 steps only. The opening and closing can be improvised, since they're the easy parts."
+      "text": "\"Let me start with how our club began, and who was there...\""
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a script, not a route. A card holds the shape of the walk, not every word of it.",
-     "c": "That's the route without the destination at either end. The opening and closing sentences are the parts people remember, so they get planned first."
+     "a": "That's the wander, not the route: nobody knows where they're being taken.",
+     "c": "That's starting the walk at the wrong end: how the club began might be a step, but it isn't the destination."
     },
-    "reteach": "The index card holds 3 parts: the one sentence at the top, 3 short step names in the middle, and the same sentence at the bottom. Around 20 to 30 words in total. It's a map of the walk, not the walk itself."
+    "reteach": "The first line of a talk is a signpost. It names the destination so listeners can relax and follow. Anything that delays the signpost is the speaker wandering while everyone waits."
+   },
+   {
+    "type": "teach",
+    "title": "Signpost, then three landmarks",
+    "body": "A 3-minute talk has three parts, and the first is a *signpost*: one sentence that says where you're all heading. That's your sentence from chapter 1. Say it in the first 20 seconds and your listeners stop guessing.\n\nThen the middle: **three steps, no more**. Three is small enough to hold in a head without notes, and big enough to feel like a journey. Think of walking a friend to the bakery: past the church, over the bridge, left at the red door.\n\nEach step gets about 40 seconds. One idea, one example, then you move."
+   },
+   {
+    "type": "example",
+    "title": "Tomas and the coffee machine",
+    "body": "Tomas has 3 minutes to get his 3 flatmates to buy a shared coffee machine, and his signpost is 'A shared machine saves us money and the morning queue.' Step 1: the four of them spend about 12 pounds a day at the caf\u00e9, which he counted for a week. Step 2: a decent machine costs 180 pounds, so it pays for itself in about 15 days. Step 3: nobody has to stand behind the man who orders 6 oat flat whites. He **closes with the signpost sentence again**, word for word, and sits down."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Lena is planning a 3-minute talk for her book club: 'We should meet every 2 weeks, not monthly.' She has 5 reasons on a sticky note. What does she do with them?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Say all 5 quickly, about 30 seconds each, so nothing is lost."
+     },
+     {
+      "id": "b",
+      "text": "Pick the 3 strongest, give each about 40 seconds, and drop the other 2."
+     },
+     {
+      "id": "c",
+      "text": "Keep all 5 but merge them into one long middle section with no steps."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a sprint, not a walk: 5 steps in 3 minutes leaves no room for an example on any of them.",
+     "c": "That's the wander: one long middle gives listeners no landmarks to hold onto."
+    },
+    "reteach": "Three steps is a limit, not a target you round up from. If you have 5 reasons, 2 of them are weaker. Cut those and give the remaining 3 room to breathe, about 40 seconds each."
+   },
+   {
+    "type": "teach",
+    "title": "Arrive, and say so",
+    "body": "The third part is the shortest and the most skipped: **say where you've arrived**. Repeat your signpost sentence, nearly word for word. You'd think repeating yourself sounds lazy. To a listener it sounds like landing.\n\nNow put the whole route on one index card. Line 1: the signpost. Lines 2 to 4: your three steps, each as 3 or 4 words, like 'caf\u00e9 costs: 12 a day'. Line 5: the signpost again.\n\nThat card is your map. If you can read it in 10 seconds, you can walk the talk in 3 minutes."
+   },
+   {
+    "type": "mistake",
+    "body": "Dev wrote his route the night before: signpost, three steps, close. Then mid-walk he thought of a fourth point and a 'quick story', so 3 steps became 6 and his close became 'anyway, yeah, that's about it'. You can spot this from the room: the speaker glances at the clock, and the listeners glance at each other. **A fourth step is a detour**, not a bonus."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend shows you their index card for tomorrow's talk: one opening line, 3 short steps, and nothing else. What's missing?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Nothing. The close is optional for a short talk."
+     },
+     {
+      "id": "b",
+      "text": "A closing line that repeats the opening sentence."
+     },
+     {
+      "id": "c",
+      "text": "Two more steps, so the talk feels thorough."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's Dev's mistake from the other side: with no close, you trail off instead of landing.",
+     "c": "That's the detour: 5 steps in 3 minutes rushes every one of them."
+    },
+    "reteach": "A route has three parts, not two. Signpost, three steps, then the signpost again so everyone knows the walk has ended. The close is one line, and it's the line people carry home."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A short talk is **say where you're going, go there in 3 steps, say you've arrived**. Write all 3 parts on one index card, and if it spills over, you've planned too much.",
-    "simpler": "A short talk is **say where you're going, go there in 3 steps, say you've arrived**. That's the whole shape. Write all 3 parts on one index card, a card about the size of your palm. If the words spill over the edge, you have planned too much for the time you have."
+    "body": "A 3-minute talk is a walk with **three parts**: say where you're going, go there in 3 steps of about 40 seconds each, then say you've arrived by repeating your first sentence. The whole route fits on one index card you can read in 10 seconds.\n\nTomorrow: the only line worth memorising word for word, and why it isn't the close."
    },
    {
     "type": "try",
-    "body": "Take your one sentence from chapter 1. On a card or your phone notes, write it at the top, 3 steps of 2 to 5 words each, then the sentence again at the bottom. Read it aloud once.",
-    "simpler": "Take the one sentence you wrote in chapter 1. On an index card, or in the notes app on your phone, write that sentence at the top. Under it, write 3 steps of 2 to 5 words each. At the bottom, write the sentence again. Then read the whole card aloud once."
+    "body": "Take your chapter 1 sentence. On an index card or a phone note, write it as **line 1 and line 5**. Fill lines 2 to 4 with three steps, 4 words each. Read the card aloud once."
    }
   ],
-  "outcomeLine": "You can now lay out a 3-minute talk on one index card with an opening line, 3 steps and a closing line."
+  "outcomeLine": "You can now lay out a 3-minute talk on one index card: an opening line, 3 steps and a closing line that repeats the opening.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M30 160 Q70 178 110 140 Q150 104 180 115 Q215 127 240 90 Q265 58 290 50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-dasharray=\"7 6\" stroke-linecap=\"round\"/><circle cx=\"30\" cy=\"160\" r=\"10\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"110\" cy=\"140\" r=\"8\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"180\" cy=\"115\" r=\"8\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"240\" cy=\"90\" r=\"8\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"290\" y1=\"50\" x2=\"290\" y2=\"16\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polygon points=\"291,17 316,26 291,36\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linejoin=\"round\"/><circle cx=\"60\" cy=\"96\" r=\"14\" fill=\"#1F7A4D\"/><line x1=\"60\" y1=\"108\" x2=\"60\" y2=\"124\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"104\" y=\"124\" font-size=\"13\" font-family=\"sans-serif\" fill=\"#1B1A17\">1</text><text x=\"175\" y=\"99\" font-size=\"13\" font-family=\"sans-serif\" fill=\"#1B1A17\">2</text><text x=\"235\" y=\"74\" font-size=\"13\" font-family=\"sans-serif\" fill=\"#1B1A17\">3</text></svg>"
  },
- "seconds": 45.128166913986206
+ "seconds": 129.00507593154907
 }

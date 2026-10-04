@@ -5,7 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Walking the bazaar, you could pick one shop and bet on it. Or you could buy a **basket with a slice of all 50 big shops** inside, in one trip.\n\nThat basket is an *index fund*: a fund that copies the Nifty 50 list exactly, with no picking and no opinions. Picture a steel tiffin carrier with 50 small compartments. You own one carrier."
+    "body": "Walking the bazaar, you could pick one shop and bet on it. Or you could buy a **basket with a slice of all 50 big shops** inside, in one trip.\n\nThat basket is an *index fund*: a fund that copies the Nifty 50 list exactly, with no picking and no opinions. Picture a steel tiffin carrier with 50 small compartments. You own one carrier.",
+    "simpler": "Imagine a bazaar with 50 big shops. You could pick one shop and hope it does well. Or you could buy a **basket holding a small slice of all 50 shops** in one trip.\n\nThat basket is called an index fund. It copies the Nifty 50 list exactly, so nobody has to choose. Think of a steel tiffin carrier with 50 small boxes inside. You own the whole carrier."
    },
    {
     "type": "exercise",
@@ -35,12 +36,14 @@
    {
     "type": "teach",
     "title": "Two kinds of basket",
-    "body": "A *mutual fund* is a basket of shares that many people pay into together, run by a fund company. There are two main kinds.\n\nAn *index fund* just copies a list. A Nifty 50 index fund holds the same 50 shops, in the same proportions, as the Nifty 50 board. Nobody decides anything. If the index rises 1%, your basket rises about 1%.\n\nAn *active fund* hires a shopper, called a *fund manager*, to pick which shops to buy and when, hoping to beat the index. **Copying is cheap, hiring a shopper costs more**, and you pay that cost whether or not they beat it."
+    "body": "A *mutual fund* is a basket of shares that many people pay into together, run by a fund company. There are two main kinds.\n\nAn *index fund* just copies a list. A Nifty 50 index fund holds the same 50 shops, in the same proportions, as the Nifty 50 board. Nobody decides anything. If the index rises 1%, your basket rises about 1%.\n\nAn *active fund* hires a shopper, called a *fund manager*, to pick which shops to buy and when, hoping to beat the index. **Copying is cheap, hiring a shopper costs more**, and you pay that cost whether or not they beat it.",
+    "simpler": "A mutual fund is a basket of shares many people pay into together. An index fund copies a list. A Nifty 50 index fund holds the same 50 shops, in the same amounts, as the Nifty 50 board. Nobody picks anything.\n\nAn active fund hires someone, called a fund manager, to choose shops and try to beat the index. **Copying is cheap, hiring a shopper costs more**, and you pay that cost even if they fail."
    },
    {
     "type": "example",
     "title": "Ravi's two baskets",
-    "body": "Ravi puts \u20b910,000 into two funds in January. Fund A is a Nifty 50 index fund charging 0.2% a year. Fund B has a well-known manager and charges 1.5% a year.\n\nBy December both baskets have grown 12% before fees. Fund A leaves Ravi with about \u20b911,180. Fund B leaves him about \u20b911,030. The **manager did exactly as well as the index**, and Ravi paid \u20b9150 for the company."
+    "body": "Ravi puts \u20b910,000 into two funds in January. Fund A is a Nifty 50 index fund charging 0.2% a year. Fund B has a well-known manager and charges 1.5% a year.\n\nBy December both baskets have grown 12% before fees. Fund A leaves Ravi with about \u20b911,180. Fund B leaves him about \u20b911,030. The **manager did exactly as well as the index**, and Ravi paid \u20b9150 for the company.",
+    "simpler": "Ravi puts \u20b910,000 into two funds in January. Fund A copies the Nifty 50 and charges 0.2% a year. Fund B has a famous manager and charges 1.5% a year.\n\nBy December both have grown 12% before fees. Fund A leaves Ravi with about \u20b911,180. Fund B leaves him with about \u20b911,030. The **manager did exactly as well as the index**, and Ravi paid \u20b9150 extra for the company."
    },
    {
     "type": "exercise",
@@ -70,11 +73,13 @@
    {
     "type": "teach",
     "title": "SIP, and the fee you never see",
-    "body": "A *SIP*, short for systematic investment plan, is a standing instruction: a fixed amount, say \u20b91,000, leaves your bank on a fixed date each month and buys fund units. When prices are high, \u20b91,000 buys fewer units. When prices dip, it buys more. You stop guessing the right day.\n\nThe *expense ratio* is the yearly fee, shown as a percentage of your money. You never get a bill. It's quietly shaved off the fund's value a little every day. **A 1% fee on \u20b91 lakh is \u20b91,000 gone every year**, and it grows as your money grows."
+    "body": "A *SIP*, short for systematic investment plan, is a standing instruction: a fixed amount, say \u20b91,000, leaves your bank on a fixed date each month and buys fund units. When prices are high, \u20b91,000 buys fewer units. When prices dip, it buys more. You stop guessing the right day.\n\nThe *expense ratio* is the yearly fee, shown as a percentage of your money. You never get a bill. It's quietly shaved off the fund's value a little every day. **A 1% fee on \u20b91 lakh is \u20b91,000 gone every year**, and it grows as your money grows.",
+    "simpler": "A SIP, or systematic investment plan, is a standing order. A fixed amount, say \u20b91,000, leaves your bank each month and buys fund units. High prices mean fewer units, low prices mean more. You stop guessing the right day.\n\nThe expense ratio is the yearly fee, shown as a percentage. It is quietly shaved off the fund a little each day. **A 1% fee on \u20b91 lakh is \u20b91,000 gone every year**, and it grows with your money."
    },
    {
     "type": "mistake",
-    "body": "Arjun sets up a \u20b92,000 SIP, watches the Nifty fall 4% in a week, and pauses it \"until things calm down\". That month's \u20b92,000 would have bought more units than any month before.\n\nSpot it in yourself: if you're stopping a SIP because prices fell, you're doing **the one thing a SIP exists to stop you doing**."
+    "body": "Arjun sets up a \u20b92,000 SIP, watches the Nifty fall 4% in a week, and pauses it \"until things calm down\". That month's \u20b92,000 would have bought more units than any month before.\n\nSpot it in yourself: if you're stopping a SIP because prices fell, you're doing **the one thing a SIP exists to stop you doing**.",
+    "simpler": "Arjun sets up a \u20b92,000 SIP. Then the Nifty falls 4% in one week. Arjun pauses it until things calm down. But that month's \u20b92,000 would have bought more units than any month before, because prices were lower.\n\nCheck yourself for this. If you are stopping a SIP because prices fell, you are doing **the one thing a SIP exists to stop you doing**."
    },
    {
     "type": "exercise",
@@ -104,11 +109,13 @@
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "An index fund buys you a slice of all 50 Nifty shops in one go, and a SIP buys a fixed amount of it every month so you never have to pick the day.\n\nThe one number to check before you start is **the expense ratio**, the yearly fee shaved off your money, and lower is better."
+    "body": "An index fund buys you a slice of all 50 Nifty shops in one go, and a SIP buys a fixed amount of it every month so you never have to pick the day.\n\nThe one number to check before you start is **the expense ratio**, the yearly fee shaved off your money, and lower is better.",
+    "simpler": "An index fund buys you a small slice of all 50 Nifty shops in one go. A SIP buys a fixed amount of it every month, so you never have to pick the day.\n\nBefore you start, check one number: **the expense ratio**. That is the yearly fee quietly taken off your money. Lower is better."
    },
    {
     "type": "try",
-    "body": "Open your broker app, search \"Nifty 50 index fund\", and open any two. Find the expense ratio on each page and write both numbers down. **Don't buy anything yet.**"
+    "body": "Open your broker app, search \"Nifty 50 index fund\", and open any two. Find the expense ratio on each page and write both numbers down. **Don't buy anything yet.**",
+    "simpler": "Open your broker app and search for \"Nifty 50 index fund\". Open any two of the results. On each page, find the expense ratio, the yearly fee shown as a percentage. Write both numbers down side by side. That is the whole task for now. **Don't buy anything yet.**"
    }
   ],
   "outcomeLine": "You can now set up a monthly SIP in a Nifty 50 index fund and say what expense ratio you are paying."

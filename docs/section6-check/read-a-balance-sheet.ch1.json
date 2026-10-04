@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Stand on the pavement outside a house on a Tuesday. The house, the car in the drive, the sofa, the 3,000 in the kitchen drawer: that is what the family **owns**. The mortgage and the plumber's unpaid bill: that is what they **owe**. Whatever is left when you take one from the other is theirs.\n\nA balance sheet is that same photo, taken of a company instead of a house.",
-    "simpler": "Picture a family's house on an ordinary Tuesday. The house, the car, the sofa and the 3,000 in the kitchen drawer are things the family **owns**. The mortgage and the plumber's unpaid bill are things they owe. Take what they owe away from what they own, and whatever is left belongs to them.\n\nA balance sheet is the same snapshot, but of a company instead of a family."
+    "body": "Every balance sheet ever printed adds up, down to the cent. Not because accountants are careful, but because it cannot do otherwise.\n\nThink of one house on one day. The house and everything in it is what you **own**. The mortgage and the unpaid bills are what you owe. Whatever is left is yours. A balance sheet is that photo, taken of a company.",
+    "simpler": "Every balance sheet adds up to the cent. That is not because accountants are careful. It is because the sheet cannot do anything else.\n\nPicture one house on one day. The house and everything inside it is what you **own**. The mortgage and the unpaid bills are what you owe. Whatever is left belongs to you. A balance sheet is that same photo, but taken of a company."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Maya's house would sell for 300,000 today. She has 20,000 in the bank. Her mortgage still has 250,000 left on it. If she sold up and paid the bank off tonight, how much walks out the door with her?",
+    "prompt": "Priya's flat would sell for 300,000. Her mortgage is 220,000. Over coffee a friend asks: so how much of that flat is actually yours?",
     "options": [
      {
       "id": "a",
-      "text": "70,000"
+      "text": "300,000, it's her flat"
      },
      {
       "id": "b",
-      "text": "320,000"
+      "text": "80,000"
      },
      {
       "id": "c",
-      "text": "250,000"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's everything she owns, not what's left: the bank still has a claim on 250,000 of it.",
-     "c": "That's the mortgage, what she owes the bank, not her share."
-    },
-    "reteach": "Add up what Maya owns: 300,000 house plus 20,000 cash is 320,000. Take away what she owes: 250,000. The gap, 70,000, is hers. Own minus owe equals yours."
-   },
-   {
-    "type": "teach",
-    "title": "Three words, one equation",
-    "body": "A balance sheet has three totals and nothing else matters as much. *Assets* are what the company owns: cash, buildings, stock on shelves, money customers still owe it. *Liabilities* are what it owes: bank loans, unpaid supplier bills, tax due. *Equity* is what is left for the owners.\n\nThe equation is the house again. **Assets minus liabilities equals equity.** Accountants usually write it the other way round, assets equals liabilities plus equity, but it is the same sentence.\n\nFind those three totals and you have read the skeleton of any balance sheet in the world.",
-    "simpler": "A balance sheet comes down to three totals. Assets are what the company owns: cash, buildings, goods on shelves, and money customers still have to pay. Liabilities are what it owes: bank loans, unpaid supplier bills, tax due. Equity is what is left over for the owners.\n\nThe rule is the house again. **Assets minus liabilities equals equity.** Accountants often write it as assets equals liabilities plus equity. It is the same sentence either way. Find those three totals and you have read the bones of any balance sheet."
-   },
-   {
-    "type": "example",
-    "title": "Rosa's bakery, one Monday",
-    "body": "Rosa's bakery owns an oven worth 12,000, has 4,000 in the till and bank, and 1,000 of flour and butter in the storeroom. Total assets: 17,000. She owes her flour supplier 2,000 and the bank 10,000 on the oven loan. Total liabilities: 12,000.\n\nEquity: 17,000 minus 12,000, so 5,000. If she sold everything at those prices and paid everyone off, she would leave with 5,000 and a very clean kitchen.",
-    "simpler": "Rosa runs a bakery. She owns an oven worth 12,000, has 4,000 in the till and bank, and keeps 1,000 of flour and butter in the storeroom. What she owns adds up to 17,000. She owes her flour supplier 2,000 and the bank 10,000 for the oven. What she owes adds up to 12,000.\n\nTake 12,000 from 17,000 and you get 5,000. That is her equity. If she sold everything and paid everyone back, she would walk away with 5,000."
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "The bottom of Kite Ltd's balance sheet shows total assets of 900 and total liabilities of 600. What should the owners' share line read?",
-    "options": [
-     {
-      "id": "a",
-      "text": "1,500"
-     },
-     {
-      "id": "b",
-      "text": "300"
-     },
-     {
-      "id": "c",
-      "text": "600"
+      "text": "520,000"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's assets plus liabilities, adding what you own to what you owe. Owing more does not make the owners richer.",
-     "c": "That's the liabilities total, what Kite owes, not what is left after paying it."
+     "a": "That's what she owns, not what's hers: the bank still has a claim on 220,000 of it.",
+     "c": "That's own and owe added together, but the mortgage is a claim against the flat, so it comes off, not on."
     },
-    "reteach": "Kite owns 900. Of that, 600 is spoken for by lenders and suppliers. The 300 that nobody else can claim belongs to the owners. That is equity: owns minus owes."
+    "reteach": "Start with the whole house. Take away everything that must be paid back to someone else. What stays is the owner's share. 300,000 minus 220,000 leaves 80,000."
    },
    {
     "type": "teach",
-    "title": "Why the two sides always match",
-    "body": "Every single asset was paid for by somebody. Either a lender put the money in, which creates a liability, or the owners did, which is equity. So **the two sides match by definition**, not by luck. Equity is simply the gap that makes them equal.\n\nThis is why the sheet is called a *balance* sheet. If total assets does not equal total liabilities plus equity, you are looking at a typo, not an insight.\n\nOn a real sheet, look for the lines named *Total assets*, *Total liabilities* and *Total equity*. Equity sometimes hides under *shareholders' funds* or *net assets*. Same thing, different hat.",
-    "simpler": "Every asset a company has was paid for by someone. Either a lender gave the money, which creates something owed, or the owners put it in, which is equity. So **the two sides match by definition**. It is not luck. Equity is just the gap that makes them equal.\n\nThat is why it is called a balance sheet. If assets do not equal liabilities plus equity, someone made a typing error.\n\nOn a real sheet, look for the lines called total assets, total liabilities and total equity. Equity sometimes goes by shareholders' funds or net assets. Same thing, different name."
+    "title": "Three totals, three words",
+    "body": "A balance sheet has three totals, and they are the three parts of the house. *Assets* are what the company owns: cash in the bank, boxes in the warehouse, the building, the vans. *Liabilities* are what it owes: loans, unpaid supplier bills, tax due. *Equity* is what is left for the owners once every debt is paid.\n\nThe sheet has two sides. One lists assets. The other lists liabilities, then equity underneath. **Assets equal liabilities plus equity**, every time.\n\nYou'd think the owners' share is a number someone decides. It isn't. It is what falls out when you subtract.",
+    "simpler": "A balance sheet has three totals. Assets are what the company owns: cash, stock in the warehouse, the building, the vans. Liabilities are what it owes: loans, unpaid bills, tax due. Equity is what is left for the owners after every debt is paid.\n\nOne side lists assets. The other lists liabilities, then equity. **Assets equal liabilities plus equity**, every single time. The owners' share is not a number someone picks. It is whatever is left when you subtract."
+   },
+   {
+    "type": "example",
+    "title": "Marta's oven",
+    "body": "Marta opens a bakery. She puts in 40,000 of her own savings and borrows 60,000 from the bank. She buys an oven for 50,000 and keeps 50,000 as cash.\n\nAssets: oven 50,000 plus cash 50,000, total 100,000. Liabilities: the loan, 60,000. Equity: 40,000. Nobody wrote 40,000 down as equity; it is the **only number that could sit there**. The bank's share of the oven is not painted on the oven. It is written on the sheet.",
+    "simpler": "Marta opens a bakery. She puts in 40,000 of her own savings and borrows 60,000 from the bank. She buys an oven for 50,000 and keeps 50,000 in cash.\n\nWhat she owns: oven 50,000 plus cash 50,000, so 100,000. What she owes: the loan, 60,000. Her share: 40,000. Nobody chose it. It is the **only number that could sit there**. The bank's share of the oven is not painted on the oven. It lives on the sheet."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A printout shows total assets of 500 million and total liabilities of 320 million. Coffee has landed on the equity line. What was under the stain?",
+    "options": [
+     {
+      "id": "a",
+      "text": "820 million"
+     },
+     {
+      "id": "b",
+      "text": "180 million"
+     },
+     {
+      "id": "c",
+      "text": "Can't tell without knowing the profit"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's assets plus liabilities: equity is what remains after the debts, so you subtract.",
+     "c": "That's the income statement talking, not the balance sheet: equity is fixed by the other two totals on this one day."
+    },
+    "reteach": "Equity is never a mystery number. It is what you own minus what you owe. 500 minus 320 is 180, coffee or no coffee."
+   },
+   {
+    "type": "teach",
+    "title": "Why it can never be off",
+    "body": "Why does it always balance? Because the two sides are not two piles of money. They are **one pile, counted twice**: once by what it is, once by where it came from.\n\nEvery euro of assets arrived through one of two doors. Someone lent it, so it shows up as a liability. Or the owners put it in, or earned it and kept it, so it shows up as equity. There is no third door.\n\nSo when a sheet doesn't balance, the company isn't poorer. Someone typed a number wrong. A balanced sheet proves the arithmetic, not the health. That part comes later.",
+    "simpler": "Why does it always balance? The two sides are not two piles of money. They are **one pile, counted twice**: once by what it is, once by where it came from.\n\nEach euro used one of two doors. Lent by someone? It shows as a debt. Put in or earned by the owners? It shows as their share. There is no third door.\n\nIf a sheet does not balance, someone typed a wrong number. Balancing proves the sums, not the health."
    },
    {
     "type": "mistake",
-    "body": "Dev opens a supermarket's annual report, sees a line reading *Total liabilities and equity: 2.4 billion*, and tells the group chat the company owes 2.4 billion. It does not. That combined line is always identical to total assets; it is the other side of the photo. How to spot it: if the big number at the bottom of the right side exactly matches the big number at the bottom of the left, it is the sum, and the real debt is a smaller line above it.",
-    "simpler": "Dev opens a supermarket's annual report. He sees a line that says total liabilities and equity: 2.4 billion. He tells his friends the company owes 2.4 billion. It does not. That line adds together what the company owes and what belongs to the owners, so **it always equals total assets**. It is the other side of the same picture. The real debt is a smaller line higher up. If the big number on the right matches the big number on the left exactly, it is the sum, not the debt."
+    "body": "Tom spots 'total assets: 2 billion' at the top of a sheet and tells his flatmate the company is worth 2 billion. He never looked across to the other side, where 1.9 billion of loans sat waiting. **The house price is not what the homeowner has.** If someone quotes you assets alone, ask what the mortgage is.",
+    "simpler": "Tom sees 'total assets: 2 billion' at the top of a sheet. He tells his flatmate the company is worth 2 billion. He never looked at the other side, where 1.9 billion of loans was waiting. **The house price is not what the homeowner has.** If someone quotes you assets alone, ask what the mortgage is."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend says: \"This company's balance sheet balances, so it must be in good shape.\" Which reply is right?",
+    "prompt": "A company takes out a new 10 million loan and the cash lands in its account the same day. What happens on the balance sheet?",
     "options": [
      {
       "id": "a",
-      "text": "It always balances, because equity is defined as assets minus liabilities. Balancing says nothing about health."
+      "text": "Assets up 10 million, equity up 10 million"
      },
      {
       "id": "b",
-      "text": "Right. If assets equal liabilities plus equity, the company can pay its debts."
+      "text": "Assets up 10 million, liabilities up 10 million"
      },
      {
       "id": "c",
-      "text": "It only balances in years the company made a profit."
+      "text": "Assets up 10 million, nothing else, so the sheet stops balancing"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the chapter 6 health check, not the equation: matching sides is bookkeeping, not an ability to pay.",
-     "c": "That's the income statement's job, not the balance sheet's: a profit or loss just changes the size of equity, and the sides still match."
+     "a": "That's what happens when the owners put money in, not the bank: a loan is a claim, so it lands in liabilities.",
+     "c": "A real event can't unbalance the sheet: the cash came from somewhere, and that somewhere is the bank's claim."
     },
-    "reteach": "Think of Maya's house. Whether her equity is 70,000 or minus 70,000, house plus cash still equals mortgage plus her share. Balancing is automatic. Whether the share is big, small or negative is the interesting part, and that comes later."
+    "reteach": "The cash is new, so assets grow. But the cash came through the lender's door, so liabilities grow by the same amount. Both sides move together; the owners' share hasn't changed."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A balance sheet lists what a company owns, what it owes, and what is left for the owners. **Owns always equals owes plus owners' share**, because the owners' share is just the gap between the first two.",
-    "simpler": "A balance sheet lists three things. What a company owns, what it owes, and what is left for the owners. **Owns always equals owes plus owners' share**, because the owners' share is just the gap between the first two. Think of a house with a mortgage: the house is worth what the bank is owed plus what the family really has."
+    "body": "A balance sheet lists what a company owns, what it owes, and what's left for the owners, and the first always equals the other two added together. It balances because every asset was paid for by either a lender or an owner, so there is **no third place for money to come from**.\n\nTomorrow: why a balance sheet is a photo, not a film.",
+    "simpler": "A balance sheet lists three things. What a company owns, what it owes, and what is left for the owners. The first always equals the other two added together. It balances because every asset was paid for by a lender or by an owner. There is **no third place for money to come from**.\n\nTomorrow: why a balance sheet is a photo, not a film."
    },
    {
     "type": "try",
-    "body": "Tonight, search the name of any company you like plus \"annual report balance sheet\". Find the three totals and check that assets equal liabilities plus equity. Two minutes, and you have read your first one.",
-    "simpler": "Tonight, pick any company you like. Search its name along with the words annual report balance sheet. Find the three totals: what it owns, what it owes, and what is left for the owners. Check that **owns equals owes plus owners' share**. It takes about two minutes, and then you have read your first real balance sheet."
+    "body": "Search the name of any listed company you know plus 'annual report balance sheet'. Find total assets, total liabilities and total equity. Add the last two. Check they match the first.",
+    "simpler": "Pick any listed company you know. A listed company is one whose shares trade on a stock exchange. Search its name plus 'annual report balance sheet'. Find three lines: total assets, total liabilities and total equity. Add the last two together. **Check they match the first.** They should, to the cent."
    }
   ],
-  "outcomeLine": "You can now take any balance sheet, find the three totals, and show that what it owns equals what it owes plus what belongs to the owners."
+  "outcomeLine": "You can now find the three totals on any balance sheet and show that what it owns equals what it owes plus what belongs to the owners.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"40,95 110,40 180,95\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"55\" y=\"95\" width=\"110\" height=\"40\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"55\" y=\"135\" width=\"110\" height=\"45\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"98\" y=\"150\" width=\"24\" height=\"30\" fill=\"#1B1A17\"/><rect x=\"70\" y=\"105\" width=\"20\" height=\"18\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"130\" y=\"105\" width=\"20\" height=\"18\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"110\" y=\"30\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">own</text><line x1=\"200\" y1=\"125\" x2=\"225\" y2=\"125\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"200\" y1=\"137\" x2=\"225\" y2=\"137\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"245\" y=\"95\" width=\"50\" height=\"40\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"245\" y=\"135\" width=\"50\" height=\"45\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"270\" y=\"120\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">yours</text><text x=\"270\" y=\"162\" font-size=\"12\" text-anchor=\"middle\" fill=\"#F2A93B\" font-family=\"sans-serif\">owe</text></svg>"
  },
- "seconds": 69.31861805915833
+ "seconds": 97.72723317146301
 }

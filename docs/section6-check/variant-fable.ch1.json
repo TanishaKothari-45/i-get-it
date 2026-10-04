@@ -1,0 +1,117 @@
+{
+ "chapter": {
+  "title": "Pick one destination",
+  "cards": [
+   {
+    "body": "Most talks fail before a word is spoken: ask the speaker what the point is and they say \"well, it's about...\" and stop. A talk is a walk you lead, and nobody follows a guide who doesn't know where the walk ends.\n\n**Pick one destination first**, one place you are taking the room, and write it down before you write anything else.",
+    "type": "picture"
+   },
+   {
+    "answer": "a",
+    "kind": "guess",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"Switch to the new booking system this week: it saves 10 minutes per booking.\""
+     },
+     {
+      "id": "b",
+      "text": "\"Everything that changed in the booking system since March.\""
+     },
+     {
+      "id": "c",
+      "text": "\"I'll talk about the new booking system.\""
+     }
+    ],
+    "prompt": "Priya has 3 minutes at Monday's team meeting about the new booking system. Which of these is a destination, not just a place to wander?",
+    "reteach": "A destination is a full sentence someone could agree or disagree with. 'The booking system' is a thing. 'Switch this week because it saves 10 minutes' is a place you can take people to and leave them standing in.",
+    "type": "exercise",
+    "whyNot": {
+     "b": "That's a list, not a destination: 'everything' is a whole map, and nobody can walk a whole map in 3 minutes.",
+     "c": "That's the topic, not the point: it names the ground, not where on it you're going."
+    }
+   },
+   {
+    "body": "A *topic* is the field you're standing in: hand-washing, the budget, your grandmother. A *point* is the one sentence you want people to repeat on the bus home. You'd think a talk is built from a topic. It isn't. It's built from the point, and the topic is just where the point happens to live.\n\nWrite the point as **one sentence of 15 words or fewer**, with a verb in it. If it fits on a sticky note on the fridge, it's the right size.\n\nThen test it: could someone disagree? If not, it's still a topic.",
+    "title": "A topic is not a point",
+    "type": "teach"
+   },
+   {
+    "body": "Dana, a ward nurse, was asked to give 3 minutes at the team huddle. Her first note said \"Hand hygiene update\". That's a field, not a destination, so she sat with a pen and a cold tea and tried again.\n\nSecond go: \"Wash for 20 seconds, not 5, because our own audit shows most of us stop at 5.\" She counted it on her fingers twice: 16 words. She crossed out \"own\". Fifteen. Someone could argue with it, which is exactly how she knew it was a point.",
+    "title": "Dana and the sticky note",
+    "type": "example"
+   },
+   {
+    "answer": "b",
+    "kind": "apply",
+    "options": [
+     {
+      "id": "a",
+      "text": "Replace it with the topic: \"A few club updates.\""
+     },
+     {
+      "id": "b",
+      "text": "Cut it to one: \"Try the river route on Thursdays; it's flatter and 2 km shorter.\""
+     },
+     {
+      "id": "c",
+      "text": "Keep both but make the sentence shorter by dropping the reasons."
+     }
+    ],
+    "prompt": "Leo is giving 3 minutes to his running club. He wrote: \"Try the river route on Thursdays and we should also buy new club shirts.\" What's the fix?",
+    "reteach": "One destination means one verb doing the work. When 'and' joins two things you want people to do, you've planned two walks. Pick the one that matters more today and save the other for another day.",
+    "type": "exercise",
+    "whyNot": {
+     "a": "That's the field, not the point: 'updates' tells the room nothing about where they'll end up.",
+     "c": "That trims the words but not the destinations: 'and' is still joining two walks into one."
+    }
+   },
+   {
+    "body": "You'd think more points mean a richer talk. It's the reverse. A listener walks home with one thing, like a single stone in a coat pocket. Give them 4 and they put down all of them.\n\nSo **the sentence comes before everything else**: before notes, before slides, before the opening line. Every part of the talk either walks toward that sentence or gets cut. That's the whole editing rule, and it fits on the same sticky note.\n\nLast check: say it out loud. If it takes more than 10 seconds, or you need a breath halfway through, it's two sentences wearing one coat.",
+    "title": "Why one, and why first",
+    "type": "teach"
+   },
+   {
+    "body": "Marcus had his sentence ready: \"We should move stand-up to 9:30 and also trial a no-meetings Friday.\" He said it with a straight face. Then his colleague asked, \"So which one are we deciding?\" and he didn't know.\n\nSpot it by the word *and* sitting between two verbs. That's two destinations, and the room will follow neither.",
+    "type": "mistake"
+   },
+   {
+    "answer": "b",
+    "kind": "recall",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"What's it about?\""
+     },
+     {
+      "id": "b",
+      "text": "\"Can you say the point in one sentence, out loud, under 10 seconds?\""
+     },
+     {
+      "id": "c",
+      "text": "\"How many slides have you got?\""
+     }
+    ],
+    "prompt": "Your friend has written a 3-minute talk. Which single question tells you fastest whether it has a destination?",
+    "reteach": "The test is always the same: one sentence, a verb, under 15 words, said out loud in under 10 seconds. If your friend reaches for 'well, it's about', the talk has a topic and no destination yet.",
+    "type": "exercise",
+    "whyNot": {
+     "a": "That asks for the topic, not the point: 'about' gets you the field, never the destination.",
+     "c": "That's the route and the kit, not the destination: you can have 12 slides and still be going nowhere."
+    }
+   },
+   {
+    "body": "A talk is a walk, and before you take anyone anywhere you write **one 15-word sentence** saying where it ends, something a person could disagree with. Everything you add later either walks toward that sentence or gets cut.\n\nTomorrow: the people walking with you decide what you leave out.",
+    "title": "In one breath",
+    "type": "teach"
+   },
+   {
+    "body": "Open a phone note. Write the one sentence for a talk you might actually give, even a toast. Count the words. Say it aloud and time it. Over 10 seconds or an 'and' between verbs? Cut until it's one.",
+    "type": "try"
+   }
+  ],
+  "outcomeLine": "You can now write the one sentence your talk exists to deliver and say it aloud in under 10 seconds.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20 182 C80 160 70 118 130 106 S225 88 288 56\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-dasharray=\"14 9\"/><circle cx=\"290\" cy=\"52\" r=\"8\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><line x1=\"232\" y1=\"138\" x2=\"232\" y2=\"62\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><polygon points=\"170,62 262,62 276,78 262,94 170,94\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><text x=\"183\" y=\"83\" font-size=\"14\" font-family=\"sans-serif\" fill=\"#1B1A17\">one point</text><circle cx=\"74\" cy=\"134\" r=\"9\" fill=\"#1B1A17\"/><line x1=\"74\" y1=\"143\" x2=\"74\" y2=\"168\" stroke=\"#1B1A17\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><polyline points=\"64,188 74,168 86,186\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"74\" y1=\"150\" x2=\"98\" y2=\"138\" stroke=\"#1B1A17\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"44\" cy=\"150\" r=\"8\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><line x1=\"44\" y1=\"158\" x2=\"44\" y2=\"178\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polyline points=\"36,194 44,178 54,192\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/></svg>"
+ },
+ "model": "claude-fable-5-1"
+}

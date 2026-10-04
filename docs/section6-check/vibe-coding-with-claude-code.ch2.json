@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Tell a contractor 'make the kitchen nice' and you get *their* idea of nice: an island you trip over, a tap you never asked for. Tell them 'two cooks, one long counter, sink under the window, no island' and they can start today.\n\n**A brief is a short note the builder can't misread.** With Claude Code, the note is the request you type.",
-    "simpler": "Say to a builder 'make the kitchen nice' and you get their idea of nice. Maybe an island you keep bumping into. Maybe a tap you never wanted. Say instead 'two cooks, one long counter, sink under the window, no island' and they can start today. **A brief is a short note the builder can't misread.** With Claude Code, that note is the request you type."
+    "body": "Tell a builder \"make the kitchen nicer\" and you get back a kitchen, nicer in the one way they happened to like. Claude Code is the same: it fills every gap you leave with its own guess, and it guesses fast. **A good brief closes the gaps before the builder starts**: who it's for, the one job, what finished looks like, and what to leave alone.",
+    "simpler": "Tell a builder \"make the kitchen nicer\" and you get a kitchen that is nicer in the one way they liked. Claude Code works the same way. Any gap you leave, it fills with its own guess, and it guesses fast. **A good brief closes the gaps before the builder starts.** Say who it is for, the one job, what finished looks like, and what to leave alone."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You leave a note on the counter for your builder before heading out. Which note gets you the kitchen you actually pictured?",
+    "prompt": "Your neighbour Dev wants a tip calculator. Which of these 3 requests gets him the closest first version from Claude Code?",
     "options": [
      {
       "id": "a",
-      "text": "Make it nice. You've seen my place, you know my taste."
+      "text": "\"Make a tip calculator and make it nice.\""
      },
      {
       "id": "b",
-      "text": "For two people who cook every night. One long counter, sink under the window, no island. Done when I can wash a pan and see the garden."
+      "text": "\"A one-page tip calculator for me, on my phone, at restaurants. I type the bill, tap 15%, 18% or 20%, and see the tip and total. No sign-in, no history.\""
      },
      {
       "id": "c",
-      "text": "Four pages on my childhood kitchen, every oven brand I've ever liked, and a sketch of my dream house."
+      "text": "\"Build the best tip calculator you can. Surprise me.\""
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's trust, not a brief: the builder still has to guess who cooks, how many, and what 'nice' means to you.",
-     "c": "That's a memoir, not a brief: the one thing you want is buried under 40 things you don't."
+     "a": "That's the \"make it better\" trap, not a brief: \"nice\" has no picture, so Claude paints its own.",
+     "c": "That's handing over the decisions, not just the hammer: \"surprise me\" means you spend the next hour un-surprising yourself."
     },
-    "reteach": "A good brief says who it's for, the one job, and what done looks like, in a few lines. Too little and the builder guesses. Too much and the builder picks the wrong thing to focus on. Short and specific wins."
+    "reteach": "A brief works when someone else could check it. \"Nice\" can't be checked. \"I type a bill, tap 18%, see the total\" can: you either see it or you don't. Say who, the one job, what you'll see, and what to skip."
    },
    {
     "type": "teach",
     "title": "Who, and the one job",
-    "body": "A brief has 4 parts. The first two: *who it's for* and *the one job* it does. 'A page for me, on my phone, where I add a task and tick it off.' That is already better than most first requests.\n\nClaude Code fills every gap you leave with a guess. Leave out the user, it guesses an app for the whole internet. Leave out the job, it guesses 5 jobs. **Every gap is a guess you'll spend a message undoing.**\n\nSay 'one job' and mean it. If you can't say the job in one sentence, you have two apps.",
-    "simpler": "A brief has 4 parts. The first two are who it's for and the one job it does. 'A page for me, on my phone, where I add a task and tick it off.' That already beats most first tries. Claude Code fills every gap you leave with a guess. Skip the user, it guesses an app for the whole internet. Skip the job, it guesses 5 jobs. **Every gap is a guess you'll spend a message undoing.** If the job won't fit in one sentence, you have two apps."
+    "body": "Start with one person and one moment. *The user* is just whoever will tap the thing, even if it's you tonight on the couch. \"For me, on my phone, at a restaurant\" tells Claude the screen is small and the hands are busy.\n\nThen the one job. A work order that says \"kitchen and bathroom and maybe the roof\" gets a builder who starts three things and finishes none. Pick one verb: track, calculate, list, remind. **One user, one job** is the whole first line of your brief.\n\nYou'd think more detail is what helps. It does, but only after these two are nailed down.",
+    "simpler": "Start with one person and one moment. *The user* is whoever will tap the thing, even if that is you tonight on the couch. \"For me, on my phone, at a restaurant\" tells Claude the screen is small and your hands are busy.\n\nThen pick one job. A work order that says \"kitchen, bathroom, maybe the roof\" gets a builder who starts three things and finishes none. Pick one verb: track, calculate, list, remind. **One user, one job** is the first line of your brief. More detail helps, but only after these two are set."
    },
    {
     "type": "example",
-    "title": "Priya's recipe app, twice",
-    "body": "Priya types: 'make me a recipe app.' Claude builds 4 pages, a search bar, star ratings and a sign-in screen. She can't sign in to her own app, because no account exists yet.\n\nSecond try, 5 lines: 'For me only. One page listing my 6 go-to dinners so I stop ordering takeout on Tuesdays. Each dinner: name and a 1-line note. Done when I open it on my phone and see all 6. No sign-in, no search, one file.'\n\n**It works on the first run.** It is also, she admits, the first app she's owned with fewer features than her fridge.",
-    "simpler": "Priya types 'make me a recipe app.' Claude builds 4 pages, a search bar, star ratings and a sign-in screen. She can't sign in to her own app, because no account exists yet. Second try, 5 lines: 'For me only. One page listing my 6 go-to dinners so I stop ordering takeout on Tuesdays. Each dinner: name and a 1-line note. Done when I open it on my phone and see all 6. No sign-in, no search, one file.' **It works on the first run.** She admits it has fewer features than her fridge."
+    "title": "Priya's plant app",
+    "body": "Priya has 11 houseplants and keeps killing the fern. Her first brief was \"an app to help me with my plants\". Claude built a plant encyclopedia with 400 species and a search bar. Her second brief: \"For me, at home. One job: remind me which plants to water today. Done looks like a list of plant names with a Water button next to each; tap it and the plant drops off until its next day. No photos, no species database.\" The fern lived.",
+    "simpler": "Priya has 11 houseplants and keeps killing the fern. Her first brief was \"an app to help me with my plants\". Claude built a plant encyclopedia with 400 species and a search bar. Her second brief said: \"For me, at home. One job: remind me which plants to water today. Done looks like a list of plant names with a Water button next to each. Tap it and the plant drops off until its next day. No photos, no species database.\" The fern lived."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Your flatmate Sam wants a page to split the dinner bill 3 ways. Which request applies the brief idea?",
+    "prompt": "Marco wants a page to split a dinner bill. He writes: \"For me and 3 friends after dinner. One job: split a bill evenly. Leave out: tips, uneven splits, saving past dinners.\" Which line is he missing?",
     "options": [
      {
       "id": "a",
-      "text": "Build a bill-splitting app. Make it clean and modern, with whatever features bill apps usually have."
+      "text": "The colour of the buttons."
      },
      {
       "id": "b",
-      "text": "For 3 flatmates. One job: type the total, see what each person owes. Done when I type 60 and see 20 three times. No sign-in, no history, one file."
+      "text": "What done looks like: \"I type the total and the number of people, and see what each person owes.\""
      },
      {
       "id": "c",
-      "text": "For 3 flatmates. Split the bill, track who paid last month, send reminders, show a chart, and let guests join."
+      "text": "The programming language Claude should use."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's 'make it nice' again: no user, no single job, and 'whatever features' invites the builder's guesses.",
-     "c": "That's 5 jobs, not one: splitting, history, reminders, charts and guests are at least 3 apps."
+     "a": "That's decoration, not the brief: colours are a one-line fix later, and Claude picks fine defaults.",
+     "c": "That's the builder's choice of tools, not yours: you hired Claude so you don't have to pick the saw."
     },
-    "reteach": "The brief names who, one job, what done looks like, and what to leave out. 'Type 60, see 20 three times' is something you can check by looking. That's the test of a good done line."
+    "reteach": "The 4 lines are who, one job, what you'll see when it's done, and what to leave out. Marco has 3 of them. Without \"done looks like\", Claude has to guess whether the page shows a number, a table or a chart."
    },
    {
     "type": "teach",
-    "title": "Done when, and leave out",
-    "body": "Parts 3 and 4: *done when* and *leave out*. 'Done when' is one sentence you can check by looking: 'I type 60 and see 20 three times.' Not 'it works well'. If you can't picture checking it, Claude can't either.\n\n'Leave out' names what the builder adds by habit: sign-in, a database, a fancy design, extra pages. **Say no to those out loud** and the first version stays small enough to test in 2 minutes.\n\nPut the 4 parts in 5 lines or fewer. The fifth line is for how it should be built, if you care: 'one file, plain HTML'. If you don't know yet, skip it.",
-    "simpler": "Parts 3 and 4 are done when and leave out. 'Done when' is one sentence you can check by looking. 'I type 60 and see 20 three times.' Not 'it works well'. If you can't picture checking it, Claude can't either. 'Leave out' names what a builder adds by habit: sign-in, a database, a fancy design, extra pages. **Say no to those out loud** so the first version stays small enough to test in 2 minutes. Keep the 4 parts to 5 lines or fewer. The fifth line is for how to build it, like 'one file, plain HTML'. Not sure yet? Skip it."
+    "title": "Done, and the don'ts",
+    "body": "*Done looks like* is a sentence you could check with your eyes: \"I type 60, pick 4 people, see 15.\" Not \"it works well.\" A builder shown a photo of the finished shelf builds that shelf. One without the photo builds a shelf.\n\nThe last line is the one people skip: what to leave out. Claude is generous. Ask for a list and you may get sorting, search, dark mode and an export button. \"No sign-in, no saving, no settings\" keeps the first version small enough to test in 2 minutes.\n\n**Say what you'll see, and what you won't.** Short brief, fewer round trips.",
+    "simpler": "*Done looks like* is a sentence you can check with your eyes. \"I type 60, pick 4 people, see 15.\" Not \"it works well.\" A builder shown a photo of the finished shelf builds that shelf. One without the photo builds some shelf.\n\nThe last line is the one people skip: what to leave out. Claude is generous. Ask for a list and you may also get sorting, search, dark mode and an export button. \"No sign-in, no saving, no settings\" keeps the first version small enough to test in 2 minutes. **Say what you'll see, and what you won't.**"
    },
    {
     "type": "mistake",
-    "body": "Dev writes a perfect 5-line brief for a water-tracking page, then adds a sixth line: 'and also make it look professional, add anything else you think is useful.' Claude adds a settings page, dark mode and a weekly chart. The one job, tapping a glass, now sits behind 2 menus.\n\n**Spot it by the words 'also' and 'anything'** at the end of a request. That's the door you just opened for guesses.",
-    "simpler": "Dev writes a perfect 5-line brief for a water-tracking page. Then adds a sixth line: 'and also make it look professional, add anything else you think is useful.' Claude adds a settings page, dark mode and a weekly chart. The one job, tapping a glass, now hides behind 2 menus. **Spot it by the words 'also' and 'anything'** at the end of a request. Those words are the door you just opened for guesses."
+    "body": "Sam types \"make it better\" after the first version. Claude changes the fonts, adds a settings page and renames two buttons. Sam liked the buttons. Spot it: if your request has no noun you could point at on the screen, it isn't a brief yet. \"Make the total bigger and bold\" is one.",
+    "simpler": "Sam types \"make it better\" after the first version. Claude changes the fonts, adds a settings page and renames two buttons. Sam liked the buttons. Here is how to spot the problem. If your request has no noun you could point at on the screen, it is not a brief yet. \"Make the total bigger and bold\" has one. **If you can't point at it, it isn't a brief yet.**"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend shows you their brief: 'For me. One job: log my 10-minute walks. No sign-in, no map, one file.' It's close. Which part is missing?",
+    "prompt": "A friend asks you to check their brief before they send it: \"Build me something for my running. Make it clean and modern.\" What do you tell them?",
     "options": [
      {
       "id": "a",
-      "text": "The user: it never says who the app is for."
+      "text": "Add the 4 lines: who, the one job, what done looks like, what to leave out."
      },
      {
       "id": "b",
-      "text": "The done-when line: nothing you can check by looking."
+      "text": "Add more adjectives so Claude understands the vibe."
      },
      {
       "id": "c",
-      "text": "The leave-out line: it never says what not to build."
+      "text": "Send it as is; Claude will ask questions if it's confused."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "'For me' is the user, so that part is there.",
-     "c": "'No sign-in, no map, one file' is the leave-out part, so that one's there too."
+     "b": "That's more paint on a blank work order: adjectives like \"clean\" give Claude a mood, not a picture to build.",
+     "c": "That's hoping the builder stops to ask; Claude usually guesses and builds, so you find the gap after, not before."
     },
-    "reteach": "Four parts: who, one job, done when, leave out. Your friend has three. Add one line you can check by eye: 'Done when I tap a button and see today's count go up by 1.'"
+    "reteach": "A brief is 4 lines: who will use it, the one job, what you'll see on screen when it's done, and what to leave out. If you can't check a line by looking at the screen, it isn't a done-looks-like line yet."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**A brief is 5 lines or fewer**: who it's for, the one job, what done looks like by eye, and what to leave out. Every line you skip, Claude fills with a guess you'll have to undo.",
-    "simpler": "**A brief is 5 lines or fewer.** Say who it's for. Say the one job it does. Say what done looks like, in a way you can check by eye. Say what to leave out. Every line you skip, Claude fills with a guess, and you'll have to undo that guess later. Think of it like a shopping list: the shorter and clearer it is, the less chance of coming home with the wrong thing."
+    "body": "A brief is 4 short lines: who uses it, the one job, what you'll see when it's done, and what to leave out. **If you can't check a line by looking at the screen, rewrite it.**\n\nTomorrow: a small web app is only 4 kinds of files. Which does what?",
+    "simpler": "A brief is 4 short lines. Who uses it. The one job. What you will see on the screen when it is done. What to leave out. **If you can't check a line by looking at the screen, rewrite it.** Think of it as a photo of the finished shelf, not a wish for a nicer kitchen.\n\nTomorrow: a small web app is only 4 kinds of files. Which does what?"
    },
    {
     "type": "try",
-    "body": "Open Claude Code in an empty folder. Type a 5-line brief for one page you'd actually use this week. Count the lines before you press enter. If there's an 'also', delete it.",
-    "simpler": "Open Claude Code in an empty folder. Type a 5-line brief for one page you'd actually use this week. Say who it's for, the one job, what done looks like, and what to leave out. **Count the lines before you press enter.** If one of them has an 'also' in it, delete that part. A short, clear note gets you a first version you can test today."
+    "body": "Open Claude Code in your folder from chapter 1. Write a 4-line brief for the tiniest thing you want tonight: who, one job, done looks like, leave out. Send it. Count the round trips.",
+    "simpler": "Open Claude Code in your folder from chapter 1. Write a 4-line brief for the tiniest thing you want tonight. Who is it for. What is the one job. What does done look like on the screen. What should be left out. Send it. Then **count the round trips**, meaning how many times you had to go back and ask for changes before it matched what you pictured."
    }
   ],
-  "outcomeLine": "You can now write a 5-line brief, with who, one job, done when and leave out, and get a working first version without going back and forth more than twice."
+  "outcomeLine": "You can now write a 4-line brief that gets Claude Code to a testable first version in 1 or 2 rounds.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"30\" y=\"32\" width=\"120\" height=\"148\" rx=\"7\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"70\" y=\"22\" width=\"40\" height=\"18\" rx=\"4\" fill=\"#1B1A17\"/><line x1=\"48\" y1=\"68\" x2=\"132\" y2=\"68\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"48\" y1=\"94\" x2=\"132\" y2=\"94\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"48\" y1=\"120\" x2=\"118\" y2=\"120\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"48\" y1=\"146\" x2=\"100\" y2=\"146\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><text x=\"62\" y=\"172\" font-family=\"sans-serif\" font-size=\"13\" fill=\"#1B1A17\">4 lines</text><line x1=\"160\" y1=\"105\" x2=\"190\" y2=\"105\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polygon points=\"186,98 198,105 186,112\" fill=\"#1B1A17\"/><polygon points=\"202,104 256,54 310,104\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"214\" y=\"104\" width=\"84\" height=\"72\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"244\" y=\"132\" width=\"24\" height=\"44\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"262\" cy=\"154\" r=\"2.5\" fill=\"#F2A93B\"/></svg>"
  },
- "seconds": 71.2081949710846
+ "seconds": 96.4767529964447
 }

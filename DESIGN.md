@@ -105,6 +105,15 @@ For: picking the writer by reading, not by name.
 Top to bottom: topic and chapter, "Which one reads best?", tabs A B C (with "writing…" while a version is being written), the chosen version's illustration, title and cards stacked, the main button "A reads best".
 States: writing "Writing version A… about a minute", failed "Version A didn't come through. Pick from the others.", done back to Plan with the chosen text as the chapter.
 
+Ask or object (under every card)
+A quiet "Ask or object about this" opens a single-line input with an Ask button. Answers stack under the card, question in bold sans, answer in the serif. "Thinking…" while it runs; "Couldn't answer that one right now" on failure. Never a chat window, never a second main button.
+
+Watch card (at most one per chapter)
+A bordered link block: the speaker in bold, the talk title in the serif, "Open in a new tab →". Kicker "Watch, N min". Under it, "Watch for:" and one line. Links only to known hosts (TED, YouTube, MIT OCW, archive.org and a few named sites); anything else renders as a dead link.
+
+Laptop (900 px and up)
+Two columns: a 260 px rail (topic, chapters done, chapter list, "The handbook", "Make it yours", "Start another topic") and a 38 rem reading column. The action bar sits at the bottom of the column, not across the window. The feedback sheet floats centred. "← Handbook" on every inner screen. Keys: → or Enter next, ← back, 1 2 3 answer, Esc closes the sheet.
+
 Illustration (on the picture card): a flat SVG in the two accent colours plus ink on white inside a tinted frame, max height 220 px, drawn by the model, sanitised. If it fails to parse, nothing shows; the card is still complete without it.
 
 Tonight (coming back, signed in or on the same phone)

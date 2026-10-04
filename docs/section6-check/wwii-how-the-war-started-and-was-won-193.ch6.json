@@ -5,7 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "By June 1944 the fire is back in the house it started from. Now the hoses come from two sides at once: Americans, British and Canadians through the front door in France, the Soviets through the back from the east. **Two hoses at once, fed by factories that never ran dry.**\n\nPicture the last day of it: 25 April 1945, American and Soviet soldiers shaking hands on a broken bridge over the Elbe river at Torgau. Between them, nothing of Germany's army is left."
+    "body": "By June 1944 the fire is back in the house it started from. Now the hoses come from two sides at once: Americans, British and Canadians through the front door in France, the Soviets through the back from the east. **Two hoses at once, fed by factories that never ran dry.**\n\nPicture the last day of it: 25 April 1945, American and Soviet soldiers shaking hands on a broken bridge over the Elbe river at Torgau. Between them, nothing of Germany's army is left.",
+    "simpler": "By June 1944 the fire is back in the house where it started. Americans, British and Canadians push in through the front door in France. The Soviets push in through the back door from the east. **Two hoses at once, fed by factories that never ran dry.**\n\nOn 25 April 1945, American and Soviet soldiers shake hands on a broken bridge over the Elbe river at Torgau. Between them, nothing of Germany's army is left."
    },
    {
     "type": "exercise",
@@ -35,12 +36,14 @@
    {
     "type": "teach",
     "title": "The two hoses",
-    "body": "On 6 June 1944, D-Day, about 156,000 Allied troops landed on 5 beaches in Normandy, France. It was the biggest sea landing ever tried. Paris was freed on 25 August.\n\nSixteen days after D-Day, on 22 June, the Soviets launched their own summer attack in the east and smashed a whole German army group, the largest force Germany had there.\n\n**This was the two-front war Germany had always feared.** In 1940 it had beaten France before Russia was even in the fight. Now it had to hold both doors at once, with fewer men than either enemy."
+    "body": "On 6 June 1944, D-Day, about 156,000 Allied troops landed on 5 beaches in Normandy, France. It was the biggest sea landing ever tried. Paris was freed on 25 August.\n\nSixteen days after D-Day, on 22 June, the Soviets launched their own summer attack in the east and smashed a whole German army group, the largest force Germany had there.\n\n**This was the two-front war Germany had always feared.** In 1940 it had beaten France before Russia was even in the fight. Now it had to hold both doors at once, with fewer men than either enemy.",
+    "simpler": "On 6 June 1944, D-Day, 156,000 Allied troops landed on 5 beaches in Normandy. It was the biggest sea landing ever. Paris was freed on 25 August.\n\nSixteen days later, on 22 June, the Soviets attacked in the east and smashed a whole German army group, Germany's biggest force there.\n\n**This was the two-front war Germany had always feared.** In 1940 it beat France before Russia was fighting. Now it had to hold both doors, with fewer men than either enemy."
    },
    {
     "type": "example",
     "title": "A bomber an hour",
-    "body": "Ford's Willow Run plant in Michigan was nearly a mile long. At its peak in 1944 it rolled out a B-24 bomber roughly every hour.\n\nA German fighter pilot might shoot down three bombers in a morning, land, and know that by the time he woke up tomorrow about 24 more had come off the line in a country his planes could not reach. He was fighting a conveyor belt. **The Allies could replace what they lost. Germany could not.**"
+    "body": "Ford's Willow Run plant in Michigan was nearly a mile long. At its peak in 1944 it rolled out a B-24 bomber roughly every hour.\n\nA German fighter pilot might shoot down three bombers in a morning, land, and know that by the time he woke up tomorrow about 24 more had come off the line in a country his planes could not reach. He was fighting a conveyor belt. **The Allies could replace what they lost. Germany could not.**",
+    "simpler": "Ford's Willow Run plant in Michigan was nearly a mile long. At its busiest in 1944, a B-24 bomber came out about every hour.\n\nThink of a German fighter pilot. He shoots down three bombers in a morning and lands. By the time he wakes up tomorrow, about 24 more have come off the line, in a country his planes cannot reach. He is fighting a conveyor belt. **The Allies could replace what they lost. Germany could not.**"
    },
    {
     "type": "exercise",
@@ -70,11 +73,13 @@
    {
     "type": "teach",
     "title": "Why May 1945",
-    "body": "The second hose was heavier than the first. Allied factories outbuilt Germany in planes, tanks and trucks, and Allied bombers hit German oil plants until many German planes sat grounded for lack of fuel.\n\nSo why May, not earlier? Hitler refused any surrender, and the army kept obeying him. **It ended only when the two fronts met.** They touched at the Elbe on 25 April 1945. Soviet troops fought into Berlin. Hitler killed himself in his bunker on 30 April. Germany surrendered on 8 May.\n\nOn the way in, the armies found the camps: Soviets at Auschwitz in January, British at Bergen-Belsen in April. This is what the war had been against."
+    "body": "The second hose was heavier than the first. Allied factories outbuilt Germany in planes, tanks and trucks, and Allied bombers hit German oil plants until many German planes sat grounded for lack of fuel.\n\nSo why May, not earlier? Hitler refused any surrender, and the army kept obeying him. **It ended only when the two fronts met.** They touched at the Elbe on 25 April 1945. Soviet troops fought into Berlin. Hitler killed himself in his bunker on 30 April. Germany surrendered on 8 May.\n\nOn the way in, the armies found the camps: Soviets at Auschwitz in January, British at Bergen-Belsen in April. This is what the war had been against.",
+    "simpler": "Allied factories built more than Germany's, and bombing left many German planes without fuel. So why did it last until May? Hitler refused to give up, and the army obeyed him. **It ended only when the two fronts met.** They met at the Elbe on 25 April 1945. Hitler killed himself on 30 April. Germany surrendered on 8 May.\n\nThe armies also found the camps: Auschwitz in January, Bergen-Belsen in April. This is what the war had been against."
    },
    {
     "type": "mistake",
-    "body": "Dev watches a D-Day film and tells his friends the Americans won the war in Europe on the beaches. His friend asks one question: where was most of Germany's army that summer? In the east. Most German soldiers who died in the war died fighting the Soviets. **If your story of 1944 to 1945 has only one hose, you have lost half the street.** Spot it by checking: did you mention the Soviets at all?"
+    "body": "Dev watches a D-Day film and tells his friends the Americans won the war in Europe on the beaches. His friend asks one question: where was most of Germany's army that summer? In the east. Most German soldiers who died in the war died fighting the Soviets. **If your story of 1944 to 1945 has only one hose, you have lost half the street.** Spot it by checking: did you mention the Soviets at all?",
+    "simpler": "Dev watches a D-Day film and tells his friends the Americans won the war in Europe on the beaches. His friend asks one question: where was most of Germany's army that summer? The answer is the east. Most German soldiers who died in the war died fighting the Soviets. **If your story of 1944 to 1945 has only one hose, you have lost half the street.** A quick check: did you mention the Soviets at all?"
    },
    {
     "type": "exercise",
@@ -104,11 +109,13 @@
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "From June 1944 Germany was squeezed from Normandy in the west and by the Soviets in the east, while Allied factories replaced every loss and German ones could not. **Hitler refused to give up, so it ended only when the two fronts met:** Berlin fell, Hitler died on 30 April 1945, and Germany surrendered on 8 May."
+    "body": "From June 1944 Germany was squeezed from Normandy in the west and by the Soviets in the east, while Allied factories replaced every loss and German ones could not. **Hitler refused to give up, so it ended only when the two fronts met:** Berlin fell, Hitler died on 30 April 1945, and Germany surrendered on 8 May.",
+    "simpler": "From June 1944, Germany was squeezed from two sides. The Allies pushed in from Normandy in the west and the Soviets from the east. Allied factories replaced every loss, and German factories could not. **Hitler refused to give up, so it ended only when the two fronts met.** Berlin fell. Hitler died on 30 April 1945. Germany surrendered on 8 May."
    },
    {
     "type": "try",
-    "body": "Open a map app. Trace Normandy to Torgau on the Elbe: that is the western hose, 11 months of fighting. Then trace Warsaw to Berlin: the last stretch of the eastern one. Notice which is longer."
+    "body": "Open a map app. Trace Normandy to Torgau on the Elbe: that is the western hose, 11 months of fighting. Then trace Warsaw to Berlin: the last stretch of the eastern one. Notice which is longer.",
+    "simpler": "Open a map app. Trace a line from Normandy to Torgau on the Elbe river. That is the western hose, and it took 11 months of fighting. Then trace a line from Warsaw to Berlin. That is the last stretch of the eastern hose. Look at the two lines and **notice which one is longer.**"
    }
   ],
   "outcomeLine": "You can now describe how Germany was squeezed from two sides in the last 11 months of the war in Europe, and say why its surrender came in May 1945 and not before."

@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "A balance sheet is a photo of the house taken at midnight on one day. It shows the house, the car in the drive, the cash in the kitchen drawer and the mortgage letter on the table, all frozen. It does not show the year of rent you collected or the roof you fixed in March: **it only shows what was there the moment the shutter clicked.**",
-    "simpler": "Think of a balance sheet as a photo of a house, taken at midnight on one day. You see the house, the car outside, the cash in the kitchen drawer and the mortgage letter on the table. Everything is frozen. You do not see the rent collected over the year or the roof fixed in March. **It only shows what was there the moment the shutter clicked.**"
+    "body": "At one minute to midnight on 31 December, someone walks up to the house and takes a single photo. **A balance sheet is that photo.** It shows the house, the mortgage and the unpaid bills exactly as they stood on that one day, and nothing about the year that led there.",
+    "simpler": "It is one minute to midnight on 31 December. Someone walks up to a house and takes one photo. **A balance sheet is that photo.** It shows the house, the home loan and the unpaid bills exactly as they stood on that one day. It says nothing about the year that led up to it. It cannot show how the people inside got there, only where things sat when the camera clicked."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya photographs her flat at midnight on 31 December. On 2 January she buys a sofa for 600. What does the 31 December photo show?",
+    "prompt": "Your friend Lena shows you a photo of her flat taken on 31 March. From the photo alone, can you tell what she earned in March?",
     "options": [
      {
       "id": "a",
-      "text": "The sofa, because the photo covers the whole year"
+      "text": "Yes. A nicer flat means a bigger salary."
      },
      {
       "id": "b",
-      "text": "No sofa, because the photo only knows that one midnight"
+      "text": "No. The photo shows what is there on one day, not what came in during the month."
      },
      {
       "id": "c",
-      "text": "The sofa, with a note saying it arrived later"
+      "text": "Yes, if you can see the mortgage letter on the table."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a film covering a stretch of time, not a photo: a balance sheet only knows one moment.",
-     "c": "That's wishful: the photo cannot see 2 January. Anything bought after the date is simply absent."
+     "a": "That's reading wealth as income: a flat can be inherited, borrowed against, or bought years ago. The photo shows what she has, not what she earned.",
+     "c": "That's what she owes, not what she earned: a mortgage letter is part of the photo, and still says nothing about March's pay."
     },
-    "reteach": "A balance sheet carries one date. Whatever the company owned and owed at the end of that day is on it. Anything that happened the day after is not there, with or without a note."
+    "reteach": "A photo freezes one moment. It can show a full fridge, but not how many shopping trips filled it. A balance sheet works the same way: one day, what is there, no record of the flow in or out."
    },
    {
     "type": "teach",
-    "title": "Where the date sits",
-    "body": "Look at the very top of any balance sheet. Under the title you will see words like *as at 31 December 2025* or *as of 30 June*. That tiny phrase is the whole point: **the sheet describes one single day.**\n\nThe income statement, the other main report, says *for the year ended 31 December*. 'For the year' means a stretch of time, a film. 'As at' means a moment, a photo.\n\nSo a balance sheet can tell you the cash in the bank on that day. It cannot tell you how much the company earned getting there.",
-    "simpler": "Look at the top of any balance sheet. Under the title you will see *as at 31 December 2025* or *as of 30 June*. That small phrase matters most: **the sheet describes one single day.**\n\nThe other main report, the income statement, says *for the year ended*. That covers a stretch of time, like a film. *As at* means one moment, like a photo.\n\nSo a balance sheet can tell you the cash in the bank that day. It cannot tell you how much the company earned to get there."
+    "title": "Find the date",
+    "body": "Look at the top of any balance sheet. It says *as at* and then one date, often the last day of a financial year. **That one date is the whole claim.** Every number below it is true for that day only.\n\nCompare the income statement, the second main report. Its heading says *for the year ended*, a stretch of time. That is the film: sales coming in, wages going out, 12 months of motion.\n\nThe photo has no 'from' and no 'to'. One day. If you remember nothing else from this page, remember the two words *as at*.",
+    "simpler": "Look at the top of any balance sheet. It says *as at* and then one date. Often that date is the last day of a financial year. **That one date is the whole claim.** Every number below it is true for that day only. The income statement is the other main report. Its heading says *for the year ended*, which is a stretch of time, like a film. The balance sheet has no 'from' and no 'to'. Just one day. Remember the words *as at*."
    },
    {
     "type": "example",
-    "title": "Nadia and the oven",
-    "body": "Nadia runs a bakery. Her balance sheet says cash 2,000 as at 31 December. You say, 'Only 2,000? Rough year.' She laughs. On 30 December she paid 40,000 for a second oven. The year was her best ever; **the photo just caught her the morning after a big shop.** Two days earlier, the cash line would have read 42,000 and you'd have called her rich.",
-    "simpler": "Nadia runs a bakery. Her balance sheet says cash 2,000 as at 31 December. You say, 'Only 2,000? Hard year.' She laughs. On 30 December she paid 40,000 for a second oven. It was her best year ever. **The photo just caught her the morning after a big shop.** Two days earlier the cash line would have said 42,000, and you would have called her rich."
+    "title": "Maya's oven",
+    "body": "Maya runs a bakery. Her balance sheet as at 31 December shows cash 12,000, an oven worth 8,000 and a bank loan of 15,000. Nowhere does it say she sold 400 loaves a week, or that August was dreadful. **The oven does not know whether it was a good year.**\n\nOn 2 January she pays 10,000 off the loan. A photo taken that evening shows cash 2,000 and a loan of 5,000. Same bakery, two days later, and the picture looks like a different business.",
+    "simpler": "Maya runs a bakery. Her balance sheet as at 31 December shows cash of 12,000, an oven worth 8,000 and a bank loan of 15,000. It does not say she sold 400 loaves a week. It does not say August was dreadful. **The oven does not know whether it was a good year.** On 2 January she pays 10,000 off the loan. A photo taken that evening shows cash of 2,000 and a loan of 5,000. Same bakery, two days later, and it looks like a different business."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A friend hands you two reports from the same shop. One says 'as at 31 March 2025'. The other says 'for the year ended 31 March 2025'. Which is the balance sheet?",
+    "prompt": "Tomasz's bike shop has a balance sheet as at 30 June showing cash of 5,000. On 1 July a customer pays him 20,000 for a bulk order. What happens to the 30 June sheet?",
     "options": [
      {
       "id": "a",
-      "text": "The first, because 'as at' names one day"
+      "text": "It gets updated to show cash of 25,000, since the money was earned on that order."
      },
      {
       "id": "b",
-      "text": "The second, because a whole year is more useful"
+      "text": "It stays at 5,000. The 20,000 would show on a sheet dated 1 July or later."
      },
      {
       "id": "c",
-      "text": "Both, since they carry the same date"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's the income statement: 'for the year ended' covers a stretch of time, a film, not a photo.",
-     "c": "They share a date but not a job: one freezes a moment, the other adds up twelve months."
-    },
-    "reteach": "The clue is the small word before the date. 'As at' or 'as of' means one day, so it is the balance sheet. 'For the year ended' means a period, so it is the income statement."
-   },
-   {
-    "type": "teach",
-    "title": "Why two dates sit side by side",
-    "body": "Most published balance sheets show two columns: this year's date and the same date last year. Two photos, one year apart. **The gap between the two columns is the story a single photo cannot tell.**\n\nIf cash was 50,000 last year and 10,000 now, something happened. The sheet will not say what. Maybe a new oven, maybe a bad year, maybe a loan paid off. Your job is to notice the jump and go looking.\n\nAlso check the day itself. A toy shop photographed on 20 December, stockroom full for the rush, looks nothing like the same shop on 15 January.",
-    "simpler": "Most balance sheets show two columns. One is this year's date. The other is the same date last year. Two photos, one year apart. **The gap between the two columns is the story a single photo cannot tell.**\n\nIf cash was 50,000 last year and 10,000 now, something happened. The sheet will not say what. Maybe a new oven, a bad year, or a loan paid off. Notice the jump, then go looking.\n\nCheck the day too. A toy shop on 20 December, shelves full for the rush, looks nothing like the same shop on 15 January."
-   },
-   {
-    "type": "mistake",
-    "body": "Tom sees *cash 10,000* on a sheet dated 31 December and tells his brother, 'They only brought in 10,000 all year.' But the sheet never said how much came in. Ten thousand is what sat in the bank at midnight on one day; far more may have flowed in and out before that. Spot the slip: the words 'brought in', 'made' or 'earned' pointed at a balance sheet mean someone has **mistaken the photo for the film.**",
-    "simpler": "Tom sees *cash 10,000* on a sheet dated 31 December. He tells his brother, 'They only brought in 10,000 all year.' But the sheet never said how much came in. Ten thousand is what sat in the bank at midnight on one day. Far more may have come and gone before that. Words like 'brought in', 'made' or 'earned', aimed at a balance sheet, mean someone has **mistaken the photo for the film.**"
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Which question can a balance sheet answer on its own?",
-    "options": [
-     {
-      "id": "a",
-      "text": "How much did the company earn between January and December?"
-     },
-     {
-      "id": "b",
-      "text": "How much cash did it hold on 31 December?"
-     },
-     {
-      "id": "c",
-      "text": "How much did it spend on wages this year?"
+      "text": "The 20,000 is added as income on the 30 June sheet."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the income statement's job: earning happens over a stretch of time, and a photo cannot show a stretch.",
-     "c": "That's spending over a year, a film question. The balance sheet only shows what was left on the day."
+     "a": "That's mixing two dates: the photo was taken on 30 June, and nothing that happened in July can appear in it.",
+     "c": "That's the income statement's job, not the balance sheet's: a balance sheet has no income line at all, only what is there on the day."
     },
-    "reteach": "If the question contains 'during', 'this year' or 'between', it is a film question and needs the income statement. If it asks about one date, it is a photo question and the balance sheet can answer it."
+    "reteach": "Think of the date as the shutter click. Whatever was in the till at that second is on the sheet. Money that arrives the next morning belongs to the next photo, not this one."
+   },
+   {
+    "type": "teach",
+    "title": "Two photos, one story",
+    "body": "You'd think one photo was enough. It is the second photo that tells you anything. Most published balance sheets print two columns side by side: this year-end and the one before. **Two dates a year apart show the movement.** Cash up, loan down, more unpaid customer bills: you cannot see the film, but you can see where the furniture moved.\n\nOne quiet catch. A company picks its own year-end, and some pick a day when stock is low and cash is high. The photo is honest. The house was just tidied before the camera came out.",
+    "simpler": "You might think one photo is enough. It is the second photo that tells you something. Most published balance sheets print two columns side by side: this year-end and last year-end. **Two dates a year apart show the movement.** Cash up, loan down, more unpaid customer bills. You cannot see the film, but you can see where the furniture moved. One quiet catch. A company picks its own year-end. Some pick a day when stock is low and cash is high. The photo is honest. The house was just tidied before the camera came out."
+   },
+   {
+    "type": "mistake",
+    "body": "Priya opens a balance sheet dated 31 March, sees 'Cash 40,000', and tells her brother the company makes 40,000 a year. Her brother asks where it says 'a year'. It doesn't. **The tell is the heading**: if it reads *as at*, nothing on the page is earnings, only what the company held on that day.",
+    "simpler": "Priya opens a balance sheet dated 31 March. She sees 'Cash 40,000' and tells her brother the company makes 40,000 a year. Her brother asks where the page says 'a year'. It does not. **The tell is the heading.** If it reads *as at*, nothing on the page is earnings. It only shows what the company held on that one day. Cash in the drawer is not the same as money made over a year."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "You want to know how much a company earned over the last 12 months. Which page do you open?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The balance sheet, because it lists cash and cash is what you earn."
+     },
+     {
+      "id": "b",
+      "text": "The income statement, the one headed 'for the year ended'."
+     },
+     {
+      "id": "c",
+      "text": "Either one, as long as it is dated 31 December."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's what the company holds on one day, not what it earned: cash can come from a loan or an investor just as easily as from sales.",
+     "c": "That's the date, not the type of report: the balance sheet is dated to a day, and the income statement covers the year before that day. Only the second one measures earnings."
+    },
+    "reteach": "Earning takes time, and the balance sheet has no time in it. It is one frame. To see what came in over a year, you need the report that covers a year: the income statement."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A balance sheet is **a photo taken on one day**, so find the words *as at* and the date before you read anything else. It shows what was there at that moment, never how much was earned getting there; for that you need the film, the income statement.",
-    "simpler": "A balance sheet is **a photo taken on one day.** So find the words *as at* and the date before you read anything else. The sheet shows what was there at that moment. It never shows how much was earned getting there. For that, you need the film, which is the income statement."
+    "body": "A balance sheet is **a photo of a company on one date**, which you find next to the words 'as at' at the top. It shows what was there that day, never what was earned, and the second column, last year's photo, is where the story starts.\n\nTomorrow: assets are listed in strict order, and that order means speed to cash.",
+    "simpler": "A balance sheet is **a photo of a company on one date**. You find that date next to the words 'as at' at the top. It shows what was there on that day. It never shows what was earned. The second column is last year's photo, and that is where the story starts, because now you can see what moved. Tomorrow we look at assets. They are listed in a strict order, and that order tells you how fast each one turns into cash."
    },
    {
     "type": "try",
-    "body": "Open any big company's annual report online, find the balance sheet, and look for 'as at' or 'as of'. **Say the date out loud.** Then find the two columns and spot one line that jumped.",
-    "simpler": "Open any big company's annual report online. Find the balance sheet. Look for the words 'as at' or 'as of'. **Say the date out loud.** Then find the two columns, this year and last year, and spot one line that jumped between them."
+    "body": "Search online for any listed company's latest annual report. Find the balance sheet, read the heading, and say the date out loud. Then find the second column and say that date too.",
+    "simpler": "Search online for any listed company's latest annual report. A listed company is one whose shares are traded on a stock exchange, so its reports are public. Find the balance sheet inside the report. Read the heading and say the date out loud. Then find the second column, which is last year's figures, and say that date too. **Two dates, said out loud**, is the whole exercise. It takes about two minutes."
    }
   ],
-  "outcomeLine": "You can now point to the date on any balance sheet, say which single day it describes, and explain why it cannot tell you what the company earned."
+  "outcomeLine": "You can now say which single day a balance sheet describes and explain why it cannot tell you what the company earned.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"74\" y=\"28\" width=\"176\" height=\"144\" rx=\"5\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"162,58 112,102 214,100\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linejoin=\"round\"/><rect x=\"124\" y=\"100\" width=\"78\" height=\"54\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"152\" y=\"124\" width=\"20\" height=\"30\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"132\" y=\"110\" width=\"14\" height=\"12\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"18\" y=\"128\" width=\"38\" height=\"26\" rx=\"4\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"37\" cy=\"141\" r=\"7\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"60\" y1=\"124\" x2=\"68\" y2=\"116\" stroke=\"#F2A93B\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"62\" y1=\"141\" x2=\"70\" y2=\"141\" stroke=\"#F2A93B\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"60\" y1=\"158\" x2=\"68\" y2=\"166\" stroke=\"#F2A93B\" stroke-width=\"3\" stroke-linecap=\"round\"/><text x=\"162\" y=\"166\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\">31 Dec</text></svg>"
  },
- "seconds": 61.38796782493591
+ "seconds": 104.29305171966553
 }

@@ -5,120 +5,114 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Your clipper does not just read the rival's pricing page and bin the paper. **They cut the page out and drop it in a folder labelled with today's date.** Picture a filing cabinet with one drawer per morning. Tomorrow they pull two clippings, lay them side by side on the desk, and the difference jumps out.",
-    "simpler": "Imagine someone whose job is to check a rival's pricing page every morning. They do not just read it and throw the paper away. **They cut the page out and put it in a folder marked with today's date.** Think of a filing cabinet with one drawer for each morning. The next day they take out two clippings and lay them side by side. Any change is easy to spot."
+    "body": "A web page is not a page. It is one long string of text, and your agent can read it the way your clipping clerk reads the morning paper: today the clerk buys the paper, cuts nothing, and files the whole thing with the date written on top. **Without that dated copy, tomorrow there is nothing to compare.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Monday, your clipper reads a rival's pricing page, shrugs, and bins it. Tuesday they read it again: the Pro plan is $29. Was it $29 on Monday too?",
+    "prompt": "Your clipping clerk reads rival Lantern Payroll's pricing page on Monday, nods, and bins the paper. On Tuesday you ask what changed. What can the clerk honestly say?",
     "options": [
      {
       "id": "a",
-      "text": "Yes. Nothing changes that fast."
+      "text": "Prices went up, I remember it clearly"
      },
      {
       "id": "b",
-      "text": "No way to know. Monday's page is in the bin."
+      "text": "Nothing to compare against: Monday's copy is gone"
      },
      {
       "id": "c",
-      "text": "Yes, if the clipper remembers it that way."
+      "text": "Tuesday's page is the only one that matters"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a guess, not a check: pricing pages change quietly, and the whole point of the agent is to notice when they do.",
-     "c": "That's memory, not a copy: the agent has no memory between runs unless you save one to disk."
+     "a": "That's memory, not a copy: memory is exactly what the agent does not have between runs.",
+     "c": "That's reading, not tracking: one copy tells you what a page says, never what changed."
     },
-    "reteach": "The agent runs fresh each day and forgets everything from the day before. The only way it can know what a page used to say is if yesterday's run saved a copy. No saved copy, no comparison, no 'what changed'."
+    "reteach": "A change is a difference between two things. If you keep only today, you have one thing. Yesterday's saved copy is the second thing, and the whole reason to save."
    },
    {
     "type": "teach",
-    "title": "Fetching is downloading the words",
-    "body": "*Fetching* a page means asking a web address for its content and getting the text back, the same thing your browser does before it draws anything. A tool called *curl* (a one-line command that downloads a web address) does this, and so do a few lines of Python.\n\nWhat comes back is *HTML*, the code behind a web page. It is noisy: tags, scripts, styling. The words a human reads are buried inside.\n\n**Your only job on this step is to get those words onto your own disk.** Not to understand them, not to tidy them. Just to keep them.",
-    "simpler": "Fetching a page means asking a web address for its content and getting the text back. Your browser does this before it draws anything. A small tool called curl, one typed command, can do it. So can a few lines of Python. What comes back is HTML, the code behind a web page. It is messy, and the readable words are buried inside. **Your only job here is to save those words on your own computer.** Nothing more."
+    "title": "Buying the paper",
+    "body": "When your browser shows a page, it first *downloads* it: it asks the website's computer for the page and gets text back. Your agent can make the same request with one line of code and get the same text, no browser needed.\n\nThat text is *HTML*, the page's raw form, full of tags like <p> and <div> that tell a browser where things go. A pricing page that reads as 300 words on screen can arrive as 5,000 lines of HTML.\n\n**Fetch means download the raw text, then strip the tags** so you keep only the words a person would see. That is the paper, delivered."
    },
    {
     "type": "example",
-    "title": "1,400 lines of purple buttons",
-    "body": "Say on 4 October you fetch a rival's pricing page with one command: curl https://example.com/pricing > 2026-10-04-pricing.txt\n\nYou open the file. It is 48 kilobytes, about 1,400 lines. Roughly 20 of those lines are words a person would read: plan names, three prices, a line about a free trial. The other 1,380 exist mostly to make a button purple.\n\nThat is fine. **The three prices are in there**, and tomorrow you will have a second file to hold up next to this one.",
-    "simpler": "Say on 4 October you grab a rival's pricing page with one command: curl https://example.com/pricing > 2026-10-04-pricing.txt. You open the file. It is 48 kilobytes, about 1,400 lines. Only about 20 lines are words a person would read: plan names, three prices, a note about a free trial. The other 1,380 lines exist mostly to make a button purple. That is fine. **The three prices are in there.** Tomorrow you will have a second file to set beside it."
+    "title": "Priya's first clipping",
+    "body": "Priya tracks a payroll rival called Lantern. She points her agent at Lantern's pricing page. The raw download is 212 KB of HTML, and the word 'price' appears 41 times, mostly inside menu code. After stripping tags she has 640 words, 3 plan names and 3 numbers. She saves it as lantern-pricing-2026-10-04.txt, opens it, reads the plans. The file is boring. That is the point: boring today, evidence tomorrow, because **now she owns a copy of Lantern's Monday**."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You're writing the fetch step for a rival called Acme. Which file name do you save to?",
+    "prompt": "Priya's agent saves Lantern's pricing page each morning. Which filename keeps a copy she can compare against next week?",
     "options": [
      {
       "id": "a",
-      "text": "acme-pricing.txt, overwritten every run so it's always current"
+      "text": "lantern-pricing.txt, overwritten each run"
      },
      {
       "id": "b",
-      "text": "2026-10-04-acme-pricing.txt, a new file every day"
+      "text": "lantern-pricing-2026-10-04.txt, a new file each day"
      },
      {
       "id": "c",
-      "text": "acme-pricing-latest.txt, and you remember the old price in your head"
+      "text": "lantern-pricing-latest.html, raw tags and all"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's today's copy replacing yesterday's: once it's overwritten, there is nothing left to compare against.",
-     "c": "That's your memory doing the agent's job: the agent cannot read your head, and by day 8 neither can you."
+     "a": "That's today replacing yesterday: the moment it overwrites, the comparison is gone.",
+     "c": "That's the paper before stripping, with no date: raw tags clutter the compare, and 'latest' is still only one sheet."
     },
-    "reteach": "Put the date at the front of the file name, year first, like 2026-10-04. Each run then adds a new file instead of replacing the old one, and the files sort in date order on their own. Yesterday's copy stays untouched, which is the whole reason you saved it."
+    "reteach": "The date in the filename turns one file into a stack. Each day adds a layer; next week you pull out two and hold them side by side. Overwrite, and the stack is always one sheet thick."
    },
    {
     "type": "teach",
-    "title": "A photo, not a window",
-    "body": "A fetched page is a *snapshot*: a photo of the page at one moment. It is not a live window. If the site changes an hour later, your file does not. **A photo you kept is the only past the agent has.**\n\nKeep one file per page per day, date first in the name, in a folder per competitor. Seven days in, you have seven photos of one page in a row.\n\nOne more habit: open the file after each fetch. A blocked request saves a file too, but it says 'Access denied' instead of prices. A 2-second look catches that.",
-    "simpler": "A fetched page is a snapshot, a photo of the page at one moment, not a live window. If the site changes later, your file does not. **That saved photo is the only past the agent has.** Keep one file per page per day, date first in the name, one folder per competitor. Then open each file after fetching. A blocked request still saves a file, but it says 'Access denied' instead of prices. A quick look catches that."
+    "title": "When the paper comes blank",
+    "body": "Mostly a page is text your agent can read. The exceptions matter. Some pages arrive almost empty, with a line like 'Please enable JavaScript', because the real words are added later by code running inside a browser. Your agent has no browser, so it gets the empty shell.\n\nOther sites spot a robot and send an 'Access denied' page, or a *403*, the web's number for 'no'. Both look like a successful download. Both are useless.\n\n**So the last step of every fetch is to open the file and look.** If the plan names and prices are there, the clipping worked. If the file is 40 words of apology, that page needs a different route, which chapter 7 covers."
    },
    {
     "type": "mistake",
-    "body": "Priya set up her fetch on a Monday, named the file pricing.txt, and let it run nightly. The following Tuesday a colleague asked when the rival's price went up. She opened her folder: one file, today's page, no history. **Eight runs had produced one copy.** The tell is simple: if the folder does not grow by one file per day, you are overwriting, not keeping.",
-    "simpler": "Priya set up her fetch on a Monday. She named the file pricing.txt and let it run every night. The next Tuesday a colleague asked when the rival's price had gone up. She opened her folder and found one file: today's page, no history. **Eight runs had produced one copy.** Each night had written over the night before. The warning sign is easy: if the folder does not gain one new file each day, you are overwriting, not keeping."
+    "body": "Tomas set his agent to fetch 4 rivals' changelogs every night and did not look for two weeks. On day 15 he opened the folder: 56 neat dated files, each 38 words long, each saying 'Checking your browser before you continue.' Spot it fast: a file far smaller than the page looks on screen, or **the same size every single day**."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Your agent fetched 5 pages this morning. Why save them to disk at all, instead of handing them straight to the model?",
+    "prompt": "When the agent 'fetches and keeps a copy', which of these is the clipping clerk actually doing?",
     "options": [
      {
       "id": "a",
-      "text": "Saving makes the model read them faster."
+      "text": "Reading today's paper carefully and remembering the main points"
      },
      {
       "id": "b",
-      "text": "Tomorrow's run needs today's copies to compare against."
+      "text": "Buying today's paper, stripping it to plain words, filing it under today's date"
      },
      {
       "id": "c",
-      "text": "Websites require a saved copy before they let you fetch again."
+      "text": "Cutting out only the stories that changed since yesterday"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's speed, not memory: the model reads at the same pace either way, and today's copy is for tomorrow, not for the model.",
-     "c": "That's made-up etiquette: sites don't know or care what you keep; you keep copies for yourself."
+     "a": "That's the model's job in chapter 5, and memory isn't a file: the agent keeps nothing between runs unless you save it.",
+     "c": "That's the scissors, chapter 4: you cannot cut what changed until you own two dated copies."
     },
-    "reteach": "Think of the clipper's folder. Today's clipping is boring on its own. It only earns its place tomorrow, when the next one lands beside it and the two can be compared. Save today so tomorrow has a yesterday."
+    "reteach": "Fetching is the dull step: get the text, drop the tags, save with the date. Comparing and explaining come later and lean on it. No copy, no diff; no diff, no summary."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**Fetch each page as text and save it in a file named with today's date, so tomorrow's copy has something to sit next to.** The agent has no memory between runs; the folder of dated files is its memory.",
-    "simpler": "**Fetch each page as text and save it in a file named with today's date, so tomorrow's copy has something to sit next to.** The agent forgets everything between runs. It starts each time with a blank mind. The folder of dated files is its memory. Like a diary, each day gets its own page, and the pages together tell the story."
+    "body": "The agent downloads a page as raw text, strips the tags down to the words a person sees, and saves the result in a file named with today's date; then you open it to check it is not an 'enable JavaScript' shell. **Yesterday's file is the only reason today's can mean anything.**\n\nTomorrow: the scissors. Two dated copies, and only the lines that differ."
    },
    {
     "type": "try",
-    "body": "Open a terminal and run curl on one competitor page, saving to a file named with today's date, like 2026-10-04-pricing.txt. Open the file and search for one word you know is on the page.",
-    "simpler": "Open a terminal, the window where you type commands. Run curl on one competitor's page and save the result to a file named with today's date, such as 2026-10-04-pricing.txt. Then open that file. **Search inside it for one word you know is on the page**, like a plan name or a price. If you find it, the fetch worked and you have your first dated copy."
+    "body": "Open one rival's pricing page, select all, copy, and paste into a new text note. Name it with the company and today's date, like lantern-pricing-2026-10-04. You just did the agent's job by hand, once."
    }
   ],
-  "outcomeLine": "You can now fetch one competitor page, save it as a dated text file, and open it to check the words are really there."
+  "outcomeLine": "You can now fetch one competitor page, save its text under today's date, and open it to prove the copy is real.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"28\" y=\"30\" width=\"120\" height=\"150\" rx=\"3\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"40\" y1=\"48\" x2=\"136\" y2=\"48\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"40\" y1=\"62\" x2=\"136\" y2=\"62\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"72\" x2=\"120\" y2=\"72\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><rect x=\"40\" y=\"86\" width=\"96\" height=\"40\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><line x1=\"40\" y1=\"140\" x2=\"136\" y2=\"140\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"152\" x2=\"128\" y2=\"152\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"164\" x2=\"136\" y2=\"164\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"150\" y1=\"106\" x2=\"190\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><polygon points=\"186,100 196,106 186,112\" fill=\"#1B1A17\"/><path d=\"M206 70 h40 l10 10 h50 v90 h-100 z\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"214\" y=\"96\" width=\"84\" height=\"50\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\" transform=\"rotate(-4 256 121)\"/><text x=\"256\" y=\"126\" font-family=\"sans-serif\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1B1A17\">2026-10-04</text><circle cx=\"160\" cy=\"60\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"160\" cy=\"78\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"165\" y1=\"63\" x2=\"188\" y2=\"76\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"165\" y1=\"75\" x2=\"188\" y2=\"62\" stroke=\"#1B1A17\" stroke-width=\"2\"/></svg>"
  },
- "seconds": 91.05470204353333
+ "seconds": 130.2264699935913
 }

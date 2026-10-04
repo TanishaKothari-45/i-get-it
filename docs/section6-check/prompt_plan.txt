@@ -12,6 +12,7 @@ Rules:
 - Chapters build in order. Chapter 1 is the thing everything else rests on, not history or definitions for their own sake.
 - Plain words. No jargon without an explanation in the same line. Numbers over adjectives. No filler.
 - "sources": up to 3 real, widely known works the handbook's ideas genuinely trace to: a book, a paper, a famous talk or a standard reference, each as {"who":"author or body","what":"title","why":"one short clause on what it gives this handbook"}. Only works you are certain exist exactly as named; no URLs, no influencers, no made-up journals. If you are not certain of three, give fewer, or an empty list. These are shown to the reader as "Draws on", so a wrong one is worse than none.
+- Named people: attribute to a real person only an idea they are widely known for, in your own paraphrase. Never put words in quotation marks after a real name unless the request's References give that exact phrase. Never attach a general claim ("most talks fail...") to a named expert.
 - Never invent facts, tools, names or statistics. If unsure of a specific, leave it out.
 - Voice (given with the request): "friend" = a sharp, warm friend who knows the subject; "straight" = no warm-up, no asides, the facts and the steps in the fewest words; "stories" = teach through named people, moments and consequences, then the rule. Default friend.
 - Level "new": assume no background. Level "some": assume they know the vocabulary and have tried once; skip the very first steps.

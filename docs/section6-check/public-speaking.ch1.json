@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Imagine leading five friends on a walk through a town none of them know. Before anyone laces a shoe, you say: **we're going to the lighthouse.** Not 'the lighthouse, and maybe the harbour, and there's a nice bakery': one place, named out loud, so everyone knows what arriving looks like.",
-    "simpler": "Picture yourself taking five friends on a walk through a town none of you know. Before anyone puts their shoes on, you tell them: **we're going to the lighthouse.** Not the lighthouse, plus maybe the harbour, plus a nice bakery. Just one place, said out loud. Now everyone knows what it looks like to arrive."
+    "body": "Ask a speaker 30 seconds before they stand up what their point is. Watch the pause. A talk is a walk you lead, and **a walk needs one destination**: if you can't name the place you're taking people, they'll follow you politely for 3 minutes and arrive nowhere.",
+    "simpler": "Ask a speaker, 30 seconds before they stand up, what their point is. Watch them pause. Think of a talk as a walk you lead. **A walk needs one destination.** If you can't name the place you're taking people, they will follow you politely for three minutes and end up nowhere."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Dev is giving a 3-minute talk to his running club. He says it's about 'training, nutrition, sleep, and why I started running'. In walk terms, where is he taking them?",
+    "prompt": "Sam has 3 minutes to speak at Jo's birthday dinner. Which of these is a destination, a place the listeners can actually arrive at?",
     "options": [
      {
       "id": "a",
-      "text": "To the lighthouse, by a scenic route."
+      "text": "Jo and the ten years we've known her"
      },
      {
       "id": "b",
-      "text": "To four places at once, which is nowhere."
+      "text": "Jo shows up when it's inconvenient, and that's why we're all here."
      },
      {
       "id": "c",
-      "text": "To the lighthouse, with a quick stop at the bakery."
+      "text": "Some funny stories, a bit about her job, then a toast"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a route with one destination, not Dev's list: he named four topics and no single place to arrive.",
-     "c": "That's one destination plus a detour: Dev has no main destination at all, just four equal stops."
+     "a": "That's the topic, not the point: it names the field you'll wander in, not the place you'll arrive.",
+     "c": "That's a list of stops, not a destination: three things to do, and no one sentence they add up to."
     },
-    "reteach": "A destination is one place everyone can picture arriving at. Dev's four topics are four separate walks. Until he picks one, nobody, including Dev, knows when the talk is finished."
+    "reteach": "A destination is one sentence someone could repeat on the way home. A topic is just the field you're standing in. A list is the route. Only the sentence tells you where the walk ends."
    },
    {
     "type": "teach",
-    "title": "A point, not a topic",
-    "body": "A *topic* is an area, like 'running'. A *point* is one thing you want listeners to believe or do when you stop, like 'run slower than you think you should'. **A talk needs a point, not a topic.** A topic has no end. A point does.\n\nHere's the test. A friend asks 'what's your talk about?' If you can answer in one sentence that starts with 'that', you have a point. 'That running slower builds speed' passes. 'Running' fails.\n\nEverything else in the talk, every story and number, exists to carry people to that one sentence.",
-    "simpler": "A topic is a subject, like 'running'. A point is one thing you want people to believe or do by the end, like 'run slower than you think'. **A talk needs a point, not a topic.**\n\nTest it. A friend asks what your talk is about. If you can answer in one sentence starting with 'that', you have a point. 'That running slower builds speed' works. 'Running' fails. Every story and number carries people to that sentence."
+    "title": "Why one, not three",
+    "body": "You'd think more points means more value. It's the reverse. Listeners can't rewind you, so **everything they keep has to fit in one hand**, and one sentence is about what a hand holds.\n\nA point is a claim or an ask: something a person could agree with, argue with, or go and do. A *topic* is the subject area; a *point* is what you're saying about it. 'Sleep' is a topic. 'Go to bed 30 minutes earlier this week' is a point.\n\nEvery story, number and slide then has one job: carry people a step closer to that sentence. Anything that doesn't, you leave at home.",
+    "simpler": "More isn't better here. Listeners can't rewind you, so **everything they keep has to fit in one hand**, and a hand holds about one sentence.\n\nA point is a claim or an ask: something people could agree with, argue with, or do. A topic is only the subject. 'Sleep' is a topic. 'Go to bed 30 minutes earlier this week' is a point.\n\nEvery story and slide has one job: carry people closer to that sentence, or stay home."
    },
    {
     "type": "example",
-    "title": "Priya's 13 words",
-    "body": "Priya had to give a 3-minute talk at work about a new expenses app. Her first draft point was 'the new expenses system'. That's a topic. Nobody can arrive at a system.\n\nHer second try: 'Submit receipts the same day you spend, because the app does the rest.' 13 words. Her colleague Tom read it and said 'oh, so I just photograph the receipt at lunch?' That's what arriving sounds like: **someone repeats your point back in their own words.**",
-    "simpler": "Priya had to give a 3-minute talk at work about a new expenses app. Her first point was 'the new expenses system'. That's a topic. Nobody can arrive at a system.\n\nHer second try: 'Submit receipts the same day you spend, because the app does the rest.' 13 words. Her colleague Tom read it and said, 'oh, so I just photograph the receipt at lunch?' That's what arriving sounds like: **someone repeats your point back in their own words.**"
+    "title": "Priya's three tries",
+    "body": "Priya has 3 minutes at Monday's team meeting to introduce the new expense form. Her first destination is 'Expenses', a topic you could wander in for a week. Her second is 'the new form, why we changed it, and how to use it', which is three stops and no arrival. Third try, said out loud in 6 seconds: 'File each expense the day you spend it, and you'll be paid within the week.' Fifteen words, **one place to arrive**. She looks at her 11 slides and deletes 9 of them.",
+    "simpler": "Priya has 3 minutes at Monday's meeting to introduce a new expense form. Her first try is 'Expenses', a topic you could wander in for a week. Her second is 'the new form, why we changed it, and how to use it', which is three stops and no arrival. Her third, said out loud in 6 seconds: 'File each expense the day you spend it, and you'll be paid within the week.' Fifteen words, **one place to arrive**. She deletes 9 of her 11 slides."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Which of these is a destination, written the way this chapter asks?",
+    "prompt": "Dev has 3 minutes at his running club to talk about a new route. Which sentence should he write on his card before anything else?",
     "options": [
      {
       "id": "a",
-      "text": "Why our team should switch to a four-day week."
+      "text": "The canal path: distance, lighting, safety, and where to park."
      },
      {
       "id": "b",
-      "text": "Give the team Fridays off and output goes up, because tired people make mistakes."
+      "text": "Run the canal path on winter evenings, because it's flat and lit until 11pm."
      },
      {
       "id": "c",
-      "text": "The four-day week: history, evidence, and what it would mean for us."
+      "text": "First I'll describe the path, then the lighting, then take questions."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a title, not a point: it names the area but doesn't say what you want people to believe at the end.",
-     "c": "That's an agenda, not a point: three stops and no single place to arrive."
+     "a": "That's the topic broken into headings, not the point: nobody could agree or disagree with it.",
+     "c": "That's the running order, not the destination: it says what Dev will do, not where listeners end up."
     },
-    "reteach": "The destination is a full sentence someone could agree or disagree with. 'Why we should switch' is a question you haven't answered yet. 'Give Fridays off and output goes up' is the answer, said plainly, and that's what the talk delivers."
+    "reteach": "Test a sentence by asking: could someone nod or shake their head at it? A heading can't be argued with. A running order can't either. Only a claim or an ask can, and that's your destination."
    },
    {
     "type": "teach",
-    "title": "Write it first, in 15 words",
-    "body": "Write the sentence **before you write anything else.** Not the opening, not the slides, not the story you're excited to tell. If you write the talk first and hunt for the point afterwards, you'll find three, and you'll keep all of them.\n\nKeep it to 15 words or fewer. That limit is a tool, not a style choice. At 15 words there's no room for a second idea to hide behind an 'and'.\n\nThen say it out loud. If it takes more than 10 seconds, or you stumble halfway, it's two sentences wearing one coat.",
-    "simpler": "Write the sentence **before you write anything else.** Not the opening, not the slides, not your favourite story. Write the talk first and hunt for the point later, and you'll find three and keep them all.\n\nKeep it to 15 words or fewer. The limit is a tool. At 15 words, a second idea has nowhere to hide behind an 'and'.\n\nSay it out loud. If it takes over 10 seconds, or you stumble, it's two sentences in one coat."
+    "title": "Write it before anything else",
+    "body": "Write the sentence first, before notes, slides or jokes. Keep it to **15 words or fewer, with a verb**, because a verb is what turns a subject into something that happens. Count on your fingers if you have to.\n\nThen say it out loud and time it. Under 10 seconds means it's small enough to carry. If it takes 20, you've got two destinations wearing one coat: split them and keep the one you'd save if the fire alarm went off.\n\nLast test: could a listener text it to a friend afterwards without looking anything up? If yes, you've picked a place. If no, keep carving.",
+    "simpler": "Write the sentence first, before notes, slides or jokes. Keep it to **15 words or fewer, with a verb**, because a verb turns a subject into something that happens.\n\nSay it out loud and time it. Under 10 seconds means it's small enough to carry. Twenty seconds means two destinations wearing one coat: split them and keep the one you'd save in a fire.\n\nCould a listener text it to a friend without looking anything up? If not, keep carving."
    },
    {
     "type": "mistake",
-    "body": "Marcus wrote his point: 'Our onboarding takes too long and new hires feel lost and we should fix the handbook.' 17 words, two 'and's. He was proud of it. His talk ran 6 minutes and ended three times. Spot it in your own sentence: **count the 'and's.** Each one is probably a second destination you haven't let go of yet.",
-    "simpler": "Marcus wrote his point: 'Our onboarding takes too long and new hires feel lost and we should fix the handbook.' 17 words, two 'and's. He was proud of it. His talk ran 6 minutes and ended three times. Check your own sentence the same way: **count the 'and's.** Each one is probably a second destination you haven't let go of yet."
+    "body": "Marcus was asked to speak for 3 minutes at his dad's retirement do. On his card he wrote 'Dad's career'. He spoke for 9 minutes, covered 4 jobs and 2 countries, and finished with 'so, yeah'. Spot it early: **if your sentence has no verb, it's a topic**, and a topic has no end, so neither will you.",
+    "simpler": "Marcus was asked to speak for 3 minutes at his dad's retirement party. On his card he wrote 'Dad's career'. He spoke for 9 minutes, covered 4 jobs and 2 countries, and ended with 'so, yeah'. You can catch this early: **if your sentence has no verb, it's a topic**. A topic has no end, so your talk won't have one either."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "You've got a 3-minute talk tomorrow. What's the first thing you write?",
+    "prompt": "Your cousin texts you a photo of her index card for tomorrow's 3-minute talk and asks 'is this a destination?' What's the quickest test you text back?",
     "options": [
      {
       "id": "a",
-      "text": "A strong opening line to hook the room."
+      "text": "Can you say it out loud in under 10 seconds, and does it have a verb?"
      },
      {
       "id": "b",
-      "text": "The one sentence you want people to leave believing, in 15 words or fewer."
+      "text": "Does it cover everything you plan to say, so nothing gets left out?"
      },
      {
       "id": "c",
-      "text": "A list of the 3 or 4 topics you'll cover."
+      "text": "Is it short enough to be a slide title?"
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's the first step of the walk, not the destination: you can't plan an opening until you know where it's heading. Chapter 4 covers it.",
-     "c": "That's a list of topics, not a point: four topics is four walks, and nobody arrives anywhere."
+     "b": "That's the whole route, not the destination: a destination leaves most things out on purpose.",
+     "c": "That's a title, not a point: slide titles are usually topics, and a topic has no verb and no end."
     },
-    "reteach": "Everything in a talk is chosen by one question: does this move people toward the point? You can't ask that question until the point exists. So the sentence comes first, and the opening, stories and lists come after."
+    "reteach": "A destination is one sentence, under 15 words, with a verb, that you can say in under 10 seconds. Short alone isn't enough: 'Expenses' is short and goes nowhere. The verb is what makes it a place to arrive."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A talk is a walk to one place, so before you write anything else, write the one sentence you want people to leave believing, in 15 words or fewer. **If it has an 'and' in it, it's probably two talks.**",
-    "simpler": "A talk is a walk to one place. So before you write anything else, write the one sentence you want people to leave believing. Keep it to 15 words or fewer. **If it has an 'and' in it, it's probably two talks.**"
+    "body": "**A talk is a walk to one place**, and the place is a single sentence, under 15 words, with a verb, written before anything else. If you can't say it out loud in 10 seconds, you haven't picked where you're going yet.\n\nTomorrow: what your listeners already know decides what you cut.",
+    "simpler": "**A talk is a walk to one place.** That place is a single sentence, under 15 words, with a verb, and you write it before anything else. If you can't say it out loud in 10 seconds, you haven't chosen where you're going yet.\n\nTomorrow: what your listeners already know decides what you cut."
    },
    {
     "type": "try",
-    "body": "Open your notes app. Type the one sentence for any talk, toast or meeting update you have coming up. Under 15 words. Read it aloud once and time it: under 10 seconds.",
-    "simpler": "Open the notes app on your phone or computer. Type the one sentence for any talk, toast or meeting update you have coming up. **Keep it under 15 words.** Then read it out loud once and time yourself. It should take under 10 seconds."
+    "body": "Pick any talk you might give, even a toast. Write its one sentence in your phone's notes app. **Say it out loud** and time it with the stopwatch. Under 10 seconds, under 15 words, has a verb? Keep it.",
+    "simpler": "Pick any talk you might give one day, even a toast at a party. Write its one sentence in your phone's notes app. **Say it out loud** and time it with the stopwatch. Is it under 10 seconds? Under 15 words? Does it have a verb? If yes to all three, keep it."
    }
   ],
-  "outcomeLine": "You can now write the one sentence your talk exists to deliver, and say it out loud in under 10 seconds."
+  "outcomeLine": "You can now write the one sentence your talk exists to deliver and say it out loud in under 10 seconds.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M46 172 C 90 160, 95 118, 145 124 S 215 136, 268 62\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\" stroke-dasharray=\"11 8\" stroke-linecap=\"round\"/><circle cx=\"44\" cy=\"138\" r=\"8\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><line x1=\"44\" y1=\"146\" x2=\"44\" y2=\"168\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><line x1=\"44\" y1=\"153\" x2=\"62\" y2=\"144\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><line x1=\"44\" y1=\"168\" x2=\"36\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><line x1=\"44\" y1=\"168\" x2=\"54\" y2=\"183\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><circle cx=\"20\" cy=\"150\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"20\" y1=\"156\" x2=\"20\" y2=\"174\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"20\" y1=\"174\" x2=\"14\" y2=\"186\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"20\" y1=\"174\" x2=\"27\" y2=\"186\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"6\" cy=\"158\" r=\"5\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"6\" y1=\"163\" x2=\"6\" y2=\"180\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"145\" cy=\"124\" r=\"4\" fill=\"#F2A93B\"/><circle cx=\"215\" cy=\"132\" r=\"4\" fill=\"#F2A93B\"/><line x1=\"268\" y1=\"62\" x2=\"268\" y2=\"18\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polygon points=\"268,18 302,29 268,40\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><text x=\"222\" y=\"86\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#1B1A17\">one destination</text></svg>"
  },
- "seconds": 75.72998809814453
+ "seconds": 133.53304624557495
 }

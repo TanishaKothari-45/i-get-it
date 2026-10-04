@@ -22,6 +22,7 @@ Exercise rules:
 
 Rules:
 - Plain words. Short sentences. Numbers over adjectives. No "In this chapter we will".
+- Named people: attribute to a real person only an idea they are widely known for, in your own paraphrase. Never put words in quotation marks after a real name unless the request's References give that exact phrase. Never attach a general claim ("most talks fail...") to a named expert.
 - Never invent facts, names, dates or statistics. If unsure, leave the specific out.
 - Written for this topic and this learner's level; a reader should be able to tell it was not pasted from a template.
 - Total length: 600 to 900 words across all cards. No single card over 120 words. Short beats complete.

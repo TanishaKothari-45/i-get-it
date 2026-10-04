@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Picture the intern with one sticky note on the desk: *find me a plumber who can come Tuesday.* They don't do it in one move. They read the note, pick one small step, do it, look at what came back, then read the note again and ask: **am I done yet?** No? Next step. Yes? Report back. That small circle is the whole agent.",
-    "simpler": "Imagine a new helper with one sticky note on the desk: find me a plumber who can come Tuesday. They don't finish it in one go. They read the note, pick one small step, do it, look at what came back, then read the note again and ask **am I done yet?** If not, they take the next step. If yes, they report back. That small circle is the whole agent."
+    "body": "'Book me a table for four tonight' is one sentence. Inside an agent it becomes eleven steps, and the model sees only one of them at a time.\n\nPicture the intern. You hand over the task, they decide one move, they make it, they look at what came back, and they ask themselves: done yet? **Goal, think, act, check, repeat: that five-beat loop is the whole engine.** Everything else is detail.",
+    "simpler": "'Book me a table for four tonight' is one short sentence. Inside an agent it turns into eleven small steps, and the model only ever sees one step at a time. Think of a new intern. You give them the job. They pick one move, do it, look at what came back, and ask: am I done? **Goal, think, act, check, repeat: that five-beat loop is the whole engine.** Everything else is detail."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your agent gets the goal 'book a table for 4 at an Italian place near the office this Friday'. Its first search returns 6 restaurants. What happens next?",
+    "prompt": "Ravi the intern is told: 'book a table for 4 at 7pm.' He calls the restaurant. They say: 'Full at 7, we have 8:15.' In the loop, what happens next?",
     "options": [
      {
       "id": "a",
-      "text": "It shows you the 6 restaurants and stops"
+      "text": "Ravi reports back: done, table booked."
      },
      {
       "id": "b",
-      "text": "The 6 results go back to the model, which picks the next step"
+      "text": "Ravi takes the answer back to the thinking step and picks a new move."
      },
      {
       "id": "c",
-      "text": "It books all 6, to be safe"
+      "text": "Ravi forgets the call and starts the task again from the top."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the chatbot from chapter 1: one answer, then stop. An agent feeds the result back in and keeps going until the goal is met.",
-     "c": "That's skipping the check step. Results always go back to the model before anything else happens, and it would pick one, not six."
+     "a": "That skips the check. The goal was 7pm; the result says 7pm is gone, so the loop is not finished.",
+     "c": "That's starting over, not repeating. The repeat step carries the result forward; 'full at 7' is now part of what he knows."
     },
-    "reteach": "Every time something comes back, it goes to the model first. The model reads it, looks at the goal, and either says 'done' or picks one more step. Nothing is booked or sent without that read-and-decide moment in between."
+    "reteach": "Each lap of the loop ends with a result coming back. The intern reads it, compares it with the goal, and either says 'done' or picks the next move. A 'no' from the restaurant is not a failure. It is just the next thing the loop has to think about."
    },
    {
     "type": "teach",
     "title": "Goal, think, act",
-    "body": "The loop has 4 parts. *Goal* is a sentence a human writes: 'find a plumber for Tuesday'. It stays fixed the whole time, like the sticky note.\n\n*Think* is the model's turn. It reads the goal plus everything that has happened so far, and writes down one next step as a request: 'search: plumbers near Leeds'. It picks only one step, not the whole plan.\n\n*Act* is where ordinary code takes that request and runs it. **The model never acts itself.** It asks; a plain program does the searching, reading or clicking, and brings back the result as text.",
-    "simpler": "The loop has four parts. The goal is one sentence a person writes: 'find a plumber for Tuesday'. It stays fixed, like the sticky note. Think is the model's turn. It reads the goal and everything so far, then writes one next step as a request: 'search: plumbers near Leeds'. Just one step. Act is where normal code runs that request. **The model never acts itself.** It only asks. Plain code does the work and returns the result as text."
+    "body": "The *goal* is plain text, the sentence you typed. It goes to the model along with a list of moves it may ask for.\n\nThe *think* step is one model call. The model reads everything so far and writes down exactly one next move: 'search restaurants near the office, open tonight'. You'd expect the brain to do the searching. It doesn't. **The model only writes the request; it never performs it.**\n\nThe *act* step is ordinary software. It reads that request, runs the real search, and gets a real answer back. Like the phone on the intern's desk: the intern decides who to call, the phone makes the connection.",
+    "simpler": "The goal is the sentence you typed. It goes to the model with a list of moves it may ask for. The think step is one model call. The model reads everything so far and writes one next move, such as 'search restaurants near the office'. **The model only writes the request; it never performs it.** The act step is plain software. It reads that request, runs the real search, and gets a real answer."
    },
    {
     "type": "example",
-    "title": "Five trips round the loop",
-    "body": "Sam's agent gets: 'find a plumber who can come Tuesday, give me one name and a time.'\n\nTrip 1. Model: search plumbers near Leeds. Code runs it, hands back 5 names.\n\nTrip 2. Model: read reviews for the top 2. Back come 2 short summaries.\n\nTrip 3. Model: check Tuesday on the first one's booking page. Back comes 'fully booked'.\n\nTrip 4. Model: check the second. Back comes 'Tuesday 2pm free'.\n\nTrip 5. Model reads that against the goal and says done: 'Patel Plumbing, Tuesday 2pm.'\n\nNotice trip 3. The intern hit a wall and didn't sulk or guess. **It just went round again.**",
-    "simpler": "Sam's agent gets: 'find a plumber for Tuesday, give me one name and a time.' Trip 1: search plumbers near Leeds. Five names. Trip 2: read reviews for the top two. Two summaries. Trip 3: check Tuesday on the first one's booking page. 'Fully booked'. Trip 4: check the second. 'Tuesday 2pm free'. Trip 5: the model checks this against the goal: done. 'Patel Plumbing, Tuesday 2pm.' On trip 3 it hit a wall and didn't guess. **It just went round again.**"
+    "title": "Priya's table, lap by lap",
+    "body": "Priya types: 'book a table for 4 near the office, 7pm tonight.' Lap 1: the model asks for a search, and 3 restaurants come back. Lap 2: it picks Nonna's and asks the booking tool for 7pm; the tool says full, 8:15 free. Lap 3 it asks Priya whether 8:15 works and she says yes; lap 4 it books 8:15 and reads the confirmation. Lap 5: it looks at the goal, looks at the receipt, and says done. Eleven steps, one sentence from Priya, two from the agent.",
+    "simpler": "Priya types: 'book a table for 4 near the office, 7pm tonight.' Lap 1: the model asks for a search; 3 restaurants come back. Lap 2: it picks Nonna's and asks the booking tool for 7pm. Full; 8:15 is free. Lap 3: it asks Priya about 8:15. Yes. Lap 4: it books 8:15 and reads the confirmation. Lap 5: it checks the receipt against the goal and says done. Eleven steps, one sentence from Priya, two from the agent."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "In Sam's example, trip 3 came back 'fully booked'. When the model takes its turn at trip 4, what does it see?",
+    "prompt": "In lap 2 above, the booking tool answers 'full at 7, 8:15 free.' What does the model see at the start of lap 3?",
     "options": [
      {
       "id": "a",
-      "text": "Only the words 'fully booked'"
+      "text": "Only Priya's original sentence, fresh."
      },
      {
       "id": "b",
-      "text": "The goal, every step so far with its result, and 'fully booked' at the end"
+      "text": "Priya's sentence plus every move and result so far, including 'full at 7'."
      },
      {
       "id": "c",
-      "text": "A fresh start: the goal and nothing else"
+      "text": "Nothing. The booking tool decides the next move itself."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the tool's output on its own. The model gets the goal and the whole trail too, or it couldn't know it has already tried the first plumber.",
-     "c": "That's what a brand new call looks like. Inside a loop, the code hands the model the full trail each time so it can pick a step that follows on."
+     "a": "That's the goal alone, not the whole loop. If the model saw only the goal, it would ask for 7pm at Nonna's again, forever.",
+     "c": "That's the act step doing the think step's job. Tools run requests; they never choose the next move."
     },
-    "reteach": "On each think turn the model is handed one long page: the goal at the top, then every step and every result in order. It reads the whole page and writes the next step at the bottom. That is how it knows what has been tried."
+    "reteach": "Every lap, the model gets the full story so far: the goal, each move it asked for, and what came back. That is how a 'no' at 7pm turns into a question about 8:15. The tool only ever answers. The model only ever decides."
    },
    {
     "type": "teach",
-    "title": "Check, repeat",
-    "body": "*Check* is the moment the result lands back with the model. It reads the result against the goal and asks one question: **is the goal met?** If yes, it writes the final answer and the loop ends. If no, it goes back to think and picks another step.\n\n*Repeat* is just the code running that cycle again. In the program it is literally a loop: call the model, run what it asked, add the result to the page, call the model again.\n\nSo the model decides when it is finished. That is why a good goal says what done looks like: 'one name and a time' is clearer than 'look into plumbers'.",
-    "simpler": "Check is when the result comes back. The model compares it with the goal and asks: **is the goal met?** If yes, it writes the final answer and stops. If no, it thinks again and picks another step. Repeat is the code running the cycle again: ask the model, run its step, show it the result, ask again. The model decides when it is done, so a good goal says what done looks like: 'one name and a time', not 'look into plumbers'."
+    "title": "Check, repeat, and who says done",
+    "body": "After the act step, the result goes back to the model, which is called again. That's the *check*: it reads the new line and compares it to the goal. Not there yet? It writes the next move. There? It writes a normal reply with no tool request in it, and the loop ends.\n\nNotice who decides. You'd think the software calls time. It's the model. **No bell rings when the task is finished; the model has to notice.** That's why a good agent gets a precise goal: 'a table at 7, or ask me', not 'sort out dinner'.\n\nThe *ReAct* paper gave this pattern its name: reason, act, read what happened.",
+    "simpler": "After each act, the result goes back to the model, which is called again. That is the check: it compares the new result with the goal. Not done? It writes the next move. Done? It replies normally, with no tool request, and the loop stops. **No bell rings when the task is finished; the model has to notice.** So be precise: 'a table at 7, or ask me', not 'sort out dinner'. The ReAct paper gave this pattern its name."
    },
    {
     "type": "mistake",
-    "body": "Dev gives his agent the goal 'look into plumbers in the area'. It searches, reads reviews, searches again, compares prices, reads more reviews. Twenty trips later it is still going, because nothing in the goal tells it what finished looks like. You spot this in the log: steps keep piling up and the word 'done' never appears. The fix is **a finish line in the goal**, not a smarter model.",
-    "simpler": "Dev gives his agent the goal 'look into plumbers in the area'. It searches, reads reviews, searches again, compares prices, reads more reviews. Twenty trips later it is still going, because nothing in the goal says what finished looks like. You can spot this in the log: the steps keep piling up and the word 'done' never shows up. The fix is **a finish line in the goal**, not a smarter model."
+    "body": "Lena asks her agent to book the table and gets back a beautiful numbered plan: search, pick, call, confirm. She thinks it's working. Nothing has happened; the model wrote all eleven steps in one breath and nobody ran any of them. Spot it like this: **a plan with no results coming back between the steps is a chatbot answer, not a loop.** One move, one result, then the next.",
+    "simpler": "Lena asks her agent to book the table. She gets back a neat numbered plan: search, pick, call, confirm. She thinks it is working. Nothing has happened. The model wrote all eleven steps in one go, and nobody ran any of them. Here is how to spot it: **a plan with no results coming back between the steps is a chatbot answer, not a loop.** One move, one result, then the next."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Who decides that an agent has finished its task?",
+    "prompt": "Three logs. Which one is a real lap of the agent loop?",
     "options": [
      {
       "id": "a",
-      "text": "The tool, when it hands back a result"
+      "text": "Model: 'Step 1 search. Step 2 book. Step 3 confirm.' End."
      },
      {
       "id": "b",
-      "text": "The model, each time it reads the newest result against the goal"
+      "text": "Model: 'search near office.' Search: 3 results. Model: 'book Nonna's, 7pm.'"
      },
      {
       "id": "c",
-      "text": "The human, who has to watch and press stop"
+      "text": "Search runs. Search runs again. Search runs a third time. Model never called."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the act part. A tool does one step and hands back text; it has no idea what the goal was.",
-     "c": "That's the person who wrote the goal. They can watch, but inside the loop the done or not-done call is made by the model every trip round."
+     "a": "That's a plan, not a loop: three moves written at once and none performed, so no result ever came back.",
+     "c": "That's the act step running on its own. Without the model reading each result and choosing the next move, it's a script, not an agent."
     },
-    "reteach": "Think of the sticky note. After every step the intern looks at the note and decides: done, or one more step. The tool just fetches things. The human just wrote the note. The deciding happens at the model's turn."
+    "reteach": "A lap has a shape: the model writes one move, software runs it, the result goes back, the model reads it and writes the next move. If you can't find a result landing between two decisions, you're not looking at a loop."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "An agent runs a loop: it gets a goal, the model picks one step, code runs it, the result comes back, and the model checks whether the goal is met. **If not, round again; if so, it stops**, so the model is the one who decides done.",
-    "simpler": "An agent runs a loop. It gets a goal. The model picks one step. Code runs that step. The result comes back, and the model checks whether the goal is met. **If not, round again; if so, it stops.** That means the model is the one who decides when the job is done."
+    "body": "An agent is a model inside a loop: it gets a goal, writes one move, software performs it, the result comes back, and the model decides whether it's done or what comes next. **The model never does anything itself; it only chooses, one step at a time, and notices when it's finished.**\n\nTomorrow: the model never clicks anything. Who does, and why that's the safety lever.",
+    "simpler": "An agent is a model inside a loop. It gets a goal and writes one move. Software performs that move, and the result comes back. Then the model decides: done, or what comes next? **The model never does anything itself; it only chooses, one step at a time, and notices when it's finished.** Tomorrow: the model never clicks anything. Who does, and why that is the safety lever."
    },
    {
     "type": "try",
-    "body": "Open ChatGPT or Claude with web search on. Ask it to find the library nearest your postcode and say if it is open now. Watch it search, read, then decide. That is one trip round the loop.",
-    "simpler": "Open ChatGPT or Claude with web search switched on. Ask it to find the library nearest your postcode and tell you if it is open right now. Watch what happens: it searches, reads what it found, then decides on an answer. **That is one trip round the loop**, the same one the agent runs over and over."
+    "body": "Tonight, say to ChatGPT or Claude: 'book me a table for 4 at 7pm.' Watch what comes back: a plan, a question, or a booking? Nothing was performed. That's a model with no act step.",
+    "simpler": "Tonight, try this. Say to ChatGPT or Claude: 'book me a table for 4 at 7pm.' Watch what comes back. A plan? A question? A booking? Whatever it says, nothing was performed. That is a model with no act step. It can only talk about the move, not make it."
    }
   ],
-  "outcomeLine": "You can now draw the agent loop on paper and trace a 5-step task around it, saying what the model sees at each turn."
+  "outcomeLine": "You can now draw the agent loop and trace a booking around it, saying what the model sees at each lap.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"160\" cy=\"100\" rx=\"112\" ry=\"72\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-dasharray=\"7 5\"/><polygon points=\"247,57 232,48 240,40\" fill=\"#1B1A17\"/><polygon points=\"230,158 246,150 240,142\" fill=\"#1B1A17\"/><polygon points=\"73,143 88,152 80,160\" fill=\"#1B1A17\"/><polygon points=\"90,43 74,50 80,58\" fill=\"#1B1A17\"/><circle cx=\"160\" cy=\"28\" r=\"8\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"272\" cy=\"100\" r=\"8\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"160\" cy=\"172\" r=\"8\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"34\" y=\"86\" width=\"28\" height=\"28\" rx=\"3\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"40\" y1=\"95\" x2=\"56\" y2=\"95\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"40\" y1=\"102\" x2=\"56\" y2=\"102\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"40\" y1=\"109\" x2=\"50\" y2=\"109\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"160\" y=\"14\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">think</text><text x=\"296\" y=\"104\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">act</text><text x=\"160\" y=\"194\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">check</text><circle cx=\"160\" cy=\"82\" r=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M140 130 Q160 98 180 130 Z\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"155\" cy=\"80\" r=\"1.5\" fill=\"#1B1A17\"/><circle cx=\"165\" cy=\"80\" r=\"1.5\" fill=\"#1B1A17\"/><path d=\"M155 88 Q160 92 165 88\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/></svg>"
  },
- "seconds": 100.82655310630798
+ "seconds": 158.8792610168457
 }

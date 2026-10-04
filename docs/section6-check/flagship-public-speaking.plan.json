@@ -1,0 +1,83 @@
+{
+ "plan": {
+  "needsClarification": false,
+  "question": null,
+  "topic": "Public speaking",
+  "outcome7": "By day 7 you'll be able to plan a 5-minute talk around one idea, open it with a promise, structure it so people follow without slides, say it at a pace a stranger can take in, handle a question you didn't expect, and finish on a line people repeat, having rehearsed it 3 times out loud.",
+  "horizon14": "Later, around day 14: give that talk to 5 or more people and ask 3 of them what the one idea was; if they all say the same thing, it worked.",
+  "horizon28": "Later still, around day 28: speak for 10 minutes with a few slides, or give a 2-minute unplanned answer in a meeting and feel it hold together.",
+  "picture": {
+   "name": "Taking someone on a hike",
+   "line": "A talk is a hike you lead: you pick one summit, tell people why it's worth the climb, choose a path they can walk, set the pace, and make sure they reach the top."
+  },
+  "chapters": [
+   {
+    "n": 1,
+    "title": "Pick one summit",
+    "covers": "Why every talk needs one idea, how to find yours in one sentence, and how to cut anything that isn't on the path to it.",
+    "outcome": "You can write the one idea of a talk in a single sentence, and name 3 things you'll leave out.",
+    "hook": "Chris Anderson says most talks fail before a word is spoken. Why?"
+   },
+   {
+    "n": 2,
+    "title": "Open with a promise",
+    "covers": "The first 30 seconds: tell people what they'll be able to do by the end, instead of starting with a joke or a thank-you.",
+    "outcome": "You can write and say an opening line that tells the room what they will gain from listening.",
+    "hook": "Patrick Winston's opening rule: never start with a joke. His reason is practical."
+   },
+   {
+    "n": 3,
+    "title": "Lay out the path",
+    "covers": "A shape people can follow with no slides: where we are now, where we could be, back and forth, then the way there. Includes one fast structure for when you have 10 seconds to think.",
+    "outcome": "You can arrange a 5-minute talk so a listener could draw its shape afterwards.",
+    "hook": "Nancy Duarte mapped two famous speeches and found the same hidden zigzag in both."
+   },
+   {
+    "n": 4,
+    "title": "Build it from what they already know",
+    "covers": "Starting from the listener's world, not yours: pick examples they recognise, explain every new word in the same breath, and give them a reason to care before the detail.",
+    "outcome": "You can explain one idea from your work to someone outside it, using 2 examples from their life, not yours.",
+    "hook": "Why does repeating your point 3 times make a talk clearer, not boring?"
+   },
+   {
+    "n": 5,
+    "title": "Set the pace",
+    "covers": "Your voice as a tool: speed, volume, pauses and pitch; the 7 habits that make people stop listening; a 2-minute warm-up before you speak.",
+    "outcome": "You can say the same sentence 3 ways, pause for a full 3 seconds on purpose, and do a warm-up before you speak.",
+    "hook": "Julian Treasure lists 7 speaking habits that make people tune out. Most of us have 2."
+   },
+   {
+    "n": 6,
+    "title": "When the path gets rough",
+    "covers": "Nerves and surprise questions: what to do with your body in the minute before, how to answer a question you didn't expect, and why 'ask, then wait' matters.",
+    "outcome": "You can answer an unexpected question in under a minute with a clear beginning, middle and end.",
+    "hook": "Matt Abrahams says the spontaneous answer is a skill, not a talent. It has a drill."
+   },
+   {
+    "n": 7,
+    "title": "Reach the top, and the last line",
+    "covers": "Endings that land: paint what life looks like after the idea, the last sentence people take home, why your final slide is never 'thank you', and a 3-run rehearsal plan.",
+    "outcome": "You can write a closing line that restates your one idea, and rehearse the full talk 3 times, out loud, to a timer.",
+    "hook": "Patrick Winston's last slide was never 'thank you'. What he put there instead."
+   }
+  ],
+  "sources": [
+   {
+    "who": "Patrick Winston",
+    "what": "How to Speak (MIT OpenCourseWare, 2018)",
+    "why": "the promise opening, cycling the idea, the final slide, and asking then waiting"
+   },
+   {
+    "who": "Chris Anderson",
+    "what": "TED Talks: The Official TED Guide to Public Speaking",
+    "why": "one major idea, built from what the audience already knows"
+   },
+   {
+    "who": "Nancy Duarte",
+    "what": "Resonate",
+    "why": "the 'what is / what could be' shape and the ending that shows the new world"
+   }
+  ]
+ },
+ "seconds": 35.69845795631409
+}

@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Picture the dinner table. Someone says, \"We should ban cars from the city centre.\" Before anyone answers, the sharpest guest asks a quiet question: what is the claim, and what is holding it up?\n\nThat is the one game every guest has played for 2,500 years. **Split what someone says into the claim and the reasons under it**, then check whether the reasons bear the weight. Think of the claim as a tabletop and each reason as a leg.",
-    "simpler": "Imagine a dinner table. Someone says, \"We should ban cars from the city centre.\" Before anyone replies, the sharpest guest asks a quiet question: what is being claimed, and what holds it up?\n\nPeople have played this game for 2,500 years. **Split what someone says into the claim and the reasons under it**, then check whether those reasons can carry the weight. Think of the claim as a tabletop and each reason as a leg."
+    "body": "Socrates never wrote a word, and Athens executed him for asking questions. Western philosophy is one dinner-table argument that has run for about 2,500 years, and he was the guest who kept turning to whoever had just spoken and asking *why*. An opinion is only a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing.",
+    "simpler": "Socrates never wrote anything down, and the city of Athens put him to death for asking questions. Western philosophy is like one long dinner-table argument that has lasted about 2,500 years. Socrates was the guest who kept asking whoever had just spoken why they believed it. Having an opinion only gets you a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your cousin says over dessert: \"Pineapple on pizza is wrong, because my dad never ate it and Italians invented pizza.\" Which bit is the claim?",
+    "prompt": "At dinner your cousin Dev says: 'Pineapple on pizza is a crime. I've hated it since I was 6.' Which part is the claim, the thing he wants you to accept?",
     "options": [
      {
       "id": "a",
-      "text": "Pineapple on pizza is wrong"
+      "text": "'Pineapple on pizza is a crime'"
      },
      {
       "id": "b",
-      "text": "My dad never ate it"
+      "text": "'I've hated it since I was 6'"
      },
      {
       "id": "c",
-      "text": "Italians invented pizza"
+      "text": "Both sentences are claims; there is no reason here"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's a reason, not the claim: it's one leg offered to hold the tabletop up.",
-     "c": "That's a reason too: a fact your cousin hopes will carry the claim."
+     "b": "That's the reason, not the claim: it's the fact Dev holds up to back the verdict, not the verdict itself.",
+     "c": "That's two sentences, not two claims: the second one has a job, trying to hold the first one up. Whether it manages is a separate question."
     },
-    "reteach": "The claim is the thing the speaker wants you to accept, the point of the whole sentence. The reasons are what comes after \"because\". Find the \"because\" and the claim is usually sitting just in front of it."
+    "reteach": "The claim is the sentence someone wants you to walk away believing. The reason is whatever they point at when you say 'why?'. Dev wants you to believe pineapple pizza is a crime, and his 6-year-old self is the evidence he offers."
    },
    {
     "type": "teach",
-    "title": "Claim and reasons",
-    "body": "An *argument* in philosophy is not a fight. It is a claim plus the reasons given for it. The claim is what you are asked to accept. The reasons are what is meant to make you accept it.\n\nMost opinions arrive glued together: \"Remote work is better, people get more done and nobody misses the commute.\" Pull it apart. Claim: remote work is better. Reasons: more gets done, no commute.\n\nThree words do most of the finding: *because*, *so* and *therefore*. Whatever follows \"because\" is a reason. Whatever follows \"so\" or \"therefore\" is the claim. **Find the because.**",
-    "simpler": "In philosophy, an argument is not a fight. It is a claim plus the reasons for it. The claim is what you are asked to accept.\n\nOpinions arrive stuck together: \"Remote work is better, people get more done and nobody misses the commute.\" Pull it apart. Claim: remote work is better. Reasons: more done, no commute.\n\nThree words help: because, so and therefore. After \"because\" comes a reason. After \"so\" or \"therefore\" comes the claim. **Find the because.**"
+    "title": "Two parts, every time",
+    "body": "Every opinion worth arguing about has two parts. The *claim* is the sentence someone wants you to agree with. The *reasons* are what they say when you ask why.\n\nYou'd think the hard part is finding the reasons. It isn't. People hand you reasons all day, on buses, in group chats, across tables. The hard part is noticing **whether the reasons are actually touching the claim**, or just sitting next to it on the plate.\n\nTry it on the next advert you see. Underline the claim. Circle what's offered as 'because'. Often there is nothing to circle.",
+    "simpler": "Every opinion has two parts. The claim is the sentence someone wants you to agree with. The reasons are what they say when you ask why. Finding reasons is easy. People give them all day, on buses and in group chats. The hard part is noticing **whether the reasons actually touch the claim** or sit next to it. Try this with the next advert you see. Underline the claim. Circle the because. Often there is nothing to circle."
    },
    {
     "type": "example",
-    "title": "The flat in Lisbon",
-    "body": "Ana wants to move to Lisbon. Her reason, said over dinner: \"The weather is great, so I'll be happier there.\" Her brother Rui does not argue about the weather. He asks whether the sun is doing any work: Ana has lived in sunny Seville for 3 years and spends most of it indoors complaining about the heat.\n\n**The reason is true. It just does not hold the claim up.** Ana moves anyway.",
-    "simpler": "Ana wants to move to Lisbon. Over dinner she gives her reason: \"The weather is great, so I'll be happier there.\" Her brother Rui does not argue about the weather. He asks whether the sunshine is really doing anything. Ana has lived in sunny Seville for 3 years and spends most of her time indoors complaining about the heat.\n\n**The reason is true. It just does not hold the claim up.** Ana moves anyway."
+    "title": "Priya and the 12%",
+    "body": "Priya's landlord emails: 'Rent goes up 12% in March. Everyone's rent is going up.' The claim is that her rent should rise 12%. The reason is that everyone's is rising. She writes back one line: 'Whose rent, and by how much?' Two days of silence, then a reply offering 8%. **The reason was true and still didn't carry the number.**",
+    "simpler": "Priya's landlord sends an email. Rent goes up 12% in March, it says, because everyone's rent is going up. The claim is that her rent should rise 12%. The reason is that everyone's rent is rising. She writes back one line: whose rent, and by how much? Two days of silence. Then a reply offering 8%. **The reason was true and still did not carry the number.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Marcus says: \"This phone is the best one on the market, because it's the one I bought.\" What is the problem with his argument?",
+    "prompt": "A friend says: 'This phone is the best one you can buy. It's the one I have.' Does her reason hold up her claim?",
     "options": [
      {
       "id": "a",
-      "text": "The claim is false"
+      "text": "Yes: owning it means she knows it's good"
      },
      {
       "id": "b",
-      "text": "The reason is true but does not hold up the claim"
+      "text": "No: the reason tells you what she bought, not whether it's the best"
      },
      {
       "id": "c",
-      "text": "There is no claim, only a reason"
+      "text": "Yes, as long as she's happy with it"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a verdict on the tabletop, not a check of the legs: we have not tested whether the phone is best, only whether his reason gets us there.",
-     "c": "\"The best one on the market\" is the claim: the thing Marcus wants you to accept."
+     "a": "That's familiarity, not support: knowing one phone well tells you about that phone, not how it ranks against the ones she has never used.",
+     "c": "That's a different claim: 'I'm happy with mine' would be held up by her being happy. 'Best you can buy' needs a comparison, and none was offered."
     },
-    "reteach": "Imagine the reason is completely true: Marcus did buy this phone. Does that force the claim to be true, that it is the best on the market? No. The reason is a real leg, but it is standing nowhere near the table."
+    "reteach": "Ask one question: if the reason is completely true, does the claim have to follow? She really does own that phone. 'Best you can buy' still doesn't follow, because 'best' is a comparison and she compared it with nothing."
    },
    {
     "type": "teach",
-    "title": "Do the legs reach the table?",
-    "body": "There are two separate questions. Is each reason true? And, if it is true, does it actually get you to the claim? A reason can pass the first and fail the second. Ana's sunshine was real. It just was not connected to her happiness.\n\nSo the test is not \"do I agree?\". The test is: imagine the reason is fully true. Does the claim now have to be true too? If you can picture the reason true and the claim still false, there is a *gap*: a missing step the speaker has not said out loud.\n\n**A true reason can still leave a gap.** Philosophers spend most of the dinner pointing at gaps.",
-    "simpler": "Ask two questions. Is each reason true? And if so, does it get you to the claim? Ana's sunshine was real, but it had nothing to do with her happiness.\n\nThe test is not \"do I agree?\" Pretend the reason is fully true. Must the claim be true too? If the reason can be true while the claim stays false, there is a gap: a step nobody said out loud.\n\n**A true reason can still leave a gap.**"
+    "title": "The test: grant it, then ask",
+    "body": "Here is the one test. **Grant the reason completely**, pretend it is 100% true, then ask: does the claim now have to be true? If yes, the reason holds. If the claim could still be false, the reason is decoration.\n\nThis is why a reason can be true and still useless. 'Everyone's rent is rising' was true. 'Therefore 12%' did not follow. Picture the reason as a bolt. A solid bolt fitted to the wrong door keeps nothing shut.\n\nSo a good argument is not one with true-sounding reasons. It is one where the reasons, once granted, leave the claim nowhere to hide.",
+    "simpler": "Here is the one test. **Grant the reason completely**, as if it were fully true, then ask whether the claim now has to be true. If yes, the reason holds. If the claim could still be false, the reason is only decoration. 'Everyone's rent is rising' was true. 'So 12%' did not follow. A strong bolt on the wrong door keeps nothing shut. Good reasons, once granted, leave the claim nowhere to hide."
    },
    {
     "type": "mistake",
-    "body": "Priya hears, \"We should raise the parking fee, because the car park is always full.\" She hates the idea of a higher fee, so she says \"bad argument\" and moves on. But she never checked the legs. She judged the tabletop because she did not like it.\n\nSpot it in yourself with one question: **did I find the gap, or do I just dislike the claim?** Those are different things, and only the first one counts.",
-    "simpler": "Priya hears, \"We should raise the parking fee, because the car park is always full.\" She hates the idea of paying more, so she says \"bad argument\" and moves on. But she never checked the legs. She judged the tabletop because she did not like it.\n\nCatch yourself with one question: **did I find the gap, or do I just dislike the claim?** Those are two different things, and only the first one counts."
+    "body": "Marco posts that a new bike lane will cut traffic on his street. Someone replies: 'You don't even drive.' Marco spends an hour defending his licence, and nobody mentions traffic again. Spot it this way: **when the reply is about the person, not the claim**, the argument has left the table. Ask where the claim went.",
+    "simpler": "Marco posts that a new bike lane will cut traffic on his street. Someone replies that he does not even drive. Marco spends an hour defending his driving licence, and nobody mentions traffic again. Here is how to spot it: **when the reply is about the person, not the claim**, the argument has left the table. It is like answering a question about the food by talking about the cook. Ask where the claim went."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Which question tests whether a reason really holds up a claim?",
+    "prompt": "Which of these is a complete argument: a claim with a reason that, if granted, holds it up?",
     "options": [
      {
       "id": "a",
-      "text": "Do I agree with the claim?"
+      "text": "'We should leave at 7. The film starts at 7:30 and the drive takes 20 minutes.'"
      },
      {
       "id": "b",
-      "text": "Is the speaker an expert?"
+      "text": "'We should leave at 7. I just feel it.'"
      },
      {
       "id": "c",
-      "text": "If the reason were fully true, could the claim still be false?"
+      "text": "'We should leave at 7. Last time we were late you blamed me.'"
      }
     ],
-    "answer": "c",
+    "answer": "a",
     "whyNot": {
-     "a": "That's your opinion of the tabletop, not a test of the legs: Priya's mistake.",
-     "b": "That's about who is talking, not whether the reason reaches the claim: experts leave gaps too."
+     "b": "That's a claim with a mood, not a reason: a feeling tells you about the speaker, not about when the film starts.",
+     "c": "That's a grievance, not a reason: who got blamed last time has no bearing on tonight's start time."
     },
-    "reteach": "Picture the reason as completely true. Then ask if the claim could still be false anyway. If yes, the reason is not carrying the claim, however true it is. That one question is the whole test."
+    "reteach": "Run the test. Grant that the film really starts at 7:30 and the drive really takes 20 minutes, and leaving at 7 follows. Grant the feeling, grant the old blame, and 7 still floats free, unsupported."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Every opinion is a claim resting on reasons, and you find the join by looking for the word \"because\". **A good argument is one where, if the reasons are true, the claim cannot be false**; the gap between them is where philosophers live.",
-    "simpler": "Every opinion is a claim resting on reasons. You find the join by looking for the word \"because\". Think of it as a table: the claim on top, the reasons as legs. **A good argument is one where, if the reasons are true, the claim cannot be false.** The gap between reasons and claim is where philosophers do their work."
+    "body": "Every opinion is a claim plus reasons, and the only test that matters is this: **if the reasons were fully true, would the claim have to follow?** Most arguments fail that test with reasons that are perfectly true and beside the point.\n\nTomorrow: the man who would not stop asking why, and why Athens killed him.",
+    "simpler": "Every opinion is a claim plus reasons. The only test that matters is this: **if the reasons were fully true, would the claim have to follow?** Most arguments fail that test. Their reasons are perfectly true and still beside the point, like a correct answer to a different question. Tomorrow: the man who would not stop asking why, and why Athens killed him."
    },
    {
     "type": "try",
-    "body": "Tonight, pick one opinion from a group chat or a headline. Write it as \"Claim: ... because: ...\". Then ask: **could the because be true and the claim still false?**",
-    "simpler": "Tonight, pick one opinion from a group chat or a news headline. Write it down as \"Claim: ... because: ...\". Then ask yourself one thing: **could the because be true and the claim still false?** If yes, you have found a gap. That is the whole game."
+    "body": "Open your last group chat where someone had an opinion. Find the claim. Find the 'because'. Grant the 'because' fully and ask whether the claim follows. Reply with nothing. Just notice.",
+    "simpler": "Open the last group chat where someone shared an opinion. Find the claim, the thing they wanted everyone to agree with. Find the because, the reason they gave. Now **grant the because fully and ask whether the claim follows**. Do not reply. Do not correct anyone. Just notice what you see, the way you might notice a loose button without sewing it on."
    }
   ],
-  "outcomeLine": "You can now split any opinion into its claim and its reasons, and say whether the reasons actually hold it up."
+  "outcomeLine": "You can now split any opinion into its claim and its reasons, and say whether the reasons hold it up.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"28\" y=\"128\" width=\"264\" height=\"14\" rx=\"5\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"48\" y1=\"142\" x2=\"42\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"272\" y1=\"142\" x2=\"278\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"100\" cy=\"126\" rx=\"12\" ry=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"220\" cy=\"126\" rx=\"12\" ry=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"70\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M54 128 Q70 110 86 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"130\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M114 128 Q130 110 146 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"190\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M174 128 Q190 110 206 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"250\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M234 128 Q250 110 266 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"70\" cy=\"52\" rx=\"28\" ry=\"15\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"64,66 70,80 78,65\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"70\" y=\"57\" font-size=\"13\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"#1B1A17\">why?</text><ellipse cx=\"130\" cy=\"52\" rx=\"32\" ry=\"15\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"124,66 130,80 138,65\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"130\" y=\"57\" font-size=\"12\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"#1B1A17\">because</text><ellipse cx=\"190\" cy=\"52\" rx=\"24\" ry=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"184,65 190,80 198,64\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"190\" y=\"57\" font-size=\"13\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"#1B1A17\">why?</text><ellipse cx=\"250\" cy=\"52\" rx=\"24\" ry=\"14\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><circle cx=\"242\" cy=\"52\" r=\"2\" fill=\"#1B1A17\"/><circle cx=\"250\" cy=\"52\" r=\"2\" fill=\"#1B1A17\"/><circle cx=\"258\" cy=\"52\" r=\"2\" fill=\"#1B1A17\"/></svg>"
  },
- "seconds": 94.15347194671631
+ "seconds": 100.07791376113892
 }
