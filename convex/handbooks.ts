@@ -4,7 +4,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { ASK_PROMPT, CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, askUserMessage, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
+import { ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
@@ -18,6 +18,7 @@ const limiter = new RateLimiter(components.rateLimiter, {
   generateDevice: { kind: "token bucket", rate: 6, period: HOUR, capacity: 3 },
   simplerDevice: { kind: "token bucket", rate: 30, period: HOUR, capacity: 10 },
   askDevice: { kind: "token bucket", rate: 40, period: HOUR, capacity: 8 },
+  searchDaily: { kind: "fixed window", rate: 3, period: 24 * HOUR },   // web-searched answers per person per day (~₹9.5 each)
   compareAll: { kind: "fixed window", rate: 10, period: HOUR },   // three expensive-model calls each: hard cap across the app
 });
 
@@ -754,7 +755,7 @@ export const questionsFor = query({
   handler: async (ctx, { handbookId, chapter, cardIndex, deviceToken }) => {
     await ownedHandbook(ctx, handbookId, deviceToken);
     const rows = await ctx.db.query("cardQuestions").withIndex("by_card", (q) => q.eq("handbookId", handbookId).eq("chapter", chapter).eq("cardIndex", cardIndex)).collect();
-    return rows.sort((a, b) => a.at - b.at).map((r) => ({ _id: r._id, question: r.question, answer: r.answer, status: r.status }));
+    return rows.sort((a, b) => a.at - b.at).map((r) => ({ _id: r._id, question: r.question, answer: r.answer, sources: r.sources ?? [], status: r.status }));
   },
 });
 
@@ -782,11 +783,16 @@ export const answerQuestionAboutCard = internalAction({
     const card = ch?.cards?.[row.cardIndex];
     if (!h || !ch || !card) { await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: "", failed: true }); return; }
     const prof = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId: row.handbookId });
-    const body = card.type === "exercise" ? `${card.prompt}\n${(card.options ?? []).map((o: any) => `${o.id}) ${o.text}`).join("\n")}` : card.body;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "ask", system: ASK_PROMPT, user: askUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${row.chapter}`, { type: card.type, title: card.title, body }, row.question, prof.line) });
-    const text = r.ok && typeof r.json?.answer === "string" ? r.json.answer.trim() : "";
-    await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: text, failed: !text });
+    const body = card.type === "exercise" ? `${card.prompt}\n${(card.options ?? []).map((o: any) => `${o.id}) ${o.text}`).join("\n")}` : card.type === "watch" ? `${card.who}, ${card.what}. ${card.watchFor}` : card.body;
+    const r = await ctx.runAction(internal.ai.askWithSearch, { system: ASK_SEARCH_PROMPT, user: askSearchUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${row.chapter}`, body, row.question, prof.line), searchKey: String(h.userId ?? h.ownerToken ?? h._id) });
+    if (r.ok && r.answer) await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: r.answer, sources: r.sources, failed: false });
+    else await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: "", failed: true });
   },
+});
+
+export const takeSearchToken = internalMutation({
+  args: { key: v.string() },
+  handler: async (ctx, { key }) => (await limiter.limit(ctx, "searchDaily", { key })).ok,
 });
 
 export const readQuestion = internalQuery({
@@ -795,6 +801,6 @@ export const readQuestion = internalQuery({
 });
 
 export const setAnswer = internalMutation({
-  args: { questionId: v.id("cardQuestions"), answer: v.string(), failed: v.boolean() },
-  handler: async (ctx, { questionId, answer, failed }) => { await ctx.db.patch(questionId, failed ? { status: "failed" } : { status: "ready", answer }); },
+  args: { questionId: v.id("cardQuestions"), answer: v.string(), failed: v.boolean(), sources: v.optional(v.array(v.object({ url: v.string(), title: v.string() }))) },
+  handler: async (ctx, { questionId, answer, failed, sources }) => { await ctx.db.patch(questionId, failed ? { status: "failed" } : { status: "ready", answer, sources: sources?.length ? sources : undefined }); },
 });

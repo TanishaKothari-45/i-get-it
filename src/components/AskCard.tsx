@@ -32,9 +32,12 @@ export default function AskCard({ handbookId, chapter, cardIndex, deviceToken }:
           {rows.map((r) => (
             <div key={String(r._id)} className="ask-qa">
               <p className="ask-q">{r.question}</p>
-              {r.status === 'thinking' && <p className="note">Thinking…</p>}
+              {r.status === 'thinking' && <p className="note">Thinking, and checking the web if the card doesn't cover it…</p>}
               {r.status === 'failed' && <p className="error">Couldn't answer that one right now.</p>}
               {r.answer && <p className="serif ask-a">{inline(r.answer)}</p>}
+              {r.sources && r.sources.length > 0 && (
+                <p className="ask-src">Sources: {r.sources.map((x, i) => <span key={x.url}>{i > 0 && ' · '}<a href={x.url} target="_blank" rel="noopener noreferrer nofollow">{x.title.length > 48 ? x.title.slice(0, 46) + '…' : x.title}</a></span>)}</p>
+              )}
             </div>
           ))}
           <div className="ask-row">
@@ -43,7 +46,7 @@ export default function AskCard({ handbookId, chapter, cardIndex, deviceToken }:
             <button type="button" className="btn btn-ghost ask-send" onClick={send} disabled={busy || text.trim().length < 3}>{busy ? '…' : 'Ask'}</button>
           </div>
           {error && <p className="error">{error}</p>}
-          <p className="note">Answered from this card only, in the handbook's voice. Short on purpose.</p>
+          <p className="note">Questions about this topic only. If the card doesn't cover it, the answer checks the web and shows its sources.</p>
         </>
       )}
     </div>

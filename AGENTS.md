@@ -37,12 +37,12 @@ Before sharing the link: open it on a phone, logged out, on mobile data, and do 
 ## 4. The AI call
 Model, by job (convex/ai.ts JOB table; decided by Prateek 4 Oct evening):
 - Plan for a new topic: Claude Opus 5.5, effort medium, max 8,000 tokens (thinking counts). Measured: ~30 s, ~1,300 in / ~2,300 out, about ₹4.40 a plan.
-- Ask or object: Claude Opus 5.5, effort low, max 2,000. Measured: ~4 s, ~420 in / ~270 out, about ₹0.60 an answer.
+- Ask or object: Claude Opus 5.5, two steps (convex/ai.ts askWithSearch). Step 1 has no tools, effort low: it answers from the card, turns away off-topic questions in one line, or replies NEEDS_WEB. Measured: 2 to 5 s, ~660 in / 70 to 230 out, about ₹0.35 to ₹0.60. Step 2 runs only on NEEDS_WEB: web search (web_search_20260209, at most 2 searches), effort medium, max 6,000, links shown under the answer. Measured: ~16 s, ~22,600 in / ~550 out plus the search fee, about ₹9.40 an answer. Capped at 3 searched answers per person per day (searchDaily); past the cap it answers from the card and says it could not check the web.
 - Chapter: Claude Haiku 4.5 (about ₹1.20), unless the reader picked a writer in the masked comparison; then that model, effort medium, max 12,000.
 - Say it simpler: Claude Haiku 4.5, max 600 (about ₹0.06).
 - Current-generation models (Opus, Sonnet, Fable) run with Anthropic's server-side fallback ("default") so a decline is re-run on another model inside the same call; a refusal or a cut-off reply is logged as a failure, never shown as a half answer.
 - Calls go through the official SDK (@anthropic-ai/sdk). gpt-6-luna via OpenAI only if the Anthropic key is removed.
-Heavy user (30 chapters, ~4 plans, ~90 questions, ~60 rewrites a month) on default chapters: about ₹110 a month in AI cost.
+Heavy user (30 chapters, ~4 plans, ~90 questions, ~60 rewrites a month) on default chapters: about ₹110 a month in AI cost. With web search (4 Oct 19:15): if 30 of the 90 questions need the web, about ₹370 a month, above the ₹250 floor. Worst case at the daily cap (90 searched answers): about ₹900. Open decision for Prateek: the search allowance.
 What goes in, and its limit: the typed line (at most 200 characters), the level, and for chapters the plan JSON (about 1,500 tokens). Never user data beyond that.
 Where it runs: a Convex action. Never in the interface.
 Key: OPENAI_API_KEY / ANTHROPIC_API_KEY in Convex environment variables, dev and prod.
@@ -53,7 +53,7 @@ Token rules (added 4 Oct afternoon, when personalisation came in):
 - A profile change marks unread chapters stale; a stale chapter is rewritten once, when opened. Chapters already started are never rewritten.
 - "Say it simpler" rewrites one card (600 tokens out) and stores it, so the second tap is free. Pre-generated for cached topics.
 - The masked comparison writes one chapter three times (Sonnet, Opus, Fable) only when the person asks, on the chapter they're on. Opus and Fable cost about ten times Haiku per chapter, so the comparison is per-chapter and per-request, never automatic.
-- "Ask or object" answers from the one card plus the chapter title and the reader line, on Opus 5.5 at low effort, 40 an hour per device.
+- "Ask or object" sends the one card plus the chapter title and the reader line, on Opus 5.5, 40 an hour per device. It searches the web only when the question is on the topic and the card can't answer it; the guardrail lives in ASK_SEARCH_PROMPT. Search results (~20,000 tokens) are the expensive part, so search never runs on step 1.
 - Cached handbooks carry a version; an unread, unpersonalised chapter is swapped for the newer cached one when the handbook is opened. No model call.
 - Quality gate for the cache: every cached chapter is scored by an LLM judge on 12 binary checks (docs/section6-check/judge.py logic, report in judge-report.md); under 10, or any doubtful fact, is regenerated once and re-judged.
 - Illustrations are model-drawn SVG inside the chapter call (about 800 tokens), capped at 1,400 characters, sanitised before render. No image provider.

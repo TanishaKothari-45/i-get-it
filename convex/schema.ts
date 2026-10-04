@@ -103,6 +103,7 @@ export default defineSchema({
     cardIndex: v.number(),
     question: v.string(),
     answer: v.optional(v.string()),
+    sources: v.optional(v.array(v.object({ url: v.string(), title: v.string() }))),
     status: v.union(v.literal("thinking"), v.literal("ready"), v.literal("failed")),
     at: v.number(),
   }).index("by_card", ["handbookId", "chapter", "cardIndex"]),

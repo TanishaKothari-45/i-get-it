@@ -116,7 +116,7 @@ Pricing
 Headline "The longer you stay, the less you pay." A 13-bar chart, marigold bars falling to a green month-13 bar, labelled at months 1, 7 and 13+. Four rules in plain words: no surprise on day 8, cheaper every month, pause, cancel. Until payments exist, the main button saves a spot ("Keep me going at ₹499 a month") and says so; "I'll decide later" is always there. Reached from the rail, the library, and the Done screen after chapter 7.
 
 Ask or object (under every card)
-A quiet "Ask or object about this" opens a single-line input with an Ask button. Answers stack under the card, question in bold sans, answer in the serif. "Thinking…" while it runs; "Couldn't answer that one right now" on failure. Never a chat window, never a second main button.
+A quiet "Ask or object about this" opens a single-line input with an Ask button. Answers stack under the card, question in bold sans, answer in the serif. "Thinking…" while it runs; "Couldn't answer that one right now" on failure. Never a chat window, never a second main button. When the answer used the web, a small "Sources:" line of up to three links sits under it. The note under the input reads "Questions about this topic only. If the card doesn't cover it, the answer checks the web and shows its sources." (agent)
 
 Watch card (at most one per chapter)
 A bordered link block: the speaker in bold, the talk title in the serif, "Open in a new tab →". Kicker "Watch, N min". Under it, "Watch for:" and one line. Links only to known hosts (TED, YouTube, MIT OCW, archive.org and a few named sites); anything else renders as a dead link.

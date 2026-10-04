@@ -106,3 +106,84 @@ export const generate = internalAction({
     }
   },
 });
+
+// "Ask or object": Opus 5.5, guardrailed to the card's topic. Step 1 answers without web access (cheap): it answers from
+// the card, turns away off-topic questions, or says NEEDS_WEB. Only then does step 2 run with web search (cached prefix,
+// capped per person per day). Returns plain text plus the links it cited or checked.
+const NEEDS_WEB = "NEEDS_WEB";
+export const askWithSearch = internalAction({
+  args: { system: v.string(), user: v.string(), searchKey: v.string() },
+  handler: async (ctx, { system, user, searchKey }): Promise<{ ok: true; answer: string; sources: { url: string; title: string }[] } | { ok: false; error: string }> => {
+    const started = Date.now();
+    if (!process.env.ANTHROPIC_API_KEY) return { ok: false, error: "no provider key set" };
+    let tokensIn = 0, tokensOut = 0, searches = 0, step = 1;
+    try {
+      // Step 1: no tools.
+      const first = await client().beta.messages.create({
+        model: OPUS, max_tokens: 2000, output_config: { effort: "low" },
+        system: system + `\n\nIn this step you have no web access. If a proper answer needs facts the card doesn't contain, reply with exactly ${NEEDS_WEB} and nothing else.`,
+        messages: [{ role: "user", content: user }],
+        betas: ["server-side-fallback-2026-07-01"], fallbacks: "default",
+      });
+      tokensIn += first.usage.input_tokens; tokensOut += first.usage.output_tokens;
+      if (first.stop_reason === "refusal") throw new Error(`declined (${first.stop_details?.category ?? "no category"})`);
+      const firstText = first.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("").trim();
+      let answer = firstText, sources: { url: string; title: string }[] = [], model = first.model;
+
+      if (firstText === NEEDS_WEB || firstText.startsWith(NEEDS_WEB)) {
+        step = 2;
+        const allowed = await ctx.runMutation(internal.handbooks.takeSearchToken, { key: searchKey });
+        if (!allowed) {
+          // Over today's search allowance: answer from the card, and say so.
+          const fallback = await client().beta.messages.create({
+            model: OPUS, max_tokens: 2000, output_config: { effort: "low" },
+            system: system + "\n\nYou have no web access today. Answer as well as the card allows, and say in one short clause that you couldn't check the web for this one.",
+            messages: [{ role: "user", content: user }], betas: ["server-side-fallback-2026-07-01"], fallbacks: "default",
+          });
+          tokensIn += fallback.usage.input_tokens; tokensOut += fallback.usage.output_tokens;
+          answer = fallback.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("").trim();
+        } else {
+          const messages: Anthropic.Beta.BetaMessageParam[] = [{ role: "user", content: user }];
+          let res: Anthropic.Beta.BetaMessage | null = null;
+          for (let turn = 0; turn < 3; turn++) {   // a server tool can pause a long turn; resume it at most twice
+            res = await client().beta.messages.create({
+              model: OPUS, max_tokens: 6000, output_config: { effort: "medium" },  // medium: low effort garbled a comparison in testing
+              cache_control: { type: "ephemeral" },  // the tool instructions + system prompt are the same every time
+              system, messages,
+              tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 2 }],
+              betas: ["server-side-fallback-2026-07-01"], fallbacks: "default",
+            });
+            tokensIn += res.usage.input_tokens + (res.usage.cache_read_input_tokens ?? 0) + (res.usage.cache_creation_input_tokens ?? 0);
+            tokensOut += res.usage.output_tokens;
+            searches += res.usage.server_tool_use?.web_search_requests ?? 0;
+            if (res.stop_reason !== "pause_turn") break;
+            messages.push({ role: "assistant", content: res.content });
+          }
+          if (!res) throw new Error("no response");
+          if (res.stop_reason === "refusal") throw new Error(`declined (${res.stop_details?.category ?? "no category"})`);
+          if (res.stop_reason === "max_tokens") throw new Error("reply cut off at the token limit");
+          model = res.model;
+          const texts = res.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text");
+          answer = texts.map((b) => b.text).join("").trim();
+          const seen = new Map<string, string>();
+          for (const b of texts) for (const c of b.citations ?? []) {
+            if (c.type === "web_search_result_location" && /^https?:\/\//.test(c.url) && !seen.has(c.url)) seen.set(c.url, c.title ?? new URL(c.url).hostname);
+          }
+          // No inline citations? Show the top results it read, so the reader can still check.
+          if (seen.size === 0) for (const b of res.content as any[]) {
+            if (b.type === "web_search_tool_result" && Array.isArray(b.content)) for (const r of b.content) {
+              if (r?.type === "web_search_result" && /^https?:\/\//.test(r.url) && !seen.has(r.url)) seen.set(r.url, r.title ?? new URL(r.url).hostname);
+            }
+          }
+          sources = [...seen.entries()].slice(0, 3).map(([url, title]) => ({ url, title }));
+        }
+      }
+      await ctx.runMutation(internal.handbooks.logAiCall, { kind: "ask", model, input: user.slice(0, 2000), output: `${answer}\n[step ${step}; searches: ${searches}; sources: ${sources.map((x) => x.url).join(" ")}]`.slice(0, 20000), tokensIn, tokensOut, ms: Date.now() - started, ok: true });
+      return { ok: true, answer, sources };
+    } catch (e: any) {
+      const error = String(e?.message ?? e).slice(0, 500);
+      await ctx.runMutation(internal.handbooks.logAiCall, { kind: "ask", model: OPUS, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });
+      return { ok: false, error };
+    }
+  },
+});

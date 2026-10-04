@@ -123,6 +123,7 @@ Does (the must-haves: one person finishes night 1, and comes back for night 2; "
 - Night 2 onwards: two or three recall exercises from earlier chapters, then the next chapter, same shape. Chapters generate one at a time, the night before or on open.
 - After sign-in, the same plan and rungs on any device.
 - Works on a phone, logged out until the rung, on someone else's laptop.
+- Ask or object on every card (added 4 Oct on Prateek's ask). It answers from the card first. If the question is on the topic and the card can't answer it, it checks the web and shows up to three links. Anything off the topic gets one friendly line and no answer. At most 3 web-checked answers a day per person.
 
 Doesn't (not this sprint: parked, not forgotten):
 - Share-to-app from Instagram or YouTube. Reading a reel or a video.

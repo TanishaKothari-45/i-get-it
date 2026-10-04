@@ -341,3 +341,5 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .locked { padding: 14px 16px; border-radius: 14px; background: var(--pass-tint); color: var(--ink); font-weight: 600; }
 .rung-track { height: 150px; width: 100%; display: flex; align-items: flex-end; }
 .rung-track .rung-bar { width: 100%; }
+.ask-src { margin-top: 6px; font-size: var(--small); color: var(--ink-2); }
+.ask-src a { color: var(--ink-2); }
