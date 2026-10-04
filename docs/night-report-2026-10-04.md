@@ -6,7 +6,7 @@ Written by the coding agent at about 06:00. Read this, then PROGRESS.md's "Decid
 
 - https://sensible-mongoose-624.convex.site (production). Repo: github.com/prateekk26/igetit (push pending your go; commits are local).
 - Night 1 works end to end for the ten ready topics: type the line, see the 7-chapter plan, read chapter 1 with exercises checked on the spot, named-confusion feedback and a re-teach on a miss, the rung lights, reload lands on the same card with no account, sign in (email + password) after the rung, pick a time, come back to two recall cards and chapter 2, and the same handbook on another device after sign-in.
-- Ready topics (cache, chapters 1 to 3 seeded; 4 to 7 generating as I write): public speaking, western philosophy, reading a balance sheet, vibe coding with Claude Code, Indian stock market basics, n8n automations, a competitor-tracking agent, AI agents, pool swimming, WWII 1939 to 1945. Each has aliases (e.g. "ww2", "learn to swim", "ai agent").
+- Ready topics (cache, all seven chapters seeded on dev and production): public speaking, western philosophy, reading a balance sheet, vibe coding with Claude Code, Indian stock market basics, n8n automations, a competitor-tracking agent, AI agents, pool swimming, WWII 1939 to 1945. Each has aliases (e.g. "ww2", "learn to swim", "ai agent").
 
 ## What was tested, and how
 
@@ -20,7 +20,7 @@ Written by the coding agent at about 06:00. Read this, then PROGRESS.md's "Decid
 2. DESIGN.md: three sections marked MISSING are your taste to pick (the feeling labels, the references, the first-screen words). The product is built on the agent's placeholders.
 3. Section 6: outputs are in docs/section6-check/ with the agent's draft scores. Read two topics you know, mark (a) to (d) yourself, and run ChatGPT study mode on the same lines if your account has it (the agent couldn't find it in the tools menu).
 4. One coursemate's last attempt (Shaktimaan's blocker 1), then correct PRODUCT.md sections 1 to 3.
-5. Push to GitHub when you've read the diff: `git push`.
+5. Push to GitHub when you've read the diff: `git push` (about 16 commits are local).
 
 ## Decisions made in your stead (all reversible)
 
