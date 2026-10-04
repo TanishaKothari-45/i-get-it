@@ -11,6 +11,7 @@
     "deploy": "npx convex deploy --yes && npx @convex-dev/static-hosting deploy --skip-convex"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
     "@auth/core": "^0.41.3",
     "@convex-dev/auth": "^0.0.96",
     "@convex-dev/rate-limiter": "^0.4.0",

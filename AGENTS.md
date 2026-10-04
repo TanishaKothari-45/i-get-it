@@ -35,18 +35,25 @@ Every limit and every "is this allowed" check happens in a Convex function, neve
 Before sharing the link: open it on a phone, logged out, on mobile data, and do night 1 once.
 
 ## 4. The AI call
-Model: Claude Haiku 4.5 by default (ANTHROPIC_API_KEY is set on prod and dev since 4 Oct afternoon). gpt-6-luna via OpenAI only if the Anthropic key is removed. A person who ran the masked comparison gets the writer they picked (Sonnet 5.5, Opus 5.5 or Fable 5.1) for their chapters from then on. (Night of 4 Oct: the OpenAI key has no credits; the demo content is generated with the same prompts through Claude Code headless and stored in the cache table. Live generation for a new topic works as soon as credits are added or an Anthropic key is set.)
+Model, by job (convex/ai.ts JOB table; decided by Prateek 4 Oct evening):
+- Plan for a new topic: Claude Opus 5.5, effort medium, max 8,000 tokens (thinking counts). Measured: ~30 s, ~1,300 in / ~2,300 out, about ₹4.40 a plan.
+- Ask or object: Claude Opus 5.5, effort low, max 2,000. Measured: ~4 s, ~420 in / ~270 out, about ₹0.60 an answer.
+- Chapter: Claude Haiku 4.5 (about ₹1.20), unless the reader picked a writer in the masked comparison; then that model, effort medium, max 12,000.
+- Say it simpler: Claude Haiku 4.5, max 600 (about ₹0.06).
+- Current-generation models (Opus, Sonnet, Fable) run with Anthropic's server-side fallback ("default") so a decline is re-run on another model inside the same call; a refusal or a cut-off reply is logged as a failure, never shown as a half answer.
+- Calls go through the official SDK (@anthropic-ai/sdk). gpt-6-luna via OpenAI only if the Anthropic key is removed.
+Heavy user (30 chapters, ~4 plans, ~90 questions, ~60 rewrites a month) on default chapters: about ₹110 a month in AI cost.
 What goes in, and its limit: the typed line (at most 200 characters), the level, and for chapters the plan JSON (about 1,500 tokens). Never user data beyond that.
 Where it runs: a Convex action. Never in the interface.
 Key: OPENAI_API_KEY / ANTHROPIC_API_KEY in Convex environment variables, dev and prod.
-Reply cap: max_output_tokens 3,000 for a plan, 6,000 for a chapter (the illustration SVG lives inside it), 600 for a "say it simpler" rewrite.
+Reply cap: see the job table above. Thinking tokens count against the cap on Opus, Sonnet and Fable, so their caps are larger.
 Token rules (added 4 Oct afternoon, when personalisation came in):
 - One chapter at a time, written when opened, never ahead. Plans are never regenerated for tone or persona.
 - The reader's profile is one line, about 100 tokens, in a fixed order, sent with every chapter call. It is the only personalisation payload; never send chat history or earlier chapters.
 - A profile change marks unread chapters stale; a stale chapter is rewritten once, when opened. Chapters already started are never rewritten.
 - "Say it simpler" rewrites one card (600 tokens out) and stores it, so the second tap is free. Pre-generated for cached topics.
 - The masked comparison writes one chapter three times (Sonnet, Opus, Fable) only when the person asks, on the chapter they're on. Opus and Fable cost about ten times Haiku per chapter, so the comparison is per-chapter and per-request, never automatic.
-- "Ask or object" answers from the one card plus the chapter title and the reader line, 600 tokens out max, 40 an hour per device.
+- "Ask or object" answers from the one card plus the chapter title and the reader line, on Opus 5.5 at low effort, 40 an hour per device.
 - Cached handbooks carry a version; an unread, unpersonalised chapter is swapped for the newer cached one when the handbook is opened. No model call.
 - Quality gate for the cache: every cached chapter is scored by an LLM judge on 12 binary checks (docs/section6-check/judge.py logic, report in judge-report.md); under 10, or any doubtful fact, is regenerated once and re-judged.
 - Illustrations are model-drawn SVG inside the chapter call (about 800 tokens), capped at 1,400 characters, sanitised before render. No image provider.

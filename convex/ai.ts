@@ -1,4 +1,5 @@
 "use node";
+import Anthropic from "@anthropic-ai/sdk";
 // The AI call. Runs only here, in a Convex action. The key is read from the
 // Convex environment, never from the interface.
 import { v } from "convex/values";
@@ -37,22 +38,41 @@ async function callOpenAI(system: string, user: string, maxOut: number): Promise
   return { text, tokensIn: data.usage?.input_tokens, tokensOut: data.usage?.output_tokens, model };
 }
 
-async function callAnthropic(system: string, user: string, maxOut: number, modelOverride?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
-  const model = modelOverride ?? process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001";
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "x-api-key": process.env.ANTHROPIC_API_KEY!, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model,
-      max_tokens: maxOut,
-      system: system + "\n\nReturn only the JSON object. No prose, no code fences.",
-      messages: [{ role: "user", content: user }],
-    }),
+// Which model does which job. Plans and answers to questions are the judgment calls, so they get Opus 5.5;
+// chapters stay on Haiku unless the reader picked a writer in the comparison; card rewrites stay on Haiku.
+const HAIKU = "claude-haiku-4-5-20251001";
+const OPUS = "claude-opus-5-5";
+type Kind = "plan" | "chapter" | "simpler" | "ask";
+const JOB: Record<Kind, { model: string; effort?: "low" | "medium" | "high"; maxTokens: number }> = {
+  plan: { model: OPUS, effort: "medium", maxTokens: 8000 },   // thinking counts against max_tokens: leave room
+  ask: { model: OPUS, effort: "low", maxTokens: 2000 },
+  simpler: { model: HAIKU, maxTokens: 600 },
+  chapter: { model: HAIKU, maxTokens: 6000 },
+};
+
+let anthropic: Anthropic | null = null;
+function client() { return (anthropic ??= new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })); }
+
+async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+  const job = JOB[kind];
+  const model = modelOverride ?? process.env.ANTHROPIC_MODEL ?? job.model;
+  const isHaiku = model.startsWith("claude-haiku");
+  // Current-generation models think before answering; give them room and a set effort. Haiku takes neither.
+  const maxTokens = isHaiku ? job.maxTokens : Math.max(job.maxTokens, kind === "chapter" ? 12000 : job.maxTokens);
+  const effort = isHaiku ? undefined : (job.effort ?? "medium");
+  const res = await client().beta.messages.create({
+    model,
+    max_tokens: maxTokens,
+    system: system + "\n\nReturn only the JSON object. No prose, no code fences.",
+    messages: [{ role: "user", content: user }],
+    ...(effort ? { output_config: { effort } } : {}),
+    // If a current-generation model declines, Anthropic re-runs the request on a suitable model inside the same call.
+    ...(isHaiku ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }),
   });
-  const data: any = await res.json();
-  if (!res.ok) throw new Error(data?.error?.message ?? `Anthropic ${res.status}`);
-  const text = (data.content ?? []).map((c: any) => c.text ?? "").join("");
-  return { text, tokensIn: data.usage?.input_tokens, tokensOut: data.usage?.output_tokens, model };
+  if (res.stop_reason === "refusal") throw new Error(`declined (${res.stop_details?.category ?? "no category"})`);
+  if (res.stop_reason === "max_tokens") throw new Error("reply cut off at the token limit");
+  const text = res.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("");
+  return { text, tokensIn: res.usage.input_tokens, tokensOut: res.usage.output_tokens, model: res.model };
 }
 
 function extractJson(text: string): any {
@@ -72,7 +92,7 @@ export const generate = internalAction({
       return { ok: false, error: "no provider key set", model: "none" };
     }
     try {
-      const r = provider === "anthropic" ? await callAnthropic(system, user, maxOut, model) : await callOpenAI(system, user, maxOut);
+      const r = provider === "anthropic" ? await callAnthropic(kind, system, user, model) : await callOpenAI(system, user, maxOut);
       const json = extractJson(r.text);
       await ctx.runMutation(internal.handbooks.logAiCall, {
         kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
