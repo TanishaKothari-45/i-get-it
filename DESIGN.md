@@ -106,6 +106,15 @@ For: picking the writer by reading, not by name.
 Top to bottom: topic and chapter, "Which one reads best?", tabs A B C (with "writing…" while a version is being written), the chosen version's illustration, title and cards stacked, the main button "A reads best".
 States: writing "Writing version A… about a minute", failed "Version A didn't come through. Pick from the others.", done back to Plan with the chosen text as the chapter.
 
+Your handbooks (library)
+For: every topic in one place. Cards with the topic, a seven-segment progress bar, "Next: chapter N", and when it was last opened. Main action: Start another topic. Anonymous visitors see the sign-up nudge under the shelf.
+
+Sign-up nudge
+A white card: one lead line for the moment ("Starting another topic? Sign in so both stay safe and follow you."), four reasons with bold openers, a ghost button "Sign in to keep it all, free", and "Email and a password. No card." Compact version is the lead line and the button. Never blocks the screen it sits on.
+
+Pricing
+Headline "The longer you stay, the less you pay." A 13-bar chart, marigold bars falling to a green month-13 bar, labelled at months 1, 7 and 13+. Four rules in plain words: no surprise on day 8, cheaper every month, pause, cancel. Until payments exist, the main button saves a spot ("Keep me going at ₹499 a month") and says so; "I'll decide later" is always there. Reached from the rail, the library, and the Done screen after chapter 7.
+
 Ask or object (under every card)
 A quiet "Ask or object about this" opens a single-line input with an Ask button. Answers stack under the card, question in bold sans, answer in the serif. "Thinking…" while it runs; "Couldn't answer that one right now" on failure. Never a chat window, never a second main button.
 

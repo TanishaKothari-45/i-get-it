@@ -310,3 +310,34 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 
 /* keep the action bar above the roadmap's path nodes and cards */
 .actionbar { z-index: 6; }
+
+/* ---------- sign-up nudge, library, pricing ---------- */
+.nudge { margin: var(--l) 0; padding: var(--m); border-radius: 18px; background: #fff; border: 1px solid var(--tint); }
+.nudge-lead { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+.nudge-list { list-style: none; padding: 0; margin: 10px 0 14px; display: grid; gap: 8px; font-family: var(--serif); font-size: 1.02rem; }
+.nudge-list strong { font-family: var(--sans); }
+.nudge-btn { margin-top: 6px; }
+.nudge.compact { padding: 12px 14px; }
+.nudge.compact .nudge-lead { font-weight: 600; font-size: var(--ui); }
+.nudge.compact .nudge-btn { min-height: 44px; margin-top: 10px; }
+.shelf { list-style: none; padding: 0; margin: var(--m) 0; display: grid; gap: 12px; }
+.shelf-card { width: 100%; text-align: left; display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 18px; background: #fff; border: 1px solid var(--tint); }
+.shelf-card.active { border: 2px solid var(--accent); }
+.shelf-top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.shelf-topic { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em; }
+.shelf-when { color: var(--ink-2); font-size: var(--small); white-space: nowrap; }
+.shelf-bar { display: flex; gap: 4px; }
+.shelf-bar span { flex: 1; height: 6px; border-radius: 3px; background: var(--tint); }
+.shelf-bar span.on { background: var(--pass); }
+.shelf-next { color: var(--ink-2); font-size: var(--small); }
+.ladder { display: grid; grid-template-columns: repeat(13, 1fr); gap: 5px; align-items: end; height: 190px; margin: var(--l) 0 6px; padding: 0 2px; }
+.rung-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 4px; }
+.rung-price { font-size: 11px; font-weight: 700; color: var(--ink); white-space: nowrap; min-height: 14px; }
+.rung-bar { width: 100%; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, var(--accent), #f6c77a); min-height: 8px; }
+.rung-col:last-child .rung-bar { background: var(--pass); }
+.rung-month { font-size: 11px; color: var(--ink-2); }
+.rules { list-style: none; padding: 0; margin: var(--l) 0; display: grid; gap: 10px; font-family: var(--serif); font-size: 1.04rem; line-height: 1.45; }
+.rules strong { font-family: var(--sans); }
+.locked { padding: 14px 16px; border-radius: 14px; background: var(--pass-tint); color: var(--ink); font-weight: 600; }
+.rung-track { height: 150px; width: 100%; display: flex; align-items: flex-end; }
+.rung-track .rung-bar { width: 100%; }

@@ -129,7 +129,7 @@ Doesn't (not this sprint: parked, not forgotten):
 - Generating days 8 to 28. The horizon is named, not built.
 - A reminder at the chosen time. Needs an email or push provider, which is a new service: ask Prateek before adding one.
 - Checking whether they tried it in their own tool. Offered on doing-topics, never gated, never graded.
-- Streaks, badges, percentiles, share cards, payments, anything social.
+- Streaks, badges, percentiles, share cards, anything social. Taking money: not this sprint (intent capture only).
 
 Nice to have (only after the must-haves work, in this order):
 1. Regenerate the plan with comments. Done chapters are kept; the rest regenerates.

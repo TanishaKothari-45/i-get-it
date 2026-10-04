@@ -10,14 +10,23 @@ import Done from './screens/Done'
 import SignIn from './screens/SignIn'
 import Tune from './screens/Tune'
 import Compare from './screens/Compare'
+import Library from './screens/Library'
+import Pricing from './screens/Pricing'
+import SignupNudge from './components/SignupNudge'
 
-type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again' | 'tune' | 'compare'
+type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again' | 'tune' | 'compare' | 'library' | 'pricing'
 
 export default function App() {
   const token = useMemo(() => deviceToken(), [])
   const { isAuthenticated } = useConvexAuth()
   const { signOut } = useAuthActions()
-  const data = useQuery(api.handbooks.current, { deviceToken: token })
+  const [pinned, setPinned] = useState<string | null>(() => { try { return localStorage.getItem('igetit.active') } catch { return null } })
+  const pin = (id: string | null) => { setPinned(id); try { if (id) localStorage.setItem('igetit.active', id); else localStorage.removeItem('igetit.active') } catch {} }
+  const data = useQuery(api.handbooks.current, pinned ? { deviceToken: token, handbookId: pinned as any } : { deviceToken: token })
+  const lib = useQuery(api.handbooks.library, { deviceToken: token })
+  const plansData = useQuery(api.pricing.plans, { deviceToken: token })
+  const lockPrice = useMutation(api.pricing.lockPrice)
+  const [afterSignIn, setAfterSignIn] = useState<View>('done')
   const examples = useQuery(api.handbooks.cachedTopics, {}) ?? []
   const create = useMutation(api.handbooks.create)
   const answerQuestion = useMutation(api.handbooks.answerQuestion)
@@ -61,11 +70,32 @@ export default function App() {
 
   if (data === undefined) return <Shell><div className="splash">Opening your handbook…</div></Shell>
 
+  const signIn = (back: View) => { setAfterSignIn(back); setView('signin') }
+  const libRows = lib?.handbooks ?? []
+
+  // Library and pricing can be reached from anywhere, with or without a current handbook.
+  if (view === 'library') {
+    return (
+      <Shell back={hb ? { label: 'Handbook', onClick: () => setView('plan') } : undefined}>
+        <Library rows={libRows as any} signedIn={!!lib?.signedIn} activeId={hb?._id} onOpen={(id) => { pin(id); setDoneN(null); setView('plan') }}
+          onNew={() => { setDraftTopic(''); setView('start-again') }} onSignIn={() => signIn('library')} onPlans={() => setView('pricing')} />
+      </Shell>
+    )
+  }
+  if (view === 'pricing') {
+    return (
+      <Shell back={{ label: 'Back', onClick: () => setView(hb ? 'plan' : 'library') }}>
+        <Pricing plans={plansData as any} fromDone={doneN === 7} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onBack={() => setView(hb ? 'plan' : 'library')} onSignIn={() => signIn('pricing')} />
+      </Shell>
+    )
+  }
+
   // No handbook yet, or the person wants a different line: the first screen.
   if (!hb || view === 'start-again' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed') {
     const status = !hb || view === 'start-again' ? 'idle' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : 'failed'
     return (
       <Shell>
+        {view === 'start-again' && libRows.length > 0 && !lib?.signedIn && <SignupNudge onSignIn={() => signIn('start-again')} context="second-topic" compact />}
         <Start
           key={hb?._id ?? 'new'}
           initialTopic={view === 'start-again' ? (draftTopic || hb?.topic || '') : (hb?.topic ?? '')}
@@ -73,7 +103,7 @@ export default function App() {
           question={hb?.question}
           error={hb?.error}
           examples={examples}
-          onCreate={async (topic, level, voice) => { setDraftTopic(topic); await create({ topic, level, voice, deviceToken: token }); setView('auto') }}
+          onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
         />
@@ -93,7 +123,9 @@ export default function App() {
       </ol>
       <div className="rail-links">
         <button type="button" className="quiet" onClick={() => { setDoneN(null); setView('plan') }}>The handbook</button>
+        <button type="button" className="quiet" onClick={() => setView('library')}>Your handbooks{libRows.length > 1 ? ` (${libRows.length})` : ''}</button>
         <button type="button" className="quiet" onClick={() => setView('tune')}>Make it yours</button>
+        <button type="button" className="quiet" onClick={() => setView('pricing')}>Pricing</button>
         <button type="button" className="quiet" onClick={() => { setDraftTopic(hb.topic); setView('start-again') }}>Start another topic</button>
       </div>
     </>
@@ -111,7 +143,7 @@ export default function App() {
   if (resolved === 'tune') {
     return (
       <Shell rail={rail} back={toPlan}>
-        <Tune initial={profile ?? null} onSave={async (p) => saveProfile({ deviceToken: token, ...p })} onBack={() => setView('plan')} />
+        <Tune initial={profile ?? null} onSave={async (p) => saveProfile({ deviceToken: token, ...p })} onBack={() => setView('plan')} signedIn={isAuthenticated} onSignIn={() => signIn('tune')} />
       </Shell>
     )
   }
@@ -128,8 +160,8 @@ export default function App() {
 
   if (resolved === 'signin') {
     return (
-      <Shell rail={rail} back={{ label: 'Back', onClick: () => setView('done') }}>
-        <SignIn onDone={async () => { await attachToMe({ deviceToken: token }); setView('done') }} onBack={() => setView('done')} />
+      <Shell rail={rail} back={{ label: 'Back', onClick: () => setView(afterSignIn) }}>
+        <SignIn onDone={async () => { await attachToMe({ deviceToken: token }); setView(afterSignIn) }} onBack={() => setView(afterSignIn)} />
       </Shell>
     )
   }
@@ -148,7 +180,8 @@ export default function App() {
           sources={plan?.sources}
           signedIn={isAuthenticated}
           tomorrowAt={progress?.tomorrowAt}
-          onKeep={() => setView('signin')}
+          onKeep={() => signIn('done')}
+          onPricing={() => setView('pricing')}
           onPickTime={async (at) => { await setTomorrow({ handbookId: hb._id, at, deviceToken: token }) }}
           onContinue={() => { setDoneN(null); setView('plan') }}
         />
@@ -197,6 +230,8 @@ export default function App() {
         onCompare={!tester ? undefined : () => { if (chapter?.variants?.length) { setView('compare'); return } compareModels({ handbookId: hb._id, n: currentN, deviceToken: token }).then(() => setView('compare')).catch(() => {}) }}
         comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
         coverSvg={(hb.chapters.find((c) => c.n === 1) as any)?.svg}
+        onLibrary={() => setView('library')}
+        libraryCount={libRows.length}
         onRetry={() => { retry({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }}
         onChangeLine={() => { setDraftTopic(hb.topic); setView('start-again') }}
       />

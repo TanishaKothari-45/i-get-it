@@ -7,7 +7,8 @@ Interface: a web page on a phone (Vite + React, served by Convex static hosting 
 Business logic: a Convex action writes the plan (7 chapters) and each chapter (cards plus exercises) by calling the model with the prompts in convex/prompts.ts, checks the JSON shape, and stores it. Mutations record each answer, light a rung only on a pass, and keep the anonymous night under a device token until sign-in attaches it to a user.
 Database (Convex tables): handbooks (topic, level, plan JSON, owner: deviceToken or userId), chapters (handbookId, n, cards JSON, status), answers (handbookId, chapter, cardIndex, optionId, correct, at), progress (handbookId, chaptersPassed, currentChapter, tomorrowAt), aiCalls (what went in, what came out, tokens, ms, model), cache (normalised topic+level → handbookId, for pre-generated handbooks).
 Third party: the model provider's API for every generation, key in Convex environment variables (OPENAI_API_KEY now; ANTHROPIC_API_KEY takes over if set). Convex Auth for sign-in (keys JWT_PRIVATE_KEY, JWKS, SITE_URL in Convex env). Google Fonts for the two typefaces. Nothing else.
-Not in v1: reminders (needs an email or push provider; ask Prateek first), days 8 to 28, regenerate-with-comments, the tutor chat, a second topic, any social feature, reading links or videos.
+Pricing: convex/pricing.ts holds the ladder (START, FLOOR_SHARE, MONTHS_TO_FLOOR, MAX_PAUSE_MONTHS, FREE_DAYS) and the subscription state machine for when payments land; change numbers there only. priceIntents records "keep me going" taps; nothing is charged.
+Not in v1: taking payments (needs a provider outside Convex: ask Prateek first), reminders (needs an email or push provider; ask Prateek first), days 8 to 28, regenerate-with-comments, the tutor chat, a second topic, any social feature, reading links or videos.
 
 When I report a bug, I'll name the part. Look there first, and tell me if you think I named the wrong one.
 

@@ -12,6 +12,7 @@ import type * as ai from "../ai.js";
 import type * as auth from "../auth.js";
 import type * as handbooks from "../handbooks.js";
 import type * as http from "../http.js";
+import type * as pricing from "../pricing.js";
 import type * as prompts from "../prompts.js";
 
 import type {
@@ -25,6 +26,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   handbooks: typeof handbooks;
   http: typeof http;
+  pricing: typeof pricing;
   prompts: typeof prompts;
 }>;
 

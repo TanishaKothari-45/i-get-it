@@ -16,6 +16,7 @@ type Props = {
   onKeep: () => void
   onPickTime: (at: string) => Promise<void>
   onContinue: () => void
+  onPricing: () => void
 }
 
 const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
@@ -28,7 +29,7 @@ function pretty(t: string) {
 }
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing }: Props) {
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
   const last = n >= 7
@@ -42,6 +43,19 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
       {last && sources && sources.length > 0 && <p className="sources"><span className="label">Read next</span> {sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em>{x.why ? ` (${x.why})` : ''}</span>)}</p>}
+
+      {last && (
+        <div className="nudge" style={{ marginTop: 'var(--l)' }}>
+          <p className="nudge-lead">That was week 1, free.</p>
+          <p className="serif">Here's exactly how it works from here, before anyone asks you for anything.</p>
+          <button type="button" className="btn btn-ghost nudge-btn" onClick={onPricing}>See how pricing works</button>
+        </div>
+      )}
+      {!signedIn && !last && (
+        <div className="nudge compact" style={{ marginTop: 'var(--l)' }}>
+          <p className="nudge-lead">Signing in keeps this handbook on every device, lets you run several topics at once, and carries your settings with you. Free.</p>
+        </div>
+      )}
 
       {signedIn && (
         <>

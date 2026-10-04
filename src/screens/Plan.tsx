@@ -17,10 +17,12 @@ type Props = {
   onCompare?: () => void
   comparing?: boolean
   coverSvg?: string
+  onLibrary?: () => void
+  libraryCount?: number
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg, onLibrary, libraryCount }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -68,6 +70,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
       <div className="roadmap-links">
         <button type="button" className="quiet" onClick={onTune}>Make it yours: who teaches you, and how</button>
         {onCompare && <button type="button" className="quiet" onClick={onCompare}>{comparing ? `Three writers are on chapter ${current}…` : `Compare three writers on chapter ${current}`}</button>}
+        {onLibrary && <button type="button" className="quiet" onClick={onLibrary}>{libraryCount && libraryCount > 1 ? `Your handbooks (${libraryCount})` : 'Start another topic, keep this one'}</button>}
         <button type="button" className="quiet" onClick={onChangeLine}>Not what you meant? Change the line</button>
       </div>
 

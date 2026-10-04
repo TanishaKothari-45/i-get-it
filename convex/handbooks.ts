@@ -124,10 +124,35 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
 
 // ---------- queries ----------
 
-export const current = query({
+async function mine(ctx: QueryCtx, userId: Id<"users"> | null, deviceToken?: string) {
+  const out = new Map<string, Doc<"handbooks">>();
+  if (userId) for (const h of await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).collect()) out.set(h._id, h);
+  if (deviceToken) for (const h of await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).collect()) out.set(h._id, h);
+  return [...out.values()];
+}
+
+// Every handbook this person has, newest activity first, for the library.
+export const library = query({
   args: { deviceToken: v.optional(v.string()) },
   handler: async (ctx, { deviceToken }) => {
     const userId = await getAuthUserId(ctx);
+    const rows = [];
+    for (const h of await mine(ctx, userId, deviceToken)) {
+      const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
+      rows.push({ _id: h._id, topic: (h.plan as any)?.topic ?? h.topic, status: h.status, passed: p?.chaptersPassed.length ?? 0, current: p?.currentChapter ?? 1, lastAt: p?.updatedAt ?? h.createdAt, outcome: (h.plan as any)?.outcome7 ?? null });
+    }
+    return { signedIn: !!userId, handbooks: rows.sort((a, b) => b.lastAt - a.lastAt) };
+  },
+});
+
+export const current = query({
+  args: { deviceToken: v.optional(v.string()), handbookId: v.optional(v.id("handbooks")) },
+  handler: async (ctx, { deviceToken, handbookId }) => {
+    const userId = await getAuthUserId(ctx);
+    if (handbookId) {
+      const pinned = await ctx.db.get(handbookId);
+      if (pinned && owns(pinned, { userId, deviceToken })) return { userId, handbook: await fullView(ctx, pinned) };
+    }
     let h: Doc<"handbooks"> | null = null;
     if (userId) h = await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).order("desc").first();
     if (!h && deviceToken) h = await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).order("desc").first();

@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import ActionBar from '../components/ActionBar'
+import SignupNudge from '../components/SignupNudge'
 
 export type Profile = { persona?: string; tone?: string; likes?: string[]; examplesFrom?: string; avoid?: string; preferredModel?: string | null }
-type Props = { initial: Profile | null; onSave: (p: Profile) => Promise<{ line: string; staled: number }>; onBack: () => void }
+type Props = { initial: Profile | null; onSave: (p: Profile) => Promise<{ line: string; staled: number }>; onBack: () => void; signedIn?: boolean; onSignIn?: () => void }
 
 const PERSONAS = ['a sharp friend', 'a patient teacher', 'a dry scientist', 'a storyteller', 'a coach who pushes', 'a witty older cousin']
 const LIKES = ['stories', 'metaphors', 'humour', 'numbers', 'straight talk', 'step by step', 'examples from my work', 'history behind it']
 
 // How they want to be taught. Saved once; every chapter written from now on reads it. Unread chapters get rewritten when opened.
-export default function Tune({ initial, onSave, onBack }: Props) {
+export default function Tune({ initial, onSave, onBack, signedIn, onSignIn }: Props) {
   const [persona, setPersona] = useState(initial?.persona ?? '')
   const [likes, setLikes] = useState<string[]>(initial?.likes ?? [])
   const [examplesFrom, setExamplesFrom] = useState(initial?.examplesFrom ?? '')
@@ -49,6 +50,7 @@ export default function Tune({ initial, onSave, onBack }: Props) {
 
       {initial?.preferredModel && <p className="note" style={{ marginTop: 'var(--l)' }}>Your chapters are written by the writer you picked in the comparison. Run it again on any chapter to change your pick.</p>}
       {done && <p className="note" style={{ marginTop: 'var(--l)', color: 'var(--pass)' }}>{done}</p>}
+      {done && !signedIn && onSignIn && <SignupNudge onSignIn={onSignIn} context="tune" compact />}
       {error && <p className="error">{error}</p>}
 
       <ActionBar busy={busy}>

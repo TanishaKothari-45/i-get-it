@@ -106,6 +106,17 @@ export default defineSchema({
     at: v.number(),
   }).index("by_card", ["handbookId", "chapter", "cardIndex"]),
 
+  // Willingness to pay, week 1: no payment taken, just "keep me going at this price".
+  priceIntents: defineTable({
+    userId: v.optional(v.id("users")),
+    deviceToken: v.optional(v.string()),
+    handbookId: v.optional(v.id("handbooks")),
+    price: v.number(),
+    at: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_device", ["deviceToken"]),
+
   modelVotes: defineTable({
     handbookId: v.id("handbooks"),
     chapter: v.number(),
