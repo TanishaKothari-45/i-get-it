@@ -108,6 +108,23 @@ For: attaching the night to a person.
 Top to bottom: "Keep this handbook on every device", one line on what we store (the plan and the chapters you passed, nothing else), the sign-in control, a quiet "Not now".
 States: loading "Signing you in…", error as above, done returns to Done with the time picker.
 
+Navigation (added 7 Oct, agent)
+For: getting between handbooks and screens. Every screen has its own address (/, /new, /library, /signin, /h/:id, /h/:id/chapter/:n, /h/:id/chapter/:n/done), so back, refresh and a shared link land where they should.
+Laptop (768 px and up): the wordmark on the left, three quiet links on the right in small sans, ink-2, the current one in ink and underlined: My handbooks · New topic · Sign in (or Sign out). No accent.
+Phone: a three-line menu button (44 px) on the right opens the bottom sheet (same sheet as the feedback): rows of 56 px, ink, with a small ink-2 line under "Sign in" ("Keep your handbooks on every device") and "You're here" under the current one; a ghost Close button.
+Also: the topic name on a chapter screen links back to its plan; on the plan, chapters already reached are links (re-read a passed one).
+
+My handbooks (/library) (added 7 Oct, agent)
+For: seeing and picking any handbook.
+Top to bottom: "Your handbooks", (not signed in) "These live on this phone. Sign in to keep them on every device.", one row per handbook, newest first: the topic, one status line, the rung bar.
+Status lines: "Being written…" · "Waiting on one answer from you" · "Didn't come through. Open it to try again." · "Chapter 1 is next" · "Chapter N is next · K of 7 done" · "All 7 chapters done".
+Main action: Start a new handbook → /new.
+Empty: "Nothing here yet. Type the one thing you keep meaning to learn, and its handbook starts here."
+
+Someone else's handbook link (added 7 Oct, agent)
+"This handbook is someone else's." / "You can start your own on the same thing: [topic]." Button: Start my own (busy: "Starting yours…").
+A link that leads nowhere: "Nothing here." / "This link doesn't lead to a handbook." Button: Go to my handbooks.
+
 ## 5. The first screen's words
 **MISSING: Prateek to write.** The lines below are the agent's draft from Prateek's own phrases in PRODUCT.md, built as placeholders; the handbook says the user never ships AI copy. Rewrite before the five-second test.
 Headline: You keep saving it. Tonight, get it.

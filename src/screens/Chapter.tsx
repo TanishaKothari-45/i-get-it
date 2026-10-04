@@ -3,6 +3,7 @@ import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Sheet from '../components/Sheet'
 import Rich, { inline } from '../components/Rich'
+import { Link } from '../lib/router'
 
 export type Card =
   | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number }
@@ -27,10 +28,11 @@ type Props = {
   onAnswer: (item: Item, optionId: string, attempt: number) => Promise<AnswerResult>
   onFinish: () => Promise<void>
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
+  handbookPath?: string       // the plan, linked from the topic name at the top
 }
 
 // The card stack: teaching cards and exercises, one at a time.
-export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, handbookPath }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -114,7 +116,9 @@ export default function Chapter({ topic, n, title, cards, recall, passed, passed
           {i > 0 && <button type="button" className="quiet" style={{ padding: 0, marginRight: 10 }} onClick={() => { setI(i - 1); reset() }} aria-label="Previous card">← Back</button>}
           {item.recall ? `Recall · from chapter ${item.chapter}` : `Chapter ${n} of 7 · card ${chapterCardNo} of ${cards.length}`}
         </span>
-        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '48%' }}>{topic}</span>
+        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '48%' }}>
+          {handbookPath ? <Link to={handbookPath} className="quiet" style={{ padding: 0 }} aria-label={`Back to the ${topic} plan`}>{topic}</Link> : topic}
+        </span>
       </p>
 
       <div className={`card ${item.card.type}-card`} key={`${key}-${item.recall ? 'r' : 'c'}`}>

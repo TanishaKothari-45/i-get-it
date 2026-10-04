@@ -41,12 +41,41 @@ p { margin: 0; }
 /* shell: one column, phone first */
 .shell { width: 100%; max-width: var(--measure); margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; padding: 0 var(--m); padding-left: max(var(--m), env(safe-area-inset-left)); padding-right: max(var(--m), env(safe-area-inset-right)); }
 .top { display: flex; align-items: center; justify-content: space-between; padding: 14px 0 6px; min-height: 48px; }
-.wordmark { font-weight: 700; font-size: var(--ui); letter-spacing: -0.01em; }
+.wordmark { font-weight: 700; font-size: var(--ui); letter-spacing: -0.01em; color: var(--ink); text-decoration: none; padding: 4px 0; }
 .wordmark small { display: block; font-weight: 400; color: var(--ink-2); font-size: var(--small); margin-top: 1px; }
 .quiet { background: none; border: 0; padding: 8px 0; color: var(--ink-2); font-size: var(--small); text-decoration: underline; text-underline-offset: 0.18em; }
 .quiet:hover { color: var(--ink); }
 main { flex: 1; display: flex; flex-direction: column; padding-bottom: 120px; }
 .foot { color: var(--ink-2); font-size: var(--small); padding: var(--l) 0 var(--m); }
+
+/* navigation: a row of quiet links on a laptop, a menu button and bottom sheet on a phone.
+   Ink only; the accent stays on the main button and the rung. */
+.nav-links { display: none; align-items: center; gap: var(--l); }
+.nav-links a, .nav-links button { background: none; border: 0; padding: 12px 0; font-size: var(--small); font-weight: 500; color: var(--ink-2); text-decoration: none; }
+.nav-links a:hover, .nav-links button:hover { color: var(--ink); }
+.nav-links [aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 0.35em; }
+.menu-button { width: 44px; height: 44px; margin-right: -10px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: none; border: 0; border-radius: var(--radius); }
+.menu-button span { display: block; width: 20px; height: 1.5px; background: var(--ink); }
+.menu-button:active { background: var(--paper-2); }
+@media (min-width: 768px) {
+  .nav-links { display: flex; }
+  .menu-button { display: none; }
+}
+.menu-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tint); }
+.menu-list a, .menu-list button { display: flex; flex-direction: column; justify-content: center; width: 100%; min-height: 56px; padding: 10px 0; background: none; border: 0; border-bottom: 1px solid var(--tint); text-align: left; text-decoration: none; color: var(--ink); font-size: var(--ui); font-weight: 600; }
+.menu-list small { font-size: var(--small); font-weight: 400; color: var(--ink-2); margin-top: 2px; }
+
+/* the library: one row per handbook */
+.library { list-style: none; margin: var(--m) 0 0; padding: 0; border-top: 1px solid var(--tint); }
+.library a { display: block; padding: 14px 0; border-bottom: 1px solid var(--tint); color: var(--ink); text-decoration: none; }
+.library .t { display: block; font-weight: 600; font-size: var(--ui); }
+.library .c { display: block; margin-top: 2px; color: var(--ink-2); font-size: var(--small); }
+.library .rung { padding-top: 8px; }
+.library a:hover .t { text-decoration: underline; text-underline-offset: 0.18em; }
+
+/* plan: chapters they can open are links, quiet until touched */
+.chapters .t a { color: inherit; text-decoration: none; }
+.chapters .t a:hover { text-decoration: underline; text-underline-offset: 0.18em; }
 
 /* type */
 h1 { font-family: var(--sans); font-size: var(--display); line-height: 1.05; letter-spacing: -0.025em; font-weight: 700; margin: var(--l) 0 var(--m); text-wrap: balance; }

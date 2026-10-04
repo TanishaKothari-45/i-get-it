@@ -5,12 +5,31 @@ import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 import { CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
-import { level } from "./schema";
+import { level, voice as voiceV } from "./schema";
 
-const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
+type Voice = "friend" | "straight" | "stories";
+type Level = "new" | "some";
 
 const CHAPTERS = 7;
 const LANGUAGE = "English";
+const DEFAULT_VOICE: Voice = "friend";
+// A chapter still "writing" after this long is treated as stuck, and the next reader rewrites it.
+const STUCK_WRITING_MS = 5 * 60 * 1000;
+
+// How long a shared book is given to new learners, by how fast its topic goes stale (the plan says
+// which). After that the next person gets a freshly written book; people already reading keep theirs.
+type Freshness = "fast" | "medium" | "stable";
+const DAY_MS = 24 * 60 * 60 * 1000;
+const TTL_MS: Record<Freshness, number> = { fast: 7 * DAY_MS, medium: 90 * DAY_MS, stable: 365 * DAY_MS };
+const DEFAULT_FRESHNESS: Freshness = "medium";
+
+function freshnessOf(value: unknown): Freshness {
+  return value === "fast" || value === "medium" || value === "stable" ? value : DEFAULT_FRESHNESS;
+}
+
+function isExpired(book: Doc<"books">) {
+  return book.expiresAt !== undefined && book.expiresAt <= Date.now();
+}
 
 // Caps (AGENTS.md section 4): 60 generations an hour across the app, 6 an hour per device.
 const limiter = new RateLimiter(components.rateLimiter, {
@@ -64,28 +83,62 @@ async function ownedHandbook(ctx: QueryCtx | MutationCtx, handbookId: Id<"handbo
   return h;
 }
 
+// ---------- the shared library ----------
 
-// A pre-generated chapter for this topic, if the cache has it. Used before any model call.
-async function cachedChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
-  const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
-  const ch = row?.chapters?.find((c: any) => c.n === n);
-  return ch ?? null;
+async function bookByKey(ctx: QueryCtx | MutationCtx, topicKey: string, lvl: Level, language: string, v: Voice) {
+  const key = await ctx.db.query("bookKeys")
+    .withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl).eq("language", language).eq("voice", v))
+    .first();
+  const book = key ? await ctx.db.get(key.bookId) : null;
+  return book && !isExpired(book) ? book : null;
 }
 
-async function ensureChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
-  const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
-  if (existing && existing.status === "ready") return;
-  const fromCache = await cachedChapter(ctx, h, n);
-  if (fromCache) {
-    const doc = { status: "ready" as const, title: fromCache.title, cards: fromCache.cards, outcomeLine: fromCache.outcomeLine, error: undefined };
-    if (existing) await ctx.db.patch(existing._id, doc);
-    else await ctx.db.insert("chapters", { handbookId: h._id, n, createdAt: Date.now(), ...doc });
-    return;
+// The book for this line, if one exists. Pre-written (seed) books exist in the default voice
+// only; they're reused for any voice rather than paying for a fresh one.
+async function findBook(ctx: QueryCtx | MutationCtx, topicKey: string, lvl: Level, language: string, v: Voice) {
+  if (!topicKey) return null;
+  const exact = await bookByKey(ctx, topicKey, lvl, language, v);
+  if (exact || v === DEFAULT_VOICE) return exact;
+  const seed = await bookByKey(ctx, topicKey, lvl, language, DEFAULT_VOICE);
+  return seed?.source === "seed" ? seed : null;
+}
+
+// Point these lines at this book. A line still pointing at an expired (or deleted) book moves over;
+// a line pointing at another live book is left alone.
+async function addKeys(ctx: MutationCtx, book: Doc<"books">, keys: string[]) {
+  for (const topicKey of new Set(keys.filter(Boolean))) {
+    const existing = await ctx.db.query("bookKeys")
+      .withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", book.level).eq("language", book.language).eq("voice", book.voice))
+      .first();
+    if (!existing) {
+      await ctx.db.insert("bookKeys", { topicKey, level: book.level, language: book.language, voice: book.voice, bookId: book._id });
+      continue;
+    }
+    if (existing.bookId === book._id) continue;
+    const current = await ctx.db.get(existing.bookId);
+    if (!current || isExpired(current)) await ctx.db.patch(existing._id, { bookId: book._id });
   }
-  if (!h.plan) return;
-  if (existing) await ctx.db.patch(existing._id, { status: "writing", error: undefined });
-  else await ctx.db.insert("chapters", { handbookId: h._id, n, status: "writing", createdAt: Date.now() });
-  await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId: h._id, n });
+}
+
+async function bookChapter(ctx: QueryCtx | MutationCtx, bookId: Id<"books">, n: number) {
+  return ctx.db.query("chapters").withIndex("by_book_n", (q) => q.eq("bookId", bookId).eq("n", n)).unique();
+}
+
+// Make sure chapter n of a book is written or being written. Whoever reaches it first triggers
+// the write; everyone after reads the same chapter.
+async function ensureChapter(ctx: MutationCtx, book: Doc<"books">, n: number) {
+  const existing = await bookChapter(ctx, book._id, n);
+  if (existing?.status === "ready") return;
+  const now = Date.now();
+  if (existing?.status === "writing" && now - (existing.startedAt ?? existing.createdAt) < STUCK_WRITING_MS) return;
+  if (existing) await ctx.db.patch(existing._id, { status: "writing", error: undefined, startedAt: now });
+  else await ctx.db.insert("chapters", { bookId: book._id, n, status: "writing", createdAt: now, startedAt: now });
+  await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { bookId: book._id, n });
+}
+
+async function newProgress(ctx: MutationCtx, handbookId: Id<"handbooks">) {
+  const now = Date.now();
+  await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
 }
 
 // ---------- what the client is allowed to see ----------
@@ -105,10 +158,12 @@ function publicChapter(ch: Doc<"chapters">) {
 }
 
 async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
-  const chapters = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect();
+  const book = h.bookId ? await ctx.db.get(h.bookId) : null;
+  const chapters = book ? await ctx.db.query("chapters").withIndex("by_book_n", (q) => q.eq("bookId", book._id)).collect() : [];
   const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
   return {
-    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error,
+    _id: h._id, topic: h.topic, level: h.level, voice: h.voice, bookVoice: book?.voice ?? null, source: book?.source ?? null,
+    status: h.status, question: h.question, plan: book?.plan ?? null, error: h.error,
     signedIn: !!h.userId,
     chapters: chapters.sort((a, b) => a.n - b.n).map(publicChapter),
     progress: progress ? {
@@ -118,24 +173,59 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   };
 }
 
+// Every handbook this person can open: the signed-in account's and this device's, newest first.
+async function myHandbooks(ctx: QueryCtx, deviceToken?: string) {
+  const userId = await getAuthUserId(ctx);
+  const byUser = userId ? await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).collect() : [];
+  const byDevice = deviceToken ? await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).collect() : [];
+  const seen = new Map<Id<"handbooks">, Doc<"handbooks">>();
+  for (const h of [...byUser, ...byDevice]) seen.set(h._id, h);
+  return [...seen.values()].sort((a, b) => b.createdAt - a.createdAt);
+}
+
 // ---------- queries ----------
 
+// Where the bare link should land: the most recent handbook, on the card they left.
 export const current = query({
   args: { deviceToken: v.optional(v.string()) },
   handler: async (ctx, { deviceToken }) => {
-    const userId = await getAuthUserId(ctx);
-    let h: Doc<"handbooks"> | null = null;
-    if (userId) h = await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).order("desc").first();
-    if (!h && deviceToken) h = await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).order("desc").first();
-    return { userId, handbook: h ? await fullView(ctx, h) : null };
+    const [h] = await myHandbooks(ctx, deviceToken);
+    if (!h) return null;
+    const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
+    const midChapter = h.status === "ready" && progress && progress.currentCard > 0 && progress.chaptersPassed.length < CHAPTERS;
+    return { handbookId: h._id, resumeChapter: midChapter ? progress.currentChapter : null };
   },
 });
 
+// The library: one line per handbook, enough to list and pick one.
+export const mine = query({
+  args: { deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { deviceToken }) => {
+    const list = await myHandbooks(ctx, deviceToken);
+    return Promise.all(list.map(async (h) => {
+      const book = h.bookId ? await ctx.db.get(h.bookId) : null;
+      const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
+      return {
+        _id: h._id, topic: book?.plan?.topic ?? h.topic, status: h.status,
+        currentChapter: progress?.currentChapter ?? 1, chaptersPassed: progress?.chaptersPassed ?? [],
+        createdAt: h.createdAt,
+      };
+    }));
+  },
+});
+
+// One handbook. Someone else's link answers with just its topic, so they can start their own.
 export const get = query({
-  args: { handbookId: v.id("handbooks"), deviceToken: v.optional(v.string()) },
+  args: { handbookId: v.string(), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, deviceToken }) => {
-    const h = await ownedHandbook(ctx, handbookId, deviceToken);
-    return fullView(ctx, h);
+    const id = ctx.db.normalizeId("handbooks", handbookId);
+    const h = id ? await ctx.db.get(id) : null;
+    if (!h) return { kind: "missing" as const };
+    if (!owns(h, await viewer(ctx, deviceToken))) {
+      const book = h.bookId ? await ctx.db.get(h.bookId) : null;
+      return { kind: "notMine" as const, topic: book?.plan?.topic ?? h.topic, level: h.level, voice: h.voice };
+    }
+    return { kind: "mine" as const, handbook: await fullView(ctx, h) };
   },
 });
 
@@ -144,12 +234,14 @@ export const recallFor = query({
   args: { handbookId: v.id("handbooks"), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    if (!h.bookId) return [];
+    const bookId = h.bookId;
     const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
     if (!progress || progress.chaptersPassed.length === 0) return [];
     const picks: { chapter: number; cardIndex: number; card: any }[] = [];
     const passed = [...progress.chaptersPassed].sort((a, b) => b - a); // most recent first
     for (const n of passed) {
-      const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
+      const ch = await bookChapter(ctx, bookId, n);
       if (!ch?.cards) continue;
       const ex = ch.cards.map((c: any, i: number) => ({ c, i })).filter((x: any) => x.c.type === "exercise");
       // the "apply" and "recall" ones from the latest chapter, then one from the chapter before
@@ -170,18 +262,20 @@ export const create = mutation({
     if (clean.length < 2) throw new Error("Type a few words first.");
     const userId = await getAuthUserId(ctx);
     const topicKey = topicKeyOf(clean);
-    const now = Date.now();
+    const v = voice ?? DEFAULT_VOICE;
+    const base = { topicKey, level: lvl, language: LANGUAGE, voice: v, ownerToken: deviceToken, userId: userId ?? undefined, createdAt: Date.now() };
+    const book = await findBook(ctx, topicKey, lvl, LANGUAGE, v);
 
-    const cached = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
-    if (cached) {
-      const handbookId = await ctx.db.insert("handbooks", {
-        topic: cached.topic, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "ready", plan: cached.plan,
-        ownerToken: deviceToken, userId: userId ?? undefined, source: "cache", createdAt: now,
-      });
-      for (const ch of cached.chapters) {
-        await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, createdAt: now });
-      }
-      await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
+    // Asking again for something they already have (or a double tap): reopen it, never a second copy.
+    const owned = await myHandbooks(ctx, deviceToken);
+    const again = owned.find((h) => (book ? h.bookId === book._id : h.status === "planning" && h.topicKey === topicKey && h.level === lvl && h.voice === v));
+    if (again) return { handbookId: again._id, fromCache: !!book };
+
+    // Someone already has this book: point to it, nothing is written or copied.
+    if (book) {
+      const handbookId = await ctx.db.insert("handbooks", { ...base, topic: book.topic, status: "ready", bookId: book._id });
+      await newProgress(ctx, handbookId);
+      await ensureChapter(ctx, book, 1);
       return { handbookId, fromCache: true };
     }
 
@@ -190,11 +284,8 @@ export const create = mutation({
     const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken });
     if (!all.ok || !mine.ok) throw new Error("busy");
 
-    const handbookId = await ctx.db.insert("handbooks", {
-      topic: clean, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "planning",
-      ownerToken: deviceToken, userId: userId ?? undefined, source: "live", createdAt: now,
-    });
-    await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
+    const handbookId = await ctx.db.insert("handbooks", { ...base, topic: clean, status: "planning" });
+    await newProgress(ctx, handbookId);
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
     return { handbookId, fromCache: false };
   },
@@ -205,10 +296,18 @@ export const answerQuestion = mutation({
   handler: async (ctx, { handbookId, answer, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     if (h.status !== "question") throw new Error("No question open");
+    const clarification = answer.trim().slice(0, 300);
+    // The answered line may already have a book.
+    const book = await findBook(ctx, topicKeyOf(`${h.topic} (${clarification})`), h.level, h.language, h.voice);
+    if (book) {
+      await ctx.db.patch(handbookId, { status: "ready", bookId: book._id, topic: book.topic, question: undefined });
+      await ensureChapter(ctx, book, 1);
+      return;
+    }
     const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
     if (!mine.ok) throw new Error("busy");
     await ctx.db.patch(handbookId, { status: "planning", question: undefined });
-    await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId, clarification: answer.trim().slice(0, 300) });
+    await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId, clarification });
   },
 });
 
@@ -218,13 +317,14 @@ export const retry = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
     if (!mine.ok) throw new Error("busy");
-    if (!h.plan) {
+    const book = h.bookId ? await ctx.db.get(h.bookId) : null;
+    if (!book) {
       await ctx.db.patch(handbookId, { status: "planning", error: undefined });
       await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
       return;
     }
-    const failed = (await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId)).collect()).filter((c) => c.status === "failed");
-    for (const c of failed) await ensureChapter(ctx, h, c.n);
+    const failed = (await ctx.db.query("chapters").withIndex("by_book_n", (q) => q.eq("bookId", book._id)).collect()).filter((c) => c.status === "failed");
+    for (const c of failed) await ensureChapter(ctx, book, c.n);
   },
 });
 
@@ -235,7 +335,7 @@ export const generatePlan = internalAction({
   handler: async (ctx, { handbookId, clarification }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification) });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice, clarification) });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: r.error }); return; }
     const plan = r.json;
     if (plan.needsClarification && plan.question && !clarification) {
@@ -246,25 +346,48 @@ export const generatePlan = internalAction({
       await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `plan had ${plan.chapters?.length ?? 0} chapters` });
       return;
     }
-    await ctx.runMutation(internal.handbooks.setPlan, { handbookId, plan, topic: clarification ? `${h.topic} (${clarification})` : h.topic });
-    await ctx.runMutation(internal.handbooks.startChapter, { handbookId, n: 1 });
-    await ctx.runAction(internal.handbooks.generateChapter, { handbookId, n: 1 });
+    await ctx.runMutation(internal.handbooks.savePlan, { handbookId, plan, clarification });
+  },
+});
+
+// A new plan becomes a shared book (unless one appeared meanwhile), and the handbook points to it.
+export const savePlan = internalMutation({
+  args: { handbookId: v.id("handbooks"), plan: v.any(), clarification: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, plan, clarification }) => {
+    const h = await ctx.db.get(handbookId);
+    if (!h) return;
+    const line = clarification ? `${h.topic} (${clarification})` : h.topic;
+    const keys = [topicKeyOf(line), topicKeyOf(String(plan.topic ?? ""))];
+    let book: Doc<"books"> | null = null;
+    for (const k of keys) { book = await findBook(ctx, k, h.level, h.language, h.voice); if (book) break; }
+    if (!book) {
+      const freshness = freshnessOf(plan.freshness);
+      const now = Date.now();
+      const bookId = await ctx.db.insert("books", {
+        topic: String(plan.topic ?? line), level: h.level, language: h.language, voice: h.voice, plan, source: "live",
+        createdAt: now, freshness, expiresAt: now + TTL_MS[freshness],
+      });
+      book = (await ctx.db.get(bookId))!;
+    }
+    await addKeys(ctx, book, keys);
+    await ctx.db.patch(handbookId, { status: "ready", bookId: book._id, topic: line, topicKey: keys[0], question: undefined, error: undefined });
+    await ensureChapter(ctx, book, 1);
   },
 });
 
 export const generateChapter = internalAction({
-  args: { handbookId: v.id("handbooks"), n: v.number() },
-  handler: async (ctx, { handbookId, n }) => {
-    const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
-    if (!h?.plan) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n) });
-    if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
+  args: { bookId: v.id("books"), n: v.number() },
+  handler: async (ctx, { bookId, n }) => {
+    const book = await ctx.runQuery(internal.handbooks.readBook, { bookId });
+    if (!book?.plan) return;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(book.plan, book.level, book.language, book.voice, n) });
+    if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { bookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");
     const sane = Array.isArray(ch.cards) && ch.cards.length >= 5 && exercises.length >= 2 &&
       exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer));
-    if (!sane) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: "chapter failed the shape check" }); return; }
-    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title: String(ch.title ?? h.plan.chapters[n - 1]?.title ?? `Chapter ${n}`), cards: ch.cards, outcomeLine: String(ch.outcomeLine ?? "") });
+    if (!sane) { await ctx.runMutation(internal.handbooks.setChapterFailed, { bookId, n, error: "chapter failed the shape check" }); return; }
+    await ctx.runMutation(internal.handbooks.saveChapter, { bookId, n, title: String(ch.title ?? book.plan.chapters[n - 1]?.title ?? `Chapter ${n}`), cards: ch.cards, outcomeLine: String(ch.outcomeLine ?? "") });
   },
 });
 
@@ -273,10 +396,11 @@ export const readHandbook = internalQuery({
   handler: async (ctx, { handbookId }) => ctx.db.get(handbookId),
 });
 
-export const setPlan = internalMutation({
-  args: { handbookId: v.id("handbooks"), plan: v.any(), topic: v.string() },
-  handler: async (ctx, { handbookId, plan, topic }) => { await ctx.db.patch(handbookId, { status: "ready", plan, topic, question: undefined, error: undefined }); },
+export const readBook = internalQuery({
+  args: { bookId: v.id("books") },
+  handler: async (ctx, { bookId }) => ctx.db.get(bookId),
 });
+
 export const setQuestion = internalMutation({
   args: { handbookId: v.id("handbooks"), question: v.string() },
   handler: async (ctx, { handbookId, question }) => { await ctx.db.patch(handbookId, { status: "question", question }); },
@@ -285,29 +409,22 @@ export const setFailed = internalMutation({
   args: { handbookId: v.id("handbooks"), error: v.string() },
   handler: async (ctx, { handbookId, error }) => { await ctx.db.patch(handbookId, { status: "failed", error }); },
 });
-export const startChapter = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number() },
-  handler: async (ctx, { handbookId, n }) => {
-    const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
-    if (existing) { if (existing.status === "failed") await ctx.db.patch(existing._id, { status: "writing", error: undefined }); return; }
-    await ctx.db.insert("chapters", { handbookId, n, status: "writing", createdAt: Date.now() });
-  },
-});
-export const setChapter = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), title: v.string(), cards: v.any(), outcomeLine: v.string() },
-  handler: async (ctx, { handbookId, n, title, cards, outcomeLine }) => {
-    const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
-    const shuffled = shuffleExercises(cards, `${handbookId}:${n}`);
-    if (existing) await ctx.db.patch(existing._id, { status: "ready", title, cards: shuffled, outcomeLine, error: undefined });
-    else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, outcomeLine, createdAt: Date.now() });
+export const saveChapter = internalMutation({
+  args: { bookId: v.id("books"), n: v.number(), title: v.string(), cards: v.any(), outcomeLine: v.string() },
+  handler: async (ctx, { bookId, n, title, cards, outcomeLine }) => {
+    const existing = await bookChapter(ctx, bookId, n);
+    const shuffled = shuffleExercises(cards, `${bookId}:${n}`);
+    const doc = { status: "ready" as const, title, cards: shuffled, outcomeLine, error: undefined };
+    if (existing) await ctx.db.patch(existing._id, doc);
+    else await ctx.db.insert("chapters", { bookId, n, createdAt: Date.now(), ...doc });
   },
 });
 export const setChapterFailed = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), error: v.string() },
-  handler: async (ctx, { handbookId, n, error }) => {
-    const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+  args: { bookId: v.id("books"), n: v.number(), error: v.string() },
+  handler: async (ctx, { bookId, n, error }) => {
+    const existing = await bookChapter(ctx, bookId, n);
     if (existing) await ctx.db.patch(existing._id, { status: "failed", error });
-    else await ctx.db.insert("chapters", { handbookId, n, status: "failed", error, createdAt: Date.now() });
+    else await ctx.db.insert("chapters", { bookId, n, status: "failed", error, createdAt: Date.now() });
   },
 });
 export const logAiCall = internalMutation({
@@ -317,13 +434,14 @@ export const logAiCall = internalMutation({
 
 // ---------- reading and answering ----------
 
+// The card they're on, for the chapter they're on. Re-reading an earlier chapter doesn't move it.
 export const setPosition = mutation({
   args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, chapter, cardIndex, deviceToken }) => {
     await ownedHandbook(ctx, handbookId, deviceToken);
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
-    if (!p) return;
-    await ctx.db.patch(p._id, { currentChapter: chapter, currentCard: cardIndex, lastOpenedAt: Date.now(), updatedAt: Date.now() });
+    if (!p || p.currentChapter !== chapter) return;
+    await ctx.db.patch(p._id, { currentCard: cardIndex, lastOpenedAt: Date.now(), updatedAt: Date.now() });
   },
 });
 
@@ -331,8 +449,8 @@ export const setPosition = mutation({
 export const recordAnswer = mutation({
   args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), optionId: v.string(), attempt: v.number(), recall: v.optional(v.boolean()), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, chapter, cardIndex, optionId, attempt, recall, deviceToken }) => {
-    await ownedHandbook(ctx, handbookId, deviceToken);
-    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    const ch = h.bookId ? await bookChapter(ctx, h.bookId, chapter) : null;
     const card = ch?.cards?.[cardIndex];
     if (!card || card.type !== "exercise") throw new Error("Not an exercise");
     const correct = card.answer === optionId;
@@ -341,9 +459,8 @@ export const recordAnswer = mutation({
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     if (p && !recall) {
       const passed = new Set(p.passedExercises); const missed = new Set(p.missedExercises);
-      if (correct && attempt === 1) passed.add(key);
-      if (!correct) missed.add(key);
-      if (correct && attempt > 1) { passed.add(key); }
+      if (correct) passed.add(key);
+      else missed.add(key);
       await ctx.db.patch(p._id, { passedExercises: [...passed], missedExercises: [...missed], updatedAt: Date.now() });
     }
     if (correct) {
@@ -363,17 +480,19 @@ export const finishChapter = mutation({
   args: { handbookId: v.id("handbooks"), n: v.number(), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, n, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    const book = h.bookId ? await ctx.db.get(h.bookId) : null;
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
-    if (!p) return;
-    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+    if (!book || !p) return;
+    const ch = await bookChapter(ctx, book._id, n);
     const exerciseKeys: string[] = (ch?.cards ?? []).map((c: any, i: number) => (c.type === "exercise" ? `${n}:${i}` : null)).filter(Boolean);
     const allPassed = exerciseKeys.every((k) => p.passedExercises.includes(k));
     if (!allPassed) throw new Error("Finish the exercises first");
     const chaptersPassed = p.chaptersPassed.includes(n) ? p.chaptersPassed : [...p.chaptersPassed, n];
-    const next = Math.min(n + 1, CHAPTERS);
-    await ctx.db.patch(p._id, { chaptersPassed, currentChapter: n < CHAPTERS ? next : n, currentCard: 0, updatedAt: Date.now() });
-    // Write the next chapter now if it isn't there yet (cached handbooks may already have it).
-    if (n < CHAPTERS) await ensureChapter(ctx, h, next);
+    // Finishing a chapter re-read from earlier doesn't move them back.
+    const advancing = n === p.currentChapter && n < CHAPTERS;
+    await ctx.db.patch(p._id, { chaptersPassed, ...(advancing ? { currentChapter: n + 1, currentCard: 0 } : {}), updatedAt: Date.now() });
+    // Write the next chapter now if it isn't there yet (a shared book may already have it).
+    if (n < CHAPTERS) await ensureChapter(ctx, book, n + 1);
   },
 });
 
@@ -394,7 +513,7 @@ export const report = mutation({
   },
 });
 
-// After sign-in: the anonymous night attaches to the person. Nothing is re-asked.
+// After sign-in: the anonymous nights attach to the person. Nothing is re-asked.
 export const attachToMe = mutation({
   args: { deviceToken: v.string() },
   handler: async (ctx, { deviceToken }) => {
@@ -409,44 +528,44 @@ export const attachToMe = mutation({
 
 // ---------- "Say it simpler" ----------
 
-// Rewrites one teaching card in plainer words. Pre-generated for cached topics; live otherwise.
+// Rewrites one teaching card in plainer words, once per book: everyone reading it gets the rewrite.
 export const requestSimpler = mutation({
   args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, chapter, cardIndex, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
-    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
+    const ch = h.bookId ? await bookChapter(ctx, h.bookId, chapter) : null;
     const card = ch?.cards?.[cardIndex];
     if (!ch || !card || card.type === "exercise") throw new Error("Not a teaching card");
     if (card.simpler) return { ready: true as const };
     const mine = await limiter.limit(ctx, "simplerDevice", { key: deviceToken ?? String(h.userId) });
     if (!mine.ok) throw new Error("busy");
-    await ctx.scheduler.runAfter(0, internal.handbooks.writeSimpler, { handbookId, chapter, cardIndex });
+    await ctx.scheduler.runAfter(0, internal.handbooks.writeSimpler, { bookId: ch.bookId, chapter, cardIndex });
     return { ready: false as const };
   },
 });
 
 export const writeSimpler = internalAction({
-  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number() },
-  handler: async (ctx, { handbookId, chapter, cardIndex }) => {
-    const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
-    const ch = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n: chapter });
+  args: { bookId: v.id("books"), chapter: v.number(), cardIndex: v.number() },
+  handler: async (ctx, { bookId, chapter, cardIndex }) => {
+    const book = await ctx.runQuery(internal.handbooks.readBook, { bookId });
+    const ch = await ctx.runQuery(internal.handbooks.readChapter, { bookId, n: chapter });
     const card = ch?.cards?.[cardIndex];
-    if (!h || !ch || !card) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "simpler", system: SIMPLER_PROMPT, user: simplerUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${chapter}`, card) });
+    if (!book || !ch || !card) return;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "simpler", system: SIMPLER_PROMPT, user: simplerUserMessage(book.plan?.topic ?? book.topic, ch.title ?? `Chapter ${chapter}`, card) });
     const text = r.ok && typeof r.json?.simpler === "string" ? r.json.simpler.trim() : null;
-    await ctx.runMutation(internal.handbooks.setSimpler, { handbookId, chapter, cardIndex, simpler: text ?? "", failed: !text });
+    await ctx.runMutation(internal.handbooks.setSimpler, { bookId, chapter, cardIndex, simpler: text ?? "", failed: !text });
   },
 });
 
 export const readChapter = internalQuery({
-  args: { handbookId: v.id("handbooks"), n: v.number() },
-  handler: async (ctx, { handbookId, n }) => ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique(),
+  args: { bookId: v.id("books"), n: v.number() },
+  handler: async (ctx, { bookId, n }) => bookChapter(ctx, bookId, n),
 });
 
 export const setSimpler = internalMutation({
-  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), simpler: v.string(), failed: v.boolean() },
-  handler: async (ctx, { handbookId, chapter, cardIndex, simpler, failed }) => {
-    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
+  args: { bookId: v.id("books"), chapter: v.number(), cardIndex: v.number(), simpler: v.string(), failed: v.boolean() },
+  handler: async (ctx, { bookId, chapter, cardIndex, simpler, failed }) => {
+    const ch = await bookChapter(ctx, bookId, chapter);
     if (!ch?.cards?.[cardIndex]) return;
     const cards = [...ch.cards];
     cards[cardIndex] = failed ? { ...cards[cardIndex], simplerFailedAt: Date.now() } : { ...cards[cardIndex], simpler };
@@ -454,28 +573,74 @@ export const setSimpler = internalMutation({
   },
 });
 
-// ---------- the cache (pre-generated handbooks) ----------
+// ---------- pre-written (seed) books ----------
 
 export const seedCache = internalMutation({
   args: { topic: v.string(), aliases: v.optional(v.array(v.string())), level, plan: v.any(), chapters: v.array(v.any()) },
   handler: async (ctx, { topic, aliases, level: lvl, plan, chapters }) => {
-    const keys = new Set([topicKeyOf(topic), ...(aliases ?? []).map(topicKeyOf)]);
-    chapters = chapters.map((ch: any) => ({ ...ch, cards: shuffleExercises(ch.cards ?? [], `${topic}:${ch.n}`) }));
-    for (const topicKey of keys) {
-      const existing = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
-      if (existing) await ctx.db.patch(existing._id, { topic, plan, chapters });
-      else await ctx.db.insert("cache", { topicKey, level: lvl, topic, plan, chapters });
+    const keys = [topicKeyOf(topic), topicKeyOf(String(plan.topic ?? "")), ...(aliases ?? []).map(topicKeyOf)];
+    // Pre-written books were read by a person: stable, and refreshed by re-running the seed, not automatically.
+    const now = Date.now();
+    const freshness: Freshness = "stable";
+    const life = { freshness, expiresAt: now + TTL_MS[freshness] };
+    let book = await findBook(ctx, keys[0], lvl, LANGUAGE, DEFAULT_VOICE);
+    if (book) await ctx.db.patch(book._id, { plan, topic, ...life });
+    else {
+      const bookId = await ctx.db.insert("books", { topic, level: lvl, language: LANGUAGE, voice: DEFAULT_VOICE, plan, source: "seed", createdAt: now, ...life });
+      book = (await ctx.db.get(bookId))!;
     }
-    return [...keys];
+    await addKeys(ctx, book, keys);
+    for (const ch of chapters) {
+      const doc = { status: "ready" as const, title: ch.title, cards: shuffleExercises(ch.cards ?? [], `${topic}:${ch.n}`), outcomeLine: ch.outcomeLine, error: undefined };
+      const existing = await bookChapter(ctx, book._id, ch.n);
+      if (existing) await ctx.db.patch(existing._id, doc);
+      else await ctx.db.insert("chapters", { bookId: book._id, n: ch.n, createdAt: Date.now(), ...doc });
+    }
+    return [...new Set(keys.filter(Boolean))];
   },
 });
 
+// ---------- taking a bad book out of the cache ----------
+
+// Books with "Report this question" flags, most reported first, so a bad one is easy to spot.
+// Run: npx convex run handbooks:reportedBooks
+export const reportedBooks = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const counts = new Map<Id<"books">, number>();
+    for (const r of await ctx.db.query("reports").order("desc").take(500)) {
+      const h = await ctx.db.get(r.handbookId);
+      if (h?.bookId) counts.set(h.bookId, (counts.get(h.bookId) ?? 0) + 1);
+    }
+    const rows = await Promise.all([...counts].map(async ([bookId, reports]) => {
+      const book = await ctx.db.get(bookId);
+      return { bookId, topic: book?.topic, level: book?.level, voice: book?.voice, source: book?.source, reports };
+    }));
+    return rows.sort((a, b) => b.reports - a.reports);
+  },
+});
+
+// New requests stop landing on this book (the next person gets a fresh write); people already
+// reading it keep their handbook and progress. Run: npx convex run handbooks:retireBook '{"bookId":"..."}'
+export const retireBook = internalMutation({
+  args: { bookId: v.id("books") },
+  handler: async (ctx, { bookId }) => {
+    const book = await ctx.db.get(bookId);
+    if (!book) throw new Error("No such book");
+    let removed = 0;
+    for (const k of await ctx.db.query("bookKeys").withIndex("by_book", (q) => q.eq("bookId", bookId)).collect()) {
+      await ctx.db.delete(k._id);
+      removed++;
+    }
+    return { topic: book.topic, keysRemoved: removed };
+  },
+});
+
+// Tonight's ready handbooks, for the first screen's examples. Only the pre-written ones, a few.
 export const cachedTopics = query({
   args: {},
   handler: async (ctx) => {
-    const rows = await ctx.db.query("cache").collect();
-    const seen = new Map<string, string>();
-    for (const r of rows) if (!seen.has(r.topic)) seen.set(r.topic, r.plan?.topic ?? r.topic);
-    return [...seen.values()];
+    const seeds = await ctx.db.query("books").withIndex("by_source", (q) => q.eq("source", "seed")).take(12);
+    return seeds.map((b) => b.plan?.topic ?? b.topic);
   },
 });
