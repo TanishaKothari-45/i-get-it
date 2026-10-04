@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 6,
+  "title": "When your legs shake",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Stand at the bottom of a steep hill and your heart speeds up before you take a single step. Your body is getting ready to climb. Nerves before a talk are the same thing: your body has decided this walk is uphill and has sent fuel to your legs and lungs. Nothing is broken. You just need to bring your body back to walking pace before you set off."
+   },
+   {
+    "type": "teach",
+    "title": "What nerves do to you",
+    "body": "Nerves are your body getting ready for effort. It releases adrenaline, a chemical that makes your heart beat faster and your breathing quick and shallow. The same thing happens at the start line of a race.\n\nFast, shallow breath means less air for each sentence. So you rush to the end of lines and run out of breath halfway through.\n\nYour mouth goes dry because your body cuts back on saliva when it thinks you might need to run. Dry mouth makes words stick and click.\n\nRacing speech is the third sign. Your heart is fast, so everything else speeds up to match. People hear the rush before they hear your point.\n\nThe key fact: all three signs live in your body, not in your talk. You cannot argue them away with thoughts. You slow them down with the body itself."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Your heart is pounding 2 minutes before your talk. What is the most likely reason?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Your talk is badly planned and your body knows it."
+     },
+     {
+      "id": "b",
+      "text": "Your body released adrenaline and is getting ready for effort, like before a race."
+     },
+     {
+      "id": "c",
+      "text": "You have forgotten your one sentence."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a worry about the route, not the body: a pounding heart shows up even when the plan is solid, because adrenaline reacts to the moment, not the quality of the talk.",
+     "c": "That's a memory problem, not a nerves problem: a fast heart is a chemical reaction to standing up in front of people, and happens whether or not you remember your line."
+    },
+    "reteach": "Think of nerves as fuel, not a verdict. Your body sees a group of faces and treats it like a hill to climb, so it speeds up your heart and breath. That speed is physical, which is why the fix in this chapter is physical too."
+   },
+   {
+    "type": "example",
+    "title": "Two minutes before",
+    "body": "It is 2 minutes before your 3-minute talk to 4 colleagues. Your breath is high in your chest, about one short breath every 2 seconds. You breathe in through your nose for a count of 4, then out through your mouth for a count of 6. You repeat that 6 times, which takes about 1 minute. By the end your breath has dropped into your belly and your shoulders have come down. You take one sip of water, press your feet into the floor, and stand up."
+   },
+   {
+    "type": "teach",
+    "title": "Three things in the last 2 minutes",
+    "body": "First, breathe 4 in, 6 out. The out-breath is longer than the in-breath on purpose. A long, slow out-breath is the signal your body uses to tell the heart to slow down. Six rounds takes about 1 minute, and you can do it sitting in your chair with nobody noticing.\n\nSecond, sip water. One sip, then keep the glass or bottle within reach while you speak. This fixes dry mouth better than any trick with your tongue or teeth.\n\nThird, press your feet into the floor. Stand with your feet about hip-width apart and push down gently, as if you were leaving footprints in sand. This steadies shaking legs and gives your spare energy somewhere to go.\n\nDo them in that order: breath, water, feet. Breath comes first because it slows everything else. Then stand up and say your first sentence."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You are next to speak. Your mouth is dry and your hands are shaking. You have 2 minutes. Which plan uses this chapter?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Read your index card 5 more times as fast as you can so the words are fresh."
+     },
+     {
+      "id": "b",
+      "text": "Breathe 4 in, 6 out for 6 rounds, take a sip of water, press your feet into the floor, then stand."
+     },
+     {
+      "id": "c",
+      "text": "Tell yourself firmly that there is nothing to be nervous about and the group is friendly."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's rehearsal, not calming: reading fast with a racing heart only trains the rush, and it does nothing for the dry mouth or the shaking hands.",
+     "c": "That's a thought trying to argue with adrenaline: adrenaline doesn't listen to words, so your breath stays high and your mouth stays dry."
+    },
+    "reteach": "The three signs are physical, so the three fixes are physical. A longer out-breath slows the heart, a sip of water fixes the dry mouth, and pressing your feet down steadies your legs. Breath first, then water, then feet."
+   },
+   {
+    "type": "mistake",
+    "body": "The usual mistake is to fight nerves with thoughts: \"calm down, it's fine, they're on my side.\" That's a thought trying to out-argue adrenaline, and adrenaline is not listening. You can spot it when you notice you have been telling yourself to relax for a minute and your breath is still high and quick in your chest. Stop talking to yourself and breathe out longer than you breathe in."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What is the one idea of this chapter?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Nerves mean you need more practice, so use the last 2 minutes to rehearse again."
+     },
+     {
+      "id": "b",
+      "text": "Nerves live in the body, so you slow them with the body: a longer out-breath, a sip of water, feet pressed into the floor."
+     },
+     {
+      "id": "c",
+      "text": "Nerves fade if you remind yourself that the audience is friendly."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's chapter 7's job, not this one's: rehearsing is for the days before, and rehearsing in the last 2 minutes only speeds up a heart that is already racing.",
+     "c": "That's the thought-fix, the mistake this chapter warns about: a friendly audience does not slow your heart, but a 6-count out-breath does."
+    },
+    "reteach": "Fast heart, dry mouth, and racing speech are all made by adrenaline in your body. So the fix goes through the body too. Breathe 4 in and 6 out for about a minute, sip water, press your feet down, then stand up."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, sitting down, breathe in through your nose for 4 and out through your mouth for 6. Do 6 rounds. Notice where your breath sits before and after."
+   }
+  ],
+  "outcomeLine": "You can now name what nerves do to your body and use a 4-in, 6-out breath to slow your heart before you stand up."
+ },
+ "seconds": 59.516494035720825
+}

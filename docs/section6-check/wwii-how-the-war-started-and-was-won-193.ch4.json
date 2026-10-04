@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 4,
+  "title": "Two more houses catch: Russia and America join",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "In 1941 two more houses catch fire, and they are the two biggest on the street. Germany lights the Soviet house itself on 22 June. On 7 December Japan throws a match at the American house, and four days later Germany shouts that it is America's enemy too.\n\nEach new house has its own deep well. From now on the fire is fighting more water than it can outlast."
+   },
+   {
+    "type": "teach",
+    "title": "22 June 1941: the biggest invasion ever",
+    "body": "In August 1939 Hitler and Stalin had promised not to fight each other. On 22 June 1941 Hitler broke that promise. About 3 million German and allied soldiers crossed into the Soviet Union along a front of more than 1,000 miles. No invasion before or since has been bigger.\n\nWhy, with Britain still unbeaten? Hitler had always said what he wanted: land and grain in the east. He also believed the Soviet state was rotten and would fall within months.\n\nThis was not a war like the one against France. Hitler called it a war of annihilation, meaning the aim was to destroy whole peoples, not just beat an army. Behind the front, killing squads shot Jews, Communist officials and others by the hundreds of thousands in 1941 alone. Soviet prisoners were penned in open fields and left to starve. More than 3 million of them died in German hands over the war.\n\nFor five months it looked like Hitler was right. German troops took huge numbers of prisoners and reached the edge of Moscow by late November. Then the winter, the distances and fresh Soviet troops stopped them. On 5 December 1941 the Soviet army counterattacked. The quick war had become a long one, and a long war is where size counts."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Hitler planned to beat the Soviet Union in a few months. Why did finishing fast matter so much to him?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The 1939 pact with Stalin was about to expire, so he had to strike before it did."
+     },
+     {
+      "id": "b",
+      "text": "The longer the fight lasted, the more the Soviet Union's far larger population and factories would count."
+     },
+     {
+      "id": "c",
+      "text": "Japan had promised to attack the Soviet Union from the east, but only if Germany won by winter."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the pact, not the plan: Hitler broke the pact by choice on 22 June 1941. It had no expiry date forcing his hand.",
+     "c": "That's the Axis alliance, not a real deal: Japan never promised to attack the Soviet Union, and it never did."
+    },
+    "reteach": "Germany was a mid-sized country fighting a huge one. In a short war, surprise and skill decide. In a long war, the side with more people, more fuel and more factories catches up and then overtakes. Hitler needed the short war because he could not win the long one."
+   },
+   {
+    "type": "example",
+    "title": "7 December 1941: Japan makes the same bet",
+    "body": "Japan had been fighting in China since 1937 and needed oil. In the summer of 1941 the United States, which sold Japan most of its oil, cut off the supply. Japan's leaders saw two choices: give up their gains in China, or seize the oilfields of South-East Asia and knock out the one fleet that could stop them.\n\nOn 7 December 1941 about 350 Japanese planes struck the US fleet at Pearl Harbor in Hawaii. All 8 battleships in the harbour were hit and 4 were sunk. About 2,400 Americans died. The US aircraft carriers were at sea and untouched. The next day the United States declared war on Japan.\n\nJapan had made Hitler's bet: win fast, before a far bigger country's size could count."
+   },
+   {
+    "type": "teach",
+    "title": "11 December 1941: a fight Hitler did not have to pick",
+    "body": "Pearl Harbor put America at war with Japan, not Germany. Germany's treaty with Japan only promised help if Japan was attacked. Japan was the attacker, so Hitler could have stayed out.\n\nOn 11 December 1941 he declared war on the United States anyway. America was already sending ships and supplies to Britain, so he reckoned it would fight sooner or later. He also hoped Japan would keep America busy in the Pacific.\n\nNow look at the sums. Germany had roughly 80 million people. Against it stood Britain with about 48 million, the Soviet Union with about 190 million and the United States with about 130 million. America pumped around 6 of every 10 barrels of the world's oil. Germany had almost none of its own. American factories were not yet building weapons at full speed, but everyone could see they soon would.\n\nThe Axis also never fought as one team. Japan did not attack the Soviet Union, so Stalin could move troops from Siberia to save Moscow. Germany and Japan made no joint plans. The Allies did the opposite: within three weeks Churchill and Roosevelt met in Washington and agreed to beat Germany first."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "It is 11 December 1941. Which statement best describes what Hitler's declaration of war on the United States did?",
+    "options": [
+     {
+      "id": "a",
+      "text": "It added the world's biggest economy to Germany's enemies, just as the attack on Moscow had stalled."
+     },
+     {
+      "id": "b",
+      "text": "It changed nothing, because Pearl Harbor had already put America at war with Germany."
+     },
+     {
+      "id": "c",
+      "text": "It brought Japan into the fight against the Soviet Union from the east."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's Japan's war, not Germany's: Pearl Harbor put America at war with Japan only. Hitler's declaration is what brought America in against Germany.",
+     "c": "That's what Hitler hoped the alliance might give him, not what happened: Japan never attacked the Soviet Union."
+    },
+    "reteach": "On 5 December the Soviet counterattack showed that Germany's quick war in the east had failed. Six days later Hitler, by his own choice, took on a second giant. From that day Germany faced the three largest Allied powers at once, while its own allies fought separate wars."
+   },
+   {
+    "type": "mistake",
+    "body": "People say \"America joined the war after Pearl Harbor\" and stop there. Pearl Harbor put America at war with Japan only. It was Hitler's own declaration on 11 December that put America at war with Germany.\n\nSpot it by asking two questions: against whom, and who declared?"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Why did 1941 put Germany at a disadvantage on paper?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Germany lost outside Moscow, so its army was broken from then on."
+     },
+     {
+      "id": "b",
+      "text": "Germany was now at war with Britain, the Soviet Union and the United States at once, and together they had far more people, oil and factories."
+     },
+     {
+      "id": "c",
+      "text": "Italy and Japan left the alliance, so Germany stood alone."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a setback, not the point: the German army fought on for three and a half more years. The disadvantage was in size, not in one battle.",
+     "c": "That's a mix-up: both stayed in the alliance. The trouble was that they fought their own separate wars and never joined Germany's."
+    },
+    "reteach": "Count the houses. In 1940 Germany fought one, Britain. By December 1941 it fought three, and the two new ones were the largest on earth. The Axis never pooled its strength. The Allies agreed a shared plan within weeks."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, say three dates aloud to someone or into a voice note: 22 June, 7 December, 11 December 1941. Give one line each on who joined the fight and who chose it."
+   }
+  ],
+  "outcomeLine": "You can now explain why 1941 turned a European war into a world war, and why the sums were against Germany from December 1941 on."
+ },
+ "seconds": 125.60841774940491
+}

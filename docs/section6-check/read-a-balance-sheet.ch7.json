@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 7,
+  "title": "Reading a real one, start to finish",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "You have learned the rooms of the house. Now you walk through a real one with the estate agent's sheet in your hand. You start at the front door, go room by room in the order the sheet lists them, and you keep a short checklist of three things that would worry you: a loan due soon with no cash to pay it, a stack of IOUs from people who owe the household money, and a family that says it is earning well while the bank balance keeps falling."
+   },
+   {
+    "type": "teach",
+    "title": "Where it is and how it is laid out",
+    "body": "A listed company publishes its balance sheet inside its annual report, usually a PDF on the investor page of its website. Search the PDF for \"balance sheet\" or \"statement of financial position\", which is the other name for the same page.\n\nThe first line to read is the units line, near the top. It says something like \"in millions\" or \"in thousands\". Every number on the page is in those units, so 4,200 under \"in thousands\" means 4,200,000.\n\nThere are two columns of numbers: this year's date and last year's date. Read the newer column first. Then glance at the older one for anything that moved a lot.\n\nThe lines run in a fixed order. Assets first, fast ones at the top (cash, then customer bills owed, then stock), slow ones below (buildings, machines, and goodwill, which is the extra paid when buying another company). Then liabilities, soon-due first, later-due below. Equity, the owners' share, comes last.\n\nA narrow column of small numbers sits beside the lines. Those are note numbers. Each points to a page later in the report that explains that line in words. The notes are where the odd items get explained."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "On a balance sheet you see cash of 40 and loans due within 12 months of 110. Before reading on, what is the worry?",
+    "options": [
+     {
+      "id": "a",
+      "text": "It owns too little property"
+     },
+     {
+      "id": "b",
+      "text": "It may not have the cash to repay this year's loans unless more cash comes in"
+     },
+     {
+      "id": "c",
+      "text": "The owners have put in too much money"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the slow-assets question, not the cash one: property does not pay a loan due next month unless it is sold.",
+     "c": "That's the equity side: owners' money is never a debt the company has to repay on a date."
+    },
+    "reteach": "Loans due within 12 months must be paid in cash, soon. If cash on hand is smaller than those loans, the company needs new cash from sales, new borrowing or selling something to get through the year. That gap is the first warning sign."
+   },
+   {
+    "type": "example",
+    "title": "Harbor Tools, a made-up company, 31 December",
+    "body": "Units: in millions. Current assets: cash 40, bills owed by customers 180, stock 90, total 310. Slow assets: buildings and machines 400. Total assets 710.\n\nCurrent liabilities: supplier bills 120, loans due within 12 months 110, total 230. Long-term debt 200. Equity 280. Check: 230 + 200 + 280 = 710, which matches total assets.\n\nLast year's column shows cash was 70 and customer bills were 100. The income statement says profit for the year was 60. So the company says it earned 60, yet its cash fell by 30 while unpaid customer bills nearly doubled."
+   },
+   {
+    "type": "teach",
+    "title": "The three warning signs",
+    "body": "Sign one: short-term loans bigger than cash. Harbor Tools has 110 due this year and 40 in the bank. It can still make it if customers pay up, but it has no cushion.\n\nSign two: a big pile of unpaid customer bills. At 180, customers owe Harbor Tools more than four times its cash, and the pile grew from 100 to 180 in a year. Either sales jumped, or customers are slow to pay. The notes will often say which.\n\nSign three: a growing gap between profit and cash. Profit is a number from the income statement that counts a sale when it is made, not when the money arrives. If profit is up and cash is down, the profit is sitting in customer bills or stock instead of the bank. Harbor Tools shows exactly this: profit 60, cash down 30.\n\nOne sign alone can have an innocent reason. Two or three together, in the same year, are worth asking about. You do not need to know the answer; you need to notice the question."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A company reports profit of 50 for the year. Its cash fell from 90 to 30 and the money customers owe it doubled. Which warning sign is this?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Short-term loans bigger than cash"
+     },
+     {
+      "id": "b",
+      "text": "Unpaid customer bills piling up, so profit is not turning into cash"
+     },
+     {
+      "id": "c",
+      "text": "None, because profit was positive"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the loan check: the scenario gives no loan figure, only cash, customer bills and profit.",
+     "c": "That's the income statement talking: a positive profit says sales were made, not that the money arrived."
+    },
+    "reteach": "Profit counts a sale on the day it is made. Cash only arrives when the customer pays. When customer bills grow and cash shrinks while profit looks fine, the profit is real on paper but stuck in bills nobody has paid yet. Signs two and three usually appear together."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is to read the big totals, feel reassured that total assets are large and the two sides match, and stop. The warning signs never live in the totals. They live in three small lines: cash, loans due within 12 months, and bills owed by customers. You can spot the mistake in yourself: if you have finished and cannot say the short-term loan figure out loud, you skipped it."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which three things do you check for on a real balance sheet to spot trouble?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Short-term loans above cash, a big pile of customer bills, profit rising while cash falls"
+     },
+     {
+      "id": "b",
+      "text": "Total assets smaller than last year, equity positive, some long-term debt"
+     },
+     {
+      "id": "c",
+      "text": "The two sides not matching, no notes column, round numbers"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "Those are ordinary facts about almost any company, not danger signs: smaller assets can mean a dividend was paid, and long-term debt is normal.",
+     "c": "Those would mean a mistake in the document itself, not a warning about the business: a published sheet always balances."
+    },
+    "reteach": "Three lines, three questions. Cash against loans due this year: can it pay? Customer bills against cash: is the money owed instead of in the bank? Profit against the change in cash: is the earning turning into money? Each one is a quick comparison of two numbers you can find on the page."
+   },
+   {
+    "type": "try",
+    "body": "Open the latest annual report PDF of any listed company you know. Search \"financial position\". Find the units line and the date, then write down cash and loans due within 12 months and compare them."
+   }
+  ],
+  "outcomeLine": "You can now read a real published balance sheet in 20 minutes, say what the company owns and owes, and point to any of the three warning signs if they are there."
+ },
+ "seconds": 63.48499298095703
+}

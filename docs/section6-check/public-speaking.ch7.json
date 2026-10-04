@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 7,
+  "title": "Arrive, then stop",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Every walk ends somewhere. A good guide walks you to the viewpoint, says \"here it is\", and stands still so you can look. A bad guide keeps shuffling forward, mumbling \"so, yeah, that's about it\", until everyone wanders off.\n\nYour talk ends the same way. You arrive at your one sentence. You say it. You stop."
+   },
+   {
+    "type": "teach",
+    "title": "Rehearse out loud, 3 times, standing up",
+    "body": "Reading your card silently is not rehearsing. Your mouth has never said the words, so the first time it tries is in front of people. Rehearsing means saying the whole talk out loud, standing, as if the group were there.\n\nDo it 3 times. The first run is rough and you find the sentences that don't work. The second run fixes them. The third run proves the fix stuck. Fewer than 3 and you have not tested the talk, only read it.\n\nTime each run on your phone. A 3-minute talk should land between 2:40 and 3:20. If it is longer, cut a step. If it is shorter, do not pad it. Short and clear beats long and vague.\n\nSay the last line out loud every time, then shut your mouth and count 2 seconds of silence. You are practising the stop as much as the words. The stop is the part nobody practises, and it is the part that goes wrong."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You have read your index card 5 times and know it well. Have you rehearsed?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Yes, 5 reads is plenty for a 3-minute talk."
+     },
+     {
+      "id": "b",
+      "text": "No, rehearsing means saying it out loud, standing, 3 times, timed."
+     },
+     {
+      "id": "c",
+      "text": "Only if you also memorised it word for word."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's reading, not rehearsing: your eyes know the words but your mouth has never said them.",
+     "c": "That's memorising a script, not rehearsing a talk: you want to know the route, not every word."
+    },
+    "reteach": "Think of the difference between looking at a map and walking the path. Reading the card is the map. Rehearsing is walking it, out loud, with your legs under you and a timer running, so the real walk is your fourth time, not your first."
+   },
+   {
+    "type": "example",
+    "title": "Dana's third run",
+    "body": "Dana's one sentence is: \"Our team should switch standup from 9:00 to 9:30.\" Her first run out loud takes 4:10 and ends with \"so, yeah, that's basically my thought.\" She cuts her third step, which was a story about traffic.\n\nSecond run: 3:05. She still trails off at the end. She writes the last line on her card in capitals: \"SO: MOVE STANDUP TO 9:30.\"\n\nThird run: 2:55. She says the capital-letter line, counts 2 seconds, and stops. That is the version she gives to her 4 teammates on Friday."
+   },
+   {
+    "type": "teach",
+    "title": "Close on the sentence, then stop",
+    "body": "Your last line is the sentence you wrote in chapter 1. Not a summary. Not \"any questions?\" Not \"thanks for listening.\" The one sentence, said slowly, and then nothing.\n\nThe urge to add something after it is strong. Your brain wants to soften the ending because silence feels like a mistake. It is not a mistake. Silence is how the group knows you have arrived. The 2 seconds after your last word are part of the talk.\n\nIf you must say anything after, make it one word: \"Thanks.\" Then sit down or step back. Moving your body tells the room it is over far better than any phrase.\n\nNow deliver it. Not to a mirror. To 2 or more real people, in the same room or on a call, standing up, from your card. Tell them before you start: \"I'm going to end on one sentence and stop. Tell me if I trail off.\" That one request turns a scary audience into a helpful one."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You have just said your one sentence to your 3 listeners. The room is silent. What do you do next?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Say \"so, yeah, that's it, I guess\" to fill the gap."
+     },
+     {
+      "id": "b",
+      "text": "Quickly recap your 3 steps so they remember them."
+     },
+     {
+      "id": "c",
+      "text": "Hold still for 2 seconds, say \"Thanks\" if you need to, and step back."
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's filler, not a close: it tells the room you doubt your own sentence.",
+     "b": "That's a second ending after the real one: a recap after the one sentence buries it under more words."
+    },
+    "reteach": "Your one sentence is the viewpoint. Once you have shown it, every extra word is you dragging the group back down the path. The silence after the sentence is not empty. It is the group looking at the view."
+   },
+   {
+    "type": "mistake",
+    "body": "The mistake is treating the close as the moment you are allowed to relax. Relief arrives, the voice drops, the eyes go to the floor, and \"so, yeah\" slips out before the brain can stop it.\n\nSpot it in rehearsal: if your recording ends with any word after your one sentence other than \"Thanks\", you have trailed off. Write the sentence in capitals on your card and practise saying it, then counting 2 seconds, 3 more times."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What are the 3 things this chapter asks you to do before you call the talk done?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Rehearse out loud 3 times, close on your one sentence, deliver it to 2 or more people."
+     },
+     {
+      "id": "b",
+      "text": "Memorise every word, add a summary at the end, deliver it to a mirror."
+     },
+     {
+      "id": "c",
+      "text": "Read the card 3 times, end with \"any questions?\", send it to a friend to read."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's a script and a second ending: you want the route not the words, and the one sentence is the summary.",
+     "c": "That's reading and sharing, not rehearsing and delivering: the test is your mouth and a live listener."
+    },
+    "reteach": "The chapter has one idea with three parts. Walk it out loud 3 times so the real walk is not your first. Arrive at the one sentence you wrote in chapter 1 and stop there. Then do it for real with at least 2 people watching."
+   },
+   {
+    "type": "try",
+    "body": "Tonight: stand up, start your phone's voice recorder, and give the full 3-minute talk once. Play back only the last 10 seconds. Did it end on your one sentence?"
+   }
+  ],
+  "outcomeLine": "You can now deliver your 3-minute talk to a small group, end on your one sentence, and stop."
+ },
+ "seconds": 47.92673182487488
+}

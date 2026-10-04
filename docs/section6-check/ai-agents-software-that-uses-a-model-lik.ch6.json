@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 6,
+  "title": "Guardrails: how much rope to give the intern",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "A good manager does not hand a new intern the company credit card on day one. They give them a short list of things they may touch, a deadline, and one rule: ask before you send anything to a customer. Guardrails for an agent are exactly that list. The intern stays useful, and the worst thing they can do is small."
+   },
+   {
+    "type": "teach",
+    "title": "Four knobs, one job",
+    "body": "A guardrail is a limit you set before the agent starts, so that a bad decision mid-task cannot turn into real damage. There are 4 you will meet again and again.\n\nFirst, limit the tools. The agent can only do what its tool list allows. If it has no 'send email' tool, it cannot send an email, no matter how confused it gets.\n\nSecond, cap the steps. You tell the loop to stop after, say, 20 turns. This is the cure for the endless-repeat failure from chapter 5. The agent might not finish, but it cannot run all night.\n\nThird, require a human 'yes' before risky actions. The agent pauses, shows you what it is about to do, and waits for your click. This is often called human-in-the-loop, which just means a person sits inside the loop at one point.\n\nFourth, run it in a sandbox. A sandbox is a sealed copy of a system, like a practice kitchen, where files can be deleted and commands run with no effect on the real thing.\n\nThe 4 knobs do different jobs. Fewer tools shrinks what is possible. A step cap shrinks how long it can go. A human yes shrinks what happens without you. A sandbox shrinks where the damage lands."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "An agent that tidies your Downloads folder keeps looping: list files, think, list files, think, 200 times. Which guardrail would have stopped this on its own?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A step cap of 30 turns"
+     },
+     {
+      "id": "b",
+      "text": "Removing the 'list files' tool"
+     },
+     {
+      "id": "c",
+      "text": "A sandbox"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's limiting tools, not limiting time: without 'list files' the agent cannot tidy anything, so you have broken the task instead of bounding it.",
+     "c": "That's a sandbox, which limits where damage lands: a looping agent inside a sandbox still loops forever, it just does so safely."
+    },
+    "reteach": "Each knob answers a different question. Looping is a 'how long' problem, and the step cap is the only knob that measures time. Tools decide what is possible, a sandbox decides where effects land, and a human yes decides what needs you."
+   },
+   {
+    "type": "example",
+    "title": "The inbox intern",
+    "body": "Imagine an agent that clears your inbox each morning. It gets 4 tools: read email, move email to a folder, draft a reply, and send email. You cap it at 50 steps, enough for a normal morning. You run it against a copy of your mailbox for the first week, so a wrong move lands in the sandbox and not on your real mail. And you mark one tool, send email, as needing your click every time. The other 3 run freely. One wrong click from the agent can misfile a message, which you can undo in 5 seconds. One wrong send goes to your boss and cannot be undone."
+   },
+   {
+    "type": "teach",
+    "title": "Where to put the human",
+    "body": "You cannot ask for a human yes on every step. If the agent pauses 50 times a morning, you will start clicking 'yes' without reading, and the guardrail becomes decoration.\n\nSo you put the human in front of the one action that cannot be undone. Sending, deleting, paying and posting are the usual four. Reading, searching, drafting and moving are usually safe to let run.\n\nThe test is simple: if the agent does this wrongly, can I fix it in under a minute? If yes, let it run. If no, make it ask.\n\nThis is why 'ask before sending' beats 'trust it fully'. Trusting fully saves you one click. Asking costs one click and saves you the email you can never take back."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You give an agent 3 tools for cleaning old files: list files, move file to an Archive folder, and delete file permanently. Which single action should need your click every time?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Move file to Archive"
+     },
+     {
+      "id": "b",
+      "text": "Delete file permanently"
+     },
+     {
+      "id": "c",
+      "text": "List files"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a reversible action: a misfiled file can be moved back in seconds, so asking here would just train you to click without reading.",
+     "c": "That's a read-only action: listing changes nothing, so there is no damage to prevent and no reason to pause."
+    },
+    "reteach": "Ask one question about each tool: if it goes wrong, can I undo it in under a minute? Listing and moving pass that test. Permanent delete fails it, so that one gets the human in front of it."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is giving the agent every tool 'just in case' and relying on the prompt to say 'please be careful'. A prompt is advice. A tool list is a wall. You can spot this mistake when an agent's tool list includes actions the task never needs, like a summariser that can send email. If a tool is not needed for the task, it is only there to cause trouble."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What is the one idea behind all 4 guardrails?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Make the model smarter so it makes fewer bad decisions"
+     },
+     {
+      "id": "b",
+      "text": "Set limits before the agent starts so a bad decision cannot become real damage"
+     },
+     {
+      "id": "c",
+      "text": "Check the log after the run to see what went wrong"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's improving the model, not guarding it: a smarter intern still gets the credit card taken away on day one, because even smart people make mistakes.",
+     "c": "That's chapter 5, reading the log afterwards: useful for learning, but by then the email has already been sent."
+    },
+    "reteach": "Guardrails are not about trust or cleverness. They are shaped like the manager's day-one rules: here is what you may touch, here is when you stop, here is what you ask me about first, and here is a safe room to practise in. All 4 happen before the first step runs."
+   },
+   {
+    "type": "try",
+    "body": "If you use an AI tool that can take actions, such as Claude Code or ChatGPT with tools, open its settings and find the permissions or 'ask before' options. Pick one action and set it to always ask."
+   }
+  ],
+  "outcomeLine": "You can now pick guardrails for a given agent, defend each one in a line, and name the single action that should always need a human click."
+ },
+ "seconds": 41.46740794181824
+}

@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 4,
+  "title": "Descartes and the question of what we can know",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Around the dinner table, Aristotle has just said: look closely at the world and you will learn the truth. In 1641 a new guest, Ren\u00e9 Descartes, interrupts with a rude question: how do you know your eyes are telling the truth at all?\n\nHe does not attack any one belief. He attacks the table itself, to see if anything is left standing."
+   },
+   {
+    "type": "teach",
+    "title": "Doubt everything, on purpose",
+    "body": "Descartes was a French thinker who lived through a shaky time for knowledge. New science was saying the sun does not move and the earth is not still, even though every eye sees the opposite. If the senses could be that far off, what else might be off?\n\nSo in a short book called the Meditations, published in 1641, he tried an experiment. He would treat any belief he could possibly doubt as if it were false. Not because he believed it was false. He wanted to find out what, if anything, could not be doubted.\n\nFirst to go: the senses. They mislead sometimes, so they cannot be fully trusted. Next: the whole world around him. He might be dreaming, and dreams feel real while you are in them.\n\nThen he went further. Imagine a powerful deceiver who feeds you false thoughts on purpose. Then even simple sums could be a trick. At this point almost nothing is left.\n\nAlmost."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Descartes throws out every belief he can doubt. Which one can he NOT throw out, even with the deceiver?",
+    "options": [
+     {
+      "id": "a",
+      "text": "That he has two hands."
+     },
+     {
+      "id": "b",
+      "text": "That 2 plus 3 makes 5."
+     },
+     {
+      "id": "c",
+      "text": "That he is doubting right now."
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's a belief from the senses, not a survivor: a dream could show him hands he does not have.",
+     "b": "That's a sum the deceiver could tamper with, not a survivor: Descartes said even maths could be a trick."
+    },
+    "reteach": "Try to doubt that you are doubting. You cannot, because the attempt is itself a doubt. Everything else can be faked by a dream or a deceiver, but faking needs someone to fake it on. That someone is you."
+   },
+   {
+    "type": "example",
+    "title": "By the fire, in a dressing gown",
+    "body": "In the first Meditation, Descartes describes himself sitting by the fire in a winter dressing gown, holding a piece of paper. It feels as certain as anything can.\n\nThen he remembers that he has dreamed exactly this scene before, and in the dream it felt just as real. So the fire, the gown, the paper and even his own body go on the doubt pile.\n\nIn the second Meditation he notices the one thing the doubt cannot reach. Whenever he thinks 'maybe I am being fooled', there has to be an 'I' there to be fooled. The famous summary is 'I think, therefore I am'."
+   },
+   {
+    "type": "teach",
+    "title": "Why this moved the argument indoors",
+    "body": "Notice what survived. Not the world, not the body, not other people. Only this: a mind is here, having thoughts. That is the one brick Descartes could build on.\n\nThis flipped the order of the whole argument. Before Descartes, philosophers mostly started with the world and asked how we fit into it. After him, the question became: I am sure of my own mind, so how do I get from in here back out to the world?\n\nDescartes himself tried to climb back out. He argued that a good God exists and would not let him be fooled about everything, so the clear parts of the world must be real. Most later thinkers found that climb shaky. But the starting point stuck, and the next 300 years of the argument happen inside the mind."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A friend says: 'You can't be sure of anything. We might all be living in a computer simulation.' Which reply uses Descartes' move?",
+    "options": [
+     {
+      "id": "a",
+      "text": "'I can see and touch my own hands, so I'm obviously real.'"
+     },
+     {
+      "id": "b",
+      "text": "'Even if it's a simulation, someone is being fooled by it. That someone is me, so I exist.'"
+     },
+     {
+      "id": "c",
+      "text": "'A simulation would need a programmer, so that proves God exists.'"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's trusting the senses, not Descartes' survivor: the senses are exactly what the simulation would fake.",
+     "c": "That's Descartes' later and shakier step about God, not the one thing that survived doubt."
+    },
+    "reteach": "Descartes' trick is to accept the worst case and look for what still holds inside it. Suppose everything is fake. Being fooled is still an experience, and experiences need an experiencer. So the doubter is the one thing the doubt proves."
+   },
+   {
+    "type": "mistake",
+    "body": "People stretch 'I think, therefore I am' to prove more than it does. It proves only that a thinking thing exists, right now, while it thinks. It says nothing about your body, your memories, or whether anyone else is real.\n\nSpot it when someone uses the line to settle an argument about the outside world. Descartes needed several extra steps to get there, and those steps are the weak part."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What problem was Descartes trying to solve with his method of doubt?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Whether people should always keep their promises."
+     },
+     {
+      "id": "b",
+      "text": "Finding one thing that cannot be doubted, to use as a foundation for everything else we know."
+     },
+     {
+      "id": "c",
+      "text": "Proving that Plato's perfect forms exist behind everyday objects."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a question about right and wrong, which Mill and Kant take up in chapter 6, not a question about what we can know.",
+     "c": "That's Plato's answer from chapter 3, not Descartes' question: Descartes doubted the everyday objects before worrying about anything behind them."
+    },
+    "reteach": "The senses had just been caught out by science, so Descartes wanted a starting point that no dream and no deceiver could knock over. He found one: the doubter exists. Everything else was to be rebuilt from there."
+   },
+   {
+    "type": "try",
+    "body": "Tonight in bed, pick 3 things you are sure of. For each, ask: could a vivid dream make me believe this? Notice which one belief would still hold even inside the dream."
+   }
+  ],
+  "outcomeLine": "You can now explain 'I think, therefore I am', say why it survives even the worst doubt, and say what problem Descartes was trying to solve with it."
+ },
+ "seconds": 60.174286127090454
+}

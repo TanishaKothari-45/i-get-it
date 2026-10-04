@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 7,
+  "title": "Switching the line on for real",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "So far you have stood at the start of the line and rung the bell yourself every time. Switching the line on means the bell rings without you: at 9am, when a form comes in, when an app sends its signal. You go home. In the morning you do not watch the belt, you read the log book to see what ran and what jammed."
+   },
+   {
+    "type": "teach",
+    "title": "The Active toggle",
+    "body": "At the top right of the n8n editor there is a switch labelled Active. It is off for every new workflow. Off means the workflow only runs when you press the Execute workflow button yourself. That is a test run.\n\nOn means n8n is listening. Every time the trigger fires, the whole workflow runs, whether your browser is open or not, whether you are asleep or not. That is a live run.\n\nThis matters for Schedule Triggers most of all. A Schedule Trigger set to 8am does nothing at 8am while the switch is off. Pressing Execute workflow only pretends the clock struck.\n\nForm and Webhook triggers have two addresses, a test URL and a production URL. The test URL only answers while you are pressing Execute workflow. The production URL only answers while the switch is on. People paste the test URL into a real form and then wonder why nothing happens.\n\nOne trap: a workflow that starts with a Manual Trigger node has nothing to listen for. Turning it on changes nothing. Live workflows need a trigger that fires by itself."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You built a workflow with a Schedule Trigger set to 8am. You pressed Execute workflow, saw it succeed, and closed the tab. The Active switch is still off. What happens at 8am tomorrow?",
+    "options": [
+     {
+      "id": "a",
+      "text": "It runs, because the test run proved it works"
+     },
+     {
+      "id": "b",
+      "text": "Nothing runs"
+     },
+     {
+      "id": "c",
+      "text": "It runs, but only if you open the editor before 8am"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a test run, not a live one: Execute workflow runs it once, right then, and does not make n8n listen for 8am.",
+     "c": "That's mixing up the editor with the switch: having the page open does nothing on its own, the Active toggle is what makes n8n listen."
+    },
+    "reteach": "Think of Execute workflow as you ringing the bell by hand. The Active switch is what connects the bell to the clock. Until it is on, the clock can strike all day and the line stays still."
+   },
+   {
+    "type": "example",
+    "title": "One real task, end to end",
+    "body": "An office manager counts open IT tickets in a Google Sheet every Monday morning and posts the number in Slack. Three nodes replace this: a Schedule Trigger set to Monday 9am, a Google Sheets node that reads rows where Status is Open, and a Slack node that posts a message using the count.\n\nThey rename the nodes Monday 9am, Read open tickets, and Post count to #ops. They press Execute workflow once and read the output of each node to check the count is right.\n\nThen they switch Active on, see the switch turn green, and leave. On Monday at 9:05 they open the Executions list and find one green entry with Monday's time on it. The Slack message is there too."
+   },
+   {
+    "type": "teach",
+    "title": "Names and the morning check",
+    "body": "n8n names nodes after the app: Google Sheets1, Slack2. When the Executions list marks a failing node in red, Slack2 tells you nothing. Post count to #ops tells you where to look. Rename every node to the job it does, in the words you would use to a colleague.\n\nPick the first real task carefully. It should be something you do more than once a week, and something where a bad run reaches you and not a customer. Posting to a channel you read, or adding a row to your own sheet, is a safe first line. Emailing clients is not.\n\nThe morning check is the Executions list from chapter 6. Open it, pick your workflow, and look for an entry with the time you expected. Green means it ran. Red means open it and read the failing node. No entry at all means the trigger never fired, which usually means the switch is off or the wrong URL is in use.\n\nIn the workflow Settings, check that successful runs are being saved. If they are not kept, a quiet morning and a dead workflow look the same."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You want to switch on your first live workflow tonight. Which task is the best pick?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Email each client their invoice every morning"
+     },
+     {
+      "id": "b",
+      "text": "Copy each new form response into a sheet and message yourself"
+     },
+     {
+      "id": "c",
+      "text": "Build the yearly budget summary that runs every January"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a task where a bad run reaches customers, not you: the first live workflow should fail in front of you only.",
+     "c": "That's a once-a-year job, not a repeated one: you cannot check it tomorrow morning, and the time saved is tiny."
+    },
+    "reteach": "The first live workflow is a rehearsal for trusting the switch. Choose a job that repeats often enough to check tomorrow, and that only you will notice if it goes wrong. Once that has run clean for a week, point the next one at other people."
+   },
+   {
+    "type": "mistake",
+    "body": "The mistake is flipping Active on and walking away because the test run worked. The test run used the test URL, or a pretend clock, or data you typed in. The live run uses the production URL and real data. You spot it the next morning: the Executions list has no new entry, or the form you shared still points at the test address. Always do the morning check after the first night."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What does the Active toggle do?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Saves the latest version of the workflow"
+     },
+     {
+      "id": "b",
+      "text": "Makes n8n run the workflow on its own every time the trigger fires"
+     },
+     {
+      "id": "c",
+      "text": "Runs the workflow once, right now"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the Save button, not the switch: saving keeps your edits but does not make anything listen.",
+     "c": "That's the Execute workflow button, not the switch: it gives you one test run while you watch."
+    },
+    "reteach": "Off, the workflow is a drawing that only moves when you push it. On, n8n watches the trigger and runs the line for every bell. The switch is the only difference between a test and a job that does itself."
+   },
+   {
+    "type": "try",
+    "body": "Open your workflow. Rename every node to what it does. Switch Active on. Set a phone reminder for tomorrow morning that says: open Executions, look for green."
+   }
+  ],
+  "outcomeLine": "You can now switch on one workflow that handles a real task at your job, and you know to open the Executions list the next morning to see that it ran."
+ },
+ "seconds": 69.17414593696594
+}

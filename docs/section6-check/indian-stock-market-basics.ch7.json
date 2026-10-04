@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 7,
+  "title": "The toll on the way out, and the traps",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Every bazaar has a gate. When you walk out with a profit, the tax office stands at that gate and takes a toll. The toll is small and the rules are printed on the wall, so you can work it out before you sell.\n\nOutside the gate stand the touts. They promise to triple your money by Friday. They cost more than any toll ever will."
+   },
+   {
+    "type": "teach",
+    "title": "The toll has two rates",
+    "body": "You only pay tax when you sell. A share that has gone up but still sits in your demat has a paper gain, and paper gains are not taxed. A share you sell at a loss owes nothing.\n\nYour gain is simple: sell price minus buy price. Charges like brokerage come off that too, but for a first sale they are small, so the two prices are what matter.\n\nThe rate depends on one thing: how long you held the share. Held under 12 months, the gain is short-term and taxed at 20%. Held 12 months or more, the gain is long-term and taxed at 12.5%.\n\nLong-term gains get a free allowance. In one financial year, April to March, your first \u20b91.25 lakh of long-term gains across all listed shares is tax free. Only the part above that is taxed at 12.5%. Short-term gains get no such allowance.\n\nSo the two questions before you sell: did I hold for 12 months, and how much long-term gain have I already taken this year?"
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You bought 1 share at \u20b92,000 and sold it 8 months later at \u20b92,500. Which rate applies to the \u20b9500 gain?",
+    "options": [
+     {
+      "id": "a",
+      "text": "12.5%, the long-term rate"
+     },
+     {
+      "id": "b",
+      "text": "20%, the short-term rate"
+     },
+     {
+      "id": "c",
+      "text": "0%, because \u20b9500 is under the \u20b91.25 lakh allowance"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the long-term rate, and it needs 12 months of holding: 8 months is short-term.",
+     "c": "That's the long-term allowance, not a short-term one: gains on shares sold inside 12 months get no free amount."
+    },
+    "reteach": "Think of the gate having two lanes. The fast lane is for anyone leaving within 12 months, and it charges 20% with no discount. The slow lane is for people who stayed 12 months or more: 12.5%, and the first \u20b91.25 lakh of the year walks through free."
+   },
+   {
+    "type": "example",
+    "title": "Same shares, two exit dates",
+    "body": "Say you buy 10 shares of a Nifty 50 company at \u20b91,500 each on 10 January 2025, so \u20b915,000 in total. The price climbs to \u20b91,900.\n\nExit 1: you sell on 10 August 2025, 7 months in. Gain is \u20b94,000. Short-term, so tax is 20% of \u20b94,000, which is \u20b9800. You keep \u20b93,200.\n\nExit 2: you sell on 10 March 2026, 14 months in. Same \u20b94,000 gain, now long-term. It sits well under the \u20b91.25 lakh allowance, so tax is \u20b90. You keep all \u20b94,000.\n\nWaiting 7 more months changed the toll from \u20b9800 to nothing."
+   },
+   {
+    "type": "teach",
+    "title": "The touts outside the gate",
+    "body": "The toll is boring and predictable. What actually empties new investors' pockets is what waits outside. Three things to say no to in your first year.\n\nNo to stock tips. A tip on WhatsApp, Telegram or from a cousin is someone telling you to buy a shop they may already own. If enough people follow, the price rises and the tipper sells to them. You cannot see who is on the other side.\n\nNo to futures and options, called F&O. These are bets on where a price will be by a set date. You do not own a slice of any shop. SEBI, the inspector, studied individual F&O traders in 2023 and found 9 in 10 lost money. The apps make it look like a game, which is the point.\n\nNo to borrowed money. Brokers offer margin, which is a loan to buy more shares than your cash allows. A price fall you could have waited out becomes a loss you are forced to take, because the loan comes due."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "It is 10 December 2025. You bought shares on 10 January 2025 and they are up \u20b930,000. You have no other gains this year and no urgent need for the cash. What applies the chapter best?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Sell now, since any gain is a good gain"
+     },
+     {
+      "id": "b",
+      "text": "Hold until 10 January 2026, then the gain is long-term and inside the \u20b91.25 lakh allowance, so tax is \u20b90"
+     },
+     {
+      "id": "c",
+      "text": "Use the \u20b930,000 as margin to buy more and grow it faster before selling"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a short-term sale at 11 months: it costs 20% of \u20b930,000, which is \u20b96,000 you could avoid by waiting one month.",
+     "c": "That's the borrowed-money trap, not a tax plan: margin turns a dip you could sit through into a forced loss."
+    },
+    "reteach": "Two things decide the toll: the 12-month line, and the \u20b91.25 lakh yearly allowance for long-term gains. When you are close to the 12-month line and do not need the cash, crossing it can turn a 20% bill into zero. Nothing outside the gate, tips or margin, ever improves that maths."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is hunting a bigger, faster gain to 'make up' for the toll. People hear 20% tax and reach for a tip or an F&O trade that promises 50% in a week. The toll only ever takes a slice of a real gain. The traps take the money you started with. Spot it when you catch yourself thinking 'just this once, to get ahead'."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which line correctly states the toll on listed shares?",
+    "options": [
+     {
+      "id": "a",
+      "text": "You pay tax every March on shares you still hold, based on their current price"
+     },
+     {
+      "id": "b",
+      "text": "You pay only when you sell at a gain: 20% if held under 12 months, 12.5% if held 12 months or more, with the first \u20b91.25 lakh of long-term gains each year free"
+     },
+     {
+      "id": "c",
+      "text": "Any gain under \u20b91.25 lakh is tax free, however long you held the share"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a paper gain, not a sale: the toll is only collected at the gate, when you actually sell.",
+     "c": "That's the long-term allowance stretched too far: it applies only to shares held 12 months or more, not to short-term sales."
+    },
+    "reteach": "No sale, no tax. Sell inside 12 months and 20% of the gain goes. Sell at 12 months or later and only 12.5% goes, and only on long-term gains beyond \u20b91.25 lakh in that April-to-March year."
+   },
+   {
+    "type": "try",
+    "body": "In your broker app, open your holdings or the share you plan to buy. Write its buy date plus 12 months in your phone calendar, titled 'long-term from today'. Then mute one group that sends tips."
+   }
+  ],
+  "outcomeLine": "You can now work out the tax on a sale you are planning and name three things you will say no to in your first year."
+ },
+ "seconds": 58.37585401535034
+}

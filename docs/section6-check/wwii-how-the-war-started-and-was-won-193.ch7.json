@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 7,
+  "title": "Putting out the last fire: Japan, and why the Allies won",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "The last burning house on the street is Japan's. By 1945 the fire there is starved: no ships bring oil in, and the water comes from every hose at once. Bombers from the air, soldiers island by island, and then a new neighbour, the Soviet Union, turning its hose on from the north. The fire goes out in one week in August."
+   },
+   {
+    "type": "teach",
+    "title": "Island by island",
+    "body": "After Midway in June 1942 the Americans moved toward Japan one island at a time. They skipped islands they did not need and took the ones that could hold an airfield. This is called island hopping.\n\nGuadalcanal, from August 1942 to February 1943, was the first step. Saipan in July 1944 was the big one. From there, new long-range bombers called B-29s could reach Tokyo. In March 1945 a single night raid burned a large part of the city.\n\nJapan's navy, which could not replace its lost ships, was wrecked at Leyte Gulf in the Philippines in October 1944. American submarines sank the tankers that carried Japan's oil, so by 1945 much of its fleet could not even sail.\n\nThe closer the Americans got, the harder Japan fought. Iwo Jima in February and March 1945, then Okinawa from April to June 1945, cost both sides terribly. More than 12,000 Americans died on Okinawa, and Japanese pilots flew their planes into ships on purpose, in what were called kamikaze attacks. American planners expected an invasion of Japan itself to cost far more."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Japan lost 4 aircraft carriers at Midway in June 1942. The United States lost 1. Yet by late 1944 the American fleet was several times bigger than Japan's. What explains that best?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Britain sent its whole navy to the Pacific."
+     },
+     {
+      "id": "b",
+      "text": "American shipyards launched new carriers faster than Japan could build or even repair its own."
+     },
+     {
+      "id": "c",
+      "text": "Japan stopped building ships so it could build planes instead."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a guess about allies, not factories: Britain's navy was busy in the Atlantic and Mediterranean, as chapter 5 showed.",
+     "c": "That's the opposite of what happened: Japan kept building, but it lacked the steel, oil and shipyards to keep pace."
+    },
+    "reteach": "The sea war was a race of shipyards. One side could replace every ship it lost and add more. The other could not replace the four carriers it lost on a single morning. From then on, every battle made the gap wider."
+   },
+   {
+    "type": "example",
+    "title": "The week Japan gave up",
+    "body": "On 6 August 1945 an American plane dropped an atomic bomb on Hiroshima. On 8 August the Soviet Union, which had been at peace with Japan the whole war, declared war, and on 9 August its army poured into Manchuria, the part of China that Japan held. The same day a second bomb fell on Nagasaki. On 15 August Emperor Hirohito spoke on the radio, the first time most Japanese had ever heard his voice, and told the country to accept defeat. The surrender was signed on the American battleship Missouri in Tokyo Bay on 2 September 1945."
+   },
+   {
+    "type": "teach",
+    "title": "Why that week, and why the Allies won",
+    "body": "Japan's leaders had hoped the Soviet Union would help them bargain for a softer peace. The Soviet attack ended that hope in a day. The bombs showed the Allies could now destroy a city without landing a soldier. Together they left no path but surrender.\n\nHistorians still argue over which blow mattered more. You do not need to settle that. The thing to hold is that Japan, like Germany in May, was hit from every direction at once and had nothing left to answer with.\n\nNow step back and look at the whole war. Four reasons the Allies won, each from a chapter you have read.\n\nOne: factories (chapters 5 and 6). The Allies built more ships, planes and tanks than the Axis, and the Atlantic convoys got them where they were needed. Two: too many enemies at once (chapter 4). Germany took on Russia and America in the same year while Britain still stood. Japan attacked America while still stuck in China.\n\nThree: the Allies held at the key moments (chapters 3 and 5). Britain in 1940, then Midway, El Alamein and Stalingrad. The Axis needed quick wins and never got the last one. Four: squeezed from all sides (chapters 6 and 7). The Allies planned together; Germany and Japan never did. So Germany faced two fronts in 1944, and Japan faced sea, air and the Soviets in a single week."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A friend says: 'The atomic bomb ended the war, full stop.' Which reply uses this chapter's idea?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Right. Hiroshima on 6 August, Nagasaki on 9 August, and it was over."
+     },
+     {
+      "id": "b",
+      "text": "The bombs were two of three blows in four days. The Soviet attack on 9 August killed Japan's last hope of a bargained peace, and Japan was already cut off and burning."
+     },
+     {
+      "id": "c",
+      "text": "No, Japan gave up because Germany had surrendered on 8 May, three months earlier."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the date list, not the reason: it leaves out the Soviet attack in the same week and the blockade and bombing before it.",
+     "c": "That's chapter 6's ending, not Japan's: Germany's surrender in May changed nothing in the Pacific until the Soviets moved their army east."
+    },
+    "reteach": "Ask what Japan had left on 10 August 1945. No navy, no oil coming in, cities burning, an invasion coming, and now the one big country that had stayed out was attacking too. The bombs were the loudest blow, but they landed on a house already surrounded."
+   },
+   {
+    "type": "mistake",
+    "body": "People tell the Pacific war as if the atomic bomb came out of nowhere and ended everything in a day. Spot it when someone says 'the bomb ended the war' without mentioning Okinawa, the submarines or the Soviet attack. The bomb landed on a country already cut off, burned and about to be invaded, and the Soviet attack came the same week."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Which of these is one of the four reasons the Allies won?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The Allies' factories outbuilt the Axis in ships, planes and tanks."
+     },
+     {
+      "id": "b",
+      "text": "The Axis made sure to fight only one enemy at a time."
+     },
+     {
+      "id": "c",
+      "text": "The Allies won every battle from September 1939 onward."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the reverse of reason two: Germany took on Russia and America in one year, and Japan attacked America while still fighting in China.",
+     "c": "That's a mix-up with reason three: the Allies lost badly in 1940 and 1941, but they held at the moments that mattered, then turned."
+    },
+    "reteach": "Four reasons: more factories, too many enemies for the Axis at once, the Allies held at the key moments, and the Axis got squeezed from all sides while the Allies planned together. Each one lives in a chapter: 5 and 6, then 4, then 3 and 5, then 6 and 7."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, tell the whole story out loud in ten minutes, from 1919 to 2 September 1945. Count the turning points on your fingers. Fewer than eight? Re-read the chapter you skipped."
+   }
+  ],
+  "outcomeLine": "You can now explain how the war in the Pacific ended in the week of 6 to 9 August 1945, and give four reasons the Allies won, each tied to a chapter you have read."
+ },
+ "seconds": 99.26582384109497
+}

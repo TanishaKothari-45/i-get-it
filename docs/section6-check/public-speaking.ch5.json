@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 5,
+  "title": "Set the pace",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "When you lead a walk, you set the speed. Walk too fast and the people behind you fall out of step and stop looking at the view. A talk works the same way: your listeners can only take in one sentence at a time, and they need a beat of quiet to catch up before the next one. The pause is the moment they catch up with you."
+   },
+   {
+    "type": "teach",
+    "title": "Slower than feels right, and quiet instead of 'um'",
+    "body": "Nerves make you speed up. Your heart goes faster, your breath goes shorter, and your mouth follows. To you it feels normal. To the room it sounds rushed, and rushed sounds unsure.\n\nThe fix is to speak slower than feels natural. If it feels a little too slow to you, it is probably about right for them. You are hearing your talk for the tenth time. They are hearing it once.\n\nThe easiest place to slow down is the full stop. Every time a sentence ends, stop talking for about 1 second. That gap is where your listener files the sentence away.\n\nFillers are the small sounds we make to avoid that gap: 'um', 'uh', 'so', 'like', 'you know'. They are not words. They are noise we use to hold our place while we think of the next thing.\n\nYou do not cut fillers by trying harder. You cut them by replacing them with silence. When you feel an 'um' coming, close your mouth and say nothing. The silence feels long to you. To the room it just sounds like you are thinking, which is fine."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You feel an 'um' about to come out between two sentences. What should you do instead?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Close your mouth and stay silent for about a second"
+     },
+     {
+      "id": "b",
+      "text": "Say 'so' instead, because it sounds more like a real word"
+     },
+     {
+      "id": "c",
+      "text": "Speed up so there is no gap for the 'um' to fill"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's swapping one filler for another, not removing it: 'so' holds your place the same way 'um' does.",
+     "c": "That's the nerves talking, not pacing: speeding up is what makes you sound rushed in the first place."
+    },
+    "reteach": "A filler is a sound that fills a gap. The gap itself is not the problem. The gap is where your listener catches up. So keep the gap and lose the sound: when you want to say 'um', say nothing."
+   },
+   {
+    "type": "example",
+    "title": "Counting fillers on one recording",
+    "body": "Imagine you record yourself for 1 minute on your phone, giving the opening of your talk. You play it back with a pen and paper and put a tick for every 'um', 'uh', 'so' and 'like'. You count 14 ticks. That is about 1 filler every 4 seconds. You record again, this time stopping your mouth at every full stop and holding for a slow count of 1. Second take: 6 ticks, and the recording is 8 seconds longer. The talk is shorter in words, longer in time, and easier to follow."
+   },
+   {
+    "type": "teach",
+    "title": "Why the second take is longer, and why that's good",
+    "body": "Notice what happened in the example. The second take had fewer fillers and ran longer. That is not a coincidence. The fillers were covering the time you were taking to think. When you remove them, the thinking time stays, but it becomes silence. Silence takes time. That is the pace.\n\nAbout 1 second at each full stop is a good target for a 3-minute talk. Longer pauses, 2 or 3 seconds, belong at the 3 big turns in your route: after your opening sentence, between your 3 steps, and before your closing sentence. Those are where your listener most needs to catch up.\n\nYou cannot hear your own pace while you speak. Nobody can. That is why the recording matters more than the effort. The count on paper is the only honest measure you have."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Someone records their talk and counts 12 fillers in a minute. They try again and get 11. They say 'I was really trying to not say um'. What should they change?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Try harder on the third take and focus on catching each 'um'"
+     },
+     {
+      "id": "b",
+      "text": "Stop their mouth at every full stop and hold for a count of 1, then count again"
+     },
+     {
+      "id": "c",
+      "text": "Speak faster so the whole talk finishes before the fillers build up"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's effort, not a method: you can't hear your own fillers while speaking, so trying harder barely moves the count, as 12 to 11 shows.",
+     "c": "That's the opposite of pacing: fillers come from racing to the next sentence, so going faster makes more of them, not fewer."
+    },
+    "reteach": "Fillers are not a willpower problem. They are a gap problem. Give yourself a planned gap at every full stop, a deliberate second of quiet, and the 'um' has nowhere to go. Then record and count again, because the count is the only thing that tells you if it worked."
+   },
+   {
+    "type": "mistake",
+    "body": "The usual mistake is to pause only in your head. You feel the gap, it seems huge, and you cut it short to 0.2 seconds, which the room doesn't notice at all. Spot it on the recording: if your pauses are so short you can't hear them when you play it back, they were not pauses. Hold until it feels slightly uncomfortable. That is about right."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What is the one way this chapter gives you to cut fillers like 'um' and 'so'?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Replace them with about 1 second of silence at each full stop, and check the count on a recording"
+     },
+     {
+      "id": "b",
+      "text": "Memorise the talk word for word so there is nothing left to think about"
+     },
+     {
+      "id": "c",
+      "text": "Speak quickly and confidently so listeners don't hear the fillers"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's a different chapter's job, rehearsal: even a memorised talk gets 'um's if you rush the gaps between sentences.",
+     "c": "That's hiding the problem, not fixing it: speed is what causes fillers, and the room hears them anyway."
+    },
+    "reteach": "The idea is simple: a filler is noise in a gap. Keep the gap, drop the noise. One second of quiet at every full stop, longer at your 3 big turns. Record 1 minute, count the fillers, and aim to halve them on the second take."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, record 1 minute of your talk's opening on your phone. Play it back and tick every 'um', 'uh', 'so', 'like'. Record again, pausing a full second at each full stop. Compare the two counts."
+   }
+  ],
+  "outcomeLine": "You can now record yourself for 1 minute, count your fillers, and halve them on a second take by replacing them with a 1-second pause at each full stop."
+ },
+ "seconds": 49.43888521194458
+}

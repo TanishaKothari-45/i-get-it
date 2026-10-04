@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 5,
+  "title": "Kicking from the hips",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "The water is a bed you lie on. Kicking is not jumping on the bed. It is a small, steady ripple you send down your legs while the rest of you stays flat on top. Your legs stay long and close to the surface, like a tail, and the water does most of the work."
+   },
+   {
+    "type": "teach",
+    "title": "Small, long, and from the hip",
+    "body": "The kick starts at your hip, not your knee. Your whole leg swings up and down from the top, the way it swings when you walk. The knee stays soft, which means slightly bent but not pumping.\n\nYour ankle is floppy. Let the water push your foot back like a flipper. Toes point behind you, not down at the floor. A stiff foot pointing down works like a brake.\n\nThe kick is small. Your feet move about 30 centimetres up and down, and they stay just under the surface. A little bubbling at the surface is right. Big splashes mean your feet are coming out of the water and pushing air, not water.\n\nThe rhythm is steady, like walking, not frantic. Count one, two, one, two in your head. Fast and tense tires you out in 10 seconds and moves you less.\n\nKeep your face in and breathe out, the way you did in chapter 2. A head held up pushes your hips down, and sunk hips make every kick harder."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Two people kick for the same 10 seconds with the same effort. Who moves further?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The one bending their knees a lot, feet breaking the surface with big splashes"
+     },
+     {
+      "id": "b",
+      "text": "The one kicking a small, steady kick from the hips, feet just under the surface"
+     },
+     {
+      "id": "c",
+      "text": "Neither: the glide from chapter 4 is what moves you, kicking just keeps you afloat"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's splash, not push: feet above the surface are kicking air, and bent knees point the feet at the floor like a brake.",
+     "c": "That's the glide, not the kick: a glide runs out after a few metres, and the kick is what keeps you moving once it does."
+    },
+    "reteach": "Think of your legs as a long tail that stays under the water. A tail moves you by pushing water backwards in small, steady beats. Big knee bends and splashes push air and water downwards instead, so you go nowhere and your hips sink."
+   },
+   {
+    "type": "example",
+    "title": "Ten seconds loud, ten seconds quiet",
+    "body": "Hold the pool edge with both hands, arms straight, and let your legs float out behind you in chest-deep water. Kick for 10 seconds bending your knees and splashing hard. Notice your hips drop and your legs start to sink. Now kick for 10 seconds from the hips, legs long, feet just under the surface. It is quieter, your hips stay up, and it feels easier. That quieter kick is the one that moves you. Do the pair 3 times so your legs learn the difference."
+   },
+   {
+    "type": "teach",
+    "title": "Wall, then board, then glide",
+    "body": "Now add the kickboard, the flat foam board at the side of most pools. Hold the far end with both hands, arms straight, board flat on the water. Push off the wall into your glide from chapter 4, let the glide slow down, then start the small kick.\n\nFace goes in, bubbles come out. When you need air, lift your chin just enough to breathe in, then put your face straight back down. The longer your head stays up, the more your hips sink.\n\nA small kick can feel like it is doing nothing. Check the proof instead of the feeling: pick a tile on the far wall and count 10 kicks. If you moved 2 or 3 metres, it is working. If you did not move, check three things in order: legs long, toes pointing back, kick small."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You push off holding the kickboard and kick as hard as you can. There is a lot of splash, your hips sink, and you stop after 3 metres, out of breath. What do you change?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Kick harder and faster so you get across before you tire"
+     },
+     {
+      "id": "b",
+      "text": "Make the kick smaller, from the hips, legs long, feet just under the surface"
+     },
+     {
+      "id": "c",
+      "text": "Keep your head up the whole way so you can breathe without stopping"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's more of the splashy kick, not a better one: harder and faster pushes more air and tires you in 10 seconds.",
+     "c": "That's the breathing fix for panic, not for kicking: a head held up pushes your hips down, which is what sank them in the first place."
+    },
+    "reteach": "Splash and sinking hips are the two signs of a kick that is too big. Shrink it. Long legs, feet moving about 30 centimetres and staying under the surface, a steady walking rhythm, face in. Quieter is faster."
+   },
+   {
+    "type": "mistake",
+    "body": "The bicycle kick: your knees pull up under your body as if pedalling, and your feet push down at the floor. Spot it by the sound and the sink. It is loud, your knees or heels poke out of the water, your hips drop, and you barely move. Fix it by thinking long legs, kick from the pocket, the pocket being where your hip joint sits."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Where does a good flutter kick come from?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The hips, with the whole leg long and the knee soft"
+     },
+     {
+      "id": "b",
+      "text": "The knees, bending and straightening like pedalling"
+     },
+     {
+      "id": "c",
+      "text": "The ankles, flicking the feet while the legs stay still"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the bicycle kick, not the flutter kick: pedalling knees point your feet at the floor and sink your hips.",
+     "c": "That's the floppy ankle, not the engine: ankles stay loose so the water bends the foot, but the movement comes from the hip."
+    },
+    "reteach": "The leg swings from the top, like it does when you walk. Knee soft, ankle floppy, toes behind you. The kick is small and steady, and your feet stay just under the surface."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, lie face down on your bed with your legs off the end. Do 20 small kicks from the hips, knees soft, toes pointed back. If the bed bounces, the kick is too big."
+   }
+  ],
+  "outcomeLine": "You can now kick across the width of the pool with a kickboard, face in and breathing out, lifting your head only when you need air."
+ },
+ "seconds": 65.26053404808044
+}

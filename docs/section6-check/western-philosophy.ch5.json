@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 5,
+  "title": "Hume and Kant: where knowledge comes from",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "At the table, Descartes has just said that knowledge starts inside the mind. David Hume, a Scot who joins about 100 years later, answers: no, open your eyes, every idea you have came in through your senses.\n\nThen Immanuel Kant, in Germany, hears Hume out and says: you are half right. The senses bring the raw material, but the mind brings the shape."
+   },
+   {
+    "type": "teach",
+    "title": "Hume's rule: no sense, no idea",
+    "body": "David Hume published A Treatise of Human Nature in 1739. His starting rule is simple. Every idea you have is a faded copy of something you once saw, heard, touched, tasted or smelled.\n\nTest it. Think of a golden mountain. You have never seen one. But you have seen gold and you have seen a mountain, and your mind glued the two together. Hume says every idea works like this, however grand it feels.\n\nNow the hard case: cause and effect. One billiard ball rolls into another, and the second ball moves. You say the first ball caused the second to move. Hume asks: what did you actually see?\n\nYou saw ball one move. You saw it touch ball two. You saw ball two move. Three events, one after another. You did not see a fourth thing called \"causing\". It has no colour, no sound, no feel.\n\nSo where does the idea of cause come from? Hume's answer is habit. You have seen this pairing hundreds of times, and your mind now expects the second event when it sees the first. The expectation is in you, not in the balls."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You flick a light switch and the room lights up. By Hume's rule, what did your senses actually record?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The switch causing the light"
+     },
+     {
+      "id": "b",
+      "text": "The switch moving, then the room getting brighter"
+     },
+     {
+      "id": "c",
+      "text": "Electricity flowing through the wire"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the habit your mind adds, not something you saw: no sense picks up \"causing\".",
+     "c": "That's an explanation you learned later, not something your senses recorded: you cannot see the current."
+    },
+    "reteach": "Hume splits what you see from what you expect. You see events in a row. The link between them is a feeling of expectation built up by repetition. Try describing any cause using only words for things you can see or hear, and notice the link drops out."
+   },
+   {
+    "type": "example",
+    "title": "The sun tomorrow",
+    "body": "Hume's hardest case was the sunrise. You have seen the sun rise every day of your life, and you feel certain it will rise tomorrow.\n\nBut Hume points out that no number of past sunrises proves the next one. The only reason you trust the pattern is that patterns have held before, which is the same habit again, arguing for itself.\n\nHume did not say stop expecting the sun. He said be honest that the certainty comes from custom, not from proof."
+   },
+   {
+    "type": "teach",
+    "title": "Kant's reply: the mind brings the rules",
+    "body": "Immanuel Kant read Hume and later wrote that it woke him from a \"dogmatic slumber\". He agreed with half of it. Yes, all knowledge starts with experience. But he denied that it all comes from experience.\n\nKant's move, in the Critique of Pure Reason in 1781: the mind is not a blank wall that sense data lands on. It is more like a pair of glasses you cannot take off. Space, time and cause-and-effect are the lenses. You never experience anything without them.\n\nSo for Kant, Hume had it backwards. You do not learn cause from seeing many pairings. You can only see two events as a pairing in the first place because your mind already sorts experience into causes and effects. The rule comes before the seeing.\n\nThe cost: you only ever know the world as it looks through the glasses. What the world is like with no observer, Kant said, we cannot know."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A baby watches a ball roll off a table and fall, for the very first time. Which thinker says the baby's mind already treats this as cause and effect, before any repetition?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Hume, because the senses deliver the cause directly"
+     },
+     {
+      "id": "b",
+      "text": "Kant, because cause and effect is a rule the mind brings to every experience"
+     },
+     {
+      "id": "c",
+      "text": "Hume, because one viewing is enough to form a habit"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the opposite of Hume: he said the senses never deliver cause, only events in a row.",
+     "c": "That's Hume's word but not his idea: habit needs many repetitions, so one viewing gives no habit at all."
+    },
+    "reteach": "Ask where the link between two events lives. For Hume it lives in a habit built up over many viewings, so a first-time viewer has no link yet. For Kant it lives in the mind's built-in rules, so even the first viewing arrives pre-sorted into cause and effect."
+   },
+   {
+    "type": "mistake",
+    "body": "People hear Hume and conclude he thought cause and effect was fake, or that we should stop trusting it. He did not. He trusted it every day, like everyone else.\n\nHis point was about where the trust comes from: habit, not proof. Spot the mistake when someone says \"Hume didn't believe in causes\"."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "In one line, what is the disagreement between Hume and Kant about cause and effect?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Hume: cause is a habit learned from repeated experience. Kant: cause is a rule the mind brings to experience."
+     },
+     {
+      "id": "b",
+      "text": "Hume: the mind brings cause to experience. Kant: cause is learned from repeated experience."
+     },
+     {
+      "id": "c",
+      "text": "Both agree cause is seen directly by the senses; they differ on how many times you must see it."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the two swapped: Hume is the senses-and-habit side, Kant is the mind-brings-rules side.",
+     "c": "That's the one point they both reject: neither thought you can see \"causing\" with your senses."
+    },
+    "reteach": "Hume starts from the senses and ends in habit. Kant starts from Hume's problem and answers it by moving cause inside the mind, as a rule that comes before any seeing. Same puzzle, two different homes for the answer."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, pick one everyday cause, like pressing the kettle button and hearing it boil. Say out loud only what you saw and heard, with no word like \"because\" or \"made\". Notice how hard that is."
+   }
+  ],
+  "outcomeLine": "You can now explain, using cause and effect, why Hume said we never see one thing cause another, and how Kant answered that the mind supplies the rule."
+ },
+ "seconds": 69.58350896835327
+}

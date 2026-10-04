@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 6,
+  "title": "Work orders in small pieces: one feature at a time",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "A good contractor doesn't rip out the kitchen, the bathroom and the roof on the same morning. They finish one job, you walk over and look at it, you sign off, then they start the next.\n\nWith Claude Code, one job means one feature you can test in under a minute. Ask for it, test it, save it, then ask for the next."
+   },
+   {
+    "type": "teach",
+    "title": "One job, one test, one save",
+    "body": "When you ask for 5 features in one message, Claude makes 20 or 30 changes across several files. If one thing breaks, you can't tell which change did it, and neither can Claude.\n\nA small job is one thing you can check by using the app for under a minute. \"Add a button that clears the list\" is a job. \"Make the app better\" is not, because you can't tell when it's done.\n\nThe loop has 3 steps. Ask for one job. Test it the way a user would, by clicking it in the browser. Commit, which is the save point you learned in chapter 5. Then ask for the next job.\n\nThe save after each job is what makes this safe. If job 4 breaks something, you go back to the save after job 3 and lose 10 minutes, not an afternoon.\n\nTo split a big idea: write it in one sentence first. Then list the jobs in the order a user would meet them. Aim for 5 to 8 jobs. Fewer than 5 and the jobs are probably too big. More than 8 and the idea is probably two apps."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Which of these is one small job you could give Claude Code?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Build a recipe app with search, favourites and sharing"
+     },
+     {
+      "id": "b",
+      "text": "Add a text box where I type a recipe name, and a button that adds it to a list on the page"
+     },
+     {
+      "id": "c",
+      "text": "Make the recipe app look professional"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the whole app, not one job: it's at least 3 features, and you can't test it in a minute.",
+     "c": "That's a wish, not a job: there's no click you can make to check it's done."
+    },
+    "reteach": "A job is small enough that you know exactly what to click to check it. Type a name, press the button, see it appear in the list. If you can't name the click, it's not a job yet."
+   },
+   {
+    "type": "example",
+    "title": "A habit tracker in 6 jobs",
+    "body": "The big idea in one sentence: \"An app where I tick off 3 daily habits and see how many days in a row I've done all 3.\"\n\nThe jobs, in the order a user meets them: 1. Show a page with my 3 habit names on it. 2. Put a tick box next to each name. 3. Remember the ticks when I reload the page. 4. Show today's date at the top. 5. Count the days in a row where all 3 were ticked. 6. Add a reset button.\n\nEach job gets its own ask, its own test and its own commit. Job 3 is where this kind of app usually breaks, because remembering data is harder than showing it. Because jobs 1 and 2 are saved, a bad job 3 costs you 10 minutes and nothing else."
+   },
+   {
+    "type": "teach",
+    "title": "Order the jobs, and fence each one",
+    "body": "Put visible things first. Something on the screen, then something the user can do, then something that gets remembered, then polish. This way you have something to test from job 1, not from job 5.\n\nEach job gets the same brief from chapter 2: who it's for, the one job, what done looks like. Add one line at the end: \"Don't change anything else.\" That line stops Claude tidying up files you didn't mention.\n\nClaude will sometimes say \"I also added...\" after a job. Test that extra piece like anything else. If it works, keep it and save. If you didn't ask for it and it broke something, ask Claude to undo just that part.\n\nIf one job takes more than 2 rounds of fixes, it was really two jobs. Stop, split it, and ask for the first half."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You're building a to-do app. You asked for \"a delete button next to each task\". Claude added the button and also added a due-date box you didn't ask for. The delete button works. The due-date box makes the page go blank. What do you do?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Ask Claude to fix the due-date box, since it's a free feature"
+     },
+     {
+      "id": "b",
+      "text": "Ask Claude to remove the due-date change, test delete again, then commit"
+     },
+     {
+      "id": "c",
+      "text": "Go back to your last save and ask for delete, due dates and colours all at once so they're built together"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's chasing an extra you never ordered: now you're debugging a second job before the first is saved.",
+     "c": "That's bundling 3 jobs into one message, the thing this chapter is steering you away from."
+    },
+    "reteach": "The job was the delete button. Anything else is a separate job, and a broken extra is a reason to remove it, not fix it. Get back to one working thing, save it, then decide if you even want due dates."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is asking for the next job before testing the last one. It feels fast, but by job 4 you have 4 untested changes stacked up and no clean save to fall back on.\n\nYou can spot it: you've typed 3 requests in a row and haven't opened the app in the browser. The fix is a rule for yourself: no new request until I've clicked the last thing and committed it."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What's the loop for building with Claude Code, one job at a time?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Ask for each job in turn, then test everything together at the end"
+     },
+     {
+      "id": "b",
+      "text": "Ask for one job, test it as a user, commit, then ask for the next"
+     },
+     {
+      "id": "c",
+      "text": "Write all 8 jobs in one message so Claude can plan the whole thing"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's stacking untested changes: if the end test fails, you can't tell which of the 8 jobs broke it.",
+     "c": "That's the 5-features-at-once message, where 30 changes land and one bad one hides among them."
+    },
+    "reteach": "Think of the contractor: one job, you look at it, you sign off, then the next job. The sign-off is you clicking it in the browser and the commit is your signature. Nothing new starts until the signature is on the last job."
+   },
+   {
+    "type": "try",
+    "body": "Open any notes app. Write your app idea in one sentence. Under it, list 5 to 8 jobs, each one you could test with a single click. Give Claude Code only the first one tonight."
+   }
+  ],
+  "outcomeLine": "You can now turn an app idea into 5 to 8 small jobs and build them one by one, with a tested, saved version after each."
+ },
+ "seconds": 67.05117583274841
+}

@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 6,
+  "title": "Adding the arms",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "You are lying face down on the bed, long and thin, legs ticking away. Now reach one hand forward along the sheet, grab a handful and pull it back under you. Your body slides forward over it. The other hand stays stretched out ahead, resting on the bed, waiting for its turn."
+   },
+   {
+    "type": "teach",
+    "title": "One arm at a time",
+    "body": "The arms do not replace anything you already have. The glide and the kick still carry you. The arms add a pull on top, and the rule is that one arm pulls while the other stays stretched ahead.\n\nEach arm does 3 things in a loop. Reach: the hand slides into the water in front of your shoulder, fingers first, arm long. Pull: the hand presses water back under your body, from in front of you to your hip, like pulling yourself along a rope. Recover: the arm lifts out at the hip, elbow first, and swings loosely over the water back to the front.\n\nOnly one arm moves at a time. The pulling hand does not start until the other hand has arrived at the front and gone still. That waiting arm is doing a job: it keeps your body long, which keeps your hips and legs up.\n\nYour face stays in the water, breathing out, as in chapter 2. The kick keeps going, small and steady, as in chapter 5. When you need air, lift your head to the front, breathe in, and put it back. Side breathing comes later.\n\nThe hand pulls straight back under your belly, not out to the side. A wide pull swings your hips and twists you off your line."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Your right hand has just finished pulling and is lifting out of the water at your hip. Where is your left arm?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Stretched out ahead, still, waiting its turn"
+     },
+     {
+      "id": "b",
+      "text": "Also pulling, so you go faster"
+     },
+     {
+      "id": "c",
+      "text": "Down by your side, resting"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's both arms moving at once, like a windmill: the pull is one arm at a time, so one arm is always stretched ahead keeping you long.",
+     "c": "That's the end of the pull, not the waiting spot: the waiting arm waits at the front, where it keeps your body long and your legs up."
+    },
+    "reteach": "Think of the two arms taking turns, never sharing a turn. While one hand pulls back to the hip, the other is reaching ahead like it is holding the far end of the bed. Only when the pulling hand has swung over and landed at the front does the other hand begin."
+   },
+   {
+    "type": "example",
+    "title": "Standing first, then 3, then 6",
+    "body": "Stand in waist-deep water and bend forward until your shoulders touch the surface, both arms stretched ahead. Press your right hand back under your body to your hip, lift it out elbow first, swing it forward and slide it in fingers first. Only now does the left hand start. Do 10 strokes standing, saying 'pull, over' for each arm. Then push off the wall, glide, start the kick, take 3 strokes and stand with the knees-in move from chapter 1. When 3 feels calm, try 6."
+   },
+   {
+    "type": "teach",
+    "title": "From standing to gliding",
+    "body": "Standing comes first because the water is not moving you and you can watch your hands. Bending forward until your shoulders touch the surface puts your arms at the same angle you will use lying down, so what you practise standing is the real movement.\n\nFrom the glide, count strokes out loud in your head. 3 strokes is short enough that one breath out lasts the whole way. Once 3 feels easy, go to 6, then 8. Stand up calmly each time. Stopping early and standing is a skill, not a failure.\n\nWhen you need to breathe, lift your head to the front, breathe in, and put your face back down. Keep the kick going while you do it. Stopping the kick to breathe is what makes legs sink.\n\nOn the reach, slide the hand in fingers first, in front of the shoulder. A flat slap makes bubbles and moves you nowhere."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You push off, glide, start kicking and take 3 strokes. On the third stroke your legs sink and you feel a flutter of panic. What fixes it next time?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Pull harder with both arms together to get more power"
+     },
+     {
+      "id": "b",
+      "text": "Keep the small kick going the whole time, and keep one arm stretched ahead while the other pulls"
+     },
+     {
+      "id": "c",
+      "text": "Hold your breath longer so you do not need to lift your head"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's two arms at once: it takes away the long shape, so nothing is out front holding your legs up.",
+     "c": "That's breath holding, the chapter 2 problem: breathe out steadily, and lift your head to breathe in with the kick still going."
+    },
+    "reteach": "Legs sink for 2 reasons: the kick stopped, or the body got short because both arms came back at the same time. Fix both by slowing down. Kick small and constant, and leave one arm reaching ahead until the other arm has finished its loop."
+   },
+   {
+    "type": "mistake",
+    "body": "Windmilling. Both arms spin at once, fast and splashy, head up, because more effort feels like more speed. You can spot it: hands slap, lots of white water, and you are out of breath after 3 strokes. The fix is to slow down until one hand is stretched ahead and completely still before the other hand starts."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What is the one rule for front crawl arms in this chapter?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Both arms pull at the same time for power"
+     },
+     {
+      "id": "b",
+      "text": "One arm pulls back under the body while the other stays stretched ahead, taking turns"
+     },
+     {
+      "id": "c",
+      "text": "Arms sweep wide to the sides to keep you balanced"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's windmilling, the mistake: it rushes both arms and loses the long shape that keeps you afloat.",
+     "c": "That's a wide pull, which swings your hips: the hand pulls straight back under your belly, not out to the side."
+    },
+    "reteach": "Picture pulling yourself along a rope that runs under your body. One hand pulls, the other is already reaching ahead for the next grab. They take turns, and the reaching hand keeps you long while the pulling hand moves you forward."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, lie face down on your bed. Do 10 slow strokes, one arm at a time, saying 'pull, over'. The other hand stays reaching ahead until the moving hand arrives."
+   }
+  ],
+  "outcomeLine": "You can now swim 6 to 8 front crawl strokes from a push-off, one arm at a time, face in, kick going, then stand up calmly."
+ },
+ "seconds": 75.27446913719177
+}

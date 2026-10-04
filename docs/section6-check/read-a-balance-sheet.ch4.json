@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 4,
+  "title": "What it owes: debts, soon and later",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Look at the pile of paper on the kitchen table. On top sit the bills due soon: electricity, the credit card, the plumber who came last week. Underneath sits the mortgage, which runs for another 20 years. A balance sheet sorts what a company owes the same way: due within 12 months on top, due later underneath."
+   },
+   {
+    "type": "teach",
+    "title": "Two piles of bills",
+    "body": "Liabilities is the accounting word for what a company owes. Every liability line is a promise to pay someone, usually money, at some point in the future.\n\nThe sheet splits those promises with one question: is it due within 12 months of the balance sheet date? If yes, it is a current liability. If no, it is a non-current liability, which most people just call long-term.\n\nThe common current ones are: trade payables, which are bills from suppliers not yet paid; short-term borrowings, such as an overdraft or a loan due this year; tax payable, money owed to the government; and accrued expenses, which are costs like wages the company has already used but not yet paid for.\n\nOne more current line catches people out. If a 5-year bank loan has a chunk falling due this year, that chunk is pulled out and shown on top as the current portion of long-term debt. The rest stays below.\n\nThe long-term pile holds bank loans and bonds, which are loans from investors with a fixed repayment date, plus lease liabilities, the rent promised on buildings for years ahead.\n\nThe split matters because the top pile has to be paid from cash the company can get hold of this year. The bottom pile can wait."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "A company borrowed 500,000 from a bank and pays it back in 5 equal yearly chunks. How does it appear on the balance sheet?",
+    "options": [
+     {
+      "id": "a",
+      "text": "All 500,000 in current liabilities"
+     },
+     {
+      "id": "b",
+      "text": "All 500,000 in non-current liabilities"
+     },
+     {
+      "id": "c",
+      "text": "100,000 in current liabilities, 400,000 in non-current"
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's treating a 5-year loan as if the bank wanted it all back this year: only the chunk due in the next 12 months is current.",
+     "b": "That's forgetting this year's slice: the current portion of long-term debt moves up into the 12-month pile."
+    },
+    "reteach": "The sheet is not asking what kind of debt it is. It is asking when each piece must be paid. One yearly payment of 100,000 falls inside the next 12 months, so it sits on top. The other four payments are later, so they sit below."
+   },
+   {
+    "type": "example",
+    "title": "Marlow Bakery on 31 December",
+    "body": "Marlow Bakery is a made-up company, but its sheet looks like a real one. Current liabilities: trade payables 80,000 to flour and packaging suppliers, bank overdraft 30,000, tax payable 15,000, and current portion of bank loan 25,000. Total current liabilities: 150,000.\n\nNon-current liabilities: the rest of the bank loan 200,000, and a lease liability of 120,000 on the shop. Total non-current: 320,000.\n\nTotal liabilities: 470,000. But the bakery must find only 150,000 in the next 12 months. It owes four kinds of people: suppliers, the bank, the tax office, and the landlord."
+   },
+   {
+    "type": "teach",
+    "title": "Reading the amounts and the dates",
+    "body": "Start with the two totals. Find the line marked total current liabilities and the one marked total non-current liabilities. Add them and you have total liabilities, the owe part of the equation from chapter 1.\n\nThen read who is owed. Each line names a type of lender. Payables means suppliers. Borrowings means banks or bondholders. Tax payable means the government. Lease liabilities means landlords. This matters because the people a company owes are the people who can hurt it if it stops paying.\n\nThe sheet itself gives only the 12-month split. For exact dates, go to the notes, the numbered pages at the back of the report. Look for a note called borrowings or debt. It lists each loan, when it must be repaid, and the interest rate.\n\nNot every liability is a loan. Deferred revenue is money customers paid in advance, so the company owes them a product or a service rather than cash. It is still a promise, so it still sits in liabilities."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "A balance sheet shows current liabilities of 900,000, of which trade payables are 600,000. Non-current borrowings are 2,000,000. A friend says the company has to find 2.9 million this year. Who is right?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The friend: all liabilities have to be paid this year"
+     },
+     {
+      "id": "b",
+      "text": "Not quite: 900,000 is due within 12 months, the 2,000,000 can wait"
+     },
+     {
+      "id": "c",
+      "text": "Not quite: only the 600,000 owed to suppliers is due this year"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's total liabilities, not current liabilities: the 2,000,000 sits in the non-current pile, so it falls due after 12 months.",
+     "c": "That's one line of the top pile, not the whole pile: the other 300,000 of short-term loans, tax and accrued wages is also due this year."
+    },
+    "reteach": "Picture the kitchen table again. The 900,000 is every bill on top of the pile, suppliers and everything else, all due within a year. The 2,000,000 is the mortgage underneath. Only the top pile needs cash this year."
+   },
+   {
+    "type": "mistake",
+    "body": "People find the borrowings line in the long-term section and call that the company's debt. But this year's slice has been moved up into current liabilities, and short-term loans and overdrafts sit there too. To spot it, add every line with loan, borrowing, overdraft or debt in its name from both sections before you say how much the company has borrowed."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What decides whether a liability is current or non-current?",
+    "options": [
+     {
+      "id": "a",
+      "text": "How large the amount is"
+     },
+     {
+      "id": "b",
+      "text": "Whether it is due within 12 months of the balance sheet date"
+     },
+     {
+      "id": "c",
+      "text": "Whether it is owed to a bank or to a supplier"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the size, not the timing: a 10 million bill due next month is current, a 1,000 loan due in 3 years is not.",
+     "c": "That's who is owed, not when: a bank loan can sit in either pile depending on its repayment date."
+    },
+    "reteach": "The only test is a calendar. Take the date at the top of the balance sheet, count forward 12 months, and ask whether the payment falls inside that window. Inside means current. Outside means non-current."
+   },
+   {
+    "type": "try",
+    "body": "Open the latest annual report of any company you buy from. Find total current liabilities and total non-current liabilities, then every line with borrowing or loan in its name. Write the 12-month figure on a sticky note."
+   }
+  ],
+  "outcomeLine": "You can now list what a company must pay in the next 12 months, what can wait until later, and name who it owes."
+ },
+ "seconds": 71.28385996818542
+}

@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 4,
+  "title": "Spotting what changed",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Your clipping person does not read today's paper from the front page. They lay yesterday's copy next to today's and run a finger down both, line by line. Where the two match, they move on. Where a line is new, or a line has vanished, out come the scissors. That handful of lines is all they keep."
+   },
+   {
+    "type": "teach",
+    "title": "A diff is a line-by-line comparison",
+    "body": "After chapter 3 you have 2 saved copies of each page: one from yesterday, one from today. The job now is to find out what is different between them, and nothing else.\n\nThe tool for this is a diff, a program that compares 2 text files line by line. It puts the lines into 3 groups. Lines that appear in both files are ignored. Lines that appear only in today's file are marked added. Lines that appear only in yesterday's file are marked removed.\n\nOn a Mac or Linux machine the command is called diff, and it is already installed. In Python it is a built-in module called difflib. Both do the same thing: 2 files in, a short list of changed lines out.\n\nThe output is small on purpose. A pricing page might be 180 lines of text. If the company changed 1 price, the diff is 2 lines. That shrinking is the whole point: the next step, asking the AI model to explain, gets only the lines that matter.\n\nOne detail: a diff does not understand editing. If a line changed from one price to another, it does not say changed. It says the old line was removed and a new line was added. You read those 2 together as 1 change."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Yesterday's saved pricing page and today's both have 200 lines. One price went up. Roughly how many lines does the diff show you?",
+    "options": [
+     {
+      "id": "a",
+      "text": "200 lines, the whole of today's page"
+     },
+     {
+      "id": "b",
+      "text": "2 lines: the old price marked removed, the new price marked added"
+     },
+     {
+      "id": "c",
+      "text": "1 line, the new price only"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the saved copy from chapter 3, not the diff: the diff drops every line that is the same in both files.",
+     "c": "That's how a person describes it, not how the tool sees it: the tool sees the old line gone and a new line arrived, so it reports both."
+    },
+    "reteach": "Picture the 2 pages side by side. 199 lines match and are thrown away. The one line that differs shows up twice: once as the yesterday version, once as the today version. 2 lines out of 200."
+   },
+   {
+    "type": "example",
+    "title": "One price change, 2 lines",
+    "body": "Say you saved one competitor's pricing page as pricing-2026-10-03.txt and again as pricing-2026-10-04.txt. You run diff on the 2 files. Out of about 180 lines, the output is 2 lines. The first starts with a left arrow symbol and reads the old plan price. The second starts with a right arrow symbol and reads the new plan price. Left arrow means yesterday only, so removed. Right arrow means today only, so added. Everything else on the page was identical and never appears."
+   },
+   {
+    "type": "teach",
+    "title": "Noise, and the empty diff",
+    "body": "Real pages have lines that change every day for no reason you care about. A footer with today's date. A code that tracks visitors. A cookie banner with a random number in it. The diff will faithfully report each one every morning, and your summary fills with junk.\n\nThe fix is to drop those lines before comparing. Decide on a rule, such as ignore any line containing the words Page generated, and apply it to both files first. Chapter 3 saved plain text rather than raw page code for the same reason: page code is full of lines that shift daily, while the words a human reads mostly stay put.\n\nThe other thing to notice is an empty diff. Empty means nothing changed since yesterday. That is a good result, not a failure. When the diff is empty the agent should stop there for that page and not bother the model at all. Chapter 7 will turn this into a formal check."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Every morning the diff for one page shows exactly 1 change: the footer line Page generated 04 Oct 2026 became Page generated 05 Oct 2026. What should the agent do?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Send the 2 lines to the model so it can explain the change"
+     },
+     {
+      "id": "b",
+      "text": "Add a rule to drop lines containing Page generated before comparing, so the diff comes out empty"
+     },
+     {
+      "id": "c",
+      "text": "Save the page twice a day so the dates line up"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's chapter 5's job, and it only makes sense for real changes: a date stamp has nothing to explain, so you would pay for a summary of nothing.",
+     "c": "That's fixing the clock instead of the scissors: the date would still differ between any 2 saves on different days."
+    },
+    "reteach": "The diff is honest but has no taste. It reports every differing line, including the ones that differ by design. You give it taste by removing the lines you never want to hear about before the comparison runs. Then a page with only footer noise produces an empty diff, which means move on."
+   },
+   {
+    "type": "mistake",
+    "body": "The common slip is comparing today's copy against the very first copy you ever saved, not against yesterday's. For a day it looks fine. After a week the diff lists every change from the whole week, again, and you cannot tell what is new this morning. You spot it when the same changed lines keep turning up in your summary day after day. Always compare today with the most recent earlier copy."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What does the diff step hand to the next step of the agent?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Today's full saved page"
+     },
+     {
+      "id": "b",
+      "text": "Only the lines added or removed since yesterday's copy"
+     },
+     {
+      "id": "c",
+      "text": "A 2-sentence plain-English summary"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the clipping from chapter 3, not the diff: the whole page is what goes in, not what comes out.",
+     "c": "That's the model's output in chapter 5: the diff gives the model its raw material, it does not write the note."
+    },
+    "reteach": "Think of the diff as the scissors, not the reader. It takes 2 full pages in and hands over only the strips that differ. Writing the note about those strips is a separate step."
+   },
+   {
+    "type": "try",
+    "body": "In Terminal, make 2 text files that differ by 1 line, then run diff on them. Check that the output is 2 lines, not the whole file."
+   }
+  ],
+  "outcomeLine": "You can now compare 2 saved copies of a page and list exactly which lines were added or removed."
+ },
+ "seconds": 64.76863503456116
+}

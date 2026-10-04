@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 4,
+  "title": "Push off and glide",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "You've lain on the bed and let it hold you. Now you push away from the headboard and slide along it. The water keeps doing the holding. All you add is one shove with your feet and a long thin shape, then you lie still and let the slide run out."
+   },
+   {
+    "type": "teach",
+    "title": "One push, one shape, then nothing",
+    "body": "A glide is the simplest move in swimming: push off the wall and travel through the water without moving your arms or legs. Every stroke you learn later starts from this position, so it's worth getting right.\n\nStart standing in chest-deep water with your back to the wall. Put one foot flat on the wall behind you, about knee height. Hold the edge or the lane rope lightly with one hand if you like.\n\nBefore you push, make the shape. Stretch both arms straight out in front of you. Put one hand on top of the other. Squeeze your upper arms against your ears, so your head is tucked between them. Swimmers call this 'streamline', which just means the thinnest shape your body can make.\n\nTake a breath, put your face in the water, and push through your foot. Both feet come up to the wall and shove together. Keep your eyes looking at the bottom of the pool, not forward. Looking forward lifts your head, and your head lifting sinks your hips.\n\nThen do nothing. Don't kick, don't pull. Hold the shape and feel yourself slow down. When you stop, do the stand-up from Chapter 1: knees in, hands press down, feet plant. You're aiming for 3 to 5 metres before the glide runs out."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Two people push off the same wall with the same force. One holds arms tight over their ears, face down. The other has arms a bit wide and head lifted to look ahead. Who glides further?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The one looking ahead, because they can see where they're going and steer"
+     },
+     {
+      "id": "b",
+      "text": "The one with arms over ears and face down, because they're a thinner shape"
+     },
+     {
+      "id": "c",
+      "text": "About the same, since the push was the same"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's about seeing, not about shape: a lifted head makes your body wider and drops your hips, so you slow down sooner.",
+     "c": "That's the push, not the shape: the push gives you the speed, but the shape decides how fast the water takes it back."
+    },
+    "reteach": "Water pushes back on everything it has to flow around. A thin pointed shape gives it less to push on, so your speed lasts longer. A wide or bent shape gives it more, so you stop sooner, even with the same shove."
+   },
+   {
+    "type": "example",
+    "title": "Three tries at the wall",
+    "body": "On the first try, you push hard but your arms are out to the sides like a starfish. You go about 1 metre and stop. On the second try, you stack your hands and squeeze your ears, but you look forward at the far wall. Your hips sink and you stop at about 2 metres with your feet dragging. On the third try, same shape, eyes on the tiles below. You glide 4 metres and feel yourself slowing gently before you stand. Same push each time. Only the shape changed."
+   },
+   {
+    "type": "teach",
+    "title": "Let it run out, then stand",
+    "body": "The hardest part of a glide for a new swimmer isn't the push. It's the waiting. You'll want to do something with your arms the moment you leave the wall. Don't. The glide is over when you've nearly stopped, not when you start to feel unsure.\n\nIf you feel your feet sinking, that's normal. Your legs are heavier than your chest, which is full of air. A small sink is fine. If your feet touch the bottom, just stand up calmly. That's the end of the glide, not a failure.\n\nWhen you're ready to stop, don't lift your head first. Lifting your head first is what tips people over and makes them splash. Instead: knees to chest, both hands press down, feet find the floor. It's the same stand-up you've already practised, just arriving from a glide.\n\nDo it 10 times tonight if you can. Count your glide in body lengths: 1 means about a metre, 3 to 5 is where you're heading."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "You push off, hold the shape, and after 2 metres you feel your feet start to sink. What do you do?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Start kicking hard to get your feet back up"
+     },
+     {
+      "id": "b",
+      "text": "Lift your head quickly and look for the wall"
+     },
+     {
+      "id": "c",
+      "text": "Hold the shape, let it slow, then knees in, hands down, stand"
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's the next chapter's kick, not this one's glide: the glide is about adding no movement and letting it run out.",
+     "b": "That's the head-lift that tips you over: lifting your head first sinks your hips faster and makes standing up messier."
+    },
+    "reteach": "A slow sink of the feet is normal near the end of a glide. The job is to stay long and still until you've nearly stopped. Then stand the calm way: knees in, hands press down, feet plant."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is pushing with arms bent at the elbows or hands apart, because it feels safer with your hands near your face. Spot it by asking: can I feel my upper arms squeezing my ears? If not, your arms aren't straight and your shape is wide. Fix it before you push, not after."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What are the 3 parts of a good glide, in order?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Make the thin shape, push with both feet, then hold still until it runs out"
+     },
+     {
+      "id": "b",
+      "text": "Push with both feet, then kick, then pull with your arms"
+     },
+     {
+      "id": "c",
+      "text": "Push with both feet, look forward to aim, then hold still"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's a full stroke, not a glide: the glide is the part before any kick or pull, where you add nothing.",
+     "c": "That's aiming with your head, not gliding: looking forward lifts your head and sinks your hips, so eyes stay on the bottom."
+    },
+    "reteach": "Shape first, then push, then nothing. Hands stacked, arms on ears, face down. Shove with both feet. Hold still and let it run out before you stand."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, in chest-deep water: 10 push-offs. Before each one, check your upper arms touch your ears. Count body lengths. Write down your best number."
+   }
+  ],
+  "outcomeLine": "You can now push off the wall in a thin shape, glide 3 to 5 metres with your face in, and stand up calmly when it runs out."
+ },
+ "seconds": 42.77728605270386
+}

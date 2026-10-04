@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 4,
+  "title": "Start walking without stumbling",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "On a walk, the first step sets the tone for the whole route. You don't start moving while you're still looking for your shoes. You stand at the gate, feet planted, take one breath, and say \"We're heading to the river.\" Then you step. Your first 20 seconds of a talk are that moment at the gate."
+   },
+   {
+    "type": "teach",
+    "title": "The first 20 seconds are planned, not improvised",
+    "body": "Most of a talk can be loose. The first 20 seconds cannot. In that window your listeners decide whether to follow you, and your body decides whether it is in control. So you plan 3 things and do them the same way every time.\n\nFirst, a pause. When you get to the front, stop. Count 2 slow seconds in your head while you look at the room. Say nothing. This feels like 10 seconds to you. To the room it looks like confidence.\n\nSecond, plant your feet. Put them under your shoulders, about 30 centimetres apart, and leave them there. Moving feet are the number one sign of nerves, so you take that option off the table before you say a word.\n\nThird, a memorised first sentence. Not a rough idea of what you'll say. The exact words, learned by heart, that name your destination. In chapter 1 you wrote your one sentence in 15 words or fewer. Your opening line is that sentence, or a version of it that points to where you're taking them.\n\nThat's it. Pause, plant, say the sentence. Everything after that can come from your index card."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "You walk to the front of the room. What should happen first?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Start talking as you arrive, so there is no awkward silence."
+     },
+     {
+      "id": "b",
+      "text": "Stop, plant your feet, look at the room for 2 seconds, then say your first sentence."
+     },
+     {
+      "id": "c",
+      "text": "Say \"Hi everyone, um, so, I'm going to talk a bit about...\" to warm up."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the stumble, not the step: talking while still moving tells the room you haven't arrived yet.",
+     "c": "That's warm-up noise, not an opening: it spends 10 seconds without naming where you're going."
+    },
+    "reteach": "Think of the gate at the start of a walk. You stop there, get your footing, and only then say where you're all going. The silence before your first word is not a gap. It is the moment you take control of the room."
+   },
+   {
+    "type": "example",
+    "title": "Maya's first 6 seconds",
+    "body": "Maya has a 3-minute talk to 6 colleagues on why the team should use one shared calendar. She walks to the front, stops, and sets her feet under her shoulders. Her index card is in her left hand at waist height. She counts \"one, two\" in her head while looking at 2 faces. Then she says: \"By Friday I want every meeting we hold on one shared calendar, and here's why.\" That is 14 words and about 6 seconds. Nobody in the room is wondering what the talk is about."
+   },
+   {
+    "type": "teach",
+    "title": "What to do with your hands and eyes",
+    "body": "Your feet are planted. Now your hands. Give them one home position: either hanging at your sides, or one hand holding your card at waist height. They can move while you speak, and that's fine. They just return home between moves. No pockets, no hands clasped behind your back, no gripping the card with both hands at chest height.\n\nYour eyes go to one person for the whole first sentence. Not the floor, not the wall at the back, not a sweep across the room. One face. Finish the sentence on that face. Then move to a second person for your next line.\n\nYou only memorise the first sentence. Not the first minute. If you try to learn the whole opening word for word, one slip throws you off. One sentence is short enough to say under any amount of nerves, and once it's out, you're on your route and the card takes over."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Dev gets nervous and tends to pace from side to side. Which plan for the first 20 seconds applies the idea correctly?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Walk slowly back and forth during the opening so the nerves have somewhere to go."
+     },
+     {
+      "id": "b",
+      "text": "Plant both feet, hold the card in one hand at the waist, and say the memorised first sentence to one person."
+     },
+     {
+      "id": "c",
+      "text": "Memorise the whole first minute word for word so nothing can go wrong."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's letting the nerves drive, not planning: pacing is the exact thing planted feet are there to remove.",
+     "c": "That's over-learning, not the one-sentence rule: a slip in a memorised minute throws you off, and the rest belongs on your card."
+    },
+    "reteach": "The plan has 3 parts and they are all small: a 2-second pause, feet that stay put, and one sentence you know by heart. Dev's nerves want to move. Planted feet take that choice away, and one short sentence is sayable even with a racing heart."
+   },
+   {
+    "type": "mistake",
+    "body": "The common mistake is opening with warm-up noise: \"Hi, um, so, thanks for having me, I'm going to talk a little bit about...\" It costs about 10 seconds and tells the room you haven't started. To spot it, check your first sentence. If it doesn't name the destination, it's warm-up, and you cut it."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What are the planned parts of your first 20 seconds?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A joke to relax the room, then an introduction of yourself and your background."
+     },
+     {
+      "id": "b",
+      "text": "A 2-second pause, planted feet, and one memorised sentence that names the destination."
+     },
+     {
+      "id": "c",
+      "text": "A memorised first minute, delivered while walking to the centre of the room."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a warm-up, not an opening: neither a joke nor your background names where the talk is going.",
+     "c": "That's two things the chapter removed: you memorise one sentence, not a minute, and you stop walking before you speak."
+    },
+    "reteach": "Pause, plant, say the sentence. The pause gives you the room. The feet give you stillness. The sentence gives everyone the destination. Three small things, done the same way every time, so the first step never stumbles."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, stand up in your kitchen facing a chair. Plant your feet, count 2 seconds, say your one sentence out loud to the chair. Do it 5 times without moving your feet."
+   }
+  ],
+  "outcomeLine": "You can now open a talk from memory with one sentence that names the destination, feet planted, after a 2-second pause."
+ },
+ "seconds": 60.631641149520874
+}

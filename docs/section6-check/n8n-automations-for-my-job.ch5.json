@@ -1,0 +1,112 @@
+{
+ "chapter": {
+  "n": 5,
+  "title": "Sorting items down two belts",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Partway down the line there is a sorting gate. An inspector reads one label on each item and pushes it left or right, so two belts leave the gate instead of one. A second kind of gate is simpler: items that pass the check roll on, and items that fail drop into a bin and are never seen again."
+   },
+   {
+    "type": "teach",
+    "title": "One check, two belts",
+    "body": "The IF node is the sorting gate. It reads one value on each item and asks a yes-or-no question. Items that answer yes leave through the top output, labelled true. Items that answer no leave through the bottom output, labelled false.\n\nYou write the question as a condition: a value, a comparison, and something to compare it to. For example: the field priority, is equal to, the word urgent.\n\nThe value comes from an earlier node, pulled in with an expression such as {{ $json.priority }}, the same double curly braces you used in chapter 4.\n\nBoth outputs can lead to more nodes. Connect a Slack node to true and a Google Sheets node to false. An item on the false belt never touches the Slack node.\n\nEvery item is checked on its own. If 10 items arrive, 3 might leave by true and 7 by false. The split happens per item, not per run."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "A form response arrives with priority set to \"normal\". Your IF node checks whether priority is equal to \"urgent\". Which output does this item leave by?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The true output"
+     },
+     {
+      "id": "b",
+      "text": "The false output"
+     },
+     {
+      "id": "c",
+      "text": "Both outputs, so nothing is lost"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the yes belt, for items where the check holds: \"normal\" is not equal to \"urgent\", so the answer is no.",
+     "c": "That's a copy, not a sort: the IF node sends each item down exactly one belt, never both."
+    },
+    "reteach": "The IF node asks one question of each item. Here the question is \"is priority equal to urgent?\" For this item the honest answer is no. No means the false output, and only the false output."
+   },
+   {
+    "type": "example",
+    "title": "A support form with two belts",
+    "body": "A Form Trigger collects support requests with a field called priority. After it sits an IF node named \"Urgent?\" with one condition: {{ $json.priority }} is equal to urgent.\n\nFrom the true output, a Slack node posts to a #support-urgent channel. From the false output, a Google Sheets node appends a row to the weekly log.\n\nSubmit the form twice, once urgent and once normal, then open the IF node's output panel. The true tab shows 1 item and the false tab shows 1 item. Click each downstream node and you see the right one received the right request."
+   },
+   {
+    "type": "teach",
+    "title": "The bin: the Filter node",
+    "body": "Sometimes you do not want two belts. You want one belt and a bin. The Filter node keeps items that pass its condition and drops the rest. Only one belt continues, carrying only the items you wanted.\n\nThe choice is plain: use IF when both groups need something done to them. Use Filter when one group needs nothing at all.\n\nConditions have a type, such as string for text, number, date or boolean for true-and-false values. Pick the type that matches the data. Checking \"is greater than 3\" only makes sense with the number type.\n\nWatch spelling and letter case. By default \"Urgent\" with a capital U is not equal to \"urgent\". The IF node has a setting to ignore letter case if you need it. An item with no value in that field at all fails the check and goes false."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Your newsletter form gets about 50 sign-ups a day. You only want the people who ticked \"wants a call\" added to a sheet. The others need nothing done. Which setup applies the idea?",
+    "options": [
+     {
+      "id": "a",
+      "text": "An Edit Fields node that renames the field to \"call\""
+     },
+     {
+      "id": "b",
+      "text": "A Filter node keeping items where wants_a_call is true, then the Google Sheets node"
+     },
+     {
+      "id": "c",
+      "text": "An IF node with the Google Sheets node connected to both the true and false outputs"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's tidying from chapter 4, not sorting: renaming a field changes its label but every item still rolls on.",
+     "c": "That's two belts into the same station: wiring Sheets to both outputs adds all 50 people, which is what you were trying to avoid."
+    },
+    "reteach": "Ask: do both groups need something done? Here only one group does. One group plus a bin is the Filter node. The IF node is for when the no-group also needs a station of its own."
+   },
+   {
+    "type": "mistake",
+    "body": "The most common slip is a condition that never matches because the real value is spelled differently. The condition says \"urgent\" but the form sends \"Urgent\" or \"High\". The sign is easy to spot: after a test run, every single item sits on the false belt and the true tab shows 0. The fix is to open the output panel of the node before the IF, find the field, and copy its exact value into the condition."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What does the IF node do with each item that reaches it?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Changes the value of one of its fields"
+     },
+     {
+      "id": "b",
+      "text": "Sends it down the true belt or the false belt based on one check"
+     },
+     {
+      "id": "c",
+      "text": "Deletes it if it fails the check"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the Edit Fields node, not IF: IF reads a value but never rewrites it.",
+     "c": "That's the Filter node, the bin: IF keeps every item and only decides which belt it rides."
+    },
+    "reteach": "Picture the inspector at the gate. They read one label, say yes or no, and push the item onto one of two belts. Nothing is thrown away and nothing is changed. That is the IF node."
+   },
+   {
+    "type": "try",
+    "body": "Open your chapter 4 workflow. Add an IF node after the trigger that checks one field. Connect a different node to each output, run once, and read the item counts on the true and false tabs."
+   }
+  ],
+  "outcomeLine": "You can now route items down two different paths based on one field's value."
+ },
+ "seconds": 59.41833806037903
+}

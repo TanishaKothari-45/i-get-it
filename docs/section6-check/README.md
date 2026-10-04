@@ -1,6 +1,6 @@
 # Section 6 check: raw outputs and draft scores
 
-Run 4 Oct 2026, night, by the coding agent. Model: Claude (via Claude Code headless, Prateek's subscription), because the OpenAI key had no credits. Prompts: prompt_plan.txt and prompt_chapter.txt in this folder (identical to convex/prompts.ts). Level: new. Raw outputs: *.plan.json, *.ch1.json, *.ch2.json, *.ch3.json.
+Run 4 Oct 2026, night, by the coding agent. Model: Claude (via Claude Code headless, Prateek's subscription), because the OpenAI key had no credits. Prompts: prompt_plan.txt and prompt_chapter.txt in this folder (identical to convex/prompts.ts). Level: new. Raw outputs: *.plan.json and *.ch1.json to *.ch7.json (all seven chapters for the ten planned topics, generated through the night and seeded into the cache on dev and production).
 
 **Scores are the agent's draft, pending Prateek.** Criteria (a) and (d) are human judgements; a generator scoring its own output isn't a test (Shaktimaan, 4 Oct). The ChatGPT study-mode column is Prateek's to fill unless the agent manages it in his browser tonight.
 
