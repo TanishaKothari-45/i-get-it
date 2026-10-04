@@ -5,114 +5,134 @@
   "cards": [
    {
     "type": "picture",
-    "body": "If your broker's app shut down tomorrow, your shares would not vanish with it. They were never there. In the bazaar you need three things: a purse for cash (your bank account), a runner who carries your order to the stalls (your trading account, run by a *broker*), and a locker that holds what you bought (your *demat account*). **The runner never keeps your shares. The locker does.**"
+    "body": "Your shares aren't kept in your broker's name, so where do they actually live? In the bazaar you need three things: a purse for rupees, a licensed agent who carries your order to the stalls, and **a locker in a guarded vault, in your name**, where your slices are kept. That's your bank account, your trading account and your demat account.",
+    "simpler": "Your shares aren't kept in your broker's name. So where are they? Picture a busy bazaar. You need three things: a purse for your rupees, a licensed agent who takes your order to the stalls, and **a locker in a guarded vault, in your name**, where your slices are kept. The purse is your bank account. The agent is your trading account. The locker is your demat account."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya buys 1 share of Infosys through a broker app in March. In June the broker shuts down for good. Where is her share?",
+    "prompt": "Priya buys 2 shares on a Tuesday, paid for from her savings account. By Thursday, where are those 2 shares kept?",
     "options": [
      {
       "id": "a",
-      "text": "Gone. It lived inside the app."
+      "text": "In her savings account, next to her salary"
      },
      {
       "id": "b",
-      "text": "Sitting in her demat locker at NSDL or CDSL, untouched."
+      "text": "In a demat account in her own name"
      },
      {
       "id": "c",
-      "text": "Turned back into cash in her bank account."
+      "text": "In her broker's company account, until she sells"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the runner, not the locker: the app only carried the order. The share went into a locker the broker does not own.",
-     "c": "That's the purse, not the locker: cash lives in the bank, shares live in the demat account. Nothing turns into cash unless she sells."
+     "a": "That's the purse, not the locker: a bank account holds rupees, never shares.",
+     "c": "That's the agent, not the vault: the broker places the order, but the shares go into an account in Priya's name."
     },
-    "reteach": "Three places, three jobs. The bank holds rupees. The broker's trading account is a counter where you place orders. The share itself is stored in a demat account at one of India's two national lockers, NSDL or CDSL, in Priya's name. The broker can close; the locker stays."
+    "reteach": "Picture the bazaar again. Your purse pays, the agent shops, and whatever he buys goes straight into a locker with your name on it. The bank is the purse, the broker is the agent, the demat account is the locker."
    },
    {
     "type": "teach",
     "title": "Three accounts, three jobs",
-    "body": "Your *bank account* is the purse. Rupees sit there until you decide to buy.\n\nYour *trading account* is the counter at a broker's stall. You type an order there, and the broker, a SEBI-registered middleman, walks it into the exchange for you. Cash moves from the bank to this counter just before you buy, and back after you sell.\n\nYour *demat account* is the locker. Demat is short for *dematerialised*: your shares are electronic entries, not paper certificates. The locker is run by NSDL or CDSL, India's two depositories, and it is in your name. **The broker opens the locker for you. It does not own what's inside.**"
+    "body": "You need **three accounts, each with one job**. Your bank account holds rupees. It's the same savings account your salary already lands in, so you probably have this one.\n\nYour trading account is opened with a *broker*, a company registered with SEBI to place orders on NSE and BSE for you. Think of the agent at the bazaar gate holding your shopping list. You can't place orders on the exchange yourself.\n\nYour demat account (short for *dematerialised*: shares kept as computer records, not paper certificates) is the locker. Shares go in. Rupees never do.",
+    "simpler": "You need **three accounts, each with one job**. Your bank account holds rupees, and it's the savings account your salary already lands in.\n\nYour trading account sits with a broker, a company registered with SEBI. It places orders on NSE and BSE for you, like the agent at the bazaar gate. You can't place them yourself.\n\nYour demat account (short for dematerialised: shares kept as computer records, not paper) is the locker. Shares go in. Rupees never do."
    },
    {
     "type": "example",
-    "title": "Ravi's Sunday evening",
-    "body": "Ravi opens his accounts on a Sunday night from his sofa: PAN card, Aadhaar, a blurry selfie, a signature drawn with his thumb, and his bank account number. The broker opens the trading account and the demat locker together, as one form. A day or two later he gets a 16-character demat number and a login.\n\nHe moves \u20b91,600 from his bank to the trading account, buys 1 share, and checks the demat that evening. Empty. The share lands the next working day, and it shows up in the locker, not in the app's wallet."
+    "title": "Arjun's first \u20b92,000",
+    "body": "Arjun, in Pune, moves \u20b92,000 from his bank to his trading account. He buys 1 share priced at \u20b91,500. The next working day, **the share appears in his demat account**, and about \u20b9500 (minus a few rupees of charges) waits in his trading account for his next order. His bank app shows \u20b92,000 gone and nothing in return, which is exactly what it should show.",
+    "simpler": "Arjun lives in Pune. He moves \u20b92,000 from his bank to his trading account, then buys 1 share at \u20b91,500. The next working day, **the share shows up in his demat account**. About \u20b9500, minus a few rupees in charges, stays in his trading account for his next order. His bank app shows \u20b92,000 gone and nothing back. That looks odd, but it's exactly right."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Meera has \u20b92,000 in her bank and wants to buy her first share this week. Which order of steps is right?",
+    "prompt": "Kavya bought 5 shares last year and can't remember if she sold any. Where should she look to see what she owns right now?",
     "options": [
      {
       "id": "a",
-      "text": "Move money into the demat account, place the order, the share lands in the trading account."
+      "text": "Her bank passbook"
      },
      {
       "id": "b",
-      "text": "Move money from the bank to the trading account, place the order, the share lands in the demat account."
+      "text": "Her trading account's order history"
      },
      {
       "id": "c",
-      "text": "Place the order straight from her bank app, the share lands in the trading account."
+      "text": "Her demat holdings"
      }
     ],
-    "answer": "b",
+    "answer": "c",
     "whyNot": {
-     "a": "That's the locker doing the purse's job: the demat account holds shares, never cash. Money goes to the trading account.",
-     "c": "That's skipping the counter: a bank app cannot place orders on the exchange. Only a broker's trading account can."
+     "a": "That's the purse, not the locker: the passbook shows rupees moving, not shares held.",
+     "b": "That's the shopping list, not the locker: order history shows what she bought, not what's still hers."
     },
-    "reteach": "Follow the rupee. It leaves the purse (bank), stops at the counter (trading account), and buys a share. The share then goes into the locker (demat). Cash never enters the demat, and shares never sit in the trading account."
+    "reteach": "Each account answers one question. Bank: how many rupees do I have? Trading account: what orders did I place? Demat: what shares do I own today? Kavya is asking the third one."
    },
    {
     "type": "teach",
-    "title": "KYC, and what the counter costs",
-    "body": "Before opening your accounts, a broker must run *KYC*, short for know your customer: SEBI's check that your PAN, the tax number, and your Aadhaar match a bank account in your name. So never hand your PAN and Aadhaar to a stranger who offers to 'set it up for you'.\n\nThree charges to look for. An opening fee, often \u20b90. A yearly demat maintenance charge for keeping the locker, usually a few hundred rupees. And *brokerage*, the fee per order: many brokers charge \u20b90 when you buy shares to hold, and a flat fee of around \u20b920 for same-day trades. **The locker fee is yearly; brokerage is per order.**"
+    "title": "The locker isn't at the broker's",
+    "body": "You'd think the broker keeps your shares. Usually it just opens the locker for you and holds a key. **The locker sits with a depository**, either NSDL or CDSL, India's two depositories, which record every share in its owner's name. If your broker shuts down, your shares are still recorded in your name, and a new broker can help you move them into a fresh locker of your own.",
+    "simpler": "Your broker doesn't keep your shares. Usually it just opens the locker for you and holds a key. **The locker sits with a depository**: NSDL or CDSL, India's two, which record every share in its owner's name. If your broker shuts down, your shares are still in your name. A new broker can help you move them into a fresh locker of your own."
    },
    {
     "type": "mistake",
-    "body": "Sunil's college friend 'trades for a group'. Sunil sends him \u20b925,000 on UPI, gets WhatsApp screenshots of profits, and never opens a demat account of his own. A year later the friend stops replying. There were no shares in Sunil's name, so there was nothing to claim. **The tell: if you cannot log in and see the share in a demat account with your name on it, you do not own it.**"
+    "body": "Meera sells 3 shares for \u20b94,500 and checks her bank app the next day. Nothing. She's halfway through an angry message to her broker when she spots it: the money is sitting in her trading account, waiting for her to tap withdraw. Money from a sale lands in the middle account first, so **when cash looks missing, check the trading account before you panic**.",
+    "simpler": "Meera sells 3 shares for \u20b94,500. The next day she checks her bank app and sees nothing. She's halfway through an angry message to her broker when she finds it. The money is sitting in her trading account, waiting for her to tap withdraw. Money from a sale lands in the middle account first. So **when cash looks missing, check the trading account before you panic**."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "At a wedding, a cousin says: 'Your broker app keeps your shares. If the app goes bust, so do they.' Which reply is right?",
+    "prompt": "Your cousin says, \"If my broker's app ever shuts down, my shares vanish with it.\" What's the best reply?",
     "options": [
      {
       "id": "a",
-      "text": "True, which is why you should spread shares across three apps."
+      "text": "True, so only ever use the biggest broker"
      },
      {
       "id": "b",
-      "text": "Not quite. Shares sit in a demat account at NSDL or CDSL, in my name. The app only places orders."
+      "text": "No, they're in your bank account, so they're safe"
      },
      {
       "id": "c",
-      "text": "Not quite. Shares are backed up in my bank account."
+      "text": "No, they stay recorded in your name at NSDL or CDSL, and you can move them to a new broker"
      }
     ],
-    "answer": "b",
+    "answer": "c",
     "whyNot": {
-     "a": "That's treating the runner as the locker: the app places orders, so more apps only means more counters. The share's home is the demat, not the app.",
-     "c": "That's the purse, not the locker: a bank account holds rupees. Shares are electronic entries at a depository, never at a bank."
+     "a": "That's mixing up the agent and the vault: the broker places orders, and the depository holds the shares.",
+     "b": "That's the purse, not the locker: banks hold rupees, not shares."
     },
-    "reteach": "Picture the bazaar at closing time. The runner goes home, the stalls shut, and your locker is still there with your share inside. The locker belongs to NSDL or CDSL and carries your name. The broker only had a key to open it for you."
+    "reteach": "The broker holds a key, not the vault. Your shares are recorded in your name at NSDL or CDSL, whichever broker you use. Lose the key-holder and a new broker helps you move your shares into a fresh locker, still in your name. They never vanish."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Your bank holds the cash, your trading account is the broker's counter where you place orders, and your demat account is the locker at NSDL or CDSL that holds your shares in your name. **The broker opens the locker; it never owns what's inside.**\n\nTomorrow: why a \u20b93,000 share can cost you less than a \u20b950 one."
+    "body": "You need three accounts: a bank account for rupees, a trading account with a SEBI-registered broker to place orders, and **a demat account, recorded at NSDL or CDSL, that holds your shares in your name**. Money goes from your bank to your trading account, and the shares land in your demat, in your name, not the broker's.\n\nTomorrow: the one setting that stops you paying more than you meant to.",
+    "simpler": "You need three accounts. A bank account holds your rupees. A trading account with a SEBI-registered broker places your orders. And **a demat account, recorded at NSDL or CDSL, holds your shares in your name**. Money moves from your bank to your trading account. Your shares land in your demat, in your name, not the broker's.\n\nTomorrow: the one setting that stops you paying more than you meant to."
    },
    {
     "type": "try",
-    "body": "Tonight, open the website of one SEBI-registered broker. Find two numbers: its SEBI registration number and its yearly demat maintenance charge. Write both down. Don't open an account yet; just see what the counter costs."
+    "body": "Tonight, open the income tax e-filing website and **check that your PAN is linked to your Aadhaar**. If it isn't linked, your PAN stops working and KYC (the identity check a broker does) can't go through. Two minutes, no broker needed.",
+    "simpler": "Tonight, go to the income tax e-filing website and **check that your PAN is linked to your Aadhaar**. If they aren't linked, your PAN stops working, and your KYC (the identity check a broker does) can't go through. It takes two minutes, and you don't need a broker for it."
    }
   ],
-  "outcomeLine": "You can now open a demat and trading account and say which account holds your shares and which holds your cash.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8 168 Q160 160 312 168\" stroke=\"#1B1A17\" stroke-width=\"2\" fill=\"none\"/><rect x=\"22\" y=\"100\" width=\"64\" height=\"52\" rx=\"10\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M22 118 Q54 108 86 118\" stroke=\"#1B1A17\" stroke-width=\"2\" fill=\"none\"/><circle cx=\"54\" cy=\"128\" r=\"5\" fill=\"#1B1A17\"/><text x=\"54\" y=\"188\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">bank</text><polygon points=\"112,60 208,60 202,76 118,76\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"118\" y1=\"76\" x2=\"118\" y2=\"120\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"202\" y1=\"76\" x2=\"202\" y2=\"120\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"160\" cy=\"94\" r=\"11\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M146 120 Q160 104 174 120\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"120\" y=\"120\" width=\"80\" height=\"32\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"160\" y=\"188\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">broker</text><path d=\"M204 100 Q220 78 234 100\" stroke=\"#1B1A17\" stroke-width=\"2\" fill=\"none\" stroke-dasharray=\"4 4\"/><rect x=\"234\" y=\"88\" width=\"64\" height=\"64\" rx=\"4\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"244\" y=\"98\" width=\"44\" height=\"44\" rx=\"3\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"266\" cy=\"120\" r=\"8\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"266\" y1=\"112\" x2=\"266\" y2=\"120\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"266\" y=\"188\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">demat</text></svg>"
+  "outcomeLine": "You can now name your three accounts and say which one holds your shares and which one holds your cash.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M30 92 Q30 72 50 72 L90 72 Q110 72 110 92 L110 132 L30 132 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"70\" cy=\"104\" r=\"9\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M116 104h22m-7-7l8 7-8 7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"142,82 168,62 194,82\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"148\" y=\"82\" width=\"40\" height=\"50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"168\" cy=\"102\" r=\"7\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M198 104h22m-7-7l8 7-8 7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"228\" y=\"60\" width=\"70\" height=\"72\" rx=\"4\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"280\" cy=\"96\" r=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"70\" y=\"166\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">BANK</text><text x=\"168\" y=\"166\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">BROKER</text><text x=\"263\" y=\"166\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">DEMAT</text></svg>"
  },
- "seconds": 125.69498491287231
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "concrete_images",
+   "one_idea",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Simplification: the demat account is usually opened through a depository participant (an agent licensed to open demat accounts, often your broker), and only recorded at NSDL/CDSL. So 'never with the broker' and 'hand the key to a new broker' make switching sound easier than it is, since moving to a new broker means formally transferring your shares to a new demat account."
+  ],
+  "weakest_card": 6,
+  "why": "Card 6 starts with the chapter's best surprise (the locker isn't at the broker's) and then piles on a KYC document list and a three-fee checklist, so one idea turns into three. The exercises test none of that extra material.",
+  "fix": "Cut the KYC and fees paragraphs from card 6 and move them to their own chapter, then end card 6 on the image of a new broker picking up the key to the same locker."
+ }
 }

@@ -5,120 +5,135 @@
   "cards": [
    {
     "type": "picture",
-    "body": "In 1941 the fire jumps twice. On 22 June it leaps east into the Soviet house, **the biggest building on the street**, with a reservoir in the back garden. On 7 December Japan sets the American house alight across the ocean, and four days later Hitler walks over and adds his own match.",
-    "simpler": "Think of the war as a fire spreading along a street of houses. In 1941 it jumps twice. On 22 June it leaps east into the Soviet house, **the biggest building on the street**, with a huge water supply out the back. On 7 December Japan sets the American house on fire across the ocean. Four days later Hitler walks over and adds his own match to that fire too."
+    "body": "In six months of 1941, Hitler picked fights with the two biggest powers on earth, and the second one he didn't even have to. On our street, that's the fire spreading on purpose into the two largest houses, the ones with the deepest wells and the most hoses. **Every hose they owned would now point back at him.**",
+    "simpler": "In six months of 1941, Hitler started fights with the two biggest powers in the world. He didn't even have to start the second one. Picture our street: it's like the fire spreading on purpose into the two largest houses, the ones with the deepest wells and the most hoses. **Every hose they owned would now point back at him.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "June 1941. You're taking bets on the fire. It ate France in six weeks. Now it jumps into the Soviet house, by far the biggest on the block, with a reservoir out back. Do its odds of burning the whole street go up or down?",
+    "prompt": "22 June 1941. About 3 million German soldiers cross into the Soviet Union, along a front running from the Baltic Sea to the Black Sea. How long did Hitler expect this to take?",
     "options": [
      {
       "id": "a",
-      "text": "Up. A bigger house is more timber."
+      "text": "Years: he knew it would be a long, grinding war"
      },
      {
       "id": "b",
-      "text": "Down. The biggest houses hold the most water, if they get time to reach the taps."
+      "text": "A few months: finished before the winter snow"
      },
      {
       "id": "c",
-      "text": "No change. One house is one house."
+      "text": "No plan at all: he only invaded because Stalin attacked first"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's size as fuel, not size as water: a big house also has the most people and factories to fight back with.",
-     "c": "That's counting houses, not weighing them: the Soviet house had more than twice Germany's people."
+     "a": "That's what the war turned into, not what he planned: German troops were badly short of winter clothing when the snow came.",
+     "c": "That gets the roles backwards: Germany attacked first and broke its own 1939 pact with Stalin."
     },
-    "reteach": "A street fire only wins by burning fast, before anyone reaches a tap. The Soviet Union had more people, more land and more room to retreat than anything Germany had fought. Attacking it was a bet on finishing before it recovered."
+    "reteach": "Hitler had just watched France fall in six weeks. He expected the Soviet Union to fall the same way, fast. He was planning for a short fire, not a long one."
    },
    {
     "type": "teach",
-    "title": "The jump east",
-    "body": "On 22 June 1941 Hitler tore up his 1939 pact with Stalin and sent about 3 million soldiers into the Soviet Union, the largest invasion in history. The plan was *Blitzkrieg* again, the fast tank-and-plane attack that had beaten France: **knock the Soviets over before winter**.\n\nThis was a *war of extermination*, a war meant to kill whole peoples, not just to win. Soviet prisoners were starved by the million, and killing squads shot Jews behind the front.\n\nBy early December German soldiers could see Moscow. Then the Soviets counterattacked in the snow. The quick win was gone.",
-    "simpler": "On 22 June 1941 Hitler broke his deal with Stalin and sent 3 million soldiers into the Soviet Union, history's biggest invasion. He used Blitzkrieg, the fast tank-and-plane attack that beat France, to **knock the Soviets over before winter**. It was a war of extermination, meant to kill whole peoples. Soviet prisoners starved by the million. Killing squads shot Jews behind the front. By December Germans could see Moscow. Then the Soviets hit back in the snow and the quick win was gone."
+    "title": "Why Russia",
+    "body": "Hitler had said it for years: Germany's future lay in *living space*, his phrase for farmland taken from the peoples of the east. The 1939 pact with Stalin was a pause, not a friendship. On 22 June 1941 he tore it up.\n\nHe planned it as a *war of extermination*, meaning a war to wipe people out, not just beat their army. Behind the tanks came killing squads that shot Jewish families at the edge of their own towns.\n\nYou'd think Russia's size would scare him off. It didn't. He was betting on **a quick knockout**, with the Soviet state collapsing before the snow.",
+    "simpler": "For years Hitler said Germany's future lay in 'living space'. By that he meant farmland taken from the peoples of the east. His 1939 deal with Stalin was a pause, not a friendship. On 22 June 1941 he broke it. He planned to wipe people out, not just beat an army. Killing squads followed the tanks and shot Jewish families outside their own towns. Russia's size didn't scare him. He was betting on **a quick knockout**, with the Soviet state collapsing before the snow."
    },
    {
     "type": "example",
-    "title": "Breakfast at Pearl Harbor",
-    "body": "Sunday 7 December 1941, Hawaii. Japanese planes hit the American fleet at breakfast time, sinking four battleships and killing about 2,400 people. Japan struck because America had cut off its oil that summer, and Japan's war in China ran on American oil. The sour note for Japan: **not one American aircraft carrier was in the harbour** that morning. All of them survived, and the next chapter is about what carriers can do.",
-    "simpler": "Sunday 7 December 1941, Hawaii. Japanese planes hit the American fleet at breakfast time. They sank four battleships and killed about 2,400 people. Why? That summer America had cut off Japan's oil, and Japan's war in China ran on American oil. But there was a sour note for Japan: **not one American aircraft carrier was in the harbour** that morning. Carriers are ships that planes fly from. Every one survived, and the next chapter shows what carriers can do."
+    "title": "Sunday morning in Hawaii",
+    "body": "Sunday morning, 7 December 1941, Pearl Harbor, Hawaii. Planes from six Japanese aircraft carriers hit the American Pacific Fleet while it sat at anchor, and more than 2,400 Americans died. Japan's motive was oil: America had cut off Japan's oil that summer to push it into ending its war in China, and the nearest oil fields were to the south, in the Dutch East Indies, today's Indonesia. The plan was **to knock America flat long enough to grab them**. One problem: America's aircraft carriers were away from Pearl Harbor that morning, so none of them was in the harbour.",
+    "simpler": "Sunday morning, 7 December 1941. Planes from six Japanese aircraft carriers hit the American Pacific Fleet while it sat at anchor in Pearl Harbor, Hawaii. More than 2,400 Americans died. Japan wanted oil. That summer America had cut off Japan's oil to push it to end its war in China. The nearest oil fields were to the south, in today's Indonesia. The plan was **to knock America flat long enough to grab them**. But America's aircraft carriers were away from Pearl Harbor that morning."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "11 December 1941. A friend says: \"Hitler had no choice, his treaty with Japan forced him to declare war on America.\" Which reply uses this chapter?",
+    "prompt": "Tokyo, autumn 1941. Japan's leaders are weighing an attack on the American fleet. Which plan matches what they were actually betting on?",
     "options": [
      {
       "id": "a",
-      "text": "Right. If Japan went to war, Germany had to follow."
+      "text": "Land troops in California and march on Washington"
      },
      {
       "id": "b",
-      "text": "No. The pact only covered Japan being attacked, and Japan did the attacking. Hitler chose to add the richest house himself."
+      "text": "Wreck the fleet, grab the oil to the south, and hope a stunned America makes a deal instead of fighting a long war"
      },
      {
       "id": "c",
-      "text": "It makes no difference. America was already fighting German troops in 1941."
+      "text": "Stay clear of American territory so America never joins in"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a defensive pact read as an offensive one: it promised help if Japan was attacked, not if Japan attacked.",
-     "c": "That's American weapons for Britain, not American soldiers at war: the United States armed Britain but was not fighting Germany."
+     "a": "That's a film plot, not the real plan: Japan wanted the oil to the south, not American land.",
+     "c": "That's the opposite of what they chose: Hawaii was American, and hitting it was the point."
     },
-    "reteach": "Japan's attack gave Hitler an excuse, not an order. He declared war on the United States on 11 December 1941, and from that day Germany faced Britain, the Soviet Union and America all at once."
+    "reteach": "Japan's bet had the same shape as Hitler's in June: one heavy blow and a fast grab, done before the bigger side could fight back. A long war was the one thing they could not afford."
    },
    {
     "type": "teach",
-    "title": "Count the houses",
-    "body": "Hitler's pact with Japan only bound him to help if Japan was attacked, and Japan had attacked. America was arming Britain but not at war with Germany. On 11 December Hitler declared war on the United States anyway, **adding the richest enemy on earth by his own hand**.\n\nNow count. Germany, about 80 million people, faced Britain and its empire, the Soviet Union with about 190 million, and the United States, whose factories alone could outbuild Germany, Italy and Japan together.\n\nHitler had always bet on speed: win before the big houses reached their taps. Outside Moscow, speed had already failed. From 11 December 1941 the sums favoured the Allies. Paper does not fight, though, and three and a half hard years remained.",
-    "simpler": "Japan had attacked, so Hitler's deal with Japan did not force him in. Yet on 11 December he declared war on the United States, **adding the richest enemy on earth by his own hand**. Germany's 80 million faced Britain's empire, the Soviet Union's 190 million, and America, whose factories outbuilt Germany, Italy and Japan combined. His fast win had died outside Moscow. On paper the Allies had won. Paper does not fight, and three and a half hard years remained."
+    "title": "The choice nobody forced",
+    "body": "On 11 December 1941, four days after Pearl Harbor, Hitler declared war on the United States. No treaty made him do it. Germany's pact with Japan only promised help if someone attacked Japan, and Japan had done the attacking.\n\nHis reasoning: America was already shipping weapons to Britain and guarding supply ships in the Atlantic, so it was half in already. And Japan would keep it busy in the Pacific.\n\nNow look down the street. Britain, the Soviet Union and America had far more people, oil and factories than Germany, Italy and Japan put together. **Germany needed a short war. Now it had a long one.**",
+    "simpler": "On 11 December 1941, four days after Pearl Harbor, Hitler declared war on America. No treaty forced him. His deal with Japan only covered Japan being attacked, and Japan had attacked first. He figured America was half in, since it was sending Britain weapons and guarding Atlantic ships. Japan would keep it busy. But Britain, the Soviet Union and America had far more people, oil and factories than Germany, Italy and Japan. **Germany needed a short war. Now it had a long one.**"
    },
    {
     "type": "mistake",
-    "body": "A pub quiz team is asked why America went to war with Germany. \"Pearl Harbor,\" they say. But Japan bombed Pearl Harbor, and on 8 December Congress declared war on Japan alone. It was Hitler, three days later, who put Germany and America at war. Spot the slip whenever someone treats 7 December as the day Germany gained its last enemy. That was 11 December, and **Germany chose it**.",
-    "simpler": "A pub quiz team is asked why America went to war with Germany. \"Pearl Harbor,\" they say. But Japan bombed Pearl Harbor, not Germany. On 8 December Congress declared war on Japan only. It was Hitler, three days later, who put Germany and America at war. So watch for the slip when someone treats 7 December as the day Germany got its last enemy. That day was 11 December, and **Germany chose it**."
+    "body": "Sam reads that by December 1941 Germany was fighting Britain, Russia and America, and decides the war was basically over. Then Sam can't work out why it went on for more than three years. **Winning on paper is not winning on the battlefield**: German troops were still deep inside Russia, and Japan kept winning for six more months. Factories take years to turn into tanks.",
+    "simpler": "Sam reads that by December 1941 Germany was fighting Britain, Russia and America. Sam decides the war was as good as over. Then Sam can't work out why it went on for more than three years. **Winning on paper is not winning on the battlefield.** German troops were still deep inside Russia, and Japan kept winning for six more months. Factories take years to turn into tanks."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Quiz question: why did fighting Britain, the Soviet Union and the United States at once put Germany at a disadvantage on paper from December 1941?",
+    "prompt": "A friend asks what really changed in 1941. Which answer gets it right?",
     "options": [
      {
       "id": "a",
-      "text": "Together the three had far more people, factories and oil than Germany, and Germany's quick-win plan had already stalled outside Moscow."
+      "text": "America declared war on Germany after Pearl Harbor, pulling Hitler in against his will"
      },
      {
       "id": "b",
-      "text": "The German army was smaller and weaker than the Soviet army from the first day."
+      "text": "Germany and Japan each hit a giant hoping for a fast knockout. It didn't come, so they faced a long war against far bigger enemies"
      },
      {
       "id": "c",
-      "text": "Britain was already beating Germany alone by 1941, so the other two just finished the job."
+      "text": "The Allies won the battles that decided the war"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the long game mistaken for the first day: in June 1941 the Germans won battle after battle. The trouble began when the quick win failed.",
-     "c": "That's holding mistaken for winning: in 1941 Britain had kept Germany out, as in chapter 3, but was nowhere near beating it."
+     "a": "That's the order flipped: Hitler declared war on America himself, four days after Pearl Harbor.",
+     "c": "That mixes up winning on paper with winning on the battlefield: in December 1941, German troops were still deep in Russia and Japan was still winning."
     },
-    "reteach": "Paper strength is people, factories and fuel added up. Germany's three enemies had far more of each, and American factories alone could outbuild the whole Axis. Germany's only answer was speed, and in December 1941 speed ran out in the snow."
+    "reteach": "Think of 1941 as two gambles on speed. A fast win would have kept the giants down. Neither win came, and a slow war meant fighting countries with far more of everything."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "In 1941 Germany attacked the Soviet Union, Japan attacked America, and Hitler then declared war on America himself, so by 11 December the Axis was fighting **the three biggest powers on earth at once**. Germany's only hope was a quick win, and the quick win had already died in the snow outside Moscow.",
-    "simpler": "Here is the chapter in one breath. In 1941 Germany attacked the Soviet Union. Japan attacked America. Then Hitler declared war on America himself. So by 11 December the Axis, meaning Germany and its partners, was fighting **the three biggest powers on earth at once**. Germany's only hope was a quick win, and that quick win had already died in the snow outside Moscow."
+    "body": "In 1941 Hitler invaded the Soviet Union and Japan bombed Pearl Harbor, each **betting on a knockout before the giant could fight back**. Neither giant went down, and once Hitler chose to declare war on America too, Germany was stuck in a long war against enemies with far more people, oil and factories.",
+    "simpler": "In 1941 Hitler invaded the Soviet Union and Japan bombed Pearl Harbor. Both were **betting on a knockout before the giant could fight back**. Neither giant fell. Then Hitler chose to declare war on America too. That left Germany stuck in a long war against enemies with far more people, oil and factories."
    },
    {
     "type": "try",
-    "body": "Tonight, in any map app, tap Moscow and say 22 June, tap Pearl Harbor and say 7 December, tap Berlin and say 11 December 1941. **Say the three dates out loud.** That is the whole chapter.",
-    "simpler": "Tonight, open any map app on your phone. Tap Moscow and say 22 June. Tap Pearl Harbor and say 7 December. Tap Berlin and say 11 December 1941. **Say the three dates out loud.** Three taps, three dates, and you have the whole chapter in your head."
+    "body": "Open your map app and zoom out until Hawaii and Moscow fit on one screen: that is how far apart the two 1941 bets were. Tomorrow: the three battles where the fire finally stopped spreading.",
+    "simpler": "Open your map app. Zoom out until you can see Hawaii and Moscow on one screen. That is how far apart **the two 1941 bets** were. Tomorrow: the three battles where the fire finally stopped spreading."
    }
   ],
-  "outcomeLine": "You can now explain how 1941 turned a European fire into a world war, and why from 11 December Germany was outnumbered on paper."
+  "outcomeLine": "You can now explain why 1941 turned a European war into a world war, and why it left Germany outmatched on paper.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"8\" y1=\"170\" x2=\"312\" y2=\"170\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"22\" y=\"132\" width=\"36\" height=\"38\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"18,132 40,114 62,132\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"82\" y=\"92\" width=\"76\" height=\"78\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"76,92 120,58 164,92\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"96\" y=\"108\" width=\"18\" height=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\"/><rect x=\"126\" y=\"108\" width=\"18\" height=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\"/><path d=\"M100 70 q6 -26 14 -6 q6 -22 14 -2 q8 -20 12 6 z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"190\" y=\"82\" width=\"100\" height=\"88\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"184,82 240,40 296,82\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"206\" y=\"100\" width=\"20\" height=\"20\" fill=\"#F2A93B\" stroke=\"#1B1A17\"/><rect x=\"254\" y=\"100\" width=\"20\" height=\"20\" fill=\"#F2A93B\" stroke=\"#1B1A17\"/><path d=\"M218 52 q8 -30 16 -6 q6 -24 16 -2 q8 -20 12 10 z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"160\" y=\"192\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">1941</text></svg>"
  },
- "seconds": 145.6482081413269
+ "repairedFrom": {
+  "score": 10,
+  "failed_checks": [
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "'America's aircraft carriers were out at sea that morning' is imprecise: Enterprise and Lexington were at sea, but Saratoga was docked at San Diego. Say 'away from Pearl Harbor' instead.",
+   "'Most German soldiers had no winter coats when the snow came' is a widely repeated simplification. Winter clothing was badly short, but 'most' is hard to source.",
+   "'About 3 million German soldiers' is a fair round figure for the Germans alone. The total Axis invasion force was about 3.8 million, so keep 'German' explicit."
+  ],
+  "weakest_card": 10,
+  "why": "The try card ends the chapter flat after the 'Tomorrow' hook. It also asks for four fingers on the phone the reader is holding, and it buries the open loop one card early.",
+  "fix": "Rewrite the try card as: 'Open your map app and zoom out until Hawaii and Moscow fit on one screen: that is how far apart the two 1941 bets were. Tomorrow: the three battles where the fire finally stopped spreading.' Then cut the 'Tomorrow' line from the 'In one breath' card."
+ }
 }

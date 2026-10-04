@@ -1,0 +1,125 @@
+{
+ "chapter": {
+  "n": 6,
+  "title": "When the path gets rough",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Halfway up the trail, someone points at a fork you never planned for and asks, 'Wait, which way?' A good guide doesn't freeze or sprint off: they **stop for a breath, then pick a path in three steps**, and that's exactly how to handle a surprise question in a talk. Matt Abrahams teaches that this is a skill you can drill, not a gift you're born with.",
+    "simpler": "You're halfway up a trail when someone points at a fork you didn't expect and asks, 'Wait, which way?' A good guide doesn't freeze or rush off. They **stop for a breath, then choose a path in three steps**. That's how to handle a surprise question during a talk. Matt Abrahams teaches that this is a skill you can practise, not a talent you're born with."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Your 5-minute talk on trying a four-day week ends, and someone asks a question you never saw coming. What's your best first move?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Start talking at once, so the silence doesn't look weak."
+     },
+     {
+      "id": "b",
+      "text": "Take a breath, pause two seconds, then answer in a short shape."
+     },
+     {
+      "id": "c",
+      "text": "Say 'great question' a few times while you think."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's speed, not clarity: rushing in usually sends the answer wandering off the trail.",
+     "c": "That's filler, not thinking time: a quiet pause buys the same seconds and sounds calmer."
+    },
+    "reteach": "Running down the first trail you see is how groups get lost. A breath lets you pick a path first, and the room reads it as care, not panic."
+   },
+   {
+    "type": "teach",
+    "title": "The pause, then three steps",
+    "body": "A surprise question is a fork in the trail. Your first job is to stop. **Two seconds of silence** feels like a minute from where you stand; from the back row it looks like you're taking the question seriously. You'd think silence looks weak. It looks like thought.\n\nThen walk three steps, a shape Matt Abrahams teaches. *What?* Your answer in one sentence. *So what?* Why it matters to the person who asked. *Now what?* The next step.\n\nThat's a beginning, a middle and an end. Said plainly, it takes under a minute, about as long as tying a bootlace.",
+    "simpler": "A surprise question is like a fork in the trail, so first you stop. **Two seconds of silence** feels long to you, but to the room it looks like you're taking the question seriously. Then take three steps, which Matt Abrahams teaches. What: your answer in one sentence. So what: why it matters to the person who asked. Now what: the next step. Said plainly, it takes under a minute, about as long as tying a bootlace."
+   },
+   {
+    "type": "example",
+    "title": "Priya and the Friday question",
+    "body": "Priya has just given a 5-minute talk on trying a four-day week. Dev from finance, arms folded, asks: 'What happens to customers on Fridays?' She pauses for two seconds, then: 'Customers can still reach us on Fridays. Half the team takes Mondays off, half takes Fridays, so the phones are always covered. Let's try it in support for one month and count missed calls.' That's **what, so what, now what**, in about 30 seconds. Dev's arms unfold, and the next question is which half Dev can join.",
+    "simpler": "Priya just gave a five-minute talk about trying a four-day week. Dev from finance, arms folded, asks, 'What happens to customers on Fridays?' She pauses for two seconds. She says customers can still reach the team, because half takes Mondays off and half takes Fridays, so phones stay covered. She suggests a one-month trial in support, counting missed calls. That's **what, so what, now what** in about 30 seconds. Dev's arms unfold, and Dev asks which half to join."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Leo wants the book club to swap one novel a month for one short story a week. Someone asks: 'Won't we lose the long discussions?' Which answer follows the path?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Good point. Novels are great. I loved Middlemarch, though it took me a year... anyway, stories are good too?"
+     },
+     {
+      "id": "b",
+      "text": "No, we'll still talk for an hour. Shorter reads mean everyone finishes, so more people join in. Let's try four weeks, then vote."
+     },
+     {
+      "id": "c",
+      "text": "Let's just try it for four weeks, then vote."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's wandering, not a path: no answer, no reason, no next step, just Middlemarch.",
+     "c": "That's only the last step, not all three: a next step with no answer sounds like dodging."
+    },
+    "reteach": "Think of three trail markers: where we're going, why it's worth it to them, what we do next. Skip one and people wonder if you're lost."
+   },
+   {
+    "type": "teach",
+    "title": "Before you start, and when you ask",
+    "body": "In the minute before you speak, your heart races and your mouth goes dry. That's your body packing for the climb, not a warning sign. Plant both feet flat, let your hands hang loose, and **breathe out slower than you breathe in**, three times.\n\nNow flip it: sometimes you're the one asking the room a question. Patrick Winston's advice is to ask, then wait. Count to five in your head while people look at their shoes. Fill that quiet yourself and the room learns your questions aren't real ones.\n\nSame rule both ways. The pause belongs to whoever is thinking.",
+    "simpler": "Just before you speak, your heart races and your mouth goes dry. That's your body getting ready, not a warning. Stand with feet flat, hands loose, and **breathe out slower than you breathe in**, three times. When you ask the room a question, Patrick Winston says wait. Count to five in your head while people look at their shoes. If you fill the quiet yourself, people learn your questions aren't real. So the pause belongs to whoever is thinking."
+   },
+   {
+    "type": "mistake",
+    "body": "Sam gets asked 'How much will this cost?' and starts talking before the last word lands. Three minutes later Sam has covered budgets, a supplier in Leeds and a story about a printer, and ends with '...so, yeah.' The spot: if your first sentence wasn't the answer, you skipped the pause, and **the room is still standing at the fork**.",
+    "simpler": "Someone asks Sam, 'How much will this cost?' Sam starts talking before the question is even finished. Three minutes later, Sam has covered budgets, a supplier in Leeds and a story about a printer, then ends with '...so, yeah.' Here's how to spot it: if your first sentence wasn't the answer, you skipped the pause, and **the room is still standing at the fork**."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Back to Priya. Say she had stopped after '...so the phones are always covered.' Which step would she have dropped?",
+    "options": [
+     {
+      "id": "a",
+      "text": "What: the answer"
+     },
+     {
+      "id": "b",
+      "text": "So what: why it matters"
+     },
+     {
+      "id": "c",
+      "text": "Now what: the next step"
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's the first step, and she said it: 'Customers can still reach us on Fridays.'",
+     "b": "That's the middle step, and she said it: the split team is why customers won't notice."
+    },
+    "reteach": "Each step answers a different worry: what's the answer, why should I care, what do we do now. Priya's 'try it in support for a month' tells the room where the trail goes next. Without it, the answer just stops."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "When a question surprises you, **stop for a breath** before you say a word; to the room, the pause looks like thought, not panic. Then walk three steps: what's the answer, why it matters to them, and what happens next.\n\nTomorrow: what Patrick Winston put on the last slide instead of 'thank you'.",
+    "simpler": "When a question catches you off guard, **stop for a breath** before you say anything. To the room, that pause looks like thinking, not panic. Then take three steps: give the answer, say why it matters to them, and say what happens next. Tomorrow: what Patrick Winston put on his last slide instead of 'thank you'."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, set your phone timer to 60 seconds. Answer out loud: 'What's one thing you'd change at work?' Pause first, then say what, so what, now what. Stop when it rings.",
+    "simpler": "Tonight, set a timer on your phone for 60 seconds. Then answer this question out loud: 'What's one thing you'd change at work?' **Pause first**, then give your answer, why it matters, and what comes next: what, so what, now what. Stop when the timer rings."
+   }
+  ],
+  "outcomeLine": "You can now answer an unexpected question in under a minute: pause, then what, so what, now what.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"270\" cy=\"38\" r=\"16\" fill=\"#F2A93B\"/><polygon points=\"10,160 95,50 180,160\" fill=\"#1F7A4D\"/><polygon points=\"130,160 215,70 305,160\" fill=\"#1F7A4D\"/><line x1=\"5\" y1=\"160\" x2=\"315\" y2=\"160\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M150 198 L150 178 Q120 168 80 162 M150 178 Q185 168 230 162\" stroke=\"#F2A93B\" stroke-width=\"7\" fill=\"none\" stroke-linecap=\"round\"/><line x1=\"150\" y1=\"178\" x2=\"150\" y2=\"120\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"150,122 178,122 186,129 178,136 150,136\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"150,140 122,140 114,147 122,154 150,154\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"205\" cy=\"168\" r=\"5\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"199,196 205,184 211,196\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><line x1=\"205\" y1=\"173\" x2=\"205\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><ellipse cx=\"238\" cy=\"148\" rx=\"14\" ry=\"10\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"238\" y=\"153\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">?</text><text x=\"16\" y=\"190\" font-size=\"16\" fill=\"#1B1A17\">pause first</text></svg>"
+ },
+ "seconds": 117.95050597190857
+}

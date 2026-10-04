@@ -5,121 +5,136 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Hold your breath right now and count to 10. Feel your shoulders creep up toward your ears? That is what most beginners do the second their face touches water, and it is why the water feels like it is fighting them.\n\nThe water is a bed you lie on. You can't rest on a bed with clenched fists. **Breathing out into the water is how you unclench.**",
-    "simpler": "Hold your breath and count to 10. Notice your shoulders rising toward your ears? That is what most beginners do the moment their face touches water. It is why the water feels like it is fighting them. Think of the water as a bed you lie on. You can't rest on a bed with clenched fists. **Breathing out into the water is how you unclench.**"
+    "body": "Nobody holds their breath in bed, so why does almost everyone do it the moment their face touches water? Treat the water like a pillow. With your face in, you sigh into it the way you'd sigh into a pillow at night. **Breathe out into the water, breathe in above it**, and putting your face in stops being scary.",
+    "simpler": "Nobody holds their breath in bed. Yet almost everyone holds it the moment their face touches water. Think of the water as a pillow. With your face in, you can sigh into it, like sighing into a pillow at night. **Breathe out into the water, breathe in above it.** Once you do that, putting your face in stops being scary."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya puts her face in a warm pool, lips sealed tight. Two seconds later her chest is screaming and she bursts up, gasping. What most likely went wrong?",
+    "prompt": "Priya, 34, is standing in chest-deep water. She's about to put her face in for the first time. Which plan gets her through 3 seconds calmly?",
     "options": [
      {
       "id": "a",
-      "text": "She held her breath with her mouth shut, so her body sounded the alarm fast."
+      "text": "Gulp the biggest breath she can and clamp it in"
      },
      {
       "id": "b",
-      "text": "The pool was too cold and her body reacted to the temperature."
+      "text": "Let a slow stream of bubbles out through her nose and mouth"
      },
      {
       "id": "c",
-      "text": "She forgot to pinch her nose, so water got in."
+      "text": "Pinch her nose and squeeze her eyes shut"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's a shiver, not a scream: the pool was warm, and a held breath feels urgent within seconds whatever the temperature.",
-     "c": "That's the old habit, not the fix: air going out of your nose keeps water out, so pinching isn't needed and isn't what caused the panic."
+     "a": "That's holding against the water, not breathing with it: a clamped breath makes her tense, and it leaves both breaths for one rushed second at the surface.",
+     "c": "That's bracing for a fall, not sighing into a pillow: breathing out through your nose keeps the water out by itself, so you don't need your fingers."
     },
-    "reteach": "A held breath behind a closed mouth builds pressure, and the urge to breathe arrives in a few seconds however fit you are. Letting air trickle out slowly removes that pressure. The water didn't attack Priya. Her closed mouth did."
+    "reteach": "In bed you don't hold your breath. You breathe out and let go. The water works the same way: your out-breath goes into the water as bubbles, and your in-breath happens after you lift your face."
    },
    {
     "type": "teach",
-    "title": "Hum it out",
-    "body": "Stand in chest-deep water, both hands on the wall. Lower your face until your ears are nearly in. Now hum. A slow, steady hum sends a thin stream of air out through your nose and mouth, and you'll see it as *bubbles*, the little proof that you're breathing out and not holding.\n\nAir leaving your nose is also a door closing. **While air is going out, water can't come in**, which is why you don't need to pinch anything.\n\nKeep your eyes open. The pool is blurry and greenish and completely fine. Three seconds of humming, then lift.",
-    "simpler": "Stand in chest-deep water, both hands on the wall. Lower your face until your ears are almost under. Now hum. A slow, steady hum pushes a thin stream of air out through your nose and mouth. You will see bubbles. They prove you are breathing out, not holding. **While air is going out, water can't come in**, so you don't need to pinch your nose. Keep your eyes open. The blurry green view is fine. Three seconds, then lift."
+    "title": "Why holding your breath backfires",
+    "body": "Clamping a breath in usually makes you tense: shoulders up, jaw tight, counting down until it's over. And it saves both jobs for the surface, so you have to puff out and suck in during one rushed second. That rushed second is how people end up swallowing water.\n\nBreathing out through your nose also keeps water out. While air is pushing out, water can't push in, the same way nothing climbs up a straw while you blow into it.\n\nIt also leaves only one job for when you come up. **Out happens underwater, in happens above.** Lift your face, take one breath through your mouth, and that's it.",
+    "simpler": "Holding your breath usually makes you tense. It also saves both jobs for the surface, so you have to breathe out and in during one rushed second. That's how people swallow water. Breathing out through your nose also keeps water out, the same way nothing climbs up a straw while you blow into it. **Out happens underwater, in happens above.** Lift your face, take one breath through your mouth, and that's it."
    },
    {
     "type": "example",
-    "title": "Marcus and the birthday song",
-    "body": "Marcus, first lesson, ducks his face in like he's bobbing for apples: lips sealed, cheeks full. He's up in 2 seconds, gasping, both hands wiping his eyes. The teacher asks him to hum Happy Birthday into the water instead. He gets as far as \"dear Mar-\" before he needs air, which is a good 4 seconds, and comes up calm, eyes open, hands still on the wall. He looks faintly offended that it worked.",
-    "simpler": "Marcus is in his first lesson. He dips his face in like he is bobbing for apples: lips sealed, cheeks full. He pops up after 2 seconds, gasping, both hands wiping his eyes. The teacher asks him to hum Happy Birthday into the water instead. He gets as far as \"dear Mar-\" before needing air. That is a good 4 seconds. **He comes up calm**, eyes open, hands still on the wall. He looks almost offended that it worked."
+    "title": "Tom at the shallow end",
+    "body": "Tom, 41, stands chest-deep at the shallow end on a Tuesday evening, one hand on the wall. He puts his face in with his eyes open and hums *mmmm* for a slow count of 3. Bubbles fizz past his cheeks. He lifts until his mouth is clear, takes one breath in, and goes down again. By round 6 he notices he has stopped wiping his eyes between goes. **Breathing out was what calmed him down, not breathing in.** The lifeguard never looked up once, which is the best review a beginner can get.",
+    "simpler": "Tom is 41. On a Tuesday evening he stands chest-deep at the shallow end, one hand on the wall. He puts his face in with his eyes open and hums for a slow count of 3. Bubbles fizz past his cheeks. He lifts until his mouth is clear, takes one breath in, and goes down again. By round 6 he has stopped wiping his eyes. **Breathing out was what calmed him, not breathing in.** The lifeguard never looked up."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You're at the wall in chest-deep water, about to practise. Which version is the one this chapter teaches?",
+    "prompt": "Marco, 52, holds his breath with his face in for 3 seconds. When he lifts, he tries to puff out and suck in during one quick second, and he swallows a mouthful of pool. What should he change?",
     "options": [
      {
       "id": "a",
-      "text": "Face in, lips sealed, count to 5 in your head, pop up and take a big gulp of air."
+      "text": "Stay under longer so he's more ready to breathe"
      },
      {
       "id": "b",
-      "text": "Face in, hum a steady stream of bubbles for 3 seconds, lift your chin just clear of the water, breathe in through your mouth, face back in."
+      "text": "Lift his whole chest out of the water to give himself more time"
      },
      {
       "id": "c",
-      "text": "Face in, blast all your air out in one hard puff, then lift and breathe in."
+      "text": "Breathe out underwater, so above the water he only breathes in"
      }
     ],
-    "answer": "b",
+    "answer": "c",
     "whyNot": {
-     "a": "That's holding, not breathing out: sealed lips are what made Priya's chest scream.",
-     "c": "That's a dump, not a stream: one hard puff empties you in a second, so you come up gasping instead of calm."
+     "a": "That's more holding, not less: the longer he holds, the tenser he gets, and the breath out is still waiting for him at the surface.",
+     "b": "That's a bigger lift, not a better breath: the breath out still gets crammed into the same rushed second."
     },
-    "reteach": "Think of blowing on hot soup: slow, steady, under control. That's the out-breath, and it lasts about 3 seconds. The in-breath is a quick open mouth just above the surface, then straight back down."
+    "reteach": "Give each place one job. Underwater is for breathing out, slowly, as bubbles. Above the water is for one breath in. If the breath out is already done, coming up is easy."
    },
    {
     "type": "teach",
-    "title": "The quick part",
-    "body": "You'd think the in-breath is the hard part. It's the easy part. Once you've hummed air out for 3 seconds, lift your chin until your mouth just clears the surface, open it, and air falls in on its own. No gulp needed. Then face back in and hum again.\n\nSo the rhythm is long out, short in. About 3 seconds out, 1 second in, a slow kettle rather than a sprinter.\n\n**Hands stay where they are.** No wiping eyes, no pinching nose. Goggles are fine if you like them. The wipe is the habit to drop, because it drags your head out of the rhythm every single time.",
-    "simpler": "Breathing in is the easy part. After you hum air out for 3 seconds, lift your chin until your mouth just clears the water. Open it, and air falls in by itself. Long out, short in: about 3 seconds out, 1 second in, a slow kettle rather than a sprinter. **Hands stay where they are.** No wiping eyes, no pinching nose. Goggles are fine. Drop the wipe. It pulls your head out of the rhythm every time."
+    "title": "Eyes open, long out, short in",
+    "body": "Open your eyes under there. Pool water can sting a little, and goggles are fine. What you get back is the floor tiles, the black line and your own toes. The water stops being a dark unknown and becomes a room you can see.\n\nThen comes the rhythm. On land, at rest, your breath out is usually a little longer than your breath in. In the water you stretch that much further: **a long, slow breath out through your nose and mouth, then a short one in through your mouth.** About 3 seconds of bubbles, then one quick breath with your chin just above the surface.",
+    "simpler": "Keep your eyes open underwater. Pool water may sting a little, so goggles are fine. Seeing the tiles, the black line and your toes turns the water into a room you can see. On land, your breath out is usually a little longer than your breath in. In water you stretch that much further: **a long, slow breath out through your nose and mouth, then a short one in through your mouth.** Blow bubbles for about 3 seconds, then take one quick breath, chin just above the water."
    },
    {
     "type": "mistake",
-    "body": "Dana gets ready to go under like a free diver: huge breath in, cheeks puffed like a trumpet player, shoulders up. She lasts 6 seconds, which feels like a win, then surfaces gasping and needs a rest before the next go. Spot it by the puffed cheeks and the gasp. The fix is smaller, not bigger: a normal breath, then a slow hum out.",
-    "simpler": "Dana gets ready to go under like a diver about to go deep: a huge breath in, cheeks puffed like a trumpet player, shoulders up. She lasts 6 seconds, which feels like a win. Then she comes up gasping and needs a rest before trying again. You can spot this by the puffed cheeks and the gasp. **The fix is smaller, not bigger.** Take a normal breath, then hum out slowly."
+    "body": "Ana knows she should breathe out, so the moment her face goes in she blows one huge whoosh. The bubbles boil for a second and then stop. She spends the last 2 seconds empty and tense, then comes up gasping. Here's how to spot it: **if the bubbles stop before you lift, you blew too hard.** Aim for a steady stream, like a slow leak from a bike tyre.",
+    "simpler": "Ana knows she should breathe out. So the moment her face goes in, she blows one huge whoosh. The bubbles boil for a second, then stop. She spends the last 2 seconds empty and tense, and comes up gasping. Here's the sign to watch for: **if the bubbles stop before you lift, you blew too hard.** Aim for a steady stream instead, like a slow leak from a bike tyre."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "You're watching a friend practise from the side of the pool. Which sign tells you they're holding their breath instead of breathing out?",
+    "prompt": "A friend asks how to breathe with your face in the water. Which one-liner do you give them?",
     "options": [
      {
       "id": "a",
-      "text": "A steady line of small bubbles coming up past their ears."
+      "text": "Big breath, hold it, blow it all out when you come up"
      },
      {
       "id": "b",
-      "text": "Puffed cheeks underwater, then a gasp when they surface."
+      "text": "Out slowly underwater, one breath in above"
      },
      {
       "id": "c",
-      "text": "Their eyes are open underwater."
+      "text": "Blow everything out hard the second your face goes in"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the goal, not the problem: bubbles are the proof air is leaving.",
-     "c": "That's the eyes, not the breath: open eyes are exactly what you want, and tell you nothing about air."
+     "a": "That's the habit from land, not from water: holding makes you tense, and it leaves two jobs for the surface.",
+     "c": "That's the right direction at the wrong speed: a hard whoosh empties you in a second and leaves you underwater with nothing left."
     },
-    "reteach": "Held air has to go somewhere, so it shows in the cheeks and comes out as a gasp. Breathing out shows as bubbles and ends with a calm, small in-breath. Watch the surface, not the swimmer's face: bubbles mean they're doing it."
+    "reteach": "Think of a slow leak, not a burst. The bubbles should keep coming for the whole 3 seconds you're under and stop only as you lift. Then the only job at the surface is breathing in."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Face in, eyes open, hum a slow stream of bubbles out through nose and mouth for about 3 seconds, then lift your chin just enough to let air fall back in. The water isn't something you hold your breath against; it's where the out-breath goes.\n\nTomorrow: can you stand up from a back float? Most beginners freeze there.",
-    "simpler": "Face in, eyes open. Hum a slow stream of bubbles out through your nose and mouth for about 3 seconds. Then lift your chin just enough to let air fall back in. **The water is not something you hold your breath against.** It is where your out-breath goes. Tomorrow: can you stand up from a back float? Most beginners freeze there."
+    "body": "Put your face in with your eyes open and let a slow stream of bubbles out through your nose and mouth for about 3 seconds. Lift, take one breath in, and go again: **the water gets your breath out, the air gets your breath in**.",
+    "simpler": "Put your face in with your eyes open. Let a slow stream of bubbles out through your nose and mouth for about 3 seconds. Then lift, take one breath in, and go again. **The water gets your breath out, the air gets your breath in.**"
    },
    {
     "type": "try",
-    "body": "Tonight, fill the bathroom sink with warm water. Face in, eyes open, hum for 3 seconds, lift, breathe in. Do it 10 times. Towel stays on the rail until you're done.",
-    "simpler": "Tonight, fill the bathroom sink with warm water. Put your face in with your eyes open. Hum for 3 seconds, then lift and breathe in. Do this 10 times in a row. **The towel stays on the rail** until all 10 are done. No wiping between goes."
+    "body": "Tonight, fill a bowl at the kitchen sink. Put your face in and hum bubbles out through your nose and mouth for 3 seconds. Lift and take one breath in. Do 10, with your eyes open if you can.\n\nTomorrow: lying back on the water, and why your lungs work like a mattress.",
+    "simpler": "Tonight, fill a bowl with water at the kitchen sink. Put your face in and **hum bubbles out through your nose and mouth for 3 seconds**. Lift your face and take one breath in. Do this 10 times, with your eyes open if you can. Tomorrow you'll learn about lying back on the water, and why your lungs work like a mattress."
    }
   ],
-  "outcomeLine": "You can now put your face in the water 10 times in a row, breathing out slowly each time and in above the surface, without wiping your eyes or pinching your nose.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"0\" y=\"98\" width=\"320\" height=\"102\" fill=\"#1F7A4D\" opacity=\"0.2\"/><path d=\"M0 98 Q30 90 60 98 T120 98 T180 98 T240 98 T300 98 T330 98\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\"/><path d=\"M186 92 Q232 66 296 80 L298 96 Q238 90 188 108 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><circle cx=\"156\" cy=\"104\" r=\"34\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><path d=\"M128 84 Q150 66 180 76\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><circle cx=\"140\" cy=\"110\" r=\"3\" fill=\"#1B1A17\"/><path d=\"M128 126 Q134 131 141 127\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"117\" cy=\"120\" r=\"3\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"108\" cy=\"110\" r=\"5\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"96\" cy=\"100\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M80 98 Q86 90 94 98\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"28\" y=\"48\" font-family=\"sans-serif\" font-size=\"18\" fill=\"#1B1A17\">breathe out</text><path d=\"M60 58 Q90 70 110 94\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"2.5\" stroke-dasharray=\"4 4\"/></svg>"
+  "outcomeLine": "You can now put your face in the water with your eyes open, breathe out for 3 seconds, and lift for one calm breath in, 10 times in a row.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M10 90 Q40 82 70 90 T130 90 T190 90 T250 90 T310 90\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M10 150 Q60 144 110 150 T210 150 T310 150\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2\" stroke-dasharray=\"6 8\"/><circle cx=\"130\" cy=\"92\" r=\"34\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"104\" r=\"4\" fill=\"#1B1A17\"/><ellipse cx=\"160\" cy=\"118\" rx=\"4\" ry=\"3\" fill=\"#1B1A17\"/><circle cx=\"176\" cy=\"112\" r=\"5\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2.5\"/><circle cx=\"186\" cy=\"100\" r=\"4\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2.5\"/><circle cx=\"194\" cy=\"88\" r=\"3\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2.5\"/><path d=\"M230 70 L230 40 M222 50 L230 40 L238 50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><text x=\"242\" y=\"56\" font-family=\"sans-serif\" font-size=\"16\" fill=\"#1B1A17\">in</text><text x=\"200\" y=\"135\" font-family=\"sans-serif\" font-size=\"16\" fill=\"#1B1A17\">out</text><line x1=\"20\" y1=\"185\" x2=\"300\" y2=\"185\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/></svg>"
  },
- "seconds": 141.6279559135437
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "facts_ok",
+   "would_keep_reading",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "A held breath brings on the urge to breathe sooner than slowly breathing out does. With full lungs you can usually hold longer, so this is likely backwards.",
+   "'On land, breathing in and breathing out take about the same time.' At rest, breathing out is usually longer than breathing in, about 1 to 2.",
+   "Card 1's 'the water is the bed you lie on' doesn't fit a learner standing chest-deep, and floating is tomorrow's topic. It's a mixed metaphor, not a false fact, but it muddles the hook."
+  ],
+  "weakest_card": 3,
+  "why": "The chapter's main 'why' (holding your breath makes the urge to breathe come sooner) is shaky body science: holding a full breath usually lets you stay under longer than breathing out does, so a careful reader may stop trusting the rest.",
+  "fix": "Swap the carbon dioxide paragraph for the real reason: a held breath makes you tense, and it forces you to breathe out and in during one rushed second at the surface, which is how Marco swallows water. Then move the 'Tomorrow: lungs work like a mattress' line onto the final try card so the chapter actually ends on it."
+ }
 }

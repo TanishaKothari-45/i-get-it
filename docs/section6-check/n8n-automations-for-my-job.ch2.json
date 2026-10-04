@@ -5,121 +5,136 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Why does every n8n screenshot look like boxes on a wire? Because that is the whole trick. Each box is a *node*, one station on the assembly line that does exactly one job: fetch, change, send. What slides along the wire is an *item*, a small parcel with named fields inside, like name, email, amount. **Each station does one job and hands its parcels to the next.**",
-    "simpler": "Every n8n picture looks like boxes joined by a wire. That is the whole idea. Each box is a node. A node is one station on a line, and it does one job: fetch something, change something, or send something. What moves along the wire is an item. An item is a small parcel with named fields inside, like name, email, amount. **Each station does one job and hands its parcels to the next.**"
+    "body": "Double-click any box in n8n after a run, and it shows you exactly what it just handed to the next box. That is most of this chapter.\n\nOn your assembly line, each box is a **station that does one job**. The belt between stations carries small packets, and each packet has labelled parts.",
+    "simpler": "In n8n, after a run, double-click any box. It shows you exactly what that box just passed to the next one. That is most of this chapter. Think of your setup as an assembly line. Each box is a **station that does one job**. A belt runs between the stations and carries small packets. Each packet has parts, and each part has a label."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your line is Schedule Trigger, then a Weather node, then a Slack node. At 7am Slack posts 'Rain at 3pm, bring a coat'. Where did the Slack station get those words?",
+    "prompt": "A coffee line: the bell rings when an order comes in. Station 1 writes a slip with two parts: drink is 'flat white', name is 'Ana'. Station 2 prints the cup label. What does station 2 work from?",
     "options": [
      {
       "id": "a",
-      "text": "It checked the weather itself, since it needed the words."
+      "text": "The slip station 1 just put on the belt"
      },
      {
       "id": "b",
-      "text": "From the parcel the Weather station handed down the belt."
+      "text": "The bell, which it asks again for the order details"
      },
      {
       "id": "c",
-      "text": "From the Schedule Trigger, which knows the time and the forecast."
+      "text": "Every slip the line has ever made"
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's the Weather station's job, not Slack's: one station, one job, and Slack only sends.",
-     "c": "That's the bell, not the belt: the trigger wakes the line up and carries little more than the time."
+     "b": "That's the trigger, not the belt: the bell only starts the line. It carries nothing down it.",
+     "c": "That's a filing cabinet, not a belt: a station works from this run's packets, not old ones."
     },
-    "reteach": "A node never reaches past its own job. Slack sends; it does not fetch. Whatever it sends arrived as an item from the node before it, which got it from the node before that."
+    "reteach": "Think of a relay race. Each runner takes the baton from the runner right before them. By default, each box works from what the box right before it passed on."
    },
    {
     "type": "teach",
-    "title": "One station, one job",
-    "body": "A node is one box on the canvas. You add one with the plus button, pick what it does, and it does only that. Fetch a forecast. Add a row. Send a message. Nothing more.\n\nThink of a sandwich counter with three people: one spreads, one fills, one wraps. Nobody does two steps. That is why a working line is often 3 boring nodes, not 1 clever one.\n\nYou'd think a smarter box is better. It's the reverse. **Small nodes are easy to test and easy to swap**, and when one breaks you know exactly which one.",
-    "simpler": "A node is one box on the screen. You add it with the plus button and pick its job. It does only that job. Fetch a forecast. Add a row. Send a message.\n\nPicture a sandwich counter with three people. One spreads, one fills, one wraps. Nobody does two steps. A working line is often three plain nodes, not one clever one.\n\n**Small nodes are easy to test and easy to swap**, and when one breaks you know which one."
+    "title": "Stations are nodes, packets are items",
+    "body": "Every box on the n8n canvas is a *node*, a station that does one job: wait for the bell, tidy some text, send a message.\n\n**Each node hands its work to the next as items.** An *item* is one packet, like one order slip. Inside it are *fields*, named parts that each hold a value: name is Ana, drink is flat white. Twenty form replies become twenty items.\n\nYou'd think you have to guess what's on the belt. You never do. After a run, double-click a node. The *output panel* on the right shows what it passed on, with the number of items at the top.",
+    "simpler": "Each box in n8n is a node: a station that does one job, like sending a message. **Each node passes its work to the next as items.** An item is one packet, like one order slip. Inside are fields, labelled parts that each hold a value: name is Ana, drink is flat white. Twenty form replies make twenty items. After a run, double-click a node. The output panel shows what it passed on, and how many items."
    },
    {
     "type": "example",
-    "title": "30 parcels, 30 messages",
-    "body": "Dev builds a line: Schedule Trigger, then a node that reads his signup sheet, then Slack. He opens the sheet node and presses the test button. The output panel says *30 items*: one parcel per row, each with the same fields, name and plan. He connects Slack and runs the whole line. His team channel gets 30 'New signup!' posts in 4 seconds. Nothing was broken. **Most nodes run once per item**, so 30 parcels in means 30 messages out.",
-    "simpler": "Dev builds a line. A Schedule Trigger, then a node that reads his signup sheet, then Slack. He opens the sheet node and presses test. The output panel says 30 items. That is one parcel per row, all with the same fields, name and plan. He connects Slack and runs the line. His team channel gets 30 'New signup!' posts in 4 seconds. Nothing broke. **Most nodes run once per item**, so 30 parcels in means 30 messages out."
+    "title": "Leila's Monday line",
+    "body": "Leila wants a reminder every Monday at 9:00 to send invoices. Station 1 is a Schedule Trigger, and its output panel shows 1 item holding the date and time it fired. Station 2 is an Edit Fields node, which lets you type in named parts by hand: task is 'send invoices', owner is 'Leila'. Its panel now reads 1 item with two fields, **task and owner**. Before she builds station 3, Leila already knows exactly what it will receive.",
+    "simpler": "Leila wants a reminder every Monday at 9:00 to send invoices. Station 1 is a Schedule Trigger. Its output panel shows 1 item, holding the date and time it went off. Station 2 is an Edit Fields node, where you type in labelled parts yourself: task is 'send invoices', owner is 'Leila'. Now its panel shows 1 item with two fields, **task and owner**. Before building station 3, Leila already knows what it will get."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Maya's line: a trigger, then the Customer Datastore training node, which hands out 5 sample customers, then a Send Email node. She runs it. How many emails go out?",
+    "prompt": "Your third node sends a message, but there's a blank where the task should be. Where do you look first?",
     "options": [
      {
       "id": "a",
-      "text": "1, because the email node is one station."
+      "text": "The Schedule Trigger's time setting"
      },
      {
       "id": "b",
-      "text": "5, one per item on the belt."
+      "text": "The output panel of node 2, to see what it actually handed on"
      },
      {
       "id": "c",
-      "text": "0, until she adds a loop node to go through the customers."
+      "text": "Delete node 3 and build it again"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's counting stations, not parcels: one station runs once for every item that reaches it.",
-     "c": "That's a habit from other tools, not n8n: it walks each item down the belt on its own, no loop needed."
+     "a": "That's the bell, not the belt: when it rings has nothing to do with what's inside the packet.",
+     "c": "That's a rebuild, not a check: a new node would receive the same packet and leave the same blank."
     },
-    "reteach": "Picture 5 parcels arriving at the wrapping station. The wrapper does not wrap once and stop. It wraps all 5, one at a time, with the same motion. An n8n node does the same with items."
+    "reteach": "When a station does something odd, the cause is usually in what it was handed. Open the node before it and read its output panel. Every field and its exact name is listed there. Fix the packet, and the next station gets it right."
    },
    {
     "type": "teach",
-    "title": "Reading the belt",
-    "body": "To see what a station hands on, open it and press the test button. The panel on the left shows what came in. The panel on the right shows what goes out. At the top of the output sits the count: *1 item*, *5 items*, or the quiet alarm, *0 items*.\n\nThink of a customs desk that opens every parcel. The Table view lays items out as rows, one row per item, one column per field. The JSON view shows the same parcel as raw text with braces. Same data, two windows.\n\n**The output panel is the only honest witness.** Not the wire, not your memory of what the node should do.",
-    "simpler": "Open a station and press the test button. The left panel shows what came in. The right panel shows what goes out. At the top sits the count: 1 item, 5 items, or the quiet alarm, 0 items.\n\nTable view lays items out as rows, one per item. JSON view shows the same parcel as raw text with braces.\n\n**The output panel is the only honest witness.** Not the wire, not your memory of what the node should do."
+    "title": "One job, once per item",
+    "body": "Here's the part that surprises people. **A station does its job once for every item it receives.** Hand a message node 1 item and it sends 1 message. Hand it 30 and it sends 30.\n\nMost days, that's exactly what you want. Thirty new sign-ups get thirty welcome emails, and you never have to say 'repeat'. The packets roll past one after another, like parcels past a packing table.\n\nSo the item count at the top of the output panel matters as much as the fields. '30 items' means the next station is about to work 30 times.",
+    "simpler": "This part surprises people. **A station does its job once for every item it gets.** Give a message node 1 item and it sends 1 message. Give it 30 and it sends 30. Usually that's what you want. Thirty sign-ups get thirty welcome emails, and you never have to say 'repeat'. It's like parcels rolling past a packing table. So watch the item count in the output panel. '30 items' means the next station will work 30 times."
    },
    {
     "type": "mistake",
-    "body": "Jonah builds 5 nodes in a row, presses run on the whole line, and gets a blank Slack message. He spends 40 minutes staring at the Slack node. The Slack node was fine. Node 2 was handing on 0 items, so everything after it had nothing to send.\n\nSpot it: test one station at a time, and **read the count before you add the next box**.",
-    "simpler": "Jonah builds 5 nodes in a row, runs the whole line, and gets a blank Slack message. He spends 40 minutes staring at the Slack node. The Slack node was fine. Node 2 was handing on 0 items, so everything after it had nothing to send. Think of a shut valve halfway along a water pipe.\n\nSpot it: test one station at a time, and **read the count before you add the next box**."
+    "body": "Tom tested his new line on a list of 40 colleagues, with the message station pointed at his own Slack to be safe. He clicked run, and his phone buzzed 40 times while he was still reading the first message. He'd expected one message listing everyone. The clue was already on screen: '40 items' in the output panel of the station before.",
+    "simpler": "Tom tested his new workflow on a list of 40 coworkers. To be safe, he pointed the message station at his own Slack. He clicked run, and his phone buzzed 40 times while he was still reading the first message. He had expected one message listing everyone. The warning sign was already on screen: **'40 items'** in the output panel of the station before."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "You open the second node in your line and its output panel reads '0 items'. What does that mean for the third node?",
+    "prompt": "An Edit Fields node shows '12 items' in its output panel. The next station sends an email. You click run. What happens?",
     "options": [
      {
       "id": "a",
-      "text": "It runs anyway with empty fields, so you'll get blank messages."
+      "text": "1 email with all 12 inside it"
      },
      {
       "id": "b",
-      "text": "It has no parcels to work on, so it does nothing."
+      "text": "Nothing, because an email node only accepts 1 item"
      },
      {
       "id": "c",
-      "text": "It asks the trigger to run again and fetch more."
+      "text": "12 emails, one for each item"
      }
     ],
-    "answer": "b",
+    "answer": "c",
     "whyNot": {
-     "a": "That's a parcel with empty fields, not no parcel: 0 items means the belt is bare, so nothing reaches the next station.",
-     "c": "That's wishful thinking, not the belt: items only move forward, and no station can ring the bell."
+     "a": "That's one packet, not twelve: the 12 items would have to be packed into 1 before you'd get a single email.",
+     "b": "That's a limit email nodes don't have: by default, a station works through every item it's handed."
     },
-    "reteach": "Items are the only thing that moves down the belt. A node with 0 items out gives the next node nothing to run on, so the line goes quiet from that point. Find out why the parcel count dropped to 0 there."
+    "reteach": "By default, the belt doesn't bundle packets together. Each item rolls past the station on its own, and the station does its one job on each. Twelve items in means twelve jobs done."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Each node is one station that does one job, and the data between them travels as items, small parcels with named fields. Open any node, press test, and **the output panel tells you exactly how many parcels it hands on** and what is inside each.\n\nTomorrow: the 2-minute permission slip that lets n8n act as you in Gmail or Slack.",
-    "simpler": "Each node is one station that does one job. The data between stations travels as items, which are small parcels with named fields inside. Open any node and press test. **The output panel tells you exactly how many parcels it hands on** and what is inside each one.\n\nTomorrow: the 2-minute permission slip that lets n8n act as you in Gmail or Slack."
+    "body": "Each box in n8n is a station that does one job and passes its work down the belt as items, packets of named fields. Open the output panel to see exactly what a station handed on and how many items, because the next station acts once per item.\n\nTomorrow: plugging in your real work apps, so a station can act as you.",
+    "simpler": "Each box in n8n is a station that does one job. It passes its work down the belt as items, which are packets of labelled fields. Open the output panel to see exactly what a station passed on, and how many items. That count matters, because **the next station works once per item**. Tomorrow, you'll plug in your real work apps, so a station can act as you."
    },
    {
     "type": "try",
-    "body": "In n8n, add the Customer Datastore (n8n training) node after any trigger, pick the option that returns all people, press the test button, and read the item count. Then flip Table to JSON and find the same field in both.",
-    "simpler": "In n8n, add the Customer Datastore (n8n training) node right after any trigger. Pick the option that returns all people. Press the test button and **read the item count** at the top of the output. Then switch the view from Table to JSON and find the same field in both. That proves the two views show the same parcel."
+    "body": "Open last chapter's workflow. Add an Edit Fields node right after the Schedule Trigger, with one field called task, set to anything. Run it, double-click the node, and read the output panel. Count the items.",
+    "simpler": "Open the workflow from last chapter. Right after the Schedule Trigger, add an Edit Fields node. Give it one field called task, and set it to anything you like. Run the workflow. Then double-click the Edit Fields node and read its output panel. **Count the items** it passed on."
    }
   ],
   "outcomeLine": "You can now connect three nodes in a row and read exactly what each station hands to the next.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20 150 Q160 146 300 150\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M20 170 Q160 174 300 170\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"40\" cy=\"160\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"160\" cy=\"160\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"280\" cy=\"160\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M30 70 q15 -30 30 0 l4 10 h-38 z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"45\" cy=\"86\" r=\"4\" fill=\"#1B1A17\"/><rect x=\"95\" y=\"60\" width=\"50\" height=\"50\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"175\" y=\"60\" width=\"50\" height=\"50\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"255\" y=\"60\" width=\"50\" height=\"50\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"68\" y1=\"85\" x2=\"95\" y2=\"85\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"145\" y1=\"85\" x2=\"175\" y2=\"85\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"225\" y1=\"85\" x2=\"255\" y2=\"85\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"110\" y=\"128\" width=\"22\" height=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"195\" y=\"128\" width=\"22\" height=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"120\" y=\"34\" font-size=\"13\" fill=\"#1B1A17\">one job each</text></svg>"
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\" fill=\"none\"><path d=\"M20 140 Q160 136 300 141\"/><path d=\"M20 162 Q160 158 300 163\"/><circle cx=\"40\" cy=\"151\" r=\"7\"/><circle cx=\"160\" cy=\"149\" r=\"7\"/><circle cx=\"280\" cy=\"152\" r=\"7\"/><path d=\"M92 92h30m-6-5l6 5-6 5\"/><path d=\"M194 92h30m-6-5l6 5-6 5\"/></g><rect x=\"30\" y=\"70\" width=\"56\" height=\"44\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"132\" y=\"70\" width=\"56\" height=\"44\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"234\" y=\"70\" width=\"56\" height=\"44\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"96\" y=\"121\" width=\"24\" height=\"16\" rx=\"2\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"198\" y=\"120\" width=\"24\" height=\"16\" rx=\"2\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M101 127h14M101 131h9M203 126h14M203 130h9\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"160\" y=\"40\" font-family=\"sans-serif\" font-size=\"16\" text-anchor=\"middle\" fill=\"#1B1A17\">one job each</text></svg>"
  },
- "seconds": 111.66817927360535
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "hook",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "'a station only sees what the station before it just handed over' (card 2, feedback for c): false, because an n8n node can read any earlier node's output, for example with $('Node name').",
+   "'each box gets exactly what the box before it passed on, nothing more' (card 2, reteach): the same overstatement.",
+   "'a station takes any number of items and works through each one' (card 8): mostly true, but nodes have an 'Execute Once' setting and some nodes, like Aggregate, combine items. 'Any' and 'each' are too absolute."
+  ],
+  "weakest_card": 2,
+  "why": "Card 2's feedback and reteach say a node gets what the node before it passed on, 'nothing more', and 'only sees' that packet. That is false in n8n, where a node can pull data from any earlier node, so readers learn a wrong rule that will trip them up later.",
+  "fix": "In card 2, change the whyNot for c to 'That's a filing cabinet, not a belt: a station works from this run's packets, not old ones.' and change the reteach to 'By default, each box works from what the box right before it passed on.'"
+ }
 }

@@ -5,120 +5,139 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Every morning the intern walks in with no memory of yesterday, none at all, so you hand them a folder: the task, every note so far, what happened at each step. They read it, do one thing, and the folder gets one page thicker. **The agent's memory is that folder, re-read from page 1 every single turn**, and by step 40 it is a brick.",
-    "simpler": "Picture a new intern who forgets everything each night. Every morning you hand them a folder: the task, every note so far, and what happened at each step. They read it all, do one thing, and add one page. **The agent's memory is that folder, read again from the first page every turn.** By step 40 the folder is as thick as a brick."
+    "body": "The model inside every AI agent has total amnesia. It forgets you the moment it finishes a reply.\n\nOur intern is the same. They walk in each morning with no memory of yesterday, so you hand them a folder of everything so far. **That folder is the only memory they have.**",
+    "simpler": "The model inside every AI agent forgets everything. It forgets you as soon as it finishes a reply.\n\nOur intern is the same. They walk in each morning with no memory of yesterday. So each day you hand them a folder with everything that has happened so far. **That folder is the only memory they have.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "The intern has done 12 steps on a task. Before step 13, what does the folder they are handed contain?",
+    "prompt": "Your trip-planning agent is on step 12. Before the model picks step 13, how does it know what happened in steps 1 to 11?",
     "options": [
      {
       "id": "a",
-      "text": "Just the goal and the last step. The rest is in their head."
+      "text": "It remembers them, the way you remember breakfast."
      },
      {
       "id": "b",
-      "text": "The goal plus all 12 steps and their results, read again from the start."
+      "text": "The agent hands it a written record of steps 1 to 11 again."
      },
      {
       "id": "c",
-      "text": "Nothing. The intern remembers it all from yesterday."
+      "text": "It doesn't need to. Each step is picked fresh, with no past."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's what a person would do, not a model: there is no 'in their head'. If it isn't in the folder, it doesn't exist.",
-     "c": "That's a human intern. The model is wiped after every single call, not just overnight."
+     "a": "That's how people work, not models: the model keeps nothing between replies.",
+     "c": "That's the amnesia without the fix: with no record, it would start from step 1 every time."
     },
-    "reteach": "A model call is a one-off: text goes in, text comes out, and then it forgets everything. So the agent code pastes the whole history back in every turn. Step 13 sees the goal and steps 1 to 12, all over again."
+    "reteach": "The model works like a calculator: once the answer is out, it keeps nothing. So the agent program keeps the record and puts the whole thing back in front of the model every turn. No folder, no memory."
    },
    {
     "type": "teach",
-    "title": "No memory, by design",
-    "body": "A *model call* is one request: you send text, it sends text back. After that the model keeps nothing. Ask it the same question twice and it meets you fresh both times.\n\nSo how does an agent seem to remember? The agent code around the model keeps a *transcript*: the goal, every tool it asked for, every result that came back. Each turn, it sends the whole transcript to the model again.\n\n**The agent remembers only what is written down and re-sent.** Nothing lives in the model between turns. That is the whole trick, and it is simpler than most people guess.",
-    "simpler": "A model call is one request. You send text, it sends text back. After that the model keeps nothing. Ask it the same question twice and it starts fresh both times.\n\nSo how does an agent seem to remember? The code around the model keeps a transcript: the goal, every tool it asked for, every answer that came back. Each turn it sends the whole transcript again.\n\n**The agent remembers only what is written down and sent again.** Nothing stays in the model between turns."
+    "title": "How the faking works",
+    "body": "A model is *stateless*, which means each call starts blank, like a calculator after you press clear. It doesn't keep your chat anywhere.\n\nSo the agent program does the remembering. Each turn it bundles up the goal, every step so far and every tool result, and sends **the whole conversation again, from the top**. The model reads it, picks the next step, and forgets.\n\nYou'd think the model remembers the chat. It's the other way round. It's like an actor who gets handed the entire script before every single line.",
+    "simpler": "A model is stateless. That means each call starts blank, like a calculator after you press clear. It doesn't keep your chat anywhere.\n\nSo the agent program does the remembering. Each turn it gathers the goal, every step so far and every tool result. Then it sends **the whole conversation again, from the top**. The model reads it, picks the next step, and forgets.\n\nIt's like an actor handed the full script before every line."
    },
    {
     "type": "example",
-    "title": "Step 7 of the hotel search",
-    "body": "Maya asks an agent to find a hotel in Lisbon under 120 euros a night. By step 7 the transcript holds her request, 4 web searches, 2 page reads, and the prices they returned. Step 7 is the model reading all of that, top to bottom, and saying 'compare the two cheapest'. It does not remember doing steps 1 to 6. **It just reads about them**, the way you would read a stranger's notes, and then acts as if they were its own.",
-    "simpler": "Maya asks an agent to find a hotel in Lisbon for under 120 euros a night. By step 7 the transcript holds her request, 4 web searches, 2 page reads, and the prices they found. At step 7 the model reads all of that from top to bottom and says 'compare the two cheapest'. It does not remember doing steps 1 to 6. **It just reads about them**, like reading a stranger's notes, then carries on as if they were its own."
+    "title": "The oat milk survey",
+    "body": "An agent is told to check 50 caf\u00e9 suppliers for the price of oat milk and to email any that don't list it online. For 30 steps it's sharp: visit the site, note the price, move on. Around step 40 the record gets too long, and the agent program cuts the oldest part so the rest fits. That cut takes the note saying *emailed Okafor Bakery* with it. So it emails Okafor Bakery again. And again. The third reply just says: \"Yes. Still $1.80.\"",
+    "simpler": "An agent must check 50 caf\u00e9 suppliers for the price of oat milk. It must also email any supplier that doesn't show the price online. For 30 steps it does well: visit the site, write down the price, move on. Around step 40 its record gets too long, so **the agent program cuts the oldest part to make room**. The note saying \"emailed Okafor Bakery\" goes with it. So it emails Okafor Bakery again. And again. The third reply just says: \"Yes. Still $1.80.\""
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "An agent read a file at step 3. At step 9, the model needs a number from that file. Where can it get it?",
+    "prompt": "Your agent did fine for 10 steps, then at step 40 it books the same hotel again. Most likely cause?",
     "options": [
      {
       "id": "a",
-      "text": "From its own memory of doing step 3."
+      "text": "The model got tired after so many steps."
      },
      {
       "id": "b",
-      "text": "From the transcript, if the step 3 result is still in there."
+      "text": "The step 2 booking was cut from the record so it fits what the model can read at once."
      },
      {
       "id": "c",
-      "text": "It can't. Results from earlier steps are gone for good."
+      "text": "The prompt wasn't firm enough about not repeating steps."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a human's memory, not a model's. The model forgot step 3 the moment that call ended.",
-     "c": "That's the failure case, not the normal one. Earlier results stay available as long as they are still in the transcript being re-sent."
+     "a": "That's the human picture, not the model: it doesn't get tired, it just reads whatever it's sent.",
+     "c": "That's effort, not memory: no wording brings back a booking it wasn't shown."
     },
-    "reteach": "Think of the folder. The file's contents were written into it at step 3. At step 9 the model reads the folder from page 1, so it sees that number again, unless someone trimmed the folder."
+    "reteach": "Treat every turn as a brand-new intern reading the folder. If the step 2 booking page was trimmed out to make room, then as far as they know it never happened, so they book again."
    },
    {
     "type": "teach",
-    "title": "The folder has a size limit",
-    "body": "The model can only read so much text in one go. That limit is its *context window*: the most text one call can take in, prompt and transcript together. Think of it as how thick the folder may get.\n\nA 10-step task fits easily. By step 40, with long tool results pasted in, the transcript nears the limit. The oldest pages get cut, the model loses the goal or a key result, and it repeats a step because it can no longer see that it already did it.\n\n**Builders do 2 things about this.** They *summarise*: swap old steps for a short note of what was learned. And they keep *notes outside the transcript*: a file the agent writes to and reads back only when needed.",
-    "simpler": "The model can only read so much text at once. That limit is called its context window. A 10-step task fits easily. By step 40 the transcript nears the limit. The oldest pages get cut, the model loses the goal, and it repeats a step it already did.\n\n**Builders do 2 things about this.** They summarise old steps into a short note. And they keep notes in a file outside the transcript, read only when needed."
+    "title": "When the folder outgrows the desk",
+    "body": "Here's the catch. A model can only read so much text at once, and that limit is its *context window*. Picture it as the intern's desk: the folder has to fit on it.\n\nEvery step makes the folder thicker. Once it won't fit, the agent program has to trim or squeeze the older pages, and the intern redoes work they can't see. A very crowded desk can make them sloppier too. **Long tasks often fail from forgetting, not from stupidity.**\n\nBuilders fight this in two ways. They *summarise*, squeezing 30 old steps into one short paragraph. And they keep a *notes file* outside the model: a running checklist the agent writes to and rereads, so \"emailed Okafor\" survives the cut.",
+    "simpler": "A model can only read so much text at once. That limit is its context window. Think of it as the intern's desk: the folder must fit on it.\n\nEvery step makes the folder thicker. Once it won't fit, the agent program has to trim old pages, and the intern redoes work they can't see. A very full desk can make them sloppier too. **Long tasks often fail from forgetting, not from stupidity.**\n\nThe fix is a short summary of old steps, or a notes file the agent writes to and rereads."
    },
    {
     "type": "mistake",
-    "body": "Dev watches his agent sort 300 support tickets. Steps 1 to 25 are smooth. Around step 35 it starts re-opening tickets it already filed, politely, like a new person each time. He assumes the model got tired. It didn't: the transcript hit the window, the early steps dropped off, and the agent had no record it had done them. The tell is **repeating finished work with no sign it knows**.",
-    "simpler": "Dev watches his agent sort 300 support tickets. Steps 1 to 25 go smoothly. Around step 35 it starts re-opening tickets it already filed, politely, like a new person each time. He thinks the model got tired. It did not. The transcript hit the window, the early steps fell off, and the agent had no record it had done them. The clue is **repeating finished work with no sign it knows**."
+    "body": "Sam's agent starts redoing work at step 40, so Sam adds \"DO NOT REPEAT STEPS\" to the instructions, in capitals. It repeats them anyway, politely. The model can't avoid repeating something it can't see. To spot this, ask one question: is the record of the earlier step still in what gets sent? If not, **fix the notes, not the wording**.",
+    "simpler": "Sam's agent starts redoing work at step 40. So Sam adds \"DO NOT REPEAT STEPS\" to the instructions, in capital letters. The agent repeats them anyway, politely. It can't avoid repeating something it can't see. To catch this, ask one question: is the note about the earlier step still in what gets sent to the model? If not, **fix the notes, not the wording**."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend says: 'My agent was great for 15 steps, then around step 45 it started asking the same question again. The model must be broken.' What's the better explanation?",
+    "prompt": "A friend says: \"ChatGPT knew my name in a brand-new chat, so models do remember.\" What's most likely going on?",
     "options": [
      {
       "id": "a",
-      "text": "The transcript outgrew the context window. Early steps got cut, so the model can't see it already asked."
+      "text": "The model learned the name and stored it inside itself."
      },
      {
       "id": "b",
-      "text": "The model got bored of the task and lost focus."
+      "text": "The app saved a note with the name and sent it along with the new chat."
      },
      {
       "id": "c",
-      "text": "The tool it was using stopped working at step 45."
+      "text": "Its context window got big enough to hold last week."
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's a human intern's problem, not a model's. A model has no mood, only the text in front of it.",
-     "c": "That's a tool failure, which shows up as an error in the log, not as the agent redoing a step it already finished."
+     "a": "That's picturing the model as a brain that files things away: it keeps nothing between calls, so the app did the saving.",
+     "c": "That's desk size, not memory: even a bigger desk starts empty on every call."
     },
-    "reteach": "The agent's whole memory is the transcript it re-sends each turn. When that transcript gets longer than the context window, the oldest parts are dropped. The agent then has no record it did step 12, so it does it again."
+    "reteach": "Any memory you see is a note someone saved and handed back. It's like a sticky note on the intern's folder: \"Client's name is Ana.\" They didn't remember it. They read it."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**A model forgets everything the moment a call ends, so an agent fakes memory by re-sending the whole transcript every turn.** That transcript has a size limit, the context window, and when a long task hits it the agent starts losing the goal and repeating itself, which is why builders summarise old steps and keep notes in a file.",
-    "simpler": "**A model forgets everything the moment a call ends, so an agent fakes memory by sending the whole transcript again every turn.** That transcript has a size limit, called the context window. When a long task hits it, the agent starts losing the goal and repeating itself. That is why builders summarise old steps and keep notes in a file."
+    "body": "A model forgets everything the moment it replies, so an agent fakes memory by sending the whole story back every turn. **When the story outgrows what the model can read at once, the agent can start repeating itself**, unless it summarises or keeps notes.",
+    "simpler": "A model forgets everything the moment it replies. So an agent fakes memory by sending the whole story back every turn. **When the story gets too long for the model to read at once, the agent can start repeating itself.** The way out is a short summary or a notes file."
    },
    {
     "type": "try",
-    "body": "Open any chatbot you use. Tell it your favourite colour. Start a **brand-new chat** and ask what it is. Most draw a blank. If yours remembers, it is using a notes file: thing 2 from this chapter.",
-    "simpler": "Open any chatbot you use. Tell it your favourite colour. Then start a **brand-new chat** and ask what your favourite colour is. Most will have no idea. If yours does remember, it is using a notes file, which is the second fix from this chapter."
+    "body": "Tell ChatGPT or Claude your favourite snack. Then open a brand-new chat and ask what your favourite snack is. If it has no idea, that's the amnesia. If it knows, the app saved a note and slipped it in.\n\nTomorrow: the agent says the file was sent. No tool ever sent it.",
+    "simpler": "Tell ChatGPT or Claude your favourite snack. Then open a brand-new chat and ask it what your favourite snack is. If it has no idea, that's the forgetting this chapter is about. If it does know, **the app saved a note and quietly slipped it in** to the new chat.\n\nTomorrow: the agent says the file was sent. No tool ever sent it."
    }
   ],
-  "outcomeLine": "You can now explain why an agent that worked for 10 steps can start repeating itself at step 40, and name the 2 things builders do about it."
+  "outcomeLine": "You can now explain why an agent that worked fine for 10 steps starts repeating itself at step 40, and name 2 things builders do about it.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"60\" y=\"120\" width=\"200\" height=\"12\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"75\" y1=\"132\" x2=\"75\" y2=\"185\" stroke=\"#1B1A17\" stroke-width=\"4\"/><line x1=\"245\" y1=\"132\" x2=\"245\" y2=\"185\" stroke=\"#1B1A17\" stroke-width=\"4\"/><rect x=\"110\" y=\"100\" width=\"90\" height=\"20\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"105\" y=\"80\" width=\"90\" height=\"20\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"112\" y=\"60\" width=\"90\" height=\"20\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"104\" y=\"40\" width=\"90\" height=\"20\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"250,95 285,105 278,125 243,115\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"270,150 300,165 290,180 262,166\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M200 45 q30 10 40 45\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><circle cx=\"40\" cy=\"62\" r=\"16\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M24 112 q16 -34 32 0\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"14\" y=\"30\" font-size=\"13\" fill=\"#1B1A17\" font-family=\"sans-serif\">step 40?</text></svg>"
  },
- "seconds": 85.44873189926147
+ "repairedFrom": {
+  "score": 7,
+  "failed_checks": [
+   "concrete_images",
+   "one_idea",
+   "feedback_names_confusion",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Card 6: 'Once it's bigger than the desk, older pages get cut' is presented as automatic. Usually the model's service rejects text that's too long, and the agent program has to choose to trim or summarise.",
+   "Card 6: 'Long tasks fail from forgetting, not from stupidity' overclaims. Models also get worse on very long inputs before they hit the limit.",
+   "Card 1: 'Every AI agent has total amnesia' clashes with card 3, which says the agent program does the remembering. Only the model forgets.",
+   "Card 8 feedback for option a calls the amnesia a 'myth', which contradicts the chapter and doesn't name the real confusion (thinking the model learns or stores things inside itself)."
+  ],
+  "weakest_card": 5,
+  "why": "Exercise 2 asks almost the same thing as exercise 1 (is the old step resent?), and no exercise tests the step-40 repeat problem that the outcome line promises.",
+  "fix": "Rewrite card 5: 'Your agent did fine for 10 steps, then at step 40 it books the same hotel again. Most likely cause?' Options: (a) the model got tired, (b) the step-2 booking was cut so the record fits the context window, (c) the prompt wasn't firm enough. Then move 'Tomorrow: the agent says the file was sent\u2026' to be the last line of the try card, so the chapter ends on the open loop."
+ }
 }

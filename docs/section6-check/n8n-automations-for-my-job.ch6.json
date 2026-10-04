@@ -5,120 +5,137 @@
   "cards": [
    {
     "type": "picture",
-    "body": "On a real assembly line, when one station jams, a red light comes on above that station and the belt stops. Nobody tears down the factory. The foreman walks to the red light, reads the fault, and fixes that one station.\n\nn8n works the same way. **Every run is logged, and the node that failed is marked red.** Your job is to walk to the light, not rebuild the line.",
-    "simpler": "Think of a factory line where one machine gets stuck. A red light turns on above that machine and the belt stops. No one knocks the factory down. The foreman walks to the red light, reads the fault, and fixes that one machine.\n\nn8n does the same. **Every run is logged, and the node that failed is marked red.** Your job is to walk to the light, not rebuild the line."
+    "body": "Your line ran 40 times yesterday and one run failed. Which station dropped the item? By default, n8n keeps a record of each trip down the belt, and the station that jammed shows up in red. **When one station jams, you find that station and fix it. You don't rebuild the line.**",
+    "simpler": "Your line ran 40 times yesterday, and one run failed. Which station dropped the item? By default, n8n keeps a record of each trip down the belt. The station that jammed shows up in red. **When one station jams, you find it and fix just that one.** You don't rebuild the whole line. It's like a flat tire: you change the tire, not the car."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your Monday workflow posts a daily summary to Slack. Tuesday, nothing arrived and the office is quietly blaming you. What do you do first?",
+    "prompt": "Your form-to-Slack line ran 40 times yesterday. This morning, run 23 shows an error. What's your first move?",
     "options": [
      {
       "id": "a",
-      "text": "Delete the workflow and rebuild it from scratch, carefully this time"
+      "text": "Delete the workflow and build it again, carefully this time"
      },
      {
       "id": "b",
-      "text": "Open the Executions list and look at Tuesday's run"
+      "text": "Open run 23 in the Executions list and look for the red node"
      },
      {
       "id": "c",
-      "text": "Add a second Slack node in case the first one is unreliable"
+      "text": "Run the workflow again with a fresh test form"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's rebuilding the factory, not reading the red light: the fault is still unknown, so the same thing may break again.",
-     "c": "That's adding a station, not finding the jam: you don't yet know the Slack node is the one that failed."
+     "a": "That's rebuilding the whole line, not finding the jam: 39 runs worked, so most of it is fine.",
+     "c": "That's a new item on the belt, not the one that jammed: it may go through fine and hide the problem."
     },
-    "reteach": "n8n keeps a record of every run, good and bad. Before changing anything, look at that record. It tells you which run failed and which single node stopped the belt."
+    "reteach": "With its usual settings, n8n saves your runs, including the broken ones. The failed run shows exactly which station stopped and what it was holding. So you start there, not with a rebuild."
    },
    {
     "type": "teach",
-    "title": "The shift log",
-    "body": "Inside any workflow, next to the Editor tab, there is an *Executions* tab, a log of every time the workflow ran. Each row shows when it ran, how long it took, and a status: Succeeded or Error.\n\nClick a failed row and the canvas opens showing that exact run. Nodes that worked have a green tick. **The node that failed is marked red.** Click it and the error message appears in its output panel.\n\nRead the message slowly. It usually says what the outside app complained about, in its own words, and n8n often adds a plain hint beneath.",
-    "simpler": "Open any workflow. Next to the Editor tab is an Executions tab. It lists every time the workflow ran. Each row shows the time, how long it took, and whether it succeeded or hit an error.\n\nClick a failed row and the canvas shows that exact run. Nodes that worked have a green tick. **The node that failed is marked red.** Click it and the error message appears in its output panel.\n\nRead the message slowly. It usually repeats what the outside app complained about, and n8n often adds a plain hint underneath."
+    "title": "Each trip is recorded",
+    "body": "With its usual settings, n8n saves each run of your workflow as an *execution*, a record of one trip down the belt. The Executions list shows them, each with a time and a status: succeeded or error.\n\nOpen a failed one and you see your line frozen at the moment it jammed. **The node that failed is marked in red.** Click it to see the error message, n8n's note on what went wrong, plus the item it was holding.\n\nIt's like a plane's black box, minus the drama. It recorded the trip, so you don't have to guess.",
+    "simpler": "Usually, each time your workflow runs, n8n saves a record of that one trip down the belt, called an *execution*. The Executions list shows them, with the time and whether each worked or hit an error. Open a failed one and you see your line stopped where it jammed. **The failed station, called a node, is marked in red.** Click it to see what went wrong and the item it held. It's like a plane's black box."
    },
    {
     "type": "example",
-    "title": "Thursday, 9:14",
-    "body": "Priya's form-to-spreadsheet workflow ran fine for 3 weeks. Thursday at 9:14 the Executions list showed a red row. She clicked it: the Form Trigger, Edit Fields and IF nodes were green. The Google Sheets node was red.\n\nThe message said the sheet could not be found. A colleague had renamed the tab from Responses to Responses 2025 on Wednesday evening. Priya changed one field in one node, re-ran it, and watched the row land. Total repair time: shorter than the coffee she made first.",
-    "simpler": "Priya's form-to-spreadsheet workflow had worked for 3 weeks. Thursday at 9:14 the Executions list showed a red row. She clicked it. The Form Trigger, Edit Fields and IF nodes were green. The Google Sheets node was red.\n\nThe message said the sheet could not be found. A colleague had renamed the tab from Responses to Responses 2025 on Wednesday evening. Priya changed one field in one node, re-ran it, and watched the row land. The fix took less time than making her coffee."
+    "title": "Priya's lead line",
+    "body": "Priya's workflow takes a new website form, adds a row to Google Sheets, then posts in Slack. On Tuesday at 9:12, run 14 failed. In the Executions list the Slack node was red, with the message *channel_not_found*. Her Slack node had the channel typed in by name, #sales-leads, and someone had renamed it #leads over the weekend. Nobody told the robot. She picked #leads from the list in the Slack node, retried run 14 with the saved workflow, and the message landed. That took two minutes, with no rebuild.",
+    "simpler": "Priya's workflow takes a new website form, adds a row to Google Sheets, then posts in Slack. On Tuesday at 9:12, run 14 failed. In Executions, the Slack station was red with the note *channel_not_found*. Her Slack station had the channel name typed in: #sales-leads. Over the weekend, someone renamed that channel to #leads. Nobody told the robot. Priya picked #leads from the list in the Slack station and retried run 14 using her saved fix. The message landed. **Two minutes, no rebuild.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A red run. Three nodes have green ticks, the fourth, a Slack node, is red. Where do you make a change?",
+    "prompt": "Your Google Sheets node has the sheet name typed in: 'Leads 2026'. Now it's red, and the error says it can't find that sheet. A colleague renamed it 'Leads' yesterday. What do you do?",
     "options": [
      {
       "id": "a",
-      "text": "The trigger node, because every run starts there"
+      "text": "Retry the failed run as it is, a few times"
      },
      {
       "id": "b",
-      "text": "Only the Slack node, after reading its error message"
+      "text": "Point the Sheets node at 'Leads', then retry the failed run"
      },
      {
       "id": "c",
-      "text": "All four nodes, to be safe"
+      "text": "Rebuild every node from the form onwards"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the bell, not the jam: the green tick means the trigger did its job and passed items on.",
-     "c": "That's rebuilding, not repairing: three stations worked, so changing them can only add new problems."
+     "a": "That's repeating the jam, not fixing it: nothing changed, so it fails the same way.",
+     "c": "That's rebuilding the line, not fixing the station: the form and the other nodes did their jobs."
     },
-    "reteach": "Green ticks mean those nodes finished and handed items on. The red node is where the belt stopped. Fix there, and only there, guided by what its message says."
+    "reteach": "The red node tells you which station broke and why. Change that one station so the reason goes away (here, the sheet name), then send the same failed item through again."
    },
    {
     "type": "teach",
-    "title": "Re-run with the same part, then add a safety net",
-    "body": "Fixing is easier when you can test with the exact item that broke. On a failed execution, n8n offers to load that run into the editor. Now the broken item sits in your canvas, so you can fix the red node and re-run it without waiting for another form to be submitted.\n\nTwo settings stop small faults becoming your problem. In a node's Settings tab, **Retry On Fail** tells n8n to try that node again, for example 3 times with a few seconds between, which handles a flaky connection.\n\nIn the workflow's own settings, *Error Workflow* names a second workflow that runs whenever this one fails. Make that one send you a message.",
-    "simpler": "Fixing is easier when you can test with the exact item that broke. On a failed run, n8n offers to load that run into the editor. The broken item now sits in your canvas. You can fix the red node and re-run it without waiting for a new form to come in.\n\nTwo settings keep small faults from becoming your problem. In a node's Settings tab, **Retry On Fail** tells n8n to try that node again, say 3 times with a short pause between. That handles a shaky connection.\n\nIn the workflow's own settings, Error Workflow names a second workflow that runs whenever this one fails. Make that one send you a message."
+    "title": "Hiccups versus real faults",
+    "body": "Not every jam needs you. Sometimes an app is just slow for a second, like a door that sticks once. For that, open the node's Settings and switch on *Retry On Fail*, which makes n8n try that station again a few times before giving up.\n\nRetry won't fix a wrong channel or a missing field. **A real fault fails the same way every time**, so retry just jams three times instead of once.\n\nTo hear about jams without checking, give the workflow an *error workflow*: a second small line that starts with an Error Trigger node and messages you when the main one fails.",
+    "simpler": "Sometimes an app is slow for a second, like a door that sticks once. For that, turn on *Retry On Fail* in the station's Settings, so n8n tries again a few times. Retry can't fix a wrong channel or a missing field. **A real fault fails the same way every time.** To hear about jams, add an *error workflow*: a small second line, starting with an Error Trigger node, that messages you when the main one fails."
    },
    {
     "type": "mistake",
-    "body": "Dev saw a red run, sighed, deleted the whole workflow and rebuilt it over lunch. It failed again at the same node, for the same reason: the sheet tab had been renamed, and no amount of rebuilding renames it back.\n\nThe tell is simple. If your hands are rebuilding before your eyes have read the error message, stop and go read it.",
-    "simpler": "Dev saw a red run, sighed, deleted the whole workflow and rebuilt it over lunch. It failed again at the same node, for the same reason. The sheet tab had been renamed, and rebuilding does not rename it back.\n\nThe warning sign is easy to spot. If your hands are rebuilding before your eyes have read the error message, stop and go read it. It is like replacing a car because one tyre is flat."
+    "body": "Sam's Gmail node went red: no address to send to. He rebuilt that node three times, and it kept failing. The real fault was one station back, in an Edit Fields node that copies the form's 'Email' answer into a field called 'to' for Gmail. The form question had been renamed to 'Work email', so Edit Fields found no 'Email' and handed Gmail an empty 'to'. **Click the red node and read its input first**: if the item arrived broken, the fix belongs upstream, in an earlier station.",
+    "simpler": "Sam's Gmail station went red: it had no address to send to. He rebuilt that station three times, and it still failed. The real problem was one station earlier. There, an Edit Fields station copied the form's 'Email' answer into a field called 'to', for Gmail to use. But the form question had been renamed to 'Work email'. So Edit Fields found no 'Email', and Gmail got an empty 'to'. **Click the red station and read what it was handed first.** If the item arrived broken, fix the station before it."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend texts: \"My n8n thing broke, I'm starting over.\" What is the one line you send back?",
+    "prompt": "Run 52 failed. The Gmail node is red with 'no recipient', and its input shows the email field arrived empty. Where does the fix go?",
     "options": [
      {
       "id": "a",
-      "text": "Open Executions, click the red run, read the red node's message"
+      "text": "In the Gmail node: rewrite it until it works"
      },
      {
       "id": "b",
-      "text": "Switch Active off and on, that clears the error"
+      "text": "One station earlier, where the email field should get filled"
      },
      {
       "id": "c",
-      "text": "Turn on Retry On Fail for every node so it can never fail"
+      "text": "In the Gmail node's Settings: switch on Retry On Fail"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the on switch, not the log: toggling Active changes whether the workflow runs, not why it failed.",
-     "c": "That's the safety net, not the diagnosis: retries help with flaky connections, but a renamed sheet fails every one of the 3 tries."
+     "a": "That's the station that showed the jam, not the one that caused it: Gmail can't send to an empty address.",
+     "c": "That's the fix for a hiccup, not a real fault: an empty field stays empty on every try."
     },
-    "reteach": "The Executions list is the shift log. A failed run shows exactly which node went red and keeps its error message. Reading that message is the whole first step, every time."
+    "reteach": "Red marks where the line stopped, not always why. Check what the red node was handed. If the item arrived broken, walk back one station and fix it there."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "When a workflow fails, open the Executions tab, click the red run, and the one node that broke is marked red with its error message waiting. **Fix that node, re-run with the same data, and add a retry or an error workflow** so next time it tells you itself.",
-    "simpler": "When a workflow fails, open the Executions tab and click the red run. The one node that broke is marked red, with its error message waiting for you. **Fix that node, re-run with the same data, and add a retry or an error workflow** so next time the workflow tells you itself. You fix the one stuck machine. You do not rebuild the whole factory line."
+    "body": "When a run fails, open it in Executions, click the red node, and read both the error and what it was handed. **Fix that one station, or the one before it, then retry the same run.** Save Retry On Fail for apps that hiccup.",
+    "simpler": "When a run fails, open it in Executions and click the red station. Read the error, and read what the station was handed. **Fix that one station, or the one before it, then retry the same run.** Keep Retry On Fail for apps that sometimes get stuck for a moment."
    },
    {
     "type": "try",
-    "body": "Open the Executions tab on the workflow you built in chapter 3. Click the newest run. Open each node and look at the output it passed on. Then open the last node's Settings tab and find Retry On Fail.",
-    "simpler": "Open the Executions tab on the workflow you built in chapter 3. Click the newest run. Open each node one at a time and look at the output it passed on to the next one. Then open the last node's Settings tab and find Retry On Fail. You do not need to change anything yet. Just find where these things live so they feel familiar when something breaks."
+    "body": "Open n8n, click Executions, and open your last run. Click each node and look at what went in and what came out. Then open one node's Settings and find Retry On Fail.\n\nTomorrow: one switch, and your line runs while you're asleep.",
+    "simpler": "Open n8n, click Executions, and open your last run. Click each station, one at a time. For each one, **look at what went in and what came out**. It's like peeking inside each box on the belt. Then open one station's Settings and find the switch called Retry On Fail. Tomorrow: one switch, and your line runs while you sleep."
    }
   ],
-  "outcomeLine": "You can now find which node failed, read why, and fix it without rebuilding the workflow."
+  "outcomeLine": "You can now find which node failed, read why, and fix it without rebuilding the workflow.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20 140 Q160 137 300 141\" stroke=\"#1B1A17\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"154\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"160\" cy=\"154\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"270\" cy=\"154\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"38\" y=\"78\" width=\"56\" height=\"50\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"132\" y=\"74\" width=\"56\" height=\"54\" rx=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" transform=\"rotate(-5 160 100)\"/><rect x=\"226\" y=\"78\" width=\"56\" height=\"50\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"160\" y1=\"88\" x2=\"160\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"5\" stroke-linecap=\"round\"/><circle cx=\"160\" cy=\"116\" r=\"3\" fill=\"#1B1A17\"/><rect x=\"104\" y=\"124\" width=\"14\" height=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"148,62 156,48 163,58 172,42\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><text x=\"160\" y=\"186\" font-family=\"sans-serif\" font-size=\"16\" text-anchor=\"middle\" fill=\"#1B1A17\">jammed here</text></svg>"
  },
- "seconds": 64.98760080337524
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "facts_ok",
+   "would_keep_reading",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Renaming a Slack channel keeps its ID, and n8n's Slack node usually stores the ID when you pick a channel from the list, so renaming #sales-leads to #leads would only cause channel_not_found if the channel was typed in by name.",
+   "Same issue with the Google Sheets rename: picking a sheet from the list stores its ID, so renaming 'Leads 2026' to 'Leads' only breaks a node that was set up by name.",
+   "The open loop 'your line runs while you're asleep' clashes with card 1, where the line already ran 40 times overnight; also the chapter ends on the 'try' card, not on that line.",
+   "'n8n saves every run' depends on the save settings and how long the plan keeps records; it's true by default but not guaranteed."
+  ],
+  "weakest_card": 7,
+  "why": "Sam's 'fix it upstream' lesson doesn't hold up: if the form question changed from 'Email' to 'Work email', the item arrived carrying the address under the new name, and the quickest fix is changing the field name inside the Gmail node, so the card teaches the opposite of what really happens.",
+  "fix": "Add a real station in between, e.g. an Edit Fields node that copies 'Email' into 'to', so the empty field is clearly made one station back and the fix clearly belongs there."
+ }
 }

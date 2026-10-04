@@ -5,121 +5,137 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Buy one share of a company and you legally own part of it. How much? Picture the market as **one big organised bazaar**: every company is a shop, a share is one tiny slice of one shop, and the price on the board is simply what the last buyer and seller shook hands on.",
-    "simpler": "When you buy one share of a company, you own a small piece of it. Think of the whole stock market as **one big organised bazaar**. Each company is a shop in that bazaar. A share is one tiny slice of one shop. The price you see on the board is just the number the last buyer and seller agreed on when they made their deal."
+    "body": "A share's price can change several times a second, and most of those changes come from traders, not from the company. Think of the stock market as one huge organised bazaar: each company is a shop, and a share is a tiny slice of owning that shop. The price of a slice is just **whatever the last buyer and the last seller agreed on**, a moment ago.",
+    "simpler": "A share's price can change several times in one second, and most of those changes come from traders, not the company. Picture the stock market as one giant, busy bazaar. Each company is a shop, and a share is a tiny slice of owning that shop. The price of that slice is just **whatever the last buyer and the last seller agreed on**, a moment ago."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Asha buys 1 share of a biscuit company that is cut into 100 crore equal slices. What does Asha own now?",
+    "prompt": "Chandni Chowk, 11 am. People are trading slices of a famous jalebi shop. 40 people want to buy a slice, and only 4 owners want to sell. What happens to the price next?",
     "options": [
      {
       "id": "a",
-      "text": "A right to free biscuits, like a loyalty card"
+      "text": "It rises. Buyers compete, so sellers can ask for more."
      },
      {
       "id": "b",
-      "text": "One hundred-crore-th of the whole company, profits and all"
+      "text": "It stays put, because the shop fixed it this morning."
      },
      {
       "id": "c",
-      "text": "A loan the company must pay back with interest"
+      "text": "It falls, because more people means more slices to go around."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's a customer perk, not ownership: owning a slice gives you a share of profits, not products.",
-     "c": "That's a bond, not a share: a lender gets interest and their money back, an owner gets a slice of whatever the shop earns."
+     "b": "That's a menu price, not a share price: nobody fixes a share's price. It moves with every deal.",
+     "c": "That's mixing up buyers with slices: more buyers don't add slices. They fight over the same few."
     },
-    "reteach": "A share is literally a share: the company is cut into equal pieces and you hold one. If the shop makes a profit, a sliver of it belongs to you. Nobody owes you the money back, because you are not a lender. You are a part-owner."
+    "reteach": "Many buyers and few sellers means the few sellers can ask for more. The price climbs until enough buyers give up and the two sides balance."
    },
    {
     "type": "teach",
-    "title": "What you actually hold",
-    "body": "A listed company cuts itself into millions, often billions, of equal slices and sells some to the public. **One share is one of those slices.** It sits in your name, and you can sell it to anyone who wants it.\n\nOwnership brings two things. If the company hands out profit, called a *dividend*, you get your sliver. At the yearly meeting you get a vote, one per share. With 1 share your vote is a whisper in a stadium. It still counts.\n\nThe company gets your money only once, when it first sells the slice. After that you trade with other owners, not with the shop.",
-    "simpler": "A company on the stock market cuts itself into millions of equal slices and sells some to the public. **One share is one of those slices.** You can sell it to anyone. If the company pays out profit, called a dividend, you get your part. You also get one vote per share at the yearly meeting. The company gets your money only once, at the first sale. After that you trade with other owners, not the company."
+    "title": "What's in your hand",
+    "body": "A company cuts its ownership into equal pieces called *shares*. Big Indian companies are cut into crores of pieces, so 1 share is like one grain from a full rice godown. It's tiny, but it's legally yours, with a sliver of the profits and a vote at the yearly meeting.\n\nHere's the part people miss. After a company first sells its shares, it mostly steps back. From then on, you usually buy your slice from another owner who wants out, not from the company.\n\nSo the price isn't a tag the company sticks on. It's **the last deal between two strangers**, and the next deal can be a rupee higher or lower.",
+    "simpler": "A company splits its ownership into equal pieces called shares. Big Indian companies have crores of them, so one share is like one grain in a rice godown. Tiny, but legally yours, with a cut of profits and a vote each year. After the company's first sale, it mostly steps aside, and you usually buy from an owner who wants out. The price is **the last deal between two strangers**, and the next can be a rupee up or down."
    },
    {
     "type": "example",
-    "title": "Tuesday in Pune, Wednesday in Kochi",
-    "body": "Ravi, a dentist in Pune, buys 1 share of a paint company at \u20b92,400 on Tuesday. The company does not notice. It does not get his \u20b92,400 either; a stranger in Kochi who was selling does. Wednesday, the share is at \u20b92,352, down 2%. **Nothing changed inside the company.** Fewer people wanted paint-company slices that morning than wanted to get rid of them, and the sellers kept dropping their asking price until someone bit.",
-    "simpler": "Ravi is a dentist in Pune. On Tuesday he buys one share of a paint company for \u20b92,400. The company does not notice, and it does not get his money. A stranger in Kochi who was selling gets it. On Wednesday the share is at \u20b92,352, down 2%. **Nothing changed inside the company.** That morning, fewer people wanted to buy paint-company slices than wanted to sell them. So the sellers kept lowering their price until someone said yes."
+    "title": "One minute in a share's life",
+    "body": "Say a paint company's share last traded at \u20b9500. At 10:02 am, 300 people want to buy at \u20b9500, but only 100 owners will sell at that price. The 200 left over start offering \u20b9501, then \u20b9502, then \u20b9503, and at each step a few owners who refused \u20b9500 say yes. The screen now shows \u20b9503, up 0.6%, and not one tin of paint changed in that minute.",
+    "simpler": "Say a paint company's share last sold for \u20b9500. At 10:02 am, 300 people want to buy at \u20b9500, but only 100 owners will sell at that price. The 200 left over start offering \u20b9501, then \u20b9502, then \u20b9503. At each step, a few owners who said no at \u20b9500 say yes. The screen now shows \u20b9503, up 0.6%, and **not one tin of paint changed** in that minute."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "At 11 am a cement company announces it won a giant highway contract. Within minutes 10 people want to buy its shares for every 1 who wants to sell. What happens, and why?",
+    "prompt": "A bank's share opens at \u20b9800 and closes at \u20b9776. Your cousin asks why. Which answer uses today's idea?",
     "options": [
      {
       "id": "a",
-      "text": "The price rises, because good news automatically adds value to the shares"
+      "text": "All day, sellers were keener to get out than buyers were to get in, so sellers kept taking lower prices."
      },
      {
       "id": "b",
-      "text": "The price rises, because buyers must offer more to tempt the few sellers"
+      "text": "The bank cut its share price by \u20b924 this afternoon."
      },
      {
       "id": "c",
-      "text": "Nothing yet, because the company has to publish its new price first"
+      "text": "The bank lost \u20b924 on every account today."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's the headline, not the mechanism: news only moves a price by changing how many people want to buy versus sell.",
-     "c": "That's a shop with a price tag, not the bazaar: the company never sets its own share price, buyers and sellers do."
+     "b": "That's a price tag, not a share price: the company doesn't set it. Strangers trading with each other do, one deal at a time.",
+     "c": "That's the bank's business, not its share price: the price fell because sellers were keener than buyers."
     },
-    "reteach": "Think of 10 people shouting for 1 slice. The holder won't sell at the old price when there's a queue. Someone offers more, then someone offers more than that. The price on the board is just the latest deal, so it climbs. Flip the numbers and it falls."
+    "reteach": "Every rupee the price moved came from deals between buyers and sellers. A \u20b924 fall means sellers kept agreeing to less, because there weren't enough buyers at the old price."
    },
    {
     "type": "teach",
-    "title": "Why the number never sits still",
-    "body": "You'd think the price shows what a company is worth. It doesn't. **It shows the last price at which one buyer and one seller agreed.** That is all. The board updates every time a new pair agrees, which on a busy share is many times a second.\n\nSo the only question that explains a move is: who was keener today, buyers or sellers? More buyers than sellers, and buyers bid higher to get in. More sellers than buyers, and sellers accept less to get out. Headlines, results, rumours, rain: they matter only through that one door.\n\nNote the shopkeeper's silence. The company cannot raise or cut its share price. It can only do things that change who wants in.",
-    "simpler": "You might think the share price shows what a company is worth. It does not. **It shows the last price one buyer and one seller agreed on.** The number changes every time a new pair agrees. So ask one question: who wanted it more today, buyers or sellers? More buyers, and they offer more to get in. More sellers, and they accept less to get out. News matters only through that door. The company cannot set its own price."
+    "title": "Where headlines fit",
+    "body": "You'd think news moves prices. It does, but only by changing how many people want to buy or sell. A headline is a stone thrown into the crowd at the stall. The price moves only if people move.\n\nThat's why good news can arrive with a falling price. If everyone expected great results and already bought, nobody is left to push the price higher. Then a few owners cash out.\n\nBenjamin Graham, who taught Warren Buffett, built his whole approach on this gap: **price is what the crowd just paid, value is what the shop is actually worth**. They are often not the same number.",
+    "simpler": "News moves prices only by changing how many people want to buy or sell. A headline is a stone thrown into a crowd. Prices move only if people move. So good news can come with a falling price. If everyone already bought expecting great results, no buyers are left, and a few owners cash out. Warren Buffett's teacher Benjamin Graham built on this gap: **price is what the crowd just paid, value is what the shop is actually worth**."
    },
    {
     "type": "mistake",
-    "body": "Priya reads that a bank posted record profit, buys at 9:20, and watches it drop 4% by lunch. She assumes the news was fake. It wasn't. Big holders had expected even bigger profit and used the morning rush of buyers to sell into it. Spot the trap: whenever you say 'it should go up', ask instead **who is selling, and why would they stop?**",
-    "simpler": "Priya reads that a bank made record profit. She buys at 9:20 and watches the price fall 4% by lunch. She thinks the news must have been false. It was true. People who owned lots of shares had hoped for even bigger profit. They used the morning rush of buyers as a chance to sell. Here is the trap. Whenever you catch yourself saying 'it should go up', ask instead **who is selling, and why would they stop?**"
+    "body": "Priya reads \"record profits\" at 9:30 am, buys at 9:40, and watches the share fall 2% by lunch. She decides the market is rigged. What actually happened: the eager buyers had already bought last week, and today sellers were keener than buyers. Before you blame the news, ask one question: who was left to buy?",
+    "simpler": "Priya reads \"record profits\" at 9:30 am, buys at 9:40, and watches the share fall 2% by lunch. She decides the market is rigged. What really happened: the eager buyers had already bought last week, and today sellers were keener than buyers. Before you blame the news, ask one question: **who was left to buy?**"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A share closed 3% lower today. Which one-line explanation uses this chapter's idea?",
+    "prompt": "Which sentence is always true about a share's price?",
     "options": [
      {
       "id": "a",
-      "text": "The company cut its share price by 3% to attract buyers"
+      "text": "It rises whenever the company has a good day."
      },
      {
       "id": "b",
-      "text": "More people wanted to sell than buy, so sellers kept accepting a little less until the day ended"
+      "text": "It rises when buyers want it more than owners want to sell, whatever the reason."
      },
      {
       "id": "c",
-      "text": "The company lost 3% of its factories, so each slice shrank"
+      "text": "It shows exactly what the company is worth right now."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the shopkeeper setting a tag, which never happens: the company has no price button, only buyers and sellers do.",
-     "c": "That's confusing the slice with the shop: your share is still the same fraction of the company, only the price people pay for it changed."
+     "a": "That's the shop's day, not the crowd's: good news only lifts the price if it makes buyers keener than sellers, as Priya found.",
+     "c": "That's value, not price: price is just the last deal, and what the shop is worth can be very different."
     },
-    "reteach": "Your slice never shrinks or grows; you own the same fraction tomorrow as today. What changes is what the next person will pay for it. A fall simply means today's sellers outnumbered buyers and had to accept less to find one."
+    "reteach": "Forget the company for a second and look at the crowd at the stall. Whatever happened, the price only moves when one side, buyers or sellers, wants the deal more than the other."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A share is one equal slice of a company, and it stays the same size whatever the price does. The price is just **the last deal** between a buyer and a seller, so it rises when buyers outnumber sellers and falls when sellers outnumber buyers.\n\nTomorrow: India has two bazaars selling identical slices. Guess how far their prices differ.",
-    "simpler": "A share is one equal slice of a company. The slice stays the same size no matter what the price does. The price is only **the last deal** between a buyer and a seller. So it goes up when more people want to buy than sell. It goes down when more people want to sell than buy. Tomorrow: India has two bazaars selling the very same slices. Guess how far apart their prices are."
+    "body": "A share is a tiny, real slice of owning a company, and you usually buy it from another owner, not from the company. Its price is just the last deal. Picture the jalebi stall: 40 hands up, 4 slices left, and the price climbs. Flip it, 4 hands up and 40 slices on offer, and it falls. News only matters if it changes that crowd.",
+    "simpler": "A share is a tiny, real slice of owning a company, and you usually buy it from another owner, not the company. Its price is just **the last deal**. Picture the jalebi stall: 40 hands up, 4 slices left, and the price climbs. Flip it, and it falls. News only matters if it changes that crowd."
    },
    {
     "type": "try",
-    "body": "Tomorrow between 9:15 am and 3:30 pm, search 'Reliance share price' on your phone. Watch the number for 60 seconds and count the changes. Each change is **one buyer and one seller** agreeing on a new number. Nothing else.",
-    "simpler": "Tomorrow, some time between 9:15 in the morning and 3:30 in the afternoon, search 'Reliance share price' on your phone. Watch the number for one minute and count how many times it changes. Every change means **one buyer and one seller** just agreed on a new number. That is the whole story. Nothing else is moving it."
+    "body": "On a weekday afternoon, search Google for a company you use, say your bank, plus \"share price\". Watch it for two minutes. Each change you see comes from buyers and sellers agreeing on a new price, though the number may run a little behind.\n\nTomorrow: why the whole country watches a list of just 30 shops.",
+    "simpler": "On a weekday afternoon, search Google for a company you use, like your bank, plus \"share price\". Watch the number closely for two minutes. Each little jump, up or down, comes from **buyers and sellers agreeing on a new price**, though the number may run a little behind.\n\nTomorrow: why the whole country watches a list of just 30 shops."
    }
   ],
-  "outcomeLine": "You can now explain in one line why a share rose or fell today, using buyers and sellers rather than headlines.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M40 70 L160 48 L280 70 L270 92 L50 92 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M50 92 Q65 112 80 92 Q95 112 110 92 Q125 112 140 92 Q155 112 170 92 Q185 112 200 92 Q215 112 230 92 Q245 112 260 92\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"60\" y=\"120\" width=\"200\" height=\"50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"60\" y1=\"170\" x2=\"60\" y2=\"186\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"260\" y1=\"170\" x2=\"260\" y2=\"186\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"110\" cy=\"145\" r=\"18\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M110 145 L128 145 A18 18 0 0 0 119 129 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M215 140 L233 140 A18 18 0 0 0 224 124 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"145\" y=\"150\" font-family=\"sans-serif\" font-size=\"13\" fill=\"#1B1A17\">1 share</text><text x=\"142\" y=\"40\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#1B1A17\">SHOP</text></svg>"
+  "outcomeLine": "You can now explain in one line why a share's price rose or fell today, using buyers and sellers instead of headlines.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"95,45 225,45 240,75 80,75\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"98\" y=\"75\" width=\"124\" height=\"85\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M145 160 V118 H175 V160\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"110\" y1=\"95\" x2=\"135\" y2=\"95\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"185\" y1=\"95\" x2=\"210\" y2=\"95\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"25\" cy=\"118\" r=\"9\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"52\" cy=\"112\" r=\"9\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"35\" cy=\"143\" r=\"9\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"63\" cy=\"138\" r=\"9\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"22\" cy=\"170\" r=\"9\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"52\" cy=\"168\" r=\"9\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"275\" cy=\"160\" r=\"9\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"252,120 270,100 286,108 305,72\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><polygon points=\"305,68 294,74 308,82\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><text x=\"250\" y=\"55\" font-family=\"sans-serif\" font-size=\"14\" fill=\"#1B1A17\">price up</text></svg>"
  },
- "seconds": 120.95199680328369
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "concrete_images",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "'the company itself causes none of those changes' is too absolute: buybacks and the company's own announcements do move the price",
+   "'more owners wanted out than people wanted in': every trade has exactly one buyer and one seller, so the real imbalance is in who is willing to trade at the old price, not in headcount",
+   "'Every tick is one buyer and one seller agreeing': Google's share price may be delayed, and one tick can bundle many trades",
+   "Paint example: the owners holding out at \u20b9500 would normally fill the \u20b9501 and \u20b9502 bids first, so jumping straight to \u20b9503 skips how the order book actually works"
+  ],
+  "weakest_card": 9,
+  "why": "The 'In one breath' teach card has no concrete image, only restated ideas, and its good 'Tomorrow: 30 shops' teaser sits second-to-last, so the chapter ends on the try card instead of the hook for the next chapter.",
+  "fix": "Bring back the jalebi-stall crowd in card 9 ('40 hands up, 4 slices left'), then move 'Tomorrow: why the whole country watches a list of just 30 shops' so it is the very last line, after the try card."
+ }
 }

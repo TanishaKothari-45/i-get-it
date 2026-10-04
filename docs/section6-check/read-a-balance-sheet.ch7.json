@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "A published balance sheet is the house photo, but taken by an estate agent: every room listed, plus the loft, the garage and the shed. **The order is always the same**: what it owns on top, fast things first, then what it owes, then what is left for the owners.\n\nThe footnotes are the small print on the back of the photo. That is where the odd rooms get explained.",
-    "simpler": "A company's published balance sheet is like a photo of a house taken by an estate agent. Every room is listed, even the loft, the garage and the shed. **The order is always the same.** First comes what the company owns, with cash and quick-to-sell things at the top. Then what it owes. Then what is left for the owners. The footnotes are the small print on the back of the photo. That is where the odd rooms get explained."
+    "body": "The most useful column on a balance sheet is the one almost everyone skips: last year's. Reading a real balance sheet is like inspecting a house you might buy. You walk the same route every time, front door to attic, holding last year's photo of the same house, because **cracks only show up when you compare**.",
+    "simpler": "Most people skip last year's column on a balance sheet, but it is the most useful one. Reading a real balance sheet is like looking over a house you might buy. You take the same path each time, from the front door up to the attic, with last year's photo of the same house in your hand, because **cracks only show up when you compare**."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You open a listed company's annual report and find the balance sheet. It runs over 2 pages and 40 lines. Where do you start?",
+    "prompt": "You're touring a flat you might buy. The agent swears the ceiling is fine. What tells you most about that brown patch above the sofa?",
     "options": [
      {
       "id": "a",
-      "text": "The three totals: total assets, total liabilities, total equity. Check that assets equal the other two added together."
+      "text": "A sharp photo of the ceiling, taken this morning"
      },
      {
       "id": "b",
-      "text": "The biggest number on the page, whatever it is."
+      "text": "This morning's photo next to one from last spring, when the patch was half the size"
      },
      {
       "id": "c",
-      "text": "The first footnote, since that is where the secrets are."
+      "text": "The agent's written description, which calls it character"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's a headline, not a reading: the biggest number is nearly always total assets anyway, and you need to see what it is made of.",
-     "c": "That's the small print for one line. Read the lines first, then open the note for the one that puzzles you."
+     "a": "That's size, not direction: one photo shows how big the patch is, not whether it's growing.",
+     "c": "That's the sales pitch, not the evidence: you want something you can check yourself."
     },
-    "reteach": "Think of the house photo. Before you look at any room, you check the frame: everything owned on one side, owed plus owners' share on the other, same number. Three totals, one check, then you walk the rooms."
+    "reteach": "One picture tells you how big something is. Two pictures a year apart tell you which way it's heading and how fast. A balance sheet prints both, this year's column and last year's, side by side."
    },
    {
     "type": "teach",
-    "title": "Walk the rooms in order",
-    "body": "Every listed company lays the sheet out the same way. Assets first, starting with cash and ending with buildings and brands. Then liabilities, soonest due first. Then equity. Two columns of numbers, this year and last year, so you can see what moved.\n\n**Read it top to bottom and say each line in plain words.** *Trade receivables* is customers who have not paid yet. *Inventories* is stock on shelves. *Borrowings* is loans. A small number beside a line points to a footnote that says what the line is made of.\n\nOdd items will appear. *Goodwill* is the extra paid when buying another company. *Deferred tax* is tax owed later. Translate, then move on.",
-    "simpler": "Every listed company lays the sheet out the same way. What it owns comes first, from cash down to buildings. Then what it owes, soonest bills first. Then what is left for the owners. **Read it top to bottom and say each line in plain words.** Trade receivables means customers who have not paid yet. Inventories means stock on shelves. Borrowings means loans. Odd items like goodwill will appear. A small number beside a line points to a footnote that explains it."
+    "title": "The route, part one",
+    "body": "Start at the very top. Find the company name, the date of the photo, and the unit. The unit hides in small print, *in thousands* or *in millions*. Miss it and every number is off by a factor of 1,000.\n\nNext, find the three totals: total assets, total liabilities, total equity. Check that the first equals the other two added together. That takes 30 seconds.\n\nThen walk the rooms in order: current assets, long-term assets, current liabilities, long-term debt, equity. **Same order, every time**, the way a good inspector always checks the boiler before the bedrooms, so nothing gets missed.",
+    "simpler": "Start at the top. Find the company name, the date, and the unit, which hides in small print as *in thousands* or *in millions*. Miss it and every number is off by 1,000 times. Next, find total assets, total liabilities and total equity, and check that the first equals the other two added. That takes 30 seconds. Then read each section in order: current assets, long-term assets, current liabilities, long-term debt, equity. **Same order, every time**, so nothing gets missed."
    },
    {
     "type": "example",
-    "title": "Harbour Bikes, 31 March",
-    "body": "Take an invented shop, Harbour Bikes, on 31 March. Cash 40,000. Customers owe it 180,000. Stock 90,000. Shop and tools 210,000. Total assets 520,000.\n\nSupplier bills 70,000, a bank loan due within the year 150,000, a long-term loan 100,000. Liabilities 320,000, so equity is 200,000, and 520,000 equals 320,000 plus 200,000. **The sheet balances.** It also has 150,000 of debt due this year and 40,000 of cash to pay it with. The sheet balances. The owner may not.",
-    "simpler": "Picture an invented shop, Harbour Bikes, on 31 March. Cash is 40,000. Customers owe it 180,000. Stock is 90,000. Shop and tools are 210,000. It owns 520,000 in total. It owes suppliers 70,000, a bank loan due this year of 150,000, and a long-term loan of 100,000. That is 320,000 owed, leaving 200,000 for the owner. **The sheet balances.** But 150,000 is due this year, with only 40,000 of cash to pay it. The sheet balances. The owner may not."
+    "title": "Linden Cycles has a record year",
+    "body": "Say you open the report of a bike maker, call it Linden Cycles, dated 31 December, in thousands. The totals match: 4,800 owned, 3,000 owed, 1,800 left for the owners. Now read across to last year: cash fell from 900 to 300, unpaid customer bills doubled from 700 to 1,400, and bills due within 12 months rose from 1,100 to 1,600. Profit was 400, yet cash dropped 600, so all three warning signs are on one page. Page one of the same report calls it *a record year*.",
+    "simpler": "Picture a bike maker called Linden Cycles. Its report is dated 31 December, in thousands. The totals match: 4,800 owned, 3,000 owed, 1,800 left for the owners. Now compare with last year. Cash fell from 900 to 300. Unpaid customer bills doubled from 700 to 1,400. Bills due within 12 months rose from 1,100 to 1,600. Profit was 400, yet cash dropped 600. **All three warning signs are on one page**, while the first page calls it *a record year*."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Reading Harbour Bikes, a friend says 'it balances, so it is fine.' Which line should make you pause?",
+    "prompt": "Mill Street Bakery, in thousands. Cash: 120 last year, 110 now. Unpaid customer bills: 80 last year, 240 now. Bills due this year: 150 last year, 160 now. Which line do you flag first?",
     "options": [
      {
       "id": "a",
-      "text": "Shop and tools at 210,000: too much money tied up in the building."
+      "text": "Cash, because it went down"
      },
      {
       "id": "b",
-      "text": "The 150,000 loan due this year, next to 40,000 of cash."
+      "text": "Unpaid customer bills, because they tripled"
      },
      {
       "id": "c",
-      "text": "Equity of 200,000: the owners are taking too much."
+      "text": "Bills due this year, because they went up"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a slow asset, and slow assets are normal for a shop that has a shop. The question is what is due soon and what can pay it.",
-     "c": "That's the owners' share, and a bigger one is a cushion, not a worry. The pressure sits on the owe side."
+     "a": "That's a small dip, not a warning: 10 out of 120 is less than a tenth.",
+     "c": "That's normal drift, not a jump: 150 to 160 is a rise of under 7%."
     },
-    "reteach": "Balancing is arithmetic. Every sheet balances, including the sheets of companies that go bust the next week. The health check is a pairing: debt due within 12 months next to the cash that could pay it."
+    "reteach": "Don't ask which number is biggest or which one went down. Ask which line changed most compared with its own old number. Customers owing three times as much means the bakery is handing out bread and waiting to be paid."
    },
    {
     "type": "teach",
-    "title": "The three warning signs",
-    "body": "Once you have walked the lines, look for three pairs.\n\n**Sign one: short-term debt bigger than cash.** Loans due within 12 months against cash. If the debt is 2 times the cash or more, ask how the gap gets paid. Sign two: a big pile of customer bills. Receivables far bigger than cash, or growing faster than sales, means the company is selling but not collecting. Sign three: profit kept, cash not. Retained earnings climbing year on year while cash sits flat or falls. Profit is on paper. Rent is paid in cash.\n\nCompare the two years' columns for each pair. One year is a photo. Two years is a direction.",
-    "simpler": "Once you have read the lines, look for three pairs. **Sign one: short-term debt bigger than cash.** Loans due within a year at twice the cash or more means asking how the gap gets paid. Sign two: customers owe far more than the cash held, or the pile grows faster than sales. That means selling but not collecting. Sign three: kept profit climbs each year while cash stays flat or falls. Compare both years. One year is a photo, two years is a direction."
+    "title": "The cupboards: notes and odd names",
+    "body": "Once a line jumps, open the cupboard. Most lines carry a small number pointing to a *note* at the back of the report: a page explaining what sits inside that line. The jump is the stain on the ceiling; the note is the pipe above it.\n\nSome names look odd. *Goodwill* is the extra a company paid for another business, above the value of its parts. *Right-of-use assets* are buildings or machines it leases rather than owns.\n\nBenjamin Graham and Spencer Meredith wrote a whole book that reads each line in plain words. For now, **you only need the notes behind the lines that moved**.",
+    "simpler": "When a line jumps, find its *note*: the small number beside it points to a page at the back explaining what is inside. The jump is the stain on the ceiling; the note is the pipe above it. *Goodwill* is the extra paid for another business, above its parts' value. *Right-of-use assets* are buildings or machines rented, not owned. Graham and Meredith wrote a book on every line. For now, **you only need the notes behind the lines that moved**."
    },
    {
     "type": "mistake",
-    "body": "Priya read a listed retailer's balance sheet and stopped at the first page, relieved: assets 2 billion, liabilities 1.2 billion, plenty left. She never opened the note on borrowings, where 900 million of that 1.2 billion was due inside 12 months, against 150 million of cash. **The totals said it balanced. The note said it was in trouble.** Spot it in yourself: if you have not read one footnote, you have read the frame, not the house.",
-    "simpler": "Priya read a big shop chain's balance sheet and stopped at the first page, relieved. It owned 2 billion and owed 1.2 billion, so plenty was left. She never opened the note on borrowings. It showed 900 million of that 1.2 billion was due within 12 months, against only 150 million of cash. **The totals said it balanced. The note said it was in trouble.** If you have not read one footnote, you have seen the frame, not the house."
+    "body": "Sam opens a balance sheet, checks that assets equal liabilities plus equity to the last dollar, and writes *healthy* in the margin. You'd think a sheet that balances is in good shape. But every balance sheet balances, failing ones too; that proves the arithmetic, not the business. How to spot it: **if you decided before reading last year's column, you haven't read the sheet yet**.",
+    "simpler": "Sam opens a balance sheet, checks that assets equal liabilities plus equity to the last dollar, and writes *healthy* in the margin. It feels like a sheet that balances must be fine. But every balance sheet balances, even for failing companies. Balancing only proves the sums add up, not that the business is doing well. Here is the test: **if you decided before reading last year's column, you haven't read the sheet yet**."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Two years of the same company. Retained earnings went from 300,000 to 420,000. Cash went from 95,000 to 30,000. Receivables went from 110,000 to 260,000. Which warning signs are showing?",
+    "prompt": "You have five minutes with a real balance sheet. Where is a warning sign most likely to show itself?",
     "options": [
      {
       "id": "a",
-      "text": "Only sign one: short-term debt bigger than cash."
+      "text": "In the line where total assets equal liabilities plus equity"
      },
      {
       "id": "b",
-      "text": "Signs two and three: customer bills piling up, and profit kept while cash fell."
+      "text": "In the gap between this year's and last year's number on the same line"
      },
      {
       "id": "c",
-      "text": "None. Equity grew, so the company is healthier."
+      "text": "In the date printed at the top"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the pairing of loans due soon with cash, and no loan line was given here. The lines you have are receivables, retained earnings and cash.",
-     "c": "That's the equity line on its own. Retained earnings rising while cash falls is sign three: the profit went into unpaid customer bills, not the bank."
+     "a": "That's the equation, not a warning: it matches on every sheet, healthy or failing.",
+     "c": "That's the label on the photo, not the house: it tells you which day, not what's wrong."
     },
-    "reteach": "Three signs, three pairs. Short-term debt against cash. Customer bills against cash. Profit kept against cash. Each asks the same question in a different voice: can it actually pay?"
+    "reteach": "The equation always holds, and the date only names the day. Trouble shows up as movement: cash shrinking, customer debts swelling, short-term bills climbing. You only see movement when two years sit side by side."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A real balance sheet is the same house photo with more rooms, so check the three totals match, then **read every line top to bottom in plain words** and open the footnote on anything odd.\n\nThen look for three pairs: debt due soon against cash, customer bills against cash, profit kept against cash.",
-    "simpler": "A real balance sheet is the same house photo with more rooms. Check that the three totals match. Then **read every line top to bottom in plain words**, and open the footnote on anything odd. Finally look for three pairs: debt due soon against cash, customer bills against cash, and profit kept against cash. Two years of columns show which way things are moving."
+    "body": "Read a balance sheet the same way every time: date and units, the three totals, then each line next to last year's. **The warning signs are the lines that moved most**, and the notes tell you why.\n\nNext: two full years side by side, and the story of what changed.",
+    "simpler": "Read a balance sheet the same way every time. First the date and units, then the three totals, then each line next to last year's. **The warning signs are the lines that moved most**, and the notes explain why. Next comes two full years side by side, and the story of what changed."
    },
    {
     "type": "try",
-    "body": "Tonight: search any listed company's name plus 'annual report', open the PDF, find the balance sheet, and say its first 5 lines out loud in plain words. Then find cash and short-term borrowings. Which is bigger?",
-    "simpler": "Tonight, pick any company listed on a stock market. Search its name plus the words annual report and open the PDF. Find the balance sheet. Say its first five lines out loud in plain words. Then find two numbers: cash, and **short-term borrowings**, which means loans due within a year. Which one is bigger?"
+    "body": "Search for a listed company you know plus *annual report balance sheet*. Find the unit, check the three totals, then circle the one current line that moved most since last year.",
+    "simpler": "Pick a company you know whose shares trade on the stock market. Search for its name plus *annual report balance sheet*. Open it and find the unit first. Then check that the three totals add up. Finally, circle the **one current line that moved most** since last year, where current means due or used up within a year."
    }
   ],
-  "outcomeLine": "You can now read a real published balance sheet from the totals down, say each line in plain words, and name any of the three warning signs it shows."
+  "outcomeLine": "You can now read a real published balance sheet start to finish, compare each line with last year's, and say whether anything worries you.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"24\" y=\"30\" width=\"120\" height=\"140\" rx=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"44,90 84,58 124,90\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"52\" y=\"90\" width=\"64\" height=\"50\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"76\" y=\"112\" width=\"16\" height=\"28\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"104\" cy=\"100\" r=\"3\" fill=\"#1B1A17\"/><text x=\"84\" y=\"160\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">then</text><line x1=\"150\" y1=\"100\" x2=\"170\" y2=\"100\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polyline points=\"163,93 171,100 163,107\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"176\" y=\"30\" width=\"120\" height=\"140\" rx=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"196,90 236,58 276,90\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"204\" y=\"90\" width=\"64\" height=\"50\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"228\" y=\"112\" width=\"16\" height=\"28\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"255\" cy=\"102\" rx=\"9\" ry=\"7\" fill=\"#1B1A17\"/><path d=\"M258 92 l-6 10 l8 8 l-6 12\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"236\" y=\"160\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">now</text></svg>"
  },
- "seconds": 84.01373982429504
+ "seconds": 98.3763530254364
 }

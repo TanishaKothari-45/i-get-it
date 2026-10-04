@@ -5,120 +5,135 @@
   "cards": [
    {
     "type": "picture",
-    "body": "It's the end of the day and the builder says the kitchen is done. **You don't sign off from the doorway.** You walk in, turn on every tap, open every cupboard, ask what got done today, and pin a note to the wall for tomorrow's crew: *no more surprises with the plumbing.*\n\nThree checks, every time, before you trust the work.",
-    "simpler": "It's the end of the day. The builder says the kitchen is finished. **You don't sign off from the doorway.** You walk in. You turn on every tap and open every cupboard. You ask what got done today. Then you pin a note to the wall for tomorrow's crew: no more surprises with the plumbing. Do these three checks every time, before you trust the work."
+    "body": "Your builder says \u201cAll done!\u201d Would you pay before walking through the house? Claude Code is that builder: skilled, fast, and just as cheerful about work nobody has checked.\n\n**Before you trust a build, walk through it, read the list of jobs done, and leave a note for tomorrow's crew.**",
+    "simpler": "Your builder says \u201cAll done!\u201d Would you pay before walking through the house? Claude Code is like that builder. It is skilled and fast. It also sounds just as cheerful about work nobody has checked. So before you trust what it built, do three things: **walk through it, read the list of jobs done, and leave a note for tomorrow's crew.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Claude says: *Done! The 'Clear all' button now empties your shopping list.* What's your first move?",
+    "prompt": "Claude finishes your birthday-countdown page and says: \u201cDone! Everything works perfectly.\u201d What's your next move?",
     "options": [
      {
       "id": "a",
-      "text": "Say thanks and ask for the next feature."
+      "text": "Thank it and close the window. It said perfectly."
      },
      {
       "id": "b",
-      "text": "Open the app and click 'Clear all' yourself, like a user would."
+      "text": "Open the page and use it yourself, the way a visitor would."
      },
      {
       "id": "c",
-      "text": "Ask Claude to read its own code again and double-check."
+      "text": "Ask it to say \u201cperfectly\u201d again, but more firmly."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's taking the builder's word for the walkthrough: you haven't seen the tap run yet.",
-     "c": "That's asking the builder to inspect the builder. Your own click takes 5 seconds and catches more."
+     "a": "That's taking the builder's word, not checking the work: \u201cdone\u201d means it stopped typing, not that you saw it run.",
+     "c": "That's asking for more confidence, not more proof: a louder \u201cit works\u201d is still not you seeing it work."
     },
-    "reteach": "Claude saying *done* means it believes the code is right. It has not clicked the button. You are the only one in the room who can act like a real user, so that comes first."
+    "reteach": "A builder saying \u201cfinished\u201d tells you they stopped working. Walking through tells you whether the taps run. Claude's \u201cdone\u201d is its own report. Clicking through it yourself is the inspection."
    },
    {
     "type": "teach",
-    "title": "Check 1 and 2: click it, then ask for the list",
-    "body": "**Test as a user first.** Open the app in your browser and do the thing you asked for, start to finish. Not the code, the app. If a button was added, click it. If a form was added, fill it in with something silly and submit it.\n\nThen ask the builder for the day's report: *List every file you changed and what you changed in each, in plain words.* Claude will give you a short list.\n\nRead it looking for one thing: a file you didn't expect. That surprise is where the hidden damage usually lives.",
-    "simpler": "**Try the app yourself first.** Open it in your browser and do the whole thing you asked for. The app, not the code. If a button was added, click it. If a form was added, type something silly into it and send it. Then ask Claude for a plain list of every file it changed and what changed in each. Read that list for one thing: a file you didn't expect. That surprise is where hidden damage hides."
+    "title": "Checks one and two: try it, then make it explain",
+    "body": "**Check one: use the app the way a stranger would.** Open it in your browser and click every button. Then do something a bit silly: leave a box empty, or type a word where a number should go. Builders test the doors they hung. Visitors lean on the railings.\n\nCheck two: ask Claude, \u201cList every file you changed in this session and why, in plain words.\u201d This is the *job sheet*, the builder's list of everything they touched. You don't need to read the code. Read the list and ask one question: did I ask for all of this?",
+    "simpler": "**First, use the app like a stranger would.** Open it in your browser and click every button. Leave a box empty, or type a word where a number should go. Builders test the doors they hung, but visitors lean on the railings. Second, ask Claude: \u201cList every file you changed in this session and why, in plain words.\u201d This is the job sheet. Skip the code. Read the list and ask: did I ask for all of this?"
    },
    {
     "type": "example",
-    "title": "The 3-file surprise",
-    "body": "You ask Claude to add a 'Clear all' button to a shopping-list app. Claude says done. You click it: the list empties. Good.\n\nThen you ask for the change list. Claude names 3 files: the page, the styling, and the file that saves the list between visits. You never mentioned saving. One question, *why that third file?*, and Claude admits it rewrote the save function 'while it was in there'. Items now vanish on refresh. **Caught in 40 seconds**, before you'd moved on and forgotten.",
-    "simpler": "You ask Claude to add a 'Clear all' button to a shopping-list app. Claude says done. You click it. The list empties. Then you ask what files changed. Claude names three: the page, the styling, and the file that saves your list between visits. You never mentioned saving. You ask why that third file. Claude admits it also rewrote the save code. Now items vanish when you refresh. **Caught in 40 seconds**, before you moved on and forgot."
+    "title": "The dinner that cost Infinity",
+    "body": "Sam builds a bill-splitter for a group dinner, and Claude says it's finished. Sam types $90 and 3 people and gets $30 each. Perfect. Then a friend types 0 people, and the page proudly announces that everyone owes \u201cInfinity.\u201d Sam asks for the job sheet, and Claude lists two changes: the splitter, plus a new page colour nobody asked for. That's two problems found in four minutes, before any real guest saw it.",
+    "simpler": "Sam builds an app to split a group dinner bill, and Claude says it's finished. Sam types $90 and 3 people and gets $30 each. Perfect. Then a friend types 0 people, and the page says everyone owes \u201cInfinity.\u201d Sam asks for the job sheet. Claude lists two changes: the splitter, and a new page colour nobody asked for. That's **two problems found in four minutes**, before any real guest saw it."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You asked for a dark-mode toggle. Claude's change list shows 4 files. One is the file that handles sign-in, which you never mentioned. What do you do?",
+    "prompt": "Lena asked Claude to add a \u201cclear all\u201d button to her to-do app, and Claude says it's done. Which of these is a proper inspection?",
     "options": [
      {
       "id": "a",
-      "text": "Nothing. The toggle works, so the build is fine."
+      "text": "Press \u201cclear all\u201d with 3 to-dos on the list, then with none, then ask Claude to list every file it changed and why."
      },
      {
       "id": "b",
-      "text": "Ask: *Why did you change the sign-in file, and what exactly did you change?*"
+      "text": "Ask Claude \u201cDid you test it?\u201d and close the window when it says yes."
      },
      {
       "id": "c",
-      "text": "Ask Claude to delete the sign-in file so nothing's hidden in it."
+      "text": "Open the main code file and scroll until it looks like plenty of code."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's check 1 only. The toggle working says nothing about what happened to sign-in.",
-     "c": "That's panic, not inspection. Ask first; the change may be harmless, or easy to undo."
+     "b": "That's the builder marking their own work, not your walk-through: you still haven't seen the button work.",
+     "c": "That's judging the house by the pile of wood, not by walking through it: more code doesn't mean the button works."
     },
-    "reteach": "The change list is a map of where the builder went. A room you didn't send it into is the first room you look in. Ask why, then test that room too."
+    "reteach": "An inspection is two things you do yourself. Use the new feature, odd cases included. Then read Claude's plain list of what it touched. Asking whether it works only gets you another \u201cyes.\u201d"
    },
    {
     "type": "teach",
-    "title": "Check 3: the note pinned to the wall",
-    "body": "Every new Claude Code session starts with a blank memory. Yesterday's 'please don't touch the save file' is gone. The fix is a *CLAUDE.md*: a plain text file in your project folder that Claude Code reads automatically at the start of every session.\n\n**Write 3 to 5 rules in it**, each one line, in plain English. Good ones sound like: 'Ask before changing any file I didn't mention.' 'After each change, tell me how to test it in the browser.' 'One feature per request, no extras.'\n\nGrow it slowly. Each time you correct Claude on the same thing twice, that correction becomes a line.",
-    "simpler": "Every new Claude Code session starts with an empty memory. Yesterday's 'please don't touch the save file' is forgotten. The fix is a file called CLAUDE.md. It's a plain text file in your project folder that Claude Code reads at the start of every session. **Write 3 to 5 rules in it**, one line each. For example: 'Ask before changing any file I didn't mention.' Each time you correct Claude on the same thing twice, that correction becomes a line."
+    "title": "Check three: the note on the fridge",
+    "body": "You'd think a builder this good would remember yesterday. Usually it doesn't. **Start a fresh Claude Code session tomorrow and it begins with none of today's chat.** Each new session, a fresh crew turns up at the site.\n\nThe fix is a plain text file called *CLAUDE.md* that lives in your project folder. Claude Code reads it on its own every time it starts there, like a crew reading the note taped to the fridge before they pick up a hammer. That way tomorrow's crew checks the work your way too.\n\nKeep it short: 3 to 5 rules you really care about. \u201cExplain every change in plain words.\u201d \u201cAsk me before adding a new service.\u201d \u201cTry an empty box before saying done.\u201d",
+    "simpler": "You might expect such a good builder to remember yesterday. Usually it doesn't. **Start a fresh Claude Code session tomorrow and it remembers none of today's chat.** Each new session, a fresh crew shows up. The fix is a plain text file called CLAUDE.md in your project folder. Claude Code reads it every time it starts, like a crew reading a note on the fridge, so the next crew checks the work your way. Keep it short: 3 to 5 rules, like \u201cAsk me before adding a new service.\u201d"
    },
    {
     "type": "mistake",
-    "body": "Sam finishes Tuesday's session with everything working and closes the terminal. On Wednesday, Claude rewrites the save file again, uninvited, and Sam types the same frustrated correction as yesterday. **Saying the same correction twice is the signal.** The moment you notice you're repeating yourself, stop and put that sentence in CLAUDE.md. Then it's the last time.",
-    "simpler": "Sam ends Tuesday's session with everything working and closes the terminal. On Wednesday, Claude rewrites the save file again without being asked. Sam types the same annoyed correction as the day before. **Typing the same correction twice is the signal.** The moment you catch yourself repeating a sentence to Claude, stop and put that sentence in CLAUDE.md. Then it's the last time you have to say it."
+    "body": "On Monday, Jo tells Claude: \u201cAlways make buttons big enough for my thumb.\u201d On Tuesday, in a fresh session, the buttons are tiny again. On Wednesday Jo types the rule again, a bit louder. Here's how to spot it: **if you've typed the same instruction in two different sessions, it belongs in CLAUDE.md, not the chat.**",
+    "simpler": "On Monday, Jo tells Claude: \u201cAlways make buttons big enough for my thumb.\u201d On Tuesday, in a fresh session, the buttons are tiny again. On Wednesday, Jo types the rule again, a little louder. Here is the warning sign to watch for: **if you've typed the same instruction in two different sessions, put it in CLAUDE.md instead of the chat.**"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "You're closing a session. Which of these belongs in your CLAUDE.md file?",
+    "prompt": "You've just finished a good session. Next week you start a brand-new Claude Code session in the same folder. Which of these can you count on it having?",
     "options": [
      {
       "id": "a",
-      "text": "Today I fixed the login bug and added dark mode."
+      "text": "The rules you typed into the chat an hour ago."
      },
      {
       "id": "b",
-      "text": "Always ask before changing a file I didn't mention."
+      "text": "The rules written in the CLAUDE.md file in your project folder."
      },
      {
       "id": "c",
-      "text": "The full red error message from this morning."
+      "text": "Today's \u201cDone! Everything works\u201d message."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a diary of what happened, which Git already keeps. The notes file holds rules for how to work, not history.",
-     "c": "That's a one-time problem from chapter 4. It's fixed now; a rule outlives any single error."
+     "a": "That's the chat, not the notes file: a brand-new session starts without earlier conversations.",
+     "c": "That's the builder's report, not a note it reads: a new session doesn't start with it, and it was never a check anyway."
     },
-    "reteach": "CLAUDE.md is the note for tomorrow's crew, so it holds standing orders: how you want the builder to behave every day. Not what got done, not what broke once."
+    "reteach": "Every new session is a new crew arriving at your house. They don't know what you told yesterday's crew. They only know what's taped to the fridge, and in Claude Code, that fridge note is CLAUDE.md."
+   },
+   {
+    "type": "try",
+    "body": "Open Claude Code in your project folder and type: \u201cCreate a CLAUDE.md with these 3 rules: explain changes in plain words, ask before adding new services, test with an empty box before saying done.\u201d Then read the file.",
+    "simpler": "Open Claude Code in your project folder and type this: \u201cCreate a CLAUDE.md with these 3 rules: explain changes in plain words, ask before adding new services, test with an empty box before saying done.\u201d When it's done, **read the file yourself** to see what it wrote."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Claude saying *done* is a claim, not a check. **Click through the app yourself**, ask for the list of changed files and question any surprise, then write the rules you keep repeating into CLAUDE.md so tomorrow's session already knows them.",
-    "simpler": "When Claude says done, that is a claim, not proof. Those are the three checks. **Click through the app yourself.** Then ask for the list of files that changed and question anything you didn't expect. Finally, write the rules you keep repeating into CLAUDE.md, so tomorrow's session already knows them before you start."
-   },
-   {
-    "type": "try",
-    "body": "Open your project folder, create a file called CLAUDE.md, and type 3 rules you'd want followed tomorrow. Start the first one with 'Ask before...'. Then start Claude Code and ask: *what rules are you following?*",
-    "simpler": "Open your project folder and make a new file called CLAUDE.md. Type three rules you'd want followed tomorrow, one short line each. **Start the first one with 'Ask before...'** Then start Claude Code and ask it one question: what rules are you following?"
+    "body": "Before you trust a build, use it like a stranger would, have Claude list what it changed and why, and write your rules into CLAUDE.md. The builder does the work; **you do the checking and keep the notes.**\n\nRight now, only you can break this app. Soon you'll text a friend a link and watch them tap the one button you never tried.",
+    "simpler": "Before you trust a build, do three things. Use it the way a stranger would. Ask Claude to list what it changed and why. Write your rules into CLAUDE.md. The builder does the work, but **you do the checking and keep the notes.** Right now, only you can break this app. Soon you'll text a friend a link and watch them tap the one button you never tried."
    }
   ],
-  "outcomeLine": "You can now finish a session by testing the app yourself, reading Claude's list of changes, and writing 3 to 5 rules into CLAUDE.md for next time."
+  "outcomeLine": "You can now finish a session by testing the app yourself, reading Claude's list of what it changed, and writing 3 to 5 rules into CLAUDE.md for next time.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"20\" y1=\"170\" x2=\"300\" y2=\"170\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"40,92 110,40 180,92\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"55\" y=\"92\" width=\"110\" height=\"78\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"95\" y=\"122\" width=\"30\" height=\"48\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"100\" y=\"128\" width=\"16\" height=\"13\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"210\" y=\"50\" width=\"80\" height=\"112\" rx=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"235\" y=\"42\" width=\"30\" height=\"14\" rx=\"3\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M222 80l7 7 13-15M222 108l7 7 13-15M222 136l7 7 13-15\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M250 82h28M250 110h28M250 138h28\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"250\" y=\"190\" font-family=\"sans-serif\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\">3 checks</text></svg>"
  },
- "seconds": 86.26813697814941
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "concrete_images",
+   "one_idea",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "'Open Claude Code tomorrow and it starts with none of today's chat' is simplified. It's true for a fresh session, but `claude --continue` and `--resume` bring back the last chat, and Claude Code's auto-memory may save rules on its own. That makes the 'next week' recall exercise and Jo's Tuesday story a little less airtight.",
+   "Weaker one_idea point: check three (CLAUDE.md) is about memory across sessions, not checking the work. So exercise 3 tests a second idea rather than the same one from a new angle."
+  ],
+  "weakest_card": 9,
+  "why": "The 'In one breath' card is all abstract summary with nothing to picture. Its teaser for the next chapter ('around day 14: putting an app online') reads like a schedule note, and it sits before the try card instead of at the end.",
+  "fix": "Make it the last card and close on a concrete hook: 'Right now only you can break this app. Next chapter, you text a friend a link and watch them find the Infinity bug you missed.'"
+ }
 }

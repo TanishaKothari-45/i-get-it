@@ -1,0 +1,134 @@
+{
+ "chapter": {
+  "n": 3,
+  "title": "Lay out the path",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Nancy Duarte put Martin Luther King's *I Have a Dream* next to Steve Jobs's 2007 iPhone launch and found the same hidden zigzag in both. Mountain trails zigzag too. They don't go straight up. They switch back and forth so ordinary legs can make it. **A path people can follow keeps turning between where they stand and the view they're climbing to.**",
+    "simpler": "Nancy Duarte studied two famous speeches: Martin Luther King's *I Have a Dream* and Steve Jobs's 2007 iPhone launch. She found the same hidden zigzag in both. Mountain trails zigzag too. They don't go straight up. They switch back and forth so ordinary legs can make the climb. **A path people can follow keeps turning between where they stand and the view they're climbing to.**"
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Duarte found one zigzag inside both King's speech and Jobs's launch. Before you read on, what do you think it swings between?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Loud parts and quiet parts"
+     },
+     {
+      "id": "b",
+      "text": "How things are now and how they could be"
+     },
+     {
+      "id": "c",
+      "text": "Stories and statistics"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's pace, not path: volume is how you say it, not the shape of what you say.",
+     "c": "That's the material, not the shape: a story or a number can sit on either side of the zigzag."
+    },
+    "reteach": "Think of the trail. It switches between where you're standing and the view you're climbing toward. Duarte's zigzag does the same with ideas: the world as it is, then the world as it could be, back and forth."
+   },
+   {
+    "type": "teach",
+    "title": "The zigzag",
+    "body": "Duarte's shape has two places. *What is* means the world your listeners stand in today: the stuck door, the long meeting. *What could be* means the view from the top if they take your idea.\n\nYou don't say each one once. **You swing between them**: now, could be, now, could be. Each swing makes the gap feel wider, like looking back down the trail and seeing how small the car park has become.\n\nYou'd think slides hold a talk together. Without them, the back and forth is the map. Near the end, you show the way there, meaning the first steps.",
+    "simpler": "Duarte's shape has two places. *What is* means the world your listeners live in today, like the stuck door or the long meeting. *What could be* means the view from the top if they take your idea. You don't say each one just once. **You swing between them**, back and forth. Each swing makes the gap feel bigger. Without slides, this back and forth is what guides people. Near the end, show the first steps to get there."
+   },
+   {
+    "type": "example",
+    "title": "Dev and the Monday meeting",
+    "body": "Dev has 5 minutes to get rid of his team's Monday meeting. *What is*: every Monday at 9, 11 people watch Sam read out a spreadsheet they all already have. *What could be*: a five-line written update by 10, and the hour back. He swings twice more. Last week the meeting ran 70 minutes; next week, at 9:05, you could already be doing real work. Then the way there: **try it for 3 weeks, then vote.**",
+    "simpler": "Dev has 5 minutes to get rid of his team's Monday meeting. *What is*: every Monday at 9, 11 people watch Sam read out a spreadsheet they all already have. *What could be*: a five-line written update by 10, and the hour back. He swings twice more. Last week the meeting ran 70 minutes. Next week at 9:05, you could already be doing real work. Then the first step: **try it for 3 weeks, then vote.**"
+   },
+   {
+    "type": "watch",
+    "who": "Nancy Duarte",
+    "what": "The secret structure of great talks",
+    "url": "https://www.ted.com/talks/nancy_duarte_the_secret_structure_of_great_talks",
+    "from": "",
+    "minutes": 18,
+    "watchFor": "When she maps a famous speech as a line jumping up and down: each jump is a swing between what is and what could be."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Maya has 5 minutes to persuade her book club to add one non-fiction book every 3 months. Which plan lays out a path?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Six reasons non-fiction is good, then her favourite titles."
+     },
+     {
+      "id": "b",
+      "text": "Last month we finished the novel in 2 days and spent the evening on snacks. Then what a meeting could feel like, back and forth, then the first book and a date."
+     },
+     {
+      "id": "c",
+      "text": "The first book and the date up front, then why."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a list, not a path: six reasons with no now and no could-be leave nobody a gap to cross.",
+     "c": "That's the way there before the summit: the steps arrive before anyone wants to go."
+    },
+    "reteach": "A path needs two places and the gap between them. Show where people stand, show where they could be, swing between the two a couple of times, then give the steps. The steps are the last stretch, not the first."
+   },
+   {
+    "type": "teach",
+    "title": "When you have 10 seconds",
+    "body": "The zigzag is for a talk you've planned. Sometimes, though, your manager turns to you in a meeting and asks what you think. There's no time to plan a hike.\n\nMatt Abrahams, who teaches speaking at Stanford, uses three questions for this moment: **What? So what? Now what?** What's happening, why it matters to the people in the room, and what to do next.\n\nIt's the same trail folded onto a napkin: where we stand, why the top is worth reaching, and the first step. Ten seconds is enough to pick one sentence for each.",
+    "simpler": "The zigzag is for a talk you've planned. But sometimes your manager turns to you in a meeting and asks what you think. There's no time to plan. Matt Abrahams, who teaches speaking at Stanford, uses three questions for this moment: **What? So what? Now what?** What's happening, why it matters to the people in the room, and what to do next. It's the same trail, made small. Ten seconds is enough to pick one sentence for each."
+   },
+   {
+    "type": "mistake",
+    "body": "Tom explains a billing bug in the order he lived it: the angry email, the spreadsheet, the Tuesday call, the fix. By minute 4 his listeners are still stuck in Tuesday, with no idea where they're heading. **If your talk follows your calendar, it's your diary, not their path.** To spot it, check your first minute: does it say where we are and where we could be?",
+    "simpler": "Tom explains a billing bug in the order it happened to him: the angry email, the spreadsheet, the Tuesday call, the fix. Four minutes in, his listeners are still stuck on Tuesday. They have no idea where they're going. **If your talk follows your calendar, it's your diary, not their path.** Here's a quick check. Does your first minute say where we are now and where we could be?"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend hears your 5-minute talk, then sketches its shape on a napkin. Which sketch means your path worked?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A straight line down the page with 6 dots, one per point."
+     },
+     {
+      "id": "b",
+      "text": "A line zigzagging between now and could-be, ending in an arrow up."
+     },
+     {
+      "id": "c",
+      "text": "A timeline: what happened first, then next, then last."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's a list, not a path: dots in a row never show the gap between now and could-be.",
+     "c": "That's Tom's diary, not their path: the order you lived it isn't the order they can climb it."
+    },
+    "reteach": "Listeners remember a shape, not a list. If they felt the jump between how things are and how they could be a few times, then saw the first step, they can draw it back for you."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "A talk people can follow without slides **switches between how things are and how they could be** a few times, then shows the way there. When you only have 10 seconds, fold it down to What? So what? Now what?\n\nTomorrow: why saying your point three times feels boring to you, not them.",
+    "simpler": "A talk people can follow without slides **switches between how things are and how they could be** a few times. Then it shows the first steps to get there. When you only have 10 seconds, shrink it down to three questions: What? So what? Now what? Tomorrow: why saying your point three times feels boring to you, but not to your listeners."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, pick one thing you'd change at home or work. Say it out loud with a phone timer running: one line on how it is now, one on how it could be, swap twice, then one first step. Under 2 minutes.",
+    "simpler": "Tonight, pick one thing you'd like to change at home or at work. Start a timer on your phone and say it out loud. Give one line on how it is now and one line on how it could be. Swap between them twice. Then say one first step. Keep the whole thing **under 2 minutes**."
+   }
+  ],
+  "outcomeLine": "You can now arrange a 5-minute talk as a zigzag between how things are and how they could be, ending in the way there, so a listener could draw its shape afterwards.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"20,185 160,30 300,185\" fill=\"#1F7A4D\"/><circle cx=\"265\" cy=\"45\" r=\"18\" fill=\"#F2A93B\"/><polyline points=\"150,180 210,150 110,125 190,100 135,78 165,52 160,32\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-dasharray=\"6 5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"160\" y1=\"32\" x2=\"160\" y2=\"8\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"160,8 182,14 160,20\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><circle cx=\"150\" cy=\"180\" r=\"5\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"118\" y=\"197\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#1B1A17\">now</text><text x=\"190\" y=\"24\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#1B1A17\">could be</text></svg>"
+ },
+ "seconds": 93.13178610801697
+}

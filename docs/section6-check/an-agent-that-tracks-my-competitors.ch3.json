@@ -5,114 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "A web page is not a page. It is one long string of text, and your agent can read it the way your clipping clerk reads the morning paper: today the clerk buys the paper, cuts nothing, and files the whole thing with the date written on top. **Without that dated copy, tomorrow there is nothing to compare.**"
+    "body": "What did your rival's pricing page say last Tuesday? Unless someone kept a copy, the answer is usually gone.\n\nIn the clipping service, this is where the scissors meet the paper. Each morning the agent downloads each page, keeps only the words, and files the clipping in a folder with **today's date on it**.",
+    "simpler": "What did your rival's pricing page say last Tuesday? If nobody saved a copy, that answer is usually lost. Think of a clipping service, where someone cuts stories out of the paper each day. This step is the cutting. Every morning the agent downloads each page, keeps just the words, and puts the clipping in a folder marked with **today's date**."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your clipping clerk reads rival Lantern Payroll's pricing page on Monday, nods, and bins the paper. On Tuesday you ask what changed. What can the clerk honestly say?",
+    "prompt": "Your clipping person reads Monday's paper, enjoys the story about your rival, then drops the paper in the bin. On Tuesday you ask: 'What's new since yesterday?' What can they tell you?",
     "options": [
      {
       "id": "a",
-      "text": "Prices went up, I remember it clearly"
+      "text": "Exactly what changed, because they read Monday's story carefully"
      },
      {
       "id": "b",
-      "text": "Nothing to compare against: Monday's copy is gone"
+      "text": "Only what Tuesday's paper says. Nothing was kept from Monday, so there's nothing to compare it with."
      },
      {
       "id": "c",
-      "text": "Tuesday's page is the only one that matters"
+      "text": "Nothing at all, because they can't get Tuesday's paper either"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's memory, not a copy: memory is exactly what the agent does not have between runs.",
-     "c": "That's reading, not tracking: one copy tells you what a page says, never what changed."
+     "a": "That's reading, not keeping: even a careful read leaves nothing to hold up next to Tuesday's page.",
+     "c": "That's a fetching problem, not a memory problem: Tuesday's paper is right there. Monday's is the one that's missing."
     },
-    "reteach": "A change is a difference between two things. If you keep only today, you have one thing. Yesterday's saved copy is the second thing, and the whole reason to save."
+    "reteach": "To answer 'what changed?' you need two things: the page now and the page before. The agent can fetch today's page any time, but yesterday's is gone unless it was saved. The saved copy is your 'before'."
    },
    {
     "type": "teach",
-    "title": "Buying the paper",
-    "body": "When your browser shows a page, it first *downloads* it: it asks the website's computer for the page and gets text back. Your agent can make the same request with one line of code and get the same text, no browser needed.\n\nThat text is *HTML*, the page's raw form, full of tags like <p> and <div> that tell a browser where things go. A pricing page that reads as 300 words on screen can arrive as 5,000 lines of HTML.\n\n**Fetch means download the raw text, then strip the tags** so you keep only the words a person would see. That is the paper, delivered."
+    "title": "Grabbing the words",
+    "body": "*Fetching* means your agent asks a website for a page, the same way your browser does when you type in an address. What comes back isn't the polished page you see. It's the raw recipe: *HTML*, which is the text plus tags that tell a browser where the bold words and buttons go.\n\nYour agent doesn't need the buttons. So the next step strips out the tags and keeps the words, like cutting out a story and leaving the ads on the floor.\n\nThen it saves those words to a plain text file. **The file name carries the date**, so each morning adds a new clipping instead of replacing the last one.",
+    "simpler": "Fetching means your agent asks a website for a page, like your browser does. What comes back is HTML: the words mixed with tags that tell a browser where bold text and buttons go. The agent removes the tags and keeps the words, like cutting out a story and leaving the ads. It saves them to a plain text file. **The file name includes the date**, so each morning adds a new clipping instead of replacing the old one."
    },
    {
     "type": "example",
-    "title": "Priya's first clipping",
-    "body": "Priya tracks a payroll rival called Lantern. She points her agent at Lantern's pricing page. The raw download is 212 KB of HTML, and the word 'price' appears 41 times, mostly inside menu code. After stripping tags she has 640 words, 3 plan names and 3 numbers. She saves it as lantern-pricing-2026-10-04.txt, opens it, reads the plans. The file is boring. That is the point: boring today, evidence tomorrow, because **now she owns a copy of Lantern's Monday**."
+    "title": "One clipping, start to finish",
+    "body": "Say you watch Pebble, a made-up invoicing app, at pebble.example/pricing. At 7am the agent fetches the page and gets back a long tangle of HTML. Once the tags are stripped, about 40 lines are left: three plan names, three prices and a short FAQ. It saves them as pebble-pricing-2026-10-04.txt.\n\nTomorrow it does the same and gets pebble-pricing-2026-10-05.txt, **sitting right next to yesterday's**, ready to be compared.",
+    "simpler": "Say you keep an eye on Pebble, a made-up invoicing app, at pebble.example/pricing. At 7am the agent fetches the page and gets a long mess of HTML. With the tags removed, about 40 lines remain: three plan names, three prices and a short list of common questions. It saves them as pebble-pricing-2026-10-04.txt. Tomorrow it does the same and saves pebble-pricing-2026-10-05.txt, **right next to yesterday's file**, ready to compare."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Priya's agent saves Lantern's pricing page each morning. Which filename keeps a copy she can compare against next week?",
+    "prompt": "You're setting up the save step for a rival's changelog page (the page where they list what they've shipped). Which naming plan lets you answer 'what changed this week?' on Friday?",
     "options": [
      {
       "id": "a",
-      "text": "lantern-pricing.txt, overwritten each run"
+      "text": "Save to changelog.txt every morning, so there's always one tidy file"
      },
      {
       "id": "b",
-      "text": "lantern-pricing-2026-10-04.txt, a new file each day"
+      "text": "Save to changelog-2026-10-04.txt, changelog-2026-10-05.txt and so on, one file per day"
      },
      {
       "id": "c",
-      "text": "lantern-pricing-latest.html, raw tags and all"
+      "text": "Skip the file. The AI model will remember what the page said."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's today replacing yesterday: the moment it overwrites, the comparison is gone.",
-     "c": "That's the paper before stripping, with no date: raw tags clutter the compare, and 'latest' is still only one sheet."
+     "a": "That's tidiness, not memory: each morning's save wipes out yesterday's, so on Friday you have one page and nothing to compare it with.",
+     "c": "That's the reader, not the filing cabinet: each time the agent calls the model, the model starts blank and remembers nothing from earlier runs."
     },
-    "reteach": "The date in the filename turns one file into a stack. Each day adds a layer; next week you pull out two and hold them side by side. Overwrite, and the stack is always one sheet thick."
+    "reteach": "Think of each file as one day's clipping in a drawer. Reusing one file name every day is like a drawer that holds a single clipping and throws out the old one each time. Putting the date in the name gives every day its own slot."
    },
    {
     "type": "teach",
-    "title": "When the paper comes blank",
-    "body": "Mostly a page is text your agent can read. The exceptions matter. Some pages arrive almost empty, with a line like 'Please enable JavaScript', because the real words are added later by code running inside a browser. Your agent has no browser, so it gets the empty shell.\n\nOther sites spot a robot and send an 'Access denied' page, or a *403*, the web's number for 'no'. Both look like a successful download. Both are useless.\n\n**So the last step of every fetch is to open the file and look.** If the plan names and prices are there, the clipping worked. If the file is 40 words of apology, that page needs a different route, which chapter 7 covers."
+    "title": "Mostly text. The exceptions.",
+    "body": "Most pricing pages and blogs come back with their words right inside the HTML. Easy. But some sites send an almost empty page plus a small program, *JavaScript*, that fills in the words after your browser runs it. A simple fetch doesn't run that program, so it gets the empty frame.\n\nOther times the site blocks you. Or a cookie banner sits where the prices should be.\n\nYou'd think a saved file means a saved page. **It only means something got saved.** So the first time you fetch any page, open the file and look for something you know is on it, like a price.",
+    "simpler": "Most pricing pages and blogs send their words inside the HTML. But some send a nearly empty page plus a program, JavaScript, that fills in the words later. A plain fetch doesn't run that program, so it gets the empty frame. Some sites block you, or a cookie banner covers the prices. **A saved file only means something got saved.** The first time you fetch a page, open it and check for something you know is there, like a price."
    },
    {
     "type": "mistake",
-    "body": "Tomas set his agent to fetch 4 rivals' changelogs every night and did not look for two weeks. On day 15 he opened the folder: 56 neat dated files, each 38 words long, each saying 'Checking your browser before you continue.' Spot it fast: a file far smaller than the page looks on screen, or **the same size every single day**."
+    "body": "Priya sets up five fetches on Sunday night, sees five files appear and goes to bed happy. On Thursday she opens one. Every day's copy says 'Please enable JavaScript to continue.' All week, her agent has carefully clipped the same empty box.\n\nThe giveaway is size: a real pricing page saves dozens of lines, and **a file with one or two lines means the page never arrived**.",
+    "simpler": "Priya sets up five fetches on Sunday night, sees five files appear, and goes to bed happy. On Thursday she opens one. Every day's copy just says 'Please enable JavaScript to continue.' All week her agent has neatly clipped the same empty box. The clue is size. A real pricing page saves dozens of lines, so **a file with one or two lines means the page never arrived**."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "When the agent 'fetches and keeps a copy', which of these is the clipping clerk actually doing?",
+    "prompt": "It's day 3. Your folder holds acme-pricing-2026-10-03.txt (52 lines) and acme-pricing-2026-10-04.txt (2 lines, both saying 'Loading...'). What should you do before asking what changed?",
     "options": [
      {
       "id": "a",
-      "text": "Reading today's paper carefully and remembering the main points"
+      "text": "Compare them. The comparison will show Acme deleted 50 lines of pricing."
      },
      {
       "id": "b",
-      "text": "Buying today's paper, stripping it to plain words, filing it under today's date"
+      "text": "Treat today's file as a failed fetch, and open the page to see why"
      },
      {
       "id": "c",
-      "text": "Cutting out only the stories that changed since yesterday"
+      "text": "Delete yesterday's file, since today's is newer"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the model's job in chapter 5, and memory isn't a file: the agent keeps nothing between runs unless you save it.",
-     "c": "That's the scissors, chapter 4: you cannot cut what changed until you own two dated copies."
+     "a": "That's a broken clipping, not a real change: Acme didn't delete its prices. Your fetch just got the empty frame.",
+     "c": "That's tidying, not keeping: yesterday's copy is the only good 'before' you have."
     },
-    "reteach": "Fetching is the dull step: get the text, drop the tags, save with the date. Comparing and explaining come later and lean on it. No copy, no diff; no diff, no summary."
+    "reteach": "A clipping is only useful if the story is actually on it. When 2 lines of 'Loading...' show up where 52 lines used to be, the fetch almost always failed and the page didn't change. Check the file before you trust any comparison."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "The agent downloads a page as raw text, strips the tags down to the words a person sees, and saves the result in a file named with today's date; then you open it to check it is not an 'enable JavaScript' shell. **Yesterday's file is the only reason today's can mean anything.**\n\nTomorrow: the scissors. Two dated copies, and only the lines that differ."
+    "body": "Every day the agent downloads each page, keeps only the words and saves them in a file with the date in its name. Open the first file yourself, because **a saved file only proves something arrived**, not that the page did.\n\nTomorrow: laying two days' clippings side by side to find the lines that moved.",
+    "simpler": "Every day the agent downloads each page, keeps only the words, and saves them in a file with the date in its name. Open the first file yourself, because **a saved file only proves something arrived**, not that the real page did. Tomorrow you'll put two days' clippings side by side to spot the lines that changed."
    },
    {
     "type": "try",
-    "body": "Open one rival's pricing page, select all, copy, and paste into a new text note. Name it with the company and today's date, like lantern-pricing-2026-10-04. You just did the agent's job by hand, once."
+    "body": "Open one rival's pricing page in your browser. Press Cmd+A (Ctrl+A on Windows) to select everything, copy it, and paste it into a text file named with today's date. That's a clipping, made by hand.",
+    "simpler": "Open one rival's pricing page in your browser. Press Cmd+A (Ctrl+A on Windows) to select everything on the page. Copy it, then paste it into a plain text file and name the file with today's date. **That's a clipping, made by hand.**"
    }
   ],
-  "outcomeLine": "You can now fetch one competitor page, save its text under today's date, and open it to prove the copy is real.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"28\" y=\"30\" width=\"120\" height=\"150\" rx=\"3\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"40\" y1=\"48\" x2=\"136\" y2=\"48\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"40\" y1=\"62\" x2=\"136\" y2=\"62\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"72\" x2=\"120\" y2=\"72\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><rect x=\"40\" y=\"86\" width=\"96\" height=\"40\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><line x1=\"40\" y1=\"140\" x2=\"136\" y2=\"140\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"152\" x2=\"128\" y2=\"152\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"40\" y1=\"164\" x2=\"136\" y2=\"164\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"150\" y1=\"106\" x2=\"190\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><polygon points=\"186,100 196,106 186,112\" fill=\"#1B1A17\"/><path d=\"M206 70 h40 l10 10 h50 v90 h-100 z\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"214\" y=\"96\" width=\"84\" height=\"50\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\" transform=\"rotate(-4 256 121)\"/><text x=\"256\" y=\"126\" font-family=\"sans-serif\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1B1A17\">2026-10-04</text><circle cx=\"160\" cy=\"60\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"160\" cy=\"78\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"165\" y1=\"63\" x2=\"188\" y2=\"76\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"165\" y1=\"75\" x2=\"188\" y2=\"62\" stroke=\"#1B1A17\" stroke-width=\"2\"/></svg>"
+  "outcomeLine": "You can now fetch one competitor page, save its words to a file named with today's date, and check that the file really holds the page.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M30 32 L141 29 L139 170 L32 172 Z\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><line x1=\"45\" y1=\"50\" x2=\"125\" y2=\"49\" stroke=\"#1B1A17\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"45\" y1=\"68\" x2=\"124\" y2=\"69\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"45\" y1=\"80\" x2=\"108\" y2=\"80\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><rect x=\"45\" y=\"94\" width=\"70\" height=\"46\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><circle cx=\"150\" cy=\"152\" r=\"8\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"174\" r=\"8\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"156\" y1=\"147\" x2=\"190\" y2=\"168\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"156\" y1=\"179\" x2=\"190\" y2=\"152\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M120 96 Q 175 60 226 92\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-dasharray=\"6 5\" stroke-linecap=\"round\"/><rect x=\"230\" y=\"92\" width=\"46\" height=\"34\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\" transform=\"rotate(-6 253 109)\"/><path d=\"M206 112 L238 111 L246 121 L298 120 L297 182 L207 183 Z\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><text x=\"252\" y=\"160\" font-family=\"sans-serif\" font-size=\"16\" font-weight=\"bold\" fill=\"#F2A93B\" text-anchor=\"middle\">Oct 4</text></svg>"
  },
- "seconds": 130.2264699935913
+ "seconds": 83.82604122161865
 }

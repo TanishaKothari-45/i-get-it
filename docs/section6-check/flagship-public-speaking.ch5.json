@@ -1,0 +1,134 @@
+{
+ "chapter": {
+  "n": 5,
+  "title": "Set the pace",
+  "cards": [
+   {
+    "type": "picture",
+    "body": "Have you ever followed a guide who walked so fast that you stopped looking at the view and just stared at their back? A fast, flat voice does that to a room. You set the pace on this hike, and **the pace is for the slowest walker, not for you**.",
+    "simpler": "Think of a guide who walks too fast. You stop looking at the view and just watch their back. A fast, flat voice does the same thing to a room. When you speak, you are the guide on this walk, and **the pace is for the slowest walker, not for you**."
+   },
+   {
+    "type": "exercise",
+    "kind": "guess",
+    "prompt": "Maya practises her 5-minute talk alone in her kitchen. She finishes in 3:40 and feels great about it. What probably happened?",
+    "options": [
+     {
+      "id": "a",
+      "text": "She's a natural, and the talk is nice and tight."
+     },
+     {
+      "id": "b",
+      "text": "She rushed, and a stranger would have lost her by minute 2."
+     },
+     {
+      "id": "c",
+      "text": "She cut too much out of the talk."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's how it feels to the speaker, not the listener. She knows the trail and the room doesn't.",
+     "c": "That's about what she says, not how fast she says it. It's the same words, said 80 seconds faster."
+    },
+    "reteach": "You've walked this trail a hundred times in your head, so a fast pace feels normal to you. The listener is seeing it for the first time. If you finish early when practising alone, you were usually rushing. It rarely means the talk was polished."
+   },
+   {
+    "type": "teach",
+    "title": "Four dials",
+    "body": "Julian Treasure calls the voice a *toolbox*. Start with four tools: speed, volume, *pitch* (how high or low you sound) and the pause.\n\nA flat voice is like a trail with no landmarks. Every metre looks the same, so people stop noticing where they are. **Change one dial on the line that matters**: go slower, quieter or lower, and you've put up a signpost.\n\nYou'd think louder grabs attention. Often quieter does. The room leans in, like hikers bunching up when the guide lowers their voice to point at a deer.",
+    "simpler": "Julian Treasure says your voice is a toolbox. Start with four dials: speed, volume, pitch (how high or low you sound) and pauses. A flat voice is like a trail with no signs, so people stop noticing where they are. **Change one dial on the line that matters**. Go slower, quieter or lower, and you put up a signpost. Quieter often works better than louder. People lean in, like hikers crowding close when the guide quietly points out a deer."
+   },
+   {
+    "type": "example",
+    "title": "One sentence, three ways",
+    "body": "Take the line: 'We lost 40 customers last month.' Said fast and flat, it sounds like the minutes of a meeting nobody went to. Said slowly, with a stop after 'lost', it sounds like a problem. Said quietly while looking at one person, it sounds like a confession, and nobody checks their phone. Same 7 words, three different talks.",
+    "simpler": "Take this line: 'We lost 40 customers last month.' Said fast and flat, it sounds like notes from a meeting nobody went to. Said slowly, with a stop after 'lost', it sounds like a real problem. Said quietly while looking at one person, it sounds like a confession, and nobody checks their phone. **Same 7 words, three different talks**."
+   },
+   {
+    "type": "watch",
+    "who": "Julian Treasure",
+    "what": "How to speak so that people want to listen",
+    "url": "https://www.ted.com/talks/julian_treasure_how_to_speak_so_that_people_want_to_listen",
+    "from": "",
+    "minutes": 10,
+    "watchFor": "He opens with seven habits that make people stop listening. For today, focus on his voice toolbox and the warm-up he leads at the end."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Dev's key line is 'This saves each nurse an hour a shift.' Which way of saying it puts up a signpost?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Keep it at the same speed as everything else, so it doesn't sound dramatic."
+     },
+     {
+      "id": "b",
+      "text": "Slow down on 'an hour a shift', then stop for 3 seconds."
+     },
+     {
+      "id": "c",
+      "text": "Say it louder and faster to show excitement."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's steady, not clear. A line said like every other line disappears into the trail.",
+     "c": "That's turning up the volume, but speeding up rushes past the view. People need time to take in the number."
+    },
+    "reteach": "A signpost is a change: one dial turned on purpose, right where the important bit is. Slowing down tells people 'this part matters'. Then the pause gives them time to take it in before you move on."
+   },
+   {
+    "type": "teach",
+    "title": "The pause is the viewpoint",
+    "body": "A pause feels like 10 seconds to you. To the room, it's a rest stop with a view: a moment to look back at what you just said.\n\n**Pause on purpose for a full 3 seconds** after the line you want people to keep. Count it in your head: one, two, three. It will feel too long, but it isn't.\n\nBefore you speak, warm up for 2 minutes, the way walkers stretch in the car park. Treasure's warm-up includes a lip buzz like a motorboat, a rolled 'rrr', and a slow siren from low to high. Do it in a bathroom, not the lift.",
+    "simpler": "A pause feels like 10 seconds to you. To the room, it's a rest stop with a view of what you said. **Pause on purpose for a full 3 seconds** after your key line. Count one, two, three. It feels too long, but isn't. Warm up for 2 minutes before you speak. Treasure suggests a lip buzz like a motorboat, a rolled 'rrr' and a slow siren from low to high. Do it in a bathroom, not the lift."
+   },
+   {
+    "type": "mistake",
+    "body": "Priya delivers her big line, panics at the silence, and fills it with 'so, um, yeah, anyway'. The line is gone, buried under filler. To catch this, record one practice run on your phone and count the ums right after your key lines. Each one is a rest stop you paved over.",
+    "simpler": "Priya says her big line, then panics at the silence. She fills it with 'so, um, yeah, anyway', and the line gets buried. To catch this, record one practice run on your phone. Count the ums right after your key lines. **Each one is a rest stop you paved over**."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "After your talk, a friend says: 'It was all good, but I can't remember the main point.' Your words were clear. What's the most likely fix?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Add 2 more examples around the main point."
+     },
+     {
+      "id": "b",
+      "text": "Slow down on the main line, then pause for 3 seconds so it stands out."
+     },
+     {
+      "id": "c",
+      "text": "Talk at one steady speed so nothing distracts from it."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's more trail, not a signpost. The point was there; it just looked like every other metre.",
+     "c": "That's the flat-trail problem, not the cure. Keeping one steady speed is exactly why the point blended in."
+    },
+    "reteach": "If people can't find your main point, it usually sounded like every other sentence. Change your voice when you say it, then stop. The change makes them notice it, and the silence gives them time to keep it."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Set the pace for the slowest walker: change your speed, volume or pitch on the line that matters, then stop for 3 full seconds so it lands. Warm up for 2 minutes first, so your voice is ready to do it.\n\nTomorrow: what to do when someone asks the one question you didn't prepare for.",
+    "simpler": "**Set the pace for the slowest walker**. On the line that matters, change your speed, volume or pitch. Then stop for 3 full seconds so it lands. Warm up for 2 minutes first, so your voice is ready. Tomorrow: what to do when someone asks the one question you didn't prepare for."
+   },
+   {
+    "type": "try",
+    "body": "Record yourself on your phone saying 'This one change saves us an hour a day' three ways: fast, slow, quiet. Then say it once more with a 3-second pause after it. Play them back. Which one would you believe?",
+    "simpler": "Grab your phone and record yourself saying 'This one change saves us an hour a day' three ways: fast, then slow, then quiet. Now say it one more time with a 3-second pause after it. Play all four back. **Which one would you believe?**"
+   }
+  ],
+  "outcomeLine": "You can now say one sentence 3 ways, hold a 3-second pause on purpose, and warm up your voice in 2 minutes.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"10,190 150,40 290,190\" fill=\"#1F7A4D\"/><circle cx=\"265\" cy=\"45\" r=\"18\" fill=\"#F2A93B\"/><path d=\"M40 190 Q150 168 110 135 T150 45\" stroke=\"#F2A93B\" stroke-width=\"4\" fill=\"none\" stroke-dasharray=\"7 6\" stroke-linecap=\"round\"/><line x1=\"150\" y1=\"45\" x2=\"150\" y2=\"15\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"150,15 172,22 150,29\" fill=\"#F2A93B\"/><circle cx=\"128\" cy=\"100\" r=\"6\" fill=\"#1B1A17\"/><line x1=\"128\" y1=\"106\" x2=\"128\" y2=\"122\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polyline points=\"122,134 128,122 134,134\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"128\" y1=\"110\" x2=\"116\" y2=\"118\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"98\" cy=\"150\" r=\"5\" fill=\"#1B1A17\"/><line x1=\"98\" y1=\"155\" x2=\"98\" y2=\"168\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polyline points=\"93,178 98,168 103,178\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"70\" cy=\"166\" r=\"5\" fill=\"#1B1A17\"/><line x1=\"70\" y1=\"171\" x2=\"70\" y2=\"183\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polyline points=\"65,192 70,183 75,192\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"14\" y=\"40\" font-family=\"sans-serif\" font-size=\"16\" fill=\"#1B1A17\">one, two, three</text></svg>"
+ },
+ "seconds": 86.00670313835144
+}

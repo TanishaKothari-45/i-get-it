@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Every bazaar has an exit gate, and the tax office sits there with a ledger. **The toll is charged only on your profit**, never on the whole bag you walk out with. Picture two gates side by side: a quick-exit gate for shoppers who leave within 12 months of buying, and a patient gate for those who stayed longer. The patient gate charges less, and waves the first chunk through free.",
-    "simpler": "Think of a market with one way out. At the exit sits a tax desk. **The tax is charged only on your profit**, not on everything you carry out. There are two gates. One is for people who leave within 12 months of buying. The other is for people who waited longer. The patient gate charges a lower rate, and it lets the first part of your profit through for free."
+    "body": "Keep a share 13 months instead of 11, and your tax bill can drop to zero. Every bazaar has an exit gate, and this one has a toll booth: **the longer you stayed inside, the smaller the toll**. Just outside the gate, touts shout about faster ways to get rich.",
+    "simpler": "Selling a share is like walking out of a bazaar through a gate with a toll booth. The toll is the tax on your profit. **The longer you stayed inside, the smaller the toll.** Keep a share 13 months instead of 11, and your tax bill can drop to zero. Just outside the gate, people shout about faster ways to get rich."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya bought 1 share of a paint company at \u20b92,000. Eight months later she sells it for \u20b92,500. The toll at the gate is worked out on which number?",
+    "prompt": "Asha and Kabir buy the same share on the same day. Each one sells for a \u20b910,000 profit. Asha sells in month 11 and Kabir in month 13. Who pays the smaller toll at the gate?",
     "options": [
      {
       "id": "a",
-      "text": "\u20b92,500, the full sale amount"
+      "text": "Asha: she left sooner, so there was less to tax"
      },
      {
       "id": "b",
-      "text": "\u20b9500, the profit"
+      "text": "Kabir: he stayed past a year"
      },
      {
       "id": "c",
-      "text": "\u20b92,000, what she paid"
+      "text": "Neither: same profit, same tax"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the sale price, not the gain: tax is never charged on money you put in yourself.",
-     "c": "That's her cost, not the gain: the cost is what gets subtracted, not what gets taxed."
+     "a": "That mixes up leaving early with staying long. The toll gets smaller the longer you stay, not the sooner you go.",
+     "c": "That only looks at the profit and ignores the calendar. Two identical gains can carry very different tolls."
     },
-    "reteach": "The gate only cares about what you made, not what you carried. Profit means sale price minus buy price. Priya's \u20b92,500 minus \u20b92,000 leaves \u20b9500, and that \u20b9500 is the only number the toll touches."
+    "reteach": "The exit toll is set mostly by the calendar. Stay in the bazaar for more than 12 months and the gate charges less. Leave earlier and it charges more, even on exactly the same profit."
    },
    {
     "type": "teach",
-    "title": "Two gates, two rates",
-    "body": "Your *gain* is the sale price minus what you paid, including the small charges from chapter 4. If you sold at a loss, there is no gain, so there is no tax.\n\n**The holding period picks your gate.** Sell within 12 months of buying and it counts as *short-term*: the gain is taxed at 20%. Sell after 12 months and it counts as *long-term*: the gain is taxed at 12.5%.\n\nThe long-term gate has one more kindness. Each *financial year*, which runs 1 April to 31 March, your first \u20b91.25 lakh of long-term gains is tax-free. Only gains above that line pay the 12.5%.",
-    "simpler": "Your gain is what you sold for, minus what you paid, including the small charges from chapter 4. Sold at a loss? No gain, so no tax.\n\n**How long you held the share picks your gate.** Sold within 12 months? That is short-term, taxed at 20%. Sold after 12 months? That is long-term, taxed at 12.5%.\n\nEach financial year, 1 April to 31 March, your first \u20b91.25 lakh of long-term gains is tax-free. Only gains above that line pay 12.5%."
+    "title": "The calendar sets the toll",
+    "body": "When you sell a share for more than you paid, the profit is called a *capital gain*, and the government takes a cut at the gate. **How big the cut is depends on how long you held the share.**\n\nKeep it 12 months or less and the gain is *short-term*: taxed at 20%. Keep it longer than 12 months and it's *long-term*: taxed at 12.5%, and only on long-term gains above \u20b91.25 lakh in a financial year (April to March). *A 4% cess, a small extra charge, is added to the tax. We'll leave it out of the maths here.*\n\nYou'd think the toll depends on how much you made. First, it depends on how long you waited.",
+    "simpler": "When you sell a share for more than you paid, the profit is a capital gain, and the government taxes it. **How much tax you pay depends on how long you held the share.** Held 12 months or less, it counts as short-term and is taxed at 20%. Held longer, it counts as long-term and is taxed at 12.5%, but only on long-term gains above \u20b91.25 lakh in a year running April to March. There's also a small extra 4% charge, which we skip here."
    },
    {
     "type": "example",
-    "title": "Arjun and the calendar",
-    "body": "Arjun bought 10 shares of a Nifty 50 bank at \u20b91,200 each on 2 January, so \u20b912,000 in. On 20 November the same year he sold all 10 at \u20b91,500, so \u20b915,000 out. His gain was \u20b93,000, held about 10 months, so the quick gate took 20%: \u20b9600. Had he sold on 3 January instead, the gain would have been long-term, and since \u20b93,000 is well under the \u20b91.25 lakh free line, his tax would have been \u20b90. **Six weeks of patience was worth \u20b9600.** Arjun now owns a wall calendar.",
-    "simpler": "Arjun bought 10 shares of a Nifty 50 bank on 2 January at \u20b91,200 each, \u20b912,000 in all. On 20 November he sold them at \u20b91,500 each, \u20b915,000 in all. Gain: \u20b93,000, held about 10 months. The quick gate took 20%, or \u20b9600. Had he waited until 3 January, the gain would be long-term, far under the \u20b91.25 lakh free line, so tax \u20b90. **Six more weeks would have saved him \u20b9600.** Arjun now owns a wall calendar."
+    "title": "Priya's two months",
+    "body": "Priya in Pune buys 10 shares of a Nifty 50 bank at \u20b91,500 each, so \u20b915,000 in total. Eleven months later they're worth \u20b92,000 each: a \u20b95,000 gain. If she sells now, the short-term toll is 20% of \u20b95,000, which is \u20b91,000. If she waits two more months and the price stays put, the gain becomes long-term and sits well under the \u20b91.25 lakh tax-free amount. Tax: \u20b90. Same shares and same profit, a thousand rupees apart, **all decided by the calendar**.",
+    "simpler": "Priya in Pune buys 10 shares of a big Nifty 50 bank at \u20b91,500 each, so \u20b915,000 in all. Eleven months later each share is worth \u20b92,000, a \u20b95,000 profit. If she sells now, the short-term tax is 20%, or \u20b91,000. If she waits two more months and the price stays the same, the profit becomes long-term and is well under the \u20b91.25 lakh tax-free amount. Tax: \u20b90. Same shares, same profit, \u20b91,000 apart, **all decided by the calendar**."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Meera bought shares of a two-wheeler maker and sold them 14 months later for a gain of \u20b940,000. She has no other share sales this year. What tax does she owe on this sale?",
+    "prompt": "Meera has a \u20b91,45,000 gain on shares she bought 10 months ago. She won't need the money this year, and she has no other gains. Which plan works out the toll correctly?",
     "options": [
      {
       "id": "a",
-      "text": "\u20b98,000, which is 20% of \u20b940,000"
+      "text": "Sell now: she owes 20% on only \u20b920,000, because the first \u20b91.25 lakh is free"
      },
      {
       "id": "b",
-      "text": "\u20b95,000, which is 12.5% of \u20b940,000"
+      "text": "Wait 3 months: then she owes 12.5% of \u20b920,000, which is \u20b92,500, instead of \u20b929,000 now"
      },
      {
       "id": "c",
-      "text": "\u20b90, because \u20b940,000 is under the \u20b91.25 lakh free line"
-     }
-    ],
-    "answer": "c",
-    "whyNot": {
-     "a": "That's the short-term rate, not the long-term one: 14 months is past the 12-month mark.",
-     "b": "That's the right gate but skips the free line: 12.5% only applies to long-term gains above \u20b91.25 lakh in a year."
-    },
-    "reteach": "Two steps, always in this order. First, how long did she hold? 14 months, so the long-term gate. Second, is the year's long-term gain above \u20b91.25 lakh? \u20b940,000 is not, so the toll is zero."
-   },
-   {
-    "type": "teach",
-    "title": "The traps near the gate",
-    "body": "The exit gate is honest. The crowd around it is not. **Three things to say no to in your first year.**\n\nFirst, *stock tips*: a message, video or cousin saying one share is a sure thing. Anyone shouting a sure thing has a reason, and it is rarely your profit. You learned in chapter 1 that price is just buyers versus sellers, and tipsters are often the sellers.\n\nSecond, *futures and options*, bets on where a price will be by a date. SEBI's 2023 study found 9 in 10 individual traders in them lost money. Third, *borrowing to buy shares*, which turns a bad month into a debt.",
-    "simpler": "The gate is fair. The crowd is not. **Say no to three things in your first year.** One: stock tips, anyone calling one share a sure thing. Their reason is rarely your profit. Often they are the sellers. Two: futures and options, bets on where a price will land by a date. A 2023 SEBI study found 9 in 10 individual traders lost money on them. Three: borrowing to buy shares. That turns a bad month into a debt."
-   },
-   {
-    "type": "mistake",
-    "body": "Rohan held a cement share for 11 months and 1 week, then saw a scary headline and sold the same afternoon to \"lock in\" his \u20b920,000 gain. The quick gate took \u20b94,000. Three weeks later it would have been long-term, under the free line, and taxed at \u20b90. **Spot it by checking the buy date before you tap sell**: if the 12-month mark is close, ask whether the news is really worth the toll.",
-    "simpler": "Rohan held a cement share for 11 months and 1 week. Then a scary headline appeared, and he sold that same afternoon to lock in his \u20b920,000 gain. The quick gate took \u20b94,000. Had he waited three more weeks, the gain would have been long-term, under the free line, and taxed at \u20b90. **Check the buy date before you tap sell.** If the 12-month mark is close, ask whether the news is really worth the toll."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Which of these sales goes through the 12.5% patient gate?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Sold 11 months after buying, with a gain of \u20b92 lakh"
-     },
-     {
-      "id": "b",
-      "text": "Sold 13 months after buying, with a gain of \u20b92 lakh"
-     },
-     {
-      "id": "c",
-      "text": "Sold 3 months after buying, with a gain under \u20b91.25 lakh"
+      "text": "Wait 3 months: then the whole \u20b91,45,000 is tax-free because it's long-term"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the short-term gate, not the long-term one: 11 months is still under 12, so the rate is 20%.",
-     "c": "That's mixing the free line with the gate: the \u20b91.25 lakh allowance only exists at the long-term gate, and 3 months is short-term."
+     "a": "That uses the long-term tax-free amount on a short-term sale. Sold at 10 months, the whole \u20b91,45,000 is taxed at 20%, which is \u20b929,000.",
+     "c": "That stretches the tax-free amount too far. Only the first \u20b91.25 lakh of long-term gains each year is free. The other \u20b920,000 is taxed at 12.5%."
     },
-    "reteach": "The gate is chosen by one thing only: did you hold for more than 12 months? Yes means long-term, 12.5%, with the first \u20b91.25 lakh a year free. No means short-term, 20%, with no free line at all."
+    "reteach": "It takes two steps. First, check the calendar: 12 months or less means 20% on the whole gain. More than 12 months means you take \u20b91.25 lakh off the year's long-term gains, then pay 12.5% on whatever is left."
+   },
+   {
+    "type": "teach",
+    "title": "The touts at the gate",
+    "body": "Outside the gate, someone is always selling a shortcut. A Telegram group promises a 'target price' by Friday. A friend's cousin swears that options are where the real money is.\n\nThere's a plain reason tips fail. Burton Malkiel is known for arguing that short-term price moves are close to unpredictable, so the person sending the tip can't see Friday either. *Futures and options* (F&O) are bets on where a price will be by a fixed date. SEBI's own 2023 study found that **nearly 9 in 10 individual F&O traders lost money**.\n\nThree things to say no to in your first year: tips, F&O, and selling within 12 months without a real reason.",
+    "simpler": "Outside the gate, people sell shortcuts: a Telegram group's 'target price' by Friday, or a cousin's tip about options. Burton Malkiel is known for arguing that short-term price moves are close to unpredictable, so tipsters can't see Friday either. Futures and options (F&O) are bets on a price by a set date, and the market regulator SEBI found in 2023 that **nearly 9 in 10 individual F&O traders lost money**. Year one: no tips, no F&O, no selling within 12 months without good reason."
+   },
+   {
+    "type": "mistake",
+    "body": "Rohan bought shares at \u20b9800. Eleven months later he was nicely up when a WhatsApp group posted: book your profit and move into the next big winner before Monday. He sold, paid the 20% short-term toll, and the new pick fell that same week. How to spot it: **when a message gives you a deadline shorter than your own plan, that's the tout talking**, and the toll booth is listening.",
+    "simpler": "Rohan bought shares at \u20b9800. Eleven months later he was well up when a WhatsApp group posted: take your profit and jump into the next big winner before Monday. He sold, paid the 20% short-term tax, and the new pick fell that same week. The warning sign: **when a message gives you a deadline shorter than your own plan, that's the pushy seller talking**, and the toll booth is listening."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend asks how tax works when you sell shares at a profit. Which one-line answer gets it right?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Sell before a year is up, because the short-term rate is the lower one"
+     },
+     {
+      "id": "b",
+      "text": "It depends on how long you held: a year or less is 20%, longer is 12.5%, after the first \u20b91.25 lakh of long-term gains each year"
+     },
+     {
+      "id": "c",
+      "text": "It's a flat 20% on every gain, so waiting changes nothing"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the hurry the touts sell, not the rule. Short-term gains carry the higher rate, 20%.",
+     "c": "That's only the short-term rate. After 12 months the rate drops to 12.5%, and the tax-free amount kicks in."
+    },
+    "reteach": "Picture a toll booth with two lanes. The fast lane is for anyone who held 12 months or less, and it charges 20%. The slow lane is for anyone who held longer: it lets the first \u20b91.25 lakh of gains each year through free and charges 12.5% on the rest."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**Tax hits only your gain**: 20% if you sold within 12 months, 12.5% after that, and the first \u20b91.25 lakh of long-term gains each year is free. Say no to tips, futures and options, and borrowed money, because the gate is fair but the crowd around it is not.",
-    "simpler": "**Tax touches only your gain.** You pay 20% if you sold within 12 months, and 12.5% if you sold after that. Each year, the first \u20b91.25 lakh of long-term gains is free. Say no to tips, to futures and options, and to borrowed money. The gate is fair, but the crowd around it is not."
+    "body": "When you sell a share at a profit, the calendar sets the toll: held 12 months or less, you pay 20% of the gain; held longer, you pay 12.5%, and only on long-term gains above \u20b91.25 lakh a year. **The traps at the gate, tips and F&O, all push you to hurry, and hurrying is exactly what costs you.**\n\nNext: two banks, five numbers, and which shop you'd rather own.",
+    "simpler": "When you sell a share at a profit, the calendar sets the toll. Held 12 months or less, you pay 20% of the gain. Held longer, you pay 12.5%, and only on long-term gains above \u20b91.25 lakh a year. **The traps at the gate, tips and F&O, all push you to hurry, and hurrying is exactly what costs you.** Next: two banks, five numbers, and which shop you'd rather own."
    },
    {
     "type": "try",
-    "body": "Open your broker app, find the 1 share you bought in chapter 4, and note its buy date. Add 12 months and write that date somewhere you will see it. That is your patient-gate day.",
-    "simpler": "Open your broker app and find the 1 share you bought in chapter 4. Look up the date you bought it. **Add 12 months to that date** and write the new date somewhere you will see it often, like a fridge note or a phone reminder. That is the day you reach the patient gate."
+    "body": "Open the holdings page in your broker app and pick one share. Note the date you bought it, then write down the first date you'll have held it for more than 12 months. That's the day its toll drops.",
+    "simpler": "Open the app you use to buy shares and go to the page that lists the shares you own. Pick one. Note the date you bought it, then write down the first day you'll have held it for more than 12 months. **That's the day its toll drops.** Like marking a birthday on a calendar, you'll know exactly when waiting pays off."
    }
   ],
-  "outcomeLine": "You can now work out the tax on a sale you are planning and name three things you will say no to in your first year."
+  "outcomeLine": "You can now work out the tax on a sale you're planning and name three things you'll say no to in your first year.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"60\" width=\"16\" height=\"120\" fill=\"#1F7A4D\"/><rect x=\"264\" y=\"60\" width=\"16\" height=\"120\" fill=\"#1F7A4D\"/><path d=\"M36 66 Q160 8 284 66\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><text x=\"160\" y=\"54\" font-size=\"16\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">EXIT TOLL</text><rect x=\"120\" y=\"110\" width=\"60\" height=\"60\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"114,112 150,88 186,112\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"134\" r=\"9\" fill=\"#1B1A17\"/><line x1=\"180\" y1=\"140\" x2=\"252\" y2=\"131\" stroke=\"#1B1A17\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"10\" y1=\"180\" x2=\"310\" y2=\"182\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"90\" cy=\"152\" r=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"76\" cy=\"164\" r=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/></svg>"
  },
- "seconds": 58.021970987319946
+ "seconds": 95.52791595458984
 }

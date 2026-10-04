@@ -1,125 +1,130 @@
 {
  "chapter": {
   "n": 1,
-  "title": "Getting in and standing up",
+  "title": "Standing up",
   "cards": [
    {
     "type": "picture",
-    "body": "Most beginners don't panic because they sink. They panic because they can't find their feet. Think of the water as a bed you lie on, not a floor you fall through: your body already floats, and this whole handbook is about letting it. **Chapter 1 is how to get off the bed**: knees in, hands down, feet on the floor, every time.",
-    "simpler": "Most new swimmers don't panic because they go under. They panic because they can't find their feet. Picture the water as a bed you lie on, not a floor you fall through. Your body already floats on its own. This handbook is about letting it. **Chapter 1 is how to get off the bed**: pull your knees in, push your hands down, put your feet on the floor. Every single time."
+    "body": "The first swimming skill has nothing to do with going anywhere. It's standing up.\n\nThink of the water as a bed you lie on, not a floor you fall through. You already get out of bed every morning, and in the pool the move has the same shape: **knees in, hands press down, feet on the floor**.",
+    "simpler": "The first thing to learn in swimming isn't moving forward. It's standing up. Think of the water as a bed you lie on, not a floor you fall through. You get out of bed every morning, and in the pool the move has the same shape: **knees in, hands press down, feet on the floor**."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya is lying face down in chest-deep water, holding the wall. She lets go and her feet float up behind her. She wants to stand. What's her first move?",
+    "prompt": "You're stretched out face-forward in chest-deep water, holding nothing, chin on the surface like a crocodile. You want to stand. What moves first?",
     "options": [
      {
       "id": "a",
-      "text": "Kick her legs down hard to find the floor"
+      "text": "Your hands, reaching down to touch the pool floor"
      },
      {
       "id": "b",
-      "text": "Pull her knees in to her chest"
+      "text": "Your knees, curling up toward your chest"
      },
      {
       "id": "c",
-      "text": "Lift her head and grab for the wall"
+      "text": "Your legs, kept straight and swung down like a gate"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the long shape, not the ball: straight legs turn slowly, so kicking down just splashes while her feet stay up.",
-     "c": "That's reaching, not standing: the wall is further away than the floor, and lifting the head first leaves her legs trailing behind."
+     "a": "That's reaching for a floor, not pressing on a bed: your hands push the water down, they don't go looking for tiles.",
+     "c": "That's a gate, not a tuck: long straight legs swing slowly and tip you, while bent knees bring your feet under you fast."
     },
-    "reteach": "Water holds a long body flat, like a bed holds you. To get up, make yourself small. Knees to chest turns you into a ball, and a ball rolls upright on its own, so your feet swing down underneath you."
+    "reteach": "Think of getting out of bed in the dark: you curl up before you put your feet down. In water, pulling your knees toward your chest is what lets your feet swing under your hips. Once they're under you, standing is easy."
    },
    {
     "type": "teach",
-    "title": "Getting in",
-    "body": "Use the steps or the ladder, and go in *facing the ladder*, the way you'd climb down from a bunk bed. One hand stays on the rail until both feet are on the bottom. The pool floor is colder and smoother than you expect, so give your feet a second before you let go.\n\nNow walk. Chest-deep water pushes back on every step, like wading through a crowd. Lean a little forward, take wide slow steps, and sweep your arms through the water ahead of you. **You can't fall through a bed.** Ten metres across, ten metres back.",
-    "simpler": "Use the steps or ladder, and go in facing the ladder, like climbing down from a bunk bed. Keep one hand on the rail until both feet touch the bottom. The pool floor feels colder and smoother than you expect, so give your feet a second before letting go.\n\nNow walk. Chest-deep water pushes back on each step, like moving through a crowd. Lean forward a little, take wide slow steps, and sweep your arms through the water. **You can't fall through a bed.** Ten metres across, ten metres back."
+    "title": "Knees, hands, feet",
+    "body": "**Knees in, hands press, feet down.** That's the whole move, in that order. From lying forward, lift your chin a little and pull your knees toward your chest, like curling up under a duvet. Your feet swing under your hips on their own.\n\nAt the same time, press both palms down and back toward your thighs, the way you'd push on the cushions to get up from a low sofa. Pushing the water down lifts your shoulders up.\n\nThen plant your feet flat, a little apart. It takes under 2 seconds. Slow is fine. The water waits.",
+    "simpler": "**Knees in, hands press, feet down.** Do it in that order. Lying face forward, lift your chin a little and pull your knees to your chest. Your feet will swing under your hips by themselves. At the same time, press both palms down and back toward your thighs, like pushing up from a low sofa. Pushing water down lifts your shoulders up. Then put your feet flat, a little apart. It takes under 2 seconds. Going slow is fine."
    },
    {
     "type": "example",
-    "title": "Marcus stands up",
-    "body": "Marcus, first lesson, a council pool on a Tuesday night. He walks the width fine, then holds the wall and lets his legs float up behind him, like lying face down on a mattress. He lets go. Feet up, face in, and his brain declares an emergency. He thrashes for 3 seconds. Then he does what the teacher said: knees in, hands press down, feet find the tiles. He stands. The water reaches his chest. **He has been drowning in 1.2 metres.**",
-    "simpler": "Marcus is at his first lesson, a council pool on a Tuesday night. He walks the width with no trouble. Then he holds the wall and lets his legs float up behind him, like lying face down on a mattress. He lets go. Feet up, face in, and his brain shouts danger. He thrashes for 3 seconds. Then he does what the teacher said: knees in, hands press down, feet find the tiles. He stands. The water reaches his chest. **He has been drowning in 1.2 metres.**"
+    "title": "Dev's ten tries",
+    "body": "Dev, 34, is in the shallow end on a Tuesday evening, water at his chest. He holds the rail, stretches out with his chin on the water, lets go, and counts: knees, hands, feet. His first try is a frantic second and a mouthful of chlorine, because he forgot the hands. On the second he presses down hard, like closing an overstuffed suitcase, and he's standing before he's finished thinking about it. By the tenth he's bored, which is exactly the goal.",
+    "simpler": "Dev, 34, stands in the shallow end on a Tuesday evening, water up to his chest. He holds the rail, lies forward with his chin on the water, lets go, and counts: knees, hands, feet. His first try is a panicky second and a mouthful of chlorine, because he forgot his hands. On the second he **presses down hard**, like shutting a stuffed suitcase, and he's up before he knows it. By the tenth he's bored. That's the goal."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You're face down in the shallow end, hands off the wall, feet floating up. Which order gets you standing calmly?",
+    "prompt": "Mia is lying forward, chin on the water, when a wave from the next lane slaps her face. She wants her feet down right now. Which move gets her there fastest?",
     "options": [
      {
       "id": "a",
-      "text": "Knees to chest, press both hands down toward the floor, plant your feet, then lift your head"
+      "text": "Legs straight down, arms reaching up toward the pool edge"
      },
      {
       "id": "b",
-      "text": "Lift your head high first, then straighten your legs and feel for the floor with your toes"
+      "text": "Knees pulled in, palms pressing down toward her thighs, feet planted"
      },
      {
       "id": "c",
-      "text": "Spread your arms wide and wait for your feet to sink on their own"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's the long shape again: straightening your legs keeps you flat on the bed, and a flat body is slow to turn upright.",
-     "c": "That's floating, not standing: wide arms keep you lying on the surface, which is chapter 3's job, not what you want right now."
-    },
-    "reteach": "Three moves, in order: knees, hands, feet. Knees in makes you a ball. Hands pressing down lift your chest, so your hips drop under you. Now your feet are already below you, and you just put them down."
-   },
-   {
-    "type": "teach",
-    "title": "Why the ball works",
-    "body": "A long body lying on water is stable, like a plank on a bed: it wants to stay flat. A ball is not. Pull your knees in and the plank becomes a ball, and the heavy end, your hips and legs, swings down under you fast.\n\nYou'd think reaching for the floor with your toes is quickest. It's slowest, because it keeps you long. Press your hands down flat instead, like pushing a lid onto a box. Your chest rises, your feet land, and only then does your head come up.\n\n**Knees, hands, feet, head.** Do it 10 times today, until your body does it before your brain can vote.",
-    "simpler": "A long body lying on water is steady, like a plank on a bed. It wants to stay flat. A ball is not steady. Pull your knees in and the plank becomes a ball. Your heavy end, your hips and legs, swings down under you fast.\n\nReaching for the floor with your toes feels quickest. It's slowest, because it keeps you long. Press your hands down flat instead, like pushing a lid onto a box. Your chest rises, your feet land, then your head comes up.\n\n**Knees, hands, feet, head.** Do it 10 times today, until your body moves before your brain can argue."
-   },
-   {
-    "type": "mistake",
-    "body": "Dana let go of the wall, felt her feet rise, and lunged sideways for the wall with both arms. She missed, swallowed a mouthful, and came up coughing. The wall was 1 metre away. The floor was 20 centimetres under her toes. Spot it in yourself: if your arms are reaching out or up instead of **pressing down**, you're trying to catch something instead of standing.",
-    "simpler": "Dana let go of the wall and felt her feet rise. She lunged sideways for the wall with both arms. She missed, swallowed a mouthful, and came up coughing. The wall was 1 metre away. The floor was 20 centimetres under her toes. Watch for this in yourself. If your arms are reaching out or up instead of **pressing down**, you're trying to grab something instead of standing up."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "A friend asks why pulling your knees in works. What's the real reason?",
-    "options": [
-     {
-      "id": "a",
-      "text": "It makes you heavier, so you sink straight to the bottom"
-     },
-     {
-      "id": "b",
-      "text": "It turns your long flat body into a ball, and a ball rolls upright fast, so your feet swing underneath you"
-     },
-     {
-      "id": "c",
-      "text": "It squeezes air out of your lungs, so your chest drops"
+      "text": "A big kick to reach the wall first, then stand"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's weight, not shape: you weigh exactly the same tucked or stretched, it's the shape that changes how fast you turn.",
-     "c": "That's breath, not shape: your lungs stay full while you tuck, and letting air out is the next chapter's job, not this one's."
+     "a": "That's reaching up, not pressing down: arms going up push your body down, and straight legs swing slowly.",
+     "c": "That's running from the problem, not solving it: the floor is right under her, closer than any wall."
     },
-    "reteach": "Water holds a flat body flat, like a bed. Make yourself small and the water can't hold you flat any more: your heavy hips drop, your feet come under you, and you stand."
+    "reteach": "The floor is always closer than the wall. Pull your knees in so your feet swing under you, and press your hands down so your shoulders rise. Push the water down and you come up."
+   },
+   {
+    "type": "mistake",
+    "body": "Jo slips while standing up, and her arms shoot toward the sky as if to grab a rope that isn't there. Every arm that leaves the water pushes her body down, so she sinks lower and reaches higher. The tell: **if your hands are above the water, you're climbing a ladder that doesn't exist.** Put them back in and press down.",
+    "simpler": "Jo slips while standing up and throws her arms toward the sky, as if grabbing a rope that isn't there. But every arm that leaves the water pushes her body down. So she sinks lower and reaches higher. Here's the sign to watch for: **if your hands are above the water, you're climbing a ladder that doesn't exist.** Put them back in and press down."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Why does pressing your palms down toward your thighs help you stand up?",
+    "options": [
+     {
+      "id": "a",
+      "text": "It's like waving to the lifeguard, so someone sees you"
+     },
+     {
+      "id": "b",
+      "text": "It makes you sink faster, so your feet touch the floor sooner"
+     },
+     {
+      "id": "c",
+      "text": "It pushes water down, which lifts your shoulders while your knees bring your feet under you"
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's signalling, not standing: waving lifts your arms out of the water, which pushes you down.",
+     "b": "That's the straight-leg drop, not the press: your feet get under you because your knees pull in, while your hands lift your top half."
+    },
+    "reteach": "Water pushes back on whatever pushes it. Press it down and it lifts your chest and shoulders, which gives your knees time to swing your feet underneath. That's why hands go down, never up."
+   },
+   {
+    "type": "try",
+    "body": "Tonight, on your actual bed: lie face down, arms stretched ahead. Count knees, hands, feet: pull your knees under you, press your palms into the mattress, and come up to kneeling. Five times. Your body learns the order dry.",
+    "simpler": "Tonight, try it on your own bed. Lie face down with your arms stretched out ahead. Count knees, hands, feet: pull your knees under you, press your palms into the mattress, and come up to kneeling. Do it five times. **Your body learns the order** while you're still dry."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Water is a bed, not a floor: you climb in by the ladder, you can walk across it, and when you're lying on it and want up, you make a ball. **Knees, hands, feet, head**, under 2 seconds, so standing is always one move away.\n\nTomorrow: the first real swimming skill has nothing to do with moving. It's blowing bubbles.",
-    "simpler": "Water is a bed, not a floor. You climb in by the ladder. You can walk across it. When you're lying on it and want to get up, you make a ball. **Knees, hands, feet, head**, in under 2 seconds. That way standing up is always one move away.\n\nTomorrow: the first real swimming skill has nothing to do with moving. It's blowing bubbles."
-   },
-   {
-    "type": "try",
-    "body": "Tonight, on your floor: lie face down, then pull your knees in, press your palms down, get your feet under you and stand. Time it. Do 5. Under 2 seconds each is the goal.",
-    "simpler": "Tonight, on your floor at home: lie face down. Then pull your knees in, press your palms down, get your feet under you and stand up. Time how long it takes. Do it 5 times. The goal is under 2 seconds each time."
+    "body": "In water, **curl up and push the water down**: knees in, hands pressing, feet planted. From lying forward, that's knees in, hands press, feet down, and you're standing in under 2 seconds.\n\nTomorrow: your face goes in, and the trick is breathing out, not holding.",
+    "simpler": "In water, **curl up and push the water down**. Pull your knees in, press with your hands, and put your feet flat. From lying face forward, it's knees in, hands press, feet down, and you're standing in under 2 seconds. Tomorrow your face goes in the water, and the trick there is to breathe out, not hold your breath."
    }
   ],
-  "outcomeLine": "You can now get into chest-deep water, walk across the pool, and stand up from lying forward in under 2 seconds, every time.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"92\" width=\"280\" height=\"88\" fill=\"#1F7A4D\" opacity=\"0.3\"/><polyline points=\"20,92 40,86 60,92 80,86 100,92 120,86 140,92 160,86 180,92 200,86 220,92 240,86 260,92 280,86 300,92\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"20\" y1=\"180\" x2=\"300\" y2=\"180\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"100\" cy=\"60\" r=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M100 74 L100 126\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M100 126 L86 152 L90 180 M100 126 L114 152 L110 180\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M100 86 L76 112 M100 86 L124 112\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><polygon points=\"70,116 82,116 76,128\" fill=\"#F2A93B\"/><polygon points=\"118,116 130,116 124,128\" fill=\"#F2A93B\"/><circle cx=\"222\" cy=\"84\" r=\"9\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M231 88 L290 88\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><text x=\"196\" y=\"52\" font-family=\"sans-serif\" font-size=\"15\" fill=\"#1B1A17\">knees, hands, feet</text></svg>"
+  "outcomeLine": "You can now go from lying forward in chest-deep water to standing in under 2 seconds.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"0\" y=\"90\" width=\"320\" height=\"100\" fill=\"#1F7A4D\" fill-opacity=\"0.25\"/><path d=\"M0 90 Q20 82 40 90 T80 90 T120 90 T160 90 T200 90 T240 90 T280 90 T320 90\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"10\" y1=\"190\" x2=\"310\" y2=\"190\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"160\" cy=\"76\" r=\"13\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M160 90 Q162 112 158 134\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"6\" stroke-linecap=\"round\"/><polyline points=\"158,134 184,124 176,186\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><polyline points=\"160,102 136,116 128,134\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"112\" y1=\"122\" x2=\"112\" y2=\"156\" stroke=\"#F2A93B\" stroke-width=\"4\" stroke-linecap=\"round\"/><polygon points=\"104,152 120,152 112,166\" fill=\"#F2A93B\"/><line x1=\"200\" y1=\"150\" x2=\"200\" y2=\"178\" stroke=\"#F2A93B\" stroke-width=\"4\" stroke-linecap=\"round\"/><polygon points=\"192,174 208,174 200,188\" fill=\"#F2A93B\"/><text x=\"160\" y=\"40\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"20\" fill=\"#1B1A17\">knees, hands, feet</text></svg>"
  },
- "seconds": 142.70696020126343
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "one_idea",
+   "would_keep_reading",
+   "open_loop"
+  ],
+  "dubious_claims": [],
+  "weakest_card": 6,
+  "why": "'Low is steady' brings in two new skills, getting in by the steps and walking, that no exercise tests, so the chapter teaches more than one thing and loses focus.",
+  "fix": "Move the getting-in and walking material to its own chapter, retitle this one 'Standing up', and end on the 'Tomorrow: your face goes in\u2026' line instead of the try card."
+ }
 }

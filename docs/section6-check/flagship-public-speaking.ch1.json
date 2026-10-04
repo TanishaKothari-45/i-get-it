@@ -5,7 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Why do people walk out of a 20-minute talk unable to say what it was about? Usually because the speaker packed 4 summits into one hike, and the group never got above the tree line on any of them. **A talk is a hike with one summit**: before you plan the path, the pace or the view, you pick the single peak everyone will be standing on at the end."
+    "body": "Why do people walk out of a 20-minute talk unable to say what it was about? Usually because the speaker packed 4 summits into one hike, and the group never got above the tree line on any of them. **A talk is a hike with one summit**: before you plan the path, the pace or the view, you pick the single peak everyone will be standing on at the end.",
+    "simpler": "Ever left a 20-minute talk and not been able to say what it was about? Usually the speaker tried to cover 4 big ideas at once. It's like a hike that aims for 4 peaks, so the group never gets above the trees on any of them. **A talk is a hike with one summit**. Before you plan the route, the speed or the view, you pick the one peak where everyone will stand at the end."
    },
    {
     "type": "exercise",
@@ -35,12 +36,14 @@
    {
     "type": "teach",
     "title": "One summit, one sentence",
-    "body": "Chris Anderson's first rule for a TED talk is blunt: **one major idea**. Not a theme, not a topic, one idea. 'Meetings' is a topic. 'Meetings should open with the decision, not the background' is an idea.\n\nHere's the test. Write the sentence a listener would say to a friend in the car park afterwards. It has a verb, it makes a claim, and it fits in one breath. If you can't write it, you haven't picked your summit yet.\n\nYou'd think a longer talk earns a bigger idea. It's the reverse. The longer the hike, the more one clear peak matters, because people get tired."
+    "body": "Chris Anderson's first rule for a TED talk is blunt: **one major idea**. Not a theme, not a topic, one idea. 'Meetings' is a topic. 'Meetings should open with the decision, not the background' is an idea.\n\nHere's the test. Write the sentence a listener would say to a friend in the car park afterwards. It has a verb, it makes a claim, and it fits in one breath. If you can't write it, you haven't picked your summit yet.\n\nYou'd think a longer talk earns a bigger idea. It's the reverse. The longer the hike, the more one clear peak matters, because people get tired.",
+    "simpler": "Chris Anderson's first rule for a TED talk is **one major idea**. 'Meetings' is a topic. 'Meetings should open with the decision, not the background' is an idea. Test it: write the sentence a listener would say to a friend in the car park afterwards. It has a verb, makes a claim, and fits in one breath. A longer talk doesn't need a bigger idea. It needs one clear idea even more, because people get tired."
    },
    {
     "type": "example",
     "title": "Dev's 5 minutes on the bike shed",
-    "body": "Dev had 5 minutes to pitch a bike shed to the residents' committee. His first draft had the cost, the planning rules, the story of his stolen bike, and 3 photos of sheds in Utrecht. He wrote the car-park sentence: 'A shed pays for itself in 2 years because fewer people will need the car park.' Then he read the draft again. The stolen bike was a lovely story. **It was on a different mountain**, so it went."
+    "body": "Dev had 5 minutes to pitch a bike shed to the residents' committee. His first draft had the cost, the planning rules, the story of his stolen bike, and 3 photos of sheds in Utrecht. He wrote the car-park sentence: 'A shed pays for itself in 2 years because fewer people will need the car park.' Then he read the draft again. The stolen bike was a lovely story. **It was on a different mountain**, so it went.",
+    "simpler": "Dev had 5 minutes to ask the residents' committee for a bike shed. His first draft had the cost, the planning rules, the story of his stolen bike, and 3 photos of sheds in Utrecht. Then he wrote his car-park sentence: 'A shed pays for itself in 2 years because fewer people will need the car park.' He read the draft again. The stolen bike was a lovely story, but **it was on a different mountain**, so he cut it."
    },
    {
     "type": "watch",
@@ -79,11 +82,13 @@
    {
     "type": "teach",
     "title": "Build a fence around it",
-    "body": "Patrick Winston tells speakers to *build a fence around the idea*: say what it is, and what it is not, so nobody confuses it with its neighbours. The fence does a second job. It shows you what to cut.\n\nWalk through your draft one piece at a time and ask: does this move them one step toward the summit? If yes, keep it. If it is merely true, interesting, or took you a weekend to make, it goes. **Cutting is most of the work.**\n\nYou will mourn the cuts. Keep a 'next hike' note and drop them in. Most will make a better talk later."
+    "body": "Patrick Winston tells speakers to *build a fence around the idea*: say what it is, and what it is not, so nobody confuses it with its neighbours. The fence does a second job. It shows you what to cut.\n\nWalk through your draft one piece at a time and ask: does this move them one step toward the summit? If yes, keep it. If it is merely true, interesting, or took you a weekend to make, it goes. **Cutting is most of the work.**\n\nYou will mourn the cuts. Keep a 'next hike' note and drop them in. Most will make a better talk later.",
+    "simpler": "Patrick Winston says to build a fence around your idea: say what it is and what it isn't, so nobody mixes it up with its neighbours. The fence also shows you what to cut. Check each piece of your draft: does it move people one step toward the summit? If not, it goes, even if it's true, interesting, or took a weekend to make. **Cutting is most of the work.** Save the cuts in a 'next hike' note."
    },
    {
     "type": "mistake",
-    "body": "Maya's talk was about the new booking system. At minute 3 she said 'while I'm here, one more thing' and spent 90 seconds on the holiday rota. Afterwards 2 people asked about the rota. Nobody asked about the booking system. **Spot it by the phrase**: 'while I'm here', 'quick aside', 'one more thing'. Each one is a second summit."
+    "body": "Maya's talk was about the new booking system. At minute 3 she said 'while I'm here, one more thing' and spent 90 seconds on the holiday rota. Afterwards 2 people asked about the rota. Nobody asked about the booking system. **Spot it by the phrase**: 'while I'm here', 'quick aside', 'one more thing'. Each one is a second summit.",
+    "simpler": "Maya's talk was about the new booking system. At minute 3 she said 'while I'm here, one more thing' and spent 90 seconds on the holiday rota. Afterwards, 2 people asked about the rota. Nobody asked about the booking system. **Spot it by the phrase**: 'while I'm here', 'quick aside', 'one more thing'. Each of those phrases starts a second summit."
    },
    {
     "type": "exercise",
@@ -113,11 +118,13 @@
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A talk has **one summit**: a single idea you can write as one sentence with a verb, the one a listener repeats in the car park. Everything that doesn't move people one step toward it gets cut, however good it is.\n\nTomorrow: why starting with a joke or a thank-you costs you the first 30 seconds."
+    "body": "A talk has **one summit**: a single idea you can write as one sentence with a verb, the one a listener repeats in the car park. Everything that doesn't move people one step toward it gets cut, however good it is.\n\nTomorrow: why starting with a joke or a thank-you costs you the first 30 seconds.",
+    "simpler": "A talk has **one summit**: a single idea you can write as one sentence with a verb. It's the sentence a listener repeats to a friend in the car park afterwards. Anything that doesn't move people one step closer to it gets cut, however good it is. Tomorrow: why opening with a joke or a thank-you costs you your first 30 seconds."
    },
    {
     "type": "try",
-    "body": "Open your notes app. Write the **car-park sentence** for a talk you might one day give. Under it, list 3 things you'd normally say that aren't on the path to it."
+    "body": "Open your notes app. Write the **car-park sentence** for a talk you might one day give. Under it, list 3 things you'd normally say that aren't on the path to it.",
+    "simpler": "Open your notes app. Write the **car-park sentence** for a talk you might give one day: the one line you'd want a listener to repeat afterwards. Under it, write 3 things you'd usually say in that talk that don't lead toward it."
    }
   ],
   "outcomeLine": "You can now write the one idea of a talk in a single sentence, and name 3 things you'll leave out.",

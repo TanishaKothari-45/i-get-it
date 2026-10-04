@@ -5,120 +5,139 @@
   "cards": [
    {
     "type": "picture",
-    "body": "By June 1944 the fire is back in the house it started from. Now the hoses come from two sides at once: Americans, British and Canadians through the front door in France, the Soviets through the back from the east. **Two hoses at once, fed by factories that never ran dry.**\n\nPicture the last day of it: 25 April 1945, American and Soviet soldiers shaking hands on a broken bridge over the Elbe river at Torgau. Between them, nothing of Germany's army is left.",
-    "simpler": "By June 1944 the fire is back in the house where it started. Americans, British and Canadians push in through the front door in France. The Soviets push in through the back door from the east. **Two hoses at once, fed by factories that never ran dry.**\n\nOn 25 April 1945, American and Soviet soldiers shake hands on a broken bridge over the Elbe river at Torgau. Between them, nothing of Germany's army is left."
+    "body": "Within 16 days in June 1944, Germany was hit from both sides: the Allies landed in France on the 6th, and the Soviet army smashed through in the east on the 22nd. On our street, the fire has been driven back into the house where it started. Now there are hoses at the front door, the back door and the roof.\n\n**A fire with nowhere left to run goes out.**",
+    "simpler": "Within 16 days in June 1944, Germany was attacked from two sides. On the 6th, the Allies landed in France. On the 22nd, the Soviet army broke through in the east. Think of our street. The fire has been pushed back into the house where it started. Now there are hoses at the front door, the back door and on the roof. **A fire with nowhere left to run goes out.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "It is June 1944. You are a German general with exactly one spare tank division. Where do you send it?",
+    "prompt": "You're the fire chief. Your crew sprays the front door, and the fire just pulls back into the back rooms, then creeps out again. What ends it fastest?",
     "options": [
      {
       "id": "a",
-      "text": "West, to Normandy, where the landings just happened"
+      "text": "A bigger hose at the front door."
      },
      {
       "id": "b",
-      "text": "East, where the Soviets look ready to attack"
+      "text": "Hoses at the front and the back at the same time."
      },
      {
       "id": "c",
-      "text": "It does not matter: wherever it goes, the other side is left open"
-     }
-    ],
-    "answer": "c",
-    "whyNot": {
-     "a": "That's the first hose, not the problem: send it west and the east is bare. The Soviets attacked there 16 days after D-Day.",
-     "b": "That's the second hose, not the problem: send it east and Normandy is bare. The Allies broke out of it by August."
-    },
-    "reteach": "Two fronts means every soldier sent to one is a soldier missing from the other. From June 1944 Germany faced that choice every single day, and both answers were bad. That is what being squeezed means."
-   },
-   {
-    "type": "teach",
-    "title": "The two hoses",
-    "body": "On 6 June 1944, D-Day, about 156,000 Allied troops landed on 5 beaches in Normandy, France. It was the biggest sea landing ever tried. Paris was freed on 25 August.\n\nSixteen days after D-Day, on 22 June, the Soviets launched their own summer attack in the east and smashed a whole German army group, the largest force Germany had there.\n\n**This was the two-front war Germany had always feared.** In 1940 it had beaten France before Russia was even in the fight. Now it had to hold both doors at once, with fewer men than either enemy.",
-    "simpler": "On 6 June 1944, D-Day, 156,000 Allied troops landed on 5 beaches in Normandy. It was the biggest sea landing ever. Paris was freed on 25 August.\n\nSixteen days later, on 22 June, the Soviets attacked in the east and smashed a whole German army group, Germany's biggest force there.\n\n**This was the two-front war Germany had always feared.** In 1940 it beat France before Russia was fighting. Now it had to hold both doors, with fewer men than either enemy."
-   },
-   {
-    "type": "example",
-    "title": "A bomber an hour",
-    "body": "Ford's Willow Run plant in Michigan was nearly a mile long. At its peak in 1944 it rolled out a B-24 bomber roughly every hour.\n\nA German fighter pilot might shoot down three bombers in a morning, land, and know that by the time he woke up tomorrow about 24 more had come off the line in a country his planes could not reach. He was fighting a conveyor belt. **The Allies could replace what they lost. Germany could not.**",
-    "simpler": "Ford's Willow Run plant in Michigan was nearly a mile long. At its busiest in 1944, a B-24 bomber came out about every hour.\n\nThink of a German fighter pilot. He shoots down three bombers in a morning and lands. By the time he wakes up tomorrow, about 24 more have come off the line, in a country his planes cannot reach. He is fighting a conveyor belt. **The Allies could replace what they lost. Germany could not.**"
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "In December 1944 Germany gathers its last reserves and attacks through the Ardennes forest in the west. For about a week it gains ground. Why doesn't this change how the war ends?",
-    "options": [
-     {
-      "id": "a",
-      "text": "The attack was too small to matter"
-     },
-     {
-      "id": "b",
-      "text": "The Allies could replace every tank and plane they lost, Germany could not, and the eastern hose was still coming"
-     },
-     {
-      "id": "c",
-      "text": "The Soviets had already taken Berlin"
+      "text": "Step back and let it burn itself out."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the size, not the problem: it was Germany's biggest attack in the west since 1940. Size was not what it lacked.",
-     "c": "That's April 1945, not December 1944: Berlin fell 4 months later."
+     "a": "That's one stronger hose, not two: the fire just keeps retreating to the rooms you can't reach.",
+     "c": "That's the 1938 hope, not the 1944 plan: this fire had burned for five years and showed no sign of stopping on its own."
     },
-    "reteach": "Think of the conveyor belt. A week of German gains burned up tanks and fuel Germany could not replace, against enemies who could. And while it attacked west, the Soviets were preparing their next push in the east."
+    "reteach": "A fire, like an army, survives by moving its strength to wherever it isn't being hit. Hit it from two sides and every room it runs to is already under water. That's what 1944 did to Germany."
    },
    {
     "type": "teach",
-    "title": "Why May 1945",
-    "body": "The second hose was heavier than the first. Allied factories outbuilt Germany in planes, tanks and trucks, and Allied bombers hit German oil plants until many German planes sat grounded for lack of fuel.\n\nSo why May, not earlier? Hitler refused any surrender, and the army kept obeying him. **It ended only when the two fronts met.** They touched at the Elbe on 25 April 1945. Soviet troops fought into Berlin. Hitler killed himself in his bunker on 30 April. Germany surrendered on 8 May.\n\nOn the way in, the armies found the camps: Soviets at Auschwitz in January, British at Bergen-Belsen in April. This is what the war had been against.",
-    "simpler": "Allied factories built more than Germany's, and bombing left many German planes without fuel. So why did it last until May? Hitler refused to give up, and the army obeyed him. **It ended only when the two fronts met.** They met at the Elbe on 25 April 1945. Hitler killed himself on 30 April. Germany surrendered on 8 May.\n\nThe armies also found the camps: Auschwitz in January, Bergen-Belsen in April. This is what the war had been against."
+    "title": "Front door, back door, water main",
+    "body": "On 6 June 1944, about 156,000 Allied soldiers landed on five beaches in Normandy, in northern France. That was the front door. **Germany now had to fight on two sides at once**, with the Soviet army already pushing in at the back.\n\nYou'd think D-Day was the bigger blow. In numbers, the east was: most German soldiers who died in the war died fighting the Soviets.\n\nBehind both fronts ran the water main: factories. One American shipyard built a cargo ship in under five days, as a record attempt. Bombers, meanwhile, hit German fuel plants and cities from above.",
+    "simpler": "On 6 June 1944, about 156,000 Allied soldiers landed on five Normandy beaches in northern France. That was the front door. With the Soviets at the back door, **Germany now had to fight on two sides at once**. In numbers, the east hurt more: most German soldiers killed in the war died fighting the Soviets. Factories were the water main. One American shipyard built a cargo ship in under five days, as a record try. Bombers hit Germany's fuel plants and cities."
+   },
+   {
+    "type": "example",
+    "title": "The army made of rubber",
+    "body": "The Germans were sure the landing would come at Calais, where the Channel is narrowest. The Allies helped them believe it. In south-east England they parked a fake army, with *inflatable tanks*, dummy landing craft and busy radio chatter, and let the Germans think George Patton was leading it. Even after Normandy, Hitler kept a whole army waiting near Calais for weeks, guarding against the **real invasion that was already ashore**.",
+    "simpler": "The Germans were sure the landing would come at Calais, where the sea between England and France is narrowest. The Allies helped them believe it. In south-east England they set up a fake army, with blow-up rubber tanks, dummy landing boats and busy radio chatter. They let the Germans think George Patton was in charge of it. Even after Normandy, Hitler kept a whole army waiting near Calais for weeks, guarding against the **real invasion that was already ashore**."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Autumn 1944. A German general finds 10 spare divisions (big army units of thousands of men each). Where can he send them without making things worse?",
+    "options": [
+     {
+      "id": "a",
+      "text": "West, to push the Americans and British back into the sea."
+     },
+     {
+      "id": "b",
+      "text": "East, to hold back the Soviets, the bigger threat."
+     },
+     {
+      "id": "c",
+      "text": "Nowhere safe: every unit sent to one front leaves the other one thinner."
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's fighting one hose, not two: weaken the east and the bigger Soviet army pours in through the back door.",
+     "b": "That's half the picture, not the squeeze: weaken the west and the Allies in France race for the river Rhine."
+    },
+    "reteach": "Two fronts means every choice is a loss. Germany didn't have enough men to be strong in both places at once. The Allies made sure of that by attacking from both sides in the same summer."
+   },
+   {
+    "type": "teach",
+    "title": "Why it took until May",
+    "body": "So why did Germany hold out until May 1945? Mostly because one man would not quit.\n\n**The surrender came only after the two fronts met and Hitler was dead.** American and Soviet soldiers shook hands on the river Elbe on 25 April. Hitler killed himself in Berlin on 30 April. Germany signed the surrender on 7 May, and it took effect on 8 May.\n\nAs they advanced, the armies found what Germany had been doing behind its fronts: Auschwitz in January, Bergen-Belsen in April, about six million Jews murdered.",
+    "simpler": "Germany held out until May 1945 mostly because Hitler would not quit. **The surrender came only after the two fronts met and Hitler was dead.** Americans and Soviets shook hands on the river Elbe on 25 April. Hitler killed himself on 30 April. Germany signed the surrender on 7 May, and it took effect on 8 May. As they advanced, the armies found the camps, like Auschwitz and Bergen-Belsen. About six million Jews had been murdered."
    },
    {
     "type": "mistake",
-    "body": "Dev watches a D-Day film and tells his friends the Americans won the war in Europe on the beaches. His friend asks one question: where was most of Germany's army that summer? In the east. Most German soldiers who died in the war died fighting the Soviets. **If your story of 1944 to 1945 has only one hose, you have lost half the street.** Spot it by checking: did you mention the Soviets at all?",
-    "simpler": "Dev watches a D-Day film and tells his friends the Americans won the war in Europe on the beaches. His friend asks one question: where was most of Germany's army that summer? The answer is the east. Most German soldiers who died in the war died fighting the Soviets. **If your story of 1944 to 1945 has only one hose, you have lost half the street.** A quick check: did you mention the Soviets at all?"
+    "body": "Tom watches a D-Day film and tells a friend the Americans and British beat Germany in 11 months. The friend asks one question: where did most German soldiers die? In the east, fighting the Soviets. **If your story of 1944 has only one front, you've left out a hose.**",
+    "simpler": "Tom watches a film about D-Day. Then Tom tells a friend that the Americans and British beat Germany in 11 months. The friend asks just one question: where did most German soldiers die? The answer is in the east, fighting the Soviets. It's like praising the hose at the front door and forgetting the one at the back. **If your story of 1944 has only one front, you've left out a hose.**"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend asks: Germany was clearly losing by autumn 1944. Why did it only surrender in May 1945?",
+    "prompt": "Germany was clearly losing by August 1944. Why did the surrender only come on 8 May 1945?",
     "options": [
      {
       "id": "a",
-      "text": "Hitler refused any surrender, so it went on until the two fronts met and Berlin fell"
+      "text": "Hitler refused to quit, so it took both fronts closing in until they met, and his death eight days earlier."
      },
      {
       "id": "b",
-      "text": "The Allies ran out of supplies in autumn 1944 and had to wait"
+      "text": "D-Day took 11 months to finish landing all the troops."
      },
      {
       "id": "c",
-      "text": "Germany was waiting for Japan to surrender first"
+      "text": "Germany's factories finally ran out of materials that exact week."
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's backwards: Allied supply was the one thing that never ran out. The factories were the whole point.",
-     "c": "That's the Pacific war, not Europe: Japan fought on until September 1945, 4 months after Germany."
+     "b": "That's mixing up the landing and the squeeze: D-Day was one day, and the 11 months were the two fronts closing in.",
+     "c": "That's the factory story, not the ending: factories wore Germany down, but the surrender came after the fronts met and Hitler was gone."
     },
-    "reteach": "A fire does not go out because the house is clearly lost. It goes out when the hoses reach the last room. Hitler would not let anyone put it out, so the Allies had to walk all the way to Berlin from both sides."
+    "reteach": "Losing and surrendering are not the same thing. Germany lost ground for 11 months, but Hitler would not stop while he lived. The surrender came only after the hoses met in the middle, at the river Elbe, and he was dead."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "From June 1944 Germany was squeezed from Normandy in the west and by the Soviets in the east, while Allied factories replaced every loss and German ones could not. **Hitler refused to give up, so it ended only when the two fronts met:** Berlin fell, Hitler died on 30 April 1945, and Germany surrendered on 8 May.",
-    "simpler": "From June 1944, Germany was squeezed from two sides. The Allies pushed in from Normandy in the west and the Soviets from the east. Allied factories replaced every loss, and German factories could not. **Hitler refused to give up, so it ended only when the two fronts met.** Berlin fell. Hitler died on 30 April 1945. Germany surrendered on 8 May."
+    "body": "After June 1944, Germany was squeezed from the west by D-Day, from the east by a bigger Soviet army and from above by bombers, all fed by Allied factories it could never match. **It held out mostly because Hitler refused to quit, and it surrendered about a week after his death.**\n\nTomorrow: the last house still burning, and why Japan's surrender is still argued about.",
+    "simpler": "After June 1944, Germany was squeezed from three sides. D-Day pushed in from the west. A bigger Soviet army pushed in from the east. Bombers hit from above. All of them were supplied by Allied factories that Germany could never keep up with. **It held out mostly because Hitler refused to quit, and it surrendered about a week after his death.** Tomorrow: the last house still burning, and why people still argue about Japan's surrender."
    },
    {
     "type": "try",
-    "body": "Open a map app. Trace Normandy to Torgau on the Elbe: that is the western hose, 11 months of fighting. Then trace Warsaw to Berlin: the last stretch of the eastern one. Notice which is longer.",
-    "simpler": "Open a map app. Trace a line from Normandy to Torgau on the Elbe river. That is the western hose, and it took 11 months of fighting. Then trace a line from Warsaw to Berlin. That is the last stretch of the eastern hose. Look at the two lines and **notice which one is longer.**"
+    "body": "Open the map app on your phone. Measure Cologne to Berlin, then Kostrzyn, on the Polish border, to Berlin. In March 1945 those were roughly where the two fronts stood. You'll see who was knocking first.",
+    "simpler": "Open the map app on your phone. Measure the distance from Cologne to Berlin. Then measure from Kostrzyn, a town on the Polish border, to Berlin. In March 1945, those two places were roughly where the two fronts stood. Compare the two lines, the way you might check which of two neighbours lives closer to your door. **You'll see who was knocking first.**"
    }
   ],
-  "outcomeLine": "You can now describe how Germany was squeezed from two sides in the last 11 months of the war in Europe, and say why its surrender came in May 1945 and not before."
+  "outcomeLine": "You can now describe how Germany was squeezed from two sides in its last 11 months of war, and why it surrendered in May 1945, not earlier or later.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"10\" y1=\"172\" x2=\"310\" y2=\"172\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"125\" y=\"95\" width=\"70\" height=\"77\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"117,97 160,60 203,97\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"150\" y=\"135\" width=\"20\" height=\"37\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M140 82 q4 -22 12 -10 q2 -24 12 -6 q6 -18 10 10 q-16 10 -34 6z\" fill=\"#F2A93B\"/><path d=\"M15 168 C40 140 70 150 95 128\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"5\"/><path d=\"M305 168 C280 140 250 150 225 128\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"5\"/><path d=\"M60 15 C90 20 120 30 135 45\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"5\"/><path d=\"M98 126 L122 112M222 126 L198 112M138 48 L150 62\" stroke=\"#1F7A4D\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><text x=\"20\" y=\"192\" font-size=\"13\" fill=\"#1B1A17\">WEST</text><text x=\"262\" y=\"192\" font-size=\"13\" fill=\"#1B1A17\">EAST</text></svg>"
  },
- "seconds": 84.71196699142456
+ "repairedFrom": {
+  "score": 7,
+  "failed_checks": [
+   "hook",
+   "concrete_images",
+   "one_idea",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "'That was what the war had been against': the Allies did not go to war to stop the Holocaust, and saying so rewrites what they were fighting for.",
+   "Exercise 3, option a, says 'both fronts closing on Berlin', and the reteach says the hoses met 'at the Elbe and in Berlin'. Only the Soviets took Berlin; the Americans and British stopped at the Elbe.",
+   "'The war in Europe ended only when the two fronts met and Hitler was dead' makes a simple cause-and-effect claim the chapter doesn't back up. Fine as a teaching shortcut, but it's stated as fact.",
+   "'Germany surrendered on 8 May' is fine as VE Day, but the first surrender was signed at Reims on 7 May and took effect on 8 May."
+  ],
+  "weakest_card": 6,
+  "why": "Card 6 fits a second idea (Hitler refusing to quit) plus the bomb plot, the Elbe, his suicide, the surrender and the Holocaust into about 108 words, so the camps get two rushed lines with a misleading moral framing.",
+  "fix": "Cut the briefcase-bomb story and end on the two fronts meeting at the Elbe. Then give the camps their own sentence without 'That was what the war had been against', for example: 'As they advanced, the armies found what Germany had been doing behind its fronts: Auschwitz in January, Bergen-Belsen in April, about six million Jews murdered.'"
+ }
 }

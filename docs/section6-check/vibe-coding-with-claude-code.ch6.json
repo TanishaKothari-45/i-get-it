@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "You wouldn't tell a contractor 'redo the kitchen, the bathroom and the roof' and then leave for a week. You'd say 'kitchen cabinets first', walk in when they're up, open a few doors, and only then hand over the next job.\n\nThat's the whole chapter: **one work order at a time**. Picture a clipboard with 6 numbered lines, and a tick beside each one as it gets done and checked.",
-    "simpler": "Imagine hiring a builder. You wouldn't say 'fix the kitchen, the bathroom and the roof' and then leave for a week. You'd say 'kitchen cabinets first', come back when they're up, open a few doors, and then hand over the next job.\n\nThis chapter is about doing the same with Claude: **one work order at a time**. Picture a clipboard with six numbered lines, and a tick beside each one once it is done and checked."
+    "body": "You ask a builder for a new kitchen, a new bathroom and a new roof, all by Friday. On Saturday the hallway floods. Which of the three jobs did it?\n\nGood contractors avoid that riddle with **work orders**: one job, inspect it, sign it off, then start the next. You can hand Claude Code the same kind of slip.",
+    "simpler": "Picture asking a builder for a new kitchen, a new bathroom and a new roof, all done by Friday. On Saturday the hallway floods. Which job caused it? Good builders avoid that puzzle with **work orders**. They do one job, check it, sign it off, and only then start the next one. You can give Claude Code the same kind of slip."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your friend Dev types into Claude Code: 'Build me a recipe app with search, photos, a shopping list, dark mode and sign-in.' Claude works for 4 minutes. The page opens blank. What's the most likely trouble?",
+    "prompt": "Maya sends Claude one message asking for five new things in her habit tracker. Afterwards, the tick button that worked yesterday does nothing. What's her real problem now?",
     "options": [
      {
       "id": "a",
-      "text": "Recipe apps are too hard for Claude; it ran out of ideas."
+      "text": "Claude skipped part of the request because five things is too many."
      },
      {
       "id": "b",
-      "text": "Five jobs went in at once, so when one broke there's no way to tell which."
+      "text": "She can't tell which of the five changes broke the button."
      },
      {
       "id": "c",
-      "text": "Dark mode always breaks pages; he should have asked for light mode."
+      "text": "The app is now too big for her computer to run."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a size problem, not a skill problem: Claude can build each of those 5 things, just not reliably all in one go.",
-     "c": "That's blaming one feature by guessing: with 5 changes landing together, nobody can know which one broke the page."
+     "a": "That's a limit Claude doesn't really have. It will happily try all five, and the trouble starts after it does.",
+     "c": "That's worrying about size, but size isn't the issue. Five small features barely make the app bigger. What changed is how many places a fault could hide."
     },
-    "reteach": "Think of the contractor. If 5 crews work on the house at once and the lights go out, who do you ask? Hand over one job, check it, then the next. Then a problem can only have one cause."
+    "reteach": "When five things change at once and one thing breaks, you have five suspects. When one thing changes, you have one. The asking is never the hard part. Finding the leak afterwards is."
    },
    {
     "type": "teach",
-    "title": "Why one job beats five",
-    "body": "When Claude builds one feature, it changes a few files for one reason. If the app still works, that feature is fine. If it breaks, **the cause is inside that one change**.\n\nWhen it builds 5 features at once, it changes many files for 5 reasons. Something breaks, and now you and Claude are both guessing. The fix for one thing often breaks a second thing.\n\nSo the loop is short: ask for one job, test it as a user, save it with Git (the commit from chapter 5), then the next job. A saved good version after each step means the worst case is losing 10 minutes, not the afternoon.",
-    "simpler": "When Claude builds one feature, it changes a few files for one reason. If something breaks, **the cause is inside that one change**.\n\nBuild five at once and many files change for five reasons. Now something breaks, and you both guess. Fixing one thing often breaks another.\n\nSo keep the loop short: one job, test it like a user, save it with Git (chapter 5), then the next. Worst case, you lose ten minutes, not the afternoon."
+    "title": "One job, one suspect",
+    "body": "You'd think asking for five features at once saves time. It does, right up until something breaks. Then you're a plumber in a house where five people worked the same afternoon, tapping every pipe.\n\n**Ask for one job, test it, save it.** That's the whole loop. Testing means using the app the way a person would: click the button, type the thing, refresh the page.\n\nSaving means a Git commit from chapter 5, a save point you can go back to. If job four goes wrong, you step back to the end of job three, not to last Tuesday.",
+    "simpler": "Asking for five features at once feels faster, until something breaks. Then you're a plumber in a house where five people worked that afternoon, checking every pipe. **Ask for one job, test it, save it.** Testing means using the app like a person would: click the button, type something, reload the page. Saving means a Git commit from chapter 5, a point you can return to. If job four breaks, you go back to the end of job three, not last Tuesday."
    },
    {
     "type": "example",
-    "title": "Maya's bill splitter",
-    "body": "Maya wants an app to split a restaurant bill. Her list: 1. a page with a box for the total. 2. a box for how many people. 3. show each person's share. 4. a tip slider. 5. a 'copy result' button. 6. make it look right on a phone.\n\nJob 3 came back dividing by an empty box, so the page said each friend owed *Infinity*. Because job 3 was **the only thing that had changed**, she described it in one line and Claude fixed it in under a minute. Some friends do try to pay Infinity, but the app shouldn't ask.",
-    "simpler": "Maya wants an app to split a bill. Her six jobs: a box for the total, a box for how many people, each person's share, a tip slider, a copy button, and a layout that fits a phone.\n\nJob 3 came back dividing by an empty box, so the page said each friend owed Infinity. Because job 3 was **the only thing that had changed**, she described it in one line and Claude fixed it in under a minute."
+    "title": "Maya's habit tracker, take one",
+    "body": "Maya types one long message: add habits, tick them off each day, a streak counter, dark mode and a weekly chart. Claude edits 9 files in one go. The chart is lovely. It charts nothing. The streak counter is stuck at 0, and dark mode has made the tick button black on black. **Her last save point is from before all five**, so going back means losing the parts that did work.",
+    "simpler": "Maya sends one long message asking for five things: adding habits, ticking them off each day, a streak counter, dark mode and a weekly chart. Claude changes 9 files at once. The chart looks great but shows nothing. The streak counter stays stuck at 0. Dark mode turned the tick button black on a black background. **Her last save point is from before all five**, so going back means losing the parts that worked."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Sam wants a habit tracker. Which first job should he hand to Claude?",
+    "prompt": "Take two. Maya asks only for job 1: 'let me add a habit by typing its name.' She tests it, and 'drink water' shows up, even after a refresh. What now?",
     "options": [
      {
       "id": "a",
-      "text": "'Make a habit tracker that saves my habits, shows streaks, sends reminders and syncs to my phone.'"
+      "text": "Ask for jobs 2 to 5 together, since job 1 went smoothly."
      },
      {
       "id": "b",
-      "text": "'Show a page with a list of 3 habit names I type in. Nothing else yet.'"
+      "text": "Save it as a commit, then ask for job 2 on its own."
      },
      {
       "id": "c",
-      "text": "'Set up the whole project so everything will be easy to add later.'"
+      "text": "Ask for job 2 now, and save both jobs together at the end."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the whole house in one work order: 4 features, and if the page comes up blank you can't tell which one did it.",
-     "c": "That's a job you can't test: 'easy to add later' isn't something you can click and watch work, so you never know when it's done."
+     "a": "That's take one again, just starting later. Four jobs at once means four suspects when something breaks.",
+     "c": "That skips the save without saving any time. If job 2 breaks something, she has no clean point where job 1 worked on its own."
     },
-    "reteach": "A good job is one you can test by using the app for 30 seconds. 'Show a list of habits I type' passes: type 3, see 3. 'Set up everything' can't be checked, so it isn't a job yet."
+    "reteach": "Each finished job gets its own save point, the way a builder gets a sign-off before starting the next room. Test, save, then ask again. If the next job goes wrong, you only lose that one job."
    },
    {
     "type": "teach",
-    "title": "How to cut an idea into jobs",
-    "body": "Start with the plainest version that does one useful thing. For a bill splitter, that's a total, a head count and a share. Write that as job 1.\n\nThen add one thing per line until you have 5 to 8 lines. Each line must pass the *30-second test*: you can open the app, do the thing, and see it work in under 30 seconds. If a line fails that test, it's really 2 jobs. Split it.\n\nKeep the list in a file inside your project, called something like todo.md. Then tell Claude: **'Do job 1 only. Stop and tell me when it's ready to test.'** That last sentence is the whole trick.",
-    "simpler": "Start with the plainest useful version. For a bill splitter, job 1 is a total, a head count and a share.\n\nAdd one line at a time until you have 5 to 8. Each line must pass the 30-second test: open the app, do the thing, see it work, in under 30 seconds. If a line fails, split it in two.\n\nThen tell Claude: **'Do job 1 only. Stop and tell me when it's ready to test.'**"
+    "title": "Splitting the big idea",
+    "body": "So how do you turn 'a habit tracker' into small jobs? **A job is the right size when you can test it with a few clicks.** 'Add a streak counter' passes. 'Make it nice' doesn't.\n\nClaude can help you split it. Ask: 'Split this app into 6 small jobs, each one I can test by clicking. Don't build anything yet.' Keep the list in a file, like a numbered work order taped to the fridge.\n\nOrder matters. The frame goes up before the paint: main jobs first, dark mode last. *The Pragmatic Programmer*, a classic book for coders, argues for the same rhythm: small steps, each one checked.",
+    "simpler": "**A job is the right size when you can test it with a few clicks.** 'Add a streak counter' passes. 'Make it nice' doesn't. Claude can do the splitting. Ask: 'Split this app into 6 small jobs, each one I can test by clicking. Don't build anything yet.' Keep the list in a file. Order matters: main jobs first, dark mode last, like walls going up before paint. The classic coding book *The Pragmatic Programmer* agrees: small steps, each one checked."
    },
    {
     "type": "mistake",
-    "body": "Priya had a clean list of 7 jobs. Job 2 went so well that she got brave and typed 'now do 3, 4 and 5'. Job 4 broke the page, and the fix Claude tried quietly undid job 3. She spent 40 minutes getting back to where job 2 had left her.\n\nThe tell is easy to spot: **your request has a comma-separated list of features**, or the word 'and' more than once.",
-    "simpler": "Priya had a clean list of seven jobs. Job 2 went so well that she got brave and typed 'now do 3, 4 and 5'. Job 4 broke the page. The fix Claude tried quietly undid job 3. She spent 40 minutes just getting back to where job 2 had left her.\n\nThe warning sign is easy to spot: **your request has a list of features separated by commas**, or the word 'and' shows up more than once."
+    "body": "Sam asks for job 3, a reminder message, and it works. Pleased, Sam adds: 'while you're in there, also make the buttons rounder and add a little sound.' That's **three jobs wearing one job's coat**. To catch it in your own messages, look for 'also' or 'while you're at it'. Cut everything after those words and save it for its own turn.",
+    "simpler": "Sam asks for job 3, a reminder message, and it works. Happy, Sam adds: 'while you're in there, also make the buttons rounder and add a little sound.' That's **three jobs wearing one job's coat**. To spot this in your own messages, watch for the words 'also' or 'while you're at it'. Cut everything after them and save it for its own turn."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "You finish job 4 of 6 and the app works. What comes right before you type job 5?",
+    "prompt": "Maya's list has room for one more job. Which one is the right size to hand over?",
     "options": [
      {
       "id": "a",
-      "text": "Save a version with Git, so job 4 is safe if job 5 breaks things."
+      "text": "Build the rest of the tracker: streaks, charts and reminders."
      },
      {
       "id": "b",
-      "text": "Delete the todo file, since you remember the rest."
+      "text": "Add a tick button next to each habit that turns green when clicked."
      },
      {
       "id": "c",
-      "text": "Ask Claude to do jobs 5 and 6 together to make up time."
+      "text": "Make the app feel better and fix anything that looks off."
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's throwing away the clipboard: the list is what keeps your next session on track, and Claude can read it too.",
-     "c": "That's Priya's move: bundling 2 jobs means if one breaks you can't tell which, and the fix may undo the other."
+     "a": "That's the whole house, not one work order: three jobs, so three suspects.",
+     "c": "That's 'make it better' from chapter 2. It has no finish line, so no click can tell you it's done."
     },
-    "reteach": "The loop has 3 beats: ask for one job, test it, save it. Skip the save and the next broken job costs you the last good one too."
+    "reteach": "A good work order has one job and one way to check it. Ask yourself: what would I click to know this is done? If you can name one click and the result you'd see, it's the right size."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Cut the app into 5 to 8 jobs you can each test in 30 seconds, and hand Claude **one at a time**. Test it, save it, then the next: a breakage can only have one cause, and you never lose more than one job's work.",
-    "simpler": "Cut your app into 5 to 8 jobs. Each one should be something you can test in 30 seconds. Hand them to Claude **one at a time**. Test the result, save it, then move to the next. This way a breakage can only have one cause, and you never lose more than one job's worth of work."
+    "body": "Ask Claude for one job, test it like a user, save it, then ask for the next. **Big ideas become a numbered list of 5 to 8 small jobs, main jobs first and polish last**, each small enough to check in a few clicks.\n\nTomorrow: the builder forgets everything overnight, unless you leave it a note.",
+    "simpler": "Ask Claude for one job, test it the way a user would, save it, then ask for the next. **Big ideas become a numbered list of 5 to 8 small jobs, main jobs first and polish last.** Polish means the finishing touches. Each job should be small enough to check with a few clicks. Tomorrow: the builder forgets everything overnight, unless you leave it a note."
    },
    {
     "type": "try",
-    "body": "Open a blank note. Write your app idea as job 1: the plainest thing that does one useful job. Add lines until you have 5 to 8. Cross out any line that fails the 30-second test and split it in two.",
-    "simpler": "Open a blank note. Write your app idea as job 1: the plainest thing that does one useful job. Keep adding lines until you have 5 to 8. Now check each line against the 30-second test. Can you open the app, do the thing, and see it work that fast? If a line fails, cross it out and **split it into two smaller jobs**."
+    "body": "Open Claude Code in your project folder and type: 'Split my app idea into 6 small jobs I can each test by clicking. Don't build anything yet.' Read the list. Any polish near the top? Move it down.",
+    "simpler": "Open Claude Code in your project folder and type: 'Split my app idea into 6 small jobs I can each test by clicking. Don't build anything yet.' Read the list it gives you. Do you see any finishing touches, like dark mode, near the top? **Move the polish down to the end.**"
    }
   ],
-  "outcomeLine": "You can now turn an app idea into 5 to 8 small jobs and build them one at a time, with a saved version after each."
+  "outcomeLine": "You can now turn an app idea into 5 to 8 small jobs and build them one at a time, with a save point after each.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"96\" y=\"26\" width=\"128\" height=\"164\" rx=\"8\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"134\" y=\"14\" width=\"52\" height=\"22\" rx=\"5\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"110\" y=\"44\" width=\"100\" height=\"134\" rx=\"3\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"124\" cy=\"62\" r=\"7\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"120,62 123,66 129,58\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"124\" cy=\"86\" r=\"7\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"120,86 123,90 129,82\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"124\" cy=\"110\" r=\"7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"124\" cy=\"134\" r=\"7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"124\" cy=\"158\" r=\"7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M138 62H196M138 86H190M138 110H198M138 134H186M138 158H192\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><polygon points=\"76,102 92,110 76,118\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"234\" y=\"115\" font-family=\"sans-serif\" font-size=\"15\" fill=\"#1B1A17\">one job</text></svg>"
  },
- "seconds": 73.84597778320312
+ "seconds": 93.09687924385071
 }

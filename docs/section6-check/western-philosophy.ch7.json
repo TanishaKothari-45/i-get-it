@@ -5,114 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "For about 2,300 years the guests at the table argued over what is true and what is good. In the 1880s Friedrich Nietzsche sits down and does not answer the last speaker. He asks who wrote the menu, and what they got out of it. That is the fourth of the 4 questions: who gets to decide.",
-    "simpler": "Picture a long dinner table. For about 2,300 years the guests have argued over what is true and what is good. In the 1880s Friedrich Nietzsche sits down. He does not answer the last speaker. Instead he asks who wrote the menu, and what they got out of it. That is the fourth of the 4 questions: **who gets to decide** what counts as true or good."
-   },
-   {
-    "type": "teach",
-    "title": "Values have a history",
-    "body": "Nietzsche's starting point is simple. Words like \"good\", \"evil\" and \"guilt\" were not handed down from the sky. People made them, at a time, for a reason. He called the study of where a value came from a \"genealogy\", which just means a family tree.\n\nThat is a shift. Mill asked \"does it make people happy?\" Kant asked \"could everyone act this way?\" Both treat a value as a claim to test. Nietzsche asks a different thing: who first said this, and what did saying it do for them?\n\nBehind that sits a harder claim. In 1882 he wrote \"God is dead.\" He was not reporting an event. He meant the shared ground under European values, the belief that God fixed what is good, had crumbled, and most people had not noticed they were now standing on nothing.\n\nA line from his notebooks puts it sharply: \"there are no facts, only interpretations.\" He means there is no view from nowhere. Every claim of truth is said by someone, standing somewhere, wanting something.\n\nSo his question is not \"is this true?\" but \"who made this, and who gains from it?\"",
-    "simpler": "Nietzsche starts from one idea: **values have a history**. Words like \"good\", \"evil\" and \"guilt\" did not fall from the sky. People made them, at a time, for a reason. He called tracing where a value came from a \"genealogy\", which just means a family tree. In 1882 he wrote \"God is dead\", meaning the shared ground under European values had crumbled and few had noticed. His notebooks add \"there are no facts, only interpretations.\" So he asks not \"is this true?\" but \"who made this, and who gains?\""
+    "body": "*God is dead* sounds like a boast, but when Nietzsche wrote it in 1882 it worked more like a smoke alarm. At our long dinner table, the guests have argued for over 2,000 years about which rules are right. Nietzsche stands up, lifts the tablecloth and asks **who set this table, and who got the best seats?**",
+    "simpler": "When Nietzsche wrote *God is dead* in 1882, he wasn't bragging. He was sounding a warning, like a smoke alarm. Picture a long dinner table where people have argued for over 2,000 years about which rules are right. Nietzsche stands up, lifts the tablecloth, and asks **who set this table, and who got the best seats?**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Nietzsche hears someone say \"humility is a virtue.\" Which question is he most likely to ask?",
+    "prompt": "Nietzsche has just lifted the tablecloth. If *God is dead* is a warning, what is it warning about?",
     "options": [
      {
       "id": "a",
-      "text": "But is humility really good for everyone to practise?"
+      "text": "Religion makes people unhappy, so it should be banned."
      },
      {
       "id": "b",
-      "text": "Who first called humility good, and what did they gain by it?"
+      "text": "If the old foundation for our values is gone, something still has to hold them up."
      },
      {
       "id": "c",
-      "text": "How could we ever know that humility is good?"
+      "text": "Plato was right, and perfect forms are the only safe ground left."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's Kant's test, not Nietzsche's question: Kant asks whether the rule holds for everyone, Nietzsche asks where the rule came from.",
-     "c": "That's the \"how would we know\" question from Descartes and Hume, not Nietzsche's: he asks about a value's history, not our evidence for it."
+     "a": "That's a boast, not a warning: he wasn't cheering a win or calling for bans. He was worried about what comes next.",
+     "c": "That's chapter 3's argument, not this one: Nietzsche was suspicious of perfect forms sitting behind the world."
     },
-    "reteach": "Nietzsche treats a value like a family heirloom. He does not ask whether the heirloom is beautiful. He asks who first owned it, who passed it on, and what they got for doing so."
-   },
-   {
-    "type": "example",
-    "title": "The word \"good\" flips",
-    "body": "In On the Genealogy of Morality, published in 1887, Nietzsche told a story about the word \"good.\" At first, he said, the strong and noble used \"good\" to describe themselves: bold, proud, powerful. \"Bad\" just meant common or low. Then, he argued, the powerless turned the table over: meek, patient and humble became \"good\", and the proud and strong became \"evil.\" He called this the \"slave revolt in morality\" and tied it to priests and to early Christianity. Historians dispute his story, but notice the shape of the move. He never argues that humility is bad. He argues that calling it good was done by someone, for a reason.",
-    "simpler": "In 1887 Nietzsche told a story about the word \"good\" in On the Genealogy of Morality. At first the strong and noble used \"good\" for themselves: bold, proud, powerful. \"Bad\" just meant common. Then the powerless flipped the table. Meek, patient and humble became \"good\", and the proud became \"evil\". He called this the **slave revolt in morality** and tied it to priests and early Christianity. Historians dispute the story. But notice the move: he never says humility is bad, only that calling it good was done by someone, for a reason."
+    "reteach": "For centuries, many Europeans rested right and wrong on God. Nietzsche saw that belief fading and asked: if that floor goes, what keeps our values standing? The line is a question about the floor, not a victory lap."
    },
    {
     "type": "teach",
-    "title": "Who pushes back",
-    "body": "Nietzsche was taking an old seat. In the 400s BC Protagoras said \"man is the measure of all things\", meaning what is true for you is true for you. Plato wrote a whole dialogue against him, and his sharpest reply is still in use: if every view is only an opinion, then \"every view is only an opinion\" is also only an opinion. Why should anyone accept it?\n\nKant pushes back from the other side. Even if a value has a history, reason can still test it. The rule \"could everyone act this way\" does not care who first wrote it down.\n\nNietzsche's method outlived him. In the 1970s Michel Foucault borrowed the word \"genealogy\" to ask how prisons and schools came to decide who counts as normal. Today, when someone says \"history is written by the winners\" or \"that is just your opinion\", they are sitting in the seat Protagoras and Nietzsche kept warm. Plato is across the table, waiting.",
-    "simpler": "Nietzsche took an old seat. In the 400s BC Protagoras said \"man is the measure of all things\", meaning what is true for you is true for you. Plato's reply still works: if every view is only an opinion, that claim is only an opinion too. Kant pushes back differently. A value may have a history, but reason can still test it. In the 1970s Michel Foucault borrowed \"genealogy\" to ask how prisons and schools decide who is normal. Say \"that is just your opinion\" today and you sit in **the seat Protagoras and Nietzsche kept warm**. Plato waits across the table."
+    "title": "Values have a family tree",
+    "body": "Nietzsche's big move was to treat values like old furniture: **every value was made by someone, at some time, for some reason.** Take humility. It didn't fall from the sky. People built it.\n\nHe called this kind of digging a *genealogy*, which means tracing a family tree, here for an idea instead of a person. In 1887 he wrote a whole book doing it for morality.\n\nYou'd think finding out where a value came from would settle whether it's good. It doesn't. Learning your grandmother's chair was built in a shed tells you nothing about whether it holds your weight. But it does make you check the legs.",
+    "simpler": "Nietzsche saw values like old furniture: **every value was made by someone, at some time, for some reason.** Humility didn't fall from the sky. People built it. He called tracing this a *genealogy*, a family tree for an idea. In 1887 he wrote a whole book on morality this way. Knowing where a value came from doesn't settle if it's good. A chair built in a shed may still hold you. But you'd check the legs."
+   },
+   {
+    "type": "example",
+    "title": "Phones at Sunday lunch",
+    "body": "Uncle Dev says phones at the table are rude, and his niece Maya, 19, replies *that's just your opinion* while reaching for the gravy. She's echoing Protagoras, a Greek teacher from the 400s BC, known for the idea that each person is the measure of what's true for them. Plato pushed back hard: if every view is true, then so is the view that Protagoras is wrong. Nietzsche would ask what neither of them did: **who made the phone rule, and whom does it serve?** That question has an actual answer, which is more than *just your opinion* can say.",
+    "simpler": "Uncle Dev says phones at the table are rude. His niece Maya, 19, says *that's just your opinion*, reaching for the gravy. She's echoing Protagoras, a Greek teacher from the 400s BC, who said each person decides what's true for them. Plato pushed back: if every view is true, so is the view that Protagoras is wrong. Nietzsche would ask something new: **who made the phone rule, and whom does it serve?** That question has a real answer."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A friend says: \"There's no real truth about the past. History is just whatever the winners wrote.\" Place it in the long argument.",
+    "prompt": "A coworker shrugs: 'Being on time is just a rule bosses invented.' Which reply makes the Nietzsche move?",
     "options": [
      {
       "id": "a",
-      "text": "It echoes Nietzsche's \"who decides\" question. Plato pushes back: is \"there's no real truth\" itself true?"
+      "text": "Then it means nothing, so nobody has to bother."
      },
      {
       "id": "b",
-      "text": "It echoes Descartes doubting everything. Hume pushes back that all knowledge comes through the senses."
+      "text": "Maybe. Who started it, when, and who gains from it? Then we can judge if it's worth keeping."
      },
      {
       "id": "c",
-      "text": "It echoes Kant's \"could everyone act this way\" test. Mill pushes back with the happiness test."
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's the \"how would we know\" line, not \"who decides\": Descartes doubted to find sure footing, your friend says the footing was built by whoever had power.",
-     "c": "That's the \"is it right\" debate between Kant and Mill, not the question of who gets to decide what counts as true."
-    },
-    "reteach": "Your friend is not asking whether a history book is accurate. They are asking who wrote it and what they gained. That is Nietzsche's question, with Protagoras behind him. The standard reply is Plato's: a claim that nothing is true has to include itself."
-   },
-   {
-    "type": "mistake",
-    "body": "The common slip is to think that showing where a belief came from proves it false. \"You only believe hard work is good because your parents drilled it into you\" may be true, and hard work may still be good. Philosophers call this the genetic fallacy, which means judging an idea by its origin instead of its reasons. Spot it when a sentence starts \"you only think that because...\" and never gets round to whether the thing is true.",
-    "simpler": "Here is the common slip. Showing where a belief came from does not prove it false. \"You only believe hard work is good because your parents drilled it into you\" may be true. Hard work may still be good. Philosophers call this the **genetic fallacy**, which means judging an idea by where it came from instead of by its reasons. Spot it when a sentence starts \"you only think that because...\" and never gets round to asking whether the thing is actually true."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "What was the new question Nietzsche brought to the table?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Does this value produce the most happiness?"
-     },
-     {
-      "id": "b",
-      "text": "Where did this value come from, and who gained from it?"
-     },
-     {
-      "id": "c",
-      "text": "Can I doubt this value, and what is left when I do?"
+      "text": "No, punctuality is a perfect form that exists outside time."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's Mill's test, not Nietzsche's question: Mill counted outcomes, Nietzsche traced origins.",
-     "c": "That's Descartes' method, not Nietzsche's: Descartes looked for something certain, Nietzsche looked for a history."
+     "a": "That's the slide Nietzsche feared, not his method: a value having a maker doesn't make it worthless.",
+     "c": "That's Plato's kind of answer, not Nietzsche's: he doubted that values sit outside history."
     },
-    "reteach": "The other guests tested values. Nietzsche traced them. His question is a family tree, not a verdict: who made this, when, and what did it do for them."
+    "reteach": "Nietzsche's move has two steps. First, trace a value back to the people who made it and why. Second, judge it with that history in view. Skip step two and you end up shrugging at everything."
+   },
+   {
+    "type": "teach",
+    "title": "From good to true",
+    "body": "Nietzsche pushed the same question past right and wrong to truth itself. He suggested that what a group calls *true* often lines up suspiciously well with what helps that group. Picture a school history book written by the side that won the war.\n\nThis is where today's arguments live. When people fight over who writes the textbook, who decides what counts as misinformation, or who gets to define *normal*, they're sitting in his chair.\n\nNow the reversal: **Nietzsche didn't conclude that nothing matters.** He thought that conclusion was the real disaster coming. He wanted people brave enough to make values worth living by.",
+    "simpler": "Nietzsche took the same question past right and wrong to truth itself. He noticed that what a group calls *true* often fits neatly with what helps that group, like a history book written by the side that won the war. Today's fights over who writes textbooks or who decides what's *normal* come from here. But **Nietzsche didn't conclude that nothing matters.** He saw that as the coming disaster. He wanted people brave enough to make values worth living by."
+   },
+   {
+    "type": "mistake",
+    "body": "Sam reads one Nietzsche line on a poster, decides all values are invented, and announces that the flat's washing-up rota is now *just a social construct*. Three days later the sink smells like a pond. Sam took *made by people* to mean *not worth keeping*, which is exactly the slide Nietzsche warned about. Spot it whenever someone uses a value's history as a reason to stop thinking instead of a reason to start.",
+    "simpler": "Sam reads one Nietzsche line on a poster and decides all values are made up. So the flat's washing-up rota is now *just a social construct*, meaning something people invented. Three days later the sink smells like a pond. Sam took *made by people* to mean *not worth keeping*, the exact slide Nietzsche warned about. **Watch for anyone using a value's history as a reason to stop thinking**, when it should be a reason to start."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Three guests at the long table. Which sentence is Nietzsche's?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Every opinion is equally true for the person who holds it."
+     },
+     {
+      "id": "b",
+      "text": "Values were made by people, so ask who made them and why, then decide which are worth keeping."
+     },
+     {
+      "id": "c",
+      "text": "Right and wrong are fixed and timeless, waiting to be discovered."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's Protagoras, not Nietzsche: Nietzsche asks where a value came from, not whether all views tie.",
+     "c": "That's closer to Plato's side, not Nietzsche's: he treated values as having a history."
+    },
+    "reteach": "Think of three guests at dinner. Protagoras says every dish is good to whoever likes it. Plato says there's one perfect recipe out there. Nietzsche asks who cooked each dish and for whom, then tastes it anyway."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Nietzsche argued that our values have a history: people made them, at certain times, often to suit themselves. That doesn't make them worthless; it means **you can ask who made a value and why before deciding to keep it.**\n\nNext: Wittgenstein's idea that many of these puzzles come from how we use words.",
+    "simpler": "Nietzsche argued that our values have a history. People made them, at certain times, often to suit themselves. That doesn't make them worthless. It means **you can ask who made a value and why before deciding to keep it.** Next up is Wittgenstein, who thought many of these puzzles come from the way we use words."
    },
    {
     "type": "try",
-    "body": "Tonight, write down one value you hold, like \"hard work is good.\" Under it, write where you got it and who gained from you believing it. Then ask Plato's question: does that history make it false?",
-    "simpler": "Tonight, try this. Write down one value you hold, like \"hard work is good.\" Under it, write where you got it and who gained from you believing it. Maybe a parent, a teacher, or a boss. Then ask **Plato's question**: does that history make the value false? Tracing where a belief came from and judging whether it is true are two different jobs. Notice how it feels to do them one at a time."
+    "body": "Tonight, pick one house rule you follow without thinking, like shoes off at the door. Ask three things: who started it, when, and who it helps. Then decide: keep it, change it, or drop it.",
+    "simpler": "Tonight, pick one house rule you follow without thinking, like taking your shoes off at the door. Ask three things: who started it, when, and who it helps. Then, with those answers in hand, **decide whether to keep it, change it, or drop it.**"
    }
   ],
-  "outcomeLine": "You can now hear \"that's just your opinion\", place it in the seat Protagoras and Nietzsche took, and give Plato's one-line reply."
+  "outcomeLine": "You can now hear 'that's just your opinion', link it to Protagoras, name Plato as the one who pushed back, and ask Nietzsche's question: who made this value, and why?",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><text x=\"140\" y=\"40\" font-size=\"18\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"Georgia,serif\">who set it?</text><circle cx=\"90\" cy=\"84\" r=\"10\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"140\" cy=\"84\" r=\"10\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"190\" cy=\"84\" r=\"10\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"70\" y1=\"140\" x2=\"70\" y2=\"178\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"222\" y1=\"140\" x2=\"222\" y2=\"178\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"50,110 240,110 288,82 294,94 250,140 50,140\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linejoin=\"round\"/><ellipse cx=\"90\" cy=\"106\" rx=\"16\" ry=\"5\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"140\" cy=\"106\" rx=\"16\" ry=\"5\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"190\" cy=\"106\" rx=\"16\" ry=\"5\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"300\" cy=\"44\" r=\"12\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"300\" y1=\"56\" x2=\"300\" y2=\"122\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polyline points=\"300,70 292,86\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polyline points=\"290,178 300,122 310,178\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/></svg>"
  },
- "seconds": 94.6894998550415
+ "seconds": 230.4287691116333
 }

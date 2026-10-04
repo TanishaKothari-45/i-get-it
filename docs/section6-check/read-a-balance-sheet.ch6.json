@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Stand in the kitchen of the house on photo day. On the table are three pairs of envelopes. First pair: this year's bills, and the cash plus money arriving soon. Second pair: the loan payments due this year, and the cash in the bank right now. Third pair: the whole mortgage, and your own share of the house.\n\n**Three checks are just three comparisons.** For each pair, ask one question: is the paying envelope thicker than the owing one?",
-    "simpler": "Stand in the kitchen of a house on the day it is photographed. Three pairs of envelopes sit on the table. One pair holds this year's bills and the cash plus money arriving soon. The next holds loan payments due this year and the cash in the bank today. The last holds the whole mortgage and your share of the house. **Three checks are just three comparisons.** For each pair, ask: is the paying envelope fatter than the owing one?"
+    "body": "Two companies own the same \u00a310 million of stuff and make the same \u00a31 million profit. One is a safe bet and one is a gamble, and **three quick sums** on the balance sheet tell you which.\n\nIn house terms, you check three things. Do this month's bills fit inside the current account? How much of the house does the bank really own? Does the cash on the kitchen table cover the loan due soon?",
+    "simpler": "Picture two companies. Each owns \u00a310 million of stuff and makes \u00a31 million profit. Yet one is a safe bet and the other is a gamble. **Three quick sums** on the balance sheet show you which is which. Think of it like checking a house. Do this month's bills fit inside the current account? How much of the house does the bank really own? Does the cash on the kitchen table cover the loan due soon?"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your neighbour Dev has 3,000 in the bank, a car he could sell for 8,000, and 5,000 of bills due this year. Can Dev pay this year's bills without selling the car?",
+    "prompt": "Priya owns a \u00a3300,000 house. Her current account holds \u00a33,000. This month she owes \u00a34,500 in bills, including a \u00a32,000 loan repayment. Can she pay this month without selling anything or borrowing?",
     "options": [
      {
       "id": "a",
-      "text": "Yes, he has 11,000 of stuff"
+      "text": "Yes, easily: she owns a \u00a3300,000 house."
      },
      {
       "id": "b",
-      "text": "No, 3,000 cash is less than 5,000 due"
+      "text": "No: \u00a33,000 in the account can't cover \u00a34,500 due now."
      },
      {
       "id": "c",
-      "text": "Only if the bills turn out small"
+      "text": "Can't say without knowing her salary last year."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the total of everything he owns, not what he can pay with quickly: the car is not cash until someone buys it.",
-     "c": "The bills are already known, 5,000. The question is whether cash covers them, and 3,000 does not."
+     "a": "That's what she owns, not what she can spend this month: you can't pay the electricity bill with a bedroom.",
+     "c": "That's last year's film, not today's photo: the question is about the money and the bills on the table now."
     },
-    "reteach": "Each check pairs one thing that must be paid with one thing that can pay it. For this year's bills, cash is the quickest payer. If cash is smaller than the bills, Dev must sell something or borrow."
+    "reteach": "Owning a lot doesn't pay small bills. This month, what counts is the money that can move this month, set against what's due this month. Compare those two and leave the house out of it."
    },
    {
     "type": "teach",
-    "title": "Checks 1 and 2: this year's bills",
-    "body": "Check 1 compares *current assets*, things that turn into cash within 12 months, with *current liabilities*, bills due within 12 months. Divide the first by the second. **Above 1 means the fast stuff covers the near bills.** Around 1.5 to 2 is comfortable. Below 1 is the first warning sign.\n\nCheck 2 is stricter. Take only cash and compare it with *short-term debt*, the loans due within 12 months. Stock might not sell and customers might pay late, but cash is cash. If cash is smaller than short-term debt, the company needs new borrowing or quick sales just to stay current.",
-    "simpler": "Check 1 divides current assets, what turns into cash within a year, by current liabilities, bills due this year. **Above 1 means the fast stuff covers the near bills.** Around 1.5 to 2 is comfortable. Below 1 is a warning. Check 2 is stricter. Compare only cash with short-term debt, loans due this year. Stock may not sell, customers may pay late, but cash is cash. If cash is smaller, the company needs fresh borrowing or quick sales to cope."
+    "title": "Three pairs of lines",
+    "body": "Each check is just two lines from the sheet, side by side. **Pick the right pair and the sum does the rest.**\n\nCheck one: *current assets* (things that turn into cash within 12 months) against *current liabilities* (bills due within 12 months). Divide the first by the second. Below 1.0 means more is due this year than is coming in. That's Priya's kitchen table.\n\nCheck two: everything the company owes against its equity, the owners' share. It shows how much of the house the bank owns.\n\nCheck three: plain cash against short-term loans. No stock, no unpaid customer bills. Just money in the drawer.",
+    "simpler": "Each check puts two lines from the sheet side by side. **Pick the right pair and the sum does the rest.** Check one divides current assets (things that turn into cash within a year) by current liabilities (bills due within a year). Below 1.0, more is due than is coming in. That's Priya's kitchen table. Check two weighs all debts against equity, the owners' share. Check three weighs plain cash against short-term loans. It's just the money in the drawer."
    },
    {
     "type": "example",
-    "title": "The bakery that passed and failed",
-    "body": "Picture a bakery chain, call it Oven Street. Its balance sheet shows current assets of 600,000 and current liabilities of 400,000. Divide: 1.5, so check 1 passes. Now check 2: cash is 90,000, but a 250,000 bank loan falls due in 8 months. The ovens are paid for and the shops are full, yet the owner spends every Tuesday on the phone to the bank. Check 1 said fine. Check 2 said: not without a new loan.",
-    "simpler": "Picture a bakery chain called Oven Street. Its balance sheet shows current assets of 600,000 and current liabilities of 400,000. Divide and you get 1.5, so check 1 passes. Now check 2. Cash is 90,000, but a 250,000 bank loan is due in 8 months. The ovens are paid for and the shops are busy, yet the owner spends every Tuesday on the phone to the bank. **Check 1 said fine, but check 2 said not without a new loan.**"
+    "title": "Kettle and Brew",
+    "body": "Two coffee roasters each own \u00a310m of assets and make \u00a31m profit. Kettle has \u00a34m of current assets against \u00a32m due this year, a ratio of 2.0. It owes \u00a34m in total against \u00a36m of equity, and holds \u00a31.5m of cash against \u00a30.5m of loans due. Brew has the same \u00a34m against \u00a35m due (0.8) and owes \u00a38m against just \u00a32m of equity. **It has \u00a3200,000 in the bank and a \u00a33m loan due before next Christmas.**\n\nSame profit. Very different Christmas.",
+    "simpler": "Two coffee roasters each own \u00a310m and make \u00a31m profit. Kettle has \u00a34m of current assets against \u00a32m due this year, a ratio of 2.0. It owes \u00a34m against \u00a36m of equity and holds \u00a31.5m cash against \u00a30.5m of loans due. Brew has the same \u00a34m against \u00a35m due, just 0.8, and owes \u00a38m against \u00a32m of equity. **It has \u00a3200,000 in the bank and a \u00a33m loan due before next Christmas.** Same profit. Very different Christmas."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A toy shop shows current assets 300,000, current liabilities 500,000, cash 40,000 and short-term debt 30,000. Which sentence reads the checks right?",
+    "prompt": "Lumen Lamps, 31 March: current assets \u00a3600,000, current liabilities \u00a3400,000, cash \u00a350,000, short-term loans \u00a3300,000. Which reading is right?",
     "options": [
      {
       "id": "a",
-      "text": "Check 2 passes, so the shop is fine for the year"
+      "text": "Healthy: current assets beat current liabilities, so it can pay this year."
      },
      {
       "id": "b",
-      "text": "Check 1 fails: fast assets are 0.6 of near bills, so the year looks tight even though cash covers the loan"
+      "text": "Passes check one at 1.5, fails check three: \u00a350,000 of cash against \u00a3300,000 of loans due."
      },
      {
       "id": "c",
-      "text": "Check 1 passes because 300,000 is a big number"
+      "text": "Fails check one: \u00a3400,000 of bills is too many."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's check 2 on its own, not the full picture: cash covers the loan, but the other 470,000 of bills still outrun the fast assets.",
-     "c": "That's the size of the pile, not the comparison: 300,000 against 500,000 is 0.6, which sits below 1."
+     "a": "That's check one on its own. Check three, cash against loans, tells a different story.",
+     "c": "That's reading one line, not a pair: \u00a3400,000 due is fine when \u00a3600,000 is coming in."
     },
-    "reteach": "The checks are divisions, not sizes. Current assets divided by current liabilities says whether the near bills are covered. Cash against short-term debt says whether the loans alone are covered. One can pass while the other fails."
+    "reteach": "Run all three pairs, not just the first. Lumen's 1.5 says enough is coming in this year, but only \u00a350,000 of it is actual cash. The rest is lamps on shelves and customer bills that may not be paid in time."
    },
    {
     "type": "teach",
-    "title": "Check 3: who really owns the house",
-    "body": "Check 3 looks past this year. Compare *total debt*, everything borrowed, soon and later, with *equity*, the owners' share from chapter 5. Divide debt by equity. **Below 1 means the owners hold more of the house than the lenders do.** Above 2 means the lenders hold most of it, and every bad year hurts twice.\n\nThe healthy number depends on the trade. A power company with steady bills can live at 2. A small software firm at 2 is worrying. So compare with the same company a year earlier, or a rival in the same trade, before judging.",
-    "simpler": "Check 3 looks ahead. Total debt is everything borrowed, soon or later. Equity is the owners' share. Divide debt by equity. **Below 1 means the owners hold more of the house than the lenders do.** Above 2, lenders hold most of it and every bad year hurts twice. It depends on the trade. A power company can live at 2. A small software firm at 2 is worrying. So compare with last year or a rival in the same trade."
+    "title": "What good looks like",
+    "body": "Check one: above 1.5 is comfortable, and below 1.0 needs a reason. Benjamin Graham, who wrote the classic line-by-line guide to these sheets, liked to see about 2 to 1.\n\nCheck two: owing less than the equity is calm. Owing four times as much, like Brew, means one bad year can wipe the owners out. If equity is negative, skip the sum. That's already your answer.\n\nYou'd think a low check one is always bad. It isn't. Supermarkets often run below 1.0, because shoppers pay at the till today and suppliers get paid weeks later. **Compare a company with its own trade.**",
+    "simpler": "Check one: above 1.5 is comfortable, and below 1.0 needs a reason. Benjamin Graham, author of the classic guide, liked about 2 to 1. Check two: owing less than equity is calm. Owing four times as much, like Brew, means one bad year can wipe out the owners. Negative equity is your answer. A low check one isn't always bad. Supermarkets often sit below 1.0, since shoppers pay today but suppliers get paid weeks later. **Compare a company with its own trade.**"
    },
    {
     "type": "mistake",
-    "body": "Tomas reads a balance sheet, sees total assets of 40 million, and relaxes. He never divides. The 40 million is mostly a factory, while current liabilities are 9 million against current assets of 5 million. **Spot it when someone quotes one big number and no comparison.** A check always has two sides.",
-    "simpler": "Tomas reads a balance sheet, sees total assets of 40 million, and relaxes. He never divides anything. Most of that 40 million is a factory, not cash. Meanwhile current liabilities are 9 million and current assets are only 5 million. **Spot it when someone quotes one big number and no comparison.** A check always has two sides, like weighing two envelopes against each other."
+    "body": "Tom runs check one on a toy shop in October, gets 2.2 and calls it safe. But \u00a31.8m of its \u00a32m in current assets is unsold toys and unpaid customer bills, and the cash would fit in a shoebox. To spot this, run check three straight after check one. If the ratio looks great but cash is tiny, **the good number is made of stuff, not money**.",
+    "simpler": "Tom checks a toy shop in October. Check one gives 2.2, so he calls it safe. But \u00a31.8m of its \u00a32m in current assets is unsold toys and bills customers haven't paid yet. The actual cash would fit in a shoebox. So run check three right after check one. If the ratio looks great but the cash is tiny, **the good number is made of stuff, not money**."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend says: 'Debt to equity is 3, current ratio is 0.8, and cash is half the short-term debt. But look at the size of those assets!' Which worry comes first?",
+    "prompt": "A bank wants to know one thing: can this company repay the loans due this year without selling stock or borrowing again? Which pair of lines answers that?",
     "options": [
      {
       "id": "a",
-      "text": "Check 3: debt is 3 times equity, so lenders own most of it"
+      "text": "Current assets against current liabilities."
      },
      {
       "id": "b",
-      "text": "Checks 1 and 2: near bills and loans outrun both fast assets and cash, so this year is the problem"
+      "text": "Cash against short-term loans."
      },
      {
       "id": "c",
-      "text": "None, the big assets settle it"
+      "text": "Everything owed against equity."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the long-run check: it matters, but a debt pile does not all fall due this year. The checks that fail on 12-month bills come first.",
-     "c": "That's the one-big-number trap from the mistake card: a number with no comparison is not a check."
+     "a": "That's check one, the wider net: it counts stock and customer bills that might not turn into cash in time.",
+     "c": "That's check two: it measures how much is borrowed overall, not what's due this year."
     },
-    "reteach": "Checks 1 and 2 ask about the next 12 months. Check 3 asks about the long run. When the short ones fail, the company can run out of money before the long run ever arrives, so they come first."
+    "reteach": "Each check answers a different question. Check one asks whether enough will come in this year. Check two asks how much of the house the bank owns. Check three asks whether there's money in the drawer right now for the loans due soon, and it's the only one that ignores stock and unpaid bills."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**Three divisions, five minutes**: fast assets over near bills (want above 1), cash against short-term debt (want cash bigger), total debt over equity (want below 1, judged against the same trade). If the first two pass, the company can pay its bills this year.",
-    "simpler": "**Three divisions, five minutes.** First, fast assets divided by near bills, and you want above 1. Second, cash set against short-term debt, and you want cash to be bigger. Third, total debt divided by equity, and you want below 1, judged against others in the same trade. If the first two pass, the company can pay its bills this year."
+    "body": "Three pairs of lines tell you whether a company can pay its way: current assets against current liabilities, everything owed against equity, and cash against loans due this year. **Run all three**, because one good number can hide a bad one.\n\nTomorrow: why last year's column is the most useful one on the page.",
+    "simpler": "Three pairs of lines tell you if a company can pay its way. Current assets against current liabilities. Everything owed against equity. Cash against loans due this year. **Run all three**, because one good number can hide a bad one, like a tidy front room hiding a leaking roof. Tomorrow: why last year's column is the most useful one on the page."
    },
    {
     "type": "try",
-    "body": "Open the latest annual report of any company you buy from. Find total current assets and total current liabilities. Divide on your phone. Write the number down and say aloud: above 1 or below 1.",
-    "simpler": "Pick any company you buy from and open its latest annual report. Look for two lines: total current assets and total current liabilities. Divide the first by the second on your phone. Write the number down. **Then say it out loud: above 1 or below 1.** That is check 1."
+    "body": "Look up the latest annual report of a listed company you bought from this week. Find the balance sheet and divide current assets by current liabilities. Is it above or below 1.0?",
+    "simpler": "Pick a listed company, one whose shares anyone can buy, that you bought something from this week. Find its latest annual report and turn to the balance sheet. **Divide current assets by current liabilities.** This is check one. Is the answer above or below 1.0?"
    }
   ],
-  "outcomeLine": "You can now run three checks on a real balance sheet and say in one sentence whether the company can pay its bills this year."
+  "outcomeLine": "You can now run three quick checks on a balance sheet and say whether a company can pay its bills this year.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M40 110 L100 60 L160 110\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"52\" y=\"108\" width=\"96\" height=\"70\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"88\" y=\"138\" width=\"24\" height=\"40\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"240\" y1=\"74\" x2=\"240\" y2=\"172\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"215\" y1=\"172\" x2=\"265\" y2=\"172\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"190\" y1=\"84\" x2=\"290\" y2=\"68\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"190\" y1=\"84\" x2=\"174\" y2=\"124\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"190\" y1=\"84\" x2=\"206\" y2=\"124\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><path d=\"M170 124 Q190 142 210 124 Z\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"182\" cy=\"118\" r=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><circle cx=\"196\" cy=\"118\" r=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><circle cx=\"189\" cy=\"108\" r=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"290\" y1=\"68\" x2=\"276\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"290\" y1=\"68\" x2=\"304\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><path d=\"M272 106 Q290 122 308 106 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"282\" y=\"94\" width=\"16\" height=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><text x=\"190\" y=\"160\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">cash</text><text x=\"290\" y=\"140\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">due</text></svg>"
  },
- "seconds": 82.38977718353271
+ "seconds": 97.38893699645996
 }

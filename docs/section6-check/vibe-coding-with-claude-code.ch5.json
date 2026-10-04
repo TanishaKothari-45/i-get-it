@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "A careful contractor photographs every room each time a job is finished, dates the photos, and locks a copy in a cabinet across town. Knock down the wrong wall tomorrow, and you can rebuild to any photo.\n\n*Git* is the camera on your computer. *GitHub* is the cabinet across town. **You keep every good version, so no mistake is permanent.**",
-    "simpler": "Picture a careful builder who takes a photo of every room each time a job is done. He writes the date on each photo and locks a copy in a cabinet across town. If someone knocks down the wrong wall tomorrow, he can rebuild from any photo.\n\nGit is the camera on your computer. GitHub is the cabinet across town. **You keep every good version, so no mistake is permanent.**"
+    "body": "Your app worked perfectly at 4pm. At 6pm it's a blank white page. Can you get 4pm back?\n\nThink of each working version as a photo of the house plus a spare key. Git keeps those in a drawer at home, and GitHub keeps copies in a safe across town. **The builder can knock down walls, but you keep the keys to every version that worked.**",
+    "simpler": "Your app worked fine at 4pm. By 6pm it shows only a blank white page. Can you get the 4pm version back?\n\nPicture each working version as a photo of your house plus a spare key. Git keeps these in a drawer at home. GitHub keeps copies in a safe across town. **The builder can knock down walls, but you keep the keys to every version that worked.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Sunday night your to-do app worked, and you took a Git 'photo' of it. Monday you asked Claude for dark mode and now the page is blank. What can you do?",
+    "prompt": "Priya's habit tracker worked last night. This morning Claude added a dark mode, and now every button has vanished. What gets last night's version back fastest?",
     "options": [
      {
       "id": "a",
-      "text": "Go back to Sunday's photo and start Monday again"
+      "text": "Ask Claude to rebuild the whole app from scratch"
      },
      {
       "id": "b",
-      "text": "Nothing. Monday's changes replaced Sunday's for good"
+      "text": "Go back to a save point made last night, while it worked"
      },
      {
       "id": "c",
-      "text": "Wait. GitHub repairs broken pages overnight"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's a folder without Git, not a folder with it: Git keeps every photo you took, so Sunday is still there.",
-     "c": "That's a storage cabinet, not a repair shop: GitHub holds copies of your photos, it never changes your code."
-    },
-    "reteach": "Each photo is a full copy of the project at that moment. New work never deletes old photos. If today breaks, you ask for yesterday's photo and the whole folder goes back to that state."
-   },
-   {
-    "type": "teach",
-    "title": "Commit: take the photo",
-    "body": "*Git* is a free program that lives on your computer and remembers the history of one folder. A *commit* is one save point: a snapshot of every file, plus a short note you write about what changed.\n\nYou never type Git commands yourself. You tell Claude: \"commit this with the message 'to-do list adds and deletes items'\". Claude runs the commands and tells you when it's done.\n\n**Commit when it works, not when you're tired.** Open the app, click around, see it behave, then take the photo. A photo of a broken room is a photo you'll never want to rebuild from.",
-    "simpler": "Git is a free program on your computer. It remembers the history of one folder. A commit is one save point. It is a snapshot of every file, plus a short note you write about what changed.\n\nYou never type Git commands yourself. You tell Claude: \"commit this with the message 'to-do list adds and deletes items'\". Claude does it and tells you when it is done.\n\n**Commit when it works, not when you're tired.** Open the app, click around, and watch it behave. Then take the photo. A photo of a broken room is one you will never want to rebuild from."
-   },
-   {
-    "type": "example",
-    "title": "Maya and the vanishing delete button",
-    "body": "Tuesday, 9pm. Maya's to-do app adds and deletes tasks, so she tells Claude to commit it with the message \"adds and deletes tasks\". Wednesday she asks for drag-to-reorder. Claude edits 3 files, and the delete button disappears.\n\nShe types: \"go back to the last commit\". About 4 seconds later the delete button is back. So is Tuesday's app, exactly as it was. Drag-to-reorder is gone too, which she decides is fine, since it never worked anyway.",
-    "simpler": "Tuesday, 9pm. Maya's to-do app can add and delete tasks. She tells Claude to commit it with the message \"adds and deletes tasks\". On Wednesday she asks for drag-to-reorder. Claude edits 3 files, and the delete button disappears.\n\nShe types: \"go back to the last commit\". About 4 seconds later the delete button is back. Tuesday's app is back too, exactly as it was. Drag-to-reorder is gone as well. She decides that is fine, since it never worked anyway."
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "You asked Claude to make the header green. You opened the app. It's green and nothing else changed. What now?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Commit now with a message like 'header is green'"
-     },
-     {
-      "id": "b",
-      "text": "Keep going for 5 more features, then commit once to keep the history short"
-     },
-     {
-      "id": "c",
-      "text": "Don't commit yet. Commits are for when something breaks, as a record of the break"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's one photo of 6 rooms, not 6 photos: if feature 4 breaks things, you can't go back to feature 3.",
-     "c": "That's a bug report, not a save point: you commit the working state so you have something good to return to."
-    },
-    "reteach": "Small, working, checked: that's the moment to commit. Each commit is cheap and takes seconds. Many small photos let you go back to exactly the step before trouble started."
-   },
-   {
-    "type": "teach",
-    "title": "Push: lock a copy across town",
-    "body": "A commit lives only on your computer. Laptop stolen, coffee in the keyboard, and every photo goes with it. *Push* means uploading your commits to *GitHub*, a website that stores a copy of your project.\n\nTell Claude: \"push this to GitHub\". The first time, it will help you create a *repository*, which is just the storage space for one project on GitHub. After that, pushing is one line.\n\n**Commit saves, push protects.** To go back, ask \"show me the last 5 commits\", then \"go back to the one called 'adds and deletes tasks'\". Anything unsaved since that commit is set aside, so commit first if you want to keep it.",
-    "simpler": "A commit lives only on your computer. If your laptop is stolen or coffee spills on it, every photo goes with it. Push means uploading your commits to GitHub, a website that keeps a copy of your project.\n\nTell Claude: \"push this to GitHub\". The first time, it helps you create a repository. That is just the storage space for one project on GitHub. After that, pushing is one line.\n\n**Commit saves, push protects.** To go back, ask \"show me the last 5 commits\", then \"go back to the one called 'adds and deletes tasks'\". Anything unsaved since that commit is set aside, so commit first if you want to keep it."
-   },
-   {
-    "type": "mistake",
-    "body": "Dev pushed on day 1, then committed 12 times over 2 weeks and never pushed again. His laptop died on a Thursday. GitHub had the day 1 version: a blank page with a title.\n\nSpot it by asking Claude \"is everything pushed to GitHub?\" or by opening your repository page in a browser and reading the date on the last change. If it's older than your last commit, push.",
-    "simpler": "Dev pushed on day 1. Then he committed 12 times over 2 weeks and never pushed again. His laptop died on a Thursday. GitHub only had the day 1 version: a blank page with a title. Two weeks of work were gone.\n\nYou can spot this early. Ask Claude \"is everything pushed to GitHub?\" Or open your repository page in a browser and read the date on the last change. If that date is older than your last commit, push."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "A friend says: 'I committed 6 times today. If my laptop dies tonight, is my work safe?' What do you tell them?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Yes. Commits go to GitHub on their own"
-     },
-     {
-      "id": "b",
-      "text": "Only if they also pushed. Commits stay on the laptop until then"
-     },
-     {
-      "id": "c",
-      "text": "No. Commits are wiped when you close the terminal"
+      "text": "Keep asking Claude to fix the buttons until they reappear"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's push, not commit: nothing leaves your computer until you ask Claude to push.",
-     "c": "That's a scratch file, not a commit: commits stay in the folder's history until you delete the folder itself."
+     "a": "That's starting over, not going back. You'd get a new app, not last night's working one.",
+     "c": "That's fixing forward, not going back. It might work, or it might take ten more tries and break something else."
     },
-    "reteach": "Two separate steps. Commit takes the photo and files it on your computer. Push carries copies to GitHub. Without the second step, one dead hard drive takes all 6 photos with it."
+    "reteach": "A save point is a frozen copy of every file at one moment. If you made one while the app worked, getting back to it takes one request. If you didn't, all you can do is patch the new mess."
+   },
+   {
+    "type": "teach",
+    "title": "Save, then upload",
+    "body": "*Git* is a save-point system that lives inside your project folder. Each save point is called a *commit*: a snapshot of every file, plus a short note saying what works. It's like a dated photo of the house after each room is finished.\n\n*GitHub* is a website that keeps a copy of those commits online. Sending them there is called a *push*, which just means upload.\n\nYou don't type any of this yourself. **You tell Claude in plain English: \u201ccommit this as \u2018score counter works\u2019\u201d, then \u201cpush to GitHub\u201d.** The first push asks you to sign in to GitHub once.",
+    "simpler": "Git is a save-point tool inside your project folder. Each save point is a commit: a copy of every file at that moment, plus a short note on what works. It's like a dated photo of the house.\n\nGitHub is a website that keeps your commits online. Sending them there is a push, which means upload.\n\nYou type no commands. **You tell Claude: \u201ccommit this as \u2018score counter works\u2019\u201d, then \u201cpush to GitHub\u201d.** The first push asks you to sign in once."
+   },
+   {
+    "type": "example",
+    "title": "Sam's Tuesday",
+    "body": "Sam's tip calculator splits a dinner bill between 4 people, and on Monday at 9pm it works. Sam types: \u201ccommit this as \u2018tip split works for 4 people\u2019 and push it.\u201d On Tuesday Sam asks for a currency picker, and the page goes blank. Sam types: **\u201cgo back to the last commit.\u201d** Monday's calculator is back within a minute. The currency picker is gone, and so is the blank page, which is exactly the trade you want.",
+    "simpler": "Sam built a tip calculator that splits a dinner bill between 4 people. On Monday at 9pm it works, so Sam types: \u201ccommit this as \u2018tip split works for 4 people\u2019 and push it.\u201d On Tuesday Sam asks for a currency picker, and the page goes blank. Sam types: **\u201cgo back to the last commit.\u201d** Within a minute, Monday's calculator is back. The currency picker is gone, but so is the blank page. That's the trade you want."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Ana asked Claude to add a \u2018delete task\u2019 button to her to-do app. When should she say \u201ccommit this\u201d?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Right after Claude says it's done, before trying it"
+     },
+     {
+      "id": "b",
+      "text": "After clicking the button a few times and watching tasks disappear properly"
+     },
+     {
+      "id": "c",
+      "text": "On Friday, once the whole week's changes are in"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's saving a promise, not a working version. If the button is broken, the save point is broken too.",
+     "c": "That's one save point for five days instead of one per working step. Going back would wipe out the whole week."
+    },
+    "reteach": "A commit is only as good as what's inside it. Test first, so the save point you'd come back to actually works. Then save straight away, before the next change."
+   },
+   {
+    "type": "teach",
+    "title": "Two copies, and why you need both",
+    "body": "A commit lives on your laptop. Spill coffee on the laptop and every save point goes with it. A push copies them to GitHub, the safe across town, so a new computer can download your whole project again.\n\nYou'd think lots of saves would make a mess. It's the opposite: **each commit is an undo you can use any day, not just the most recent one.** Ask Claude \u201cshow me my last 5 commits\u201d and you get a list of notes like \u2018login works\u2019 and \u2018colours fixed\u2019.\n\nThat's why the note matters. A note that just says \u2018update\u2019 tells future-you nothing.",
+    "simpler": "A commit lives on your laptop. Spill coffee on it and every save point is gone. A push copies them to GitHub, the safe across town, so a new computer can download your project again.\n\nMany saves don't make a mess. **Each commit is an undo you can use any day, not just the latest one.** Ask Claude \u201cshow me my last 5 commits\u201d and you'll see notes like \u2018login works\u2019.\n\nThat's why notes matter. \u2018Update\u2019 tells future-you nothing."
+   },
+   {
+    "type": "mistake",
+    "body": "Leo's quiz app half-worked at 11pm, and Leo committed it anyway as \u2018nearly done\u2019. Two days later something broke. Leo went back to that save point, and the half-broken quiz came back with it. **A save point is only as good as what was working when you made it.** Before you say \u201ccommit\u201d, click through the app once yourself.",
+    "simpler": "At 11pm, Leo's quiz app only half worked, but Leo saved it anyway with the note \u2018nearly done\u2019. Two days later something broke. Leo went back to that save point, and the half-broken quiz came back with it. **A save point is only as good as what worked when you made it.** So before you say \u201ccommit\u201d, click through your app once yourself."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Three things are left over from Thursday. Which one can actually bring back Thursday's working app?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Your chat with Claude from Thursday, scrolled back up"
+     },
+     {
+      "id": "b",
+      "text": "A commit called \u2018wip\u2019, made halfway through a change and never pushed"
+     },
+     {
+      "id": "c",
+      "text": "A commit called \u2018photo upload works\u2019, made after testing and pushed to GitHub"
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's a record of what you asked for, not a copy of the files. The files have changed since then.",
+     "b": "That's a save of something unfinished, not a working version, and it lives on only one laptop."
+    },
+    "reteach": "To go back, you need three things: a real save point (a commit), made while the app worked, and stored somewhere safe (GitHub). A chat log has none of these. A half-done save has only the first."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Every time the app works, tell Claude to commit it with a note saying what changed, then push it to GitHub. **If tomorrow breaks it, go back to the last commit** and lose minutes instead of days.",
-    "simpler": "Every time the app works, tell Claude to commit it. Add a short note saying what changed. Then tell Claude to push it to GitHub. **If tomorrow breaks it, go back to the last commit.** You lose minutes of work instead of days. It is like saving a game before a hard level, so you can always try again from a safe spot."
+    "body": "Git takes a snapshot of your project each time you say \u201ccommit\u201d, and GitHub keeps a copy online when you say \u201cpush\u201d. **Test it, commit it, push it**, and yesterday's working app is always one sentence away.\n\nTomorrow: why asking for one feature beats asking for five at once.",
+    "simpler": "Each time you say \u201ccommit\u201d, Git takes a snapshot of your project. When you say \u201cpush\u201d, GitHub keeps a copy online. **Test it, commit it, push it**, and yesterday's working app is always one sentence away.\n\nTomorrow: why asking for one feature beats asking for five at once."
    },
    {
     "type": "try",
-    "body": "Open Claude Code in your project folder. Type: \"commit everything with a clear message, then push to GitHub\". Then open your repository page in a browser and check the date on the latest change.",
-    "simpler": "Open Claude Code in your project folder. Type: \"commit everything with a clear message, then push to GitHub\". Wait for Claude to say it is done. Then open your repository page in a browser and check the date on the latest change. It should be today. If it is, your work is safely stored in two places: your computer and GitHub."
+    "body": "Open Claude Code in your project folder and type: \u201cIs this folder using Git yet? If not, set it up and commit everything as \u2018first working version\u2019.\u201d Then ask it to show you that commit.",
+    "simpler": "Open Claude Code in your project folder. Then type this: **\u201cIs this folder using Git yet? If not, set it up and commit everything as \u2018first working version\u2019.\u201d** When it's done, ask Claude to show you that commit. That's your very first save point, and it's the one you can come back to if something breaks."
    }
   ],
-  "outcomeLine": "You can now commit a working version, push it to GitHub, and roll back to yesterday's version when today's attempt goes wrong."
+  "outcomeLine": "You can now save a working version, upload it to GitHub, and bring it back when a new change breaks things.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"30,90 80,50 130,90\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"40\" y=\"90\" width=\"80\" height=\"60\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"70\" y=\"115\" width=\"20\" height=\"35\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M140 118 Q170 98 202 118\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-dasharray=\"6 5\"/><polyline points=\"192,110 202,118 190,124\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><rect x=\"215\" y=\"80\" width=\"80\" height=\"70\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"255\" cy=\"115\" r=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"255\" y1=\"115\" x2=\"263\" y2=\"107\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><rect x=\"40\" y=\"163\" width=\"20\" height=\"16\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"68\" y=\"163\" width=\"20\" height=\"16\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"96\" y=\"163\" width=\"20\" height=\"16\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"130\" y=\"176\" font-family=\"sans-serif\" font-size=\"14\" fill=\"#1B1A17\">save points</text></svg>"
  },
- "seconds": 53.98618006706238
+ "seconds": 83.34167909622192
 }

@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Equity is **the part of the house that is yours**. Picture the deed on the kitchen table: you paid a 60,000 deposit on day one, and every mortgage payment since has moved a little more of the house from the bank's column into yours.\n\nBorrow extra against the house for a new kitchen and your share shrinks again. Same photo, same house, thinner slice.",
-    "simpler": "Think of owning a house with a mortgage. Equity is **the part of the house that is yours**. You paid a 60,000 deposit on day one. Every mortgage payment since then moves a little more of the house from the bank's side to your side.\n\nIf you borrow more against the house, say for a new kitchen, your share shrinks again. Same house, same photo, but a thinner slice belongs to you."
+    "body": "Can a business owe more than everything it owns and still open its doors at 7am tomorrow? Yes, and the house shows how. Take what the house is worth, subtract the mortgage, and what's left is **your share**. On a balance sheet that share is called *equity*.",
+    "simpler": "Can a business owe more than everything it owns and still open its doors at 7am tomorrow? Yes. A house helps show how. Take what your house is worth and subtract what you still owe on the mortgage, the loan you used to buy it. What's left over is **your share**. A balance sheet, the page listing what a business owns and owes, calls that share *equity*."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Maya bought a flat for 300,000 with a 60,000 deposit and a 240,000 mortgage. Three years on she has paid 30,000 off the mortgage and the flat's price has not moved. On a balance sheet, Maya's share today is:",
+    "prompt": "Ana bought a \u00a3200,000 flat with a \u00a330,000 deposit. Five years on, the flat is still valued at \u00a3200,000 and the mortgage is down to \u00a3160,000. How much of the flat is Ana's?",
     "options": [
      {
       "id": "a",
-      "text": "60,000, the deposit she paid"
+      "text": "\u00a3200,000"
      },
      {
       "id": "b",
-      "text": "90,000, the deposit plus what she has paid off"
+      "text": "\u00a340,000"
      },
      {
       "id": "c",
-      "text": "300,000, the whole flat"
+      "text": "\u00a330,000"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's only the day-one money, not the share today: every mortgage payment since has added to Maya's slice.",
-     "c": "That's the asset, not the owner's share: 210,000 of the flat still belongs to the bank."
+     "a": "That's what the flat is worth, not what's left after the mortgage: take off the \u00a3160,000 still owed.",
+     "c": "That's what Ana put in at the start, not the share today: paying down the mortgage added \u00a310,000 more."
     },
-    "reteach": "Her share is what she owns minus what she owes. Flat 300,000, mortgage now 210,000, so 90,000 is hers. The deposit started the slice; the repayments grew it."
+    "reteach": "Your share is always what you own minus what you owe. \u00a3200,000 minus \u00a3160,000 leaves \u00a340,000. The deposit was only where it started."
    },
    {
     "type": "teach",
-    "title": "Two ways money becomes yours",
-    "body": "Equity on a company's sheet comes from **two sources only**. The first is *share capital*: money the owners paid in when they bought their shares, like Maya's deposit. The second is *retained earnings*: profit the company made and chose to keep rather than hand out.\n\nEach year the company makes a choice. Profit can go out to owners as a *dividend*, a cash payout per share, or it can stay inside the business. Only the kept part lands in retained earnings.\n\nSo the recipe is: money put in, plus profit kept, minus losses, minus dividends paid out.",
-    "simpler": "A company's equity comes from **two sources only**. The first is share capital: money the owners paid in when they bought their shares, like a house deposit. The second is retained earnings: profit the company made and chose to keep.\n\nEach year, profit can either go out to owners as a dividend, a cash payout per share, or stay inside. Only the kept part becomes retained earnings. So equity is money put in, plus profit kept, minus losses and dividends."
+    "title": "Two pipes fill it",
+    "body": "Equity is filled by **two pipes**. The first is money the owners put in, like the deposit on the house. On a real sheet it's often called *share capital*: the cash people paid the company for their shares.\n\nThe second pipe is profit the company kept instead of handing out. That's *retained earnings* (retained just means held on to). Think of spare pay going into a new kitchen instead of a holiday.\n\nWhen owners take money out as *dividends* (cash paid to shareholders), the second pipe drains a little.",
+    "simpler": "Equity gets filled by **two pipes**. The first is money the owners put in, like the deposit you pay on a house. Company records often call this *share capital*, the cash people paid for their shares. The second pipe is profit the company kept instead of handing out, called *retained earnings*. It's like spending spare pay on a new kitchen rather than a holiday. When owners take cash out as *dividends*, this second pipe drains a little."
    },
    {
     "type": "example",
-    "title": "Where is the 90,000?",
-    "body": "Rosa and her brother Tomas started a bakery with 50,000 of their own money. Year one made a 20,000 profit and they kept all of it. Year two made 30,000 and they paid themselves a 10,000 dividend.\n\nEquity: 50,000 + 20,000 + 30,000 - 10,000 = 90,000.\n\nTomas looked at the sheet and asked where the 90,000 was kept. Nowhere. It is not a pile of cash in a drawer. It is a label for **the slice of the ovens, the flour and the bank account that is theirs** once the suppliers and the bank are paid.",
-    "simpler": "Rosa and her brother Tomas started a bakery with 50,000 of their own money. Year one made 20,000 profit, all kept. Year two made 30,000, and they paid themselves a 10,000 dividend.\n\nEquity: 50,000 + 20,000 + 30,000 - 10,000 = 90,000.\n\nTomas asked where the 90,000 was kept. Nowhere. It is not cash in a drawer. It is a label for **the slice of the ovens, the flour and the bank account that is theirs** once the suppliers and the bank are paid."
+    "title": "A coffee cart, two years",
+    "body": "Dev puts \u00a320,000 into a coffee cart company. Year one makes \u00a38,000 profit, Dev takes \u00a35,000 out as a dividend, \u00a33,000 stays in, and equity is now \u00a323,000. Year two brings a wet summer and a broken espresso machine: a \u00a310,000 loss. Equity drops to \u00a313,000, even though Dev never took back a penny of the original \u00a320,000. Losses come out of the same pot as kept profit.",
+    "simpler": "Dev puts \u00a320,000 into a coffee cart company. In year one it makes \u00a38,000 profit. Dev takes \u00a35,000 out as a dividend and leaves \u00a33,000 in, so equity grows to \u00a323,000. Year two brings a wet summer and a broken espresso machine, and the cart loses \u00a310,000. Equity falls to \u00a313,000, even though Dev never took back a penny of the first \u00a320,000. **Losses come out of the same pot** as kept profit."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Pinecone Ltd shows share capital of 100,000 and retained earnings of 40,000. This year it lost 60,000 and paid no dividend. What is its equity now?",
+    "prompt": "Hollow Oak Ltd's owners put in \u00a350m. Over ten years it made \u00a380m in profit and paid \u00a360m of that out as dividends. Roughly what does its equity line show?",
     "options": [
      {
       "id": "a",
-      "text": "80,000"
+      "text": "\u00a3130m"
      },
      {
       "id": "b",
-      "text": "140,000"
+      "text": "\u00a370m"
      },
      {
       "id": "c",
-      "text": "40,000"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's last year's equity, not this year's: the 60,000 loss still has to come off.",
-     "c": "That's the loss taken off share capital alone: equity is both lines added together, 140,000, and the loss comes off that total."
-    },
-    "reteach": "Add the two sources first: 100,000 put in plus 40,000 kept is 140,000. A loss is the opposite of kept profit, so take it off: 140,000 minus 60,000 leaves 80,000. The owners' slice got thinner."
-   },
-   {
-    "type": "teach",
-    "title": "It can shrink, and it is not a price",
-    "body": "Losses eat retained earnings. Lose more than you ever kept and they start eating the share capital too. Keep going and equity turns **negative: the company owes more than it owns**, like a house worth less than its mortgage. That is a warning sign, not a typo.\n\nTo see whether profits were kept or paid out, compare retained earnings this year with last year. If profit was 30,000 but retained earnings grew by only 5,000, about 25,000 went out as dividends.\n\nEquity is a sum of the past at purchase prices, not what a buyer would pay today. A brand the company built itself is not even on the sheet.",
-    "simpler": "Losses eat retained earnings first, then share capital. Keep losing and equity turns **negative: the company owes more than it owns**, like a house worth less than its mortgage. That is a warning sign.\n\nTo see if profit was kept, compare retained earnings with last year. Profit of 30,000 but growth of only 5,000 means about 25,000 went out as dividends.\n\nEquity adds up the past at purchase prices, not today's value. A self-built brand is not even on the sheet."
-   },
-   {
-    "type": "mistake",
-    "body": "Dev opens a report, sees total equity of 2 million, and tells his friend the company is worth 2 million. His friend asks if that means the owners could take 2 million out tomorrow. Dev goes quiet.\n\nSpot it by asking: is this a price or a leftover? Equity is **the leftover from the past**, sitting in ovens and stock and bank balances. A price is what someone pays today, and it lives nowhere on this sheet.",
-    "simpler": "Dev opens a report, sees total equity of 2 million, and tells his friend the company is worth 2 million. His friend asks if the owners could take 2 million out tomorrow. Dev goes quiet.\n\nSpot this mistake by asking: is this a price or a leftover? Equity is **the leftover from the past**. It sits in ovens, stock and bank balances. A price is what someone pays today, and it is nowhere on this sheet."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Your cousin asks what the 'total equity' line on a balance sheet actually means. Which answer is right?",
-    "options": [
-     {
-      "id": "a",
-      "text": "The cash the owners could pull out tomorrow"
-     },
-     {
-      "id": "b",
-      "text": "What the owners put in plus profit kept, minus losses and dividends paid"
-     },
-     {
-      "id": "c",
-      "text": "The price a buyer would pay for the whole company today"
+      "text": "\u00a350m"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's cash, not equity: cash is one asset line near the top, while equity is a leftover spread across everything the company owns.",
-     "c": "That's market value, not equity: the sheet records what went in and what was kept, at the prices things were bought for."
+     "a": "That's money in plus all the profit, not the profit kept: the \u00a360m paid out has left the pot.",
+     "c": "That's only the first pipe, not both: the \u00a320m of kept profit belongs to the owners too."
     },
-    "reteach": "Think of Maya's flat. Her share is deposit plus repayments, not the cash in her wallet and not what an estate agent would quote. Equity is the same: put in, plus kept, minus lost and paid out."
+    "reteach": "Equity is money put in plus profit kept. Profit kept is \u00a380m made minus \u00a360m paid out, so \u00a320m. Add the owners' \u00a350m and you get \u00a370m."
+   },
+   {
+    "type": "teach",
+    "title": "Below zero, and not a price tag",
+    "body": "Drain the second pipe hard enough and equity drops **below zero**. Years of losses can do it. So can paying owners more than the business has kept, often through *buybacks*, where a company buys its own shares back. McDonald's has shown negative equity in recent years, largely for that reason, and still serves breakfast every morning.\n\nYou'd think equity tells you what a company is worth. It doesn't. It's a record of history: what owners put in and kept, counted at what things cost. A buyer pays for what the business will earn next. That can be far more, or far less.",
+    "simpler": "Drain the second pipe hard enough and equity falls **below zero**. Years of losses can do it. So can paying owners more than the business kept, often by buying back its own shares. McDonald's has shown negative equity lately, largely for this reason, yet still serves breakfast. Equity isn't a price tag. It records what owners put in and kept, at what things cost. A buyer pays for what the business will earn, which can be far more or less."
+   },
+   {
+    "type": "mistake",
+    "body": "Mia sees a company showing \u00a34bn of equity, notices its shares add up to only \u00a33bn on the stock market, and calls it a bargain. But that \u00a34bn is built from what its factories cost years ago, not what anyone would pay for them today. Spot it: if you're treating equity as a price tag, stop. **It's what went in and stayed, not what it would sell for.**",
+    "simpler": "Mia sees a company with \u00a34bn of equity. On the stock market, all its shares together are worth only \u00a33bn, so she calls it a bargain. But that \u00a34bn is built from what its factories cost years ago, not what anyone would pay for them today. Here's the warning sign: if you're treating equity as a price tag, stop. **It's what went in and stayed, not what it would sell for.**"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A well-known chain reports equity of minus \u00a32bn, yet its shops are busy and it pays its bills. What's the likeliest story?",
+    "options": [
+     {
+      "id": "a",
+      "text": "It's quietly bankrupt and will close within the year."
+     },
+     {
+      "id": "b",
+      "text": "Over the years it paid out more to owners than they put in plus the profit it kept."
+     },
+     {
+      "id": "c",
+      "text": "Its share price has fallen below zero."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's reading equity as a verdict, not a history: negative equity alone doesn't mean it can't pay.",
+     "c": "That's the market price, not the equity line: equity comes from the company's own records, and share prices can't go below zero."
+    },
+    "reteach": "Equity is money in plus profit kept, minus what's been paid out. Pay out more than that and the line dips under zero. It tells you where money went, not that the doors are closing."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Equity is what the owners put in plus every profit they kept, minus losses and dividends, and it can shrink to nothing or below. It is **a leftover from the past, not a price**, so never read it as what the company is worth or has in the bank.",
-    "simpler": "Equity is what the owners put in, plus every profit they kept, minus losses and dividends. It can shrink to nothing or even below zero. It is **a leftover from the past, not a price**. So never read it as what the company is worth, or as money sitting in the bank."
+    "body": "The owners' share is the money they put in plus the profit the company kept, and losses and payouts shrink it, sometimes **below zero**. It's a record of the past, not the price anyone would pay for the business.\n\nTomorrow: three checks in five minutes that spot trouble before a profitable company runs dry.",
+    "simpler": "The owners' share is the money they put in plus the profit the company kept. Losses and payouts to owners shrink it, sometimes **below zero**. Think of it as a record of the past, not the price anyone would pay for the business. Tomorrow you'll learn three checks that take five minutes and spot trouble before a profitable company runs out of cash."
    },
    {
     "type": "try",
-    "body": "Search 'annual report' plus the name of any listed company. In the balance sheet, find total equity, then the two lines inside it: share capital and retained earnings. Did retained earnings grow since last year?",
-    "simpler": "Try this. Search for 'annual report' plus the name of any company listed on a stock exchange. Open the balance sheet and find total equity. Inside it, look for the two lines: share capital and retained earnings. Then compare retained earnings with last year's number. **Did retained earnings grow since last year?** If so, the company kept some profit."
+    "body": "Search any big company's name plus 'balance sheet'. In the equity section, find the money owners put in (often 'share capital') and 'retained earnings'. Which pipe is bigger?",
+    "simpler": "Try this. Search for any big company's name plus 'balance sheet'. Find the equity section, the part showing the owners' share. Look for the money owners put in, often labelled 'share capital', and for 'retained earnings', the profit the company kept. Then compare them. **Which pipe is bigger?**"
    }
   ],
-  "outcomeLine": "You can now explain where a company's equity number came from and say whether past profits were kept or paid out."
+  "outcomeLine": "You can now explain where a company's equity number came from and say whether past profits were kept or paid out.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M100 92 L190 34 L280 92\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"115\" y=\"92\" width=\"150\" height=\"46\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"4\"/><rect x=\"115\" y=\"138\" width=\"150\" height=\"46\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"4\"/><text x=\"190\" y=\"121\" font-family=\"sans-serif\" font-size=\"16\" font-weight=\"bold\" fill=\"#1B1A17\" text-anchor=\"middle\">OWED</text><text x=\"190\" y=\"167\" font-family=\"sans-serif\" font-size=\"16\" font-weight=\"bold\" fill=\"#F2A93B\" text-anchor=\"middle\">YOURS</text><path d=\"M20 150 Q60 146 115 150\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"6\" stroke-linecap=\"round\"/><path d=\"M20 172 Q60 176 115 172\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"6\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"138\" r=\"4\" fill=\"#1F7A4D\"/><circle cx=\"78\" cy=\"186\" r=\"4\" fill=\"#1F7A4D\"/><path d=\"M265 165 Q290 165 295 178\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"5\" stroke-linecap=\"round\"/><ellipse cx=\"297\" cy=\"190\" rx=\"4\" ry=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/></svg>"
  },
- "seconds": 89.37284183502197
+ "seconds": 84.39437317848206
 }

@@ -5,121 +5,137 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Forty web pages a day will kill this agent by Friday. Not because the code breaks, but because you stop opening a note that runs to 40 lines. **Your clipping person reads 5 newspapers, not the whole newsstand**, and only the pages where rivals print real news: prices, release notes, job ads.",
-    "simpler": "If the agent checks 40 web pages a day, you will stop using it within a week. The code will keep working. The problem is the note it writes. It will run to 40 lines, and you will stop opening it. Think of a person who clips newspaper stories for you. **They read 5 newspapers, not every paper on the stand**, and only the pages where rivals print real news: prices, release notes, job ads."
+    "body": "Your clipping service could read 50 newspapers every morning. The weak link is you, reading the note it leaves. Watch 40 pages, and by Friday you've stopped opening the note. The fix: **3 to 5 rivals, and only the 1 or 2 pages each where their news actually breaks**.",
+    "simpler": "Imagine a clipping service that could read 50 newspapers every morning. The slow part is you, reading the note it leaves behind. If you watch 40 pages, by Friday you've usually stopped opening the note. The fix is to watch **3 to 5 rivals, and only the 1 or 2 pages each where their news actually breaks**."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You sell meal-kit boxes in Leeds. Your rival GreenCrate has 30 pages on its site. Which one page do you hand the clipping person first?",
+    "prompt": "You hire a real person to clip stories about your rivals. Which instruction gets you a note you'll still be reading next month?",
     "options": [
      {
       "id": "a",
-      "text": "The About Us page with the founders' story"
+      "text": "Read every page of all 30 local papers, every morning."
      },
      {
       "id": "b",
-      "text": "The pricing page"
+      "text": "Read the business pages of these 5 papers, every morning."
      },
      {
       "id": "c",
-      "text": "The homepage banner with the photo of a smiling family"
+      "text": "Read the front page of one paper, once a month."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the furniture, not the news: an About page changes maybe once a year, so the clipping stays empty.",
-     "c": "That's the shop window, not the price tag: banners swap photos every week, so you get change without meaning."
+     "a": "That's the 40-things trap, not a watch list: the note would be too long to read before your coffee goes cold.",
+     "c": "That's too little, not too focused: once a month, you'd hear about a price change weeks after your customers did."
     },
-    "reteach": "The agent only earns its keep on pages that change in ways you care about. A pricing page changes rarely, and every change is a decision someone made. A banner changes often and tells you nothing."
+    "reteach": "A good clipper is useful because of what they leave out. Point them at a few sections where news really happens, and the note stays short enough to read every morning."
    },
    {
     "type": "teach",
-    "title": "Who makes the list",
-    "body": "Start with the rivals a buyer compares you against on the same afternoon. Not the giant you dream of beating. The 3 to 5 names that come up when a customer says 'we're also looking at'.\n\nMichael Porter's *Competitive Strategy* lists 4 things worth knowing about a rival: what they want, what they're doing now, what they believe, and what they can do. You'd think the job is to know everything about them. It's to know those 4, and a page only helps if it moves one of them.\n\nWrite the names down. **5 is the ceiling, not the target.**",
-    "simpler": "Start with the rivals a buyer compares you with. Not the giant you dream of beating. The 3 to 5 names that come up when a customer says 'we're also looking at'. Michael Porter's *Competitive Strategy* names 4 things worth knowing about a rival: what they want, what they do now, what they believe, what they can do. A page only helps if it moves one of them. Write the names down. **5 is the ceiling, not the target.**"
+    "title": "Rivals first, then pages",
+    "body": "Start with people. Pick the 3 to 5 rivals your customers actually mention: the name on a lost sale, the tab open next to yours. The famous giant in your space can wait.\n\nThen pick pages, not whole websites. A *page* is one web address, like example.com/pricing. Four kinds earn their place: **pricing, changelog, blog and careers**. A *changelog* is the list of product updates. Each of these moves when the company moves.\n\nThe home page is the trap. It's the shop window: polished, and when it changes, it's usually a new banner or photo, not news.",
+    "simpler": "Start with people, then pages. Pick the 3 to 5 rivals your customers mention: the name on a lost sale, the tab open next to yours. The famous giant can wait. Next, pick pages, each one web address like example.com/pricing. Four kinds change when the company changes: **pricing, changelog, blog and careers**. A changelog is the list of product updates. Skip the home page. Like a shop window, it's polished, and its changes are usually a new banner or photo, not news."
    },
    {
     "type": "example",
-    "title": "Dana's list of 12",
-    "body": "Dana runs a 6-person bookkeeping app, and her first watch list had 12 competitors, including Intuit, whose site is enormous. Exactly 1 of its pages mattered to her: the plan comparison. She cut the list to 4 rivals, 2 her size, 1 a bit bigger, and that single Intuit page. **The first morning's note was 9 lines**, and she read every one. With the list of 12 it would have been about 70 lines, and she would not have.",
-    "simpler": "Dana runs a bookkeeping app with 6 people. Her first watch list had 12 competitors, including Intuit, whose website is huge. Only 1 Intuit page mattered: the one that compares its plans. She cut the list to 4 rivals, 2 her size, 1 a bit bigger, plus that single Intuit page. **The first morning's note was 9 lines**, and she read every one. With 12 rivals it would have been about 70 lines, and she would not have read it."
+    "title": "Priya's 6 addresses",
+    "body": "Priya sells a booking app to yoga studios. Her first list had 41 addresses, and she stopped reading the results by Thursday. Her second list had 6: 3 real rivals, 2 pages each. In week two, one rival's careers page listed 2 new jobs for payments engineers. Their blog said nothing about payments for another month. Priya found out first because she was reading the most boring page on their site.",
+    "simpler": "Priya sells a booking app to yoga studios. Her first list had 41 web addresses, and by Thursday she had stopped reading what came back. Her second list had 6: 3 real rivals, 2 pages each. In week two, one rival's careers page showed 2 new jobs for payments engineers. Their blog said nothing about payments for another month. Priya knew first because **she was reading the most boring page on their site**."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Dana wants a second page for a rival called Ledgerly. Which pick follows the rule?",
+    "prompt": "You're watching Brightline, a rival note-taking app. You have room for one more page. Which one?",
     "options": [
      {
       "id": "a",
-      "text": "Ledgerly's changelog, which lists each new feature with a date"
+      "text": "brightline.com, the home page"
      },
      {
       "id": "b",
-      "text": "Ledgerly's Twitter feed, about 20 posts a day"
+      "text": "brightline.com/changelog"
      },
      {
       "id": "c",
-      "text": "Ledgerly's homepage, because it's the front door"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's the newsstand, not the paper: 20 posts a day is volume, and most of it is replies and memes.",
-     "c": "That's the front door, not the notice board: homepages change their photos and slogans, rarely their facts."
-    },
-    "reteach": "Ask of each page: when it changes, is that a decision someone made? A changelog entry is a decision. A new homepage photo is a Tuesday."
-   },
-   {
-    "type": "teach",
-    "title": "Which pages make the list",
-    "body": "For each name, pick 1 or 2 pages where **a change means a decision**. Four kinds usually qualify: *pricing* (what they charge), *changelog* or release notes (what they built), *blog* (what they want you to think), and *careers* (what they're about to build; a job ad for a Head of Payments is a 6-month head start on a payments feature).\n\nThen open each page and copy its exact web address, not the site name. Tomorrow's agent needs the same door, not the building.\n\nThat's the list. 3 to 5 names, 5 to 10 addresses, a one-line reason for each.",
-    "simpler": "Pick 1 or 2 pages per name where **a change means a decision**. Four kinds count: pricing (what they charge), changelog or release notes (what they built), blog (what they want you to think), careers (what they're about to build). A job ad for a Head of Payments means a payments feature in 6 months. Copy each page's exact web address, not just the site name. End with 3 to 5 names, 5 to 10 addresses, a reason for each."
-   },
-   {
-    "type": "mistake",
-    "body": "Tom added every rival's blog, press page, help centre, status page and LinkedIn. By Thursday the note ran to 3 screens and he stopped opening it, and nobody noticed, least of all the agent. The sign to spot: **you skim the note instead of reading it**. When that happens, cut pages until you read every line again.",
-    "simpler": "Tom added every rival's blog, press page, help centre, status page and LinkedIn. By Thursday the note filled 3 screens. He stopped opening it, and nobody noticed, least of all the agent. The warning sign is this: **you skim the note instead of reading it**. When that happens, cut pages until you read every line again."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "A friend shows you their watch list: 8 competitors, 6 pages each, 48 addresses. What do you fix first?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Add the exact web addresses, since site names aren't enough"
-     },
-     {
-      "id": "b",
-      "text": "Cut it to 3 to 5 competitors with 1 or 2 pages each that change for a reason"
-     },
-     {
-      "id": "c",
-      "text": "Swap the 6 pages per rival for their social feeds, which update more often"
+      "text": "brightline.com/about, with the founders' story"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's chapter 3's problem, not today's: exact addresses matter, but 48 right addresses is still 48 pages nobody reads.",
-     "c": "That's more noise, not less: the problem is change without meaning, and a social feed is the purest form of it."
+     "a": "That's the shop window, not the stockroom: home page changes are often new banners or tested headlines, and rarely tell you what the company is doing.",
+     "c": "That's history, not news: an About page tells you where they've been, and it almost never moves."
     },
-    "reteach": "The list is a diet, not a buffet. Fewer pages means a note you actually read, and a note you read is the only kind that changes what you do tomorrow."
+    "reteach": "Ask which page moves when the company moves. A changelog gets a new line every time they ship something. Home and About pages are built to look good, not to report news."
+   },
+   {
+    "type": "teach",
+    "title": "Why fewer wins",
+    "body": "Why not 50? Every page you add is a page you have to read about tomorrow. At 50 pages, Monday's note is three screens of footer dates and cookie banners, and the one price change is buried on screen two. **Fewer pages, read every day, beat many pages skimmed.**\n\nMichael Porter's book *Competitive Strategy* gives a good test. It says to know 4 things about a rival: their goals, current strategy, assumptions and capabilities. Here's one way to match your pages to them (our reading, not Porter's). Pricing shows strategy. The changelog shows capabilities. Careers hint at goals. The blog can hint at their assumptions.\n\nNext to each address, write one line saying which of the 4 it shows. No line, no page.",
+    "simpler": "Each added page is one more to read tomorrow. At 50 pages, Monday's note is three screens of footer dates and cookie banners, with the one price change buried on screen two. **Fewer pages, read every day, beat many pages skimmed.** Michael Porter's book *Competitive Strategy* says to know a rival's goals, strategy, assumptions and capabilities. One way to match pages to them (our reading, not Porter's): pricing shows strategy, the changelog shows capabilities, careers hint at goals, the blog can hint at assumptions. Next to each address, write which one it shows. No line, no page."
+   },
+   {
+    "type": "mistake",
+    "body": "Tom adds every rival's social accounts, help docs and full site map: 38 addresses. His first summary runs 4 screens, mostly cookie banners and a new date in a footer. By Friday he has muted it. The warning sign: if you can't say in one line why a page is on the list, it's noise in a nice suit.",
+    "simpler": "Tom adds every rival's social accounts, help pages and full site map: 38 addresses. His first summary runs 4 screens long, mostly cookie banners and a new date at the bottom of a page. By Friday he has muted it. Here's the warning sign: if you can't say in one line why a page is on the list, **it's noise in a nice suit**."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "What earns a page a spot on your watch list?",
+    "options": [
+     {
+      "id": "a",
+      "text": "It's the most visited page on the rival's site."
+     },
+     {
+      "id": "b",
+      "text": "It changes when the rival makes a move, and you can say what it shows."
+     },
+     {
+      "id": "c",
+      "text": "It's long, so the agent has plenty to read."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's popularity, not news: the most visited page is usually the home page, which mostly shows polish, not moves.",
+     "c": "That's volume, not value: more text makes a longer note, not a better one."
+    },
+    "reteach": "Think of each page as a newspaper section you pay someone to read. Keep it only if it changes when the rival acts, and you can name what it tells you: goals, strategy, assumptions or capabilities."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Pick the 3 to 5 rivals a buyer compares you with, and for each pick 1 or 2 pages where a change means someone made a decision: pricing, changelog, blog, careers. Write down the exact addresses and why each is worth reading, because **a short note you read beats a long one you skim**.\n\nTomorrow: a web page is just text. Mostly. The exceptions teach you the most.",
-    "simpler": "Pick the 3 to 5 rivals a buyer compares you with. For each one, pick 1 or 2 pages where a change means someone made a decision: pricing, changelog, blog, careers. Write down the exact web addresses and why each one is worth reading. The rule behind all of it: **a short note you read beats a long one you skim**. Tomorrow's topic: a web page is just text. Mostly. The exceptions teach you the most."
+    "body": "Watch 3 to 5 real rivals, and only the 1 or 2 pages each that move when the company moves: pricing, changelog, blog, careers. If you can't say in one line why a page is on the list, cut it.",
+    "simpler": "Watch 3 to 5 real rivals. For each, watch only the 1 or 2 pages that change when the company changes: pricing, changelog, blog or careers. **If you can't say in one line why a page is on the list, cut it.**"
    },
    {
     "type": "try",
-    "body": "Open your notes app. Write 3 rival names. Under each, paste 1 exact web address and finish this sentence: 'I want to know the day this changes because...'",
-    "simpler": "Open your notes app. Write down 3 rival names. Under each name, paste 1 exact web address, the full link to the page, not just the company's site. Then finish this sentence for each: **'I want to know the day this changes because...'** That sentence is your one-line reason for watching the page."
+    "body": "Write down your 3 closest rivals. For each, find their pricing page plus one of changelog, blog or careers. Paste the 6 addresses into a note, each with one line saying why it's there.\n\nTomorrow: your agent saves its first clipping, and learns some pages fight back.",
+    "simpler": "Write down your 3 closest rivals. For each one, find their pricing page plus one more: their changelog, blog or careers page. A changelog is their list of product updates. Paste the 6 addresses into a note, **each with one line saying why it's there**. Tomorrow, your agent saves its first clipping, and learns that some pages fight back."
    }
   ],
-  "outcomeLine": "You can now write a watch list of 3 to 5 competitors with 1 or 2 exact web addresses each, and say why every page is worth reading.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"22\" y=\"40\" width=\"88\" height=\"116\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"30\" y=\"32\" width=\"88\" height=\"116\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"38\" y=\"24\" width=\"88\" height=\"116\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"48\" y1=\"42\" x2=\"116\" y2=\"42\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"48\" y1=\"54\" x2=\"98\" y2=\"54\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"50\" y=\"76\" width=\"62\" height=\"44\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><circle cx=\"148\" cy=\"82\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"148\" cy=\"100\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"153\" y1=\"86\" x2=\"190\" y2=\"102\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"153\" y1=\"96\" x2=\"190\" y2=\"80\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"212\" y=\"62\" width=\"88\" height=\"68\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"224\" y1=\"82\" x2=\"288\" y2=\"82\" stroke=\"#F2A93B\" stroke-width=\"2\"/><line x1=\"224\" y1=\"96\" x2=\"276\" y2=\"96\" stroke=\"#F2A93B\" stroke-width=\"2\"/><line x1=\"10\" y1=\"172\" x2=\"310\" y2=\"172\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"40\" y=\"190\" font-size=\"12\" fill=\"#1B1A17\">5 papers</text><text x=\"236\" y=\"152\" font-size=\"12\" fill=\"#1B1A17\">note</text></svg>"
+  "outcomeLine": "You can now write a list of 3 to 5 competitors with 1 or 2 exact web addresses each, and say why each page is worth reading.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"30\" y=\"40\" width=\"110\" height=\"130\" rx=\"4\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"45\" y1=\"60\" x2=\"125\" y2=\"60\" stroke=\"#1B1A17\" stroke-width=\"4\"/><line x1=\"45\" y1=\"80\" x2=\"125\" y2=\"80\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"45\" y1=\"95\" x2=\"125\" y2=\"95\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"45\" y=\"110\" width=\"80\" height=\"45\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><path d=\"M140 132 Q165 110 188 104\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><rect x=\"190\" y=\"70\" width=\"100\" height=\"60\" rx=\"3\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\" transform=\"rotate(-6 240 100)\"/><text x=\"240\" y=\"106\" font-family=\"sans-serif\" font-size=\"16\" fill=\"#F2A93B\" text-anchor=\"middle\" transform=\"rotate(-6 240 100)\">PRICING</text><circle cx=\"160\" cy=\"150\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"160\" cy=\"175\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"167\" y1=\"146\" x2=\"200\" y2=\"168\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"167\" y1=\"179\" x2=\"200\" y2=\"153\" stroke=\"#1B1A17\" stroke-width=\"3\"/></svg>"
  },
- "seconds": 154.0293357372284
+ "repairedFrom": {
+  "score": 8,
+  "failed_checks": [
+   "hook",
+   "concrete_images",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "'Most competitor tracking dies in its first week from watching 40 pages' is an invented-sounding statistic with no source",
+   "'Home pages change rarely and say little when they do' (card 5 feedback) is shaky, because many software companies change their home page headline and banners often for A/B tests (showing different versions to different visitors) and launches",
+   "The way Porter's four things are matched to pages ('the blog shows what they believe' = assumptions) is the author's own reading, not Porter's. The four parts themselves (goals, current strategy, assumptions, capabilities) are correct for Competitive Strategy (1980)"
+  ],
+  "weakest_card": 6,
+  "why": "'Why fewer wins' is the longest teach card and has no concrete image. Its first half is abstract talk about notes going unread, and the Porter list arrives as a second idea with no picture to hold it.",
+  "fix": "Replace 'At 50 pages, even a quiet week makes a long note, and a long note goes unread' with a concrete moment, e.g. 'At 50 pages, Monday's note is three screens of footer dates and cookie banners, and the one price change is buried on screen two.' Also move the 'Tomorrow\u2026' line from card 9 to the end of the try card so the chapter's last line is the open loop."
+ }
 }

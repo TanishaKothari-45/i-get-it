@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Picture the intern's notepad at 6pm. Every agent keeps one like it: a *log*, one line per step, saying what it tried and what came back.\n\nWhen the intern goes wrong, it happens in exactly **3 ways**, and each leaves a different mark on that notepad: the same line copied 12 times, a result nobody actually handed them, or a neat answer to a question nobody asked.",
-    "simpler": "Think of a helper who writes down every step of their day in a notebook. Every agent keeps one like it, called a *log*: one line per step, saying what it tried and what came back.\n\nWhen the helper goes wrong, it happens in exactly **3 ways**. Each leaves its own mark on the page: the same line written 12 times, a result nobody actually gave them, or a tidy answer to a question nobody asked."
+    "body": "The agent reported the file was sent. No tool ever sent it.\n\nPicture your intern at 5pm saying *all done!* while the envelope is still sitting on their desk. **Agents go wrong in 3 ways you can actually see**, and each one leaves a different mark in the *log*, the step-by-step record of what the agent thought and did.",
+    "simpler": "The agent said the file was sent. But no tool ever sent it. Think of an intern at 5pm saying \"all done!\" while the envelope still sits on their desk. **Agents go wrong in 3 ways you can actually see**. Each one leaves a different mark in the log. The log is the step-by-step record of what the agent thought and what it did."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "The intern was asked to find the office printer's model number. Their notepad reads: 'Checked the supply cupboard. Not there. Checked the supply cupboard. Not there. Checked the supply cupboard. Not there.' Which kind of going-wrong is this?",
+    "prompt": "You asked your intern to post 3 letters before lunch. They come back beaming: \"All posted!\" Which clue tells you what really happened?",
     "options": [
      {
       "id": "a",
-      "text": "Stuck in a loop, repeating a step that already failed"
+      "text": "How confident and cheerful they sound"
      },
      {
       "id": "b",
-      "text": "Made up a result nobody gave them"
+      "text": "The post office receipt, which lists 2 letters"
      },
      {
       "id": "c",
-      "text": "Solved the wrong problem"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's the made-up fact, not this: every result here really came back from the cupboard. It just came back the same 3 times.",
-     "c": "That's the wrong turn, not this: the intern is still on the right task, the printer. They're just not moving."
-    },
-    "reteach": "Look at what repeats. A loop shows up as the same action with the same result, line after line, with no new information between them. A healthy log changes a little every step."
-   },
-   {
-    "type": "teach",
-    "title": "Two failures you can see in the log",
-    "body": "An agent's log is the notepad: one line per turn, saying what the model asked for and what the tool sent back. Reading it is mostly about **spotting what should not be there**.\n\nFailure 1 is the *loop*: the agent tries a step, it fails or gives nothing new, and the agent tries the exact same step again. And again. The clue is repetition with no change.\n\nFailure 2 is the *made-up fact*: the model writes down a result that no tool returned. The clue is a fact appearing in the model's text with no tool line above it to explain where it came from.",
-    "simpler": "An agent's log is that notebook. One line per turn, saying what the model asked for and what the tool sent back. Reading it is mostly about **spotting what should not be there**.\n\nFailure 1 is the *loop*. The agent tries a step, it fails or brings nothing new, and the agent tries the exact same step again. And again. The clue is repetition with no change.\n\nFailure 2 is the *made-up fact*. The model writes down a result that no tool returned. The clue is a fact in the model's text with no tool line above it to explain where it came from."
-   },
-   {
-    "type": "example",
-    "title": "The weather that never arrived",
-    "body": "An agent was asked for tomorrow's weather in Lisbon. Step 1: it called the weather tool. Step 2: the tool returned 'service unavailable'. Step 3: the model wrote, 'Tomorrow in Lisbon will be 24 degrees and sunny, pack light.'\n\n**Nothing above step 3** says 24, or sunny, or anything about Lisbon's sky. The agent did not look it up. It remembered what Lisbon usually feels like and served it with a straight face.",
-    "simpler": "An agent was asked for tomorrow's weather in Lisbon. Step 1: it called the weather tool. Step 2: the tool answered 'service unavailable'. Step 3: the model wrote, 'Tomorrow in Lisbon will be 24 degrees and sunny, pack light.'\n\n**Nothing above step 3** says 24, or sunny, or anything about Lisbon's sky. The agent did not look it up. It remembered what Lisbon usually feels like and said it with a straight face."
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "You're reading a log. Step 4: the model asks the calendar tool for free slots on Friday. Step 5: the tool replies with an empty list. Step 6: the model says 'Booked you in for Friday at 3pm.' Which failure is step 6?",
-    "options": [
-     {
-      "id": "a",
-      "text": "A loop: it keeps asking about Friday"
-     },
-     {
-      "id": "b",
-      "text": "A made-up fact: the 3pm slot came from nowhere"
-     },
-     {
-      "id": "c",
-      "text": "A wrong turn: it should have checked Thursday"
+      "text": "How long they were gone"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the loop, not this: nothing is repeated here. Each step is new. It's just that step 6 isn't backed by step 5.",
-     "c": "That's the wrong turn, not this: Friday was the right task. The problem is that 3pm appears with no tool line that produced it."
+     "a": "That's the report, not the record: an intern, or an agent, can sound just as sure about a letter that's still in their bag.",
+     "c": "That's a hint, not proof: 40 minutes fits 2 letters or 3. Only the receipt settles it."
     },
-    "reteach": "For every fact the model states, look one line up. Is there a tool result that contains it? If the tool said 'empty' and the model said '3pm', the 3pm is invented."
+    "reteach": "What someone says they did and what actually happened are two separate things. The post office wrote the receipt, not the intern, so it can't be wishful thinking. In an agent's log, the tool results play the part of the receipts."
    },
    {
     "type": "teach",
-    "title": "The quiet one: solving the wrong problem",
-    "body": "Failure 3 is the *wrong turn*: every step works, every tool result is real, and the agent finishes something that was never the goal. It is the hardest to spot because the log looks healthy. Nothing repeats, nothing is invented.\n\nThe clue lives at the top. Re-read the goal line, then read the last line. Do they match? An agent asked to 'find the cheapest flight to Rome' that ends with 'found the fastest flight to Rome' took a wrong turn, usually at the step where it first wrote 'fastest'.\n\nSo the reading order is **top and bottom first**, then scan the middle for repeats and for facts with no source.",
-    "simpler": "Failure 3 is the *wrong turn*. Every step works, every tool result is real, and the agent finishes something that was never the goal. It is the hardest to spot, because the log looks healthy. Nothing repeats, nothing is invented.\n\nThe clue sits at the top. Read the goal line, then read the last line. Do they match? An agent asked to 'find the cheapest flight to Rome' that ends with 'found the fastest flight to Rome' took a wrong turn, usually at the step where it first wrote 'fastest'.\n\nSo read **top and bottom first**, then scan the middle for repeats and facts with no source."
+    "title": "Claims and receipts",
+    "body": "An agent's log has two kinds of lines. *Claims* are what the model says: \"I'll search now\", \"Done!\". *Receipts* are what a tool actually sent back: a file name, an error, zero results. **Trust the receipts, not the claims.**\n\nFailure one is the *loop*: the same tool, with the same input, gets the same result, over and over. Think of an intern redialling a busy number for an hour.\n\nFailure two is the *made-up result*: the model says something happened, but no receipt shows it. The model is built to write the most likely next sentence. After \"attach the file\", the most likely next word is \"Sent!\"",
+    "simpler": "An agent's log has two kinds of lines. Claims are what the model says, like \"Done!\" Receipts are what a tool sent back, like an error or zero results. **Trust the receipts, not the claims.** Failure one is the loop: the same tool, same input, same result, over and over, like redialling a busy number. Failure two is the made-up result: a claim with no receipt. The model writes the likeliest next words. After \"attach the file,\" that's \"Sent!\""
+   },
+   {
+    "type": "example",
+    "title": "The email that never left",
+    "body": "Goal: email the Q3 report to Priya. Step 1, the model thinks: find the file. Step 2, receipt: search_files found q3_report.pdf. Step 3, the model thinks: attach and send. Step 4, final answer: \"Sent to Priya! Let me know if she has questions.\"\n\nNow scroll through the whole log. **There is no send_email line anywhere.** Priya's inbox is empty, and the agent is already offering to answer her questions.",
+    "simpler": "The goal: email the Q3 report to Priya. First, the model thinks: find the file. Then a receipt: search_files found q3_report.pdf. Next, the model thinks: attach and send. Last, it answers: \"Sent to Priya! Let me know if she has questions.\" Now read the whole log, top to bottom. **There is no send_email line anywhere.** Priya's inbox is empty, and the agent is already offering to answer her questions."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Your agent is hunting for flights to Lisbon. Steps 4 to 19 all read: search_flights(\"Lisbon, Friday\") \u2192 0 results. Sixteen times, same words, same answer. What's going on?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A loop"
+     },
+     {
+      "id": "b",
+      "text": "A made-up result"
+     },
+     {
+      "id": "c",
+      "text": "Nothing's wrong, it's just being thorough"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's the made-up result, not the loop: every step here has a real receipt behind it. The receipts just keep saying 0.",
+     "c": "That's being thorough mixed up with being stuck: a thorough agent would try something new, like another day or airport. The same input with the same 0, sixteen times, is a loop."
+    },
+    "reteach": "You spot a loop by the repeats: the same tool line, same input, same result, again and again. Nothing new goes in, so nothing new comes out. Like an intern redialling a busy number, it won't stop by itself."
+   },
+   {
+    "type": "teach",
+    "title": "The quiet one",
+    "body": "You'd think the loud failures are the scary ones. The quiet one is worse. Failure three is the *wrong turn*: every receipt is real, nothing repeats, and the agent neatly solves a problem you never asked it to solve.\n\nYou ask for the cheapest flight to Portland, meaning Maine. The agent books Portland, Oregon, on the other side of the country, and the log looks spotless. It's the intern who stays late tidying the wrong filing cabinet perfectly.\n\nTo spot it, **put the goal at the top of the log next to what the tools actually touched**. If they name different things, the agent took a wrong turn.",
+    "simpler": "The quiet failure is worse than the loud ones. Failure three is the wrong turn: every receipt is real, nothing repeats, and the agent neatly solves a problem you never asked about. You ask for the cheapest flight to Portland, meaning Maine. It books Portland, Oregon, across the country, and the log looks perfect. **Put the goal at the top of the log next to what the tools actually touched.** If they name different things, it took a wrong turn."
    },
    {
     "type": "mistake",
-    "body": "Dev read a 10-line log where the agent had cheerfully renamed 200 photos by date and signed off with 'all done'. The ending looked perfect, so Dev marked it a pass. The goal line said 'rename by location'.\n\nSpot it by **never trusting a tidy ending**: check the first line against the last before you read anything else.",
-    "simpler": "Dev read a 10-line log where the agent had happily renamed 200 photos by date and signed off with 'all done'. The ending looked perfect, so Dev marked it a pass. The goal line said 'rename by location'.\n\nIt is like checking a delivery by looking only at the wrapping. Catch it by **never trusting a tidy ending**: check the first line against the last before you read anything else."
+    "body": "Sam's agent finishes with \"Done! 3 invoices paid.\" Sam reads that last line, closes the laptop, and goes home. If they'd scrolled up, they'd have found just one pay_invoice receipt. The other two payments were only claims. **For every claim in the final answer, find the receipt that backs it up**, and count.",
+    "simpler": "Sam's agent ends with \"Done! 3 invoices paid.\" Sam reads that last line, shuts the laptop, and goes home. If they had scrolled up, they would have seen only one pay_invoice receipt. The other two payments were just claims. **For every claim in the final answer, find the receipt that backs it up**, and count them."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend says: 'My agent's log looks totally fine. Every step worked, no errors, no repeats. But the result is useless.' Which failure is most likely, and where do you look?",
+    "prompt": "Goal: \"Rename my Rome trip photos by date.\" The log shows 48 real rename receipts, none repeated, every one in the folder Holiday/Paris. Which check catches the problem?",
     "options": [
      {
       "id": "a",
-      "text": "A loop; look for repeated lines"
+      "text": "Look for the same line repeated"
      },
      {
       "id": "b",
-      "text": "A made-up fact; look for results with no tool behind them"
+      "text": "Find a receipt behind each claim"
      },
      {
       "id": "c",
-      "text": "A wrong turn; compare the goal line with the final line"
+      "text": "Compare the goal with what the tools touched"
      }
     ],
     "answer": "c",
     "whyNot": {
-     "a": "That's the loop, not this: a loop leaves repeated lines, and your friend said there are none.",
-     "b": "That's the made-up fact, not this: an invented result usually sits on top of a failed or empty tool call, and your friend said every step worked."
+     "a": "That's the loop check, not this one: all 48 renames hit different files, so nothing repeats.",
+     "b": "That's the made-up-result check: here every claim has a real receipt. The receipts just point at Paris."
     },
-    "reteach": "When the log is clean but the answer is useless, the steps were right and the destination was not. Read the goal, read the ending, and find the step where the agent started heading somewhere else."
+    "reteach": "A wrong turn hides inside a clean log. The only way to see it is to put the goal next to the receipts: the goal says Rome, the receipts say Paris. The work is real, but the target is wrong."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Agents fail in **3 ways**: they repeat a step forever, they state a result no tool gave them, or they neatly finish the wrong task.\n\nRead the log top and bottom first, then scan the middle for repeats and for facts with no source.",
-    "simpler": "Agents fail in **3 ways**. They repeat a step forever, they state a result no tool gave them, or they neatly finish the wrong task.\n\nRead the log top and bottom first, then scan the middle for repeats and for facts with no source."
+    "body": "An agent goes wrong in 3 ways you can see in its log: it repeats the same step, it claims something no tool did, or it neatly solves the wrong problem. **Trust the receipts, not the final message**, and check the goal against what the tools actually touched.\n\nTomorrow: how a web page your agent reads can quietly give it orders.",
+    "simpler": "An agent can go wrong in 3 ways you can see in its log. It repeats the same step. It says something happened that no tool did. Or it neatly solves the wrong problem. **Trust the receipts, not the final message.** Then check the goal against what the tools actually touched. Tomorrow: how a web page your agent reads can quietly give it orders."
    },
    {
     "type": "try",
-    "body": "Next time a chatbot gives you a specific number or date, reply: **'where did that come from?'** Watch whether it points to a real source or quietly changes the number. That second one is a made-up fact, caught live.",
-    "simpler": "Next time a chatbot gives you a specific number or date, reply: **'where did that come from?'** Watch what happens. It will either point to a real source or quietly change the number. That second one is a made-up fact, caught live."
+    "body": "Turn on web search in a chatbot and ask it for a fact with a number in it. Open the source it links to and find that number on the page. If it isn't there, you've just caught a made-up result.",
+    "simpler": "Turn on web search in a chatbot. Ask it for a fact that has a number in it. Then open the source it links to and look for that number on the page. **If the number isn't there, you've just caught a made-up result.**"
    }
   ],
-  "outcomeLine": "You can now read a 10-line agent log, point to the step where it went wrong, and name which of the 3 failures it is."
+  "outcomeLine": "You can now read an agent's log, point to the step where it went wrong, and say whether it was a loop, a made-up result, or a wrong turn.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"130\" width=\"240\" height=\"12\" rx=\"3\" fill=\"#1F7A4D\"/><line x1=\"60\" y1=\"142\" x2=\"60\" y2=\"190\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"260\" y1=\"142\" x2=\"260\" y2=\"190\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"110\" cy=\"72\" r=\"18\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M88 130 Q110 90 132 130\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"104\" cy=\"70\" r=\"2\" fill=\"#1B1A17\"/><circle cx=\"116\" cy=\"70\" r=\"2\" fill=\"#1B1A17\"/><path d=\"M103 78 Q110 84 117 78\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"144\" y=\"26\" width=\"92\" height=\"40\" rx=\"10\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"156,66 134,80 168,66\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><text x=\"190\" y=\"53\" font-family=\"sans-serif\" font-size=\"18\" text-anchor=\"middle\" fill=\"#1B1A17\">Sent!</text><rect x=\"192\" y=\"102\" width=\"46\" height=\"28\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"192,102 215,118 238,102\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/></svg>"
  },
- "seconds": 77.5071918964386
+ "seconds": 90.97326517105103
 }

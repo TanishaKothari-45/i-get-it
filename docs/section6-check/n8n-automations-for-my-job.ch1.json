@@ -5,121 +5,137 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Your office coffee machine has a timer, a grinder and a spout, and that is every automation you have ever used: a start, some steps, a result. In n8n the start is a *trigger*, and in our picture it is **the bell on the assembly line**. No bell, no belt moves, no matter how many stations you have built.",
-    "simpler": "Think of the coffee machine at work. It has a timer, a grinder and a spout. That is every automation you have ever used: a start, a few steps, a result. In n8n the start is called a trigger. In our picture it is **the bell on the assembly line**. If the bell never rings, the belt never moves, no matter how many stations you have built along it."
+    "body": "Tom's Friday sales report never sent: his laptop was asleep in his bag. By the end of this chapter you'll know why, and you can build your first working line in about 10 minutes. In n8n, think of a small assembly line: a bell rings, each station does one job, and the item rides the belt to the end. **Nothing moves until the bell rings**, and in n8n that bell is called the *trigger*.",
+    "simpler": "Tom's Friday sales report never sent. His laptop was asleep in his bag. By the end of this chapter you'll know why, and you can build your first line in about 10 minutes. Picture a small assembly line in n8n. A bell rings. Each station does one job. The item rides the belt to the end. **Nothing moves until the bell rings**, and in n8n that bell is called the trigger."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya builds a lovely 4-station line that reads a form, tidies the answers and emails her boss. She saves it, goes home, and it never runs. What is missing?",
+    "prompt": "The belt is loaded, both stations are staffed, and the clock says 9:00. Nobody has rung the bell. What happens?",
     "options": [
      {
       "id": "a",
-      "text": "A faster belt. The stations are too slow to finish."
+      "text": "Station one starts anyway, because it's 9:00."
      },
      {
       "id": "b",
-      "text": "A bell. Nothing told the line to start."
+      "text": "Nothing. The line sits still."
      },
      {
       "id": "c",
-      "text": "A fifth station at the end that says 'done'."
+      "text": "The last station starts and works backwards."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's speed, not starting: a slow line still runs, but hers never began.",
-     "c": "That's the end of the line, not the beginning: it never reached the end because nothing woke it."
+     "a": "That's confusing the clock with the bell: a time only starts the line if you've made that time the bell.",
+     "c": "That's confusing the end of the line with the start: items always move from the first station forward."
     },
-    "reteach": "Think of the bell as the only thing that can wake the line. Stations do their jobs only after the bell rings. In n8n that bell is the trigger, always the first box."
+    "reteach": "A workflow stays asleep until its trigger fires. It doesn't matter that the stations and belt are ready. Without the bell, no station moves."
    },
    {
     "type": "teach",
-    "title": "Three parts, one bell",
-    "body": "Every automation has three parts: a *trigger*, the one event that starts it; *actions*, the jobs it does; and a result you can see. n8n draws them as boxes on a canvas, joined left to right.\n\nThe trigger is always the first box, and it is **the only box that can wake the workflow**. You'd think a workflow runs when you save it. It doesn't. It sits like a shop with the lights off until its one event happens.\n\nThree bells cover most jobs: a clock, a form being sent, or another app sending a signal. Tonight you use the clock, the *Schedule Trigger*, because it needs nothing but n8n.",
-    "simpler": "Every automation has three parts. A trigger is the one event that starts it. Actions are the jobs it does. Then there is a result you can see. n8n shows them as boxes on a canvas, joined left to right. The trigger is always the first box, and it is **the only box that can wake the workflow**. Saving a workflow does not run it. It waits, like a shop with the lights off, until its one event happens. Three triggers cover most jobs: a clock, a form being sent, or another app sending a signal. Tonight you use the clock, called the Schedule Trigger, because it needs nothing but n8n."
+    "title": "Three common bells",
+    "body": "A *trigger* is the first box in every n8n workflow. It's the event that wakes the workflow up. **No trigger, no run.**\n\nThere are more kinds of bell than this, but three common ones will take you a long way. A time on the clock, like every weekday at 8:30 (the *Schedule Trigger*). A form being filled in, like a holiday request (the *Form Trigger*). Or a change in another app, like a new row landing in a spreadsheet. Some apps ping n8n at a private web address (a *webhook*); with others, like Google Sheets, n8n checks every few minutes for anything new.\n\nTo pick the bell, ask one question: what moment should start this?",
+    "simpler": "A trigger is the first box in every n8n workflow. It wakes the workflow up. **No trigger, no run.** There are more kinds of bell, but three common ones go a long way. A clock time, like every weekday at 8:30, is the Schedule Trigger. A filled-in form, like a holiday request, is the Form Trigger. A change in another app, like a new spreadsheet row, is the third. Some apps ping n8n at a private web address, called a webhook. With others, like Google Sheets, n8n checks every few minutes. To choose, ask what moment should start this."
    },
    {
     "type": "example",
-    "title": "Marco and the 8:00 count",
-    "body": "Marco runs online orders for a small bakery. Every morning at 8:00 he opened the orders sheet, counted the rows, and typed the number into the team chat. In n8n he adds a Schedule Trigger, sets it to 8:00 daily, and connects one node that sends him the message 'line started'. He clicks *Execute workflow* and 3 seconds later his phone buzzes: not at 8:00, but now, because **a hand-run skips the clock**. The clock only takes over once the line is switched on, and that switch is day 7.",
-    "simpler": "Marco handles online orders for a small bakery. Every morning at 8:00 he opened the orders sheet, counted the rows, and typed the number into the team chat. In n8n he adds a Schedule Trigger, sets it to 8:00 daily, and connects one node that sends him the message 'line started'. He clicks Execute workflow. Three seconds later his phone buzzes. Not at 8:00, but right now, because **a hand-run skips the clock**. The clock only takes over once the line is switched on. That switch is day 7."
+    "title": "Priya's Monday bell",
+    "body": "Priya forgets her timesheet every Monday. In n8n she clicks to add a first step and picks Schedule Trigger: every week, Monday, 8am. Next she adds one station, an Edit Fields node, with a field called message set to \"Timesheet due by 5pm\". She clicks Execute workflow. Both boxes turn green, and the output panel shows her sentence, waiting like a parcel at the end of the belt. **One bell, one station, one result you can see.**",
+    "simpler": "Priya forgets her timesheet every Monday. In n8n she adds a first step and picks Schedule Trigger: every week, Monday, 8am. Then she adds one station, an Edit Fields node, with a field called message set to \"Timesheet due by 5pm\". She clicks Execute workflow. Both boxes turn green. The output panel shows her sentence, like a parcel waiting at the end of the belt. **One bell, one station, one result you can see.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Dana wants a message in her team chat every Friday at 16:00 saying 'send the weekly report'. Which bell does she pick?",
+    "prompt": "Maya handles returns for a shoe shop. Every time a customer fills in the returns form, she wants the details logged. Which bell fits?",
     "options": [
      {
       "id": "a",
-      "text": "Schedule Trigger, set to Friday 16:00."
+      "text": "Schedule Trigger, every 5 minutes"
      },
      {
       "id": "b",
-      "text": "A form trigger, so the bell rings when someone fills in a form."
+      "text": "Form Trigger"
      },
      {
       "id": "c",
-      "text": "No trigger. She clicks Execute workflow herself each Friday."
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's the form bell, not the clock: it rings when a person submits something, and nobody is submitting anything on Friday at 16:00.",
-     "c": "That's ringing the bell by hand, not automation: if she has to remember to click, she might as well remember to send the report."
-    },
-    "reteach": "Match the bell to the event. 'Every Friday at 16:00' is a time, and time is the clock's job. The Schedule Trigger is the clock."
-   },
-   {
-    "type": "teach",
-    "title": "Ringing it by hand",
-    "body": "While you build, you ring the bell yourself. The *Execute workflow* button at the bottom of the canvas runs the line once, right now, ignoring the clock. It's how you check the stations before you trust them.\n\nThe clock only rings on its own when the workflow is switched on with the *Active* toggle, top right. Tonight, **leave Active off**. A line you are still poking at should not go off at 8:00 by itself.\n\nSetup is short: n8n Cloud has a free trial, or install n8n on your own computer. Either way you land on a blank canvas with one button, Add first step, and that step is always a trigger.",
-    "simpler": "While you build, you ring the bell yourself. The Execute workflow button at the bottom of the canvas runs the line once, right now, and ignores the clock. That is how you check each station before you trust it. The clock only rings on its own when the workflow is switched on with the Active toggle, top right. Tonight, **leave Active off**. A line you are still poking at should not go off at 8:00 by itself. Setup is short. n8n Cloud has a free trial, or you can install n8n on your own computer. Either way you land on a blank canvas with one button, Add first step. That step is always a trigger."
-   },
-   {
-    "type": "mistake",
-    "body": "Sam sets a Schedule Trigger for 9:00, clicks Execute workflow at 9:00 sharp, watches it run, and tells the team it's live. Next morning: silence. The hand-run worked, but **nobody switched the clock on**. Spot it in 2 seconds: if the Active toggle top right is grey, the bell only rings when you press it.",
-    "simpler": "Sam sets a Schedule Trigger for 9:00, clicks Execute workflow at 9:00 sharp, watches it run, and tells the team it is live. Next morning, nothing happens. The hand-run worked, but **nobody switched the clock on**. You can spot this in two seconds. If the Active toggle in the top right is grey, the bell only rings when you press it yourself."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "A colleague says: 'I added a Slack node and a Google Sheets node, so my workflow has two bells now.' What do you tell them?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Right. Every node rings the bell once it's connected."
-     },
-     {
-      "id": "b",
-      "text": "Those are stations, not bells. The bell is the first box, and neither of those is it."
-     },
-     {
-      "id": "c",
-      "text": "Bells only come with the paid plan, so there are none yet."
+      "text": "Maya clicks Execute workflow each morning"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a station mistaken for the bell: Slack and Sheets nodes do jobs after the line starts; they don't start it.",
-     "c": "That's a guess about pricing, not about triggers: every copy of n8n has trigger nodes, free or paid."
+     "a": "That's a clock bell when this task needs an event bell: it rings whether or not anyone sent a return.",
+     "c": "That's testing by hand, not a bell: the line only runs on days Maya remembers."
     },
-    "reteach": "Count from the left. The first box is the bell, the trigger. Everything after it is a station waiting for the bell. Slack and Sheets are stations."
+    "reteach": "Ask what moment should start the line. Here it's \"a customer submits the form\", so the form itself is the bell. A clock suits tasks tied to a time. It doesn't suit tasks that start when someone does something."
+   },
+   {
+    "type": "teach",
+    "title": "Ringing it by hand",
+    "body": "You'd think a Schedule Trigger set to Monday 8am will ring on Monday. Not yet. **A schedule only rings by itself once the workflow is switched on**, and only while n8n is running somewhere: on n8n's cloud, or on a computer that's awake. Depending on your n8n version, the switch may be labelled Active or Publish.\n\nUntil then, you ring the bell yourself. Clicking Execute workflow runs the whole line once, right now, whatever the time. That's how you test: press it, watch the boxes go green, read what came out.\n\nSwitching it on for real comes in chapter 7. For now, ring it by hand.",
+    "simpler": "A Schedule Trigger set to Monday 8am won't ring on Monday yet. **A schedule only rings by itself once the workflow is switched on**, and only while n8n is running somewhere, on n8n's cloud or on a computer that's awake. The switch may say Active or Publish, depending on your n8n version. Until then, you ring it yourself. Clicking Execute workflow runs the whole line once, right now. That's how you test: press it, watch for green, read the result. Switching it on comes in chapter 7."
+   },
+   {
+    "type": "mistake",
+    "body": "Back to Tom. He builds a line that posts the weekly sales total every Friday at 4pm. He tests it by hand, sees green boxes, and goes home happy. Friday at 4:00 comes and goes in silence: he never switched the workflow on, and n8n was running on his laptop, which spent Friday asleep in his bag. The warning sign: if you've only ever seen it run when you clicked, it hasn't yet shown it can run on its own.",
+    "simpler": "Back to Tom. He builds a line that posts the weekly sales total every Friday at 4pm. He tests it by hand, sees green boxes, and goes home happy. Friday at 4:00 passes in silence. He never switched the workflow on, and n8n was running on his laptop, which spent Friday asleep in his bag. The warning sign: **if you've only seen it run when you clicked, it hasn't yet shown it can run on its own**."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "It's Wednesday, 14:10. Your workflow's Schedule Trigger is set to Monday 8am, and the workflow isn't switched on. You click Execute workflow. What happens?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The line runs once, right now."
+     },
+     {
+      "id": "b",
+      "text": "Nothing until Monday at 8am."
+     },
+     {
+      "id": "c",
+      "text": "It runs now, then every Monday on its own."
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's confusing the bell ringing itself with you ringing it: a click runs the line straight away, whatever the schedule says.",
+     "c": "That's confusing switching the workflow on with testing it: one click is one run, and the Monday bell waits for the on switch."
+    },
+    "reteach": "A bell can ring in two ways. You can ring it by hand with Execute workflow, which runs the line once, now. Or it rings itself at the set time, but only after the workflow is switched on."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Every n8n workflow is a bell plus stations: the *trigger* is the only thing that wakes it, and the Schedule Trigger is a bell on a clock. While you build, you ring it yourself with Execute workflow, and **the clock only takes over once you switch the line on**.\n\nTomorrow: what actually travels down the belt, and why it is never just 'the data'.",
-    "simpler": "Every n8n workflow is a bell plus stations. The trigger is the only thing that wakes it up, and the Schedule Trigger is a bell on a clock. While you build, you ring the bell yourself with the Execute workflow button. Then **the clock only takes over once you switch the line on**. Tomorrow we look at what actually travels down the belt, and why it is never just 'the data'."
+    "body": "Every n8n workflow starts with a trigger, the bell that wakes the line: often a time, a form, or a change in another app. **Clicking Execute workflow rings it once by hand to test; it only rings by itself once you switch the workflow on.**",
+    "simpler": "Every n8n workflow starts with a trigger, the bell that wakes the line. It's often a time, a form, or a change in another app. **Clicking Execute workflow rings it once by hand to test; it only rings by itself once you switch the workflow on.**"
    },
    {
     "type": "try",
-    "body": "Open n8n, click Add first step, pick Schedule Trigger, keep the default. Add an Edit Fields node after it with one field, greeting, set to hello. Click Execute workflow, then click Edit Fields and read its output on the right.",
-    "simpler": "Open n8n and click Add first step. Pick Schedule Trigger and keep the default setting. After it, add an Edit Fields node with one field. Name the field greeting and set its value to hello. Click Execute workflow. Then click the Edit Fields node and read its output on the right side of the screen. That output is **what your first line produced**."
+    "body": "Open n8n, either the cloud trial or your own install. Add a Schedule Trigger and one Edit Fields node holding a message for yourself, then click Execute workflow. Two green boxes means your first line works.\n\nTomorrow: click into that first green box. Your bell handed the next station more than a ding, and you'll learn to read it.",
+    "simpler": "Open n8n, either the cloud trial or your own install. Add a Schedule Trigger. Then add one Edit Fields node with a message for yourself. Click Execute workflow. If you see **two green boxes, your first line works**. Think of it as pressing the bell once to hear it ring. Tomorrow: click into that first green box. Your bell passed along more than a ding, and you'll learn to read it."
    }
   ],
-  "outcomeLine": "You can now build a workflow that starts with a Schedule Trigger and run it by hand to watch it do one thing.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M40 150 L290 148\" stroke=\"#1B1A17\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M40 162 L290 160\" stroke=\"#1B1A17\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"60\" cy=\"156\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"180\" cy=\"156\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"110\" y=\"98\" width=\"44\" height=\"44\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"180\" y=\"98\" width=\"44\" height=\"44\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"250\" y=\"98\" width=\"44\" height=\"44\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"78\" y=\"134\" width=\"18\" height=\"14\" rx=\"2\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M46 142 L46 96\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M30 92 Q32 60 48 60 Q64 60 66 92 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linejoin=\"round\"/><path d=\"M26 94 L70 94\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"48\" cy=\"101\" r=\"4\" fill=\"#1B1A17\"/><path d=\"M74 70 L84 62\" stroke=\"#F2A93B\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M78 84 L90 84\" stroke=\"#F2A93B\" stroke-width=\"3\" stroke-linecap=\"round\"/><text x=\"28\" y=\"48\" font-size=\"14\" fill=\"#1B1A17\" font-family=\"sans-serif\">ding</text></svg>"
+  "outcomeLine": "You can now build a workflow that starts on a schedule and run it by hand to watch it work.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"60\" y1=\"22\" x2=\"60\" y2=\"38\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M40 72 Q38 38 60 38 Q82 38 80 72 L88 84 L32 84 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><circle cx=\"60\" cy=\"91\" r=\"6\" fill=\"#1B1A17\"/><path d=\"M96 52 q9 10 0 20 M106 46 q14 16 0 32\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><rect x=\"30\" y=\"140\" width=\"270\" height=\"18\" rx=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"50\" cy=\"149\" r=\"4\" fill=\"#1B1A17\"/><circle cx=\"165\" cy=\"149\" r=\"4\" fill=\"#1B1A17\"/><circle cx=\"280\" cy=\"149\" r=\"4\" fill=\"#1B1A17\"/><rect x=\"140\" y=\"92\" width=\"44\" height=\"48\" rx=\"3\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"222\" y=\"92\" width=\"44\" height=\"48\" rx=\"3\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"104\" y=\"122\" width=\"18\" height=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"62,110 62,128 92,128\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><text x=\"60\" y=\"188\" font-family=\"sans-serif\" font-size=\"15\" fill=\"#1B1A17\" text-anchor=\"middle\">ding!</text></svg>"
  },
- "seconds": 140.8382110595703
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "hook",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Card 3 says n8n hears a new spreadsheet row through a webhook. n8n's Google Sheets Trigger and many other app triggers poll on a timer instead, so this is misleading.",
+   "Card 3 says 'Most bells are one of three kinds.' n8n also has manual, polling app, chat, email and error triggers, so this is an oversimplification.",
+   "The 'switched on' wording may be out of date. Newer n8n versions (2.x) replaced the Active toggle with Publish, so check the label against the current UI.",
+   "The ending fails because the last card is the 'try' card, so the 'Tomorrow:' teaser is buried in card 8, and the teaser itself is flat."
+  ],
+  "weakest_card": 1,
+  "why": "The opening line promises 'three parts' but never names them, and that claim is too familiar to stop a scroll, so the chapter's best moment (Tom's silent Friday) is wasted at card 7.",
+  "fix": "Open card 1 with Tom's failure in one line ('Tom's Friday sales report never sent: his laptop was asleep in his bag') and cut the unnamed 'three parts' sentence."
+ }
 }

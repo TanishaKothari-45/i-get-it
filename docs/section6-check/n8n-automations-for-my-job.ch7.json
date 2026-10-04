@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "For six chapters you have stood at the start of the line and pressed the bell yourself. **The Active toggle hands the bell to the world.** Picture a small switch on the wall beside the belt: you flip it, the lights hum, and you walk out the door. Next morning the bins at the end are full and nobody was there.",
-    "simpler": "For six chapters you have started the line yourself, every time, by pressing the bell. **The Active toggle hands that bell to the world.** Think of a light switch on the wall next to the belt. You flip it, the machine hums, and you go home. The next morning the bins at the end are full, and nobody had to stand there."
+    "body": "Who rings the bell at 8:00 tomorrow while you're still on the train? Up to now, every run of your line started because you pressed the button. **Switching it on means the bell rings with nobody on the factory floor.** The line starts, runs and stops while you're still finding a seat, and the only proof is the logbook by the door.",
+    "simpler": "Who rings the bell at 8:00 tomorrow while you're still on the train? Until now, your line only ran when you pressed the button. **Switching it on means the bell rings with nobody on the factory floor.** The line starts, runs and stops while you're still looking for a seat. The only proof it happened is the logbook by the door."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya builds a line: Schedule Trigger at 8am, then post \"good morning\" to Slack. She clicks Test workflow, sees the message arrive, and goes home. Tomorrow at 8am, what happens?",
+    "prompt": "Mia's workflow posts the day's meetings to Slack at 8:00 each weekday. She tested it at 16:00 and it posted. Then she went home without touching the switch. What happens at 8:00 tomorrow?",
     "options": [
      {
       "id": "a",
-      "text": "Slack gets the message at 8am"
+      "text": "It posts, because it already worked once."
      },
      {
       "id": "b",
-      "text": "Nothing. The line is still off"
+      "text": "Nothing. The workflow isn't switched on, so the trigger never rings the bell."
      },
      {
       "id": "c",
-      "text": "It posts at 8am, but only to Priya"
+      "text": "It posts twice: once as a test, once for real."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's what the test run did once, not what the schedule does: Test workflow runs the line one time while you watch.",
-     "c": "There's no \"only to you\" mode: the message goes where the Slack node says, or nowhere at all if the line is off."
+     "a": "That's a test run, not a switched-on line: a test rings once, when you press it.",
+     "c": "That's mixing up the rehearsal and the real show: a test never repeats by itself."
     },
-    "reteach": "Test workflow is you pressing the bell by hand. The Schedule Trigger only rings on its own once the Active toggle is on. Off means the trigger is asleep, however many times you tested."
+    "reteach": "A test run is you pulling the bell rope once. The trigger only rings the bell by itself after the workflow is switched on. If it's off, the line just waits, however well it worked yesterday."
    },
    {
     "type": "teach",
-    "title": "Test versus Active",
-    "body": "There are two ways to start the line. *Test workflow*, the button at the bottom of the editor, runs it once, right now, while you watch. The *Active* toggle at the top right tells n8n something different: listen for the trigger from now on, with or without me.\n\n**Only an active workflow's trigger listens.** A Schedule Trigger does not count the hours while the toggle is off. A form or webhook trigger has two addresses, a test one and a *production* one, and the production one only answers when the workflow is active.\n\nFlip the toggle and n8n asks nothing more. Every run from then on shows up in the Executions list.",
-    "simpler": "There are two ways to start the line. The Test workflow button runs it once while you watch. The Active toggle tells n8n to keep listening for the trigger after you leave. **Only an active workflow's trigger listens.** A Schedule Trigger does not count the hours while the toggle is off. A form or webhook trigger has a test address and a production address, and the production one only answers when the workflow is active. Every run lands in Executions."
+    "title": "Handing over the bell",
+    "body": "So far you have rung the bell yourself. Pressing *Execute workflow* is a test run: it runs once, right now, and shows each station's output on the canvas while you watch.\n\n**Switching the workflow on hands the bell to the trigger.** The switch is at the top of the editor. It's labelled *Active*, and newer versions call it *Publish*. After that, the schedule, the form or the app rings the bell, day or night.\n\nThose runs don't show up on your canvas. They go into the *Executions* list, n8n's logbook: one line per run, green if it finished, red if it jammed.",
+    "simpler": "Until now you rang the bell yourself. Pressing *Execute workflow* is a test: one run, with each station's result shown on the canvas. **Switching the workflow on hands the bell to the trigger.** The switch is at the top of the editor, called *Active* or, in newer versions, *Publish*. Then the schedule, form or app rings it, day or night. Those runs go to *Executions*, n8n's logbook: one line per run, green if it finished, red if it jammed."
    },
    {
     "type": "example",
-    "title": "Six rows called Dan",
-    "body": "Dan runs the front desk at a dental clinic. Every Friday he copied the week's new patient forms into a spreadsheet, about 40 minutes of typing. On Thursday he built the line: Form Trigger, Edit Fields, Google Sheets. He tested it 6 times with his own name and went home pleased.\n\nFriday morning the sheet had 6 rows, every one of them called Dan, and none of the 11 real patients. He had never flipped the toggle. He flipped it at 9:03 and watched the first real row land at 9:41.",
-    "simpler": "Dan runs a dental clinic's front desk. Every Friday he spent about 40 minutes typing new patient forms into a spreadsheet. On Thursday he built the line: Form Trigger, Edit Fields, Google Sheets. He tested it 6 times with his name and went home. Friday morning the sheet held 6 rows, all called Dan, none of the 11 real patients. **He had never flipped the toggle.** He flipped it at 9:03 and the first real row landed at 9:41."
+    "title": "Dana and the staplers",
+    "body": "Dana in office operations built a line: new row in the Supplies sheet, tidy the fields, check for urgent, post to #office-ops in Slack. Before switching it on at 17:40 on Tuesday, she renamed *Google Sheets1* and *Slack* to *New request row* and *Post to #office-ops*. At 9:05 on Wednesday, Executions showed 6 runs: 5 green, 1 red, stopped at *Post to #office-ops*. **Clear names turn a red mark into an address**, so she knew which station had jammed before clicking anything. The culprit was her manager, asking for more staplers, with the name field left blank.",
+    "simpler": "Dana in office operations built a line: new Supplies sheet row, tidy, check for urgent, post to #office-ops in Slack. Before switching on at 17:40 Tuesday, she renamed *Google Sheets1* and *Slack* to *New request row* and *Post to #office-ops*. At 9:05 Wednesday, Executions showed 5 green runs and 1 red, stuck at *Post to #office-ops*. **Clear names turn a red mark into an address.** She knew where it jammed before clicking. Cause: her manager wanting staplers, name field blank."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Meena's line starts with a form trigger. She wants to send her team the form link. Which link makes the line run once the toggle is on?",
+    "prompt": "Leo switched his workflow on at 18:00 last night. It's 9:00 now and he has his coffee. What's the right first check?",
     "options": [
      {
       "id": "a",
-      "text": "The test URL she used while building"
+      "text": "Open the canvas and press Execute workflow to see if it still works."
      },
      {
       "id": "b",
-      "text": "The production URL"
+      "text": "Open the Executions list and read last night's runs: how many, and green or red."
      },
      {
       "id": "c",
-      "text": "Either one, as long as the toggle is on"
+      "text": "Wait an hour. If nobody complains, it worked."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the building-time door: the test URL only answers while you have the editor open and press Test workflow.",
-     "c": "The test address is not a second real one: it only listens during a test run, never on its own."
+     "a": "That's a new test run, not a check: it shows the line can work now, not that it did overnight.",
+     "c": "That's using colleagues as the alarm instead of the logbook: silence can also mean the bell never rang."
     },
-    "reteach": "A form or webhook trigger has two doors. The test door opens only while you are pressing Test workflow. The production door opens only while the Active toggle is on. Share the production one."
+    "reteach": "Once a workflow is on, the canvas only shows runs you start yourself. Everything the trigger did by itself is written in the Executions list. Read the logbook instead of re-running the machine."
    },
    {
     "type": "teach",
-    "title": "Before you flip it",
-    "body": "Name every node. Open each one and change \"Google Sheets\" to \"Add patient row\" and \"Slack\" to \"Tell front desk\". Tomorrow a red node called \"Add patient row\" tells you what jammed. A red node called \"Google Sheets1\" tells you nothing.\n\n**Pick one real task, and keep it small.** One bell, one job per station, the rule from chapter 1. If your first real line needs more than 6 nodes, cut it in half and switch on the first half.\n\nKnow where you will check. Open Executions the next morning. Green rows mean it ran. Red means a jam. No rows at all means the bell never rang, so look at the toggle first.",
-    "simpler": "Name every node for its job, like \"Add patient row\" instead of \"Google Sheets\". A red node with a real name tells you what jammed. \"Google Sheets1\" tells you nothing. **Pick one real task, and keep it small.** One bell, one job per station. More than 6 nodes? Switch on the first half. Open Executions the next morning. Green rows mean it ran. Red means a jam. No rows means the bell never rang, so check the toggle first."
+    "title": "Silence is not a green light",
+    "body": "You'd think an empty Executions list means a quiet, happy night. Often it means **the bell never rang at all**. A workflow left switched off, a schedule set to the wrong time, or a trigger watching the wrong sheet all leave the same thing behind: nothing.\n\nWhere n8n runs matters too. If it runs on your own laptop, the line only works while the laptop is awake. Lid closed at 8:00 means no run, and no red mark to warn you. n8n Cloud or a server stays on.\n\nSo the morning check asks two questions: did it run, and did it finish?",
+    "simpler": "An empty Executions list looks like a quiet night. Often it means **the bell never rang at all**. A workflow left off, a schedule at the wrong time, or a trigger watching the wrong sheet all leave nothing behind. On your own laptop, n8n only works while the laptop is awake. Lid closed at 8:00 means no run and no red mark. n8n Cloud or a server stays on. Each morning, ask: did it run, and did it finish?"
    },
    {
     "type": "mistake",
-    "body": "Tomas flips the toggle on, then keeps building for another hour, adding a node, deleting one, saving each change as he goes. Every real run that hour went through whatever half-built line was saved at that moment. Spot it: **if the toggle is on and you are still dragging nodes, flip it off**, finish, test once, then flip it back.",
-    "simpler": "Tomas flips the toggle on, then keeps building for another hour. He adds a node, deletes one, and saves each change as he goes. Every real run in that hour went through whatever half-built line was saved at that moment. Here is the sign to watch for: **if the toggle is on and you are still dragging nodes, flip it off.** Finish the line, test it once, then flip it back on."
+    "body": "Sam built a Form Trigger for holiday requests. On Friday they copied the link from the *Test URL* tab, sent it to 9 colleagues and switched the workflow on. Monday's Executions list was empty, because the test link only listens while you're in the editor waiting for a test. Spot it by the address: **a link with *test* in it is the rehearsal bell**, so share the *Production URL* instead.",
+    "simpler": "Sam built a Form Trigger for holiday requests. On Friday they copied the link from the *Test URL* tab, sent it to 9 colleagues and switched the workflow on. By Monday, Executions was empty. The test link only listens while you sit in the editor waiting for a test. Check the address: **a link with *test* in it is the rehearsal bell**. Share the *Production URL* instead."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Next morning, the Executions list for your new line is empty. No green rows, no red ones. What is the most likely cause?",
+    "prompt": "A teammate asks: \"Is your Slack summary workflow really live?\" Which answer proves it?",
     "options": [
      {
       "id": "a",
-      "text": "A node failed overnight"
+      "text": "Yes, I pressed Execute workflow and every node went green."
      },
      {
       "id": "b",
-      "text": "The toggle was never switched on, so the trigger never rang"
+      "text": "Yes, it's switched on, and the Executions list shows this morning's 8:00 run, finished."
      },
      {
       "id": "c",
-      "text": "Test workflow has to be pressed each morning"
+      "text": "Yes, nobody has reported a problem since I turned it on."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a jam, and a jam shows as a red row: an empty list means the line never started at all.",
-     "c": "That's the hand-pressed bell: once active, the trigger rings by itself and Test workflow is not needed."
+     "a": "That's a test run, not a live one: you rang the bell yourself.",
+     "c": "That's silence, not proof: an empty logbook can mean the bell never rang."
     },
-    "reteach": "A failed run still leaves a mark, a red row. An empty list means no run began, and the usual reason is that the trigger was asleep because the workflow was not active. Check the toggle before you check anything else."
+    "reteach": "Being live takes two things: the switch is on, and runs appear that you didn't start. Only the Executions list shows the second one. A green canvas or a quiet inbox shows neither."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Test workflow runs the line once while you watch. **The Active toggle keeps the trigger listening when you are gone**, so name every station, flip it on, and look at the Executions list tomorrow.",
-    "simpler": "Test workflow runs the line once while you stand and watch. **The Active toggle keeps the trigger listening when you are gone.** So name every station for its job, flip the toggle on, and open the Executions list tomorrow to see what ran."
+    "body": "Testing is you ringing the bell. Switching on hands the bell to the trigger, so the line runs while you're somewhere else. From then on, the proof is in the Executions list, and **an empty logbook is a question, not a good sign**.\n\nNext: your second line, quicker to build because your app connections are already saved.",
+    "simpler": "Testing is you ringing the bell. Switching on hands the bell to the trigger, so the line runs while you're somewhere else. After that, the proof lives in the Executions list, and **an empty logbook is a question, not a good sign**. Next up: your second line. It will go faster, because your app connections are already saved."
    },
    {
     "type": "try",
-    "body": "Tonight: open your chapter 1 workflow, rename each node to what it does, set the schedule for 8am tomorrow, and flip the Active toggle on. At 8:05, open Executions and look for one green row.",
-    "simpler": "Tonight, open your chapter 1 workflow. Rename each node to say what it does. Set the schedule for 8am tomorrow. Then **flip the Active toggle on** and walk away. At 8:05 tomorrow, open Executions and look for one green row. That row means the line ran without you."
+    "body": "Rename every node in your workflow to a verb plus a thing, like *Post to #team*. Switch it on. Set a phone alarm for 9:00 tomorrow that says: open Executions.",
+    "simpler": "Rename every node in your workflow, the boxes that act as stations on your line. Give each one **an action word plus a thing**, like *Post to #team*. Then switch the workflow on. Finally, set a phone alarm for 9:00 tomorrow with the label: open Executions."
    }
   ],
-  "outcomeLine": "You can now switch on one workflow that handles a real task at your job and know exactly where to check that it ran."
+  "outcomeLine": "You can now switch a workflow on and check the next morning whether it really ran.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"><path d=\"M40 130 L280 132\"/><path d=\"M40 152 L280 153\"/><circle cx=\"50\" cy=\"141\" r=\"10\"/><circle cx=\"270\" cy=\"142\" r=\"10\"/><line x1=\"52\" y1=\"74\" x2=\"52\" y2=\"130\"/><path d=\"M38 72 Q40 40 52 40 Q64 40 66 72 Z\" fill=\"#F2A93B\"/><circle cx=\"52\" cy=\"76\" r=\"4\" fill=\"#1B1A17\"/><rect x=\"110\" y=\"96\" width=\"34\" height=\"34\" fill=\"#1F7A4D\"/><rect x=\"175\" y=\"98\" width=\"34\" height=\"34\" fill=\"#F2A93B\"/><rect x=\"232\" y=\"20\" width=\"60\" height=\"72\" rx=\"4\"/><polyline points=\"241,40 247,46 257,34\" stroke=\"#1F7A4D\"/><polyline points=\"241,62 247,68 257,56\" stroke=\"#1F7A4D\"/><line x1=\"264\" y1=\"41\" x2=\"284\" y2=\"41\"/><line x1=\"264\" y1=\"63\" x2=\"284\" y2=\"63\"/><rect x=\"92\" y=\"30\" width=\"62\" height=\"28\" rx=\"14\" fill=\"#1F7A4D\"/><circle cx=\"140\" cy=\"44\" r=\"10\" fill=\"#F2A93B\"/></g><text x=\"102\" y=\"49\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"bold\" fill=\"#F2A93B\">ON</text></svg>"
  },
- "seconds": 62.98742389678955
+ "seconds": 98.89535522460938
 }

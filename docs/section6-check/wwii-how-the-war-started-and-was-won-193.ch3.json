@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "In May 1940 the fire reached the biggest house on the street. France had an army about as large as Germany's and a long concrete wall, the *Maginot Line*, facing the German border. The flames never climbed the wall. They came through a gap in the hedge nobody was watching: the Ardennes forest, which both sides had called too thick for tanks. **Speed through the gap beat size behind the wall.**",
-    "simpler": "In May 1940 the fire reached the biggest house on the street: France. France had an army about as big as Germany's, and a long concrete wall called the Maginot Line facing the German border. The Germans never climbed that wall. They came through the Ardennes forest instead, a gap both sides thought was too thick for tanks, like a hedge nobody bothered to watch. **Speed through the gap beat size behind the wall.**"
+    "body": "On 10 May 1940, the day Winston Churchill became Britain's prime minister, German tanks rolled into a forest the French thought no tank army could get through quickly. France had built a thick fire wall on the side of its house facing the flames, and **the fire came in by the side door**. Britain's house stood across 20 miles of water, and fire can't walk across water: it has to throw sparks through the air.",
+    "simpler": "On 10 May 1940, the same day Winston Churchill became Britain's prime minister, German tanks rolled into a forest. The French thought no tank army could get through it quickly. Picture France as a house that built a thick fire wall on the side facing the flames. But **the fire came in by the side door**. Britain's house stood across 20 miles of water. Fire can't walk across water. It has to throw sparks through the air."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "It is 12 May 1940. You command the French army. German tanks are coming out of the Ardennes, a hilly forest you were told tanks could not cross. You still have more soldiers than they do. What matters most in the next 5 days?",
+    "prompt": "France's army is about as big as Germany's, and France and Britain together have more tanks. Germany still wins in six weeks. What's your best guess?",
     "options": [
      {
       "id": "a",
-      "text": "How many soldiers you have in total."
+      "text": "Germany secretly had twice as many soldiers"
      },
      {
       "id": "b",
-      "text": "How fast you can move troops to where the tanks actually are."
+      "text": "Germany hit where France wasn't looking, and moved faster than France could react"
      },
      {
       "id": "c",
-      "text": "How strong the Maginot Line is."
+      "text": "The French soldiers just didn't want to fight"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's paper strength, not the fight: France had the numbers all along and lost anyway, because they were in the wrong place.",
-     "c": "That's the wall, not the gap: the Line held fine. The Germans simply went round its northern end."
+     "a": "That's the numbers story, not the 1940 one: the armies were about the same size, so size can't explain six weeks.",
+     "c": "That blames the people, not the plan: the side-door picture is about where the fire got in, not who was standing inside."
     },
-    "reteach": "Having more of something only helps if it is where the fight is. The Germans put their tanks at one point and moved fast. The French spread theirs along a long line and moved slowly. Numbers lose to speed when the fast side picks the spot."
+    "reteach": "Go back to the fire wall. France put its strongest defence right where it expected the fire, and Germany didn't go there. A big army in the wrong place, moving slowly, loses to a smaller push in the right place, moving fast."
    },
    {
     "type": "teach",
-    "title": "Lightning through the forest",
-    "body": "Germany attacked on 10 May 1940. The main thrust went not through Belgium, where France and Britain expected it, but through the Ardennes further south. By 13 May German tanks had crossed the River Meuse near Sedan.\n\nThe method was called *Blitzkrieg*, German for lightning war: tanks and dive-bombers punch one narrow hole, then race on before the defender can react. Radios in every tank kept them moving while French orders travelled by messenger and telephone.\n\n**The French army was not smaller. It was slower.** Its best units had marched north into Belgium and could not turn round in time.",
-    "simpler": "Germany attacked on 10 May 1940 through the Ardennes, not through Belgium where France and Britain were waiting. By 13 May its tanks had crossed the Meuse near Sedan. This was Blitzkrieg, meaning lightning war: tanks and dive-bombers punch one narrow hole and race on before anyone reacts. German tanks had radios. French orders went by messenger and telephone. **The French army was not smaller. It was slower.** Its best troops were in Belgium and could not turn back in time."
+    "title": "The side door",
+    "body": "France's fire wall was the *Maginot Line*, a chain of concrete forts along its border with Germany. In a way it worked: the main German attack went around it, through the *Ardennes*, a hilly forest in Belgium and Luxembourg that French planners thought was too slow going for a big tank army.\n\nThen came speed. Tanks raced ahead, *dive-bombers* (planes that drop their bombs in a steep dive) cleared the road, and soldiers on foot caught up later. French commanders reacted in days. German tanks moved in hours.\n\n**France didn't lose because it was smaller. It lost because it was slower.**",
+    "simpler": "France's fire wall was the Maginot Line, a row of concrete forts on its German border. The main German attack went around it, through the Ardennes. That's a hilly forest in Belgium and Luxembourg that French planners thought was too slow for tanks. Then came speed. Tanks raced ahead, dive-bombers cleared the road, and foot soldiers followed. French commanders reacted in days. German tanks moved in hours. **France didn't lose because it was smaller. It lost because it was slower.**"
    },
    {
     "type": "example",
-    "title": "Dunkirk, 26 May to 4 June 1940",
-    "body": "By 20 May German tanks reached the Channel coast, cutting the British and French armies in the north off from the rest of France. They fell back on the port of Dunkirk. Over 9 days about 338,000 British and French soldiers were lifted off the beaches by navy ships and a crowd of fishing boats, ferries and pleasure yachts. They left nearly every gun, truck and tank on the sand. Churchill called it a miracle and, in the same speech, reminded everyone that wars are not won by evacuations.",
-    "simpler": "By 20 May German tanks reached the Channel coast, cutting the British and French armies in the north off from the rest of France. They fell back to the port of Dunkirk. Over nine days about 338,000 soldiers were carried off the beaches by navy ships, fishing boats, ferries and pleasure yachts. **They left nearly every gun, truck and tank on the sand.** Churchill called it a miracle, then reminded everyone that wars are not won by getting away."
+    "title": "Ten days to the sea",
+    "body": "On 13 May 1940 German tanks crossed the river Meuse at Sedan, a French town at the edge of the Ardennes. Seven days later they reached the Channel coast near Abbeville. Meanwhile France's best armies and the British had marched north into Belgium to meet the attack they expected, so that one dash cut them off from the rest of France. Paris fell on 14 June, and France signed an *armistice*, a ceasefire on Germany's terms, on 22 June. **The armies were the right size. They were in the wrong place.**",
+    "simpler": "On 13 May 1940 German tanks crossed the river Meuse at Sedan, at the edge of the Ardennes. Seven days later they reached the coast near Abbeville. France's best armies and the British had gone north into Belgium, expecting the attack there. That one dash cut them off from the rest of France. Paris fell on 14 June, and France signed a ceasefire on Germany's terms on 22 June. **The armies were the right size. They were in the wrong place.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A friend says: \"France lost because its army was too small and badly equipped.\" Which reply applies this chapter's idea?",
+    "prompt": "A friend says: \"France just needed more soldiers in 1940.\" Which reply fits what actually happened?",
     "options": [
      {
       "id": "a",
-      "text": "\"Yes. Germany had far more tanks and men, so the result was never in doubt.\""
+      "text": "More soldiers in the wrong place wouldn't help. France needed to react fast where the tanks came through."
      },
      {
       "id": "b",
-      "text": "\"Not quite. France had roughly as many soldiers and tanks. It lost because Germany hit one unexpected point fast and France could not shift its forces in time.\""
+      "text": "France should have sent even more of its army into Belgium"
      },
      {
       "id": "c",
-      "text": "\"Yes. The Maginot Line was smashed in the first week, so the wall failed.\""
+      "text": "Fair enough, the bigger army always wins"
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's the common guess, not the record: the two armies were about the same size, so size cannot explain six weeks.",
-     "c": "That's the wall, not the gap: the Line was never broken through. The Germans went round it via the Ardennes."
+     "b": "That's exactly what France did, so it can't be the fix: marching north into Belgium is what left the side door open.",
+     "c": "That's the numbers story, not the 1940 one: France was about Germany's size and still lost in six weeks."
     },
-    "reteach": "Picture two equal football teams. One keeps every player in a long line across the pitch. The other sends everyone at one spot and runs. The crowded spot breaks before the line can bend back. That is France in May 1940."
+    "reteach": "Picture two fire crews of the same size. One parks at the front door and waits, and the other rushes in through the side. What decided 1940 was where the attack came in and how fast each side could react, not how many people were standing around."
    },
    {
     "type": "teach",
-    "title": "Why the fire stopped at the water",
-    "body": "France signed an *armistice*, an agreement to stop fighting, on 22 June 1940, about six weeks after the attack began. Germany now stood on the Channel coast, roughly 34 km from England at the narrowest point.\n\nBlitzkrieg needs ground to race across. The sea took that away. To land an army, Germany first had to control the sky over the water, or British ships and planes would sink the barges. So from July to October 1940 the German air force tried to destroy Britain's Royal Air Force. This was the *Battle of Britain*.\n\n**The sea turned a war of speed into a war of grinding,** and in a grind Britain's radar, home airfields and fast-built fighters counted. In September 1940 Hitler postponed the invasion.",
-    "simpler": "France signed an armistice and stopped fighting on 22 June 1940. Germany stood 34 km from England. Blitzkrieg needs ground, and the sea has none. Germany could not cross until it ruled the sky above the water. From July to October 1940 it fought the Royal Air Force: the Battle of Britain. **The sea turned a war of speed into a war of grinding,** which suited Britain's radar, airfields and fast-built fighters. In September Hitler called the invasion off."
+    "title": "Why Britain didn't follow",
+    "body": "Britain had a gap the fire couldn't walk across: the English Channel, about 20 miles wide at its narrowest. Invading meant carrying soldiers over in slow river barges, and the Royal Navy, far bigger than Germany's navy, was waiting to sink them.\n\nSo Germany needed control of the sky first, with planes that could keep British warships away. You'd think the sea was the whole defence. **It was half. The other half was in the air.**\n\nThrough the summer of 1940, in what's called the *Battle of Britain*, RAF fighter pilots took on the German bombers again and again. Radar stations on the coast warned them when raids were coming. In September Hitler put the invasion off. It never came.",
+    "simpler": "Britain had a gap fire can't cross: the English Channel, about 20 miles at its narrowest. Invading meant slow river barges, and the far bigger Royal Navy waited to sink them. So Germany needed the sky first. **The sea was half the defence. The other half was in the air.** Through summer 1940, in the Battle of Britain, RAF fighters took on German bombers, warned by coastal radar. In September Hitler put off the invasion. It never came."
    },
    {
     "type": "mistake",
-    "body": "Tom tells the story of 1940 and says Britain \"won\" that summer. Spot the slip: Britain did not defeat Germany, it stopped being invaded. The German army stood intact on the far shore and held all of France. **Holding is not the same as winning.** It took five more years, and two more houses on the street, to turn one into the other.",
-    "simpler": "Tom tells the story of 1940 and says Britain \"won\" that summer. Here is the slip. Britain did not beat Germany. It stopped Germany from landing. The German army was still there on the far shore, untouched, and it held all of France. **Holding is not the same as winning.** Think of a goalkeeper who saves a shot: the match is not over. It took five more years, and two more houses on the street, to turn holding into winning."
+    "body": "Sam finishes a Dunkirk film and tells a friend that's where Britain beat Germany. In fact Dunkirk, from 26 May to 4 June 1940, was an escape from a battle already lost: the Navy hoped to rescue about 45,000 men and, with help from fishing boats and pleasure boats, brought home about 338,000. They left most of their tanks and guns behind, and Churchill told Parliament that wars are not won by evacuations. To spot this mix-up, ask: **did this event win ground, or just survival?**",
+    "simpler": "Sam finishes a Dunkirk film and tells a friend that's where Britain beat Germany. Not quite. Dunkirk, from 26 May to 4 June 1940, was an escape from a battle already lost. The Navy hoped to save about 45,000 men. With fishing and pleasure boats helping, it brought home about 338,000, leaving most tanks and guns behind. Churchill told Parliament wars are not won by evacuations. So ask: **did this event win ground, or just survival?**"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Same German army, same method, two results in 1940: France fell in six weeks, Britain was not invaded. What is the single biggest reason for the difference?",
+    "prompt": "France fell in six weeks. Britain never fell. Which line explains both?",
     "options": [
      {
       "id": "a",
-      "text": "Britain had a much bigger army than France."
+      "text": "France's army was small, so it lost. Britain's army was big enough to hold."
      },
      {
       "id": "b",
-      "text": "German tanks could race across French ground but not across 34 km of sea, so the fight became a slow air battle Britain could sustain."
+      "text": "Germany beat France with speed through a gap France thought was safe. It couldn't cross to Britain without winning the air, and it didn't win it."
      },
      {
       "id": "c",
-      "text": "The Maginot Line protected Britain's coast."
+      "text": "Dunkirk pushed the Germans back, so they never reached Britain"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the numbers trap again: Britain's army had just left most of its weapons at Dunkirk. It was weaker, not stronger.",
-     "c": "That's France's wall, not Britain's: the Maginot Line sat on the French-German border and had nothing to do with the Channel."
+     "a": "That's the numbers story, not the 1940 one: France's army was about as big as Germany's and still lost in six weeks.",
+     "c": "That's the escape, not the reason: Dunkirk saved soldiers from a lost battle. It didn't push anyone back."
     },
-    "reteach": "Blitzkrieg is a running game: punch a hole, drive through, never stop. Water has no hole to punch. Germany had to win in the air first, slowly, and in that slow fight British radar and home airfields mattered more than German speed."
+    "reteach": "Two houses, two different problems. France's fire got in through the side door and spread before anyone could react. Britain's fire had to jump 20 miles of water, which meant winning the sky first, and in the Battle of Britain the RAF made sure Germany couldn't."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "France had as many soldiers as Germany but lost in six weeks because the Germans came fast through the one gap nobody guarded, the Ardennes, and the French could not turn round in time. **Britain held because the same fast method cannot cross 34 km of sea,** and the slow air battle that replaced it favoured the defender.",
-    "simpler": "France had as many soldiers as Germany, yet it lost in six weeks. The Germans came fast through the one gap nobody was guarding, the Ardennes forest, and the French army could not turn round in time. **Britain held because the same fast method cannot cross 34 km of sea.** What replaced it was a slow air battle, and a slow fight suits the side defending its own home."
+    "body": "France fell in six weeks because Germany attacked fast through the Ardennes, the one place France thought was safe, and cut off its best armies in Belgium. Britain held because Germany had to win the sky before crossing 20 miles of sea guarded by the Royal Navy, and **in the Battle of Britain it couldn't**.\n\nTomorrow: why Hitler, stuck at the Channel, turned east and picked a far bigger fight.",
+    "simpler": "France fell in six weeks. Germany attacked fast through the Ardennes, the one place France thought was safe, and cut off its best armies in Belgium. Britain held because Germany had to win the sky before crossing 20 miles of sea guarded by the Royal Navy, and **in the Battle of Britain it couldn't**. Tomorrow: why Hitler, stuck at the Channel, turned east and picked a far bigger fight."
    },
    {
     "type": "try",
-    "body": "Open any map app tonight. Find Sedan in France, then Dunkirk, then Dover. Trace the tank route from Sedan to the coast, covered in 10 days. Then look at the water between Dunkirk and Dover. That strip is the whole chapter.",
-    "simpler": "Open any map app tonight. Find Sedan in France. Then find Dunkirk, on the French coast, and Dover, on the English side. Run your finger from Sedan to the coast: German tanks covered that in 10 days. Now look at the narrow water between Dunkirk and Dover. **That strip of sea is the whole chapter.** Everything on the French side fell to speed. Everything on the English side was saved by the water."
+    "body": "Open any map app and find Dover and Calais to see how narrow that gap is. Then find Sedan, at the edge of the Ardennes, and trace a line west to Abbeville on the coast. That's the six weeks in one swipe.",
+    "simpler": "Open any map app and find Dover and Calais. See how narrow that gap of sea really is. Then find Sedan, at the edge of the Ardennes, and trace a line west to Abbeville on the coast. **That's the six weeks in one swipe.**"
    }
   ],
-  "outcomeLine": "You can now explain how France, with an army as big as Germany's, lost in six weeks, and why Britain alone did not."
+  "outcomeLine": "You can now explain how France, with an army as big as Germany's, lost in six weeks, and why Britain, alone across 20 miles of water, did not.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"8\" y1=\"160\" x2=\"150\" y2=\"160\"/><line x1=\"222\" y1=\"160\" x2=\"312\" y2=\"160\"/><polygon points=\"20,160 20,108 55,80 90,108 90,160\"/><rect x=\"48\" y=\"132\" width=\"14\" height=\"28\"/><polygon points=\"238,160 238,112 268,88 298,112 298,160\"/><path d=\"M166 60h30M181 52v16M168 56v8\"/></g><rect x=\"100\" y=\"92\" width=\"10\" height=\"68\" fill=\"#1F7A4D\"/><circle cx=\"128\" cy=\"146\" r=\"11\" fill=\"#1F7A4D\"/><circle cx=\"142\" cy=\"150\" r=\"9\" fill=\"#1F7A4D\"/><path d=\"M134 136c-12-14 2-24-2-38 14 10 22 26 10 38z\" fill=\"#F2A93B\"/><path d=\"M122 158Q96 186 66 150\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"3\" stroke-dasharray=\"5 5\"/><path d=\"M152 168q9-7 18 0t18 0t18 0t18 0\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\"/><circle cx=\"200\" cy=\"74\" r=\"3\" fill=\"#F2A93B\"/><circle cx=\"210\" cy=\"80\" r=\"2\" fill=\"#F2A93B\"/><text x=\"160\" y=\"192\" font-family=\"sans-serif\" font-size=\"13\" fill=\"#1B1A17\">20 miles</text></svg>"
  },
- "seconds": 87.82542896270752
+ "seconds": 134.71279406547546
 }

@@ -5,120 +5,132 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Picture leading a friend along a cliff path. If you rush, they stumble and stop looking at the view. If you keep saying \"um, so, like\" at every turn, they can't tell which steps matter. **A good leader walks a little slower than feels natural and lets the silence do the pointing.**",
-    "simpler": "Imagine walking a friend along a cliff path. Go too fast and they trip, and they stop looking at the view. Say \"um, so, like\" at every step and they can't tell which steps matter. **A good guide walks a little slower than feels normal and lets the quiet do the pointing.** The same is true when you speak to a group. Slow down, and let the gaps show people where the important parts are."
+    "body": "The best hiking guide you'll ever follow is the one who keeps stopping. On the hike you're leading, your voice sets the pace: how fast you go, how loud, and where you rest. **The rest stops are where people catch up**, so a talk with no pauses is a hike where the leader never once looks back.",
+    "simpler": "The best hiking guide is the one who keeps stopping. When you give a talk, you are leading a hike, and your voice sets the pace: how fast you go, how loud you are, and where you rest. **The rest stops are where people catch up**. A talk with no pauses is like a hike where the leader never once looks back."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya is giving her 3-minute talk about why the office should adopt a 4-day week. Her mouth is dry, her heart is going, and she notices she's talking fast. What's most likely to help right now?",
+    "prompt": "You're leading six friends up a hill. The path turns steep and rocky. What does a good guide do here?",
     "options": [
      {
       "id": "a",
-      "text": "Speed up a bit more so she gets to the end before the nerves win"
+      "text": "Speed up to get the hard bit over with"
      },
      {
       "id": "b",
-      "text": "Slow down until it feels slightly too slow, and pause at the end of each sentence"
+      "text": "Slow down, then stop at the top of the steep bit so everyone catches up"
      },
      {
       "id": "c",
-      "text": "Add a few \"so\" and \"basically\" to buy thinking time between points"
+      "text": "Keep exactly the same speed the whole way, to be fair"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the nerves talking, not the listener: speeding up makes the walk harder for everyone following you.",
-     "c": "That's filler, not a pause: words like \"so\" and \"basically\" fill the gap but give the listener nothing to hold on to."
+     "a": "That's rushing, not leading: the steep part is where people fall behind, so speeding up loses them.",
+     "c": "That's a metronome, not a guide: one even speed treats the easy stretch and the hard stretch as the same."
     },
-    "reteach": "Nerves push your speech faster. Your listeners need the opposite: a pace that feels a little slow to you is about right for them. The silence at a full stop is not a mistake. It's the moment they catch up."
+    "reteach": "On a hike, steep bits need a slower pace and a stop at the top. In a talk, the steep bits are the new or important ideas. Slow down there and pause after, so listeners can catch their breath."
    },
    {
     "type": "teach",
-    "title": "Slower than feels natural",
-    "body": "When you're nervous, the speed that feels normal to you is faster than your listeners want. They are hearing your idea for the first time. You've heard it 20 times. **Aim for a pace that feels slightly too slow to you.** That's about right for them.\n\nThe easiest way to slow down is not to drag out words. It's to *pause at the full stops*: when a sentence ends, stop talking for a beat before starting the next one. One breath. Then go.\n\nThe pause feels long from the inside. From the outside it reads as calm.",
-    "simpler": "When you are nervous, the speed that feels normal to you is too fast for the people listening. They are hearing your idea for the first time. You have heard it twenty times. **Aim for a pace that feels a bit too slow to you.** That is about right for them.\n\nDon't drag out your words. Instead, stop for one breath at the end of each sentence. Then go on. The pause feels long to you. To them it sounds calm."
+    "title": "Speed and the pause",
+    "body": "Your listeners can't rewind you. A reader can glance back up the page; a listener gets each sentence once, at the speed you choose.\n\nSo **slow down where the idea is new**, and move a little quicker through what they already know, like the set-up of a story. The change of speed is itself a signal: it tells the room *this bit matters*.\n\nThe pause is your strongest tool. Three seconds of silence feels like a minute to you. To the room, it feels like a bench at a viewpoint: time to take in what you just said.",
+    "simpler": "Listeners can't rewind you. A reader can look back up the page, but a listener hears each sentence once, at your speed. **Slow down where the idea is new**, and go quicker through what they already know, like the set-up of a story. Changing speed tells the room this matters. The pause is your strongest tool. Three seconds of quiet feels like a minute to you. To the room, it's a bench at a viewpoint, a rest to take it in."
    },
    {
     "type": "example",
-    "title": "Marcus and the one-minute recording",
-    "body": "Marcus recorded himself talking for 1 minute about his cycling club's new route. He played it back and counted: 14 \"ums\", 6 \"sos\", 3 \"likes\". That's 23 fillers in 60 seconds, roughly one every 3 seconds.\n\nOn his second take he did one thing differently: every time he felt an \"um\" coming, he closed his mouth instead. He got it down to 9. It felt painfully slow while he was doing it. On playback, it sounded like someone who knew what he was talking about.",
-    "simpler": "Marcus recorded himself for one minute talking about his cycling club's new route. He played it back and counted: 14 ums, 6 sos, 3 likes. That is 23 fillers in 60 seconds, about one every 3 seconds.\n\nOn his second try he changed one thing. **Each time he felt an um coming, he closed his mouth instead.** He got down to 9. It felt very slow while he did it. On playback, he sounded like someone who knew his subject."
+    "title": "One sentence, three ways",
+    "body": "Priya is pitching a new rota to her team of 9. Her key line: \"We'll stop working Saturdays from March.\" First try, she says it at the same speed as the line before it, and two people keep reading their phones. Second try, she pauses before it, slows right down on *stop working Saturdays*, then waits 3 full seconds. Someone at the back says \"wait, really?\", which is the best review a sentence can get.",
+    "simpler": "Priya is pitching a new rota to her team of 9. Her key line is: \"We'll stop working Saturdays from March.\" First time, she says it at the same speed as the line before, and two people keep reading their phones. Second time, she pauses before it, slows right down on *stop working Saturdays*, then waits 3 full seconds. Someone at the back says \"wait, really?\" That's the best review a sentence can get."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Dev is practising a line: \"The route is 12 miles. Um, so, it starts at the station.\" Which version applies the chapter's idea?",
+    "prompt": "Sam has 5 minutes to argue his caf\u00e9 should open at 7am, not 8. Which plan uses pace well?",
     "options": [
      {
       "id": "a",
-      "text": "\"The route is 12 miles. [pause] It starts at the station.\""
+      "text": "Say the whole talk quickly so it fits easily into 4 minutes"
      },
      {
       "id": "b",
-      "text": "\"The route is 12 miles and so it starts at the station.\""
+      "text": "Slow down on \"we turn away 40 people before 8\", then stay silent for 3 seconds"
      },
      {
       "id": "c",
-      "text": "\"The route is 12 miles, right, basically it starts at the station.\""
+      "text": "Pause after every single sentence so each one gets a rest stop"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's joining two sentences, not pausing: the \"and so\" removes the full stop you were meant to rest on.",
-     "c": "That's swapping one filler for another: \"right\" and \"basically\" are the same gap-fillers wearing different clothes."
+     "a": "That's racing to the summit, not leading: finishing early doesn't help if the room fell behind on the key number.",
+     "c": "That's stopping every ten steps, not resting at the steep bits: when pauses are everywhere, none of them stands out."
     },
-    "reteach": "Fillers show up where a pause should be. The fix isn't a better filler. It's silence. Say the sentence, close your mouth, breathe, then say the next one."
+    "reteach": "Pace isn't about the clock; it's about where the listener needs time. Find the one line that carries your idea, slow down on it, then stay quiet long enough for it to land. Everywhere else, keep walking."
    },
    {
     "type": "teach",
-    "title": "Replace filler with silence",
-    "body": "Fillers are the sounds you make while your brain finds the next word: \"um\", \"so\", \"like\", \"basically\", \"you know\". They're not a character flaw. They're a *gap-filling reflex*, and almost everyone has it.\n\n**You don't remove fillers by trying harder. You replace them with a closed mouth.** When you feel one coming, shut your lips and let the gap be silent. The gap is the same length. It just has nothing in it.\n\nThe silence feels naked at first. Your listeners don't hear naked. They hear a person choosing their words.",
-    "simpler": "Fillers are the little sounds you make while your brain looks for the next word: um, so, like, you know. Almost everyone has this habit of filling gaps.\n\n**You don't get rid of fillers by trying harder. You swap them for a closed mouth.** When you feel one coming, shut your lips and let the gap stay quiet. The gap is the same length, just empty. It feels bare to you. Listeners hear a person choosing their words."
+    "title": "The quiet line",
+    "body": "Speed has two partners. *Volume* is how loud you are; *pitch* is how high or low your voice sits. You'd think louder grabs a room. Often a quieter line pulls people in more, like a guide who whispers \"look, a deer\".\n\nThat whisper works a bit like a pause: everyone slows down and leans in. **Dropping your voice on the key line is another way to say *stop here*.**",
+    "simpler": "Speed has two partners: volume (how loud) and pitch (how high or low). A quiet line often pulls people in, like a guide whispering \"look, a deer\". The whisper works a bit like a pause: everyone slows down and leans in. **Dropping your voice on the key line is another way to say *stop here*.**"
    },
    {
     "type": "mistake",
-    "body": "Jo decided to fix her fillers by watching for them during her real talk. Every time she said \"um\", she winced and lost her thread. She finished with more fillers than she started with. The fix isn't vigilance on the day. It's practice on a recording beforehand, where you can hear yourself and try again. If you catch yourself policing your own speech mid-talk, that's the sign you skipped the recording step.",
-    "simpler": "Jo tried to fix her fillers by listening for them during her real talk. Each time she said um, she winced and lost her place. She ended with more fillers than she started with. **The fix is not watching yourself on the day. It is practice on a recording beforehand.** There you can hear yourself and try again. If you catch yourself policing your own speech mid-talk, you skipped the recording step."
+    "body": "Tom has a Monday update and he's nervous, so he talks faster, filling every gap with \"um\" and \"so, yeah\". He finishes 90 seconds early, relieved, and then his manager asks a question he answered in minute two. Here's how to spot it: if you finished early and nobody caught your main point, you rushed it. **Nerves speed you up; a planned pause is how you take the pace back.**",
+    "simpler": "Tom is nervous about his Monday update, so he talks faster and fills every gap with \"um\" and \"so, yeah\". He finishes 90 seconds early, relieved. Then his manager asks a question he already answered in minute two. Here's the sign: if you finished early and nobody caught your main point, you rushed. **Nerves speed you up; a planned pause is how you take the pace back.**"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend says: \"I want to sound more confident when I speak. What's the one thing you'd change?\" Which answer matches this chapter?",
+    "prompt": "What is a pause in a talk mainly for?",
     "options": [
      {
       "id": "a",
-      "text": "Speak faster so you sound sure of yourself"
+      "text": "Giving the listener time to take in what you just said"
      },
      {
       "id": "b",
-      "text": "Memorise your talk word for word so there are no gaps"
+      "text": "Giving you time to remember your next line"
      },
      {
       "id": "c",
-      "text": "Go slower than feels right, and let the gaps be silent instead of filling them"
+      "text": "Showing the room you're calm and confident"
      }
     ],
-    "answer": "c",
+    "answer": "a",
     "whyNot": {
-     "a": "That's the opposite of the chapter's advice: speed reads as nerves to a listener, not confidence.",
-     "b": "That's chapter 7's rehearsal idea, not pacing: memorising doesn't stop fillers, and it makes you more likely to speed through."
+     "b": "That's a side benefit for the speaker, not the job: the pause is a rest stop for the people walking behind you.",
+     "c": "That's how a pause can look, not what it's for: it exists so the listener can catch up."
     },
-    "reteach": "Confidence sounds like someone who isn't in a hurry. Slow down to the point of discomfort, pause at full stops, and when a filler wants to come out, close your mouth instead."
+    "reteach": "Listeners can't scroll back. A pause is the moment their brain finishes your last sentence before the next one arrives. Put it right after the line that matters most: it's there for them, not you."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**Talk slower than feels natural and pause at every full stop.** When an \"um\" or \"so\" wants to come out, close your mouth and let the silence sit there instead.",
-    "simpler": "Here is the whole chapter in one breath. **Talk slower than feels natural and pause at every full stop.** When an um or so wants to come out, close your mouth and let the silence sit there instead. The pause feels long to you. To your listeners it sounds like calm. That is all you need to remember."
+    "body": "Pace is for the listener: **slow down on what's new, and pause after the line that matters** so they can catch up. A quieter voice on that line can do the same job.",
+    "simpler": "Pace is for the people listening: **slow down on what's new, and pause after the line that matters** so they can catch up. Saying that line more quietly can help too."
    },
    {
     "type": "try",
-    "body": "Open your phone's voice recorder. Talk for 1 minute about what you did today. Play it back and count the fillers. Record again, closing your mouth at each gap. Compare the two numbers.",
-    "simpler": "Open the voice recorder on your phone. Talk for one minute about what you did today. Play it back and count every um, so and like. Then record again. **This time, close your mouth at each gap instead of making a sound.** Count the fillers again and compare the two numbers. Two minutes of talking shows you exactly where you stand."
+    "body": "Open your phone's voice recorder. Say your talk's one-idea sentence three times: fast, then slow, then slow with a 3-second pause before the key word. Play them back. Which one would a stranger remember?\n\nTomorrow: why the scariest part of a talk is the bit you didn't plan.",
+    "simpler": "Open the voice recorder on your phone. Say the one sentence that sums up your talk, three times: first fast, then slow, then slow with a 3-second pause before the key word. Play all three back. Which one would a stranger remember? Tomorrow: why the scariest part of a talk is the bit you didn't plan."
    }
   ],
-  "outcomeLine": "You can now record yourself for 1 minute, count your fillers, and halve them on a second take."
+  "outcomeLine": "You can now say the same sentence 3 ways and hold a 3-second pause on purpose.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 200 L130 60 L190 110 L250 70 L320 200 Z\" fill=\"#1F7A4D\"/><circle cx=\"275\" cy=\"38\" r=\"16\" fill=\"#F2A93B\"/><path d=\"M30 195 Q90 175 120 150 L170 150 Q210 130 240 95\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"4\" stroke-dasharray=\"6 5\" stroke-linecap=\"round\"/><circle cx=\"150\" cy=\"126\" r=\"5\" fill=\"#1B1A17\"/><line x1=\"150\" y1=\"131\" x2=\"150\" y2=\"140\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"144,150 150,140 156,150\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><line x1=\"150\" y1=\"134\" x2=\"160\" y2=\"128\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><circle cx=\"95\" cy=\"143\" r=\"5\" fill=\"#1B1A17\"/><line x1=\"95\" y1=\"148\" x2=\"95\" y2=\"157\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"89,167 95,157 101,167\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><circle cx=\"60\" cy=\"162\" r=\"5\" fill=\"#1B1A17\"/><line x1=\"60\" y1=\"167\" x2=\"60\" y2=\"176\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"54,186 60,176 66,186\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><text x=\"128\" y=\"172\" font-family=\"sans-serif\" font-size=\"13\" fill=\"#F2A93B\">rest stop</text></svg>"
  },
- "seconds": 36.04981279373169
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "concrete_images",
+   "one_idea",
+   "open_loop"
+  ],
+  "dubious_claims": [],
+  "weakest_card": 6,
+  "why": "The volume, pitch and warm-up card wanders off pace: Julian Treasure's seven habits are about what you say, not how fast you say it, and none of the exercises test this card.",
+  "fix": "Cut the Julian Treasure paragraph and the warm-up from card 6 and keep only the whispered 'look, a deer' line as a pace tool, then drop 'warm up your voice in 2 minutes' from the outcomeLine and move the 'Tomorrow:' line to the end of the try card so the chapter's last line is the hook for the next chapter."
+ }
 }

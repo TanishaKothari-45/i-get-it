@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "You're lying on the water-bed, gliding with both arms out front. Now imagine grabbing a fistful of the sheet ahead of you and **pulling it back along your body**, so you slide forward over it.\n\nOne hand pulls under you while the other swings forward over the top to grab the next handful. That taking-turns is front crawl arms.",
-    "simpler": "Picture yourself lying flat on the water, both arms stretched out in front. Now imagine the water is a bedsheet. You grab a handful ahead of you and **pull it back along your body**, so you slide forward over it. While one hand pulls underneath, the other swings forward over the top to grab the next handful. The two hands take turns. That is what front crawl arms do."
+    "body": "The breath you take while swimming works backwards from the one you take on land, and today your arms will show you why. You're still lying on the same bed of water. Now **one arm rests out on the pillow ahead of you while the other sweeps back underneath**, then they swap.",
+    "simpler": "Breathing while swimming works the opposite way from breathing on land, and today your arms will show you why. Picture yourself still lying on the same bed of water. Now **one arm rests out on the pillow ahead of you while the other sweeps back underneath**. Then they swap places."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Maya is gliding in the shallow end, both arms stretched ahead. She wants her arms to move her forward. What should she do?",
+    "prompt": "You've pushed off and you're gliding, face down, both arms out front. Your right arm starts its pull. What should your left arm be doing?",
     "options": [
      {
       "id": "a",
-      "text": "Pull both arms back under her at the same moment"
+      "text": "Pulling at the same time, for double the push"
      },
      {
       "id": "b",
-      "text": "Pull one arm back under her body while the other stays stretched ahead, then swap"
+      "text": "Staying stretched out front, resting on the water"
      },
      {
       "id": "c",
-      "text": "Slap both hands up and down on the surface"
+      "text": "Tucked by your side to make you thinner"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's both hands grabbing the same handful of sheet, not taking turns: you get one shove, then nothing is reaching ahead to pull with.",
-     "c": "That's splashing the sheet, not pulling it: hands on the surface push nothing back, so you stay where you are."
+     "a": "That's chasing power, not balance: with both arms back at once, nothing is holding the front of you up on the bed.",
+     "c": "That's a torpedo shape, not a stroke: with no arm out front, your chest presses down and your legs start to sink."
     },
-    "reteach": "Picture pulling yourself along a mattress. You grab ahead with one hand and drag yourself past it, while the other hand is already reaching for the next grab. If both hands grab at once, you lurch forward once and then have to stop and reach again."
+    "reteach": "Picture your front arm as the pillow under your head. Take the pillow away and your head drops, then your legs follow. So one arm always waits out front while the other one works."
    },
    {
     "type": "teach",
-    "title": "One arm pulls",
-    "body": "**One arm at a time.** Your right hand enters the water in front of your right shoulder, fingers first, like posting a letter through a slot. It presses down and back under your body, all the way past your hip. Then it lifts out.\n\nMeanwhile your left arm stays stretched ahead, long and still, exactly like the front of your glide. Only when the right hand is finishing does the left one start to pull.\n\nPractise this standing in chest-deep water, bent forward, chin just above the surface. Say it as you go: reach, pull, swap.",
-    "simpler": "**Only one arm moves at a time.** Your right hand slides into the water in front of your right shoulder, fingers first, like posting a letter through a slot. It pushes down and back under your body, past your hip, then lifts out. Your left arm stays stretched ahead, long and still, like in your glide. It only starts pulling as the right hand finishes. Practise standing in chest-deep water, bent forward, chin above the surface. Say reach, pull, swap."
+    "title": "Arms take turns",
+    "body": "Front crawl arms take turns. One arm reaches forward and pulls back under your body, all the way to your thigh. Then it lifts out, elbow first, and swings forward over the water. That swing is the *recovery*, meaning the arm's ride back through the air.\n\nMeanwhile **the other arm waits, stretched out flat on the water**, like a hand resting on a kitchen table. It stays there until the working hand nearly touches it. Coaches call this *catch-up*.\n\nPractise standing first: chest-deep, lean forward, face in. Your pulling hand should brush past your belly button, not swing out wide like a gate.",
+    "simpler": "Front crawl arms take turns. One arm reaches forward, pulls back under your body to your thigh, then lifts out elbow first and swings forward over the water. Meanwhile **the other arm waits, stretched flat on the water**, like a hand resting on a kitchen table, until the working hand nearly touches it. Coaches call this catch-up. Practise standing chest-deep first: lean forward, face in. Your pulling hand should brush your belly button, not swing wide like a gate."
    },
    {
     "type": "example",
-    "title": "Tom and the dropped pencil",
-    "body": "Tom tried his first 3 strokes from a push-off. His left arm did a lovely slow pull. His right arm, keen to help, pulled at exactly the same moment. He travelled about half a metre, then lay there with both arms by his sides like a dropped pencil, and stood up.\n\nNext go, he told his right arm to wait its turn. 3 strokes became 2 metres.",
-    "simpler": "Tom tried his first 3 strokes after a push-off. His left arm did a lovely slow pull. His right arm wanted to help, so it pulled at exactly the same moment. He moved about half a metre. Then he lay there with both arms by his sides, like a dropped pencil, and stood up. On his next go, he **told his right arm to wait its turn**. The same 3 strokes carried him 2 metres."
+    "title": "Dev's fourth stroke",
+    "body": "Dev, 34, tries it in the shallow end before work. Standing up, it feels almost silly. From a push-off he does 3 slow catch-up strokes with his face in, and stands up past the spot where his glide used to run out. Then he goes for 6. By stroke 4 he's speeding up, arms spinning like a paddle steamer, legs sinking, and he stands up gasping. His arms didn't get tired in two strokes. **He'd been holding his breath since the wall.**",
+    "simpler": "Dev, 34, tries this in the shallow end before work. Standing up, it feels almost silly. He pushes off and does 3 slow catch-up strokes with his face in, and stands up past where his glide used to stop. Then he tries 6. By stroke 4 he's speeding up, arms spinning like a paddle steamer, legs sinking. He stands up gasping. His arms didn't get tired in two strokes. **He'd been holding his breath since the wall.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Priya pushes off, glides, kicks, and starts her arms. Her right hand is halfway through its pull under her body. What should her left arm be doing right now?",
+    "prompt": "Amara swims 3 lovely strokes, but by stroke 5 her arms are whirling and her legs drop. What should she change on her next try?",
     "options": [
      {
       "id": "a",
-      "text": "Stretched out in front, waiting its turn"
+      "text": "Kick much harder to hold her legs up"
      },
      {
       "id": "b",
-      "text": "Pulling too, so she goes twice as fast"
+      "text": "Slow down so one hand waits out front until the other catches up, breathing out the whole way"
      },
      {
       "id": "c",
-      "text": "Pressed flat against her side"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's both arms grabbing at once, Tom's dropped-pencil move: one shove, then nothing out front to pull with.",
-     "c": "That's the end of a pull, not the wait: an arm by your side isn't ready to grab the next handful, and it lets your front sink."
-    },
-    "reteach": "While one hand is pulling, the other is the front of your glide: long, still, pointing where you want to go. It starts its own pull only as the first hand finishes by your hip. One pulls, one waits, then they swap."
-   },
-   {
-    "type": "teach",
-    "title": "The other arm comes back over the top",
-    "body": "When your hand finishes by your hip, lift the elbow so it leads, let the hand hang loose, and swing it forward above the water to land in front of your shoulder again. Swimmers call this the *recovery*. It lifts nothing. **It's just travelling back for the next pull**, low and relaxed.\n\nKeep the kick going underneath, small and steady, face in, breathing out.\n\nBuild it in steps. Push off, glide, 3 strokes, stand. When 3 feels calm, go to 6. Slow long strokes beat fast short ones: aim for about 1 second per pull.",
-    "simpler": "When your hand reaches your hip, lift the elbow so it leads, hand loose, and swing it forward over the water to land in front of your shoulder. This is called the recovery. **It is just the arm travelling back for the next pull**, low and relaxed. Keep the kick small and steady, face in, breathing out. Push off, glide, 3 strokes, stand. When 3 feels calm, try 6. Slow long strokes beat fast short ones, about 1 second each."
-   },
-   {
-    "type": "mistake",
-    "body": "Sam managed 6 strokes but arrived gasping, arms windmilling at double speed, hands slapping the water flat. The faster he churned, the less he moved. You can spot it from the poolside: **lots of splash, little travel**. The fix is counting out loud, one slow 'one' per pull, and letting the glide between strokes do some of the work.",
-    "simpler": "Sam got through 6 strokes but arrived out of breath. His arms were spinning round at double speed and his hands slapped flat on the water. The faster he churned, the less he moved. You can spot this from the side of the pool: **lots of splash, little travel**. The fix is to count out loud, one slow 'one' for each pull, and let the glide between strokes do some of the work."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "A friend asks what the arms actually do in front crawl. Which is the best one-line answer?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Both arms sweep back at the same time, like opening curtains"
-     },
-     {
-      "id": "b",
-      "text": "One arm pulls back under your body while the other swings forward over the water, and they take turns"
-     },
-     {
-      "id": "c",
-      "text": "Your hands paddle at the surface to keep your head up"
+      "text": "Lift her head to keep the far wall in sight"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's both arms at once: crawl arms take turns, so one is always pulling while the other is reaching.",
-     "c": "That's Sam's splash, not the pull: hands at the surface push nothing back. The pull happens under your body, and your face stays in."
+     "a": "That's chapter 5's trap, not the fix: a bigger kick moves you less, and it still leaves no arm out front.",
+     "c": "That's a balance breaker, not a fix: lifting your head pushes your hips and legs further down."
     },
-    "reteach": "Think of the mattress again. One hand grabs ahead and drags you past it, under your body to your hip. The other swings over the top to grab the next handful. Pull under, recover over, swap, slowly."
+    "reteach": "Whirling arms mean no arm is out front, so the bed tips and your legs sink. Slowing down puts a hand back on the pillow. A steady out-breath stops the rush that makes you whirl in the first place."
+   },
+   {
+    "type": "teach",
+    "title": "Breathing backwards",
+    "body": "On land you breathe in on purpose and let the air fall out by itself. Swimming flips that around. **Breathe out slowly the whole time your face is in**, through your nose and mouth, then take one quick breath in when you stand.\n\nHold your breath instead and it starts to feel like a countdown, so you rush. By stroke 5, your body is shouting for fresh air.\n\nAim for a trickle, like a kettle on low, not a balloon popping. A trickle leaves air in your chest, and that air keeps you up on the bed. Do 3 strokes with bubbles all the way, then try 6.",
+    "simpler": "On land you breathe in on purpose and let air fall out. Swimming flips that. **Breathe out slowly the whole time your face is in**, through nose and mouth, then breathe in quickly when you stand. Holding your breath feels like a countdown, so you rush and need air by stroke 5. Aim for a trickle, like a kettle on low, not a popping balloon. Leftover air keeps you floating. Try 3 strokes bubbling all the way, then 6."
+   },
+   {
+    "type": "mistake",
+    "body": "Sam pushes off and swims like he's late for a bus: arms windmilling, breath clamped shut, lots of splash. He gets about 5 metres and stands up red-faced, sure his arms are weak. **The easy check: if you can't remember feeling one hand resting out front, you went too fast.** No rest out front means no bubbles either.",
+    "simpler": "Sam pushes off and swims like he's late for a bus: arms windmilling, breath held tight, lots of splashing. He gets about 5 metres, stands up red-faced, and decides his arms are weak. **Here's the easy check: if you can't remember feeling one hand resting out front, you went too fast.** And no rest out front means no breathing out either."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Your friend asks what good beginner front crawl arms look like. Which answer do you give?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Keep both arms spinning so there's never a gap"
+     },
+     {
+      "id": "b",
+      "text": "One arm rests out front while the other pulls under you and swings over, with a slow breath out the whole time"
+     },
+     {
+      "id": "c",
+      "text": "Let the arms do the work so the legs can stop kicking"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the windmill, not the stroke: with no arm out front you lose your bed and rush your breath.",
+     "c": "That's swapping one move for another, not adding one: the arms go on top of the kick, they don't replace it."
+    },
+    "reteach": "Crawl is slow turn-taking: one hand waits on the water, the other pulls back to your thigh and swings forward to meet it. Bubbles go out the whole time. That's what makes 6 strokes feel easy instead of frantic."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**Front crawl arms take turns**: one hand reaches in and pulls back under your body past your hip, while the other swings forward over the water to reach again. Keep it slow, keep the kick small, and build from 3 strokes to 6 before you ask for more.",
-    "simpler": "**Front crawl arms take turns.** One hand reaches in and pulls back under your body, past your hip. At the same time the other arm swings forward over the water, ready to reach in again. Keep it slow. Keep the kick small. Build from 3 strokes to 6 before you ask your arms for more."
+    "body": "Front crawl arms take turns: **one rests out front on the water while the other pulls back under your body and swings over the top**. Go slowly, breathe out the whole time your face is in, and 6 strokes feel calm instead of frantic.\n\nTomorrow: why your back, not the wall, is the safest place to rest.",
+    "simpler": "Front crawl arms take turns: **one rests out front on the water while the other pulls back under your body and swings over the top**. Go slowly and breathe out the whole time your face is in. Do that, and 6 strokes feel calm instead of frantic. Tomorrow: why your back, not the wall, is the safest place to rest."
    },
    {
     "type": "try",
-    "body": "Tonight, out of the water: stand bent forward, hands stretched ahead as in a glide. Pull one hand back to your hip, swing it forward over the top, then the other. 10 slow turns, saying reach, pull, swap.",
-    "simpler": "Tonight, away from the pool, stand up and bend forward. Stretch both hands out ahead as if you were gliding. Pull one hand back to your hip, then swing it forward over the top. Now do the same with the other hand. Do **10 slow turns**, saying reach, pull, swap as you go."
+    "body": "Tonight at home: bend forward at a table with one hand resting on it. Pull the other arm back past your thigh, swing it over, and touch the first hand. Swap. Do 6 strokes, humming out the whole time.",
+    "simpler": "Tonight at home, bend forward over a table and rest one hand on it. Pull your other arm back past your thigh, swing it over the top, and touch the first hand. Then swap. Do 6 strokes, and **hum out the whole time**, so you get used to breathing out while your arms move."
    }
   ],
-  "outcomeLine": "You can now swim 6 to 8 front crawl strokes from a push-off, face in, arms taking turns, and stand up calmly."
+  "outcomeLine": "You can now swim 6 to 8 slow front crawl strokes from a push-off, one hand waiting out front and breathing out the whole way, then stand up calmly.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"8\" y=\"124\" width=\"304\" height=\"62\" rx=\"12\" fill=\"#1F7A4D\" opacity=\"0.25\"/><path d=\"M8 122 Q48 114 88 122 T168 122 T248 122 T312 122\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\" stroke-linecap=\"round\"/><line x1=\"112\" y1=\"117\" x2=\"58\" y2=\"112\" stroke=\"#1B1A17\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"112\" y1=\"121\" x2=\"60\" y2=\"130\" stroke=\"#1B1A17\" stroke-width=\"6\" stroke-linecap=\"round\"/><ellipse cx=\"165\" cy=\"119\" rx=\"58\" ry=\"12\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M205 112 Q214 58 252 84\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"6\" stroke-linecap=\"round\"/><circle cx=\"238\" cy=\"117\" r=\"13\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"250\" y1=\"121\" x2=\"302\" y2=\"119\" stroke=\"#1B1A17\" stroke-width=\"6\" stroke-linecap=\"round\"/><circle cx=\"252\" cy=\"138\" r=\"3\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"260\" cy=\"148\" r=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"250\" cy=\"158\" r=\"2.5\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"262\" y=\"176\" font-family=\"sans-serif\" font-size=\"14\" fill=\"#1B1A17\">one waits</text></svg>"
  },
- "seconds": 65.50841403007507
+ "seconds": 91.75060606002808
 }

@@ -5,114 +5,139 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Around the dinner table, Aristotle has just said: look closely at the world and you will learn the truth. In 1641 a new guest, Ren\u00e9 Descartes, interrupts with a rude question: how do you know your eyes are telling the truth at all?\n\nHe does not attack any one belief. He attacks the table itself, to see if anything is left standing.",
-    "simpler": "Picture a dinner table where Aristotle has just said: look closely at the world and you will learn the truth. In 1641 a new guest, Ren\u00e9 Descartes, cuts in with a rude question. How do you know your eyes tell the truth at all? He does not pick on one belief. He **kicks the legs out from under the whole table** to see if anything is left standing."
-   },
-   {
-    "type": "teach",
-    "title": "Doubt everything, on purpose",
-    "body": "Descartes was a French thinker who lived through a shaky time for knowledge. New science was saying the sun does not move and the earth is not still, even though every eye sees the opposite. If the senses could be that far off, what else might be off?\n\nSo in a short book called the Meditations, published in 1641, he tried an experiment. He would treat any belief he could possibly doubt as if it were false. Not because he believed it was false. He wanted to find out what, if anything, could not be doubted.\n\nFirst to go: the senses. They mislead sometimes, so they cannot be fully trusted. Next: the whole world around him. He might be dreaming, and dreams feel real while you are in them.\n\nThen he went further. Imagine a powerful deceiver who feeds you false thoughts on purpose. Then even simple sums could be a trick. At this point almost nothing is left.\n\nAlmost.",
-    "simpler": "Descartes was a French thinker living when knowledge felt shaky. New science said the sun stands still and the earth moves, though our eyes see the opposite. In 1641, in a short book, the Meditations, he ran a test. **He treated any belief he could doubt as if it were false**, to find what held. Senses went first. Then the world, since he might be dreaming. Then a powerful trickster who could fake simple sums. Almost nothing survived. Almost."
+    "body": "A man sits by the fire in a winter dressing gown, paper in hand, and decides to doubt every single thing he believes. That's Ren\u00e9 Descartes in his 1641 *Meditations*, and at the long dinner table he didn't answer the last guest: he swept the table clear and asked how anyone knows anything at all. When the dust settled, **exactly one thing was still standing**.",
+    "simpler": "Picture a man sitting by the fire in a winter dressing gown, holding a sheet of paper. He decides to doubt every single thing he believes. This is Ren\u00e9 Descartes, in his 1641 book *Meditations*. Think of a long dinner table where thinkers take turns. Descartes didn't reply to the last guest. He cleared the whole table and asked how anyone knows anything at all. In the end, **exactly one thing was still standing**."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Descartes throws out every belief he can doubt. Which one can he NOT throw out, even with the deceiver?",
+    "prompt": "Descartes sweeps aside everything he believes: what his eyes tell him, his memories, even his maths. One thing survives. Which one?",
     "options": [
      {
       "id": "a",
-      "text": "That he has two hands."
+      "text": "That 2 + 2 = 4"
      },
      {
       "id": "b",
-      "text": "That 2 plus 3 makes 5."
+      "text": "That he has a body, sitting in that chair"
      },
      {
       "id": "c",
-      "text": "That he is doubting right now."
+      "text": "That he, the one doing the doubting, exists"
      }
     ],
     "answer": "c",
     "whyNot": {
-     "a": "That's a belief from the senses, not a survivor: a dream could show him hands he does not have.",
-     "b": "That's a sum the deceiver could tamper with, not a survivor: Descartes said even maths could be a trick."
+     "a": "That's maths, not the doubter: Descartes imagined a trickster clever enough to fool him even about simple sums.",
+     "b": "That's the senses, not the doubter: a dream can give you a body and a chair that aren't really there."
     },
-    "reteach": "Try to doubt that you are doubting. You cannot, because the attempt is itself a doubt. Everything else can be faked by a dream or a deceiver, but faking needs someone to fake it on. That someone is you."
-   },
-   {
-    "type": "example",
-    "title": "By the fire, in a dressing gown",
-    "body": "In the first Meditation, Descartes describes himself sitting by the fire in a winter dressing gown, holding a piece of paper. It feels as certain as anything can.\n\nThen he remembers that he has dreamed exactly this scene before, and in the dream it felt just as real. So the fire, the gown, the paper and even his own body go on the doubt pile.\n\nIn the second Meditation he notices the one thing the doubt cannot reach. Whenever he thinks 'maybe I am being fooled', there has to be an 'I' there to be fooled. The famous summary is 'I think, therefore I am'.",
-    "simpler": "In the first Meditation, Descartes pictures himself by the fire in a dressing gown, holding a piece of paper. It feels rock solid. Then he remembers dreaming this scene, and it felt as real. So the fire, gown, paper and even his body go on the doubt pile. In the second Meditation he finds what doubt cannot touch. **To think 'maybe I am being fooled', someone must be there to be fooled.** In short: 'I think, therefore I am'."
+    "reteach": "Try doubting that you're doubting. You can't, because the doubting is happening right now. And if doubting is happening, someone has to be doing it."
    },
    {
     "type": "teach",
-    "title": "Why this moved the argument indoors",
-    "body": "Notice what survived. Not the world, not the body, not other people. Only this: a mind is here, having thoughts. That is the one brick Descartes could build on.\n\nThis flipped the order of the whole argument. Before Descartes, philosophers mostly started with the world and asked how we fit into it. After him, the question became: I am sure of my own mind, so how do I get from in here back out to the world?\n\nDescartes himself tried to climb back out. He argued that a good God exists and would not let him be fooled about everything, so the clear parts of the world must be real. Most later thinkers found that climb shaky. But the starting point stuck, and the next 300 years of the argument happen inside the mind.",
-    "simpler": "Only one thing survived: a mind, thinking. That was Descartes's solid brick. **This flipped the order of the argument.** Earlier thinkers started with the world and asked how we fit in. The question became: I am sure of my mind, how do I get back out to the world? Descartes tried, arguing a good God would not let him be fooled about everything. Later thinkers found that step shaky, but the argument stayed inside the mind for 300 years."
+    "title": "Tip out the basket",
+    "body": "Descartes compared his method to a basket of apples. If you're afraid a few are rotten, you don't sniff them one by one. You **tip the whole basket out**, and put back only the apples you've checked.\n\nSo he ran three rounds of doubt. Round one: your senses sometimes fool you, especially about things that are tiny or far away. Round two: dreams feel completely real while you're in them. Round three, the big one: what if a powerful trickster, an *evil demon*, were faking everything, even the sums in his head?",
+    "simpler": "Descartes compared his method to a basket of apples. If some may be rotten, you don't sniff them one by one. You **tip the whole basket out** and put back only the ones you've checked. He doubted in three rounds. First, your senses can fool you, especially about tiny or far-away things. Second, dreams feel real while you're in them. Third, what if a powerful trickster, an *evil demon*, faked everything, even sums in his head?"
+   },
+   {
+    "type": "example",
+    "title": "The man in the dressing gown",
+    "body": "Descartes tests his own scene: the fire, the dressing gown, the paper in his hand. Surely that's certain? Round two says no: he has dreamed exactly this scene while actually lying undressed in bed. Round three goes further, because the demon could fake the fire, the paper and his hands. Then he notices something. The demon can fake the paper, but not the person reading it: **someone has to be there to be fooled**.",
+    "simpler": "Descartes tests his own scene: the fire, the dressing gown, the paper in his hand. Surely that's certain? Round two, the dream test, says no. He has dreamed this exact scene while lying undressed in bed. Round three goes further, since the demon could fake the fire, the paper, even his hands. Then he notices something. The demon can fake the paper, but not the one reading it. **Someone has to be there to be fooled**."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A friend says: 'You can't be sure of anything. We might all be living in a computer simulation.' Which reply uses Descartes' move?",
+    "prompt": "Your friend Priya, three coffees deep, says: 'What if this whole life is a simulation?' Which reply uses Descartes's move?",
     "options": [
      {
       "id": "a",
-      "text": "'I can see and touch my own hands, so I'm obviously real.'"
+      "text": "'Then nothing is certain, not even that you exist.'"
      },
      {
       "id": "b",
-      "text": "'Even if it's a simulation, someone is being fooled by it. That someone is me, so I exist.'"
+      "text": "'Even if it's fake, something is being fooled. So you, the thinker, exist.'"
      },
      {
       "id": "c",
-      "text": "'A simulation would need a programmer, so that proves God exists.'"
+      "text": "'Pinch yourself. It feels real, so it is real.'"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's trusting the senses, not Descartes' survivor: the senses are exactly what the simulation would fake.",
-     "c": "That's Descartes' later and shakier step about God, not the one thing that survived doubt."
+     "a": "That mixes up the doubting with the conclusion: the three rounds end in doubt, but Descartes's whole point is that the doubter survives the doubting.",
+     "c": "That's trusting the senses, which round one already threw out: a simulation could fake the pinch too."
     },
-    "reteach": "Descartes' trick is to accept the worst case and look for what still holds inside it. Suppose everything is fake. Being fooled is still an experience, and experiences need an experiencer. So the doubter is the one thing the doubt proves."
+    "reteach": "A simulation is just round three in modern clothes. Descartes would happily agree it might all be fake. What it can't fake is the one having the fake experience."
+   },
+   {
+    "type": "teach",
+    "title": "What it proves, and what it doesn't",
+    "body": "You'd think doubting everything leaves you with nothing. It leaves you with you. In the *Meditations* he puts it as 'I am, I exist'. In other books he gave it the more famous form, best known in Latin as *cogito, ergo sum*: 'I think, therefore I am'. Here *thinking* means any experience at all, even feeling the fire's heat. It proves only that **a thinking thing exists, right now**. Not your body, not the fire.\n\nThat's the turn at the table. Plato and Aristotle argued about the world. Descartes starts inside the mind and has to build a road back out. His road leaned on a good God who wouldn't trick him, and plenty of later guests called that the weakest plank.",
+    "simpler": "Doubting everything still leaves you. In the *Meditations* he says 'I am, I exist'. In other books he put it the famous way, *cogito, ergo sum*, Latin for 'I think, therefore I am'. Thinking means any experience, even feeling the fire's heat. It proves only that **a thinking thing exists, right now**, not your body, not the fire. Plato and Aristotle argued about the world. Descartes starts inside the mind and must build a road back out. His road relied on a good God who wouldn't trick him, which many later thinkers saw as its weakest plank."
    },
    {
     "type": "mistake",
-    "body": "People stretch 'I think, therefore I am' to prove more than it does. It proves only that a thinking thing exists, right now, while it thinks. It says nothing about your body, your memories, or whether anyone else is real.\n\nSpot it when someone uses the line to settle an argument about the outside world. Descartes needed several extra steps to get there, and those steps are the weak part.",
-    "simpler": "People stretch 'I think, therefore I am' to prove more than it does. **It proves only that a thinking thing exists right now, while it thinks.** It says nothing about your body, your memories, or whether anyone else is real. Watch for someone using the line to settle an argument about the outside world. Descartes needed several extra steps to get there, and those steps are the weak part."
+    "body": "At a party, Sam hears 'I think, therefore I am' and nods: 'Great, so my body and this room are real too.' Sam has stretched the line too far. It proves only that a thinker exists: nothing about hands, rooms or the world outside. Descartes needed a whole separate argument to get those back. You can spot the mistake whenever someone uses the line to prove anything beyond the thinker.",
+    "simpler": "At a party, Sam hears 'I think, therefore I am' and nods: 'Great, so my body and this room are real too.' Sam is stretching the line too far. It proves **only that a thinker exists**. Nothing about hands, rooms or the world outside. Descartes needed a separate argument to get those back. Watch for anyone using the line to prove more than the thinker."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "What problem was Descartes trying to solve with his method of doubt?",
+    "prompt": "Strip it down to the bare minimum. What does 'I think, therefore I am' actually prove?",
     "options": [
      {
       "id": "a",
-      "text": "Whether people should always keep their promises."
+      "text": "That your body and the world around you are real"
      },
      {
       "id": "b",
-      "text": "Finding one thing that cannot be doubted, to use as a foundation for everything else we know."
+      "text": "That a thinking thing exists, at least while it's thinking"
      },
      {
       "id": "c",
-      "text": "Proving that Plato's perfect forms exist behind everyday objects."
+      "text": "That thinking harder makes you more real"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a question about right and wrong, which Mill and Kant take up in chapter 6, not a question about what we can know.",
-     "c": "That's Plato's answer from chapter 3, not Descartes' question: Descartes doubted the everyday objects before worrying about anything behind them."
+     "a": "That's Sam's party mistake: the line proves the thinker exists, and Descartes needed more steps to get to the body and the world.",
+     "c": "That adds a 'more or less real' scale the line never mentions: it says only that a thinker exists, not how much."
     },
-    "reteach": "The senses had just been caught out by science, so Descartes wanted a starting point that no dream and no deceiver could knock over. He found one: the doubter exists. Everything else was to be rebuilt from there."
+    "reteach": "Picture the basket tipped out: body, fire and maths all on the floor. The one apple left is the bare fact that someone is doing the doubting. Nothing else is back in the basket yet."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Descartes tried to doubt everything, even maths, and found he couldn't doubt that he, the doubter, existed. That moved the long argument from 'what is the world?' to 'what can a mind know for sure?'",
+    "simpler": "Descartes tried to doubt everything, even maths. One thing he couldn't doubt was that he, the one doing the doubting, existed. That shifted the long conversation from 'what is the world?' to **'what can a mind know for sure?'**"
    },
    {
     "type": "try",
-    "body": "Tonight in bed, pick 3 things you are sure of. For each, ask: could a vivid dream make me believe this? Notice which one belief would still hold even inside the dream.",
-    "simpler": "Tonight, lying in bed, pick three things you feel sure of. For each one, ask yourself: could a vivid dream make me believe this just as strongly? Dreams feel real while you are in them, so most of your three will wobble. **Notice which one belief would still hold even inside the dream.** That is the one Descartes was left with."
+    "body": "Tonight, pick one thing you're sure of, like 'my phone is on the table'. Put it through Descartes's three rounds: could your eyes be wrong, could you be dreaming, could it all be faked? Notice what's still standing.\n\nTomorrow: Hume asks why yesterday's sunrise proves anything about tomorrow's.",
+    "simpler": "Tonight, pick one thing you feel sure of, like 'my phone is on the table'. Run it through Descartes's three rounds of doubt. Could your eyes be wrong? Could you be dreaming? Could it all be faked? Then **notice what's still standing**. Tomorrow, Hume asks why yesterday's sunrise tells us anything about tomorrow's."
    }
   ],
-  "outcomeLine": "You can now explain 'I think, therefore I am', say why it survives even the worst doubt, and say what problem Descartes was trying to solve with it."
+  "outcomeLine": "You can now explain 'I think, therefore I am' and the problem it was built to solve: finding one thing we can know for certain.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"120\" width=\"240\" height=\"10\" rx=\"3\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"60\" y1=\"130\" x2=\"56\" y2=\"190\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><line x1=\"260\" y1=\"130\" x2=\"264\" y2=\"190\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><polygon points=\"70,118 110,118 120,88 60,88\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" transform=\"rotate(-25 90 103)\"/><line x1=\"0\" y1=\"196\" x2=\"320\" y2=\"196\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"22\" cy=\"188\" r=\"7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/><circle cx=\"98\" cy=\"188\" r=\"7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/><circle cx=\"150\" cy=\"188\" r=\"7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/><circle cx=\"210\" cy=\"188\" r=\"7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/><circle cx=\"298\" cy=\"188\" r=\"7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/><circle cx=\"190\" cy=\"104\" r=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M190 90 q2 -8 9 -10\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-linecap=\"round\"/><text x=\"190\" y=\"64\" text-anchor=\"middle\" font-family=\"Georgia, serif\" font-size=\"20\" fill=\"#1B1A17\">I am</text></svg>"
  },
- "seconds": 60.174286127090454
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "feedback_names_confusion",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Card 7 suggests Descartes would reject 'I stop existing when I stop thinking', but Meditation II says 'if I ceased entirely to think, I should likewise cease altogether to exist' is possible",
+   "Card 1 suggests 'I think, therefore I am' comes from the 1641 fireside book, but the Meditations say 'I am, I exist'. The famous wording is from the Discourse (1637) and the Principles (1644)",
+   "Card 3 puts the round-tower example in the first wave of doubt, but Descartes uses it in Meditation VI, near the end of the book",
+   "Exercise 2, option c feedback ('giving up one step too early') says what went wrong but doesn't name what the reader confused it with",
+   "Exercise 1 feedback uses the 'floor' idea before card 6 introduces it",
+   "The 'Tomorrow' teaser is in card 9, but the chapter ends on the 'try' card, so the last line the reader sees isn't the hook for the next chapter"
+  ],
+  "weakest_card": 7,
+  "why": "The mistake card says the bus joke misreads Descartes, but in Meditation II Descartes himself says that if he stopped thinking entirely, he might stop existing. So the 'correction' teaches a false point, and the 'which proves' swap test doesn't really check anything.",
+  "fix": "Replace the mug joke with a real misreading, like 'so I think, therefore my body and my room are real too', and correct it: the line proves only that a thinker exists, nothing about hands, rooms or the world."
+ }
 }

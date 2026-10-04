@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "By the summer of 1942 the fire has reached both ends of the street. Then, in three places within 8 months, it stops. Picture a hedge at the end of a garden: the flames reach it, flare up, and go no further.\n\n**A fire that stops spreading is not out, but it has lost.** Midway, El Alamein and Stalingrad are three hedges. Each one stopped the Axis from doing one specific thing, and after each one the Axis never got that thing back.",
-    "simpler": "By summer 1942 the war was like a fire that had reached both ends of the street. Then, in three places within 8 months, it stopped. Picture a hedge at the end of a garden: the flames reach it, flare up, and go no further. **A fire that stops spreading is not out, but it has lost.** Midway, El Alamein and Stalingrad are three hedges. Each stopped the Axis doing one specific thing, and the Axis never got it back."
+    "body": "In eight months, from June 1942 to February 1943, the Axis stopped winning, and not one of the battles that did it ended the war. On our street, this is when the neighbours stop the flames from reaching the next house. **A turning point is a firebreak, not the fire going out**: each battle took away one thing the Axis needed to keep spreading.",
+    "simpler": "In eight months, from June 1942 to February 1943, the Axis stopped winning. Yet none of the battles that did it ended the war. Think of neighbours on a street stopping flames before they reach the next house. **A turning point is a firebreak, not the fire going out**: a gap the flames can't cross. Each battle took away one thing the Axis needed to keep spreading."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your neighbour Dev has been spraying the street fire all night. At 3am it is still burning in three houses, but no new house has caught in an hour. Dev wipes his face and says, \"That's the turn.\" What does he mean?",
+    "prompt": "It's Saturday night. A kitchen fire on Elm Row has already taken two houses. Five neighbours with garden hoses are on the pavement. What's the first real sign that they're winning?",
     "options": [
      {
       "id": "a",
-      "text": "The fire is out and everyone can go to bed."
+      "text": "The flames stop jumping to the third house."
      },
      {
       "id": "b",
-      "text": "The fire has stopped spreading, so from now on it can only shrink."
+      "text": "The first house stops smoking."
      },
      {
       "id": "c",
-      "text": "The fire has jumped to a different street."
+      "text": "The fire reaches the end of the street."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's the end of the fire, not the turn: three houses are still burning, and they will take hours more.",
-     "c": "That's the fire spreading, not stopping: a jump to a new street would be the opposite of a turn."
+     "b": "That's putting it out, not the turn: the first house can smoke for hours after the spread has stopped.",
+     "c": "That's the fire winning, not the turn: reaching the end of the street means nothing stopped it."
     },
-    "reteach": "A turning point is the moment the enemy stops gaining ground, not the moment the war ends. Think of a tide: the turn is one quiet minute, then hours of water going out. In 1942 and 1943 the Axis stopped gaining, and everything after that is the water going out."
+    "reteach": "A fire is beaten in two stages. First you stop it spreading. Much later, the last ember goes out. The war worked the same way, and 1942 to 1943 was stage one."
    },
    {
     "type": "teach",
-    "title": "Two hedges: Midway and El Alamein",
-    "body": "In June 1942 Japan sent its main fleet to take *Midway*, a tiny US island in the middle of the Pacific. The Americans had cracked Japan's radio code and were waiting. On 4 June, US planes sank 4 Japanese aircraft carriers in a single day. **Japan never again had the ships to push further east.**\n\nEl Alamein is a railway stop in the Egyptian desert. In October and November 1942 the British and Commonwealth army under Montgomery beat Rommel's German and Italian force there and chased it west. That stopped the Axis reaching the Suez Canal and the oilfields beyond it.",
-    "simpler": "In June 1942 Japan's fleet sailed to take Midway, a tiny US Pacific island. America had cracked Japan's secret code and was waiting. On 4 June, US planes sank 4 Japanese aircraft carriers. **Japan never again had the ships to push further east.** El Alamein is a desert railway stop in Egypt. In October and November 1942 Montgomery's British and Commonwealth army beat Rommel's Germans and Italians and chased them west, away from the Suez Canal and the oilfields beyond."
+    "title": "Two firebreaks: sea and desert",
+    "body": "The first break came at sea. At Midway, a tiny American island in the middle of the Pacific, Japan lost four aircraft carriers in June 1942. Those were the floating airfields its whole advance depended on. After that, Japan was **guarding what it had taken, not taking more**.\n\nThe second came in the desert. At El Alamein in Egypt, in October and November 1942, Bernard Montgomery's British Eighth Army pushed back Erwin Rommel's German and Italian army.\n\nRommel had been heading for the Suez Canal, Britain's shortcut to India and to Middle East oil. He never got there.",
+    "simpler": "The first break came at sea. At Midway, a tiny American island in the Pacific, Japan lost four aircraft carriers in June 1942. Its whole advance relied on these floating airfields. After that, Japan was **guarding what it had taken, not taking more**.\n\nThe second break came in Egypt's desert, at El Alamein, in late 1942. Montgomery's British army pushed back Rommel's German and Italian army, which never reached the Suez Canal, Britain's shortcut to India and Middle East oil."
    },
    {
     "type": "example",
-    "title": "The third hedge: Stalingrad",
-    "body": "Stalingrad sits on the river Volga. Germany's Sixth Army fought into the city street by street from August 1942 until it held most of the ruins. In November the Soviets attacked the thin lines far outside the city and closed a ring behind it. Hitler forbade a breakout.\n\nOn 30 January 1943 Hitler promoted the trapped commander, Paulus, to field marshal, on the grounds that no German field marshal had ever surrendered. Paulus surrendered the next day. The last pocket gave up on 2 February: **a whole German army gone**, about 90,000 men marched off into the snow.",
-    "simpler": "Germany's Sixth Army fought into Stalingrad, on the Volga, from August 1942 until it held most of the ruins. In November the Soviets broke through far outside and ringed the city. Hitler forbade a breakout. On 30 January 1943 he made the trapped commander, Paulus, a field marshal, since no German field marshal had ever surrendered. Paulus surrendered the next day. The last pocket gave up on 2 February: **a whole German army gone**, 90,000 men marched into the snow."
+    "title": "The island that ran out of water",
+    "body": "In May 1942, American codebreakers in Hawaii could read parts of Japan's navy messages, and those messages kept naming a target called *AF*. The codebreakers suspected AF was Midway, so Midway was told to send a fake message saying its water plant had broken. Soon after, a Japanese message reported that **AF was short of water**. So when Japan's carriers arrived in June, three American carriers were already waiting for them. One pretend broken water plant, four sunk carriers.",
+    "simpler": "In May 1942, American codebreakers in Hawaii, people who crack secret codes, could read parts of Japan's navy messages. Those messages kept naming a target called *AF*. Suspecting it was Midway, they had Midway send a fake message saying its water plant had broken. Soon a Japanese message reported that **AF was short of water**. So when Japan's carriers arrived in June, three American carriers were waiting. One pretend broken water plant, four sunk carriers."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A friend says, \"Stalingrad mattered because Germany lost a city with a famous name.\" Which answer gets closer to why it was a turning point?",
+    "prompt": "Your friend Priya is making a pub quiz and needs one line on why El Alamein mattered. Which line belongs on the card?",
     "options": [
      {
       "id": "a",
-      "text": "It was the first city Germany had failed to capture."
+      "text": "It stopped Rommel from reaching the Suez Canal."
      },
      {
       "id": "b",
-      "text": "A whole German army was destroyed, and after it the Germans in the east only ever moved west."
+      "text": "It sank four Japanese aircraft carriers."
      },
      {
       "id": "c",
-      "text": "It stopped Japan's fleet pushing further across the Pacific."
+      "text": "It ended all the fighting in North Africa for good."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's a fact about a city, not a turn: what mattered was the army inside the ring, not the ruins.",
-     "c": "That's Midway, not Stalingrad: Midway was the hedge in the Pacific, Stalingrad was the hedge on the Volga."
+     "b": "That's Midway, not El Alamein: the carriers went down in the Pacific, not the Egyptian desert.",
+     "c": "That's putting the fire out, not the firebreak: El Alamein stopped an advance. It didn't finish every fight."
     },
-    "reteach": "Ask of each battle: what could the Axis do before it that it could not do after? Before Stalingrad, Germany could still attack east. After it, with the Sixth Army gone, it could only hold or fall back. That change of direction is the turn."
+    "reteach": "For each battle, ask what it stopped. Midway stopped Japan from taking more of the Pacific. El Alamein stopped Rommel's march east to the canal."
    },
    {
     "type": "teach",
-    "title": "The quiet battle under all three",
-    "body": "Under all three sat a slower battle. Britain and Russia needed food, fuel, tanks and planes from America, and every ton crossed the Atlantic by ship. German submarines, called *U-boats*, hunted those ships in packs. In early 1943 they were sinking ships faster than shipyards could build them.\n\nBy May 1943 the balance flipped. Ships sailed in guarded groups called *convoys*, code-breakers read U-boat orders, and long-range planes closed the gap mid-ocean. Germany pulled its U-boats back. **The hoses now had water.** After the middle of 1943 the Axis never again gained ground it could keep.",
-    "simpler": "Under all three ran a slower battle. Britain and Russia needed American food, fuel, tanks and planes, shipped across the Atlantic. German submarines, called U-boats, hunted them in packs. Early in 1943 they sank ships faster than they were built. By May 1943 that flipped. Guarded groups called convoys, code-breakers reading U-boat orders, and long-range planes closed the mid-ocean gap. Germany pulled the U-boats back. **The hoses now had water.** After mid-1943 the Axis never again gained ground it could keep."
+    "title": "The biggest break, and the hidden one",
+    "body": "In summer 1942, Germany drove south inside the Soviet Union towards the oil fields of the Caucasus, and turned aside to take Stalingrad, a city on the Volga river. In November, Soviet armies closed around the city like a pair of tongs.\n\nHitler made the trapped commander, Friedrich Paulus, a field marshal. It was a hint, because no German field marshal had ever surrendered. Paulus surrendered the next day, and by 2 February 1943 it was over. About 91,000 Germans were taken prisoner. Only around 5,000 ever came home.\n\nUnder it all ran the water main: **the supply ships crossing the Atlantic**. In May 1943, German submarines lost so many boats that they were pulled out of the North Atlantic.",
+    "simpler": "In 1942, Germany drove into the Soviet Union for oil and turned to take Stalingrad, on the Volga. In November, Soviet armies closed around it like tongs. Hitler made the trapped commander, Paulus, a field marshal, since none had ever surrendered. Paulus surrendered next day. It ended on 2 February 1943. About 91,000 Germans were captured; around 5,000 came home.\n\nUnderneath ran **the Atlantic supply ships**. By May 1943, German submarines had lost so many boats they left the North Atlantic."
    },
    {
     "type": "mistake",
-    "body": "Maya reads that Stalingrad ended on 2 February 1943 and asks why the war in Europe lasted 27 more months. She has mixed up the turn with the end. After these three battles the Axis stopped growing, but it still held almost all of Europe and half the Pacific. Spot it: if a telling of the war jumps from Stalingrad straight to Berlin, it has skipped the two hardest years.",
-    "simpler": "Maya reads that Stalingrad ended on 2 February 1943 and asks why the war in Europe went on for 27 more months. **She has mixed up the turning point with the end.** After these three battles the Axis stopped growing, but it still held almost all of Europe and half the Pacific. Spot it: if a telling of the war jumps from Stalingrad straight to Berlin, it has skipped the two hardest years."
+    "body": "Tom reads about Stalingrad, closes the book, and asks why Germany didn't give up in February 1943. You'd think a turning point means the end is close. Here it meant two more years of fighting. To catch this mistake, ask of any battle **what did this stop?**, not what did it finish?",
+    "simpler": "Tom reads about Stalingrad, shuts the book, and asks why Germany didn't give up in February 1943. It's easy to think a turning point means the end is near. Here it meant two more years of fighting. To avoid this mistake, ask of any battle **what did this stop?**, not what did it finish?"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Three hedges, three stops. Which line matches each battle to the one thing it stopped the Axis from doing?",
+    "prompt": "It's February 1943 and Stalingrad has just fallen. A man reading the newspaper in a London caf\u00e9 asks what has actually changed. Which answer is best?",
     "options": [
      {
       "id": "a",
-      "text": "Midway stopped the Axis reaching Suez; El Alamein stopped Japan's fleet pushing east; Stalingrad sank 4 carriers."
+      "text": "The war is basically over. Germany will surrender by the summer."
      },
      {
       "id": "b",
-      "text": "Midway stopped Japan's fleet pushing east; El Alamein stopped the Axis reaching Suez; Stalingrad destroyed a whole German army."
+      "text": "Germany has lost its push for the Caucasus oil, and a whole army with it."
      },
      {
       "id": "c",
-      "text": "Midway destroyed a German army; El Alamein sank 4 carriers; Stalingrad stopped the Axis reaching Suez."
+      "text": "Japan has lost its aircraft carriers, so Germany is beaten."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the three battles with their stops shuffled: Suez is Egypt, so it belongs to El Alamein, and the carriers belong to Midway.",
-     "c": "That's the places swapped round: a German army surrendered on the Volga, not in the Pacific, and carriers are ships, so they go with Midway."
+     "a": "That's the fire going out, not the firebreak: Germany fought on until May 1945.",
+     "c": "That's Midway, not Stalingrad: Midway stopped Japan in the Pacific, not Germany in the Soviet Union."
     },
-    "reteach": "Put each battle on its map. Midway is an island in the Pacific, so it is about Japan's fleet. El Alamein is in Egypt, so it is about the road to Suez. Stalingrad is on the Volga, so it is about Germany's army in the east."
+    "reteach": "Each of the three battles took one specific thing off the table. Stalingrad took the Caucasus oil out of Germany's reach and cost it about 91,000 prisoners. Stopped, not finished."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "In 8 months from June 1942, Midway, El Alamein and Stalingrad each stopped the Axis from doing one thing: pushing east across the Pacific, reaching Suez, and holding the Volga. Add the Atlantic convoys getting through by May 1943, and **the fire never spread again**, though it took 2 more years to put out.",
-    "simpler": "In the 8 months from June 1942, three battles each stopped the Axis from doing one thing. Midway stopped Japan pushing east across the Pacific. El Alamein stopped the Axis reaching Suez. Stalingrad stopped Germany holding the Volga. Add the Atlantic convoys getting through by May 1943, and **the fire never spread again**, though it took 2 more years to put out."
+    "body": "Between June 1942 and February 1943, three battles **stopped the Axis spreading**: Midway ended Japan's run in the Pacific, El Alamein kept Rommel from the Suez Canal, and Stalingrad cost Germany its push for oil and a whole army. Underneath, the supply ships kept crossing the Atlantic, and by May 1943 the German submarines had lost that fight too.\n\nTomorrow: how the Allies landed in Normandy while Germany watched somewhere else.",
+    "simpler": "Between June 1942 and February 1943, three battles **stopped the Axis spreading**. Midway ended Japan's run in the Pacific. El Alamein kept Rommel from the Suez Canal. Stalingrad cost Germany its push for oil and a whole army. Underneath, supply ships kept crossing the Atlantic, and by May 1943 the German submarines had lost that fight too.\n\nTomorrow: how the Allies landed in Normandy while Germany watched somewhere else."
    },
    {
     "type": "try",
-    "body": "Tonight, say the three names out loud in date order to someone, with one \"stopped\" sentence each: Midway, June 1942; El Alamein, November 1942; Stalingrad, February 1943. Under 30 seconds.",
-    "simpler": "Tonight, say the three names out loud to someone, in date order, with one short 'stopped' sentence for each, like 'Midway stopped Japan pushing east.' Midway, June 1942; El Alamein, November 1942; Stalingrad, February 1943. **Aim for under 30 seconds.** If you stumble, try again tomorrow."
+    "body": "Open the maps app on your phone. Find El Alamein, the Suez Canal, and Volgograd, which is Stalingrad's name today. Notice how close Rommel got to the canal, and how far Stalingrad is from Berlin.",
+    "simpler": "Open the maps app on your phone. Search for El Alamein, the Suez Canal, and Volgograd, which is what Stalingrad is called today. First, look at **how close Rommel got to the canal**. Then look at how far Stalingrad is from Berlin, Germany's capital."
    }
   ],
-  "outcomeLine": "You can now name the three battles of 1942 and 1943 in order and say exactly what each one stopped the Axis from doing."
+  "outcomeLine": "You can now name the three battles of 1942 and 1943 and say exactly what each one stopped the Axis from doing.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"10\" y1=\"162\" x2=\"310\" y2=\"162\"/><polyline points=\"30,162 30,112 65,84 100,112 100,162\"/><path d=\"M38 104 Q44 62 58 80 Q62 38 74 74 Q84 54 92 104 Z\" fill=\"#F2A93B\" stroke-width=\"2\"/><polyline points=\"170,162 170,112 205,84 240,112 240,162\"/><polyline points=\"250,162 250,122 278,98 306,122 306,162\"/><rect x=\"196\" y=\"132\" width=\"18\" height=\"30\" fill=\"#1F7A4D\" stroke-width=\"2\"/><rect x=\"270\" y=\"138\" width=\"16\" height=\"24\" fill=\"#1F7A4D\" stroke-width=\"2\"/><line x1=\"132\" y1=\"70\" x2=\"132\" y2=\"162\" stroke=\"#1F7A4D\" stroke-width=\"7\"/><path d=\"M156 150 Q128 92 102 98\" stroke=\"#1F7A4D\" stroke-dasharray=\"4 6\"/><path d=\"M164 138 Q134 70 94 80\" stroke=\"#1F7A4D\" stroke-dasharray=\"4 6\"/><text x=\"132\" y=\"188\" font-family=\"Georgia, serif\" font-size=\"16\" fill=\"#1B1A17\" stroke=\"none\" text-anchor=\"middle\">the turn</text></svg>"
  },
- "seconds": 75.31539416313171
+ "seconds": 116.75376105308533
 }

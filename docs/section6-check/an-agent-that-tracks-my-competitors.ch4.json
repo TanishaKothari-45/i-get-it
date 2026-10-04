@@ -5,120 +5,139 @@
   "cards": [
    {
     "type": "picture",
-    "body": "The clipping service does not read the whole paper twice. They lay today's page over yesterday's, hold both up to the window, and cut out only the lines that don't line up.\n\n**The scissors cut where the two copies differ, nowhere else.** Every line that matches goes straight in the bin.",
-    "simpler": "The clipping service does not read the whole paper twice. They put today's page on top of yesterday's and hold both up to the window. Where the two pages match, the light shows one clean line. Where they differ, the lines don't line up. **The scissors cut where the two copies differ, nowhere else.** Every matching line goes straight in the bin. Only the mismatched lines get kept."
+    "body": "Acme's pricing page is 212 lines long, and overnight one price changed. Can you find it before your coffee goes cold?\n\nYour clipper doesn't read both papers out to you. They lay yesterday's page next to today's and **cut out only what's different**. That cut is called a *diff*, and it's the scissors of your clipping service.",
+    "simpler": "Acme's pricing page has 212 lines. Overnight, one price on it changed. Could you find it before your coffee goes cold?\n\nYour clipper doesn't read both papers aloud to you. They put yesterday's page next to today's and **cut out only what's different**. That cut-out piece is called a *diff*. Think of it as the scissors of your clipping service."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Northwind's pricing page is 400 lines long. Yesterday one line said 'Pro plan: $29 a month'. Today that line says 'Pro plan: $35 a month'. Nothing else moved. What should the clipping hold?",
+    "prompt": "Your clipper has Tuesday's and Wednesday's copies of Acme's pricing page. Which note would you actually want on your desk?",
     "options": [
      {
       "id": "a",
-      "text": "All 400 lines, so you have the full context."
+      "text": "All 212 lines of Wednesday's page, stapled together."
      },
      {
       "id": "b",
-      "text": "2 lines: the $29 line marked as gone, the $35 line marked as new."
+      "text": "Three lines: 'Gone: Team plan $39 a month. New: Team plan $49 a month. New: Now with even more value!'"
      },
      {
       "id": "c",
-      "text": "Just the word 'price', since that is the topic that changed."
+      "text": "'Looks about the same as yesterday.'"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the saved copy, not the clipping: the scissors only cut where the two copies differ, and 398 lines matched.",
-     "c": "That's a summary, not a comparison: the clipping keeps the actual lines, word for word, so you can quote them later."
+     "a": "That's the whole newspaper, not the clipping. You'd still have to hunt for the change yourself.",
+     "c": "That's a gut feeling, not a comparison. A $10 price rise hides easily inside 'about the same'."
     },
-    "reteach": "Picture both pages held up to the light. 398 lines sit perfectly on top of each other and vanish. Only the 2 price lines stick out, and those are what you keep."
+    "reteach": "The clipper's job is to compare, not to copy. Put two days side by side, keep only the lines that differ and throw away the rest. The shortest note that shows what's new and what's gone wins."
    },
    {
     "type": "teach",
-    "title": "Lines in, lines out",
-    "body": "A *diff* is a line-by-line comparison of 2 text files. It walks down both at once and sorts every line into 3 piles: in both, only in yesterday's, only in today's.\n\nThe 'in both' pile is thrown away. Lines only in yesterday's copy are printed with a minus sign: gone. Lines only in today's copy get a plus sign: new. **A changed line shows up as one minus and one plus**, because to the diff it is an old line that left and a new line that arrived.\n\nYou don't write this yourself. Your Mac has a command called diff built in, and most languages ship one too.",
-    "simpler": "A *diff* is a tool that compares 2 text files line by line, like checking two shopping lists side by side. It sorts every line into 3 piles: in both, only in yesterday's, only in today's. The 'in both' pile is thrown away. Lines only in yesterday's get a minus sign: gone. Lines only in today's get a plus sign: new. **A changed line shows up as one minus and one plus**, an old line leaving and a new one arriving. You don't write this yourself. Your Mac has a command called diff built in."
+    "title": "Two copies, one comparison",
+    "body": "A *diff* (short for difference) is a line-by-line comparison of two text files, here yesterday's copy and today's. **It keeps only the lines that are new or gone.** Lines that match are skipped, except for a few nearby lines shown so you can see where the change sits.\n\nPicture two sheets of tracing paper held up to a window. Where the ink lines up, you see one line. Where it doesn't, the difference jumps out.\n\nYou'd think the agent has to understand the page to spot a change. It doesn't. The diff knows nothing about prices. It only checks whether each line matches, letter for letter.",
+    "simpler": "A *diff*, short for difference, compares yesterday's copy of a page with today's, line by line. **It keeps only the lines that are new or gone.** Matching lines are skipped, except a few nearby ones that show where the change sits.\n\nPicture two sheets of tracing paper held up to a window. Where the ink doesn't line up, the difference jumps out.\n\nThe diff doesn't understand prices. It only checks whether each line matches, letter for letter."
    },
    {
     "type": "example",
-    "title": "The page that changed every day",
-    "body": "Priya set up diffs on a rival's changelog page and got a hit on day 1. Exciting. The output was 2 lines: minus 'Last updated: 3 March', plus 'Last updated: 4 March'.\n\nDay 2, same thing with the next date. Day 3, same. The page was 'changing' every morning and saying nothing new. The diff was doing its job perfectly. It just had no idea that a date stamp isn't news.",
-    "simpler": "Priya set up a diff on a rival's changelog page. On day 1 she got a hit. The output was 2 lines: minus 'Last updated: 3 March', plus 'Last updated: 4 March'. Day 2, same thing with the next date. Day 3, same again. The page was 'changing' every morning but saying nothing new. The diff was doing its job perfectly. It just had no idea that a date stamp isn't news."
+    "title": "Acme raises a price",
+    "body": "Say you saved yesterday's and today's copies as acme-pricing-2026-10-03.txt and acme-pricing-2026-10-04.txt. On a Mac, Terminal (the app where you type commands) has a built-in tool for comparing them: type `diff -u` and then the two file names. The first lines start with `---` and `+++` and just name the two files, and a line starting with `@@` says where on the page the change sits, so skip those. Below them you'll find `-Team plan: $39 per user per month`, then `+Team plan: $49 per user per month`, then `+Now with even more value!`, with a few unchanged lines around them. A single minus means the line was there yesterday and is gone today, and a single plus means it's new. **Three changed lines out of 212**, and the cheerful one showed up on the same day as the $10 rise.",
+    "simpler": "Say you saved yesterday's and today's copies as acme-pricing-2026-10-03.txt and acme-pricing-2026-10-04.txt. On a Mac, Terminal, the app where you type commands, can compare them. Type `diff -u` and both file names. Skip the top lines starting with `---`, `+++` or `@@`. They only name the files and say where the change is. Then you'll see `-Team plan: $39 per user per month`, then `+Team plan: $49 per user per month`, then `+Now with even more value!` A single minus means gone since yesterday. A single plus means new. **Three changed lines out of 212**, and the cheerful one arrived with the $10 rise."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You run a diff on 2 copies of a rival's pricing page. The output is exactly this: minus 'Starter: up to 5 users', plus 'Starter: up to 10 users'. What happened?",
+    "prompt": "Priya's agent has Monday's and Tuesday's copies of a rival's changelog (their list of product updates). It's about to hand something to the model to explain. What should it hand over?",
     "options": [
      {
       "id": "a",
-      "text": "The Starter plan was removed from the page."
+      "text": "Tuesday's full copy, so nothing gets missed."
      },
      {
       "id": "b",
-      "text": "The Starter line changed: it now says 10 users instead of 5."
+      "text": "Only the changed lines from the diff, the ones starting with a single + or -."
      },
      {
       "id": "c",
-      "text": "A second Starter plan was added alongside the first."
+      "text": "Monday's full copy, since it's already been checked."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a removal only, which would be a minus line with no matching plus: here a plus line arrived in its place.",
-     "c": "That's an addition only, which would be a plus with no minus: the minus line shows the old version left."
+     "a": "That's the newspaper, not the clipping. The change is in there, but it's buried under everything that stayed the same.",
+     "c": "That's yesterday's paper. Nothing new can be in it, because the news only arrived on Tuesday."
     },
-    "reteach": "A diff can't say 'edited'. It only knows 'left' and 'arrived'. So one edited line always appears as a pair: the old text with a minus, the new text with a plus. Read the pair together."
+    "reteach": "Only what moved should travel on. Compare Monday with Tuesday, keep the + lines (new) and the - lines (gone), and drop everything else, including the file-name lines at the top. The model gets a clipping, not a pile of newspapers."
    },
    {
     "type": "teach",
-    "title": "The scissors are not clever",
-    "body": "A diff compares characters, not meaning. **It flags anything that differs, including noise**: today's date, 'posted 3 minutes ago', a rotating banner, logos in a random order. Priya's fix was to drop any line containing 'Last updated' before comparing. You will build a short ignore list like this for each page, and that is normal.\n\nAn empty diff is not a failure. It means both copies exist and match, so there is nothing to report today. A missing copy is a different problem, and you add a check for it in chapter 7.\n\nAlways compare today's copy with yesterday's, not with the first one you ever saved.",
-    "simpler": "A diff compares letters, not meaning. **It flags anything that differs, including noise**: today's date, 'posted 3 minutes ago', a rotating banner, logos in a random order. Priya's fix was to drop any line with 'Last updated' before comparing. You will build a short ignore list like this for each page. That is normal. An empty diff is not a failure. It means both copies exist and match, so nothing to report today. A missing copy is a different problem, covered in chapter 7. Always compare today's copy with yesterday's, not the first one you saved."
+    "title": "Lines that change for no reason",
+    "body": "A diff is honest but very literal. If the page says *Updated 4 October* at the top, that line changes every day, so the diff will flag it every day.\n\nYour clipper knows the date on a newspaper's front page isn't news. Your agent doesn't know that until you tell it. Before comparing, **remove the lines you know change by themselves**: dates, view counters, a customer quote that rotates.\n\nThe opposite trap is a redesign. When a rival rebuilds their site, nearly every line changes at once. That isn't 200 pieces of news. It's one: the page got rebuilt.",
+    "simpler": "A diff is honest but literal. If the page says *Updated 4 October* at the top, that line changes daily, so the diff flags it daily.\n\nYour clipper knows the date on a front page isn't news. Your agent needs telling. Before comparing, **remove the lines you know change by themselves**: dates, view counters, a rotating customer quote.\n\nBeware the opposite trap. When a rival rebuilds their site, nearly every line changes. That's one piece of news, not 200."
    },
    {
     "type": "mistake",
-    "body": "Tom saved his first copy on a Monday and, every day after, compared today's page with that Monday file. By Friday his diff was 60 lines long and the same price change from Tuesday was in it for the fourth time.\n\nSpot it: **if the same change keeps showing up day after day**, you are comparing against the wrong day. Each morning, yesterday's file is the one to hold up to the light.",
-    "simpler": "Tom saved his first copy on a Monday. Every day after, he compared today's page with that same Monday file. By Friday his diff was 60 lines long. The same price change from Tuesday was in it for the fourth time. Spot it: **if the same change keeps showing up day after day**, you are comparing against the wrong day. Each morning, yesterday's file is the one to hold up to the light, not the first one."
+    "body": "Sam's agent compares each new copy with the very first one saved on day 1, not with yesterday's. Acme raises a price on Tuesday, and the same 'price went up' note lands on Sam's desk on Wednesday, Thursday and Friday. **If one change shows up two days in a row, check which file is being used as the 'old' one.** It should always be yesterday's copy.",
+    "simpler": "Sam's agent compares each new copy with the very first one, saved on day 1, instead of yesterday's. Acme raises a price on Tuesday. Then the same 'price went up' note lands on Sam's desk on Wednesday, Thursday and Friday. It's like checking today's paper against last month's and calling old news new. **If one change shows up two days running, check which file is being used as the 'old' one.** It should always be yesterday's copy."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Wednesday morning the agent fetches a rival's blog page. Tuesday's and Wednesday's copies are both saved, and the diff comes back with 0 lines. What does that tell you?",
+    "prompt": "This morning's diff of a rival's pricing page has just one changed line: `-Free trial: 14 days`. What happened?",
     "options": [
      {
       "id": "a",
-      "text": "The fetch failed, so there was nothing to compare."
+      "text": "A 14-day free trial was added."
      },
      {
       "id": "b",
-      "text": "The page is identical to yesterday's. Nothing changed, nothing to report."
+      "text": "The free trial line was there yesterday and is gone today."
      },
      {
       "id": "c",
-      "text": "The diff needs the whole page sent to the model to decide."
+      "text": "Nothing. That line is the same as yesterday."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a missing copy, not an empty diff: here both files exist, so the comparison ran and found a perfect match.",
-     "c": "That's the model's job in chapter 5, not the diff's: the diff has already decided, and its answer is 'no difference'."
+     "a": "That would be a plus line, not a minus. + means new, - means gone.",
+     "c": "That would be a matching line, not a changed one. Lines that didn't change don't get a + or a -."
     },
-    "reteach": "Two copies held up to the light, and every line sits on top of its twin. Nothing sticks out, so the scissors never cut. Zero lines is a real answer: no news today."
+    "reteach": "Read the first character like a tag on a clipping. A minus is a line from yesterday that has disappeared. A plus is a line from today that wasn't there before. So '-Free trial' means the trial line has gone, which could be the biggest news of the week."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A diff lays today's copy over yesterday's and **keeps only the lines that are new or gone**, with an edited line showing as one gone plus one new. It flags noise like dates too, so you trim those out, and an empty diff just means a quiet day.",
-    "simpler": "A diff lays today's copy over yesterday's and **keeps only the lines that are new or gone**. An edited line shows up as one line gone plus one line new. The diff also flags noise like dates, so you trim those out before comparing. An empty diff is not a problem. It just means a quiet day with nothing changed on the page."
+    "body": "Every morning the agent lays yesterday's saved copy next to today's and keeps only the lines marked + (new) or - (gone). Remove the lines that change by themselves, like dates, and **the scissors cut out only real news**.",
+    "simpler": "Every morning, the agent puts yesterday's saved copy next to today's. It keeps only the lines marked + (new) or - (gone). Take out the lines that change on their own, like dates, and **the scissors cut out only real news**."
    },
    {
     "type": "try",
-    "body": "Open Terminal. Copy your chapter 3 file, change one line in the copy, then run diff on the two files. Read the minus and plus lines out loud. Under a minute.",
-    "simpler": "Open Terminal, the app on your Mac that takes typed commands. Copy your chapter 3 file. Change one line in the copy. Then run diff on the two files, the old one and the new one. Read the minus line and the plus line out loud. The minus is the old line that left. The plus is the new line that arrived. This takes under a minute."
+    "body": "Open Terminal on your Mac. Make two short text files, a.txt and b.txt, that match except for one line. Type `diff -u a.txt b.txt` and **find your change** among the lines starting with a single + or -. Skip the --- and +++ lines at the top; they just name the files.\n\nTomorrow: why a price rise and a fixed typo look exactly the same in a diff.",
+    "simpler": "Open Terminal on your Mac. Make two short text files, a.txt and b.txt, that are the same except for one line. Type `diff -u a.txt b.txt` and press Return. Skip the top lines starting with --- and +++, which just name the files. Then look through the lines starting with a single + or - and **find your change**. The minus line is the old version, and the plus line is the new one.\n\nTomorrow: why a price rise and a fixed typo look exactly the same in a diff."
    }
   ],
-  "outcomeLine": "You can now run a comparison between 2 saved copies of a page and point to exactly which lines were added or removed."
+  "outcomeLine": "You can now compare two saved copies of a page and list exactly which lines were added or removed.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"30\" y=\"25\" width=\"100\" height=\"135\" rx=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"190\" y=\"25\" width=\"100\" height=\"135\" rx=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"45\" y1=\"50\" x2=\"115\" y2=\"50\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"45\" y1=\"70\" x2=\"110\" y2=\"70\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"45\" y1=\"90\" x2=\"115\" y2=\"90\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"45\" y1=\"110\" x2=\"105\" y2=\"110\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"45\" y1=\"130\" x2=\"115\" y2=\"130\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"205\" y1=\"50\" x2=\"275\" y2=\"50\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"205\" y1=\"70\" x2=\"270\" y2=\"70\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"202\" y=\"84\" width=\"76\" height=\"12\" fill=\"#F2A93B\"/><rect x=\"196\" y=\"78\" width=\"88\" height=\"24\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><line x1=\"205\" y1=\"110\" x2=\"265\" y2=\"110\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"205\" y1=\"130\" x2=\"275\" y2=\"130\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"160\" r=\"8\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\"/><circle cx=\"172\" cy=\"160\" r=\"8\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\"/><line x1=\"154\" y1=\"153\" x2=\"190\" y2=\"95\" stroke=\"#1F7A4D\" stroke-width=\"4\"/><line x1=\"168\" y1=\"153\" x2=\"140\" y2=\"105\" stroke=\"#1F7A4D\" stroke-width=\"4\"/><text x=\"80\" y=\"185\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">yesterday</text><text x=\"240\" y=\"185\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">today</text></svg>"
  },
- "seconds": 76.84867882728577
+ "repairedFrom": {
+  "score": 10,
+  "failed_checks": [
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Card 1 says one line changed, but card 4 shows three changed lines (- $39, + $49, + 'Now with even more value!').",
+   "Card 2's 'right' answer shows two lines for the same Acme Team plan change, but card 4 shows three for it.",
+   "Real `diff -u` output puts no space after the + or - (e.g. `-Team plan: $39...`). The chapter's `- Team plan` would mean the original line started with a space.",
+   "Real `diff -u` output also prints header lines starting with --- and +++ and position lines starting with @@. These would confuse a reader told that every - or + line is a change, and they get no warning.",
+   "Card 7 says the diff has 'just one line', but real `diff -u` output always adds headers and up to 3 unchanged lines around the change, so it can't be one line.",
+   "Card 4's 'In chapter 3 you saved acme-pricing-2026-10-03.txt...' points to a chapter not shown here, so I couldn't check it.",
+   "Open loop: the 'Tomorrow:' teaser sits in card 8, not at the end. The chapter actually ends on the try card and the outcome line."
+  ],
+  "weakest_card": 1,
+  "why": "The hook says 'overnight one line changed', but card 4 shows three changed lines out of 212 (one gone, two new). The chapter's opening promise and its own worked example disagree.",
+  "fix": "Change 'overnight one line changed' to 'overnight one price changed', so the hook stays sharp and matches the three-line diff in card 4."
+ }
 }

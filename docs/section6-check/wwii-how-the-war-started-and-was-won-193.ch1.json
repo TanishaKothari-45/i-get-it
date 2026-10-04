@@ -5,8 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "In December 1918 the German army marched home through Berlin with its flags flying. It had just lost a war, yet no enemy soldier stood on German soil. On our shared street, the 1919 peace left the German house standing but stripped, with **dry timber stacked against every wall**: a deal that hurt enough to be hated and did too little to disable.",
-    "simpler": "In December 1918 the German army marched home through Berlin with its flags flying. Germany had just lost the war, but no enemy soldier stood on German ground. Think of Germany as a house on a shared street. The 1919 peace deal left the house standing but emptied it out, and left **dry timber stacked against every wall**. The deal hurt enough to be hated, but did too little to stop Germany fighting again."
+    "body": "In December 1918 the German army marched home through Berlin with its flags flying. It had just lost a war, yet the fighting had stayed almost entirely outside Germany's borders. On our shared street, the 1919 peace left the German house standing but stripped, with **dry timber stacked against every wall**: a deal that hurt enough to be hated and did too little to disable.",
+    "simpler": "In December 1918 the German army marched home through Berlin with its flags flying. Germany had just lost the war, but the fighting had stayed almost entirely outside Germany. Think of Germany as a house on a shared street. The 1919 peace deal left the house standing but emptied it out, and left **dry timber stacked against every wall**. The deal hurt enough to be hated, but did too little to stop Germany fighting again."
    },
    {
     "type": "exercise",
@@ -28,7 +28,7 @@
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's 1945, not 1919: after the first war no Allied army occupied Germany and the country stayed whole.",
+     "a": "That's 1945. In 1919 Allied troops held only the Rhineland strip in the west; the rest of Germany stayed whole and self-governing.",
      "c": "That's the deal Germans wished they had got, not the one they signed: land, army and money all went."
     },
     "reteach": "Picture the house: still standing, still lived in, but the furniture gone and the owner told it was all his fault. That is 1919. Punished, not dismantled."
@@ -36,8 +36,8 @@
    {
     "type": "teach",
     "title": "Hurt, not disabled",
-    "body": "The *Treaty of Versailles*, signed in June 1919, was the peace the winners wrote and Germany had to sign. Germany lost about 13% of its land, its army was capped at 100,000 men, and it owed *reparations*, payments for the damage of the war. One clause made it accept the blame for starting it.\n\nNow the twist. You'd think a beaten country would be broken up or occupied. Germany was neither. Its factories, its 60 million people and its officers stayed in place. So the treaty handed every German **a grievance, and left Germany the muscle to act on it** one day.",
-    "simpler": "The Treaty of Versailles was the peace deal of June 1919. Germany had to sign what the winners wrote. Germany lost about 13% of its land, its army was capped at 100,000 men, and it owed reparations, payments for war damage. It had to accept blame for the war. Yet Germany was not broken up or occupied. Its factories, 60 million people and officers stayed. So Germans got **a grudge, and Germany kept the muscle to act on it**."
+    "body": "The *Treaty of Versailles*, signed in June 1919, was the peace the winners wrote and Germany had to sign. Germany lost about 13% of its land, its army was capped at 100,000 men, and it owed *reparations*, payments for the damage of the war. One clause made it accept the blame for starting it.\n\nNow the twist. You'd think a beaten country would be broken up or occupied. Germany was neither broken up nor fully occupied. Its factories, its 60 million people and its officers stayed in place. So the treaty handed every German **a grievance, and left Germany the muscle to act on it** one day.",
+    "simpler": "The Treaty of Versailles was the peace deal of June 1919. Germany had to sign what the winners wrote. Germany lost about 13% of its land, its army was capped at 100,000 men, and it owed reparations, payments for war damage. It had to accept blame for the war. Yet Germany was not broken up or fully occupied. Its factories, 60 million people and officers stayed. So Germans got **a grudge, and Germany kept the muscle to act on it**."
    },
    {
     "type": "example",
@@ -73,8 +73,8 @@
    {
     "type": "teach",
     "title": "The hot summer",
-    "body": "For ten years the timber just sat there. Then in October 1929 the American stock market crashed, American loans to Germany dried up, and by 1932 about 6 million Germans had no job. **Hunger turned an old grievance into an urgent one.**\n\nHitler's Nazi party won 2.6% of the vote in 1928. In July 1932 it won 37%. He promised to tear up Versailles, rebuild the army and take *Lebensraum*, living space, from Poland and Russia. He had said so in print since 1925. On 30 January 1933 he became chancellor.\n\nGermany was not alone in wanting more. Italy attacked Ethiopia in 1935. Japan was at full war in China from 1937.",
-    "simpler": "Ten years passed. In October 1929 America's stock market crashed. American loans stopped, and by 1932 about 6 million Germans had no job. **Hunger turned an old grudge into an urgent one.** Hitler's Nazi party won 2.6% of votes in 1928 and 37% in July 1932. He promised to tear up the treaty, rebuild the army and take Lebensraum, living space, from Poland and Russia. He became chancellor, Germany's leader, in January 1933. Italy and Japan wanted more land too."
+    "body": "For ten years the timber just sat there. Then in October 1929 the American stock market crashed, American loans to Germany dried up, and by 1932 about 6 million Germans had no job. **Hunger turned an old grievance into an urgent one.**\n\nHitler's Nazi party won 2.6% of the vote in 1928. In July 1932 it won 37%. He promised to tear up Versailles, rebuild the army and take *Lebensraum*, living space, from Poland and Russia. He had already set this out in his book *Mein Kampf* in the mid-1920s. On 30 January 1933 he became chancellor.\n\nOther houses on the street were already smoking. Italy attacked Ethiopia in 1935. Japan was at full war in China from 1937.",
+    "simpler": "Ten years passed. In October 1929 America's stock market crashed. American loans stopped, and by 1932 about 6 million Germans had no job. **Hunger turned an old grudge into an urgent one.** Hitler's Nazi party won 2.6% of votes in 1928 and 37% in July 1932. He promised to tear up the treaty, rebuild the army and take Lebensraum, living space, from Poland and Russia. He became chancellor, Germany's leader, in January 1933. Other houses on the street were already smoking: Italy and Japan were grabbing land too."
    },
    {
     "type": "mistake",
@@ -101,7 +101,7 @@
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's the 1945 ending moved to 1919: Germany was punished in 1919, not occupied or dismantled.",
+     "b": "That's the 1945 ending moved to 1919: Germany was punished in 1919, not dismantled, and only the Rhineland strip was occupied.",
      "c": "That's Ebert's flowers-and-flags version, not what happened: the army was beaten in the field in autumn 1918."
     },
     "reteach": "Three steps, in order: the treaty built the grievance and left the strength; the Depression made the grievance desperate; Hitler offered to act on it. Drop any one and 1939 is much harder to explain."
@@ -121,5 +121,20 @@
   "outcomeLine": "You can now explain in three plain sentences why Germany in 1939 was ready to start a war it had lost so badly in 1918.",
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8 172Q160 166 312 172\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"20\" y=\"112\" width=\"58\" height=\"60\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"16,112 49,84 82,112\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"42\" y=\"142\" width=\"14\" height=\"30\" fill=\"#1B1A17\"/><rect x=\"244\" y=\"112\" width=\"58\" height=\"60\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"240,112 273,84 306,112\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"266\" y=\"142\" width=\"14\" height=\"30\" fill=\"#1B1A17\"/><rect x=\"112\" y=\"98\" width=\"84\" height=\"74\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"106,98 154,60 202,98\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"146\" y=\"142\" width=\"16\" height=\"30\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"154\" y=\"126\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">1919</text><rect x=\"202\" y=\"160\" width=\"36\" height=\"10\" rx=\"5\" fill=\"#F2A93B\"/><rect x=\"202\" y=\"148\" width=\"36\" height=\"10\" rx=\"5\" fill=\"#F2A93B\"/><rect x=\"208\" y=\"136\" width=\"24\" height=\"10\" rx=\"5\" fill=\"#F2A93B\"/></svg>"
  },
- "seconds": 191.02387309074402
+ "repairedFrom": {
+  "score": 10,
+  "failed_checks": [
+   "concrete_images",
+   "facts_ok"
+  ],
+  "dubious_claims": [
+   "Card 1: 'no enemy soldier stood on German soil' in December 1918 is false. US and British troops had entered the Rhineland by 1\u20136 December 1918, before Ebert's 10 December speech.",
+   "Card 2: 'after the first war no Allied army occupied Germany' is false. The Versailles treaty itself set up an Allied occupation of the Rhineland, which lasted until 1930.",
+   "Card 3: 'Germany was neither [broken up nor] occupied' overstates the case for the same reason.",
+   "Card 6 (minor): Lebensraum is mostly in Mein Kampf volume 2 (1926), so 'in print since 1925' is loose. The Italy and Japan lines also drift away from the Germany-only idea and carry no concrete image."
+  ],
+  "weakest_card": 2,
+  "why": "Its feedback for option a says 'no Allied army occupied Germany' after 1918, but Allied troops held the Rhineland from December 1918 to 1930, so the chapter's central 'not occupied' point is taught with a false fact.",
+  "fix": "Rewrite whyNot.a as: 'That's 1945. In 1919 Allied troops held only the Rhineland strip in the west; the rest of Germany stayed whole and self-governing.' Also change card 3's 'Germany was neither' to 'Germany was neither broken up nor fully occupied'."
+ }
 }

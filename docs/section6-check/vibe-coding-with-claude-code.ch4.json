@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Water is dripping through the kitchen ceiling. You do not climb into the loft with a wrench. You tell your builder: \"Started after I ran the upstairs tap. Drip is above the fridge. Here's a photo.\" **The error message is your photo.** Copy it whole, say what you did right before, say what you saw, and let the builder find the pipe.",
-    "simpler": "Water is dripping through your kitchen ceiling. You do not climb up with a wrench and start pulling pipes apart. You tell the builder what you know: it started after you ran the upstairs tap, the drip is above the fridge, and here is a photo. **The error message is your photo.** Copy the whole thing, say what you did just before, say what you saw, and let the builder find the pipe."
+    "body": "Your app just turned into a wall of red text, and your hand is already moving to close the window. Don't close it. That red text is the most useful thing on your screen.\n\nWhen a house has a leak, you don't tell your contractor \"I think it's the joint behind the fridge.\" You show them the puddle, say when it appeared, and let them find the pipe. **Describe the leak, not your guess about the pipe.**",
+    "simpler": "Your app just filled up with red text, and you want to close the window. Don't. That red text is the most useful thing on your screen. If your house had a leak, you wouldn't tell the contractor which pipe you think it is. You'd show them the puddle, say when it showed up, and let them find the pipe. **Describe the leak, not your guess about the pipe.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your app's page goes blank and the terminal fills with red text. Your friend Dev says \"just tell Claude it's broken.\" Which message gets the fastest fix?",
+    "prompt": "Your to-do app worked fine for 3 clicks of \"Add\". On the 4th click, the screen fills with red text. What do you send Claude?",
     "options": [
      {
       "id": "a",
-      "text": "\"It's broken, fix it.\""
+      "text": "\"I think the database is broken. Please rewrite it.\""
      },
      {
       "id": "b",
-      "text": "\"I clicked Add Task, the page went blank. Terminal says:\" then the full red text pasted in."
+      "text": "The red text, copied in full, plus: \"I clicked Add 4 times. On the 4th, the screen went red.\""
      },
      {
       "id": "c",
-      "text": "\"I think the database is wrong, rewrite the database part.\""
+      "text": "\"It's broken again, fix it.\""
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the drip with no photo and no story: Claude has to guess which of 200 lines you mean.",
-     "c": "That's guessing the pipe: you named a cause you have not seen. If you're wrong, Claude fixes the wrong part."
+     "a": "That's a guess about the pipe, not the leak: Claude might rebuild a part that was working fine.",
+     "c": "That's a feeling, not a report: Claude doesn't know what you did or what you saw."
     },
-    "reteach": "A good bug report has 3 parts: what you did, what you saw, and the exact message. You are the witness, not the detective. Hand over the evidence and let Claude do the tracing."
+    "reteach": "Your builder is good at finding pipes, but only if you show them the puddle. The puddle is the error text plus the steps that caused it. Your theory about the cause can wait."
    },
    {
     "type": "teach",
-    "title": "Copy the whole message",
-    "body": "Red text in the terminal, or on a crashed page, is an *error message*: the computer saying what went wrong and often where. It looks scary. It is actually the most useful thing on your screen.\n\n**Copy all of it**, not the one line you understood. Click and drag in the terminal, or triple-click to grab a block, then paste it into Claude Code. The lines that look like gibberish, the ones with file names and numbers, are the ones that point to the exact spot.\n\nIf the error is in the browser, right-click, pick Inspect, open the Console tab. The red lines there are the same kind of photo.",
-    "simpler": "When something breaks, red text often appears in the terminal or on a crashed page. That red text is an error message. It is the computer telling you what went wrong and often where. It looks scary, but it is the most useful thing on your screen. **Copy all of it**, not just the one line you understood. Click and drag, or triple-click to grab a block, then paste it into Claude Code. The odd-looking lines with file names and numbers point to the exact spot. For a broken web page, right-click, pick Inspect, then open the Console tab. The red lines there are the same kind of photo."
+    "title": "The note the computer leaves",
+    "body": "An *error message* is a note the computer leaves when something fails. It reads like gibberish because it was written for programmers: usually a file name, a line number and a short complaint. Those details tell the builder exactly which pipe to open. **You don't need to understand it. Copy all of it.**\n\nYou'll find it in one of two places. One is the terminal where your app is running. The other is the browser's *console*, a hidden panel you open in Chrome by right-clicking the page, choosing Inspect, then the Console tab.\n\nThen add two plain sentences: what you did, step by step, and what you saw compared with what you expected.",
+    "simpler": "An error message is a note the computer leaves when something goes wrong. It looks like nonsense because it's meant for programmers. It often names a file, a line and the problem. **You don't need to understand it. Copy all of it.** Look in the terminal, the text window running your app, or in Chrome's Console: right-click the page, pick Inspect, then Console. Then add what you did, and what you saw compared with what you expected."
    },
    {
     "type": "example",
-    "title": "The 11pm blank page",
-    "body": "Maya builds a recipe app on day 3. She clicks Save and the page goes white. The terminal shows 40 lines of red. She copies a single line, \"something is not defined\", and types: \"fix this.\" Claude changes three files and the page is still white.\n\nShe tries again, this time pasting all 40 lines plus one sentence: \"I clicked Save on a recipe with no title.\" Claude spots a line in the paste naming the exact file and line number. One change. Page works. Elapsed time: 2 minutes, after 25 wasted.",
-    "simpler": "Maya is building a recipe app on day 3. She clicks Save and the page goes white. The terminal shows 40 lines of red. She copies just one line, \"something is not defined\", and types \"fix this.\" Claude changes three files. The page is still white. She tries again. This time she **pastes all 40 lines** and adds one sentence: \"I clicked Save on a recipe with no title.\" Claude spots a line naming the exact file and line number. One change. The page works. Two minutes, after 25 wasted."
+    "title": "Maya and the blank recipe box",
+    "body": "Maya built a recipe saver. She typed \"Mum's dal\", pressed Save, and the whole page went white. The console said: TypeError: Cannot read properties of undefined (reading 'map').\n\nShe pasted that line into Claude with: \"I typed a recipe name and pressed Save. I expected it in the list. The page went blank instead.\" Claude found that the page tried to show the list before the list existed, and fixed it in one line.\n\nMaya still doesn't know what 'map' means. She didn't need to.",
+    "simpler": "Maya made a recipe saver. She typed \"Mum's dal\", pressed Save, and the page went white. The console showed: TypeError: Cannot read properties of undefined (reading 'map'). **She pasted that line into Claude** with: \"I typed a recipe name and pressed Save. I expected it in the list. The page went blank instead.\" Claude found the page tried to show the list too early, and fixed it in one line. Maya doesn't know what 'map' means. She didn't need to."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Your to-do app runs fine until you type a date into the due-date box. Then every item vanishes. The terminal shows nothing red, but the browser Console has 6 red lines. What do you send Claude?",
+    "prompt": "Jonas's quiz app shows no red text anywhere, but after question 3 the score reads \"NaN\" (computer-speak for \"not a number\"). Which message gives Claude the best chance?",
     "options": [
      {
       "id": "a",
-      "text": "\"Typed a date in the due-date box, all items vanished. Nothing in the terminal. Browser Console shows:\" plus the 6 lines."
+      "text": "\"Score shows NaN. Probably bad maths in the scoring file. Rewrite the scoring.\""
      },
      {
       "id": "b",
-      "text": "\"The items vanish sometimes. Can you look through everything?\""
+      "text": "\"I answered questions 1 to 3, all correct. After question 3 the score says NaN instead of 3. No error in the terminal or console.\""
      },
      {
       "id": "c",
-      "text": "\"The date box is coded wrong. Delete the date feature.\""
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's a drip with no story and no photo: \"sometimes\" hides the one step that matters, typing a date.",
-     "c": "That's guessing the pipe and ordering a demolition: you have 6 red lines you have not handed over yet."
-    },
-    "reteach": "Three parts, every time: what you did (typed a date), what you saw (items vanished), the message (the 6 Console lines). When the terminal is quiet, the browser Console is where the photo is."
-   },
-   {
-    "type": "teach",
-    "title": "Then check the fix yourself",
-    "body": "Claude will read the paste, change something, and say it's fixed. That is the builder saying \"should be sorted.\" **You still turn the tap on.** Do the exact steps that broke it before. Same button, same empty box, same date.\n\nIf it works, say so and move on. If it breaks again, paste the new message. It is often different from the first one, which is good: a different error means the first leak is gone and you've found the next one.\n\nIf Claude's fix touched files you didn't expect, ask: \"Why did that file need to change?\" A plain answer in 2 sentences is a good sign.",
-    "simpler": "Claude will read your paste, change something, and tell you it is fixed. That is the builder saying \"should be sorted.\" **You still turn the tap on.** Do the exact steps that broke it before. Same button, same empty box, same date. If it works, say so and move on. If it breaks again, paste the new message. It is often different from the first one. That is good news. A different error means the first leak is gone and you have found the next one. If Claude changed files you did not expect, ask why that file needed to change. A plain two-sentence answer is a good sign."
-   },
-   {
-    "type": "mistake",
-    "body": "Tom gets an error, reads the first line, decides \"it must be the login,\" and tells Claude to rewrite the login. Claude obeys. Now there are 2 bugs. You can spot this in yourself when your message to Claude contains a cause but no pasted error. If you typed \"I think it's the...\" stop, and paste the red text instead.",
-    "simpler": "Tom gets an error. He reads the first line, decides \"it must be the login,\" and tells Claude to rewrite the login. Claude does what he asked. Now there are two bugs instead of one. You can catch this in yourself. Look at your message to Claude. If it names a cause but has no pasted error, you are guessing. **If you typed \"I think it's the...\", stop** and paste the red text instead."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Which of these is the one thing a good bug report always carries that a bad one skips?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Your best theory about which file is at fault."
-     },
-     {
-      "id": "b",
-      "text": "The full error message, pasted as-is, with the steps that triggered it."
-     },
-     {
-      "id": "c",
-      "text": "A request to rewrite the feature from scratch so the bug can't survive."
+      "text": "\"The score is weird sometimes.\""
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's guessing the pipe: a theory without the message sends Claude after your hunch, not the actual fault.",
-     "c": "That's demolition, not repair: rewriting throws away working parts and often brings the same bug back."
+     "a": "That's guessing the pipe: Claude may rewrite the scoring when the leak is somewhere else.",
+     "c": "That's a mood, not the steps: \"sometimes\" gives Claude nothing to repeat."
     },
-    "reteach": "The message is the evidence. The steps are the story. Together they let Claude find the exact line. Your theory is optional and usually worse than the paste."
+    "reteach": "With no red text, your steps and what you saw become the whole report. \"I did this, I expected that, I got this instead\" is enough for the builder to repeat the problem and track it down."
+   },
+   {
+    "type": "teach",
+    "title": "\"Fixed!\" means \"I changed something\"",
+    "body": "You'd think \"Fixed!\" means fixed. It actually means \"I changed something.\" A contractor who says the leak is sealed still expects you to turn on the tap. **Repeat the exact steps that broke it, and watch.**\n\nMaya saves a recipe again. Then one more, this time with an empty name, just to poke it. If both work, it's fixed.\n\nIf it breaks again, don't start over. Paste the new error with \"Same steps, new message:\" in front. Two or three rounds of this is normal. It doesn't mean you're bad at this.",
+    "simpler": "\"Fixed!\" doesn't mean fixed. It means \"I changed something.\" A contractor who seals a leak still expects you to turn on the tap. **Repeat the exact steps that broke it, and watch.** Maya saves another recipe, then one with an empty name. If both work, it's fixed. If it breaks again, don't start over. Paste the new error, starting with \"Same steps, new message:\". Two or three rounds is normal. It's not a sign you're bad at this."
+   },
+   {
+    "type": "mistake",
+    "body": "Sam saw \"Module not found\", remembered a forum post, and told Claude to \"reinstall everything.\" Claude did, twenty minutes went by, and the same message came back. The real problem was a misspelled file name, and the error had said which file. How to spot it: if your message says \"I think it's...\" but doesn't include the error itself, you're guessing the pipe.",
+    "simpler": "Sam saw \"Module not found\", remembered a tip from an online forum, and told Claude to \"reinstall everything.\" Claude did. Twenty minutes later, the same message came back. The real problem was a misspelled file name, and the error had named the file. Here's the warning sign: **if your message says \"I think it's...\" but leaves out the error, you're guessing the pipe.**"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Why paste the whole error instead of summing it up as \"something about a module\"?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Claude can't understand summaries."
+     },
+     {
+      "id": "b",
+      "text": "The file name and line number in it tell Claude exactly where to look."
+     },
+     {
+      "id": "c",
+      "text": "Longer messages make Claude try harder."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That mixes up reading with evidence: Claude understands your words fine, but a summary drops the file and line details.",
+     "c": "That's length, not detail: a long vague message is still vague. The clues are what help."
+    },
+    "reteach": "The error is like a puddle under one particular pipe: it points to the spot. A summary is like saying \"the kitchen's wet somewhere.\" Hand over the exact text and the builder can go straight to the right place."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "When something breaks, **paste the whole error and say what you did**, then let Claude trace it. After the fix, repeat the exact steps yourself before you trust it.",
-    "simpler": "Here is the whole chapter in one line. When something breaks, **paste the whole error and say what you did**, then let Claude trace it back to the cause. After the fix, repeat the exact steps that broke it yourself. Only trust it once you have seen it work with your own eyes."
+    "body": "When something breaks, copy the whole error, then add what you did and what you saw, and let Claude find the pipe. When it says \"fixed\", repeat the steps that broke it before you believe it.\n\nTomorrow: how to bring back yesterday's working app with one sentence.",
+    "simpler": "When something breaks, **copy the whole error**. Then add what you did and what you saw, and let Claude find the pipe. When Claude says \"fixed\", repeat the steps that broke it before you believe it. Tomorrow: how to bring back yesterday's working app with one sentence."
    },
    {
     "type": "try",
-    "body": "Open your project from chapter 1 and ask Claude: \"Make the button show an error when clicked.\" Click it, copy the red text, paste it back with one sentence on what you did, and watch the fix land.",
-    "simpler": "Open your project from chapter 1. Ask Claude: \"Make the button show an error when clicked.\" Then click the button and watch the red text appear. **Copy all of the red text** and paste it back to Claude, with one sentence saying what you did. Watch the fix land. This is a safe way to practice the whole routine before a real break happens."
+    "body": "Open your app from chapter 1 in Chrome and open the Console (right-click, Inspect, Console). Ask Claude: \"Add a button that breaks on purpose so I can practise.\" Click it, copy the error, and ask for a fix.",
+    "simpler": "Open your app from chapter 1 in Chrome. Open the Console: right-click the page, choose Inspect, then Console. Ask Claude: \"Add a button that breaks on purpose so I can practise.\" Click the button, **copy the error that appears**, and ask Claude to fix it."
    }
   ],
-  "outcomeLine": "You can now take an app from red screen to working by handing Claude the full error message and the steps that caused it, then testing the fix yourself."
+  "outcomeLine": "You can now take a red error screen to a fixed, tested app by handing Claude the message, your steps, and what you saw.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M30 50 H180 V110 H280\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"10\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"180\" cy=\"110\" r=\"10\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M180 128 q-7 11 0 15 q7 -4 0 -15z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><ellipse cx=\"185\" cy=\"174\" rx=\"55\" ry=\"10\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><rect x=\"30\" y=\"112\" width=\"72\" height=\"62\" rx=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"40\" y1=\"128\" x2=\"92\" y2=\"128\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"40\" y1=\"142\" x2=\"86\" y2=\"142\" stroke=\"#F2A93B\" stroke-width=\"3\"/><line x1=\"40\" y1=\"156\" x2=\"80\" y2=\"156\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M108 140 Q130 130 128 158\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><text x=\"196\" y=\"34\" font-family=\"sans-serif\" font-size=\"14\" fill=\"#1B1A17\">show the puddle</text></svg>"
  },
- "seconds": 48.22761511802673
+ "seconds": 81.23907494544983
 }

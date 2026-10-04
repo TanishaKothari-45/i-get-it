@@ -5,121 +5,135 @@
   "cards": [
    {
     "type": "picture",
-    "body": "ChatGPT answers when you ask. An agent acts when you don't. Picture someone you pay to read the same 5 newspapers every morning, cut out only the stories about your rivals, and leave a short note on your desk.\n\nYou never phone them. **The alarm clock calls them**, and the note is there before your coffee.",
-    "simpler": "ChatGPT only answers when you ask it something. An agent works without being asked. Think of a helper you pay to read the same 5 newspapers every morning. They cut out only the stories about your rivals and leave a short note on your desk.\n\nYou never have to call them. **The alarm clock wakes them up**, and the note is waiting before you have your coffee."
+    "body": "A chat window waits for you to type. An agent doesn't wait. Think of it as a person you pay to read the same 5 newspapers every morning, cut out only the stories about your rivals, and leave a short note on your desk.\n\n**Nobody has to ask it each day, and in this course that's what we call an agent.**",
+    "simpler": "A chat window waits for you to type. An agent doesn't wait. Picture a person you pay to read the same 5 newspapers every morning. They cut out only the stories about your rivals and leave a short note on your desk. **Nobody has to ask it each day, and in this course that's what we call an agent.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "It's 6am. Nobody in the house is awake. Your clipping person is already at the kitchen table with scissors. What got them started?",
+    "prompt": "Every Monday, Priya opens ChatGPT, pastes in a rival's pricing page and asks, \"What changed?\" She has done this for 9 weeks straight. Is that an agent?",
     "options": [
      {
       "id": "a",
-      "text": "You texted them the newspaper pages to read."
+      "text": "Yes, because an AI model reads the page"
      },
      {
       "id": "b",
-      "text": "An alarm clock they set once, weeks ago."
+      "text": "No, because Priya has to start it every time"
      },
      {
       "id": "c",
-      "text": "The newspaper rang them when a rival appeared in print."
+      "text": "Yes, because it happens every single week"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a chatbot, not an agent: it waits for you to send something first.",
-     "c": "That's the source, not the trigger: a newspaper doesn't know who your rivals are, it just prints."
+     "a": "That's the reader, not the whole service. A model reading text is one part, but nothing happens until Priya shows up.",
+     "c": "That's Priya's habit, not the program's. The weekly rhythm lives in her calendar, not in the tool."
     },
-    "reteach": "The whole difference between a chatbot and an agent is who starts the work. A chatbot starts when you type. An agent starts because a timer fires, and nobody has to be awake for that."
+    "reteach": "An agent starts itself. If a person has to press go each time, it's a tool, not an agent. The clipping service turns up at 7am whether you remember it or not."
    },
    {
     "type": "teach",
     "title": "The first two boxes",
-    "body": "An *agent* is a small program that starts itself, does a short job, and stops. It has 4 parts. Here are the first two.\n\nThe **trigger** is the alarm clock. It is a rule like \"run at 7am every day\". Your laptop or a rented server watches the clock and starts the program. No human types anything.\n\nThe *sources* are the newspapers: the web pages the agent reads. For you that is 3 to 5 competitor pages, like a pricing page or a changelog. A source is just an address the agent visits. Nothing more.",
-    "simpler": "An agent is a small program that starts on its own, does one short job, and stops. Here are 2 of its 4 parts.\n\nThe **trigger** is the alarm clock. It is a rule like \"run at 7am every day\". A computer watches the time and starts the program. Nobody types anything.\n\nThe sources are the newspapers: the 3 to 5 rival web pages the agent reads, like a pricing page. A source is a web address the agent visits."
+    "body": "In this course, an agent is a *program* (a set of steps a computer follows) that runs on its own and calls an AI model to read and write text. It has 4 parts. Here are the first 2.\n\nThe *trigger* is the alarm clock. It says when to start, say every day at 7:00. **No trigger, no agent.** Without one, it's just a tool sitting on a shelf.\n\nThe *sources* are the newspapers: the exact web pages it reads. Not \"the internet\". It's a short list of addresses, like a rival's pricing page, written down once and read every time.",
+    "simpler": "In this course, an agent is a program, a list of steps a computer follows, that runs by itself and asks an AI model to read and write text. It has 4 parts. First is the trigger, an alarm clock that says when to start, like 7:00 each day. **No trigger, no agent.** Second are the sources, the newspapers. These are a short list of exact web pages, like a rival's pricing page, read every time. Not the whole internet."
    },
    {
     "type": "example",
-    "title": "Priya's Tuesday",
-    "body": "Priya runs a 4-person bookkeeping app. Her agent's trigger is 7:00 every morning. Its sources are 4 addresses: 2 rivals' pricing pages, 1 changelog, 1 careers page.\n\nAt 7:02 on a Tuesday the note in her inbox read: \"Rival B pricing: no change. Rival C careers: 1 new line, 'Senior iOS Engineer'.\" **She had not opened a browser.** Priya read it with her toast, and the toast was still warm.",
-    "simpler": "Priya runs a 4-person bookkeeping app. Her agent's alarm goes off at 7:00 every morning. It reads 4 web pages: 2 rivals' pricing pages, 1 list of product updates, and 1 jobs page.\n\nAt 7:02 one Tuesday, a note arrived. It said Rival B's pricing had not changed, and Rival C's jobs page had one new line: \"Senior iOS Engineer\". **She had not opened a browser.** Priya read it with her toast, and the toast was still warm."
+    "title": "7:00 at Sam's desk",
+    "body": "Sam sells a $12-a-month booking app for hair salons. At 7:00 the trigger fires, and the agent opens 4 pages: two rivals' pricing pages, one changelog (a list of product updates) and one careers page. The model reads them and spots one thing: a rival's basic plan went from $10 to $14. At 7:02, Sam's note says exactly that, with the link. **Sam slept through all of it**, which is the whole point.",
+    "simpler": "Sam sells a $12-a-month booking app for hair salons. At 7:00 the trigger goes off. The agent opens 4 pages: two rivals' pricing pages, one changelog, which is a list of product updates, and one careers page. The model reads them and finds one thing. A rival's basic plan went from $10 to $14. At 7:02, Sam gets a note saying just that, with the link. **Sam slept through all of it**, and that is the whole point."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Dev wants to watch 3 rivals' pricing pages. He writes a program and runs it by double-clicking its icon every Friday afternoon. Which box is missing?",
+    "prompt": "Sam now wants the agent to read a rival's blog too. Where does that change go?",
     "options": [
      {
       "id": "a",
-      "text": "The trigger: nothing starts it without him."
+      "text": "In the trigger, because it decides when the agent starts"
      },
      {
       "id": "b",
-      "text": "The sources: pricing pages don't count as sources."
+      "text": "In the sources, because it decides what the agent reads"
      },
      {
       "id": "c",
-      "text": "The model: a program can't read a page without AI."
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's a fine source: a pricing page is exactly the kind of newspaper the agent should read.",
-     "c": "That's the reader, not the alarm clock: the model is in place, the trouble is that Dev is the one pressing start."
-    },
-    "reteach": "Ask one question of anything called an agent: who presses start? If the answer is a person, it's a script with a nice name. If the answer is a clock or a timer, it's an agent."
-   },
-   {
-    "type": "teach",
-    "title": "The other two boxes",
-    "body": "The **model** is the reader. An *AI model* is a program that takes in text and writes text back, like the one behind ChatGPT. The agent hands it the page plus a short instruction and gets a few sentences back. The model does not fetch pages or set alarms. It only reads and writes.\n\nThe *output* is the note on your desk: an email, a chat message, or a file you open.\n\nYou'd think the model is the agent. It's one box of four. Take it out and the other 3 still run. They just can't explain what they saw.",
-    "simpler": "The **model** is the reader. An AI model is a program that takes in text and writes text back, like ChatGPT. The agent gives it a page and gets a few sentences back. The model only reads and writes.\n\nThe output is the note: an email, a chat message, or a file.\n\nThe model is one box of four, not the whole agent. Remove it and the other three still run, but they can't explain what they saw."
-   },
-   {
-    "type": "mistake",
-    "body": "Sam built a \"competitor agent\" last spring. It was a chat window. Every morning Sam pasted in 4 pricing pages and typed \"what changed?\" By week 2 Sam had stopped pasting.\n\nHow to spot it: if your mornings got busier after the agent arrived, you built the reader and **skipped the alarm clock**.",
-    "simpler": "Sam built what they called a \"competitor agent\" last spring. It was really a chat window. Nothing ran on its own. Every morning Sam pasted in 4 pricing pages and typed \"what changed?\" By week 2, Sam had stopped pasting.\n\nHere is how to spot this mistake: if your mornings got busier after the agent arrived, you built the reader and **skipped the alarm clock**."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Pick the sentence that describes an agent rather than a chatbot.",
-    "options": [
-     {
-      "id": "a",
-      "text": "I ask it about a rival's prices and it tells me."
-     },
-     {
-      "id": "b",
-      "text": "It checks 4 pages at 7am and messages me what changed."
-     },
-     {
-      "id": "c",
-      "text": "It writes better summaries than I do."
+      "text": "Nowhere: Sam can just ask the model to \"check the blog too\" each morning"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a chatbot: you start it and it answers. Stay quiet and nothing happens.",
-     "c": "That's a good reader, not an agent: how well it writes says nothing about who presses start or where the note lands."
+     "a": "That's the alarm clock, not the newspapers. The trigger sets when, not what.",
+     "c": "That's a person pressing go, not an agent. Asking every morning puts Sam back in charge of starting it."
     },
-    "reteach": "An agent has a clock, newspapers, a reader and a note. The sentence that mentions a time and a delivery is the one with the clock and the note. The other two only describe the reader."
+    "reteach": "Each box answers one question. The trigger answers \"when?\" and the sources answer \"what to read?\" Adding a page is like adding a newspaper to the pile, so it goes in sources."
+   },
+   {
+    "type": "teach",
+    "title": "The other two boxes",
+    "body": "The *model* is the reader: an AI like Claude or ChatGPT that turns a page of text into a sentence worth reading. You'd think it's the clever part that runs the show. It isn't. **The model only reads what the other boxes hand it**, and it forgets everything once the job is done.\n\nThe *output* is the note on your desk: an email, a chat message or a file. If it lands in a folder you never open, the whole service worked for nobody.\n\nSo it goes alarm clock, newspapers, reader, note. Four boxes, one arrow running through them.",
+    "simpler": "The model is the reader. It's an AI like Claude or ChatGPT that turns a page of text into one useful sentence. It may seem like the boss, but it isn't. **The model only reads what the other boxes hand it**, and it forgets everything after. The output is the note on your desk, like an email, a chat message or a file. If no one opens it, the work was wasted. So: alarm clock, newspapers, reader, note."
+   },
+   {
+    "type": "mistake",
+    "body": "Jordan spends a weekend writing the perfect instructions for the model, then runs it by hand from their laptop every Friday. That's a brilliant reader with no alarm clock. To spot it, ask yourself: **if I went on holiday for a week, would anything still arrive?** If the answer is no, it's a tool, not an agent.",
+    "simpler": "Jordan spends a weekend writing perfect instructions for the model. Then Jordan runs it by hand from a laptop every Friday. That's a great reader with no alarm clock. Here's a quick test. Ask yourself: **if I went on holiday for a week, would anything still arrive?** If not, it's a tool, something you have to start yourself, not an agent."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Sam's 7:02 note stopped arriving on Tuesday. When Sam runs the agent by hand, the note shows up perfectly. Which box broke?",
+    "options": [
+     {
+      "id": "a",
+      "text": "The sources"
+     },
+     {
+      "id": "b",
+      "text": "The trigger"
+     },
+     {
+      "id": "c",
+      "text": "The output"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the newspapers, not the alarm clock. The hand run read every page fine.",
+     "c": "That's the note, not the alarm clock. The hand run delivered it fine."
+    },
+    "reteach": "When Sam ran it by hand, every box worked, but Sam's own finger stood in for the alarm clock. So the alarm clock is the box that broke. To test any box, ask what you had to do yourself."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "An agent is a program that starts on a clock, reads a few fixed web pages, hands the text to an AI model, and drops a note where you'll see it. **The clock is what makes it an agent**; the model is just the reader.\n\nTomorrow: why watching 40 pages kills the agent on day one.",
-    "simpler": "An agent is a program that wakes up on a clock, reads a few fixed web pages, hands the text to an AI model, and leaves a note where you will see it. Think of a helper who shows up without being called. **The clock is what makes it an agent.** The model is only the reader.\n\nTomorrow we look at why watching 40 pages kills the agent on day one."
+    "body": "An agent is a program that wakes itself up, reads a fixed list of pages, asks an AI model what they say and leaves you a note. **Four boxes: trigger, sources, model, output**, and in this course the trigger is the one that makes it an agent.",
+    "simpler": "An agent is a program that wakes itself up, reads a fixed list of pages, asks an AI model what they say and leaves you a note. **Four boxes: trigger, sources, model, output.** Think alarm clock, newspapers, reader, note. In this course, the trigger is the one that makes it an agent."
    },
    {
     "type": "try",
-    "body": "Take a sheet of paper. Draw **4 boxes** in a row: clock, newspapers, reader, note. Under \"newspapers\", write one rival whose pricing page you'd actually read. Under \"note\", write where you want it: email, chat or file.",
-    "simpler": "Take a sheet of paper. Draw **4 boxes** in a row and label them: clock, newspapers, reader, note. Under \"newspapers\", write the name of one rival whose pricing page you would really read. Under \"note\", write where you want the note to land: your email, a chat app, or a file."
+    "body": "Grab a scrap of paper. Draw 4 boxes in a row and label them alarm clock, newspapers, reader and note. Under \"newspapers\", write the web address of the one rival page you'd check first.\n\nTomorrow: why watching 5 pages beats watching 50.",
+    "simpler": "Grab a scrap of paper. **Draw 4 boxes in a row** and label them alarm clock, newspapers, reader and note. Each box is one part of an agent, in the order they run. Under newspapers, write the web address of the one rival page you would check first. Tomorrow: why watching 5 pages beats watching 50."
    }
   ],
-  "outcomeLine": "You can now draw the 4 boxes of a competitor-tracking agent on paper and say what each one does.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"45\" cy=\"100\" r=\"26\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"45\" y1=\"100\" x2=\"45\" y2=\"84\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"45\" y1=\"100\" x2=\"56\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"30\" y1=\"78\" x2=\"23\" y2=\"69\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"60\" y1=\"78\" x2=\"67\" y2=\"69\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"100\" y=\"72\" width=\"48\" height=\"58\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"106\" y1=\"82\" x2=\"142\" y2=\"82\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"106\" y1=\"92\" x2=\"142\" y2=\"92\" stroke=\"#1B1A17\" stroke-width=\"1\"/><line x1=\"106\" y1=\"100\" x2=\"142\" y2=\"100\" stroke=\"#1B1A17\" stroke-width=\"1\"/><rect x=\"106\" y=\"108\" width=\"36\" height=\"16\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"1\"/><circle cx=\"200\" cy=\"90\" r=\"18\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M176 132 Q200 108 224 132 Z\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"194\" cy=\"88\" r=\"2\" fill=\"#1B1A17\"/><circle cx=\"206\" cy=\"88\" r=\"2\" fill=\"#1B1A17\"/><rect x=\"258\" y=\"86\" width=\"40\" height=\"34\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"264\" y1=\"96\" x2=\"292\" y2=\"96\" stroke=\"#1B1A17\" stroke-width=\"1\"/><line x1=\"264\" y1=\"104\" x2=\"286\" y2=\"104\" stroke=\"#1B1A17\" stroke-width=\"1\"/><polyline points=\"76,100 94,100 89,95\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"154,100 176,100 171,95\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"228,100 252,100 247,95\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"10\" y1=\"150\" x2=\"310\" y2=\"150\" stroke=\"#1B1A17\" stroke-width=\"2\"/></svg>"
+  "outcomeLine": "You can now draw the 4 boxes of a competitor-tracking agent and say what each one does.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"25\" cy=\"73\" r=\"7\" fill=\"#1B1A17\"/><circle cx=\"55\" cy=\"73\" r=\"7\" fill=\"#1B1A17\"/><circle cx=\"40\" cy=\"101\" r=\"24\" fill=\"#F2A93B\"/><path d=\"M40 101V87M40 101l9 6M30 125l-5 7M50 125l5 7\"/><path d=\"M68 104h17m-6-5 6 5-6 5\"/><rect x=\"99\" y=\"82\" width=\"46\" height=\"54\" fill=\"#1F7A4D\"/><polygon points=\"92,76 139,77 138,131 93,130\" fill=\"#F2A93B\"/><path d=\"M100 88h30M100 98l31 1M100 108h22M100 118l26 1\"/><path d=\"M150 104h20m-6-5 6 5-6 5\"/><path d=\"M174 104c8-14 44-14 52 0c-8 14-44 14-52 0z\"/><circle cx=\"200\" cy=\"104\" r=\"8\" fill=\"#1F7A4D\"/><path d=\"M232 104h19m-6-5 6 5-6 5\"/><polygon points=\"258,80 296,76 300,128 262,132\" fill=\"#F2A93B\"/><path d=\"M266 92l24-2M267 104l24-2M268 116l16-1\"/><text x=\"160\" y=\"172\" font-family=\"Georgia,serif\" font-size=\"16\" fill=\"#1B1A17\" stroke=\"none\" text-anchor=\"middle\">every morning, unasked</text></svg>"
  },
- "seconds": 112.65914297103882
+ "repairedFrom": {
+  "score": 10,
+  "failed_checks": [
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "\"ChatGPT has never once messaged you first\": ChatGPT Tasks (2025) and ChatGPT Pulse (2025) send updates to users without being asked",
+   "\"Nobody has to ask it each day, and that is what makes it an agent\" / \"the trigger is the one that makes it an agent\": most definitions (for example Anthropic's 'Building effective agents') say an agent is an AI that decides its own steps and tool use, and they call a timed program that calls an AI model a workflow, not an agent",
+   "\"it's a script, not an agent\" (card 7) uses a different word from \"helper\" (card 2) and \"tool\" (card 3) for the same thing, so the 'what it is not' side has three names"
+  ],
+  "weakest_card": 1,
+  "why": "Card 1 is the hook and the definition the whole chapter rests on, and both are shaky: ChatGPT can now message you first (scheduled Tasks, Pulse), and saying the trigger alone makes something an agent goes against the usual meaning, where the AI decides its own steps.",
+  "fix": "Change the opener to \"A chat window waits for you to type. An agent doesn't wait.\" and change the bold line to \"Nobody has to ask it each day, and in this course that's what we call an agent.\" Also move \"Tomorrow: why watching 5 pages beats watching 50\" so it comes after the try card and is the chapter's last line."
+ }
 }

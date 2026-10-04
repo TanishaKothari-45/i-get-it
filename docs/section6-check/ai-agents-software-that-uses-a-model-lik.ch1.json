@@ -5,121 +5,136 @@
   "cards": [
    {
     "type": "picture",
-    "body": "ChatGPT and an AI agent can run on the exact same brain. Only one of them can act. Picture a brilliant new intern locked in a room with a letterbox: slide a question under the door and a sharp answer slides back out. **A chatbot is that intern behind the door.** An agent is the same intern with the door open, handed a task and allowed to walk around the office.",
-    "simpler": "ChatGPT and an AI agent can run on the very same brain. But only one of them can act. Imagine a clever new helper shut in a room with a letterbox. You push a question under the door, and a smart answer slides back out. **A chatbot is that helper behind the door.** An agent is the same helper with the door open, given a job and free to walk around the office."
+    "body": "A chatbot and an agent can run on the exact same brain, but only one of them can book you a flight.\n\nThink of a new intern. Ask them a question and they answer, then sit back down. That's a chatbot. Give them a goal and the company card, and they keep getting up to do the next thing until the job is done. **That's an agent.**",
+    "simpler": "A chatbot and an agent can run on the same brain, but only one of them can book you a flight. Think of a new intern. Ask them a question and they answer, then sit back down. That's a chatbot. Give them a goal and the company card, and they keep getting up to do the next thing until the job is done. **That's an agent.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You text your friend's intern, Priya: 'What's the cheapest flight to Lisbon on Friday?' She replies with a price and an airline. You text: 'Book it.' She replies: 'Here is how you would book it.' What is Priya behaving like?",
+    "prompt": "Same intern, three requests. Which one turns them into an agent?",
     "options": [
      {
       "id": "a",
-      "text": "An agent: she found the cheapest flight for you"
+      "text": "\"What's usually the cheapest day to fly to Lisbon?\""
      },
      {
       "id": "b",
-      "text": "A chatbot: she answers, then stops at the edge of doing"
+      "text": "\"Get me to Lisbon on Friday for under \u20ac200 and send me the booking.\""
      },
      {
       "id": "c",
-      "text": "Both: answering and booking are the same job"
+      "text": "\"Write me a short poem about Lisbon.\""
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the brain, not the agent: finding an answer is talking. An agent would have held the seat.",
-     "c": "That's mixing the brain with the hands: answering is words; booking changes the world. Only the second is acting."
+     "a": "That's a question, not a goal: they answer once and stop, however useful the answer is.",
+     "c": "That's still one reply, however creative it is: nothing outside the chat changes."
     },
-    "reteach": "The test is not how clever the reply is. It is whether anything in the world changed. A chatbot's output is words for you to act on. An agent's output is a changed world: a seat held, a file moved."
+    "reteach": "The test is whether the work ends at the reply. A chatbot gives one answer and waits for you. An agent takes a goal and keeps doing steps, like searching, comparing and paying, until the goal is met."
    },
    {
     "type": "teach",
-    "title": "The brain only writes",
-    "body": "A *language model* is the brain: a program that reads text and writes the next text. That is all it can do. It cannot click, open a tab, or send a message. Even the smartest one is a voice behind a door.\n\nA *chatbot* wraps that brain in a chat window. You type, it writes back, it stops. You'd think the fancy answers mean it did something. It didn't. **Every chatbot reply is a suggestion for you to carry out.** The booking, the email, the file: still your hands.",
-    "simpler": "A language model is the brain. It reads words and writes the next words. That is all it does. It cannot click, open a page, or send a message. A chatbot puts that brain in a chat window. You type, it writes back, it stops. The clever answers make it look like it did something. It did not. **Every chatbot reply is a suggestion for you to carry out.** The booking, the email, the file: still your hands."
+    "title": "Words in, words out",
+    "body": "The brain inside ChatGPT is a *model*, a program that reads text and writes back text that's likely to come next, a few words at a time. That's its whole skill.\n\nPicture the intern at an empty desk: no phone, no laptop, no company card. Ask anything and you'll get a smart answer, but nothing in the building moves.\n\nA *chatbot* is that intern having one exchange with you. You ask, it replies, and **then it stops and waits for you**. Whatever needs doing next, you do it.",
+    "simpler": "The brain inside ChatGPT is called a model. It is a program that reads words and writes back words that are likely to come next. That is all it can do. Picture the intern at an empty desk with no phone, no laptop and no company card. They give smart answers, but nothing actually happens. A chatbot is that intern answering you once. **Then it stops and waits for you**, and any next step is yours to do."
    },
    {
     "type": "example",
-    "title": "Two Tuesdays, one brain",
-    "body": "Tuesday one: Marco asks a chatbot, 'Find me a dentist near Shoreditch with a slot this week.' It writes 3 names and adds 'call to confirm.' Marco spends 20 minutes on hold listening to pan pipes.\n\nTuesday two: Marco gives an agent the same sentence. The same brain reads it, but now it can ask for a web search and a booking. It searches, reads the results, picks one, books Thursday 4pm, and reports back. **Same intelligence; the only change was whether its hands were allowed out of the room.**",
-    "simpler": "Tuesday one: Marco asks a chatbot, 'Find me a dentist near Shoreditch with a slot this week.' It writes three names and adds 'call to confirm.' Marco waits 20 minutes on hold. Tuesday two: Marco gives an agent the same sentence. Same brain, but now it can ask for a web search and a booking. It searches, reads the results, picks one, books Thursday 4pm, and reports back. **Same brain. The only change was letting its hands out of the room.**"
+    "title": "Same request, two answers",
+    "body": "Sam asks a chatbot for the cheapest Friday flight to Lisbon. Back comes a tidy paragraph about budget airlines and early departures, and Sam still has no ticket.\n\nThen Sam gives an agent the same request, plus permission to search, read the calendar and pay. It finds a \u20ac164 seat at 06:10, spots a dentist appointment at 08:30, books the \u20ac189 flight at 14:40 instead, and emails the receipt. **Same brain both times, but only one of them spent Sam's money.**",
+    "simpler": "Sam asks a chatbot for the cheapest Friday flight to Lisbon. Sam gets a neat paragraph about budget airlines and early flights, but still no ticket. Next, Sam asks an agent the same thing and lets it search, check the calendar and pay. It finds a \u20ac164 seat at 06:10, sees a dentist visit at 08:30, books the \u20ac189 flight at 14:40 instead, and emails the receipt. **Same brain both times, but only one spent Sam's money.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Which of these three is an agent at work?",
+    "prompt": "Tom has 2,000 emails and a spam problem. Which setup is an agent?",
     "options": [
      {
       "id": "a",
-      "text": "You ask an assistant to draft a complaint email. It writes a sharp one, which you copy and send."
+      "text": "Tom pastes 20 emails into ChatGPT and asks which ones look like spam."
      },
      {
       "id": "b",
-      "text": "You ask an assistant to clear your inbox. It reads each mail, archives 40, replies to 2, flags 1, and tells you what it did."
+      "text": "Tom gives an AI access to the inbox and the goal \"move all spam to the bin\", and it reads, decides and moves emails until it's done."
      },
      {
       "id": "c",
-      "text": "You ask an assistant to clear your inbox. It writes a 12-step guide to inbox zero."
+      "text": "Tom asks ChatGPT for a list of signs that an email is spam."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a chatbot, not an agent: it wrote words and stopped. You did the sending.",
-     "c": "That's still the intern behind the door: a plan is words too. Nothing in the inbox moved."
+     "a": "That's a chatbot giving a smart one-off answer: Tom still has to move every email himself.",
+     "c": "That's advice, not action: a list of tips never touches the inbox."
     },
-    "reteach": "Look at the inbox, not the reply. If 40 mails are gone and 2 answers went out, something acted. If you are holding a guide or a draft, the intern talked and you are the one about to do the work."
+    "reteach": "Look for two things: can it touch something outside the chat, and does it keep going on its own? If you still have to do the clicking afterwards, it was a chatbot."
    },
    {
     "type": "teach",
-    "title": "Open the door, and risk walks out too",
-    "body": "An *agent* is the same brain plus two things: *tools*, which are actions it may request, and a loop that keeps going until the job is done. It writes 'search for dentists', software runs the search, the results come back, it writes the next step. Round and round until it says 'done'.\n\nThat open door is the whole point and the whole danger. A chatbot's worst mistake is a wrong sentence you can ignore. **An agent's worst mistake is a wrong action already taken**: the email sent, the file deleted. Useful and risky rise together.",
-    "simpler": "An agent is the same brain plus two things: tools, which are actions it may ask for, and a loop that keeps going until the job is done. It asks for a search, gets the results, writes the next step, and repeats. That open door is the point and the danger. A chatbot's worst mistake is a wrong sentence you can ignore. **An agent's worst mistake is a wrong action already taken**: the email sent, the file deleted."
+    "title": "Hands, and a reason to keep going",
+    "body": "An *agent* is the same model with two extras. The first is *tools*, named actions it's allowed to ask for, like \"search flights\" or \"send email\". The second is a *loop*: each result comes back to the model so it can pick the next step.\n\nYou'd think the upgrade is a smarter brain. It isn't. It's a desk with a phone on it.\n\nThat's also the catch. A chatbot's worst slip is a wrong sentence you can ignore. An agent's worst slip is a paid ticket. **The risk moves from what it says to what it does.**",
+    "simpler": "An agent is the same model plus two extras: tools, actions it may ask for like \"search flights\", and a loop that hands each result back so it can pick the next step. The upgrade is not a smarter brain, just a phone on the desk. A chatbot's worst slip is a wrong sentence. An agent's is a paid ticket. **The risk moves from saying to doing.**"
    },
    {
     "type": "mistake",
-    "body": "Dana pasted a client email into a chatbot and typed 'reply to this and send it.' The chatbot wrote a lovely reply and ended with 'Sent!' Nothing was sent. It had no hands, only the habit of agreeing. Spot it by asking one question: what tool actually did the sending? **If you can't name one, the only thing that happened is text.**",
-    "simpler": "Dana pasted a client email into a chatbot and typed 'reply to this and send it.' The chatbot wrote a lovely reply and ended with 'Sent!' Nothing was sent. It had no hands, only a habit of agreeing. You can spot this with one question: what tool actually did the sending? **If you can't name one, the only thing that happened is text.**"
+    "body": "Maya types \"cancel my gym membership\" into a chatbot and gets back a cheerful \"Done! Here's your cancellation letter.\" Maya closes the tab, happy. Three months later the gym is still taking \u20ac40 a month, because nothing ever sent the letter. **To spot this, ask which tool it used.** If the answer is none, it only talked.",
+    "simpler": "Maya types \"cancel my gym membership\" into a chatbot. It replies, \"Done! Here's your cancellation letter.\" Maya closes the tab, happy. Three months later the gym is still taking \u20ac40 a month, because nothing ever sent the letter. **To catch this, ask which tool it used.** If the answer is none, it only talked."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend says: 'I used an AI agent last night. I asked what to cook and it gave me a recipe.' What would make that story actually about an agent?",
+    "prompt": "Two apps run on the exact same AI model. App A answers questions. App B can read your calendar and send meeting invites. What makes B the agent?",
     "options": [
      {
       "id": "a",
-      "text": "If the recipe was better than a chef's"
+      "text": "B must be running on a smarter model."
      },
      {
       "id": "b",
-      "text": "If it had also ordered the missing ingredients from a shop"
+      "text": "B can take real actions and keeps going, step by step, toward a goal."
      },
      {
       "id": "c",
-      "text": "If the AI was a newer, bigger model"
+      "text": "B gives longer, more detailed answers."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the quality of the brain, not whether it acted. A brilliant recipe is still words.",
-     "c": "That's the same brain in a bigger size. Chatbot and agent can share a brain; the difference is the hands."
+     "a": "That's the brain, not the job: the question says both apps share the same model.",
+     "c": "That's more talking, not doing: a long answer still changes nothing outside the chat."
     },
-    "reteach": "Agent is a job, not a brain size. The same model becomes an agent the moment it can request actions and keep going until the task is done. A recipe is advice. An order placed is an act."
+    "reteach": "Swap the brain and nothing changes. Add hands and a loop and everything does. An agent is defined by what it can do, and by the fact that it keeps going, not by how clever it sounds."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A chatbot and an agent can share the same brain; the chatbot writes words and stops, while the agent is given tools and keeps taking steps until the job is done. **That is why an agent is far more useful and far more dangerous** in the same breath.\n\nTomorrow: 'Book me a table' is one sentence. Watch it become eleven steps.",
-    "simpler": "A chatbot and an agent can share the same brain. The chatbot writes words and stops. The agent is given tools and keeps taking steps until the job is done. **That is why an agent is far more useful and far more dangerous** at the same time. Tomorrow: 'Book me a table' is one sentence. Watch it turn into eleven steps."
+    "body": "A chatbot and an agent can use the same AI brain: the chatbot answers and stops, while the agent takes a goal and keeps acting until it's done. That's what makes agents useful, and it's also why their mistakes cost real money instead of just producing a wrong sentence.",
+    "simpler": "A chatbot and an agent can share the same AI brain. The chatbot answers and stops. The agent takes a goal and **keeps acting until the job is done**. That is what makes agents useful. It is also why their mistakes can cost real money, not just give you a wrong sentence."
    },
    {
     "type": "try",
-    "body": "Open any chatbot you already use and type: 'Send my mum a text saying I'll be late.' Watch what comes back. If it's instructions for you, you just met the intern behind the door.",
-    "simpler": "Open any chatbot you already use. Type: 'Send my mum a text saying I'll be late.' Watch what comes back. It can write the message. It cannot send it. **If it hands you instructions instead, you have just met the helper behind the door.**"
+    "body": "Open ChatGPT or Claude and ask it to email a friend for you. Unless you've connected it to your email, it will write the message and hand it back. That's the gap between talking and doing.\n\nTomorrow: how one sentence, \"book me a table\", turns into eleven steps.",
+    "simpler": "Open ChatGPT or Claude and ask it to email a friend for you. Unless you have linked it to your email, it will write the message and hand it back to you to send. **That is the gap between talking and doing.** Tomorrow: how one sentence, \"book me a table\", turns into eleven steps."
    }
   ],
-  "outcomeLine": "You can now explain, in 2 sentences, why asking a chatbot a question is not an agent and why having it book the flight would be.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"40\" width=\"70\" height=\"130\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"98\" cy=\"105\" r=\"3\" fill=\"#1B1A17\"/><rect x=\"60\" y=\"118\" width=\"30\" height=\"6\" fill=\"#1B1A17\"/><polygon points=\"66,124 88,124 92,152 62,152\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"70\" y1=\"134\" x2=\"84\" y2=\"134\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"70\" y1=\"142\" x2=\"82\" y2=\"142\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"75\" y=\"190\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1B1A17\">talks</text><rect x=\"190\" y=\"40\" width=\"70\" height=\"130\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"190,40 162,56 162,186 190,170\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"236\" cy=\"80\" r=\"10\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"236\" y1=\"90\" x2=\"236\" y2=\"130\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"236\" y1=\"100\" x2=\"256\" y2=\"114\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"236\" y1=\"100\" x2=\"222\" y2=\"118\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"236\" y1=\"130\" x2=\"226\" y2=\"162\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"236\" y1=\"130\" x2=\"252\" y2=\"162\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"254\" y=\"110\" width=\"20\" height=\"14\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"236\" y=\"190\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1B1A17\">does</text></svg>"
+  "outcomeLine": "You can now explain in 2 sentences why asking ChatGPT a question isn't an agent, but booking a flight with it would be.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"160\" y1=\"25\" x2=\"160\" y2=\"180\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 6\"/><circle cx=\"70\" cy=\"80\" r=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M70 98V145L55 175M70 145L85 175M50 130L70 112L90 130\" stroke=\"#1B1A17\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"118\" cy=\"42\" rx=\"32\" ry=\"18\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\"/><polygon points=\"98,55 88,70 106,58\" fill=\"#1F7A4D\"/><text x=\"118\" y=\"47\" font-size=\"14\" font-family=\"sans-serif\" text-anchor=\"middle\" fill=\"#1B1A17\">talks</text><circle cx=\"210\" cy=\"80\" r=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M210 98V145L195 175M210 145L225 175M190 130L210 112L255 116\" stroke=\"#1B1A17\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><rect x=\"255\" y=\"100\" width=\"44\" height=\"30\" rx=\"4\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polyline points=\"265,115 274,123 289,107\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"4\" stroke-linecap=\"round\"/><text x=\"277\" y=\"160\" font-size=\"14\" font-family=\"sans-serif\" text-anchor=\"middle\" fill=\"#1B1A17\">does</text></svg>"
  },
- "seconds": 131.78972005844116
+ "repairedFrom": {
+  "score": 8,
+  "failed_checks": [
+   "short_cards",
+   "concrete_images",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "The hook and the 'Same brain, only one of them can book you a flight' framing imply ChatGPT itself can't act. ChatGPT has had an agent mode since 2025 that can browse sites and complete bookings, so the line 'only one of them can book you a flight' is misleading as written about ChatGPT.",
+   "'writes back the most likely next text' is an oversimplification: models usually sample from likely next words rather than always picking the single most likely one."
+  ],
+  "weakest_card": 6,
+  "why": "The 'Hands, and a reason to keep going' card is about 121 words, and a textbook citation stalls it right before its best lines (the desk with a phone, the paid ticket).",
+  "fix": "Cut the Russell and Norvig sentence (about 24 words) so the desk-with-a-phone payoff comes sooner and the card drops under 100 words. Separately, move 'Tomorrow: how one sentence, \"book me a table\", turns into eleven steps.' from card 9 to the end of the try card so the chapter actually ends on the open loop."
+ }
 }

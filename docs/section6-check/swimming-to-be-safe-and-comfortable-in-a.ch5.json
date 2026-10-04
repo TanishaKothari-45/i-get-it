@@ -5,120 +5,137 @@
   "cards": [
    {
     "type": "picture",
-    "body": "You are lying on the bed again, face down this time, with your legs hanging off the end. Now swing them from the hip, lazily, the way a kid swings their legs on a tall chair. That lazy swing is the whole kick. **Small, from the hips, feet just under the surface.** The bed keeps holding you. The legs only add a push.",
-    "simpler": "Lie on your bed, face down, with your legs hanging off the end. Now let them swing from the hip, slow and lazy, like a kid swinging their legs on a tall chair. That lazy swing is the whole kick. **Small, from the hips, feet just under the surface.** The bed holds you up. Your legs only add a little push."
+    "body": "Kicking harder can move you slower, and the shallow end proves it every evening. Back to the bed: the water is already holding you up, so **your kick's first job is to keep your legs lying flat on it**, not to shove you across. A small, steady flutter does that. A big thrash pulls the sheets off.",
+    "simpler": "Kicking harder can actually make you slower, and you can see it at any shallow end in the evening. Think of the water like a bed you are lying on. It already holds you up. So **your kick's first job is to keep your legs lying flat on the water**, not to push you across the pool. A small, steady flutter does that. A big, wild kick is like thrashing in bed and pulling the sheets off."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Two people push off the wall at the same time. Maya kicks hard, knees pumping, water flying a metre in the air. Sam's feet barely dimple the surface with quick little flicks. Who is further along when they both stand up?",
+    "prompt": "Sam and Jo race across the shallow end on kickboards. Sam kicks huge, knees pumping like riding a bike, spray up to the ceiling lights. Jo kicks small, legs long, feet flopping. Who gets there first?",
     "options": [
      {
       "id": "a",
-      "text": "Maya. More splash means more power."
+      "text": "Sam. All that splash is power."
      },
      {
       "id": "b",
-      "text": "Sam. Small flicks from the hip push the water backwards, not upwards."
+      "text": "Jo, with the small, floppy kick."
      },
      {
       "id": "c",
-      "text": "About the same. The kick barely matters in front crawl."
+      "text": "A tie. The kick barely matters."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's noise, not push: water thrown into the air has left the pool, so it can't move you forward.",
-     "c": "That's true of a bad kick, not a good one: a small hip kick is what keeps your legs up and lets the arms do their job later."
+     "a": "That's effort, not speed: Sam's bent knees push the shins forward into the water, braking every kick.",
+     "c": "That's mixing up 'the kick isn't the main engine' with 'the kick doesn't matter': a good kick keeps you level and moves you, a bad one sinks and slows you."
     },
-    "reteach": "Think of a fish's tail. It never leaves the water and it never bends in the middle. A kick that stays under the surface pushes water behind you, and water behind you means you go forward. Splash is the push escaping."
+    "reteach": "Water pushes back on anything moving forward through it. Big bent-knee kicks shove your shins forward into the water, so much of every kick fights you. A small kick from long legs pushes water behind you and keeps you flat on the bed."
    },
    {
     "type": "teach",
-    "title": "Where the kick starts",
-    "body": "**The kick starts at the hip, not the knee.** Your whole leg swings like a long pendulum. The knee stays soft, bending only a little, the way it does when you walk.\n\nAnkles go floppy. A loose ankle lets the foot flap like a flipper, and the flipper is what actually pushes the water. A stiff, pointed-hard foot cuts through the water and pushes nothing.\n\nKeep it small. Your feet move about 30 cm apart, top to bottom, and the heels just break the surface. Start by holding the pool edge with both hands, lying flat, face in, and kicking for 10 seconds.",
-    "simpler": "**The kick starts at the hip, not the knee.** Your whole leg swings like a long pendulum. Keep the knee soft. It bends only a little, like when you walk.\n\nLet your ankles go floppy. A loose foot flaps like a flipper, and the flipper is what pushes the water. A stiff foot cuts through and pushes nothing.\n\nKeep the kick small. Feet move about 30 cm apart, heels just breaking the surface. Start by holding the pool edge with both hands, face in, kicking for 10 seconds."
+    "title": "Where the kick comes from",
+    "body": "**The kick starts at your hips**, not your knees. Think of each leg as one long noodle hanging from your hip: the thigh moves first, and the knee just softens a little on the way down.\n\nYour ankles stay loose, like socks on a washing line. When they flop, the top of each foot bends back and pushes water behind you, the way a flipper does.\n\nKeep it small. Your feet only part about a shoebox length, roughly 30 cm, with your heels just breaking the surface.",
+    "simpler": "**The kick starts at your hips**, not your knees. Picture each leg as a long noodle hanging from your hip. The thigh moves first, and the knee bends a little on the way down. Keep your ankles loose, like socks on a washing line. When they flop, the top of your foot pushes water behind you, like a flipper. Keep it small. Your feet open about a shoebox apart, roughly 30 cm, with your heels just breaking the surface."
    },
    {
     "type": "example",
-    "title": "Ten seconds at the wall",
-    "body": "Hold the edge with both hands, arms long, and let your legs float up behind you. Blow your bubbles, then start the small swing from the hips. Count 10 seconds in your head.\n\nNow the test. If the water behind you goes white and foamy, your kick is too big. If the lifeguard glances over to see what the noise is, it is much too big. A good kick is quiet enough that you can hear your own bubbles.",
-    "simpler": "Hold the pool edge with both hands, arms long, and let your legs float up behind you. Blow your bubbles, then start the small swing from the hips. Count to 10 in your head.\n\nNow check. If the water behind you turns white and foamy, your kick is too big. If the lifeguard looks over to see what the noise is, it is much too big. A good kick is quiet. You should still hear your own bubbles."
+    "title": "Priya's 12 metres",
+    "body": "Priya, 34, holds a kickboard at the shallow end and kicks like she's late for a train. Knees up, spray everywhere, a toddler in the next lane cheering her on. Twenty seconds later she has moved about 3 metres and her legs are sinking. She tries again with long legs, floppy feet and a kick half the size. She crosses the 12-metre width in about 30 seconds and can still chat at the end.",
+    "simpler": "Priya, 34, holds a kickboard at the shallow end and kicks like she's late for a train. Her knees come up, water sprays everywhere, and a toddler in the next lane cheers. After 20 seconds she has moved about 3 metres, and her legs are sinking. Then she tries again with **long legs, floppy feet and a kick half the size**. She crosses the 12-metre width in about 30 seconds and can still chat at the end."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You are holding a kickboard, face in, kicking. After 5 metres your legs have sunk and you have stopped moving. What is most likely going on?",
+    "prompt": "You're holding the wall, face in, kicking. Your legs feel heavy and you're churning up foam. Which cue do you give yourself?",
     "options": [
      {
       "id": "a",
-      "text": "Your knees are bending a lot, so you are pedalling instead of swinging from the hip."
+      "text": "Bend your knees more for a bigger push."
      },
      {
       "id": "b",
-      "text": "Your ankles are too loose and need to be held stiff."
+      "text": "Long legs from the hips, loose ankles, smaller kick."
      },
      {
       "id": "c",
-      "text": "The kickboard is the wrong size for you."
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's the fix for the opposite problem: loose ankles are what you want, because the floppy foot is the flipper.",
-     "c": "That's the equipment, not the kick: any kickboard floats enough, and sinking legs come from the knees, not the board."
-    },
-    "reteach": "When the knee bends a lot, the foot comes forward and down, and the hips drop with it. Sinking legs are almost always a knee kick. Straighten the leg, keep the knee soft, and swing the whole thing from the hip."
-   },
-   {
-    "type": "teach",
-    "title": "Why big kicks lose",
-    "body": "A big kick bends the knee, and a bent knee drags your foot down through the water like an anchor. Your hips drop, your legs sink, and now you are kicking uphill. **The small kick keeps your body flat on the bed.**\n\nSteady beats fast. Aim for a rhythm you could keep for a minute, not a sprint that dies in 5 seconds. If you are out of breath after one width, slow the kick down.\n\nBuild it in three steps: holding the wall, then holding a kickboard, then from a push-off glide with no board. Face in, breathe out, and lift your chin forward to breathe when you need to, then put your face straight back in.",
-    "simpler": "A big kick bends the knee. A bent knee drags your foot down through the water like an anchor. Your hips drop, your legs sink, and now you are kicking uphill. **The small kick keeps your body flat on the bed.**\n\nSteady beats fast. Pick a rhythm you could hold for a minute, not a sprint that dies in 5 seconds. Out of breath after one width? Slow down.\n\nBuild it in three steps: hold the wall, then a kickboard, then glide with no board. Face in, breathe out, lift your chin forward to breathe, then face back in."
-   },
-   {
-    "type": "mistake",
-    "body": "Dev got on the kickboard and started cycling, knees up to his chest, feet churning like he was late for a bus. He went nowhere, slowly, and then slightly backwards. Spot it in yourself this way: if your knees are coming up toward your tummy, you are pedalling. Straighten the legs until the swing comes from the hips, and the board will start to move.",
-    "simpler": "Dev got on the kickboard and started cycling. Knees up to his chest, feet churning like he was late for a bus. He went nowhere, slowly, and then a little backwards. Here is how to spot it in yourself: if your knees come up toward your tummy, you are pedalling. Straighten your legs until the swing comes from the hips. Then the board starts to move."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Which of these describes the kick this chapter wants?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Legs locked rigid and straight like two planks, toes pointed hard, kicking as fast as you can."
-     },
-     {
-      "id": "b",
-      "text": "Swung from the hips, knees soft, ankles floppy, feet just under the surface, steady rhythm."
-     },
-     {
-      "id": "c",
-      "text": "Big kicks from the knee that splash high so you can feel the power."
+      "text": "Pull your toes up toward your shins for a stronger paddle."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's stiff, not soft: locked knees and hard-pointed toes turn off the flipper and tire you out in seconds.",
-     "c": "That's the knee kick that sinks your hips, not the hip kick: the splash is the push leaving the water."
+     "a": "That's a cycling kick, not a flutter kick: bent knees drive your shins forward and brake you.",
+     "c": "That's a standing foot, not a flipper: toes pulled up turn your foot into a brake, so you stay put."
     },
-    "reteach": "Three words: hips, floppy, small. The swing comes from the hips, the ankles stay floppy so the feet flap like flippers, and the kick stays small enough that the water behind you stays quiet."
+    "reteach": "Think about where the water goes. A long leg with a floppy foot sends water behind you, so you move forward. Bent knees or stiff, hooked feet catch the water like a brake, so you work hard and stay put."
+   },
+   {
+    "type": "teach",
+    "title": "Why bigger is slower",
+    "body": "You'd think a bigger kick means more push. Often it's the opposite: **a kick that goes deep or bends the knee hard creates a lot of drag**, which eats up much of the push it makes. Your legs stop being a tail and start acting like an anchor.\n\nTerry Laughlin, who created the Total Immersion method, taught that a long, balanced body matters more than strong legs. The kick keeps you level. Being long does the travelling.\n\nSame with your head. Lift it high to look for the wall and your hips sink, like sitting up in bed. Lift it to breathe, then face back down.",
+    "simpler": "A bigger kick seems like more push, but **a kick that goes deep or bends the knee hard creates a lot of drag** and wastes much of its own push. Your legs start acting like an anchor. Terry Laughlin, creator of the Total Immersion method, taught that a long, balanced body matters more than strong legs. The kick keeps you level. Being long carries you forward. Lift your head high and your hips sink. Lift it to breathe, then look down."
+   },
+   {
+    "type": "mistake",
+    "body": "A man in a red cap kicks on his board for a full minute and has barely moved, puffing hard, sure he's just bad at this. His feet are hooked up as if he's waiting at a bus stop, so every kick catches the water like a brake. How to spot it: if you're working hard and the wall isn't getting closer, check your ankles and let them flop.",
+    "simpler": "A man in a red cap kicks on his board for a full minute and has hardly moved. He is out of breath and sure he's just bad at this. His feet are bent up, as if he's waiting at a bus stop, so **every kick catches the water like a brake**. Here's how to spot it: if you're working hard and the wall isn't getting closer, check your ankles and let them flop."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "Halfway across with your kickboard, your legs are sinking and you're out of breath. What's the most likely fix?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Kick bigger and harder to lift your legs back up."
+     },
+     {
+      "id": "b",
+      "text": "Lift your head to see how far the wall is."
+     },
+     {
+      "id": "c",
+      "text": "Make the kick smaller and steadier from the hips, ankles floppy."
+     }
+    ],
+    "answer": "c",
+    "whyNot": {
+     "a": "That's the thrash, not the flutter: a bigger kick bends the knees, drags more and tires you faster.",
+     "b": "That's sitting up in bed, not lying on it: a high head drops your hips and sinks your legs further."
+    },
+    "reteach": "Sinking legs and a racing heart usually mean the kick has grown too big. Shrink it back to a quick, small flutter from the hips, feet loose, heels just breaking the surface. Your legs come back up because you're lying flat again, not because you pushed harder."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**Kick from the hips with soft knees and floppy ankles, small and steady, feet just under the surface.** Big splashy knee kicks drag your legs down and move you less, so quieter is faster.",
-    "simpler": "**Kick from the hips with soft knees and floppy ankles, small and steady, feet just under the surface.** Big splashy kicks from the knee drag your legs down and move you less. A quiet kick is a faster kick. If you can hear your own bubbles, you are doing it right. Think of a lazy leg swing, not a bicycle."
+    "body": "Kick from your hips with long legs and floppy ankles, small and steady, about a shoebox apart. **Big bent-knee kicks feel strong but brake you**, and keeping your legs flat on the water matters more than power.",
+    "simpler": "Kick from your hips with long legs and floppy ankles. Keep it small and steady, with your feet about a shoebox apart. **Big bent-knee kicks feel strong but work like a brake**. Keeping your legs flat on the water matters more than power."
    },
    {
     "type": "try",
-    "body": "Tonight, lie face down on your bed with your legs off the end. Swing them from the hips for 20 seconds, knees soft, feet relaxed. If your knees bend a lot, that is the pedalling to unlearn.",
-    "simpler": "Tonight, lie face down on your bed with your legs off the end. Swing them from the hips for 20 seconds. Keep your knees soft and your feet relaxed. Watch your knees. If they bend a lot, that is the pedalling habit you need to unlearn. The swing should come from the hip, like a long pendulum."
+    "body": "Tonight, lie face down across the end of your bed so your legs hang off from mid-thigh, then flutter small kicks from your hips with floppy ankles for 20 seconds. If your heels swing up past your knees, you're bending too much.\n\nTomorrow: the arms, and why your swimming breath works backwards.",
+    "simpler": "Tonight, lie face down across the end of your bed so your legs hang off from about the middle of your thighs. For 20 seconds, **flutter small kicks from your hips**, keeping your ankles floppy. If your heels swing up past your knees, that's a sign you're bending too much. Keep your legs long and let your hips do the work. Tomorrow we look at the arms, and at why breathing while you swim works backwards."
    }
   ],
-  "outcomeLine": "You can now kick a small, steady flutter kick from the hips across the width of the pool holding a kickboard, with your face in the water and your breath going out."
+  "outcomeLine": "You can now kick across the width of the pool on a kickboard with a small, loose kick from the hips, face in and breathing out.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M10 124 Q40 116 70 124 T130 124 T190 124 T250 124 T310 124\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\"/><path d=\"M10 150 Q40 142 70 150 T130 150 T190 150 T250 150 T310 150\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2\"/><rect x=\"38\" y=\"110\" width=\"50\" height=\"12\" rx=\"5\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"96\" y1=\"118\" x2=\"66\" y2=\"112\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"106\" cy=\"120\" r=\"11\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"96\" cy=\"136\" r=\"3\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"1.5\"/><circle cx=\"90\" cy=\"142\" r=\"2\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"1.5\"/><line x1=\"118\" y1=\"121\" x2=\"200\" y2=\"122\" stroke=\"#1B1A17\" stroke-width=\"10\" stroke-linecap=\"round\"/><polyline points=\"200,121 248,117 270,114\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"5\" stroke-linecap=\"round\"/><polyline points=\"200,123 248,127 270,131\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"5\" stroke-linecap=\"round\"/><ellipse cx=\"278\" cy=\"111\" rx=\"8\" ry=\"3\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><ellipse cx=\"278\" cy=\"134\" rx=\"8\" ry=\"3\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><path d=\"M292 104 q7 18 0 36\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"2\" stroke-linecap=\"round\"/><path d=\"M300 108 q5 14 0 28\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"2\" stroke-linecap=\"round\"/><text x=\"160\" y=\"182\" font-family=\"sans-serif\" font-size=\"16\" fill=\"#1B1A17\" text-anchor=\"middle\">small and loose</text></svg>"
  },
- "seconds": 53.7112398147583
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "feedback_names_confusion",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Bed drill: 'If your knees keep thumping the mattress, they're bending too much.' A straight-legged kick from the hips is what drives the knees into the mattress. Bending the knee lifts the foot instead.",
+   "'a kick that goes deep or bends the knee hard drags you back about as much as it drives you on': overstated, and no source is given for it.",
+   "Mistake card: a beginner kicking hard for a full minute 'ends up exactly where he started' is an exaggeration.",
+   "Ex1 feedback c ('That's underselling the legs') doesn't name a specific confusion the way the other feedback lines do."
+  ],
+  "weakest_card": 10,
+  "why": "The bed drill can't work: lying flat on a mattress, a straight-legged kick from the hips is exactly what thumps the knees and thighs down, so the test flags the right kick as wrong, and the card ends the chapter after the 'tomorrow' teaser.",
+  "fix": "Rewrite the drill: 'Lie face down with your hips at the foot of the bed and your legs hanging off from mid-thigh, then flutter 20 seconds; if your heels swing past your knees, you're bending too much.' Then move the 'Tomorrow: the arms...' line so it comes after this card."
+ }
 }

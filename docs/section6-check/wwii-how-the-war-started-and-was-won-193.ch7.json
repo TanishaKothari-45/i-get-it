@@ -5,120 +5,139 @@
   "cards": [
    {
     "type": "picture",
-    "body": "The last house still burning is Japan, at the far end of the street across the water. By summer 1945 every hose on the street is pointed at it: American ships ring the islands, bombers come most nights, and in one August week the Soviet neighbour runs up with a hose of his own.\n\n**The war ends the way it was won: by weight, not by one clever stroke.**",
-    "simpler": "Think of the war as a row of houses on fire. By summer 1945 only one is still burning: Japan, across the water. Every hose is now aimed at it. American ships circle the islands, bombers come most nights, and in one August week the Soviet neighbour runs over with a hose too. **The war ends the way it was won: by weight, not by one clever stroke.**"
+    "body": "Three days after the first atomic bomb, Japan's six top leaders were still split three against three: accept the Allied terms asking only to keep the emperor, or hold out for more conditions. On our street, Japan is the last house still burning. It shows the lesson of the whole war: **no single hose put the fire out**. Water had to hit it from every side at once.",
+    "simpler": "Three days after the first atomic bomb, Japan's six top leaders were still split. Three wanted to give up if Japan could keep its emperor. Three wanted to hold out for more. Picture the war as a street of burning houses. Japan is the last one still on fire. It shows the big lesson of the whole war: **no single hose put the fire out**. Water had to hit it from every side at the same time."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "August 1945. Japan's navy is mostly on the seabed, no oil tankers get through, cities burn nightly, the Soviet Union has just declared war, and two atomic bombs have fallen. Someone at the pub asks: 'So which one thing made Japan quit?' Your best answer?",
+    "prompt": "It's 10 August 1945, and Japan has just offered to surrender, asking only to keep its emperor. Going by the street picture, what most likely tipped its leaders?",
     "options": [
      {
       "id": "a",
-      "text": "The atomic bombs. Nothing else counted."
+      "text": "The first atomic bomb, on its own"
      },
      {
       "id": "b",
-      "text": "The Soviet attack. The bombs were a sideshow."
+      "text": "Several blows landing in the same few days"
      },
      {
       "id": "c",
-      "text": "Trick question. It all landed in the same week, and Japan's leaders saw no way out in any direction."
+      "text": "Finally losing one big last battle"
      }
     ],
-    "answer": "c",
+    "answer": "b",
     "whyNot": {
-     "a": "That's the most famous blow, not the only one: in the same week Japan's leaders also faced a Soviet army and a sea blockade that was starving the cities.",
-     "b": "That's one hose, not all of them: the Soviet attack mattered, but it arrived on top of two bombs and a blockade."
+     "a": "That's one hose, not the whole street: after Hiroshima, Japan did not give in, and three days later its leaders were still split.",
+     "c": "That's what Japan's leaders were hoping for, not what happened: they wanted one bloody battle at home to win better terms."
     },
-    "reteach": "Think of the fire. By August 1945 Japan was being hit from the sea, the air and, suddenly, the north. Historians still argue about which blow weighed most, but they agree it was the pile, not one brick."
+    "reteach": "Picture the last burning house. One big hose soaks it and it keeps burning. It goes out only when water comes from every side, and Japan in August 1945 was like that: blockade, burned cities, bombs and a Soviet invasion, all at once."
    },
    {
     "type": "teach",
-    "title": "Island by island",
-    "body": "After Midway in June 1942, the Americans fought across the Pacific one island at a time: Guadalcanal from August 1942, Saipan in July 1944, Iwo Jima and Okinawa in the first half of 1945. Each was a step closer, and each cost thousands of lives on both sides.\n\nWhy islands? Each one captured was an airfield nearer Japan. From Saipan and its neighbours, B-29 bombers could reach Tokyo. American submarines sank the tankers bringing oil from the south.\n\n**By summer 1945 Japan could not fuel its planes or feed its cities, and its army still refused to quit.** An invasion of Japan itself was planned for November.",
-    "simpler": "After the sea battle at Midway in June 1942, the Americans fought their way across the Pacific one island at a time: Guadalcanal, then Saipan, then Iwo Jima and Okinawa. Each island was a step closer and cost thousands of lives on both sides. Each captured island gave the Americans an airfield nearer Japan. From Saipan, B-29 bombers could reach Tokyo. American submarines sank the ships bringing oil. **By summer 1945 Japan could not fuel its planes or feed its cities, and its army still refused to quit.** An invasion of Japan itself was planned for November."
+    "title": "Doors nailed shut",
+    "body": "From 1943 the Americans crossed the Pacific by *island-hopping*: they captured some islands for airfields and skipped others, leaving those garrisons to starve. Every step cost more. On Okinawa, from April to June 1945, about 12,000 Americans died, and far more Japanese soldiers and Okinawan civilians.\n\nAt the same time, American submarines and mines sank most of Japan's merchant ships, so oil and food stopped arriving. Bombers flying from the captured islands burned Japanese cities, which were built largely of wood.\n\nBy summer 1945 Japan was a house with **its doors nailed shut and the roof on fire**. Its leaders still hoped for one last battle.",
+    "simpler": "From 1943 America hopped across the Pacific, taking some islands for airfields and leaving others to starve. Each step cost more. On Okinawa, April to June 1945, about 12,000 Americans died, and far more Japanese and Okinawans. Submarines and mines sank most of Japan's cargo ships, cutting off oil and food. Bombers burned its mostly wooden cities. By summer Japan was a house with **its doors nailed shut and the roof on fire**. Its leaders hoped for one last battle."
    },
    {
     "type": "example",
-    "title": "One week in August",
-    "body": "6 August 1945: an American plane drops an *atomic bomb*, a single bomb with the force of thousands of ordinary ones, on Hiroshima. 8 August: the Soviet Union declares war on Japan, and the next morning its tanks roll into Manchuria, the part of China Japan held. 9 August: a second bomb hits Nagasaki.\n\nJapan's leaders had been hoping Moscow would help them bargain for softer terms. That hope and two cities died in the same four days. On 15 August the Emperor spoke on the radio, the first time most Japanese had ever heard his voice, to say the war was over. **The papers were signed on 2 September 1945**, on the battleship Missouri in Tokyo Bay: six years and one day after Poland.",
-    "simpler": "On 6 August 1945 an American plane dropped an atomic bomb on Hiroshima. One bomb had the force of thousands of ordinary ones. On 8 August the Soviet Union declared war on Japan, and its tanks rolled into Manchuria. On 9 August a second bomb hit Nagasaki. Japan had hoped Moscow would help it get softer terms. That hope died in the same four days as two cities. On 15 August the Emperor said on the radio that the war was over. **The papers were signed on 2 September 1945**, six years and one day after Poland."
+    "title": "The week it ended",
+    "body": "On 6 August one American bomb destroyed Hiroshima, and Japan did not surrender. Just after midnight on 9 August, more than a million Soviet soldiers poured into Manchuria, Japan's puppet state in northeast China. That killed Japan's last hope, that Stalin would help arrange a peace. Late that morning a second bomb hit Nagasaki. That day the six leaders split three against three: accept the Allied terms asking only to keep the emperor, or demand four conditions. That night **the emperor, Hirohito, broke the tie** for the single condition, and on 14 August he settled it for good. On 15 August his voice came over the radio, the first time most Japanese had ever heard it, saying with world-class understatement that the war had not necessarily gone Japan's way. Historians still argue whether the bombs or the Soviet attack mattered more, and many conclude it took both. The surrender was signed on 2 September aboard the USS Missouri in Tokyo Bay.",
+    "simpler": "On 6 August an American bomb destroyed Hiroshima, and Japan fought on. Just after midnight on 9 August, over a million Soviet soldiers stormed Manchuria, Japan-run land in northeast China. That ended Japan's hope that Stalin would help make peace. Then a second bomb hit Nagasaki. The six leaders split three against three: give up if Japan could keep its emperor, or hold out for more. That night **the emperor, Hirohito, broke the tie** for giving up, and on 14 August he made it final. On 15 August most Japanese heard his voice for the first time, on the radio. Historians argue whether the bombs or the Soviets mattered more; many say both. The surrender was signed on 2 September aboard the USS Missouri."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Your cousin is writing a school essay titled 'The bomb that ended the war'. Which change makes the essay match what actually happened in August 1945?",
+    "prompt": "At dinner, a friend says: Japan surrendered because of Nagasaki, full stop. Which reply uses this chapter's idea best?",
     "options": [
      {
       "id": "a",
-      "text": "Keep the title. Hiroshima on 6 August ended the war that same day."
+      "text": "Right, the second bomb was the one that counted."
      },
      {
       "id": "b",
-      "text": "Retitle it 'The week that ended the war': two bombs, a Soviet invasion and a blockade, all between 6 and 9 August."
+      "text": "Nagasaki hit the same day as a Soviet invasion, on top of a blockade and burned cities. It was the pile-up."
      },
      {
       "id": "c",
-      "text": "Retitle it 'The Soviet army that ended the war'. The bombs barely mattered."
+      "text": "No, it was only the Soviet invasion. The bombs didn't matter."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the first blow, not the end: Japan did not surrender on 6 August. The Emperor spoke on 15 August, after Nagasaki and the Soviet attack.",
-     "c": "That's swinging too far the other way: the Soviet attack was one hose among several, not the only one."
+     "a": "That's the loudest hose, not the whole street: the Soviet invasion began that very same day.",
+     "c": "That's swapping one single cause for another: the bombs mattered too, and historians still argue about how much."
     },
-    "reteach": "Hiroshima alone did not do it, and neither did Moscow alone. Between 6 and 9 August Japan lost two cities, its last hope of a Soviet go-between, and any chance of feeding itself by sea. The surrender followed that pile-up, not any single piece of it."
+    "reteach": "Ask what landed in the same week, not which blow was loudest. Nagasaki, the Soviet invasion, the blockade and the burned cities all hit together. A good answer names the pile-up."
    },
    {
     "type": "teach",
-    "title": "Four reasons the Allies won",
-    "body": "Now step back and look at the whole street. **Four things, each from a chapter you've read.**\n\n*Numbers.* From December 1941 Germany and Japan were fighting Britain, the Soviet Union and the United States at once (chapter 4). Those three together had more people, oil and steel than the Axis by a wide margin.\n\n*Factories.* America built ships and planes faster than the Axis could sink or shoot them down, and Soviet factories moved east, out of reach (chapter 6).\n\n*Sea lanes.* Atlantic convoys got through, and Midway sank Japan's carriers (chapter 5).\n\n*Teamwork.* The Allies planned together. Germany and Japan fought separate wars: Japan never attacked the Soviet Union, so Stalin could throw everything at Germany (chapter 4).",
-    "simpler": "Now step back and look at the whole street. **Four things, each from a chapter you've read.** Numbers: from December 1941 Germany and Japan fought Britain, the Soviet Union and the United States all at once. Those three had far more people, oil and steel. Factories: America built ships and planes faster than they could be sunk or shot down, and Soviet factories moved east, out of reach. Sea lanes: Atlantic convoys got through, and Midway sank Japan's carriers. Teamwork: the Allies planned together. Germany and Japan fought separate wars, so Stalin could throw everything at Germany."
+    "title": "Four hoses",
+    "body": "You'd think the most powerful weapon ever made would end a war by itself. It didn't, in Japan or anywhere else.\n\nZoom out and the whole war ended the same way. Richard Overy argues the Allies didn't win just by having more; they learned to use it better. **Four hoses:** an alliance of Britain, the Soviet Union and America that Germany couldn't match. The Soviet army, which fought most of Germany's army: picture thousands of Soviet tanks meeting the Germans at Kursk in 1943. Factories that out-built the Axis: one American cargo ship, a Liberty ship, was put together in under five days. And control of the sea and air: the submarines and bombers that nailed Japan's doors shut.",
+    "simpler": "The most powerful weapon ever made didn't end the war alone. Zoom out and the whole war ended the same way. Richard Overy argues the Allies won by using their strength better, not just by having more. **Four hoses:** an alliance of Britain, the Soviet Union and America; the Soviet army fighting most of Germany's, like the thousands of Soviet tanks at Kursk in 1943; factories that out-built the enemy, where one American cargo ship was built in under five days; and control of sea and air, the submarines and bombers that cut Japan off."
    },
    {
     "type": "mistake",
-    "body": "At a pub quiz, Dev hears 'why did the Allies win?' and says 'the atom bomb', then stops. Spot the slip with one question: which side had more steel, oil, ships and soldiers in 1944? If the answer is the Allies by a mile, the bomb cannot be the whole story. **It ended the war. It did not win it.** Germany had already surrendered three months before Hiroshima.",
-    "simpler": "At a pub quiz, Dev hears 'why did the Allies win?' and says 'the atom bomb', then stops. Catch the slip with one question: which side had more steel, oil, ships and soldiers in 1944? The Allies, by a mile. So the bomb cannot be the whole story. **It ended the war. It did not win it.** Germany had already given up three months before Hiroshima, with no bomb at all."
+    "body": "Someone at a pub quiz writes the atomic bomb as the answer to what ended the Second World War, and moves on. They picked the loudest hose and forgot the rest of the street: in Europe the bomb played no part, because **Germany had surrendered three months before Hiroshima**. How to spot it: if one answer explains a six-year war across two oceans, something is missing.",
+    "simpler": "Someone at a pub quiz writes \"the atomic bomb\" as what ended the Second World War, and moves on. They picked the loudest hose and forgot the rest of the street. In Europe the bomb played no part, because **Germany had surrendered three months before Hiroshima**. Here is how to spot this mistake: if one answer explains a six-year war across two oceans, something is missing."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Four reasons the Allies won. Which list holds up against the chapters you've read?",
+    "prompt": "A friend asks why the Allies won, and you get one sentence. Which is best?",
     "options": [
      {
       "id": "a",
-      "text": "Braver soldiers, better generals, luck at Midway, the atomic bomb."
+      "text": "Because America built the atomic bomb."
      },
      {
       "id": "b",
-      "text": "More people and oil, more factory output, sea lanes kept open, and Allies who planned together while the Axis fought separate wars."
+      "text": "Several pressures at once: an alliance, the Soviet army, factories, and control of the sea and air."
      },
      {
       "id": "c",
-      "text": "Munich, the fall of France, Pearl Harbor, D-Day."
+      "text": "Because German and Japanese soldiers ran out of courage."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a list of feelings and moments, not weights: brave soldiers fought on both sides, and the bomb came after Germany had already surrendered.",
-     "c": "Those are turning points from chapters 2 to 6, not reasons: they tell you when the fire spread or turned, not why one side had more water."
+     "a": "That's the last hose, not all of them: Germany surrendered three months before Hiroshima.",
+     "c": "That's morale, not the hoses: even in summer 1945, with its doors nailed shut, Japan's leaders still hoped for one last battle. Courage was never what ran out."
     },
-    "reteach": "Ask of each reason: did it give one side more water on the fire, month after month? More people, more factories, open supply lines and a shared plan all do. A single battle or a single bomb does not, however dramatic."
+    "reteach": "The war was too big for one cause. Germany surrendered before an atomic bomb was ever used, and Japan needed several blows at once. The Allies won by combining an alliance, the Soviet army, factories, and the sea and air."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Japan was squeezed island by island until, in one August week of 1945, two atomic bombs and a Soviet invasion left its leaders no way out, and the surrender was signed on 2 September. **The Allies won because they had more people, more factories, open sea lanes and a shared plan**, not because of one bomb or one battle.",
-    "simpler": "Here is the whole chapter in one breath. Japan was squeezed island by island. Then, in one August week of 1945, two atomic bombs and a Soviet invasion left its leaders no way out. The surrender was signed on 2 September. **The Allies won because they had more people, more factories, open sea lanes and a shared plan**, not because of one bomb or one battle. Think of a tug of war: the heavier team wins, whatever the last pull looks like."
+    "body": "Japan gave up in August 1945 because **the blows landed together**: a blockade, burned cities, two atomic bombs and a Soviet invasion in the same week. The Allies won the whole war the same way, with an alliance, the Soviet army, factories and control of the sea and air, every hose at once.\n\nNext: open a single-volume history, like Beevor's, and see if your map holds.",
+    "simpler": "Japan gave up in August 1945 because **the blows landed together**: a blockade cutting off supplies, burned cities, two atomic bombs and a Soviet invasion, all in the same week. The Allies won the whole war the same way, with an alliance, the Soviet army, factories and control of sea and air, every hose at once. Next, open a one-book history of the war, like Beevor's, and see if your map holds up."
    },
    {
     "type": "try",
-    "body": "Tonight, tell someone the whole war in 10 minutes: 1919, Munich, Poland, France, 1941, the three turning battles, D-Day, Berlin, August 1945. Count the turning points on your fingers. Wherever you stall is tomorrow's reread.",
-    "simpler": "Tonight, tell someone the whole war in ten minutes. Walk through it in order: 1919, Munich, Poland, France, 1941, the three turning battles, D-Day, Berlin, August 1945. Count the turning points on your fingers as you go, like counting stops on a bus route. Wherever you stall or go blank, that is the part to reread tomorrow. Stalling is useful: it shows you exactly where the gap is."
+    "body": "Tonight, set a 10-minute timer and tell the whole war out loud, to a friend or your phone's voice recorder, from 1919 to 2 September 1945. Count your turning points. Aim for eight.",
+    "simpler": "Tonight, set a timer for 10 minutes and **tell the story of the whole war out loud**, to a friend or into your phone's voice recorder. Start in 1919 and finish on 2 September 1945. Count the turning points you mention, the moments where things changed direction. Aim for eight."
    }
   ],
-  "outcomeLine": "You can now explain how the war with Japan ended in August 1945 and give four concrete reasons the Allies won, each tied to a chapter you have read."
+  "outcomeLine": "You can now explain how the Pacific war ended and give four reasons the Allies won, each tied to a chapter you have read.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"10\" y1=\"170\" x2=\"310\" y2=\"170\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polygon points=\"132,170 132,104 160,78 188,104 188,170\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"151\" y=\"138\" width=\"18\" height=\"32\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M148 82 Q142 60 156 46 Q155 62 164 56 Q176 66 172 82 Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"34\" cy=\"160\" r=\"9\" fill=\"#1F7A4D\"/><circle cx=\"286\" cy=\"160\" r=\"9\" fill=\"#1F7A4D\"/><circle cx=\"40\" cy=\"36\" r=\"9\" fill=\"#1F7A4D\"/><circle cx=\"280\" cy=\"36\" r=\"9\" fill=\"#1F7A4D\"/><path d=\"M42 154 Q90 80 150 70\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-dasharray=\"6 4\"/><path d=\"M278 154 Q230 80 170 70\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-dasharray=\"6 4\"/><path d=\"M48 40 Q100 30 152 58\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-dasharray=\"6 4\"/><path d=\"M272 40 Q220 30 168 58\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-dasharray=\"6 4\"/><text x=\"160\" y=\"192\" font-family=\"Georgia, serif\" font-size=\"14\" fill=\"#1B1A17\" text-anchor=\"middle\">every hose</text></svg>"
  },
- "seconds": 119.36645698547363
+ "repairedFrom": {
+  "score": 8,
+  "failed_checks": [
+   "concrete_images",
+   "facts_ok",
+   "would_keep_reading",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Card 1 and card 5 say the six leaders split three against three on 'whether to surrender'. In fact all six were ready to accept the Allied surrender terms in some form. They split over whether to ask for one condition (keeping the emperor) or four.",
+   "Exercise 1 says Japan's leaders 'agreed to give up' on 10 August. On that day Japan only sent a reply that still asked to keep the emperor. The final decision came on 14 August.",
+   "Exercise 1 feedback says 'after Hiroshima, Japan's leaders kept arguing for three more days'. The six leaders did not formally meet until 9 August.",
+   "Card 3 says island-hopping started 'from 1942'. The strategy of skipping islands mostly began in 1943; 1942 was Guadalcanal.",
+   "Exercise 3 feedback says Japanese soldiers on Okinawa fought 'almost to the last man'. Over 7,000 surrendered, and the chapter never teaches this fact."
+  ],
+  "weakest_card": 6,
+  "why": "Card 6, 'Four hoses', tries to do two jobs: it finishes the argument about Japan's surrender, then lists four abstract causes with chapter numbers in brackets, and offers nothing to picture.",
+  "fix": "Move the bomb-versus-Soviet-invasion argument into card 5. Drop the chapter numbers and give each hose one concrete picture, for example a Liberty cargo ship built in under five days for factories, or Soviet tanks at Kursk for the Soviet army."
+ }
 }

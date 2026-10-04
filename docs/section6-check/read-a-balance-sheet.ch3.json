@@ -5,121 +5,136 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Which would you rather own on a bad morning: a $300,000 house or $300,000 in the bank? Same number, very different mornings. The cash pays the plumber at 9am; the house takes months to sell. A balance sheet lists what a company owns in exactly that order, **fastest to turn into cash at the top, slowest at the bottom**, and the line between them is 12 months.",
-    "simpler": "Imagine you own a house worth $300,000. Now imagine you have $300,000 sitting in the bank instead. The number is the same, but the money is not. Cash can pay a plumber this morning. A house takes months to sell. A company's list of what it owns works the same way. It runs **fastest to turn into cash at the top, slowest at the bottom**. The dividing line is 12 months."
+    "body": "The list of assets on a balance sheet is a speed ranking: it sorts things by how fast each one could turn into cash. Walk through the house from our picture. The notes in the kitchen drawer could be spent tonight, but the house itself would take months to sell. **Same house, two speeds of owning.**",
+    "simpler": "A balance sheet lists what a company owns in order of speed: how fast each thing could turn into cash. Think back to the house in our picture. The notes in the kitchen drawer could be spent tonight. The house itself would take months to sell. **Same house, two speeds of owning.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Dev runs a bakery. She owns three things: $4,000 in the till, 200 bags of flour, and one big oven. Which is the slowest to turn into cash?",
+    "prompt": "It's Saturday and the boiler has just died. You need \u00a3500 by Monday. Which thing you own gets you that cash fastest?",
     "options": [
      {
       "id": "a",
-      "text": "The $4,000 in the till"
+      "text": "The house itself"
      },
      {
       "id": "b",
-      "text": "The 200 bags of flour"
+      "text": "The \u00a3500 your sister owes you and promised to pay back this weekend"
      },
      {
       "id": "c",
-      "text": "The oven"
-     }
-    ],
-    "answer": "c",
-    "whyNot": {
-     "a": "That's already cash, not something that needs turning into cash: nothing on the sheet is faster than money in the till.",
-     "b": "That's stock, not a slow asset: flour becomes bread, and bread becomes cash, within weeks."
-    },
-    "reteach": "Ask: if Dev needed money by next month, what could she sell without breaking the business? The till money is instant. The flour sells as bread. The oven would take months to sell and leave her with nothing to bake in. Fast sits at the top of the list, slow at the bottom."
-   },
-   {
-    "type": "teach",
-    "title": "Fast: the top half",
-    "body": "The top half of the asset list is called *current assets*: things that are cash now or should become cash within 12 months. Three lines do most of the work. *Cash* is the money in the bank. *Inventory* is stock waiting to be sold: flour in the bakery, phones in a warehouse. *Receivables* are bills the company has sent to customers that are not yet paid.\n\nIn the house picture, this is the drawer of notes, the food in the fridge, and the $50 your neighbour still owes you for the fence. **All three should be money within a year.** Receivables are the one to watch. A bill sent is not a bill paid.",
-    "simpler": "The top half of the list is called current assets. These are things that are cash now or should turn into cash within 12 months. Cash is money in the bank. Inventory is stock waiting to be sold, like flour in a bakery. Receivables are bills the company has sent to customers who have not paid yet. **All three should be money within a year.** Watch the receivables. A bill sent is not a bill paid."
-   },
-   {
-    "type": "example",
-    "title": "Marta's bike shop, 31 December",
-    "body": "Cash in the bank: $12,000. Bikes on the shop floor, at what she paid for them: $48,000. Invoices sent to the city council for 30 delivery bikes, still unpaid: $22,000. Her current assets total $82,000, but **only $12,000 of it could pay a bill tomorrow**. The council pays in 90 days, if it pays on time, and the bikes only become money when someone walks in and wants one. Marta looks rich on paper and checks her bank app twice a day.",
-    "simpler": "Marta has $12,000 in the bank. Her bikes, at what she paid, come to $48,000. Unpaid bills sent to the city council for 30 delivery bikes come to $22,000. Her current assets total $82,000. But **only $12,000 of it could pay a bill tomorrow**. The council pays in 90 days, if it pays on time. The bikes only become money when a customer buys one. Marta looks rich on paper and checks her bank app twice a day."
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "A software company's balance sheet shows four assets: an office building ($5m), unpaid customer invoices ($2m), cash ($1m), and a brand it bought from a rival ($3m). Which two lines are current, meaning fast, assets?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Cash and the unpaid invoices"
-     },
-     {
-      "id": "b",
-      "text": "Cash and the office building"
-     },
-     {
-      "id": "c",
-      "text": "The unpaid invoices and the bought brand"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's mixing a fast asset with a slow one: the building would take months to sell, and the company needs it to work in.",
-     "c": "That's mixing a fast asset with a slow one: a bought brand never turns into cash by itself, so it sits at the bottom."
-    },
-    "reteach": "Current means cash within 12 months. Cash already is cash. Invoices should be paid in weeks. A building and a bought brand are kept for years: useful, but not money any time soon, so they go in the slow half."
-   },
-   {
-    "type": "teach",
-    "title": "Slow: the bottom half",
-    "body": "Below the line sit *non-current assets*, the slow ones: things the company plans to keep and use for years. *Property, plant and equipment* is the stuff you could kick: buildings, machines, delivery vans. Then come *intangibles*, things you cannot touch: software, patents, and a brand or customer list bought from another company, which often shows up as *goodwill*.\n\nYou'd think the solid half is the safer half. In one way it's the opposite: **the number next to a slow asset is a cost, not a price**. The van is listed at what was paid, minus wear. Goodwill is listed at what a buyer once hoped it was worth. Neither tells you what someone would pay tonight.",
-    "simpler": "Below the line sit non-current assets, the slow ones the company keeps for years. Property, plant and equipment means buildings, machines, vans. Intangibles are things you cannot touch: software, patents, and a bought brand, often listed as goodwill. **The number next to a slow asset is a cost, not a price.** The van is listed at what was paid, minus wear. Goodwill is what a buyer once hoped it was worth. Neither says what someone would pay tonight."
-   },
-   {
-    "type": "mistake",
-    "body": "Tomasz reads a retailer's balance sheet, sees $900m of total assets, and relaxes. He never looked down the list: $600m of it is goodwill from buying a rival chain, and cash is $15m. The way to spot this is to **cover the total and read the top three lines by size**. If the biggest thing the company owns is something it cannot touch or sell, it owns less than the total suggests.",
-    "simpler": "Tomasz reads a retailer's balance sheet. He sees $900m of total assets and relaxes. He never reads down the list. $600m of that total is goodwill from buying a rival chain. Cash is only $15m. The way to catch this is to **cover the total and read the top three lines by size**. If the biggest thing a company owns is something it cannot touch or sell, it owns less than the total suggests."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "On a balance sheet, the asset lines run from top to bottom in order of what?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Biggest amount to smallest"
-     },
-     {
-      "id": "b",
-      "text": "How fast each one turns into cash"
-     },
-     {
-      "id": "c",
-      "text": "Oldest purchase to newest"
+      "text": "The \u00a31,200 sofa you bought last year"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's how you'd rank them for size, not how the sheet orders them: a tiny cash line still sits above a huge building.",
-     "c": "That's purchase history, not the sheet's rule: a van bought yesterday still sits below invoices sent last year."
+     "a": "That mixes up what's worth the most with what's fastest. A house is worth more, but selling one takes months.",
+     "c": "That mixes up value with speed. The sofa is worth something, but first you'd have to find a buyer."
     },
-    "reteach": "Picture the house. Cash in the drawer first, food in the fridge next, money the neighbour owes you after that. Then the car, then the house itself. The sheet orders assets by how soon they become money, and draws its line at 12 months."
+    "reteach": "The question is how soon something turns into cash, not how much it's worth. Money someone has promised to pay you this week is almost cash already. A house or a sofa has to be sold first, and selling takes time."
+   },
+   {
+    "type": "teach",
+    "title": "Fast: current assets",
+    "body": "Accountants split everything a company owns using one rule of thumb: 12 months. Anything expected to turn into cash within a year is a *current asset*. Think of it as the fast pile.\n\nThree lines usually make up most of it. First, cash: the money in the bank. Second, *receivables*: bills customers owe but haven't paid yet, like your sister's \u00a3500. Third, *inventory*: the stock on the shelves waiting to be sold.\n\nYou'd think cash would be the biggest fast line. In many shops and factories, it's one of the smaller ones. **Fast means it should become cash within a year, not that it's cash already.**",
+    "simpler": "Accountants sort what a company owns with one rule of thumb: 12 months. Anything expected to become cash within a year is a *current asset*, the fast pile. It's mostly three things: cash in the bank, *receivables* (money customers owe but haven't paid yet, like your sister's \u00a3500), and *inventory*, the stock waiting to be sold. In many shops and factories, cash is one of the smaller three. **Fast means it should become cash within a year, not that it's cash already.**"
+   },
+   {
+    "type": "example",
+    "title": "Spoke & Co., a made-up bike shop",
+    "body": "It's 31 December at Spoke & Co. There's \u00a340,000 in the bank. A courier firm still owes \u00a315,000 for six cargo bikes. The shop floor holds \u00a3120,000 of bikes, including a purple tandem nobody has wanted since March. That's \u00a3175,000 in the fast pile. The slow pile is the workshop building at \u00a3300,000 plus \u00a325,000 of tools. **Total: \u00a3500,000, and the biggest single thing the shop owns is a building it can't spend.**",
+    "simpler": "It's 31 December at Spoke & Co. The bank holds \u00a340,000. A courier firm still owes \u00a315,000 for six cargo bikes. The shop floor has \u00a3120,000 of bikes, including a purple tandem nobody has wanted since March. That's \u00a3175,000 in the fast pile. The slow pile is the workshop building, worth \u00a3300,000, plus \u00a325,000 of tools. **Total: \u00a3500,000, and the biggest thing the shop owns is a building it can't spend.**"
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Spoke & Co. adds three new lines: \u00a39,000 a school owes for bikes delivered last week, a \u00a360,000 van the shop plans to use for six years, and \u00a32,000 of inner tubes in the stockroom. Which sorting is right?",
+    "options": [
+     {
+      "id": "a",
+      "text": "All three are fast, because each one could be sold"
+     },
+     {
+      "id": "b",
+      "text": "The school's bill and the inner tubes are fast; the van is slow"
+     },
+     {
+      "id": "c",
+      "text": "Only the school's bill is fast; the tubes and the van are physical things, so they're slow"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's asking what could be sold, not what will turn into cash within 12 months. The van is meant to be driven for years.",
+     "c": "That's sorting by object versus paper, not fast versus slow. The tubes are stock that should sell this year, so they're fast."
+    },
+    "reteach": "Sort by the plan, not by the object. Ask whether it will become cash, or get used up, within 12 months. The school's bill and the tubes will. The van will be driven for six years, so it goes in the slow pile."
+   },
+   {
+    "type": "teach",
+    "title": "Slow: long-term assets",
+    "body": "Everything else is a *non-current asset*, the slow pile. These are things the company keeps to do its work, not to sell: buildings, machines, vans, computers. In the house, that's the house itself and the new boiler. You live with them; you don't sell them on a Tuesday.\n\nOne odd line sits here too: brands the company bought from someone else. Here's the twist. **A brand a company built itself mostly isn't on the sheet at all, but a brand it bought is.**",
+    "simpler": "Everything else is a *non-current asset*, the slow pile. These are things a company keeps to do its work, not to sell: buildings, machines, vans, computers. In the house, that's the house itself and the new boiler. Brands bought from someone else sit here too. Oddly, **a brand a company built itself mostly isn't on the sheet at all, but a brand it bought is.**"
+   },
+   {
+    "type": "mistake",
+    "body": "Priya opens a caf\u00e9 chain's balance sheet, sees \u00a32 million of assets and decides the company is rolling in money. Then she looks closer: \u00a31.9 million is ovens, counters and shop fittings, and the cash line says \u00a340,000. The total is big, but the fast pile is thin. To spot this, **read 'total current assets' before the grand total**, every time.",
+    "simpler": "Priya opens a caf\u00e9 chain's balance sheet and sees \u00a32 million of assets. She decides the company is rolling in money. Then she looks closer. \u00a31.9 million is ovens, counters and shop fittings, and the cash line says just \u00a340,000. The total is big, but the fast pile is thin. To catch this, **read 'total current assets' before the grand total**, every time."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend says: 'This company has \u00a310 million of assets, so it can easily pay a \u00a31 million bill next month.' What should you ask first?",
+    "options": [
+     {
+      "id": "a",
+      "text": "How much of the \u00a310 million is fast: cash, customer bills and stock?"
+     },
+     {
+      "id": "b",
+      "text": "Is \u00a310 million more than it had last year?"
+     },
+     {
+      "id": "c",
+      "text": "Does the company own its own brand?"
+     }
+    ],
+    "answer": "a",
+    "whyNot": {
+     "b": "That's about growth, not speed. Even a bigger pile of buildings can't pay a bill next month.",
+     "c": "That's about what kind of slow asset it has, not how much fast money it has. A brand can't pay next month's bill."
+    },
+    "reteach": "Next month's bill gets paid from the fast pile, not the total. When the plumber needs paying, you reach for the kitchen drawer, not the deeds to the house. So split the \u00a310 million into fast and slow before deciding anything."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A company's assets are listed **fastest to slowest**: cash, stock and unpaid customer bills at the top should be money within 12 months, while buildings, machines and bought brands at the bottom are kept for years. The top half pays this year's bills; the bottom half's numbers are old costs, not today's prices.\n\nTomorrow: a company can owe billions and be perfectly healthy. The trick is when.",
-    "simpler": "A company lists what it owns **fastest to slowest**. At the top sit cash, stock, and unpaid customer bills. These should be money within 12 months. At the bottom sit buildings, machines, and brands bought from other companies. These are kept for years. The top half pays this year's bills. The bottom half's numbers are old costs, not today's prices. Tomorrow: a company can owe billions and still be perfectly healthy. The trick is when."
+    "body": "Everything a company owns goes in one of two piles: fast things that should become cash within 12 months (cash, customer bills, stock) and slow things it keeps to do the work (buildings, machines, brands it bought). The total tells you how big the house is; **the fast pile tells you what's in the kitchen drawer.**",
+    "simpler": "Everything a company owns goes into one of two piles. The fast pile holds things that should become cash within 12 months: cash, customer bills and stock. The slow pile holds things it keeps to do the work: buildings, machines and brands it bought. The total tells you how big the house is. **The fast pile tells you what's in the kitchen drawer.**"
    },
    {
     "type": "try",
-    "body": "Search online for any company's annual report, find the page titled balance sheet, and read the asset lines top to bottom. Write down the **three biggest** and mark each one F for fast or S for slow.",
-    "simpler": "Search online for any company's annual report. Find the page called balance sheet. Read the asset lines from top to bottom. Write down the **three biggest** by size. Next to each one, write F if it is fast, meaning it should become cash within a year, or S if it is slow, meaning the company keeps it for years."
+    "body": "Pick a big chain you shopped at this week (big listed companies publish their accounts; many small shops don't). Search its name plus 'balance sheet'. Find two lines, 'total current assets' and 'total assets', and work out roughly what share of everything it owns is fast.\n\nTomorrow: how a company can owe billions and still be perfectly healthy.",
+    "simpler": "Pick a big chain you shopped at this week. Big companies usually publish their accounts; many small shops don't. Search its name plus 'balance sheet'. Find two lines: 'total current assets' and 'total assets'. The first is the fast pile. The second is everything the company owns. Compare the two and work out roughly **what share of everything it owns is fast.** Tomorrow: how a company can owe billions and still be perfectly healthy."
    }
   ],
   "outcomeLine": "You can now sort every asset line into fast or slow and name the two or three biggest things a company owns.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M50 182 L50 108 L135 56 L220 108 L220 182 Z\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"120\" y=\"136\" width=\"30\" height=\"46\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"72\" y=\"124\" width=\"26\" height=\"24\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"172\" y=\"124\" width=\"26\" height=\"24\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"246\" y1=\"30\" x2=\"246\" y2=\"182\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"6 5\"/><ellipse cx=\"282\" cy=\"170\" rx=\"24\" ry=\"8\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><ellipse cx=\"282\" cy=\"158\" rx=\"24\" ry=\"8\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><ellipse cx=\"282\" cy=\"146\" rx=\"24\" ry=\"8\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><ellipse cx=\"282\" cy=\"134\" rx=\"24\" ry=\"8\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"20\" y1=\"182\" x2=\"310\" y2=\"182\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><text x=\"282\" y=\"112\" font-size=\"15\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">fast</text><text x=\"135\" y=\"42\" font-size=\"15\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">slow</text></svg>"
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M30 170h260\" fill=\"none\"/><path d=\"M150 168V98l60-48 60 48v70z\" fill=\"#1F7A4D\"/><path d=\"M196 168v-36h28v36\" fill=\"#F2A93B\"/><rect x=\"164\" y=\"106\" width=\"22\" height=\"20\" fill=\"#F2A93B\"/><path d=\"M175 106v20M164 116h22\" fill=\"none\"/><rect x=\"40\" y=\"128\" width=\"72\" height=\"42\" fill=\"#F2A93B\"/><path d=\"M40 148h72M68 158h16\" fill=\"none\"/><circle cx=\"60\" cy=\"118\" r=\"9\" fill=\"#F2A93B\"/><circle cx=\"80\" cy=\"112\" r=\"9\" fill=\"#F2A93B\"/><circle cx=\"97\" cy=\"119\" r=\"7\" fill=\"#F2A93B\"/><path d=\"M124 118l14-8M124 118l14 8\" fill=\"none\"/></g><text x=\"76\" y=\"192\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">FAST</text><text x=\"210\" y=\"192\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"middle\" fill=\"#1B1A17\">SLOW</text></svg>"
  },
- "seconds": 93.18012499809265
+ "repairedFrom": {
+  "score": 10,
+  "failed_checks": [
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "'You'd think cash would be the biggest fast line. Often it's the smallest.' This overreaches. For many cash-rich companies, such as big tech firms, cash is the largest current asset. It only holds reliably for retailers and manufacturers.",
+   "'12 months' is presented as the only rule. Strictly, the cutoff is 12 months or the operating cycle, whichever is longer. That is an acceptable simplification, but it is not the full rule.",
+   "The try card assumes any shop you used this week publishes a balance sheet. Many private businesses don't, or they file only abbreviated accounts.",
+   "Open loop fails on placement: the 'Tomorrow:' teaser is on card 9, but the chapter actually ends on the try card, which has no pull toward the next chapter."
+  ],
+  "weakest_card": 6,
+  "why": "At about 118 words it is the longest teach card, and it packs three separate ideas into one: the slow pile, the bought-brand twist, and US vs international ordering. The ordering point is never tested, and the brand point only shows up as a wrong option.",
+  "fix": "Delete the last paragraph about US vs international ordering. That brings the card under 90 words and leaves the brand twist as its only payoff."
+ }
 }

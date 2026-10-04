@@ -5,114 +5,138 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Aristotle sat in Plato's school for about 20 years, then walked out disagreeing with his teacher about whether the table between them was fully real. At the long dinner-table argument, this is the first big split: Plato says **the real thing is the perfect pattern behind what you see**, and Aristotle answers that the real thing is right there, and you learn it by looking closely. Every guest since has had to pick a chair on one side or the other."
+    "body": "A teacher and his student spent 20 years at the same school in Athens, and they still disagreed about whether the table in front of them was the real thing. Plato, the teacher, said every table you touch is a rough copy of a perfect *Table* you can only reach by thinking. At our long dinner table, Aristotle is the next guest to speak, and for a loyal student his reply is a surprise: **look harder at the actual table**.",
+    "simpler": "Plato was a teacher and Aristotle was his student. They spent 20 years at the same school in Athens. Still, they disagreed about the table right in front of them. Plato said any table you can touch is a rough copy of a perfect *Table*, one you can only reach by thinking. At our long dinner table, Aristotle speaks next. You'd expect a loyal student to agree. Instead he says: **look harder at the actual table**."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Plato's famous story: prisoners chained in a cave since birth, facing a wall. A fire behind them throws shadows of puppets onto the wall. What do the prisoners think the shadows are?",
+    "prompt": "Some people have been chained in a cave since birth, facing a wall. A fire behind them throws shadows of passing objects onto it: a jug, a horse. You ask them what's real. What do they say?",
     "options": [
      {
       "id": "a",
-      "text": "A trick they have learned to ignore."
+      "text": "The shadows."
      },
      {
       "id": "b",
-      "text": "The real things, because shadows are all they have ever seen."
+      "text": "The fire behind them."
      },
      {
       "id": "c",
-      "text": "Pictures of the sun outside."
+      "text": "Nothing, because they know it's a trick."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's the freed prisoner's view, not theirs: they have never seen anything else, so there is nothing to compare the shadows with.",
-     "c": "That's the end of the story, not the start: nobody in the cave knows there is an outside, let alone a sun."
+     "b": "That's what you'd find if you turned round. They've never seen the fire, so they can't name it.",
+     "c": "That's knowing it's a trick, and you need something outside to compare with before you can know that. They have nothing outside."
     },
-    "reteach": "Plato's point is about us. We take the things in front of us to be the whole of reality, the way the prisoners take the shadows. The cave is a picture of being sure about something you have only ever seen one way."
+    "reteach": "If shadows are all you've ever seen, shadows are your whole world. You'd name them and study them. Nothing would look missing."
    },
    {
     "type": "teach",
-    "title": "The cave, in 3 sentences",
-    "body": "Here is the cave story from Plato's Republic. Prisoners chained since birth face a wall, and shadows of puppets thrown by a fire are the only things they have ever seen. One is freed, climbs into daylight, sees the sun, and comes back to tell the rest, who decide he has lost his mind.\n\nNow the key. The shadows are ordinary things. The sun is a *form*, Plato's word for the perfect pattern a thing copies. Draw 100 circles and every one wobbles, yet you know exactly what a perfect circle is, though you have never seen one.\n\nFor Plato the real world is the one behind the one you see, **reached by thinking, not by looking**."
+    "title": "Plato's cave",
+    "body": "That cave is Plato's. It comes from his book the *Republic*. One prisoner is set free. He turns round, the fire dazzles him, and then he's dragged up and out into sunlight. Slowly he sees real horses, real trees, and at last the sun itself.\n\nPlato says we are the prisoners. The objects carried past the fire are the ordinary things around us, and the shadows are copies of them. The things outside are *Forms*, Plato's word for the perfect pattern a thing copies, like perfect Justice or the perfect Circle. The sun stands for the highest Form of all, the Good. So the world we see is made of **copies of something more real**, and you reach the real things by thinking, not by looking.\n\nWhen the freed man goes back down to tell the others, they laugh at him and threaten to kill him. That's a quiet nod to Socrates, Plato's teacher.",
+    "simpler": "This cave is from Plato's book the *Republic*. One prisoner is set free. The fire dazzles him. Then he's dragged into sunlight and sees real trees, real horses, and the sun. Plato says we are the prisoners. The objects carried past the fire are ordinary things, and the shadows are copies of them. The things outside are *Forms*: perfect patterns, like perfect Justice or a perfect Circle. The sun is the highest Form, the Good. So what we see are **copies of something more real**, reached by thinking. When he goes back, the others laugh and threaten to kill him, a nod to Socrates, Plato's teacher."
    },
    {
     "type": "example",
-    "title": "A knife and a bucket",
-    "body": "After Plato died, Aristotle left Athens and ended up on the island of Lesbos, spending his days at a lagoon with a knife and a bucket. He cut open fish and wrote down what he found, including a small shark whose unborn young are joined to the mother by a cord, the way a mammal's are. Readers for centuries filed that under tall tales. In the 1840s a German biologist opened the same kind of shark and found the cord exactly as described. Plato wanted the perfect idea of a fish; Aristotle wanted **the fish, opened, on the table**."
+    "title": "The napkin circle",
+    "body": "Priya draws a circle on a caf\u00e9 napkin to show how big the pizza should be. It wobbles, the pen skips, and one side comes out flat. Nobody has ever drawn a perfect circle, not even with a compass, once you look under a microscope. Yet everyone at the table knows exactly what that wobbly line is failing to be. For Plato, that's the clue: **you know the perfect circle without ever having seen one**, so it must exist somewhere, just not on the napkin.",
+    "simpler": "Priya draws a circle on a caf\u00e9 napkin to show the pizza size. It wobbles, the pen skips, and one side goes flat. Nobody has ever drawn a perfect circle. Even one made with a compass looks bumpy under a microscope. Yet everyone at the table knows what Priya's line was trying to be. Plato saw a clue in that: **you know the perfect circle without ever having seen one**, so it must exist somewhere, just not on the napkin."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Two friends want to know what makes a bridge strong. Sam says: work out the perfect bridge in your head first; any built bridge is only a rough copy. Jo says: go and look at 50 bridges and see what the ones still standing share. Which chair is which?",
+    "prompt": "Three friends argue about what makes a good friend. Which one is thinking like Plato?",
     "options": [
      {
       "id": "a",
-      "text": "Sam is Plato, Jo is Aristotle."
+      "text": "Maya lists ten good friends she's had and looks for what they share."
      },
      {
       "id": "b",
-      "text": "Sam is Aristotle, Jo is Plato."
+      "text": "Leo says every friendship falls short of a perfect Friendship you can only grasp by thinking."
      },
      {
       "id": "c",
-      "text": "Both are Plato: Jo is still hunting for the perfect bridge."
+      "text": "Ben says 'friend' is just a word, so it means whatever you like."
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the two swapped: Aristotle is the one with the knife and the bucket, learning by looking at many cases.",
-     "c": "That's Plato's goal pasted onto Aristotle's method: Jo never leaves the real bridges, which is exactly Aristotle's point."
+     "a": "That's learning from examples you can see, which is the student's move, not Plato's. To Plato, examples are shadows.",
+     "c": "That's a shrug, not Plato. He thought there was one perfect answer out there."
     },
-    "reteach": "Ask one question: where does the truth live? If it lives in a perfect pattern you reach by thinking, that's Plato. If it lives in the things themselves and you reach it by looking at many of them, that's Aristotle."
+    "reteach": "For Plato, the friendships you can see are shadows on the cave wall. The Form of Friendship is the real thing outside the cave. You reach it by thinking, not by collecting more examples."
    },
    {
     "type": "teach",
-    "title": "Aristotle's reply, and the catch",
-    "body": "Aristotle's reply, after 20 years of listening: yes, there is a pattern, but it lives in the things. The pattern 'dog' lives in dogs. Take away every dog and it goes too. You find it by gathering many cases and noticing what repeats, which is the habit that grew into science.\n\nYou'd think that settled it 2,300 years ago. It didn't. A physicist writing an equation is trusting a clean pattern that no messy measurement will ever quite match, which is a very Platonic thing to do.\n\nSo where does a scientist sit? **Closer to Aristotle**, because the test is always 'go and look', with one foot under Plato's side of the table."
+    "title": "Aristotle pulls it down to earth",
+    "body": "Aristotle studied at Plato's school, the Academy, for about 20 years. You'd expect him to build on his teacher's idea. Instead **he brought the Forms down into things themselves**. What makes an oak an oak isn't in another world. It's in the acorn, the bark, the way the tree grows.\n\nSo you find it by looking. Aristotle spent time on the island of Lesbos studying sea creatures, cutting animals open and sorting them into groups.\n\nAbout 1,800 years later, the painter Raphael put the two side by side: Plato points at the sky, and Aristotle holds his hand flat over the ground. The whole argument, one gesture each.",
+    "simpler": "Aristotle studied at Plato's school, the Academy, for about 20 years. Yet instead of following his teacher, **he brought the Forms down into things themselves**. What makes an oak an oak is in the acorn, the bark, how it grows. You find it by looking. On the island of Lesbos he studied sea creatures, cutting them open and sorting them. Some 1,800 years later, Raphael painted the pair: Plato pointing at the sky, Aristotle's hand flat over the ground."
    },
    {
     "type": "mistake",
-    "body": "Dev, at a pub quiz, says: 'Plato thought this pint was an illusion.' Not quite: Plato never called the world fake, only a *copy*, real the way a photo of your mother is real and less real the way the photo is not her. Spot the slip by asking which they mean, fake like a forged note or a copy like a photo. Plato meant the photo."
+    "body": "After rewatching *The Matrix*, Sam tells everyone that Plato thought the world was fake. Not quite. A shadow is a real shadow. Plato just ranked it lower, as a copy of something better. When someone says Plato called the world an illusion, listen for the missing word: **copy, not fake**.",
+    "simpler": "After rewatching *The Matrix*, Sam tells everyone that Plato thought the world was fake. That's not quite right. A shadow is still a real shadow. Plato just ranked it lower, as a copy of something better. Think of a photo of a friend: the photo is real, but it isn't the friend. So when someone says Plato called the world an illusion, listen for the missing word: **copy, not fake**."
    },
    {
     "type": "exercise",
-    "kind": "recall",
-    "prompt": "A painter shows the two men walking side by side. One points a finger at the sky. The other holds his palm flat, toward the ground. From this chapter, who is who?",
+    "kind": "apply",
+    "prompt": "A scientist tests a new drug on 2,000 patients and changes her mind when the results come in. Whose side of the table is she on?",
     "options": [
      {
       "id": "a",
-      "text": "Plato points up, Aristotle holds his palm down: the pattern behind things versus the things here."
+      "text": "Plato's: you reach the truth by thinking past what you see."
      },
      {
       "id": "b",
-      "text": "Aristotle points up, Plato holds his palm down."
+      "text": "Aristotle's: you find the truth by looking closely at the world."
      },
      {
       "id": "c",
-      "text": "Both point up; they only disagreed about politics."
+      "text": "Neither: scientists stay out of philosophy."
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the gestures swapped: Aristotle is the one who stays with the fish on the table, so the flat palm toward the ground is his.",
-     "c": "That's the one thing they shared, teacher and student, pasted over the one thing they split on: where the real lives."
+     "a": "That's Plato's climb out of the cave, not her method. She trusts what she can measure.",
+     "c": "That's stepping outside the long argument. Her method is itself a reply, and it echoes Aristotle."
     },
-    "reteach": "Up means 'the real pattern sits behind and above what you see', which is Plato's cave and sun. Down means 'the real is here, look at it', which is Aristotle's lagoon. The gesture is the whole argument."
+    "reteach": "Ask where each of them goes to find the truth. Plato looks away from the senses, toward perfect Forms. Aristotle looks more closely at the thing in front of him, just as she did with 2,000 patients."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Plato says the things you see are wobbly copies of perfect patterns, and the patterns are the real world, reached by thinking. Aristotle, his student for 20 years, answers that **the patterns live inside the things themselves**, so you learn the real by looking closely at many of them, which is why a scientist sits closer to his chair.\n\nTomorrow: in 1641 a man doubts everything, and finds exactly one thing he can't."
+    "body": "Plato said what we see are shadows on a cave wall, and the real things are perfect Forms that you reach by thinking. Aristotle, his student for 20 years, said the Forms live inside things, so **look closely at the world and you'll find them**.",
+    "simpler": "Plato said the things we see are shadows on a cave wall. The real things are perfect Forms, and you reach them by thinking. Aristotle was his student for 20 years, but he said the Forms live inside things. So **look closely at the world and you'll find them**."
    },
    {
     "type": "try",
-    "body": "Tonight, draw 5 circles by hand. Look at the wobbles. Ask: how do you know what a perfect circle is when you have never seen one? That's Plato's question."
+    "body": "Tonight, pick one object near you, like a mug. Write one sentence about it the way Plato would, then one the way Aristotle would. Notice which one came more easily.\n\nTomorrow: in 1641, one man doubts everything and finds exactly one thing he can't.",
+    "simpler": "Tonight, pick one object near you, like a mug. First write one sentence about it the way Plato would, thinking about the perfect mug it copies. Then write one the way Aristotle would, looking closely at the mug in your hand. Notice **which sentence came more easily**. Tomorrow: in 1641, one man doubts everything and finds exactly one thing he can't doubt."
    }
   ],
-  "outcomeLine": "You can now tell the cave story in 3 sentences and say which chair, Plato's or Aristotle's, a scientist sits closer to.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"160\" cy=\"36\" r=\"18\" fill=\"#F2A93B\"/><path d=\"M160 8v6M160 58v6M132 36h6M182 36h6M140 16l4 4M176 16l-4 4M140 56l4-4M176 56l-4-4\" stroke=\"#F2A93B\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M22 152q140-4 278 1\" stroke=\"#1B1A17\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M34 153l-5 38M288 153l5 38\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"92\" cy=\"72\" r=\"14\" stroke=\"#1B1A17\" stroke-width=\"3\" fill=\"none\"/><path d=\"M92 86v56M92 104l48-48M92 104l-28 28\" stroke=\"#1B1A17\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"228\" cy=\"72\" r=\"14\" stroke=\"#1B1A17\" stroke-width=\"3\" fill=\"none\"/><path d=\"M228 86v56M228 104l-36 36M228 104l30 30\" stroke=\"#1B1A17\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"166\" cy=\"141\" rx=\"20\" ry=\"8\" fill=\"#1F7A4D\"/><polygon points=\"184,141 196,133 196,149\" fill=\"#1F7A4D\"/><circle cx=\"154\" cy=\"139\" r=\"2\" fill=\"#1B1A17\"/><text x=\"66\" y=\"186\" font-size=\"14\" fill=\"#1B1A17\" font-family=\"sans-serif\">Plato</text><text x=\"196\" y=\"186\" font-size=\"14\" fill=\"#1B1A17\" font-family=\"sans-serif\">Aristotle</text></svg>"
+  "outcomeLine": "You can now tell the cave story in 3 sentences and say whether a scientist sits closer to Plato or Aristotle.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"5\" y1=\"180\" x2=\"315\" y2=\"180\"/><path d=\"M8 180V70Q20 24 120 22Q200 20 214 62V122\"/><path d=\"M28 120h22v-18h-22z\" fill=\"#1B1A17\"/><ellipse cx=\"68\" cy=\"108\" rx=\"9\" ry=\"14\" fill=\"#1B1A17\"/><circle cx=\"92\" cy=\"150\" r=\"7\"/><line x1=\"92\" y1=\"157\" x2=\"92\" y2=\"178\"/><circle cx=\"114\" cy=\"150\" r=\"7\"/><line x1=\"114\" y1=\"157\" x2=\"114\" y2=\"178\"/><path d=\"M150 178Q144 152 158 138Q156 156 168 148Q172 166 166 178Z\" fill=\"#F2A93B\"/><path d=\"M214 180Q256 142 315 158V180Z\" fill=\"#1F7A4D\"/><line x1=\"282\" y1=\"152\" x2=\"282\" y2=\"128\"/><circle cx=\"282\" cy=\"116\" r=\"13\" fill=\"#1F7A4D\"/><circle cx=\"272\" cy=\"52\" r=\"18\" fill=\"#F2A93B\"/><path d=\"M272 26v-10M302 52h8M242 52h-8M293 31l6-6M251 31l-6-6\"/><text x=\"22\" y=\"78\" font-family=\"sans-serif\" font-size=\"14\" fill=\"#1B1A17\" stroke=\"none\">shadows</text><text x=\"236\" y=\"100\" font-family=\"sans-serif\" font-size=\"14\" fill=\"#1B1A17\" stroke=\"none\">real</text></svg>"
  },
- "seconds": 139.32998394966125
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "feedback_names_confusion",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Card 1: 'walked out disagreeing with his teacher': Aristotle left Athens after Plato died in 347 BC. He didn't walk out of the school, and card 4 says this itself, so the two cards contradict each other.",
+   "Card 3: 'The sun is a form': in the Republic the sun stands for the Form of the Good, and the objects outside the cave are the forms.",
+   "Card 8, option c feedback: 'the one thing they shared' suggests they agreed on politics. They didn't: Aristotle attacks Plato's Republic in Politics Book II. The feedback also never says what the shared thing is.",
+   "Card 8 is labelled 'recall' and says 'from this chapter', but the painting (Raphael's School of Athens) is never mentioned in the chapter. The reader has to work out the answer from the gestures.",
+   "Open loop: the 1641 teaser is in the second-to-last card. The chapter actually ends on the try card's 'That's Plato's question.'"
+  ],
+  "weakest_card": 3,
+  "why": "The core teach card gets the cave's key mapping wrong: the shadows are copies of copies (the puppets are the ordinary things), and the sun is the Form of the Good, the highest form, not just 'a form', so the reader learns a muddled version of the chapter's central idea.",
+  "fix": "Replace 'The shadows are ordinary things. The sun is a form' with 'The puppets are ordinary things and the shadows are copies of them; the things outside are forms, Plato's word for the perfect pattern a thing copies, and the sun is the highest form of all.'"
+ }
 }

@@ -5,7 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Britain and France went to war for Poland in September 1939, 12 months after refusing to go to war for Czechoslovakia. Nothing about Poland was worth more. What changed was a belief: on our shared street, the neighbours had watched the flames since 1936 and told themselves each one would stop at the fence. **This chapter is about the day that story stopped working.**"
+    "body": "Britain and France went to war for Poland in September 1939, less than a year after refusing to go to war for Czechoslovakia. Nothing about Poland was worth more. What changed was a belief: on our shared street, the neighbours had watched the flames since 1936 and told themselves each one would stop at the fence. **This chapter is about the day that story stopped working.**",
+    "simpler": "In September 1939, Britain and France went to war to protect Poland. Less than a year earlier, they had refused to fight for Czechoslovakia. Poland was not worth more. What changed was what they believed. Picture neighbours on one street who had watched fires since 1936, each time telling themselves this one would stop at the fence. **This chapter is about the day that story stopped working.**"
    },
    {
     "type": "exercise",
@@ -35,17 +36,19 @@
    {
     "type": "teach",
     "title": "Three grabs, one story",
-    "body": "Hitler moved in steps, each with the same note attached. March 1936: German troops marched back into the *Rhineland*, Germany's own western strip, which the 1919 treaty said must stay empty of soldiers. March 1938: Germany swallowed Austria, where most people spoke German and many cheered. September 1938: the Sudetenland.\n\nThe note said: these people are German, 1919 was unfair to them, this is the last one. Each grab felt like a correction, not an attack.\n\nBritain and France gave way rather than fight. The word is *appeasement*. On the street, it means handing over your fence panel and trusting the fire to stop at the fence. **Each time, it seemed to.**"
+    "body": "Hitler moved in steps, each with the same note attached. March 1936: German troops marched back into the *Rhineland*, Germany's own western strip, which the 1919 treaty said must stay empty of soldiers. March 1938: Germany swallowed Austria, where most people spoke German and many cheered. September 1938: the Sudetenland.\n\nThe note said: these people are German, 1919 was unfair to them, this is the last one. Each grab felt like a correction, not an attack.\n\nBritain and France gave way rather than fight. The word is *appeasement*. On the street, it means handing over your fence panel and trusting the fire to stop at the fence. **Each time, it seemed to.**",
+    "simpler": "Hitler grabbed land in steps. In March 1936, troops entered the Rhineland, Germany's western strip, kept soldier-free by the 1919 treaty. In March 1938 he took Austria, where many cheered. In September 1938, the Sudetenland. Each time his excuse was the same: these people are German, 1919 was unfair, this is the last one. Britain and France gave way. This was appeasement: handing over a fence panel and trusting the fire to stop there. **Each time, it seemed to.**"
    },
    {
     "type": "example",
     "title": "Munich, 29 September 1938",
-    "body": "Neville Chamberlain, Britain's prime minister, flew to Germany three times in two weeks to meet Hitler. On 29 and 30 September, in Munich, he, France's \u00c9douard Daladier, Mussolini and Hitler agreed that Germany would take the Sudetenland. The Czech delegates, whose country was being cut, waited outside the room and were told afterwards. Chamberlain flew home, held up the signed paper, and spoke of peace for our time. **The paper lasted less than six months.**"
+    "body": "Neville Chamberlain, Britain's prime minister, flew to Germany three times in two weeks to meet Hitler. On 29 and 30 September, in Munich, he, France's \u00c9douard Daladier, Mussolini and Hitler agreed that Germany would take the Sudetenland. The Czech delegates, whose country was being cut, waited outside the room and were told afterwards. Chamberlain flew home, held up the signed paper, and spoke of peace for our time. **The paper lasted less than six months.**",
+    "simpler": "Neville Chamberlain, Britain's prime minister, flew to Germany three times in two weeks to meet Hitler. On 29 and 30 September 1938, in Munich, he sat down with France's \u00c9douard Daladier, Mussolini and Hitler. They agreed Germany would take the Sudetenland. The Czechs, whose country was being cut up, waited outside and were told later. Chamberlain flew home, held up the signed paper, and spoke of peace for our time. **The paper lasted less than six months.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "15 March 1939. German troops drive into Prague and take the rest of the Czech lands, where almost nobody speaks German. You are a British minister who backed Munich. Which reaction applies the lesson?",
+    "prompt": "15 March 1939. German troops drive into Prague and take the rest of the Czech lands, where most people speak Czech, not German. You are a British minister who backed Munich. Which reaction applies the lesson?",
     "options": [
      {
       "id": "a",
@@ -70,11 +73,13 @@
    {
     "type": "teach",
     "title": "Why so late, and why then",
-    "body": "You'd think the delay was weakness. Mostly it was memory. The last war had ended 20 years earlier and killed a generation of young men. Britain's fighter planes were only starting to reach squadrons in 1938. A. J. P. Taylor argued Hitler was less a planner than a gambler who took what was offered. For three years, plenty was.\n\nAfter Prague, on 31 March 1939, Britain and France promised to defend Poland. On 23 August Hitler signed a pact with Stalin, his loudest enemy, secretly agreeing to split Poland. He bet the shock would make the neighbours fold. On 1 September he invaded. On 3 September, **they kept their promise.**"
+    "body": "You'd think the delay was weakness. Mostly it was memory. The last war had ended 20 years earlier and killed a generation of young men. Britain's fighter planes were only starting to reach squadrons in 1938. A. J. P. Taylor argued Hitler was less a planner than a gambler who took what was offered. For three years, plenty was.\n\nAfter Prague, on 31 March 1939, Britain and France promised to defend Poland. On 23 August Hitler signed a pact with Stalin, his loudest enemy, secretly agreeing to split Poland. He bet the shock would make the neighbours fold. On 1 September he invaded. On 3 September, **they kept their promise.**",
+    "simpler": "It wasn't mainly weakness but memory. The last war, 20 years earlier, killed a generation, and Britain's fighter planes only arrived in 1938. A. J. P. Taylor called Hitler a gambler who took what was offered. After he took Prague, on 31 March 1939, Britain and France promised to defend Poland. On 23 August Hitler secretly agreed with Stalin, his enemy, to split Poland, betting they'd fold. He invaded on 1 September. On 3 September, **they kept their promise.**"
    },
    {
     "type": "mistake",
-    "body": "At a dinner, Priya says Munich proves Chamberlain was a coward, and leaves it there. The tell is that her story has no date on which anything changed. Appeasement was a bet about Hitler's limits, placed by men who remembered the trenches, and it was lost and dropped on 15 March 1939. **If someone can't say what Prague changed, they have the mood but not the mechanism.**"
+    "body": "At a dinner, Priya says Munich proves Chamberlain was a coward, and leaves it there. The tell is that her story has no date on which anything changed. Appeasement was a bet about Hitler's limits, placed by men who remembered the trenches. The bet was lost on 15 March 1939, and within weeks Britain and France had turned. **If someone can't say what Prague changed, they have the mood but not the mechanism.**",
+    "simpler": "At a dinner, Priya says Munich proves Chamberlain was a coward, and stops there. The giveaway is that her story never has a moment when things changed. Appeasement was a bet on how far Hitler would go, made by men who remembered the trenches of the last war. The bet was lost on 15 March 1939, when Hitler took Prague, and within weeks Britain and France had turned. **If someone can't say what Prague changed, they know the mood but not how it worked.**"
    },
    {
     "type": "exercise",
@@ -102,17 +107,34 @@
     "reteach": "Follow the order: Prague in March broke the 'only Germans' story, the promise to Poland came at the end of that same month, the Stalin pact came in August, and the invasion in September called the promise in. The turn was Prague."
    },
    {
-    "type": "teach",
-    "title": "In one breath",
-    "body": "From 1936 to 1938 Hitler took the Rhineland, Austria and the Sudetenland, and Britain and France let each pass because they **believed he only wanted German speakers** and this one was the last. In March 1939 he took Prague, where that story could not stretch, so they promised to fight for Poland, and on 3 September 1939 they did.\n\nTomorrow: France had an army as big as Germany's and lost in six weeks."
+    "type": "try",
+    "body": "Say the five steps aloud in order, dates included, in under a minute: Rhineland March 1936, Austria March 1938, Munich September 1938, Prague March 1939, Poland September 1939. If one slips, that's the one to reread.",
+    "simpler": "Say the five steps out loud, in order, with their dates, in under a minute: the Rhineland in March 1936, Austria in March 1938, Munich in September 1938, Prague in March 1939, and Poland in September 1939. **If one slips, that's the one to reread.** Think of it like a phone number you check by saying it back."
    },
    {
-    "type": "try",
-    "body": "Say the five steps aloud in order, dates included, in under a minute: Rhineland March 1936, Austria March 1938, Munich September 1938, Prague March 1939, Poland September 1939. If one slips, that's the one to reread."
+    "type": "teach",
+    "title": "In one breath",
+    "body": "From 1936 to 1938 Hitler sent troops into the Rhineland, then took Austria and the Sudetenland, and Britain and France let each pass because they **believed he only wanted German speakers** and this one was the last. In March 1939 he took Prague, where that story could not stretch, so they promised to fight for Poland, and on 3 September 1939 they did.\n\nTomorrow: France had an army as big as Germany's and lost in six weeks.",
+    "simpler": "From 1936 to 1938, Hitler sent troops into the Rhineland, then took Austria and the Sudetenland. Britain and France let each one go because they **believed he only wanted German speakers**, and that each was the last. In March 1939 he took Prague, where that story no longer fit. So they promised to fight for Poland, and on 3 September 1939 they did. Tomorrow: France had an army as big as Germany's and lost in six weeks."
    }
   ],
   "outcomeLine": "You can now list the steps from the Rhineland to 3 September 1939 and say why Britain and France waited until Poland.",
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8 172H312M100 148v24M108 148v24M124 148v24M212 146v26M212 152l-12 8\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"28\" y=\"112\" width=\"60\" height=\"60\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"22,112 58,82 94,112\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M40 110Q46 80 56 98Q60 70 70 94Q78 82 82 110Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M110 152Q114 134 118 148Q120 140 124 154Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"134\" y=\"122\" width=\"56\" height=\"50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"128,122 162,96 196,122\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"236\" y=\"122\" width=\"56\" height=\"50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"230,122 264,96 298,122\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"212\" cy=\"140\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"196\" y=\"156\" width=\"16\" height=\"12\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"58\" y=\"190\" font-size=\"11\" text-anchor=\"middle\" fill=\"#1B1A17\">1936</text><text x=\"162\" y=\"190\" font-size=\"11\" text-anchor=\"middle\" fill=\"#1B1A17\">1938</text><text x=\"264\" y=\"190\" font-size=\"11\" text-anchor=\"middle\" fill=\"#1B1A17\">1939</text></svg>"
  },
- "seconds": 215.90204787254333
+ "repairedFrom": {
+  "score": 10,
+  "failed_checks": [
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Card 1 says war came '12 months after' Munich, but 30 Sept 1938 to 3 Sept 1939 is about 11 months.",
+   "Exercise 2 says 'almost nobody speaks German' in the Czech lands Hitler took in March 1939. That overstates it: Prague, Brno and Jihlava still had real German-speaking minorities.",
+   "The mistake card says appeasement was 'dropped on 15 March 1939'. That's too neat: Chamberlain's first reaction in Parliament was muted, the public turn came in his Birmingham speech on 17 March, and quiet approaches to Germany went on into summer 1939.",
+   "Card 9 says Hitler 'took the Rhineland'. It was already German land; he sent troops back into it, which card 3 itself explains correctly."
+  ],
+  "weakest_card": 10,
+  "why": "The last card is a dry recite-the-dates drill. It also buries the chapter's best open loop (France losing in six weeks) one card early, so the chapter ends on 'that's the one to reread'.",
+  "fix": "Swap cards 9 and 10 so the 'Tomorrow: France had an army as big as Germany's and lost in six weeks' line is the last thing the reader sees."
+ }
 }

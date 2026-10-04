@@ -1,125 +1,125 @@
 {
  "chapter": {
   "n": 2,
-  "title": "Know who's walking with you",
+  "title": "Open with a promise",
   "cards": [
    {
     "type": "picture",
-    "body": "You'd never stop a friend on their own street to point out their own front door. On a walk you only point at what the people beside you can't already see, and **what they already know decides what you leave out**. Most speakers skip this step and point at everything.",
-    "simpler": "Think of walking with a friend down their own street. You wouldn't stop and point at their front door. They see it every day. On a walk, you only point at things the people beside you can't already see. **What they already know decides what you leave out.** Most speakers skip this step. They point at everything, even the things everyone can see."
+    "body": "MIT professor Patrick Winston had a firm rule for the first minute of any talk: no jokes. His reason had nothing to do with taste, and it changes what your first 30 seconds are for.\n\nOn a hike, nobody tightens their boots because you said thanks for coming. They tighten them when you point up and tell them **what they'll see from the top**.",
+    "simpler": "Patrick Winston, a professor at MIT, had one firm rule for the first minute of any talk: no jokes. His reason wasn't about taste. It changes what your first 30 seconds are for. Think of a hike. Nobody tightens their boots because you said thanks for coming. They tighten them when you point up and tell them **what they'll see from the top**."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya has 3 minutes to tell her five-a-side football team about the new training schedule. Which part should she cut?",
+    "prompt": "It's 6:40am at the trailhead. Twelve sleepy friends, one thermos, nobody moving. Which first line gets boots on the trail?",
     "options": [
      {
       "id": "a",
-      "text": "A quick explanation of what five-a-side football is"
+      "text": "\"Thanks so much for getting up this early, I really appreciate it.\""
      },
      {
       "id": "b",
-      "text": "Why Thursday sessions move to 7pm"
+      "text": "\"By 9, we'll be eating breakfast above the clouds.\""
      },
      {
       "id": "c",
-      "text": "The date the new schedule starts"
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's the thing they don't know yet and care about most: it stays.",
-     "c": "That's new information they'll act on: a date is the last thing to cut."
-    },
-    "reteach": "Her team plays five-a-side every week. Telling them what it is spends 20 of her 180 seconds and shows she hasn't thought about who's listening. Cut what they already know. Keep what's new and what they'll act on."
-   },
-   {
-    "type": "teach",
-    "title": "Three lines about them",
-    "body": "Before you plan a single step of the route, write *three lines* about the people walking with you. Line 1: who they are, in one phrase. Line 2: what they already know about your subject. Line 3: what they want to leave with.\n\nThose three lines are a **filter, not a form**. Hold each part of your talk up against line 2. If they already know it, it goes. Hold the rest against line 3. If they don't want it, it goes too.\n\nYou'd think the lines would be extra work. They save work: most of a first draft explains things to people who were already there.",
-    "simpler": "Before you plan your talk, write three lines about your listeners. Who they are. What they already know about your subject. What they want to take away. **The lines are a filter, not a form.** Hold each part of your talk against line two. If they already know it, drop it. Hold the rest against line three. If they don't want it, drop it too. They save work. Most first drafts explain things to people who already knew them."
-   },
-   {
-    "type": "example",
-    "title": "Tom\u00e1s and the bike racks",
-    "body": "Tom\u00e1s had 3 minutes at his building's residents' meeting to argue for bike racks in the courtyard. His first draft spent 40 seconds on when the building went up and how the courtyard was laid out. Then he wrote his three lines: *neighbours who've lived here 5 years or more; they know the courtyard, the bins and the broken gate; they want to know what it costs them*. The history went. The talk shrank to 2 and a half minutes, and the first question from the floor was about cost, which he'd already answered in his second sentence.",
-    "simpler": "Tom\u00e1s had three minutes at his residents' meeting to ask for bike racks. His first draft spent forty seconds on the building's history and layout. Then he wrote his three lines: neighbours of five years or more, who knew the courtyard, the bins and the broken gate, and wanted to know the cost. **The history went.** The talk shrank to two and a half minutes. The first question was about cost. He had answered it in sentence two."
-   },
-   {
-    "type": "exercise",
-    "kind": "apply",
-    "prompt": "Jo is speaking to parents at her son's school about a new pickup gate. Which three lines will actually help her cut?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Parents at the school. Busy people. Mostly nice."
-     },
-     {
-      "id": "b",
-      "text": "Parents who do the 3.15 pickup. They know the queue down the road. They want to know if the new gate means less waiting."
-     },
-     {
-      "id": "c",
-      "text": "About 20 people. Tuesday evening. The school hall."
+      "text": "\"Okay, so a bear walks into a campsite...\""
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "Those are adjectives, not what they know or want: 'busy' doesn't tell you one thing to cut.",
-     "c": "That's the room, not the people's heads: a headcount and a time change nothing in your talk."
+     "a": "That's the thank-you, not the reason to climb: kind, but it gives nobody a reason to take a step.",
+     "c": "That's the warm-up joke, not the summit: it's about the bear, not what they'll get from climbing."
     },
-    "reteach": "The three lines only work when line 2 and line 3 are specific. 'They know the queue' tells Jo to skip describing the problem. 'They want less waiting' tells her to lead with the answer. Adjectives and headcounts can't do either."
+    "reteach": "People start moving when they can see what's in it for them. The line that works points at the top and says what's waiting there."
    },
    {
     "type": "teach",
-    "title": "Cut, then lead with what they want",
-    "body": "Here's the reversal. You'd think learning more about your listeners means adding more for them. It's the opposite: **every line you learn about them is a line you get to cut**. Knowing they've all rattled the broken gate means you never describe it.\n\nLine 3 does one more job. Whatever they want to leave with goes near the front, not saved for a big finish. Tom\u00e1s put the cost in sentence two because that's where their attention already was.\n\nIf you don't know them, ask the organiser one question: 'what do these people already know about this?' A single reply beats guessing.",
-    "simpler": "More about your listeners does not mean more in the talk. **Every line you learn about them is a line you get to cut.** If they have all rattled the broken gate, you never describe it. Line three has one more job. Put what they want near the start, not at the end. Tom\u00e1s put the cost in sentence two, where their attention was. Don't know them? Ask the organiser what they already know. One answer beats guessing."
+    "title": "Why not the joke",
+    "body": "Winston's reason was practical: in the first minute, **people haven't arrived yet**. They're sliding phones into pockets, shuffling chairs, getting used to your voice. A joke told now lands on a room still finding its seat.\n\nSo spend those seconds on a *promise*: one sentence that tells people what they'll be able to do or know by the end. It's you at the trailhead, pointing at the summit.\n\nA promise names a gain, not a topic. \"Today I'll talk about budgets\" is a trail sign. \"In 5 minutes you'll know the one number to check before any big purchase\" is the view.",
+    "simpler": "Winston's reason was practical: in the first minute, **people haven't arrived yet**. They're still putting phones away. A joke now lands on a room still sitting down. So use those seconds for a promise: one sentence saying what people can do by the end. Name a gain, not a topic. \"Today I'll talk about budgets\" is a trail sign. \"In 5 minutes you'll know the one number to check before any big purchase\" is the view."
+   },
+   {
+    "type": "example",
+    "title": "Priya's two openings",
+    "body": "Priya has 5 minutes at Monday's team meeting to introduce a new expense app. Draft one: \"Hi all, thanks for having me, so, um, I'll walk you through the new expense tool.\" Three people quietly open their email.\n\nDraft two: \"By the end of this, **you'll file an expense from your phone before the taxi drops you off**.\" Same app, same 5 minutes. This time the person who lost a receipt last month looks up from their laptop.",
+    "simpler": "Priya has 5 minutes at Monday's team meeting to introduce a new expense app. Her first try: \"Hi all, thanks for having me, so, um, I'll walk you through the new expense tool.\" Three people open their email. Her second try: \"By the end of this, **you'll file an expense from your phone before the taxi drops you off**.\" Same app, same 5 minutes. Now the person who lost a receipt last month looks up from their laptop."
+   },
+   {
+    "type": "exercise",
+    "kind": "apply",
+    "prompt": "Sam has 5 minutes at book club to get everyone reading one short story a week. Which opening points at the summit?",
+    "options": [
+     {
+      "id": "a",
+      "text": "\"Thanks, everyone. I know we're all busy, so I'll be quick.\""
+     },
+     {
+      "id": "b",
+      "text": "\"In five minutes you'll have a way to finish 52 stories this year without dropping a single novel.\""
+     },
+     {
+      "id": "c",
+      "text": "\"The short story goes back a long way, so let's start at the beginning.\""
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the polite warm-up, not the promise: it says the talk will be short, not what they'll gain.",
+     "c": "That's starting up the path before showing the summit: it names a topic, not a gain."
+    },
+    "reteach": "In the first 30 seconds, everyone is quietly asking: what's in this for me? The opening that names something they'll have by the end answers it."
+   },
+   {
+    "type": "teach",
+    "title": "Where the thank-you goes",
+    "body": "You'd think the opening is the easy bit you write last. It's the opposite: **write the promise first**, because it's your summit said out loud. If you can't finish \"By the end, you'll be able to...\", you haven't picked the summit yet.\n\nThe thank-you doesn't vanish. It moves to one breath after the promise, or to the end, when people are glad they came.\n\nThen keep the promise. People hold it like a folded map and check it at every bend. Promise 3 tricks and deliver 2, and the whole room notices the missing one.",
+    "simpler": "You might think the opening is the easy part you write last. It's the other way round: **write the promise first**. If you can't finish \"By the end, you'll be able to...\", you haven't picked your goal yet. The thank-you doesn't disappear. It moves to just after the promise, or to the end, when people are glad they came. Then keep the promise. People keep checking it. Promise 3 tricks and deliver 2, and everyone notices the missing one."
    },
    {
     "type": "mistake",
-    "body": "Lena gave a 3-minute update to the six people she'd worked beside for 2 years, and spent the first minute explaining what their team does. Phones came out at 0:40. The tell is easy to spot: **if the person in the front row could have said the sentence themselves, it isn't a sentence, it's a delay**. Read your draft and ask that of every line.",
-    "simpler": "Lena gave a three-minute update to six people she had worked beside for two years. She spent the first minute explaining what their team does. Phones came out at forty seconds. Here is the easy test. **If the person in the front row could have said the sentence themselves, it isn't a sentence, it's a delay.** Read your draft and ask that of every line."
+    "body": "Marco opens his quarterly update with a 40-second story about the office printer eating his slides. Half the room is still finding seats, and the punchline lands on the back of a latecomer's head. The test: if your first sentence could open anyone else's talk, it isn't a promise yet.",
+    "simpler": "Marco starts his quarterly update with a 40-second story about the office printer eating his slides. Half the room is still finding seats, and the punchline lands on the back of a latecomer's head. Here's a quick test: **if your first sentence could start anyone else's talk**, it isn't a promise yet."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Sam's talk runs 3 minutes 30 and needs to lose 30 seconds. Where does he look first?",
+    "prompt": "You're giving a 5-minute talk on sleep. Which first line is a promise?",
     "options": [
      {
       "id": "a",
-      "text": "The parts his listeners already know"
+      "text": "\"Today's topic is sleep.\""
      },
      {
       "id": "b",
-      "text": "His closing sentence"
+      "text": "\"By the end, you'll know one thing to change at 10pm tonight to fall asleep sooner.\""
      },
      {
       "id": "c",
-      "text": "The one point the talk exists to make"
+      "text": "\"I've been reading about sleep for six years.\""
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the arrival: losing it is how talks trail off, not how they get shorter.",
-     "c": "That's the destination from chapter 1: cut it and there's no walk left, just 3 minutes of wandering."
+     "a": "That's the trail sign, not the view: it names the topic but not what they'll gain.",
+     "c": "That's the guide's r\u00e9sum\u00e9, not the summit: it's about you, not what they'll be able to do."
     },
-    "reteach": "The first cut is always what the audience already knows, because it costs them nothing to lose. Your one sentence and your close are the start and end of the route. Everything they could have told you themselves is the padding."
+    "reteach": "Ask of each line: does it tell the listener what they'll walk away with? A topic says where we're going and a credential says who's leading; only a promise says what they'll see from the top."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Write 3 lines about your listeners: who they are, what they already know, what they want to leave with. Then **cut everything they already know** and move what they want toward the front.\n\nTomorrow: why three things stick from a good talk and nothing from a bad one.",
-    "simpler": "Write three lines about your listeners. Who they are. What they already know. What they want to leave with. Then **cut everything they already know**, and move what they want toward the front of the talk. Tomorrow we look at why three things stick from a good talk and nothing sticks from a bad one."
+    "body": "Your first 30 seconds aren't for warming up the room; they're for **pointing at the summit**. Tell people what they'll be able to do by the end, save the thank-you for later, then keep your word.\n\nTomorrow: the zigzag path two famous speeches secretly share.",
+    "simpler": "Your first 30 seconds aren't for warming up the room. They're for **pointing at the summit**. Tell people what they'll be able to do by the end. Save the thank-you for later. Then keep your word. Tomorrow: the zigzag path that two famous speeches secretly share."
    },
    {
     "type": "try",
-    "body": "Open your notes app. Write 3 lines about the people who'll hear your talk: who they are, what they already know, what they want. Then cross out one thing from your talk they already know.",
-    "simpler": "Open your notes app. Write three lines about the people who will hear your talk. Who they are. What they already know. What they want. Now look at your talk and find one thing they already know. **Cross it out.** That is one less thing to say."
+    "body": "Pick something you'll explain this week, even how the washing machine works to a flatmate. Write one sentence starting \"By the end of this, you'll be able to...\" Say it out loud once.",
+    "simpler": "Pick something you'll explain to someone this week. It can be small, like how the washing machine works, told to a flatmate. Write one sentence that starts **\"By the end of this, you'll be able to...\"** Then say it out loud once."
    }
   ],
-  "outcomeLine": "You can now describe your listeners in 3 lines and cut any part of your talk they don't need.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M10 180 C80 150 120 190 180 150 S240 110 300 70\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"6\" stroke-linecap=\"round\"/><polygon points=\"30,110 60,85 90,110\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"36\" y=\"110\" width=\"48\" height=\"34\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"54\" y=\"124\" width=\"12\" height=\"20\" fill=\"#1B1A17\"/><text x=\"22\" y=\"76\" font-size=\"11\" fill=\"#1B1A17\" font-family=\"sans-serif\">already known</text><circle cx=\"150\" cy=\"118\" r=\"8\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"150\" y1=\"126\" x2=\"150\" y2=\"152\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"150\" y1=\"152\" x2=\"142\" y2=\"172\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"150\" y1=\"152\" x2=\"158\" y2=\"170\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"150\" y1=\"134\" x2=\"180\" y2=\"110\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"122\" cy=\"124\" r=\"8\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"122\" y1=\"132\" x2=\"122\" y2=\"158\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"122\" y1=\"158\" x2=\"115\" y2=\"178\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"122\" y1=\"158\" x2=\"130\" y2=\"176\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"268\" y1=\"98\" x2=\"268\" y2=\"62\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"268\" cy=\"48\" r=\"20\" fill=\"#1F7A4D\"/><text x=\"226\" y=\"20\" font-size=\"11\" fill=\"#1B1A17\" font-family=\"sans-serif\">worth pointing at</text></svg>"
+  "outcomeLine": "You can now write and say an opening line that tells the room what they'll gain from listening.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"44\" cy=\"40\" r=\"16\" fill=\"#F2A93B\"/><polygon points=\"120,170 210,52 300,170\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linejoin=\"round\"/><line x1=\"210\" y1=\"52\" x2=\"210\" y2=\"26\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"210,26 228,32 210,38\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><text x=\"234\" y=\"30\" font-family=\"sans-serif\" font-size=\"13\" fill=\"#1B1A17\">the view</text><path d=\"M78 168 Q140 160 160 130 T206 60\" stroke=\"#F2A93B\" stroke-width=\"2.5\" fill=\"none\" stroke-dasharray=\"4 6\" stroke-linecap=\"round\"/><line x1=\"10\" y1=\"170\" x2=\"310\" y2=\"170\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"118\" r=\"7\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M50 125 L50 150 M50 150 L42 169 M50 150 L58 169 M50 133 L40 146 M50 133 L82 112\" stroke=\"#1B1A17\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/></svg>"
  },
- "seconds": 142.6853790283203
+ "seconds": 196.4593551158905
 }

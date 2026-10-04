@@ -5,114 +5,134 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Mill and Kant sit on opposite sides of the table. Kant, speaking in 1785, says a right act is one whose rule everyone could follow. Mill, replying in 1861, says a right act is one that leaves the most people happiest. Nearly every argument about right and wrong since then has a guest leaning toward one of those two chairs.",
-    "simpler": "Picture two thinkers facing each other across a table. On one side sits Kant, writing in 1785. He says an act is right when **its rule is one everyone could follow**. On the other side sits Mill, answering in 1861. He says an act is right when it leaves the most people happiest. Almost every argument about right and wrong since then has leaned toward one of those two chairs."
-   },
-   {
-    "type": "teach",
-    "title": "Two tests, two questions",
-    "body": "Mill's test looks at results. An act is right if it produces the most happiness and the least suffering for everyone it affects, with each person counted once. This view is called utilitarianism, from 'utility', an old word for usefulness. You add up the good and the harm for everyone touched by the act, not just for yourself.\n\nKant's test looks at the rule behind the act. Before you act, state the rule you are following, such as 'break a promise when it suits me'. Then ask: could everyone act on that rule? If the rule would fall apart or wreck something once everyone followed it, the act is forbidden. Kant called this the categorical imperative: 'categorical' means no exceptions, 'imperative' means a command.\n\nKant gave a second way to say the same thing: never treat a person merely as a tool for your own purposes.\n\nNotice the direction each test faces. Mill looks forward at what the act will cause. Kant looks down at the rule you are acting on right now.",
-    "simpler": "Mill asks what the act will cause. It is right if it brings the most happiness and least suffering to everyone it touches, each counted once. He called this utilitarianism. Kant asks instead: **could everyone follow the rule you are acting on?** If the rule would fall apart once everyone used it, the act is forbidden. He called this the categorical imperative, a command with no exceptions. He also said: never treat a person merely as a tool. Mill looks ahead. Kant looks at the rule."
+    "body": "A murderer knocks on your door and asks where your friend is hiding, and Kant, writing in 1797, said you still may not lie. At the long dinner table, this is where the plates start to rattle. Kant asks of any act *could everyone do this?*, while Mill, a guest who arrives decades later, asks **does it make the most happiness?**",
+    "simpler": "Imagine a murderer knocks on your door and asks where your friend is hiding. Kant, writing in 1797, said you still may not lie. At the long dinner table, this is where the plates start to rattle. Kant asks of any act, *could everyone do this?* Mill, a guest who arrives decades later, asks something else: **does it make the most happiness?**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Which question is Mill's test?",
+    "prompt": "Your friend Priya made you promise to help her move flat on Saturday. At 9am on Saturday, your neighbour's kid needs a lift to hospital. Which guest at the table would start by counting who ends up better off?",
     "options": [
      {
       "id": "a",
-      "text": "Could everyone act on this rule?"
+      "text": "Kant"
      },
      {
       "id": "b",
-      "text": "Does this produce the most happiness for everyone affected?"
+      "text": "Mill"
      },
      {
       "id": "c",
-      "text": "Does this make me, the person acting, the happiest?"
+      "text": "Neither. They'd both just say keep your word."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's Kant's test, not Mill's: Kant asks about the rule, Mill asks about the results.",
-     "c": "That's only half of Mill: he counts everyone the act touches, with each person counted once, not just you."
+     "a": "That's Kant's test, not Mill's: Kant asks whether the rule could work for everyone, not who ends up happier.",
+     "c": "That assumes they agree, but they ask different questions: only Mill's question is about counting results."
     },
-    "reteach": "Mill asks you to be an accountant. List every person the act affects, add up the happiness it gives them, subtract the suffering, and pick the act with the biggest total. Kant never does this sum. He asks whether the rule you are following could be followed by all."
-   },
-   {
-    "type": "example",
-    "title": "Dilemma 1: the false promise",
-    "body": "Kant's own case from 1785: a man needs money and borrows it, promising to pay it back, while knowing he never will. Kant states his rule: 'make a false promise when I am in trouble.' Could everyone act on it? If they did, nobody would believe any promise, so promising itself would stop working. The rule destroys itself, so the act fails Kant's test.\n\nMill reaches the same verdict a different way. The lender loses his money, and every broken promise chips at the trust that lets strangers deal with each other. The harm to everyone outweighs the borrower's gain. On this dilemma the two tests agree.",
-    "simpler": "Kant's own example from 1785: a man borrows money, promising to repay it, knowing he never will. His rule is 'make a false promise when I am in trouble.' Could everyone do that? If they did, nobody would believe any promise, so **promising itself would stop working**. Kant says no. Mill says no too. The lender loses money, and every broken promise wears away the trust strangers rely on. The harm outweighs the gain. Both tests agree."
+    "reteach": "Two guests, two questions. Mill looks at outcomes: who gets hurt, who gets helped, add it up. Kant looks at the rule behind your choice and asks if everyone could follow it."
    },
    {
     "type": "teach",
-    "title": "Where the tests split",
-    "body": "Dilemma 2: your friend gives you a gift you dislike and asks if you love it. Mill counts: one small lie, one happy friend, nobody harmed, so the lie is probably right. He did warn that lies weaken trust, so the count is close. Kant states the rule 'lie when it is kinder' and asks if everyone could follow it. If they did, no compliment would mean anything. The rule collapses, so Kant says tell the truth.\n\nDilemma 3: someone who means to harm your friend knocks and asks where your friend is hiding. Kant wrote in 1797 that even here you must not lie. Mill says lie without a second thought, because one life weighs far more than one rule.\n\nMost people side with Mill on dilemma 3. But Kant's test has a strength that shows up when the numbers point the other way. Mill's sum can justify hurting one person if enough others gain. Kant's rule forbids using a person merely as a tool, no matter how many benefit.\n\nNeither test asks how you feel afterwards. Guilt or relief is a reaction, not a verdict.",
-    "simpler": "A friend asks if you love a gift you dislike. Mill counts one small lie against one happy friend, so the lie is probably fine. Kant says tell the truth: if everyone lied to be kind, no compliment would mean anything. Then someone who means harm asks where your friend is hiding. Kant, in 1797, still says never lie. Mill says lie at once. But **Mill's sum can justify hurting one person if enough others gain**. Kant's rule never can."
+    "title": "Mill's test: weigh the results",
+    "body": "John Stuart Mill set out his test in an 1861 book called *Utilitarianism* (from *utility*, an old word for usefulness). An action is right if it **produces the most happiness and the least suffering** for everyone it touches. You count as one person. So does a stranger.\n\nPicture a kitchen scale on the dinner table. Pile the good results on one side and the pain on the other, then watch which way it tips.\n\nYou'd think right and wrong live inside the act itself. For Mill, the act is just a lever. What counts is what it moves.",
+    "simpler": "In 1861, John Stuart Mill wrote a book called *Utilitarianism*, from *utility*, an old word for usefulness. An action is right, he said, if it **makes the most happiness and the least suffering** for everyone it touches. You count as one person, and so does a stranger. Picture a kitchen scale: good results on one side, pain on the other. Which way does it tip? For Mill, the act matters only for what it leads to."
+   },
+   {
+    "type": "example",
+    "title": "Mill at the door, and at Aunt Rosa's",
+    "body": "Run the murderer through Mill's scale. If you lie, your friend lives and the murderer wastes an evening. If you tell the truth, your friend probably dies. The scale slams down: **Mill's test says lie.** Now smaller stakes: Aunt Rosa hands you a mustard-yellow jumper she spent three months knitting and asks if you love it. A quick tally of results says yes, warmly, and wear it to lunch. Mill himself was warier: he thought even small, handy lies wear down the trust that makes anyone's word worth believing.",
+    "simpler": "Put the murderer on Mill's scale. If you lie, your friend lives and the murderer wastes an evening. If you tell the truth, your friend probably dies. The scale drops hard on one side: **Mill's test says lie.** Now try something smaller. Aunt Rosa hands you a mustard-yellow jumper she spent three months knitting and asks if you love it. A quick count of results says yes, say it warmly, and wear it to lunch. But Mill himself was more careful: he thought even small lies slowly wear down how much people trust each other's words."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A town official can frame an innocent drifter for a crime, which would stop riots expected to kill several people. Run both tests. Which pair of verdicts is right?",
+    "prompt": "Sam promised to meet Jo for coffee at 3pm. At 2:50 a stranger's car is stuck in the mud, and helping would make Sam 20 minutes late. Using only Mill's test, what should Sam ask?",
     "options": [
      {
       "id": "a",
-      "text": "Mill's test leans toward framing him, because fewer people die. Kant's test forbids it, because it uses him as a tool and the rule could not be followed by everyone."
+      "text": "Which choice leaves the most people better off, counting Jo's annoyance too?"
      },
      {
       "id": "b",
-      "text": "Both tests forbid it, because both ask whether the rule could be followed by everyone."
+      "text": "Could everyone break small promises whenever it suited them?"
      },
      {
       "id": "c",
-      "text": "Both tests allow it, because both add up the lives saved."
+      "text": "I promised, so does anything else even matter?"
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's Kant's question applied twice: Mill does not ask about the rule, he adds up results.",
-     "c": "That's Mill's sum applied twice: Kant never counts outcomes, so saved lives cannot tip his verdict."
+     "b": "That's Kant's question, not Mill's: it tests the rule, not the results.",
+     "c": "That's treating the promise as fixed no matter what, not Mill's scale: Mill weighs the promise like any other result, including Jo waiting alone."
     },
-    "reteach": "Picture the two thinkers at the door. Mill counts bodies on each side and picks the smaller pile, though his followers add that the long-run loss of trust might change his count. Kant ignores the piles and asks what the rule 'frame an innocent when it is useful' would do if everyone followed it. Different questions, so different answers."
+    "reteach": "Mill doesn't ignore promises. He puts them on the scale. Jo's 20 lonely minutes go on one side, the stranger's stuck car on the other, and the heavier side decides."
+   },
+   {
+    "type": "teach",
+    "title": "Kant's test: could the rule survive?",
+    "body": "Immanuel Kant, writing in 1785, ignored the scale. Before you act, he said, turn your reason into a rule for everyone, such as *anyone may lie when it helps them*. If that rule **would break itself once everyone followed it**, the act is wrong.\n\nLying fails this test. A lie works like a fake banknote: it only buys anything while most notes are real. If everyone lied whenever it was handy, nobody would believe anyone, and lying would stop working.\n\nSo the two tests split. At the murderer's knock, Mill lies and Kant won't. On Aunt Rosa's jumper, Kant still says no, while a quick tally says yes and Mill himself might hesitate. On keeping an ordinary promise, they usually agree, but for different reasons.",
+    "simpler": "Immanuel Kant, writing in 1785, ignored the scale. Turn your reason into a rule for everyone, such as *anyone may lie when it helps them*. If that rule **would break itself once everyone followed it**, the act is wrong. Lying fails. Like a fake banknote, a lie only works while most notes are real. If everyone lied, nobody would believe anyone. At the murderer's door, Mill lies and Kant won't. Over Aunt Rosa's jumper, Kant still won't, and even Mill might pause."
    },
    {
     "type": "mistake",
-    "body": "The common slip is to borrow one thinker's reason for the other thinker's verdict, such as 'Kant forbids lying because lying makes people unhappy.' That is Mill's reason wearing Kant's conclusion. Spot it fast: if the reason mentions results or happiness, it is Mill's test, whatever name is attached. If the reason mentions what would happen if everyone followed the rule, it is Kant's.",
-    "simpler": "A common slip is to mix the two: giving one thinker's reason for the other thinker's answer. 'Kant forbids lying because lying makes people unhappy' sounds right, but that is Mill's reason wearing Kant's verdict. There is a quick check. **If the reason talks about results or happiness, it is Mill's test**, whatever name is attached. If the reason talks about what happens when everyone follows the rule, it is Kant's."
+    "body": "Dev explains Kant to a friend: if everyone cheated on taxes, the roads would crumble, so cheating is wrong. It sounds like Kant, but it's really **Mill in a Kant costume**, because Dev is counting bad results. Mill made this same jab at Kant in 1861, arguing that Kant's test only ever showed the results would be bad. The tell: if the answer is about what *happens*, it's Mill; Kant asks whether the rule *undoes itself*.",
+    "simpler": "Dev tells a friend about Kant: if everyone cheated on taxes, the roads would fall apart, so cheating is wrong. It sounds like Kant, but it's really **Mill in a Kant costume**, because Dev is counting bad results. Mill made this same point against Kant in 1861, saying Kant's test only ever showed the results would be bad. Here's the clue: if the answer is about what *happens*, it's Mill. Kant asks whether the rule *undoes itself*."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "You run a dilemma through both tests. What does each test ask?",
+    "prompt": "Lena lent you her bike and you promised it back by Friday. Three friends explain why you should return it. Which one is running Kant's test?",
     "options": [
      {
       "id": "a",
-      "text": "Mill: could everyone act on this rule? Kant: does it produce the most happiness?"
+      "text": "Lena will be happier with her bike than I'd be keeping it."
      },
      {
       "id": "b",
-      "text": "Mill: does it produce the most happiness for everyone affected? Kant: could everyone act on this rule?"
+      "text": "If everyone broke promises when it was handy, nobody would trust a promise, so mine would mean nothing."
      },
      {
       "id": "c",
-      "text": "Mill: does it make me happiest? Kant: would I feel guilty afterwards?"
+      "text": "If everyone broke promises, the world would be a more miserable place."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the two tests swapped: Mill owns the happiness sum, Kant owns the everyone-rule.",
-     "c": "That's two things neither test asks: Mill counts everyone affected, not only you, and Kant asks about the rule, not your feelings."
+     "a": "That's Mill's scale, not Kant's rule test: it weighs Lena's happiness against yours.",
+     "c": "That's Mill in a Kant costume: it starts with 'if everyone' but then counts misery, which is a result."
     },
-    "reteach": "Keep one word per thinker. Mill: results. Kant: rule. Mill's question is about what the act will cause for everyone it touches. Kant's is about whether the rule behind the act could be everyone's rule."
+    "reteach": "Kant's test isn't about how bad things would get. It asks whether the rule would cancel itself out: a promise only means something while people keep them. If the reason talks about misery or happiness, it's Mill's."
+   },
+   {
+    "type": "teach",
+    "title": "In one breath",
+    "body": "Mill judges an action by its results: **whatever makes the most happiness wins**, so at the murderer's door, he lies. Kant judges the rule behind it: if the rule would collapse once everyone followed it, don't do it, not at the door and not over Aunt Rosa's jumper.",
+    "simpler": "Mill judges an action by what it leads to: **whatever makes the most happiness wins**, so at the murderer's door, he tells the lie. Kant judges the rule behind the action. If that rule would fall apart once everyone followed it, don't do it, not to the murderer at your door and not about Aunt Rosa's jumper."
    },
    {
     "type": "try",
-    "body": "Tonight, pick one small choice you made today, such as a white lie or a shortcut. Write two lines: Mill's count of who gained and who lost, and Kant's rule stated as 'everyone does this when...'.",
-    "simpler": "Tonight, pick one small choice you made today. A white lie or a shortcut will do. Write two lines about it. The first is Mill's line: **who gained and who lost** from what you did. The second is Kant's line: state your rule as 'everyone does this when...' and finish the sentence. Two lines, two tests, one real choice."
+    "body": "Pick one small choice you made today: a white lie, a skipped reply, a borrowed charger. Ask Mill's question (what did it lead to?) and Kant's (could everyone do it?). Notice whether they agree.\n\nTomorrow: why 'God is dead' was meant as a warning, not a boast.",
+    "simpler": "Pick one small choice you made today, like a white lie, a reply you skipped, or a charger you borrowed. First ask Mill's question: what did it lead to? Then ask Kant's question: could everyone do it? Then **notice whether the two answers agree**, and think about why they might not. Tomorrow: why 'God is dead' was meant as a warning, not a boast."
    }
   ],
-  "outcomeLine": "You can now run one moral dilemma through Mill's happiness test and Kant's everyone-rule test and say where they give different answers."
+  "outcomeLine": "You can now run a dilemma through Mill's test and Kant's test and say where they give different answers.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"120\" width=\"240\" height=\"12\" rx=\"4\" fill=\"#1F7A4D\"/><circle cx=\"55\" cy=\"74\" r=\"15\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M35 120Q55 86 75 120\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"265\" cy=\"74\" r=\"15\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M245 120Q265 86 285 120\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M120 120V80M98 90L142 78\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M90 90Q98 104 106 90ZM134 78Q142 92 150 78Z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"186\" y=\"80\" width=\"34\" height=\"40\" rx=\"3\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M192 92H214M192 102H214M192 112H206\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"40\" y=\"160\" font-size=\"16\" fill=\"#1B1A17\">Mill</text><text x=\"248\" y=\"160\" font-size=\"16\" fill=\"#1B1A17\">Kant</text></svg>"
  },
- "seconds": 91.55398797988892
+ "repairedFrom": {
+  "score": 10,
+  "failed_checks": [
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Aunt Rosa example: 'Mill's test says yes, warmly' presents the white lie as Mill's verdict, but in Utilitarianism (1861, ch. 2) Mill warns against 'expedient' lies because they weaken trust in what people say; he allows only narrow exceptions, like hiding facts from a wrongdoer. A simple add-up-the-results reading supports the line. Mill himself likely would not.",
+   "Kant card: 'On Aunt Rosa's jumper, the same split' depends on that same disputed reading of Mill."
+  ],
+  "weakest_card": 8,
+  "why": "The 'In one breath' card is a bare summary with almost no image, and it holds the 'Tomorrow' teaser, so the chapter's real last line is the try card, not the hook into the next chapter.",
+  "fix": "Move 'Tomorrow: why \"God is dead\" was meant as a warning, not a boast.' to the end of the try card, and put the door and the jumper back into the summary (e.g. 'Mill lies at the door and praises the jumper; Kant does neither')."
+ }
 }

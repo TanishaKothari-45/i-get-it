@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "You have 3 people in the office. A clerk who follows a checklist to the letter, never tires, never thinks. A friend you can ask anything, who answers and then goes back to their desk. And the new intern, who will go off and do a multi-step job for you, with judgement, and sometimes get it wrong. **Picking the right one for each task is the whole skill.**",
-    "simpler": "Picture three helpers in an office. One is a clerk who follows a checklist word for word. The clerk never gets tired and never thinks. One is a friend you can ask anything. They answer, then go back to their desk. The third is a new intern. They will go off and do a job with many steps, using their own judgement, and sometimes get it wrong. **Picking the right helper for each task is the whole skill.**"
+    "body": "Renaming 500 files needs no agent. Sorting 50 emails might. Think of the intern: you'd never hire someone smart and eager just to stamp 500 envelopes the same way. You'd buy a stamp, because **the intern is for work where every step needs a fresh decision.**",
+    "simpler": "Renaming 500 files doesn't need an agent. Sorting 50 emails might. Picture an intern. You wouldn't hire someone smart and keen just to stamp 500 envelopes the same way. You'd buy a rubber stamp instead. That's because **the intern is for work where every step needs a fresh decision.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Your photo folder has 500 files named IMG_0001 to IMG_0500. You want each renamed to the date it was taken. Who gets the job?",
+    "prompt": "You have 500 holiday photos with names like IMG_4031.jpg. You want them renamed Lisbon-001 to Lisbon-500, in the order they were taken. Who gets the job?",
     "options": [
      {
       "id": "a",
-      "text": "The intern, so they can use judgement on each photo"
+      "text": "An agent, so it can think about each photo"
      },
      {
       "id": "b",
-      "text": "The clerk with a checklist: same exact steps, 500 times"
+      "text": "A plain script: fixed steps the computer repeats exactly"
      },
      {
       "id": "c",
-      "text": "The friend at the desk, who can tell you how renaming works"
+      "text": "A chatbot, so you can just ask"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's handing judgement to a job that needs none: the path is identical for every file, so the intern just adds cost and risk.",
-     "c": "That's the chatbot: it can explain the steps, but it stops after answering. Nothing gets renamed."
+     "a": "That's the intern, not the stamp: nothing here needs a decision, so 500 rounds of thinking only add cost.",
+     "c": "That's answering, not doing: a chatbot tells you how, then stops, and you're still the one renaming."
     },
-    "reteach": "When every step is known before you start, you want a script: ordinary code that does the same thing every time. There is nothing to decide, so there is nothing for a model to think about."
+    "reteach": "Could you write every step on a sticky note before you start? Here you could: next photo, next number, repeat. A path that fixed belongs to a script."
    },
    {
     "type": "teach",
-    "title": "Question 1: is the path known in advance?",
-    "body": "Before you reach for an agent, ask one question first. **Could you write down every step before starting?** If yes, that is a *script*: plain code that runs the same steps every time. Renaming files, resizing photos, copying rows from one sheet to another. A script is cheaper, faster, and never invents anything.\n\nIf the steps depend on what you find along the way, a script cannot do it. 'Find out which of these 3 laptops is best for me' has no fixed path. You read one review, that changes what you search next. That is where thinking in the loop earns its keep.",
-    "simpler": "Before you use an agent, ask one thing. **Could you write down every step before you start?** If yes, use a script. A script is plain code that runs the same steps every time, like a recipe. It is cheaper, faster, and never makes things up. If each step depends on what you found before, a script cannot help. Picking the best of three laptops has no fixed path. One review changes your next search. That needs an agent."
+    "title": "Two questions about the path",
+    "body": "The first question: **is the path known in advance?** If you could write every step on a sticky note before starting, you want a *script*, a fixed list of instructions the computer follows exactly. It's quick and cheap, and it never improvises.\n\nThe second question: does each step need judgement? If step 4 depends on what turned up at step 3, nobody can write that sticky note ahead of time. That's where the intern earns their desk.\n\nAnd if all you need is an answer or a draft, and you'll do the acting yourself, a chatbot is enough.",
+    "simpler": "First question: **is the path known in advance?** If you could write every step on a sticky note first, you want a script: a fixed list of steps the computer follows exactly. It's quick, cheap and never improvises.\n\nSecond question: does each step need judgement? If step 4 depends on what step 3 turned up, no sticky note works. That's the intern's job.\n\nIf you only need an answer or draft and will act yourself, a chatbot is enough."
    },
    {
     "type": "example",
-    "title": "The 500 files, done 3 ways",
-    "body": "Priya has 500 photos to rename. She tries the chatbot first. It writes her a perfect 6-line script and wishes her luck. She tries an agent next. It renames 490 files correctly, gets confused by 10 with missing dates, and quietly names them all 'unknown'. Then she runs the chatbot's script. 500 files, 2 seconds, and the 10 with missing dates stop with an error so she can see them. The clerk wins. The agent took 4 minutes and hid the problem.",
-    "simpler": "Priya has 500 photos to rename. She asks the chatbot first. It writes a short script for her and wishes her luck. Next she tries an agent. It renames 490 files right, gets confused by 10 with missing dates, and quietly calls them all 'unknown'. Then she runs the chatbot's script. 500 files, 2 seconds. The 10 with missing dates stop with an error so she can see them. **The clerk wins.** The agent took 4 minutes and hid the problem."
+    "title": "Maya's Monday inbox",
+    "body": "Maya opens her laptop on Monday to 50 new emails. A script can handle half of them: anything from a 'noreply' address goes into Newsletters, with the same rule every time. The other half need reading. Her landlord's 'quick thing' could be a rent rise or a broken boiler. Her mum's 'Garage SALE Saturday?' is not a promotion, whatever a keyword rule thinks. **That second pile is agent work: read, decide, file, next.**",
+    "simpler": "On Monday, Maya opens her laptop to 50 new emails. A script can deal with half of them. Anything from a 'noreply' address goes into Newsletters, with the same rule every time. The other half need reading. Her landlord's 'quick thing' could be a rent rise or a broken boiler. Her mum's 'Garage SALE Saturday?' isn't an advert, whatever a simple word-matching rule thinks. **That second pile is agent work: read, decide, file, next.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Your inbox has 300 unread emails. You want them sorted into 'needs reply', 'read later', and 'ignore'. The rules are fuzzy: it depends who sent it and what it asks. What fits?",
+    "prompt": "You want the best robot vacuum under \u00a3300. That means reading reviews, spotting paid ads and following links you can't predict. Which setup fits?",
     "options": [
      {
       "id": "a",
-      "text": "A script, since sorting email is a known task"
+      "text": "A script that checks the same 5 review sites"
      },
      {
       "id": "b",
-      "text": "An agent, since each email needs a judgement call and the mistake cost is low"
+      "text": "An agent that researches and hands you a shortlist; you press buy"
      },
      {
       "id": "c",
-      "text": "A chatbot, since you can paste each email in and ask"
+      "text": "A chatbot you ask once, then trust"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the clerk on a job with no checklist: 'depends who sent it' means the path is not known in advance, so plain code cannot do it.",
-     "c": "That's the friend at the desk, 300 times. It can judge one email, but it will not go through the inbox for you."
+     "a": "That's a known path, and this isn't one: which pages matter depends on what you read first.",
+     "c": "That's one answer, not many steps: a chatbot replies and stops."
     },
-    "reteach": "Ask the 3 questions. Path known? No, each email is different. Mistake bad? No, a mislabelled email is easy to fix. Needs judgement at each step? Yes. All 3 point to the intern: an agent."
+    "reteach": "Research is a path you find as you walk it, so every step needs judgement: that's agent work. Keeping the buy button for yourself is the third question at work, because a wrong purchase costs real money."
    },
    {
     "type": "teach",
-    "title": "Questions 2 and 3: how bad is a mistake, and does it need judgement?",
-    "body": "**Question 2: how bad is one mistake?** A mislabelled email costs you 10 seconds. A wrongly sent payment costs you a week. The worse the mistake, the more you want a script you can test, or an agent with a human 'yes' before the risky step.\n\n**Question 3: does it need judgement at each step?** If the answer is 'no, just once, then I'll act', that is a chatbot. 'Which laptop should I buy?' is a chatbot question. 'Research 3 laptops, compare prices today, and put a table in my notes' is an agent task. Same topic, different tool, because the second one keeps going without you.",
-    "simpler": "Two more questions. **How bad is one mistake, and does it need judgement at each step?** A mislabelled email costs seconds. A wrong payment costs a week. The worse the mistake, the more you want a tested script, or an agent that asks you first. One answer and then you act is a chatbot, like asking which laptop to buy. 'Research 3 laptops and put the prices in my notes' is an agent task. It keeps going without you."
+    "title": "The third question: what does a mistake cost?",
+    "body": "Even when an agent fits, ask **how bad is a wrong move?** A mislabelled email costs you three seconds to drag back. A \u00a3280 order or a message to your boss can't be unsent. The higher the cost, the shorter the leash: make it ask before acting, or keep that step for yourself.\n\nYou'd think the smartest tool is always the best pick. It's the reverse. The best tool is the simplest one that does the job. A script can't make anything up or wander off. Start there. Hire the intern only when the steps truly can't be written down.",
+    "simpler": "Even with an agent, ask **how bad is a wrong move?** A misfiled email takes three seconds to fix. A \u00a3280 order or a note to your boss can't be unsent. The bigger the cost, the shorter the leash: make it ask first, or do it yourself.\n\nThe best tool is the simplest that does the job, not the smartest. A script can't make things up or wander off, so start there. Use the intern only when steps can't be written down."
    },
    {
     "type": "mistake",
-    "body": "Marcus is excited about agents, so he builds one to back up his work folder every night. It works for 3 weeks. Then one night the model decides a half-finished file 'looks like junk' and skips it. Nobody notices for a month. The tell: he gave judgement to a job that needed none. **If you could have written the steps on a sticky note, use a script.**",
-    "simpler": "Marcus loves agents, so he builds one to back up his work folder every night. It runs fine for 3 weeks. Then one night the model decides a half-finished file looks like junk and skips it. Nobody notices for a month. The warning sign: he gave judgement to a job that needed none. A backup should copy everything, no opinions. **If you could have written the steps on a sticky note, use a script.**"
+    "body": "Sam asks an agent to rename 500 files to a simple pattern. Forty minutes and 500 model calls later, it's mostly done, except for file 312, which it decided deserved the name 'beach_sunset_best'. A 5-line script would have finished in two seconds with zero opinions. **If you can write the steps down before you start, it's a script, not an agent.**",
+    "simpler": "Sam asks an agent to rename 500 files using a simple pattern. Forty minutes and 500 calls to the AI later, it's mostly done. Except file 312, which it decided should be called 'beach_sunset_best'. A five-line script would have finished in two seconds, with no opinions at all. **If you can write the steps down before you start, it's a script, not an agent.**"
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Dana wants to know whether a used car listing is a good deal. She has the listing open and will decide herself. Which tool?",
+    "prompt": "A friend says: 'Agents are the smartest option, so I'll use one for everything.' What's the best reply?",
     "options": [
      {
       "id": "a",
-      "text": "A chatbot: one question, one answer, then she acts"
+      "text": "Fair, the smartest tool always does the best job"
      },
      {
       "id": "b",
-      "text": "An agent, because it involves money"
+      "text": "Only when each step needs judgement; known steps go to a script, which can't improvise"
      },
      {
       "id": "c",
-      "text": "A script, because checking a price is a fixed step"
+      "text": "Only where mistakes are expensive, since agents are careful"
      }
     ],
-    "answer": "a",
+    "answer": "b",
     "whyNot": {
-     "b": "That's the agent's cue, but only when the task has many steps and she is not in the loop. Here she decides herself after one answer. Money alone does not call for an intern.",
-     "c": "That's the clerk's cue, but 'is this a good deal' has no fixed checklist. It needs judgement, just once."
+     "a": "That's Sam's 500 files: thinking costs time and money, and it adds room to wander.",
+     "c": "That's the third question flipped: costly mistakes call for a shorter leash, not more agent."
     },
-    "reteach": "The chatbot fits when you need one judgement and then you take over. An agent fits when the judgement has to happen again and again across steps you are not watching. Dana is watching, so one answer is enough."
+    "reteach": "You don't put an intern on a job a stamp can do. Known steps go to a script, a single answer goes to a chatbot, and only a path you discover step by step goes to an agent."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**Three questions pick the tool:** is the path known, how bad is a mistake, does it need judgement at each step. Known path means script, one judgement means chatbot, many judgements across steps you won't watch means agent, and the worse the mistake, the more you want a human click before the risky step.",
-    "simpler": "**Three questions pick the tool.** Is the path known? How bad is a mistake? Does it need judgement at each step? A known path means a script. One judgement means a chatbot. Many judgements across steps you will not watch means an agent. And the worse a mistake would be, the more you want a human to click 'yes' before the risky step."
+    "body": "Before you pick a tool, ask three things: is the path known, does each step need judgement, and what does a mistake cost? A known path means a script, one answer means a chatbot, and a path you find step by step means an agent, with a human yes before anything you can't undo.\n\nNext: run a ready-made agent on your own computer and choose what it may touch.",
+    "simpler": "Before you pick a tool, **ask three questions**. Is the path known? Does each step need judgement? What does a mistake cost? A known path means a script. A single answer means a chatbot. A path you find step by step means an agent, and a human says yes before anything that can't be undone.\n\nNext, you'll run a ready-made agent on your own computer and choose what it's allowed to touch."
    },
    {
     "type": "try",
-    "body": "Write down 3 chores from your week. Next to each, put S, C or A for script, chatbot or agent, and one word for why. Keep the note. Day 14 will revisit it.",
-    "simpler": "**Write down 3 chores from your week.** Next to each one, put S, C or A. S is script, C is chatbot, A is agent. Add one word for why you chose it. Keep the note somewhere you will find it again. Day 14 will revisit it."
+    "body": "Write down 3 tasks from your week, like paying bills or planning a trip. For each one, answer the three questions in one word apiece, then label it script, chatbot or agent.",
+    "simpler": "Write down three tasks from your week, like paying bills or planning a trip. For each one, answer the three questions with one word each: is the path known, does each step need judgement, and what does a mistake cost? Then **label each task script, chatbot or agent.**"
    }
   ],
-  "outcomeLine": "You can now take 3 tasks from your own week, run each through the 3-question test, and say which deserves an agent, which a chatbot, and which a plain script, with the reason."
+  "outcomeLine": "You can now run any task through 3 questions and say whether it needs an agent, a chatbot, or a plain script.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20 150 q150 8 290 0\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"48\" y=\"60\" width=\"24\" height=\"40\" rx=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"34\" y=\"100\" width=\"52\" height=\"18\" rx=\"3\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"30\" y1=\"132\" x2=\"90\" y2=\"132\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M125 60 h70 a10 10 0 0 1 10 10 v35 a10 10 0 0 1 -10 10 h-45 l-15 15 v-15 h-10 a10 10 0 0 1 -10 -10 v-35 a10 10 0 0 1 10 -10z\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"145\" cy=\"88\" r=\"4\" fill=\"#1B1A17\"/><circle cx=\"160\" cy=\"88\" r=\"4\" fill=\"#1B1A17\"/><circle cx=\"175\" cy=\"88\" r=\"4\" fill=\"#1B1A17\"/><circle cx=\"260\" cy=\"66\" r=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M234 140 q26 -70 52 0z\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"272\" y=\"98\" width=\"18\" height=\"24\" rx=\"2\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"160\" y=\"182\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"18\" fill=\"#1B1A17\">which one?</text></svg>"
  },
- "seconds": 44.42458415031433
+ "seconds": 92.08373403549194
 }

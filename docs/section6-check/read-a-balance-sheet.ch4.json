@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Open the kitchen drawer in the house. Inside: the electricity bill due Friday, the plumber's invoice, this month's card statement. On the shelf above sits the mortgage folder, 22 years still to run. All of it is money owed, but **only the drawer needs paying this year**. A balance sheet keeps the same two piles.",
-    "simpler": "Picture a kitchen drawer at home. Inside are the bills you must pay soon: the electricity bill due Friday, the plumber's invoice, this month's card statement. On the shelf above sits the mortgage folder, with 22 years left to run. All of it is money owed. But **only the drawer needs paying this year**. A company's balance sheet, the list of what it owns and owes, keeps those same two piles apart."
+    "body": "You owe the bank $200,000 and the plumber $400. Which one is knocking on your door this Friday? In the house picture, the mortgage gets paid a slice a month for 25 years, but the plumber wants paying now. A balance sheet sorts debts the same way, because **when a debt is due matters more than how big it is.**",
+    "simpler": "You owe the bank $200,000 and the plumber $400. Which one will knock on your door this Friday? With a house, you pay the mortgage a bit each month for 25 years. The plumber wants paying now. A balance sheet sorts what a company owes in the same way, because **when a debt is due matters more than how big it is.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Maya's bakery owes three things: 4,000 to the flour supplier, due in 30 days; a 60,000 bank loan repaid over 8 years; and 1,200 in tax due next quarter. Which one belongs on the shelf, not in the drawer?",
+    "prompt": "Mo has a flat with a $180,000 mortgage and 22 years left to pay. Mo also has a $900 credit card bill due on the 28th, and $60 in the bank. Which debt is the problem this month?",
     "options": [
      {
       "id": "a",
-      "text": "The 4,000 to the flour supplier"
+      "text": "The mortgage. It's 200 times bigger."
      },
      {
       "id": "b",
-      "text": "The 60,000 bank loan over 8 years"
+      "text": "The card bill. It's due in days and $60 can't cover it."
      },
      {
       "id": "c",
-      "text": "The 1,200 in tax"
+      "text": "Neither. The flat is worth more than both debts put together."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a drawer item, not a shelf item: 30 days is well inside the next 12 months.",
-     "c": "That's a drawer item too: next quarter arrives within 12 months."
+     "a": "That's the biggest debt, not the most urgent one: only this month's slice of the mortgage is due, not the full $180,000.",
+     "c": "That's what Mo owns, not what Mo can pay with: the card company won't take a bedroom by the 28th."
     },
-    "reteach": "The split is one question: must this be paid within the next 12 months? The supplier and the tax office both want money inside a year. The bank loan stretches over 8 years, so most of it sits on the shelf."
+    "reteach": "A debt starts to hurt when it comes due, not when it's big. The $900 lands in days and Mo has $60, so that's the squeeze. The mortgage gets paid in small slices over 22 years."
    },
    {
     "type": "teach",
-    "title": "The 12-month line",
-    "body": "*Liabilities* is the sheet's word for everything the company owes. It sorts them with one question: **is it due within 12 months?**\n\nIf yes, it is a *current liability*. The usual names are *trade payables* or *accounts payable* (bills from suppliers), *short-term borrowings* (loans due this year), *taxes payable*, and *accrued expenses* (costs already run up but not yet billed, like last week's wages).\n\nIf it is due later than 12 months, it is a *non-current* or *long-term liability*: long-term borrowings, bonds, and lease liabilities for buildings or vans rented for years.",
-    "simpler": "Liabilities is the word the balance sheet uses for everything the company owes. It sorts them with one question: **is it due within 12 months?** If yes, it is a current liability. Common ones are bills from suppliers (trade payables or accounts payable), loans due this year, taxes owed, and costs already run up but not yet billed, like last week's wages. If it is due later than 12 months, it is a non-current or long-term liability, such as long bank loans, bonds, or multi-year leases on buildings or vans."
+    "title": "Soon: current liabilities",
+    "body": "*Current liabilities* are everything the company has to pay within 12 months of the date on the balance sheet. Picture the envelopes on the doormat: the gas bill, the card statement, the plumber's invoice.\n\nOn a real sheet they have names like *accounts payable* (bills from suppliers that haven't been paid yet), *short-term borrowings* (loans due within the year) and *taxes payable* (tax owed but not paid yet).\n\n**This is the pile that has to be paid in real cash, soon.** Each line also tells you who's waiting at the door: a supplier, a bank or the tax office.",
+    "simpler": "*Current liabilities* are everything a company must pay within 12 months of the date on its balance sheet. Think of the bills on your doormat. On a real sheet you'll see *accounts payable* (unpaid bills from suppliers), *short-term borrowings* (loans due within the year) and *taxes payable* (tax owed but not yet paid). **This is the pile that must be paid in real cash, soon.** Each line shows who is waiting: a supplier, a bank or the tax office."
    },
    {
     "type": "example",
-    "title": "Pinewood Furniture's drawer",
-    "body": "Pinewood Furniture, a made-up firm, lists trade payables of 310,000 to its wood and fabric suppliers, short-term borrowings of 150,000, and taxes payable of 40,000. Current liabilities total 500,000. Below that, a bank loan of 900,000, due in 2031. Someone skimming says \"they owe 1.4 million\" and goes pale. But the question for this year is 500,000. The 900,000 is the mortgage folder: real, but not knocking on the door yet.",
-    "simpler": "Pinewood Furniture is a made-up company. It owes 310,000 to its wood and fabric suppliers, 150,000 in short-term loans, and 40,000 in taxes. Those are the current liabilities, and they add up to 500,000. Below sits a bank loan of 900,000, not due until 2031. Someone skimming says \"they owe 1.4 million\" and panics. But the question for this year is 500,000. The 900,000 is the mortgage folder: **real, but not knocking on the door yet**."
+    "title": "Rosa's bakery, 31 December",
+    "body": "Rosa's bakery has a balance sheet dated 31 December. Current liabilities: $6,000 owed to the flour supplier, $4,000 of sales tax owed to the tax office, and the $2,000 of the van loan that's due next year. Total: $12,000.\n\nLong-term liabilities: the other $18,000 of the van loan, plus a $40,000 bank loan due in 2031. Rosa owes $70,000 in all, but only $12,000 of it has to be paid by next December. The flour supplier is owed less than a tenth of the total, and will still be the first to call.",
+    "simpler": "Rosa's bakery has a balance sheet dated 31 December. Current liabilities: $6,000 to the flour supplier, $4,000 of sales tax and $2,000 of the van loan, making $12,000. Long-term: the other $18,000 of the van loan and a $40,000 bank loan due in 2031. Rosa owes $70,000, but **only $12,000 must be paid by next December**. The flour supplier is owed under a tenth of the total, yet will call first."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A delivery company's sheet shows two lines: \"Lease liabilities (non-current) 2,400,000\" and \"Lease liabilities (current) 300,000\". You are writing down what it must pay in the next 12 months. Which goes on your list?",
+    "prompt": "A bike shop's balance sheet is dated 30 June 2026. Which of these goes under current liabilities?",
     "options": [
      {
       "id": "a",
-      "text": "2,400,000, the bigger one"
+      "text": "A bank loan that has to be paid back in full in March 2029."
      },
      {
       "id": "b",
-      "text": "300,000, the current one"
+      "text": "$3,000 owed to a tyre supplier, due in 30 days."
      },
      {
       "id": "c",
-      "text": "Both, so 2,700,000"
+      "text": "The shop's delivery van."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the shelf, not the drawer: non-current means due after 12 months.",
-     "c": "That's the full lease, not this year's share: only the current part is due within 12 months."
+     "a": "That's long-term, not current: March 2029 is more than 12 months after 30 June 2026.",
+     "c": "That's something the shop owns, not something it owes: the van is an asset, on the other side of the sheet."
     },
-    "reteach": "One long lease gets cut into two lines. The slice due this year is labelled current. The rest is labelled non-current and waits on the shelf. Your 12-month list only takes the current slice."
+    "reteach": "Current means due within 12 months of the date at the top. Count one year forward from 30 June 2026: anything owed before 30 June 2027 is current. The tyre bill is due in 30 days, so it counts."
    },
    {
     "type": "teach",
-    "title": "One loan, two lines",
-    "body": "The example hides a trick worth knowing. A 10-year loan does not sit entirely on the shelf. This year's repayments are moved down into current liabilities, often as a line called *current portion of long-term debt*. **The same loan appears twice**, split by due date. Don't add it up twice, and don't miss the slice in the drawer.\n\nEach line also tells you who is owed. Payables are suppliers. Borrowings are banks or bondholders. Taxes payable is the government. Accrued wages are staff. *Deferred revenue* is customers who paid early for something not yet delivered, like a year's gym membership. The footnotes give the exact due dates when you need them.",
-    "simpler": "There is a trick here. A 10-year loan does not sit entirely on the shelf. This year's repayments get moved down into current liabilities, usually under a line called current portion of long-term debt. So **the same loan appears twice**, split by when it is due. Don't count it twice, and don't miss the slice in the drawer. Each line also tells you who is owed: suppliers, banks, the government, staff, or customers who paid early for something not yet delivered, like a year's gym pass."
+    "title": "Later, and the slice that moves",
+    "body": "*Long-term liabilities* are debts due more than 12 months away: a 10-year bank loan, *bonds* (IOUs a company sells to investors), a long lease on a building. In the house picture, this is the mortgage. It's big, but you pay it a slice at a time.\n\nYou'd think a loan stays in one place. It doesn't. Rosa's van loan sat on both sides: the slice due this year moved up into current liabilities, often called the *current portion of long-term debt*.\n\n**A long-term loan turns current as its due date gets closer.** A loan that looked harmless last year can be top of the pile this year.",
+    "simpler": "*Long-term liabilities* are debts due more than 12 months away: a 10-year bank loan, *bonds* (IOUs a company sells to investors), or a long building lease. Think of a mortgage: big, but paid a bit at a time. A loan doesn't stay put, though. The part of Rosa's van loan due this year moved up into current liabilities, called the *current portion of long-term debt*. **A long-term loan turns current as its due date gets closer.**"
    },
    {
     "type": "mistake",
-    "body": "Dev adds up every liability line, gets 1.4 million, sees cash of 200,000, and announces the company is sunk. He never asked the one question: due when? The 900,000 loan is paid over 8 years. Spot this mistake whenever someone quotes total liabilities as if it were all due tomorrow.",
-    "simpler": "Dev adds up every liability line and gets 1.4 million. He sees cash of 200,000 and announces the company is finished. He never asked the one question: **due when?** The 900,000 loan gets paid back over 8 years, not this month. It is like saying someone with a mortgage is broke because they cannot pay the whole house off today. Watch for this mistake whenever someone quotes total liabilities as if all of it were due tomorrow."
+    "body": "Priya opens a company's balance sheet, sees \"Long-term debt: $0\" and relaxes. Then she spots \"Short-term borrowings: $5 million\" under current liabilities, due this year, while the company has $1 million in the bank. Last year that same loan was listed as long-term. It hadn't been paid off; it had come due. Always read the current liabilities first, then the long-term ones.",
+    "simpler": "Priya opens a company's balance sheet, sees \"Long-term debt: $0\" and relaxes. Then she spots \"Short-term borrowings: $5 million\" under current liabilities, due this year. The company has only $1 million in the bank. Last year that same loan was listed as long-term. It wasn't paid off. It had come due. **Always read the current liabilities first**, then the long-term ones."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Which of these is a current liability?",
+    "prompt": "A friend says: \"This company owes $50 million, so it's in trouble.\" What should you check first?",
     "options": [
      {
       "id": "a",
-      "text": "A bond that is repaid in full in 2039"
+      "text": "How much of the $50 million is due in the next 12 months."
      },
      {
       "id": "b",
-      "text": "Wages staff earned last week, paid next Friday"
+      "text": "Whether $50 million is more than the company's yearly sales."
      },
      {
       "id": "c",
-      "text": "The non-current part of a 6-year van lease"
+      "text": "How many different banks the money is owed to."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's long-term debt, not current: 2039 is years past the 12-month line.",
-     "c": "That's the shelf part of the lease, not the drawer part: the label non-current says it is due after 12 months."
+     "b": "That compares debt to sales, which is a different question: first you need to know when the $50 million is due.",
+     "c": "That's who it owes, not when: one lender or ten, the danger is how much has to be paid this year."
     },
-    "reteach": "Current means due within 12 months, whoever is owed. Wages owed from last week are an accrued expense and get paid in days. A bond due in 2039 and the non-current part of a lease both wait past the 12-month line."
+    "reteach": "The total tells you how much is owed. The split tells you how soon. $50 million due in 2035 is like a mortgage; $50 million due by Christmas is a pile of bills on the doormat."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Liabilities are what the company owes, split by one question: **due within 12 months or later?** The current pile is the drawer it must empty this year; the non-current pile is the mortgage on the shelf, and a long loan shows up in both.",
-    "simpler": "Liabilities are what the company owes. They are split by one question: **due within 12 months or later?** The current pile is the kitchen drawer, the bills the company must clear this year. The non-current pile is the mortgage folder on the shelf, real but not due yet. One long loan can show up in both piles, with this year's slice in the drawer and the rest on the shelf."
+    "body": "A balance sheet splits what a company owes into two piles: current liabilities, due within 12 months, and long-term liabilities, due later. **The total tells you how much; the split tells you how soon**, and debts coming due soon are what sink companies.\n\nTomorrow: how a business can be worth less than nothing and keep running.",
+    "simpler": "A balance sheet splits what a company owes into two piles. Current liabilities are due within 12 months. Long-term liabilities are due later. **The total tells you how much; the split tells you how soon.** It's the debts due soon that sink companies.\n\nTomorrow: how a business can be worth less than nothing and keep running."
    },
    {
     "type": "try",
-    "body": "Open any annual report you can find online, search for \"Total current liabilities\" and \"Total non-current liabilities\", and write the two numbers side by side. Note which one is bigger.",
-    "simpler": "Find any company's annual report online. Search the balance sheet for two lines: \"Total current liabilities\" and \"Total non-current liabilities\". Write the two numbers side by side on a piece of paper. Then note which one is bigger. That is the drawer next to the mortgage folder, and **the split tells you more than the total ever will**. It takes about five minutes and makes the idea stick."
+    "body": "Search for a company you know plus \"balance sheet\" and find \"Total current liabilities\". Write down that number and the date at the top. That's what it has to pay before the same date next year.",
+    "simpler": "Search online for a company you know plus \"balance sheet\". Find the line that says \"Total current liabilities\". Write down that number, and the date at the top of the sheet. **That's what the company has to pay before the same date next year.**"
    }
   ],
-  "outcomeLine": "You can now list what a company must pay in the next 12 months, what can wait, and who is owed each amount."
+  "outcomeLine": "You can now list what a company must pay in the next 12 months, what it can pay later, and who it owes.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"20\" y1=\"150\" x2=\"300\" y2=\"150\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polygon points=\"112,82 160,42 208,82\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"122\" y=\"82\" width=\"76\" height=\"68\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"150\" y=\"112\" width=\"20\" height=\"38\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"52\" y=\"126\" width=\"36\" height=\"22\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"52,126 70,139 88,126\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><rect x=\"62\" y=\"102\" width=\"36\" height=\"22\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><polyline points=\"62,102 80,115 98,102\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><rect x=\"222\" y=\"126\" width=\"76\" height=\"22\" rx=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><circle cx=\"233\" cy=\"137\" r=\"11\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><path d=\"M248 132 L288 132 M248 142 L280 142\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><text x=\"75\" y=\"176\" font-family=\"sans-serif\" font-size=\"15\" font-weight=\"bold\" fill=\"#1B1A17\" text-anchor=\"middle\">SOON</text><text x=\"260\" y=\"176\" font-family=\"sans-serif\" font-size=\"15\" font-weight=\"bold\" fill=\"#1B1A17\" text-anchor=\"middle\">LATER</text></svg>"
  },
- "seconds": 54.55257534980774
+ "seconds": 86.71367883682251
 }

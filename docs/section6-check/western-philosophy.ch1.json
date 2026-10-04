@@ -5,8 +5,8 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Socrates never wrote a word, and Athens executed him for asking questions. Western philosophy is one dinner-table argument that has run for about 2,500 years, and he was the guest who kept turning to whoever had just spoken and asking *why*. An opinion is only a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing.",
-    "simpler": "Socrates never wrote anything down, and the city of Athens put him to death for asking questions. Western philosophy is like one long dinner-table argument that has lasted about 2,500 years. Socrates was the guest who kept asking whoever had just spoken why they believed it. Having an opinion only gets you a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing."
+    "body": "None of Socrates' writing survives, and Athens put him on trial and to death after a lifetime of asking awkward questions. Western philosophy is one dinner-table argument that has run for about 2,500 years, and he was the guest who kept turning to whoever had just spoken and asking *why*. An opinion is only a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing.",
+    "simpler": "None of Socrates' own writing survives. The city of Athens put him on trial and to death after a lifetime of asking awkward questions. Western philosophy is like one long dinner-table argument that has lasted about 2,500 years. Socrates was the guest who kept asking whoever had just spoken why they believed it. Having an opinion only gets you a seat at that table. **A claim plus the reasons that hold it up is an argument**, and that is what earns you a hearing."
    },
    {
     "type": "exercise",
@@ -88,15 +88,15 @@
     "options": [
      {
       "id": "a",
-      "text": "'We should leave at 7. The film starts at 7:30 and the drive takes 20 minutes.'"
+      "text": "'We have to leave by 7. The film starts at 7:30 and the drive takes 30 minutes.'"
      },
      {
       "id": "b",
-      "text": "'We should leave at 7. I just feel it.'"
+      "text": "'We have to leave by 7. I just feel it.'"
      },
      {
       "id": "c",
-      "text": "'We should leave at 7. Last time we were late you blamed me.'"
+      "text": "'We have to leave by 7. Last time we were late you blamed me.'"
      }
     ],
     "answer": "a",
@@ -104,22 +104,37 @@
      "b": "That's a claim with a mood, not a reason: a feeling tells you about the speaker, not about when the film starts.",
      "c": "That's a grievance, not a reason: who got blamed last time has no bearing on tonight's start time."
     },
-    "reteach": "Run the test. Grant that the film really starts at 7:30 and the drive really takes 20 minutes, and leaving at 7 follows. Grant the feeling, grant the old blame, and 7 still floats free, unsupported."
+    "reteach": "Run the test. Grant that the film really starts at 7:30 and the drive really takes 30 minutes, and leaving by 7 follows. Grant the feeling, grant the old blame, and 7 still floats free, unsupported."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Every opinion is a claim plus reasons, and the only test that matters is this: **if the reasons were fully true, would the claim have to follow?** Most arguments fail that test with reasons that are perfectly true and beside the point.\n\nTomorrow: the man who would not stop asking why, and why Athens killed him.",
-    "simpler": "Every opinion is a claim plus reasons. The only test that matters is this: **if the reasons were fully true, would the claim have to follow?** Most arguments fail that test. Their reasons are perfectly true and still beside the point, like a correct answer to a different question. Tomorrow: the man who would not stop asking why, and why Athens killed him."
+    "body": "Every opinion is a claim plus reasons, and the only test that matters is this: **if the reasons were fully true, would the claim have to follow?** Many arguments fail that test with reasons that are perfectly true and beside the point: a solid bolt fitted to the wrong door.",
+    "simpler": "Every opinion is a claim plus reasons. The only test that matters is this: **if the reasons were fully true, would the claim have to follow?** Many arguments fail that test. Their reasons are perfectly true and still beside the point, like a strong bolt on the wrong door that keeps nothing shut."
    },
    {
     "type": "try",
-    "body": "Open your last group chat where someone had an opinion. Find the claim. Find the 'because'. Grant the 'because' fully and ask whether the claim follows. Reply with nothing. Just notice.",
-    "simpler": "Open the last group chat where someone shared an opinion. Find the claim, the thing they wanted everyone to agree with. Find the because, the reason they gave. Now **grant the because fully and ask whether the claim follows**. Do not reply. Do not correct anyone. Just notice what you see, the way you might notice a loose button without sewing it on."
+    "body": "Open your last group chat where someone had an opinion. Find the claim. Find the 'because'. Grant the 'because' fully and ask whether the claim follows. Reply with nothing. Just notice.\n\nTomorrow: the reply that never touches your claim, and why it so often wins the room anyway.",
+    "simpler": "Open the last group chat where someone shared an opinion. Find the claim, the thing they wanted everyone to agree with. Find the because, the reason they gave. Now **grant the because fully and ask whether the claim follows**. Do not reply. Do not correct anyone. Just notice what you see, the way you might notice a loose button without sewing it on. Tomorrow: the reply that never touches your claim, and why it so often wins the room anyway."
    }
   ],
   "outcomeLine": "You can now split any opinion into its claim and its reasons, and say whether the reasons hold it up.",
   "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"28\" y=\"128\" width=\"264\" height=\"14\" rx=\"5\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"48\" y1=\"142\" x2=\"42\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"272\" y1=\"142\" x2=\"278\" y2=\"184\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"100\" cy=\"126\" rx=\"12\" ry=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"220\" cy=\"126\" rx=\"12\" ry=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"70\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M54 128 Q70 110 86 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"130\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M114 128 Q130 110 146 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"190\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M174 128 Q190 110 206 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"250\" cy=\"100\" r=\"11\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M234 128 Q250 110 266 128\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"70\" cy=\"52\" rx=\"28\" ry=\"15\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"64,66 70,80 78,65\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"70\" y=\"57\" font-size=\"13\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"#1B1A17\">why?</text><ellipse cx=\"130\" cy=\"52\" rx=\"32\" ry=\"15\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"124,66 130,80 138,65\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"130\" y=\"57\" font-size=\"12\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"#1B1A17\">because</text><ellipse cx=\"190\" cy=\"52\" rx=\"24\" ry=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"184,65 190,80 198,64\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"190\" y=\"57\" font-size=\"13\" text-anchor=\"middle\" font-family=\"sans-serif\" fill=\"#1B1A17\">why?</text><ellipse cx=\"250\" cy=\"52\" rx=\"24\" ry=\"14\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><circle cx=\"242\" cy=\"52\" r=\"2\" fill=\"#1B1A17\"/><circle cx=\"250\" cy=\"52\" r=\"2\" fill=\"#1B1A17\"/><circle cx=\"258\" cy=\"52\" r=\"2\" fill=\"#1B1A17\"/></svg>"
  },
- "seconds": 100.07791376113892
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "concrete_images",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "'Athens executed him for asking questions': the formal charges were impiety and corrupting the young, so this is a loose simplification stated as fact.",
+   "'Socrates never wrote a word': none of his writing survives, but Plato's Phaedo says he put Aesop's fables into verse in prison.",
+   "Exercise 3, option a breaks the chapter's own test: granting a 7:30 film and a 20-minute drive does not force leaving at exactly 7, since 7:05 also works. It holds up 'leave by about 7:10', not 'have to leave at 7'."
+  ],
+  "weakest_card": 9,
+  "why": "The 'In one breath' recap has no concrete image. Its teaser promises the Athens execution that card 1 already gave away, and because the 'try' card comes after it, the chapter ends on 'Just notice.' instead of a hook.",
+  "fix": "Make the last card a fresh teaser instead of repeating card 1, for example: 'Tomorrow: the reply that never touches your claim, and why it beat Socrates in front of 501 jurors.' Then put the rent bolt image back into the recap."
+ }
 }

@@ -5,114 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Full lungs float you. It's letting the air out that drops your legs.\n\nThe water is a bed, not a floor, and the mattress is the air in your chest. Fill up, lie back with your ears in, and the bed holds your shoulders without you doing a thing. **Your lungs are the float.** This chapter is learning to trust that for 30 seconds."
+    "body": "The hardest part of floating is doing nothing at all. Your lungs are two air bags built into your chest, and **the water is a bed waiting under them**. Today you lie down on it, back first, then front, and let it take your weight.",
+    "simpler": "The hardest part of floating is doing nothing at all. Your lungs are like two air bags inside your chest, and **the water is a bed waiting under them**. Today you lie down on that bed. First on your back, then on your front. Your only job is to let the water hold your weight."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Maya lies back in the shallow end, arms wide, floating nicely. Then she lets out a long, happy sigh of relief. What happens next?",
+    "prompt": "Priya lies back in the shallow end with a huge breath held in, floating nicely. Then she lets the whole lot out in one long, dramatic sigh. What happens next?",
     "options": [
      {
       "id": "a",
-      "text": "Nothing. She's already floating, so she stays up."
+      "text": "She floats higher, now that she's relaxed"
      },
      {
       "id": "b",
-      "text": "Her chest sinks a little and her feet start to drop."
+      "text": "Her hips and legs start to sink"
      },
      {
       "id": "c",
-      "text": "She floats higher, because she's more relaxed now."
+      "text": "Nothing changes: air has nothing to do with floating"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the hope, not the physics: the air she just sighed out was the thing holding her chest up.",
-     "c": "That's loose muscles, not empty lungs: relaxed is good, empty is not."
+     "a": "That's relaxing her muscles, not emptying her lungs: loose is good, but the sigh let out the air that was holding her up.",
+     "c": "That's the floor idea, not the bed idea: the air in her chest is exactly what was keeping it at the surface."
     },
-    "reteach": "Think of your chest as a balloon under your back. Full, it lifts you. Let the air out and the balloon shrinks, the bed sags, and your legs go first. Keep your breaths small and your lungs mostly full."
+    "reteach": "Think of a beach ball tucked inside your ribs. Full, it bobs at the top. Let the air out and it rides lower, and your chest does the same every time you breathe out hard."
    },
    {
     "type": "teach",
-    "title": "Back float: ears in, eyes up",
-    "body": "Stand in chest-deep water with your back to the wall. Take a big breath, hold it, and lean back slowly until your ears go under. Yes, under. Sound turns muffled, like a radio in the next room; that's your sign you're low enough. Hands can rest on the wall edge behind you to start.\n\nNow push your hips to the surface, as if a hand under your lower back is lifting them. Look at the ceiling, not your feet. Looking at your feet tips your head forward, which folds you, which sinks your hips. **Ears in, eyes up, hips up.**\n\nBreathe in little sips. Keep the tank mostly full."
+    "title": "The air bags",
+    "body": "A full breath works like **a beach ball tucked inside your ribs**. Breathe in all the way and your chest rides at the surface. Sigh it all out and you sink a few centimetres, sometimes more.\n\nOn your back, your head and hips sit on a seesaw. Lift your head to look at your toes and your hips go down. Lay your ears in the water, look at the ceiling, and your hips come up.\n\nSo: ears in, chin pointing at the roof, belly button lifted. Take small sips of air near the top of a full breath. Never empty the ball.",
+    "simpler": "A full breath is like **a beach ball tucked inside your ribs**. Breathe in fully and your chest stays at the surface. Breathe it all out and you sink a few centimetres, sometimes more. On your back, your head and hips are a seesaw. Lift your head and your hips drop. Rest your ears in the water, look up, and your hips rise. Keep your belly button lifted. Sip small breaths near the top. Never empty the ball."
    },
    {
     "type": "example",
-    "title": "Dev counts to 19",
-    "body": "Dev, 34, first lesson, holds the wall behind his head and leans back. Ears go under. He hears his own heartbeat and the hum of the pool filter, and nothing else. His coach says 'belly button to the ceiling' and his hips rise about 5 centimetres. Then she asks him to count out loud to 30, and he gets to 19 before noticing he let go of the wall at 6."
+    "title": "Tom counts the ceiling",
+    "body": "Tom, 34, holds the pool edge with both hands and lies back, staring at the lights. Ears in, belly button up, one big breath held near the top. He lets go with one hand, then the other, and counts 22 ceiling tiles before he remembers he was supposed to be nervous. His feet drift down until they hang a hand's width below the surface, and stop there. **That's not sinking; that's floating.**",
+    "simpler": "Tom, 34, holds the pool edge with both hands and lies back, looking up at the lights. Ears in, belly button up, one big breath held near the top. He lets go with one hand, then the other. He counts 22 ceiling tiles before he remembers to feel nervous. His feet drift down until they hang a hand's width below the surface, then stop. **That's not sinking; that's floating.**"
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You're on your back and your hips are sinking slowly, feet drifting toward the floor. Which fix is the one from this chapter?",
+    "prompt": "You're on your back, hands off the wall, and your hips keep slowly dropping. Which fix uses what you just learned?",
     "options": [
      {
       "id": "a",
-      "text": "Kick your legs hard to push them back up."
+      "text": "Lift your head to check what your legs are doing"
      },
      {
       "id": "b",
-      "text": "Tuck your chin to your chest to see what your feet are doing."
+      "text": "Lay your ears back in the water and top up your breath"
      },
      {
       "id": "c",
-      "text": "Top up your breath, tilt your head back so your ears are in, and push your belly button toward the ceiling."
-     }
-    ],
-    "answer": "c",
-    "whyNot": {
-     "a": "That's kicking, not floating: it fights the water instead of letting it hold you, and it usually drops your hips faster.",
-     "b": "That's the fold: chin down tips your head forward, your hips follow, and the bed drops out from under you."
-    },
-    "reteach": "Your body is a seesaw and your lungs are the middle. Head back and chest full lifts the far end, your hips. Chin forward does the opposite. Fix the head and the breath, and the legs sort themselves out."
-   },
-   {
-    "type": "teach",
-    "title": "Front float, and the way back up",
-    "body": "The *front float* is the same bed, face down. Hold the wall with both hands, breathe in, put your face in, and let your legs drift up behind you until you're one long flat line. Breathe out slowly through your nose, the bubbles from chapter 2. You only need 10 seconds. Let go of the wall for 3 of them, then 5, then all 10.\n\nStanding up is the chapter 1 move, and it works from both floats. **Knees to chest, hands press down, feet find the floor.** From your back, add one step first: tuck your chin and scoop your arms forward, and you swing upright like a boat righting itself. Do 5 stand-ups before you try the full 30 seconds."
-   },
-   {
-    "type": "mistake",
-    "body": "Priya floats beautifully for 8 seconds, then thinks 'am I still up?' and lifts her head to check. Her hips drop, her feet touch the floor, and she decides she can't float. Spot it: if your head is coming up to look, you've swapped the bed for a chair. Check with your ears, not your eyes. Muffled means you're still lying down."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "A friend asks what actually keeps a person on the surface in a back float. Which answer would you give?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Moving the arms gently, like slow wings, to hold yourself up."
-     },
-     {
-      "id": "b",
-      "text": "A chest full of air, with the head back far enough that the ears are under."
-     },
-     {
-      "id": "c",
-      "text": "Being light. Heavier people sink."
+      "text": "Breathe all the way out so your body goes heavy and calm"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's *sculling*, a treading-water move, not floating: in a float your arms just rest on the bed.",
-     "c": "That's a myth worth busting: body shape changes how high you sit, but the lift comes from the air and the head position, not the scales."
+     "a": "That's the seesaw the wrong way round, not a fix: head up pushes hips down.",
+     "c": "That's emptying the beach ball, not relaxing: less air means a lower chest and lower hips."
     },
-    "reteach": "Hold a full balloon under the water and it pops up. Your chest is that balloon. Tipping your head back just points the balloon's lift at your hips instead of at your face."
+    "reteach": "Two things lift your hips on your back: a head that rests in the water and lungs that stay mostly full. Lifting your head or sighing out does the opposite. Head back, breath in, then wait."
+   },
+   {
+    "type": "teach",
+    "title": "Face down, and getting up",
+    "body": "The front float is the same bed, face down. Hold the wall, take a full breath, face in, and let your legs drift up behind you. Let go, arms out like a starfish, and count to 10, letting out **a slow thread of bubbles, not the whole breath**.\n\nYou'd think standing up from your back is the scary part. It's chapter 1's move with your chin leading: chin to chest, knees in, hands press down, feet on the floor.\n\nSome legs hang low no matter what. Normal. Your chest still floats.",
+    "simpler": "The front float is the same bed, face down. Hold the wall, take a full breath, face in, and let your legs drift up. Let go, arms out like a starfish, and count to 10, letting out **a slow thread of bubbles, not the whole breath**. Getting up from your back is chapter 1's move, chin first: chin to chest, knees in, hands press down, feet on the floor. Some legs hang low anyway. That's normal. Your chest still floats."
+   },
+   {
+    "type": "mistake",
+    "body": "Sam floats on his front for 8 good seconds, then blows out every last bubble to get ready to stand. His chest drops, his face sinks deeper, and the stand turns into a scramble with a mouthful of pool. **Keep the air in until your feet are down**: if you feel yourself sinking just before you stand, you emptied the bags too early.",
+    "simpler": "Sam floats face down for 8 good seconds. Then, to get ready to stand, Sam blows out every last bubble. Sam's chest drops, the face sinks deeper, and the stand becomes a scramble with a mouthful of pool water. **Keep the air in until your feet are down.** If you feel yourself sinking just before you stand, you emptied the air bags too early."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend watches you lie still on your back for 30 seconds and asks what's actually holding you up. What's the honest answer?",
+    "options": [
+     {
+      "id": "a",
+      "text": "My legs, kicking very gently under the water"
+     },
+     {
+      "id": "b",
+      "text": "The air in my lungs, with the water doing the rest"
+     },
+     {
+      "id": "c",
+      "text": "Keeping every muscle tight so I stay flat"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's kicking, which comes in chapter 5, not floating: today your legs did nothing.",
+     "c": "That's holding yourself up, not lying on the bed: tight muscles add no air, they just tire you out."
+    },
+    "reteach": "Floating isn't something you do. It's something you stop fighting. The air in your chest is the float and the water holds the rest of you; your only jobs are keeping the air in and your head back."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "The water is a bed and the air in your chest is the mattress: keep your lungs full, ears in and hips up, and you float; let the air out or lift your head, and you sink. **Getting up is knees in, hands down, feet on the floor,** from either float.\n\nTomorrow: one push off the wall carries you further than your first ten strokes."
+    "body": "**Your lungs are air bags**: keep them mostly full and your chest stays at the surface, and lay your ears in the water so your hips come up too. To get up, chin to chest, knees in, hands press down, and keep the air until your feet are on the floor.\n\nTomorrow: why one push off the wall beats your first ten strokes.",
+    "simpler": "**Your lungs are air bags.** Keep them mostly full and your chest stays at the surface. Rest your ears in the water and your hips come up too. To get up, tuck your chin to your chest, pull your knees in, and press your hands down. Hold on to the air until your feet touch the floor. Tomorrow: why one push off the wall beats your first ten strokes."
    },
    {
     "type": "try",
-    "body": "Tonight, lying in bed: breathe in fully, hold it, and feel your chest rise. Breathe all the way out and feel it drop. That rise is your float. Learn what full feels like."
+    "body": "In the bath tonight, lie back with your ears under, take a full breath and feel your chest lift. Then sigh it all out and feel it settle. That's today's lesson in 20 seconds.",
+    "simpler": "Tonight in the bath, lie back with your ears under the water. Take a full breath and **feel your chest lift**. Then let it all out with a sigh and feel your chest settle back down. That's today's whole lesson in 20 seconds."
    }
   ],
-  "outcomeLine": "You can now float on your back for 30 seconds and on your front for 10, then stand up calmly from both.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M10 122 Q40 112 70 122 T130 122 T190 122 T250 122 T310 122 V192 H10 Z\" fill=\"#1F7A4D\" opacity=\"0.3\"/><path d=\"M10 122 Q40 112 70 122 T130 122 T190 122 T250 122 T310 122\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M86 118 L160 112 L236 116 L292 124\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><ellipse cx=\"138\" cy=\"108\" rx=\"26\" ry=\"11\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"70\" cy=\"116\" r=\"15\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"66\" y1=\"112\" x2=\"66\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"76\" y1=\"112\" x2=\"76\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><polyline points=\"138,92 138,58\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><polyline points=\"129,67 138,58 147,67\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><text x=\"152\" y=\"62\" font-family=\"sans-serif\" font-size=\"14\" fill=\"#1B1A17\">full lungs</text><line x1=\"20\" y1=\"170\" x2=\"300\" y2=\"170\" stroke=\"#1F7A4D\" stroke-width=\"2\" stroke-dasharray=\"6 6\" opacity=\"0.6\"/></svg>"
+  "outcomeLine": "You can now float on your back and your front by keeping your lungs full and your head back, then stand up calmly from both.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><text x=\"160\" y=\"40\" text-anchor=\"middle\" font-size=\"18\" fill=\"#1B1A17\">air holds you</text><path d=\"M10 124 Q50 114 90 124 T170 124 T250 124 T330 124\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M10 156 Q50 146 90 156 T170 156 T250 156 T330 156\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"72\" cy=\"112\" r=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><ellipse cx=\"145\" cy=\"116\" rx=\"56\" ry=\"13\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><ellipse cx=\"128\" cy=\"113\" rx=\"10\" ry=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><ellipse cx=\"152\" cy=\"113\" rx=\"10\" ry=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"198,114 250,118 278,112\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"100\" y1=\"110\" x2=\"66\" y2=\"94\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><circle cx=\"140\" cy=\"84\" r=\"5\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2\"/><circle cx=\"152\" cy=\"70\" r=\"3.5\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2\"/></svg>"
  },
- "seconds": 106.55171728134155
+ "seconds": 99.37271499633789
 }

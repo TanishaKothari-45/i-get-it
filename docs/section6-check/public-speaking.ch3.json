@@ -1,118 +1,136 @@
 {
  "chapter": {
   "n": 3,
-  "title": "Plan the route",
+  "title": "Lay out the path",
   "cards": [
    {
     "type": "picture",
-    "body": "Why do you remember three things from a good talk and nothing from a bad one? Because the good speaker told you where you were going, took you there in three steps, and told you when you'd arrived. **A route has a start, a few landmarks and an end**; a bad talk is a wander with no map."
+    "body": "Why do mountain trails zigzag when a straight line up is shorter? Because only a very fit few can climb straight up, and everyone else stops halfway. A talk works the same way: people keep up when it **swings between how things are and how they could be**, then shows them the way to the top.",
+    "simpler": "Why do mountain trails zigzag when going straight up is shorter? Because only a few very fit people can climb straight up. Everyone else gives up halfway. A talk works the same way. People keep up when it **swings between how things are and how they could be**, and then shows them the way to the top."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya has 3 minutes to tell her running club why they should switch to morning runs. Which opening puts her listeners on the route?",
+    "prompt": "You're leading 8 friends up a steep hill to catch the sunset. Which path gets the most of them to the top?",
     "options": [
      {
       "id": "a",
-      "text": "\"So, I've been thinking a lot about running lately, and there are so many factors...\""
+      "text": "Straight up. It's the shortest line."
      },
      {
       "id": "b",
-      "text": "\"Morning runs will get more of us to turn up. Here's why, in three steps.\""
+      "text": "The zigzag trail, swinging left and right as it climbs."
      },
      {
       "id": "c",
-      "text": "\"Let me start with how our club began, and who was there...\""
+      "text": "The route you ran alone last week, at your speed."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the wander, not the route: nobody knows where they're being taken.",
-     "c": "That's starting the walk at the wrong end: how the club began might be a step, but it isn't the destination."
+     "a": "That's the shortest line, not the walkable one: half the group stops halfway, out of breath.",
+     "c": "That's your path, not theirs: what felt easy to you can lose everyone behind you."
     },
-    "reteach": "The first line of a talk is a signpost. It names the destination so listeners can relax and follow. Anything that delays the signpost is the speaker wandering while everyone waits."
+    "reteach": "A path is only good if the group can walk it. Switchbacks add a little distance but make the slope easy enough to manage. A talk's structure does the same job: it makes the climb to your idea doable for a stranger."
    },
    {
     "type": "teach",
-    "title": "Signpost, then three landmarks",
-    "body": "A 3-minute talk has three parts, and the first is a *signpost*: one sentence that says where you're all heading. That's your sentence from chapter 1. Say it in the first 20 seconds and your listeners stop guessing.\n\nThen the middle: **three steps, no more**. Three is small enough to hold in a head without notes, and big enough to feel like a journey. Think of walking a friend to the bakery: past the church, over the bridge, left at the red door.\n\nEach step gets about 40 seconds. One idea, one example, then you move."
+    "title": "The hidden zigzag",
+    "body": "Nancy Duarte, who has spent her career studying presentations, charted Martin Luther King Jr.'s \"I Have a Dream\" speech and Steve Jobs's 2007 iPhone launch. Both had the same hidden shape. In her book *Resonate* she names its two levels: *what is*, the world as it stands, and *what could be*, the world if the idea wins.\n\nGreat talks **swing between the two, again and again**. Each swing pulls the gap tighter, like a rope stretched between two posts.\n\nYou'd think your job is to explain your idea clearly. It's to make people feel the gap first. Then they want the way across.",
+    "simpler": "Nancy Duarte has studied talks her whole career. She mapped Martin Luther King Jr.'s \"I Have a Dream\" speech and Steve Jobs's 2007 iPhone launch. Both share one hidden shape. Her book *Resonate* names its two sides: *what is*, the world now, and *what could be*, the world if the idea wins. Great talks **swing between the two, again and again**, tightening the gap like a rope. Make people feel the gap first. Then they want the way across."
    },
    {
     "type": "example",
-    "title": "Tomas and the coffee machine",
-    "body": "Tomas has 3 minutes to get his 3 flatmates to buy a shared coffee machine, and his signpost is 'A shared machine saves us money and the morning queue.' Step 1: the four of them spend about 12 pounds a day at the caf\u00e9, which he counted for a week. Step 2: a decent machine costs 180 pounds, so it pays for itself in about 15 days. Step 3: nobody has to stand behind the man who orders 6 oat flat whites. He **closes with the signpost sentence again**, word for word, and sits down."
+    "title": "Killing the Monday meeting",
+    "body": "Sam has 5 minutes to shrink the 60-minute Monday 10am meeting, so the talk swings: right now 12 people lose an hour each, 12 hours of work a week; it could be everyone back at their desks by 10:15. Right now half the room answers email during it; it could be 15 minutes, standing, each person speaking once. Then the way there: try it next Monday, with a kitchen timer on the table. Afterwards nobody quoted the 12 hours. Everyone quoted 10:15.",
+    "simpler": "Sam has 5 minutes to shrink the hour-long Monday 10am meeting. So the talk **swings between now and what could be**. Now, 12 people each lose an hour, 12 hours a week. It could be everyone back at their desks by 10:15. Now, half the room answers email. It could be 15 minutes, standing, each person speaking once. Then the first step: try it next Monday with a kitchen timer. Later, nobody repeated the 12 hours. Everyone repeated 10:15."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Lena is planning a 3-minute talk for her book club: 'We should meet every 2 weeks, not monthly.' She has 5 reasons on a sticky note. What does she do with them?",
+    "prompt": "Lena has 5 minutes to convince her book club to read one non-fiction book a month. Which plan follows the path?",
     "options": [
      {
       "id": "a",
-      "text": "Say all 5 quickly, about 30 seconds each, so nothing is lost."
+      "text": "Recommend 10 great non-fiction books, one after another."
      },
      {
       "id": "b",
-      "text": "Pick the 3 strongest, give each about 40 seconds, and drop the other 2."
+      "text": "Now: half of us skip meetings. Could be: a room arguing about a true story. Now: 6 novels in a row. Could be: something new. Then: try one next month."
      },
      {
       "id": "c",
-      "text": "Keep all 5 but merge them into one long middle section with no steps."
+      "text": "Start with next month's reading plan, then the reasons, then her favourite author's life story."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a sprint, not a walk: 5 steps in 3 minutes leaves no room for an example on any of them.",
-     "c": "That's the wander: one long middle gives listeners no landmarks to hold onto."
+     "a": "That's a list, not a path: there's no gap between now and could-be, so nothing pulls people forward.",
+     "c": "That's the way there with no climb before it: people get the steps before they feel why they'd want them."
     },
-    "reteach": "Three steps is a limit, not a target you round up from. If you have 5 reasons, 2 of them are weaker. Cut those and give the remaining 3 room to breathe, about 40 seconds each."
+    "reteach": "The path has two levels and a finish. Swing between how things are and how they could be a few times, then show the first step. Without the swings, the steps feel like homework."
    },
    {
     "type": "teach",
-    "title": "Arrive, and say so",
-    "body": "The third part is the shortest and the most skipped: **say where you've arrived**. Repeat your signpost sentence, nearly word for word. You'd think repeating yourself sounds lazy. To a listener it sounds like landing.\n\nNow put the whole route on one index card. Line 1: the signpost. Lines 2 to 4: your three steps, each as 3 or 4 words, like 'caf\u00e9 costs: 12 a day'. Line 5: the signpost again.\n\nThat card is your map. If you can read it in 10 seconds, you can walk the talk in 3 minutes."
+    "title": "When you have 10 seconds",
+    "body": "The full zigzag takes planning. But sometimes your boss turns to you mid-meeting and asks what you think, and you get about as long as it takes to put down a coffee cup.\n\nThen shrink the path to three trail markers: *What* (how things are), *So what* (why it matters, which is the gap), *Now what* (the first step). Same climb, fewer switchbacks.\n\nOne test works for both sizes. Afterwards, **could a listener draw your talk on a napkin**? A line bouncing between low and high, then rising to the top. If all they can draw is a flat line, there was no path.",
+    "simpler": "The full zigzag takes planning. But sometimes your boss asks what you think mid-meeting, and you have as long as it takes to set down a coffee cup. Then use three steps: What (how things are), So what (why it matters, the gap), Now what (the first step). One test works for both. Afterwards, **could a listener draw your talk on a napkin**? A line bouncing low and high, then rising. A flat line means there was no path."
    },
    {
     "type": "mistake",
-    "body": "Dev wrote his route the night before: signpost, three steps, close. Then mid-walk he thought of a fourth point and a 'quick story', so 3 steps became 6 and his close became 'anyway, yeah, that's about it'. You can spot this from the room: the speaker glances at the clock, and the listeners glance at each other. **A fourth step is a detour**, not a bonus."
+    "body": "Tom gets 5 minutes to present the team's new app, walks through all 9 features in the order they were built, then asks for questions. The room just blinks. Every point was true, but it was a flat trail with no view. To spot it, read your outline: if every line could start with *and also*, you need a *but it could be*.",
+    "simpler": "Tom gets 5 minutes to present the team's new app. He walks through all 9 features in the order they were built, then asks for questions. The room just blinks. Every point was true, but it was **a flat trail with no view**. To spot this, read your outline. If every line could start with *and also*, you need a *but it could be*."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend shows you their index card for tomorrow's talk: one opening line, 3 short steps, and nothing else. What's missing?",
+    "prompt": "After your talk, a friend draws its shape on a napkin. Which drawing means your structure worked?",
     "options": [
      {
       "id": "a",
-      "text": "Nothing. The close is optional for a short talk."
+      "text": "A flat line moving steadily across."
      },
      {
       "id": "b",
-      "text": "A closing line that repeats the opening sentence."
+      "text": "A line bouncing between a low level and a high one, then rising to a finish."
      },
      {
       "id": "c",
-      "text": "Two more steps, so the talk feels thorough."
+      "text": "One big spike in the middle, where the best joke landed."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's Dev's mistake from the other side: with no close, you trail off instead of landing.",
-     "c": "That's the detour: 5 steps in 3 minutes rushes every one of them."
+     "a": "That's a list of points, not a path: with no gap, nothing pulls the listener along.",
+     "c": "That's one highlight, not a structure: a single peak doesn't show anyone the way up."
     },
-    "reteach": "A route has three parts, not two. Signpost, three steps, then the signpost again so everyone knows the walk has ended. The close is one line, and it's the line people carry home."
+    "reteach": "A followable talk has a shape: down to how things are, up to how they could be, several times, then up to the first step. If the drawing bounces and then climbs, the listener felt the gap and saw the way across."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A 3-minute talk is a walk with **three parts**: say where you're going, go there in 3 steps of about 40 seconds each, then say you've arrived by repeating your first sentence. The whole route fits on one index card you can read in 10 seconds.\n\nTomorrow: the only line worth memorising word for word, and why it isn't the close."
+    "body": "Draw Sam's talk on a napkin and you have the whole chapter. A low dot: 12 lost hours. A high dot: back at desks by 10:15. Low again: half the room on email. High again: 15 minutes, standing.\n\nThen one line climbing off the top, to a kitchen timer on next Monday's table. **Two swings so the gap feels real, then the way across.**",
+    "simpler": "Picture Sam's talk drawn on a napkin. A low dot: 12 lost hours. A high dot: everyone back at their desks by 10:15. Low again: half the room answering email. High again: 15 minutes, standing. Then a line climbing up to a kitchen timer on next Monday's table. **Swing between low and high so the gap feels real, then show the way across.**"
    },
    {
     "type": "try",
-    "body": "Take your chapter 1 sentence. On an index card or a phone note, write it as **line 1 and line 5**. Fill lines 2 to 4 with three steps, 4 words each. Read the card aloud once."
+    "body": "Pick one thing you'd change at home or work. Out loud, under a minute: one sentence on how it is, one on how it could be, once more each, then the first step. Time it on your phone.\n\nTomorrow: why the best examples come from their life, not yours.",
+    "simpler": "Pick one thing you'd like to change at home or at work. Say it out loud, in under a minute. Give one sentence on **how it is, then one on how it could be**. Do that pair once more. Then name the first step. Use your phone's timer to check you stay under the minute. Tomorrow: why the best examples come from your listeners' lives, not your own."
    }
   ],
-  "outcomeLine": "You can now lay out a 3-minute talk on one index card: an opening line, 3 steps and a closing line that repeats the opening.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M30 160 Q70 178 110 140 Q150 104 180 115 Q215 127 240 90 Q265 58 290 50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-dasharray=\"7 6\" stroke-linecap=\"round\"/><circle cx=\"30\" cy=\"160\" r=\"10\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"110\" cy=\"140\" r=\"8\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"180\" cy=\"115\" r=\"8\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"240\" cy=\"90\" r=\"8\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"290\" y1=\"50\" x2=\"290\" y2=\"16\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polygon points=\"291,17 316,26 291,36\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linejoin=\"round\"/><circle cx=\"60\" cy=\"96\" r=\"14\" fill=\"#1F7A4D\"/><line x1=\"60\" y1=\"108\" x2=\"60\" y2=\"124\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"104\" y=\"124\" font-size=\"13\" font-family=\"sans-serif\" fill=\"#1B1A17\">1</text><text x=\"175\" y=\"99\" font-size=\"13\" font-family=\"sans-serif\" fill=\"#1B1A17\">2</text><text x=\"235\" y=\"74\" font-size=\"13\" font-family=\"sans-serif\" fill=\"#1B1A17\">3</text></svg>"
+  "outcomeLine": "You can now arrange a 5-minute talk so a listener could draw its shape afterwards.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"20,185 160,30 300,185\" fill=\"#1F7A4D\"/><path d=\"M20 185 L160 30 L300 185\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linejoin=\"round\"/><circle cx=\"282\" cy=\"62\" r=\"16\" fill=\"#F2A93B\"/><polyline points=\"70,180 210,150 100,125 190,100 130,78 175,58 160,32\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-dasharray=\"2 8\"/><line x1=\"160\" y1=\"32\" x2=\"160\" y2=\"8\" stroke=\"#1B1A17\" stroke-width=\"3\"/><polygon points=\"160,8 182,14 160,20\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"10\" y1=\"186\" x2=\"310\" y2=\"186\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><text x=\"40\" y=\"178\" font-family=\"sans-serif\" font-size=\"13\" fill=\"#1B1A17\">now</text><text x=\"190\" y=\"28\" font-family=\"sans-serif\" font-size=\"13\" fill=\"#1B1A17\">could be</text></svg>"
  },
- "seconds": 129.00507593154907
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "concrete_images",
+   "one_idea",
+   "open_loop"
+  ],
+  "dubious_claims": [],
+  "weakest_card": 9,
+  "why": "The 'In one breath' card is a purely abstract recap with no image. It also holds the chapter's only open loop, which the 'try' card that follows then buries, so the chapter ends on 'Time it on your phone.' Separately, the What / So what / Now what model is a second framework that no exercise tests.",
+  "fix": "Replace the recap with Sam's talk drawn on a napkin (low at 12 lost hours, high at 10:15, low, high, then up to the kitchen timer), and move the 'Tomorrow: why the best examples come from their life, not yours' line to be the very last line of the try card."
+ }
 }

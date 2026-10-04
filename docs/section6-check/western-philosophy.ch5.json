@@ -5,120 +5,137 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Drop your phone. Did you watch gravity pull it down, or did you see a phone, then a floor? Around 1740 a Scot named David Hume raised his hand at the long table and said the second thing is all anyone ever sees. **We never see one thing cause another; we see one thing, then another.** Forty years later a Prussian professor, Immanuel Kant, stood up to answer him.",
-    "simpler": "Drop your phone. Did you watch gravity pull it down? Or did you just see a phone, then a floor? Around 1740 a Scottish thinker named David Hume said the second thing is all anyone ever sees. **We never see one thing cause another; we see one thing, then another.** Forty years later a German professor, Immanuel Kant, stood up to answer him."
+    "body": "If you're 30, you've watched about 11,000 sunrises, and David Hume wants to know what any of them prove about tomorrow. At our long dinner table, Descartes has just said knowledge starts inside the mind. Hume, a Scot writing in the 1700s, leans in and says the opposite: **what we know about the world comes in through the senses**. Then he asks what the senses actually show us.",
+    "simpler": "If you're 30, you've seen about 11,000 sunrises. David Hume wants to know what any of them prove about tomorrow. Picture a long dinner table. Descartes has just said knowledge starts inside the mind. Hume, a Scot writing in the 1700s, says the opposite: **what we know about the world comes in through the senses**. Then he asks a harder question. What do the senses really show us?"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "You flick the kitchen light switch and the light comes on. You have done this maybe 3,000 times. Strictly, what have your eyes seen?",
+    "prompt": "Hume leans over a billiard table. The white ball rolls into the red one, and the red one shoots off. Using only his eyes, what has he actually seen?",
     "options": [
      {
       "id": "a",
-      "text": "A switch forcing a light to come on."
+      "text": "The white ball forcing the red one to move"
      },
      {
       "id": "b",
-      "text": "A switch moving, then a light on. 3,000 times."
+      "text": "White ball moves, the two touch, red ball moves"
      },
      {
       "id": "c",
-      "text": "Electricity travelling through the wire."
+      "text": "A law of nature that says balls must do this"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the link your mind adds, not what your eyes report: no eye has ever seen a 'forcing'.",
-     "c": "That's the explanation you were taught, not something you saw: the wire is inside the wall."
+     "a": "That's the story your mind adds, not what reaches your eyes: the forcing itself is never visible.",
+     "c": "That's a conclusion drawn later, not something seen: no law shows up on the table, only moving balls."
     },
-    "reteach": "Hume's trick is to split what you saw from what you concluded. You saw two events close together, over and over. The word 'caused' is the glue you put between them, and glue is not visible."
+    "reteach": "Describe the scene the way a security camera would. It records movement, contact, then more movement. Anything beyond that, like the push, is something you add."
    },
    {
     "type": "teach",
-    "title": "Hume: the link is a habit",
-    "body": "David Hume liked billiards for his example. Ball one rolls, touches ball two, ball two moves. Watch as closely as you like: you see motion, contact, motion. You never see a *necessary connection*, the thing that supposedly makes the second ball move.\n\nSo where does 'caused' come from? From *habit*: after you have seen the pair enough times, the mind jumps ahead. See the first ball, expect the second. **Cause, for Hume, is a feeling of expectation, not something out in the world.**\n\nAnd the habit has no proof behind it. Tomorrow could differ from today. We just bet it won't.",
-    "simpler": "Hume used billiard balls. Ball one rolls, touches ball two, ball two moves. Look as hard as you like. You see moving, touching, moving. You never see the push itself, the thing that makes ball two go.\n\nSo where does 'caused' come from? From habit. After you have seen the pair enough times, your mind jumps ahead. See ball one, expect ball two. **Cause, for Hume, is a feeling of expectation, not something out in the world.**\n\nAnd that habit has no proof behind it. Tomorrow could be different. We just bet it won't."
+    "title": "What the senses deliver",
+    "body": "Hume's starting rule: every idea in your head began as an *impression*, his word for a vivid first-hand experience, like the heat of a mug, the red of a bus, or a flash of anger.\n\nNow watch the billiard balls again. You see the white ball move. You see them touch. You see the red ball move. **You never see a fourth thing called the cause.**\n\nSo why are you sure the red ball will move next time? *Habit*, said Hume. You've seen the pair so often that your mind slides from one to the other on its own.",
+    "simpler": "Hume's first rule: every idea in your head started as an *impression*, his word for a vivid first-hand experience, like a hot mug, a red bus, or a flash of anger. Picture two billiard balls. The white one moves, they touch, the red one moves. **You never see a fourth thing called the cause.** So why are you sure it will happen again? *Habit*, said Hume. You've seen the pair so often that your mind jumps ahead on its own."
    },
    {
     "type": "example",
-    "title": "The cat and the fridge",
-    "body": "Ana's cat bolts to the kitchen whenever the fridge door opens. Two years, maybe 1,500 door openings, and food came out most times. The cat has a firm theory: fridge door causes dinner. One evening Ana opens the fridge for a phone charger she left on the shelf. The cat sits, waits, and is appalled. **Hume's uncomfortable point is that you are the cat, with more data.** Your 'fire causes burns' is built the same way, just from more pairs.",
-    "simpler": "Ana's cat runs to the kitchen whenever the fridge opens. Two years, about 1,500 openings, and food came out most times. The cat has a firm theory: fridge door causes dinner. One evening Ana opens the fridge for a phone charger she left on the shelf. The cat sits, waits, and is shocked. **Hume's uncomfortable point is that you are the cat, with more data.** Your 'fire causes burns' is built the same way, just from more pairs."
+    "title": "Biscuit and the tin opener",
+    "body": "Every evening at 6, Sam's cat Biscuit hears the tin opener and sprints to the kitchen. She has never once seen the opener cause dinner. She has seen whir, then food, roughly 1,000 times, and **the habit does the rest**. Hume thought animals learn from experience in much the same way we do. Your certainty about tomorrow's sunrise is built like Biscuit's certainty about dinner, just with better vocabulary.",
+    "simpler": "Every evening at 6, Sam's cat Biscuit hears the tin opener and runs to the kitchen. She has never seen the opener cause dinner. She has only heard the whir and then got food, about 1,000 times, and **the habit does the rest**. Hume thought animals learn from experience much like we do. Your belief that the sun will rise tomorrow is built the same way as Biscuit's belief in dinner. You just have fancier words."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "A doctor says: 'Every patient who took this pill got better, so the pill cures the illness.' What would Hume say?",
+    "prompt": "Your flatmate Jo says: \"Coffee wakes me up. I've watched it work every morning for 5 years.\" Which reply would Hume give?",
     "options": [
      {
       "id": "a",
-      "text": "You watched the pill cure them, so the link is as visible as the pill."
+      "text": "You've seen coffee, then feeling awake, about 1,800 times. The 'makes' part is habit joining them."
      },
      {
       "id": "b",
-      "text": "You saw pill, then better, many times. The word 'cures' is habit filling the gap."
+      "text": "Five years of mornings is enough to make it certain."
      },
      {
       "id": "c",
-      "text": "Your senses fooled you. The patients did not really get better."
-     }
-    ],
-    "answer": "b",
-    "whyNot": {
-     "a": "That's the link your mind added, not something in the data: nobody has watched a 'curing', only a pill and then a recovery.",
-     "c": "That's doubting the senses, which Hume never did: he trusted what you saw and questioned only the glue between the sightings."
-    },
-    "reteach": "Hume does not say the pill failed. He says the doctor saw two events in a row, repeated, and let habit write 'because' between them. Habit may be right, but it is not something anyone observed."
-   },
-   {
-    "type": "teach",
-    "title": "Kant: the link is a rule you bring",
-    "body": "Immanuel Kant read Hume in K\u00f6nigsberg and later wrote that Hume woke him from a 'dogmatic slumber'. His reply came in 1781. Yes, cause is not in the raw sense data. But Hume got the source wrong.\n\n**You cannot have an experience at all unless your mind has already sorted it into before and after, here and there, cause and effect.** Those are not habits you pick up. They are the mind's own rules, in place before the first billiard ball.\n\nThink of glasses you cannot take off. Everything you see is tinted by them. Kant's price: we know the world as it looks through the glasses, never as it is on its own.",
-    "simpler": "Kant read Hume and later said Hume woke him from a 'dogmatic slumber'. His reply came in 1781. Yes, cause is not in the raw stuff your senses give you. But Hume got the source wrong.\n\n**You cannot have an experience at all unless your mind has already sorted it into before and after, here and there, cause and effect.** Those are not habits you learn. They are rules built into the mind, there before the first billiard ball.\n\nThink of glasses you cannot take off. Everything looks tinted. Kant's price: we know the world as seen through the glasses, never as it is on its own."
-   },
-   {
-    "type": "mistake",
-    "body": "Priya, at the table, nods at Hume and says: 'So nothing really causes anything. I can rest my hand on the stove.' She has turned 'we never see the link' into 'there is no link'. Hume said neither; he said the link is supplied by us, and he kept his hands off stoves. **Spot it when a summary of Hume drops the word 'see'.**",
-    "simpler": "Priya nods at Hume and says: 'So nothing really causes anything. I can rest my hand on the stove.' She has turned 'we never see the link' into 'there is no link'. Hume said neither. He said the link is supplied by us, and he kept his own hands off stoves. **Spot it when a summary of Hume drops the word 'see'.**"
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "A friend asks for the one-line difference between Hume and Kant on cause and effect. Which line is right?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Hume: cause is a habit learned from repeated pairs. Kant: cause is a rule the mind brings to every experience."
-     },
-     {
-      "id": "b",
-      "text": "Hume: cause is a rule the mind brings. Kant: cause is a habit learned from repetition."
-     },
-     {
-      "id": "c",
-      "text": "Both: cause sits inside objects and we watch it directly, like colour."
+      "text": "You can't even be sure the coffee exists."
      }
     ],
     "answer": "a",
     "whyNot": {
-     "b": "That's the two names swapped: the habit man is the Scot, the rules man is the Prussian who replied to him.",
-     "c": "That's the view both of them attacked: neither thought a 'causing' is ever seen, only the events on either side."
+     "b": "That's the confidence Hume questioned, not his answer: more repeats make the habit stronger, not the link visible.",
+     "c": "That's Descartes-style doubt, not Hume's point here: Hume's question is what experience shows, not whether the coffee is real."
     },
-    "reteach": "Both agree your eyes never see a cause. They split on where the link comes from. Hume: from outside, by repetition, as a habit. Kant: from inside, as a rule built into how any mind must experience anything."
+    "reteach": "Hume doesn't say Jo is mistaken about mornings. He says Jo has seen two things, again and again, side by side. The 'because' joining them comes from Jo's habit, not Jo's eyes."
+   },
+   {
+    "type": "teach",
+    "title": "Kant's reply: the glasses",
+    "body": "Across the table, in K\u00f6nigsberg, Immanuel Kant read Hume and later said it woke him from his *dogmatic slumber*, meaning years of believing things without checking them. His big reply came in 1781, in the Critique of Pure Reason.\n\nYou'd think the mind is an empty screen the senses project onto. Kant said it's more like glasses you can never take off. **Cause and effect is one of the rules the mind brings to every experience**, so nothing reaches you without it.\n\nThat wins back certainty, at a price. We know the world as it looks through the glasses, never as it is behind them.",
+    "simpler": "Kant said reading Hume woke him from his *dogmatic slumber*: years of believing without checking. His answer came in 1781, in the Critique of Pure Reason. The mind isn't a blank screen. It's like glasses you can never take off. **Cause and effect is one of the rules the mind brings to every experience**, so nothing reaches you without it. That wins back certainty, at a cost: we know the world only through the glasses, never behind them."
+   },
+   {
+    "type": "mistake",
+    "body": "Tom skims a summary and announces at the pub that Hume proved nothing causes anything, so the wine isn't to blame for his headache. Hume never said that; he still expected bread to feed him and fire to burn. **His claim was about what we can see and prove, not whether causes exist.** If a summary says Hume denied causes, it has mixed up seeing with being.",
+    "simpler": "Tom reads a quick summary and tells everyone at the pub that Hume proved nothing causes anything, so the wine isn't to blame for Tom's headache. Hume never said that. He still expected bread to feed him and fire to burn. **His point was about what we can see and prove, not whether causes exist.** If a summary says Hume denied causes, it has mixed up seeing something with it being real."
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "At the long table, Hume and Kant are arguing about cause and effect. Which pair of lines matches each guest?",
+    "options": [
+     {
+      "id": "a",
+      "text": "Hume: we see causes directly. Kant: causes are just habit."
+     },
+     {
+      "id": "b",
+      "text": "Hume: cause is a habit built from repeated pairs. Kant: cause is a rule the mind brings to every experience."
+     },
+     {
+      "id": "c",
+      "text": "Hume: cause is a rule the mind brings. Kant: cause comes in through the senses."
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's who-said-what scrambled: Hume's whole point is that we never see the cause, and habit is his word, not Kant's.",
+     "c": "That's the two guests swapped: the senses are Hume's starting point, the mind's own rules are Kant's reply."
+    },
+    "reteach": "Hume starts outside: the senses deliver pairs, and habit links them. Kant starts inside: the mind wears glasses that shape every experience into cause and effect. Same question, answered from opposite ends."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Hume said we never see one thing cause another, only one thing and then another, and **habit writes 'because' between them**. Kant replied that the 'because' is not a habit but a rule the mind must use to have any experience at all.\n\nTomorrow: Kant swaps 'what can I know' for 'what should I do', and Mill objects.",
-    "simpler": "Hume said we never see one thing cause another. We only see one thing, then another, and **habit writes 'because' between them**. Kant replied that the 'because' is not a habit. It is a rule the mind must use to have any experience at all.\n\nTomorrow: Kant swaps 'what can I know' for 'what should I do', and Mill objects."
+    "body": "Hume said our knowledge of the world comes through the senses, and nobody ever sees a cause: only the white ball moving, then the red one. So our belief in cause and effect is **habit**, the same kind Biscuit has about the tin opener. Kant answered that the mind isn't an empty screen. It wears glasses you can't take off, and cause and effect is built into the lenses, so every experience already comes with it.",
+    "simpler": "Hume said our knowledge of the world comes in through the senses. Nobody ever sees a cause, only the white ball moving and then the red one. So our belief in cause and effect is **habit**, like Biscuit and the tin opener. Kant replied that the mind isn't a blank screen. It wears glasses you can't take off, and cause and effect is built into them, so every experience already has it."
    },
    {
     "type": "try",
-    "body": "Tonight, catch one 'because' you say out loud. 'The bus was late because of the rain.' Ask: did I see the rain make it late, or did I see rain, then lateness? That is Hume in 10 seconds.",
-    "simpler": "Tonight, catch one 'because' you say out loud. 'The bus was late because of the rain.' Then ask yourself: did I see the rain make it late, or did I see rain, then lateness? That is Hume in 10 seconds."
+    "body": "Tonight, flick a light switch and say only what you saw and heard: click, then light. Notice the urge to add *because*. Hume would call that urge habit; Kant would say it's the glasses at work. Which sounds right to you?\n\nTomorrow: Kant says you must not lie, even to a murderer at your door asking where your friend is hiding. Mill would ask what the lie leads to.",
+    "simpler": "Tonight, flick a light switch. Then say only what you saw and heard, nothing more: a click, then light. Notice how much you want to add one more word: *because*. **Hume would call that urge habit. Kant would say it's the glasses.** Which do you think is right? Tomorrow: Kant says you must not lie, even to a murderer at your door asking where your friend is hiding. Mill would ask what the lie leads to."
    }
   ],
-  "outcomeLine": "You can now explain, using cause and effect, why Hume said we never see one thing cause another and how Kant answered."
+  "outcomeLine": "You can now explain, with a billiard ball or a light switch, why Hume said we never see a cause and how Kant answered him.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M38 132 Q160 126 282 133 L280 144 Q160 139 40 145 Z\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"70\" y1=\"144\" x2=\"68\" y2=\"186\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"250\" y1=\"142\" x2=\"252\" y2=\"186\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"28\" cy=\"78\" r=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\"/><path d=\"M10 132 Q28 92 46 132\" fill=\"#F2A93B\" stroke=\"#1B1A17\"/><circle cx=\"292\" cy=\"78\" r=\"14\" fill=\"#1F7A4D\" stroke=\"#1B1A17\"/><circle cx=\"286\" cy=\"76\" r=\"5\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"298\" cy=\"76\" r=\"5\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M274 132 Q292 92 310 132\" fill=\"#1F7A4D\" stroke=\"#1B1A17\"/><polyline points=\"94,119 106,118 118,120\" fill=\"none\" stroke=\"#1B1A17\"/><circle cx=\"132\" cy=\"119\" r=\"10\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"154\" cy=\"119\" r=\"10\" fill=\"#F2A93B\" stroke=\"#1B1A17\"/><text x=\"143\" y=\"92\" font-size=\"18\" text-anchor=\"middle\" fill=\"#1B1A17\">cause?</text></svg>"
  },
- "seconds": 124.41654801368713
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "one_idea",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "'Everything we know comes in through the senses' overstates Hume: he held that maths and logic ('relations of ideas') are known without experience.",
+   "Calling an impression 'a raw delivery from the senses' leaves out Hume's impressions of reflection, meaning inner feelings like anger or desire.",
+   "'Hume trusts the senses' (coffee exercise feedback) is shaky: in the Treatise he doubted that we can prove bodies keep existing outside our perception.",
+   "Only one of the three exercises tests Kant's reply, so the chapter teaches two ideas but mostly tests one."
+  ],
+  "weakest_card": 9,
+  "why": "The 'In one breath' card only repeats earlier cards in abstract terms, and its teaser for the next chapter is buried in the middle of the chapter, so the chapter actually ends on the try card, which has no hook forward.",
+  "fix": "Move the 'Tomorrow' line to the end of the try card and make it a concrete question, e.g. 'Tomorrow: Kant says you must never lie, even to a murderer at your door, and Mill thinks that's mad.'"
+ }
 }

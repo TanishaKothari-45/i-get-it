@@ -1,124 +1,140 @@
 {
  "chapter": {
   "n": 6,
-  "title": "When your legs shake",
+  "title": "When the path gets rough",
   "cards": [
    {
     "type": "picture",
-    "body": "You're at the start of the walk, and your legs are shaking. Your body has got the wrong idea: it thinks you're about to run from something, not stroll with friends. **Nerves are your body getting ready to run.** Fast breath, dry mouth, a heart you can hear. None of it means you're unready. It means your body turned up early, dressed for the wrong kind of walk.",
-    "simpler": "You are about to start the walk, and your legs are shaking. Your body has got the wrong idea. It thinks you are about to run from something, not take a stroll with friends. **Nerves are your body getting ready to run.** Your breath goes fast. Your mouth goes dry. You can hear your own heart. None of this means you are not ready. It means your body showed up early, dressed for the wrong kind of walk."
+    "body": "Halfway up a trail, someone behind you shouts, 'Wait, why this way?' A good guide doesn't freeze, and doesn't sprint ahead either: **they stop, plant their feet, and point**.\n\nAnswering on the spot like that is a skill you can practise. You don't have to be born with it.",
+    "simpler": "Picture yourself halfway up a trail. Someone behind you shouts, 'Wait, why this way?' A good guide doesn't freeze. A good guide doesn't rush ahead either. **They stop, plant their feet, and point**. Answering a question on the spot is a skill you can practise. You don't need to be born with it."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya is about to give a 3-minute talk about her sourdough starter to 6 colleagues. Her mouth is dry, her breath is quick, and the words in her head are speeding up. What is her body doing?",
+    "prompt": "You're leading six friends up a hill. Near the top, Jo asks, 'Why didn't we just take the cable car?' Everyone stops walking. What should you do first?",
     "options": [
      {
       "id": "a",
-      "text": "Telling her she hasn't prepared enough."
+      "text": "Answer straight away, before the silence gets awkward"
      },
      {
       "id": "b",
-      "text": "Getting ready to run, as if there were danger."
+      "text": "Pause for two seconds, then give a short answer that ends with a direction"
      },
      {
       "id": "c",
-      "text": "Running out of energy before she starts."
+      "text": "Say 'Good question!' and keep walking"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the story the mind adds, not what the body is doing: a dry mouth shows up in people who have rehearsed 10 times too.",
-     "c": "That's the opposite: nerves give you too much energy, not too little, which is why everything speeds up."
+     "a": "That's filling the silence, not answering it. A rushed reply tends to wander because you haven't picked a shape yet.",
+     "c": "That's dodging, not guiding. Jo still doesn't know why, and now the whole group is wondering too."
     },
-    "reteach": "Nerves are not a verdict on your talk. They are your body flipping into run-from-danger mode: breath fast, mouth dry, speech quick. It got ready for the wrong kind of walk, that's all."
+    "reteach": "A surprise question feels like an emergency, but it isn't one. A short pause looks like thinking to everyone watching. Then a good answer ends by pointing somewhere, the way a guide's arm points to the next turn."
    },
    {
     "type": "teach",
-    "title": "What nerves actually do",
-    "body": "Your body cannot tell a room of 6 colleagues from a dog chasing you. In both cases it flips the same switch, *run-from-danger mode*, and does 3 things. It breathes faster, to get oxygen for running. It stops making spit, because digesting is not urgent right now. It speeds everything up, including your mouth.\n\nSo what you feel is not random. **Fast breath, dry mouth and racing speech are one event**, not three problems. They come from the same switch.\n\nThat is good news. One switch means one lever. You don't have to talk yourself calm. You can reach the switch through the body.",
-    "simpler": "Your body cannot tell a room of 6 colleagues from a dog chasing you. Both flip the same switch, run-from-danger mode, and it does 3 things. You breathe faster, to get air for running. You stop making spit, because digesting can wait. Everything speeds up, including your talking. **Fast breath, dry mouth and racing speech are one event**, not three problems. One switch means one lever. You don't need to talk yourself calm. Reach the switch through the body."
+    "title": "Pause, then three steps",
+    "body": "When a question catches you off guard, you'll want to fill the silence fast. Don't. You'd think a pause looks weak. To the room, two seconds of quiet looks like someone taking the question seriously.\n\nThen answer in three short steps, a shape taught by Matt Abrahams, who teaches at Stanford. *What*: your answer, in one sentence. *So what*: why it matters to them. *Now what*: the next step. **Pause, then What, So what, Now what.**\n\nIt's a guide at a fork in the trail: that peak, it's worth it for the view, we go left at the big rock.",
+    "simpler": "When a question surprises you, you'll want to fill the quiet fast. Don't. Two seconds of quiet doesn't look weak. It looks like you're taking it seriously. Then answer in three short steps, from Matt Abrahams, who teaches at Stanford. What: your answer, in one sentence. So what: why it matters to them. Now what: the next step. **Pause, then What, So what, Now what.** A guide at a fork says: that peak, worth it for the view, left at the big rock."
    },
    {
     "type": "example",
-    "title": "The out-breath and the champagne",
-    "body": "Picture Tom, a nurse who hands over to 8 colleagues at 7am without a flicker, shaking so hard at his sister's wedding toast that the champagne makes a small wave. Same man, same mouth, different switch. So 2 minutes before, he stands by the kitchen door and breathes in for a count of 4 and out for a count of 6, 8 times. **The out-breath being longer than the in-breath is the part that matters**: it is the body's own signal that the danger has passed. The toast is fine, and the champagne stays in the glass.",
-    "simpler": "Tom is a nurse. He hands over to 8 colleagues at 7am without a flicker. At his sister's wedding toast, he shakes so hard the champagne makes a small wave. Two minutes before, he stands by the kitchen door and breathes in for 4, out for 6, 8 times. **The out-breath being longer than the in-breath is the part that matters.** It tells the body the danger has passed. The toast is fine. The champagne stays in the glass."
+    "title": "The umbrella question",
+    "body": "Dev gives a 5-minute talk at work pitching a cycle-to-work scheme. At the end, a colleague holding a dripping umbrella asks, 'What happens when it rains?'\n\nDev pauses, counts to two silently, then answers. *What:* 'Rain is the real reason people stop cycling.' *So what:* 'If we ignore it, this scheme is dead by November.' *Now what:* 'There are lockers and a drying rail on floor 2, so try it for one wet week.'\n\nThat took forty seconds. The umbrella's owner signed up.",
+    "simpler": "Dev gives a five-minute talk at work pitching a cycle-to-work scheme. At the end, a colleague with a dripping umbrella asks, 'What happens when it rains?' Dev **pauses for two silent seconds**, then answers. What: 'Rain is the real reason people stop cycling.' So what: 'If we ignore it, this scheme is dead by November.' Now what: 'There are lockers and a drying rail on floor 2, so try it for one wet week.' Forty seconds. The umbrella's owner signed up."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "It's 2 minutes before Dev's talk at the book club. His heart is loud. Which move actually reaches the switch?",
+    "prompt": "At your book club you've just recommended a novel. Someone asks, 'Isn't it far too long?' Which answer uses the idea?",
     "options": [
      {
       "id": "a",
-      "text": "Read his notes again, fast, to be sure he knows them."
+      "text": "'Ha, yes, sorry, it is long. Anyway, the cover is lovely, and...'"
      },
      {
       "id": "b",
-      "text": "Tell himself firmly that there's nothing to be scared of."
+      "text": "(two-second pause) 'It is long, about 600 pages. But the chapters are short, so one fits a bus ride. Read the first three this week and decide.'"
      },
      {
       "id": "c",
-      "text": "Breathe in for 4, out for 6, about 8 times, with both feet flat on the floor."
+      "text": "'Great question. Length is fascinating. Tolstoy also wrote long books, and in Russia at the time...'"
      }
     ],
-    "answer": "c",
+    "answer": "b",
     "whyNot": {
-     "a": "That's prep, not calming: reading fast at this point only feeds the speed.",
-     "b": "That's arguing with the mind, not the body: the switch doesn't understand words, it understands breath."
+     "a": "That's an apology, not an answer. There's no So what and no Now what, and it trails off.",
+     "c": "That's a ramble, not a path. It never says why this matters to them or what to do next."
     },
-    "reteach": "The switch that makes your heart loud was flipped by the body, so it answers to the body. A slow out-breath, longer than the in-breath, is the clearest 'safe now' signal you can send. Words don't reach it."
+    "reteach": "Check each answer against three boxes. Does it give the point in one sentence? Does it say why the listener should care? Does it end with a next step? Only one option ticks all three."
    },
    {
     "type": "teach",
-    "title": "The 2-minute routine",
-    "body": "Here are the 3 physical things, in order, for the 2 minutes before you stand up.\n\nFirst, breathe. In through the nose for 4, out through the mouth for 6. Do it 8 to 10 times. **The long out-breath is the whole trick.** If 6 feels long, 5 is fine. Longer out than in is the rule.\n\nSecond, plant. Both feet flat, about shoulder-width apart, and press them into the floor for 5 seconds. Shaking legs calm down when they have a job.\n\nThird, wet your mouth. One small sip of water, and keep the glass where you can reach it. Dry mouth is the symptom people hear most, and the easiest to fix.",
-    "simpler": "Three things for the 2 minutes before you stand up. First, breathe. In through the nose for 4, out through the mouth for 6, 8 to 10 times. **The long out-breath is the whole trick.** Second, plant. Both feet flat, shoulder-width apart, pressed into the floor for 5 seconds. Shaking legs settle when they have a job. Third, sip some water and keep the glass close. Dry mouth is what people hear most, and the easiest to fix."
+    "title": "Before you start, and when it's fuzzy",
+    "body": "Nerves are your body packing for a climb: a fast heart, a dry mouth, shaky hands. In the minute before you speak, **breathe out slower than you breathe in**, three times, and feel both feet flat on the floor.\n\nIf a question is fuzzy, don't guess what they meant. **Ask, then wait**: 'Do you mean cost or time?' Then say nothing until they answer.\n\nThe same patience works the other way round. When you ask a room a question, wait for an answer, even after the silence starts to feel uncomfortable.",
+    "simpler": "Nerves are your body getting ready for a climb: fast heart, dry mouth, shaky hands. In the minute before you speak, breathe out slower than you breathe in, three times, feet flat on the floor. If a question is unclear, don't guess. **Ask, then wait**: 'Do you mean cost or time?' Then stay quiet until they answer. The same patience works the other way round: when you ask a room a question, wait for an answer, even when the silence gets uncomfortable."
    },
    {
     "type": "mistake",
-    "body": "Maya felt her heart racing 10 minutes before her talk and decided the fix was to get it over with. She asked to go first, walked up fast, and started speaking at the pace of her heartbeat. The room heard a sprint. **Nerves make you want to hurry, and hurrying feeds the nerves.** You spot it when you notice you skipped the pause before your first sentence. That missing pause is the tell.",
-    "simpler": "Maya felt her heart racing 10 minutes before her talk. She decided the fix was to get it over with. She asked to go first, walked up fast, and started speaking at the pace of her heartbeat. The room heard a sprint. **Nerves make you want to hurry, and hurrying feeds the nerves.** How do you spot it? You notice you skipped the pause before your first sentence. That missing pause is the giveaway."
+    "body": "Sam is asked, 'Have you thought about the budget?' Sam says 'basically' three times, circles back to slide 4, and finishes four minutes later with '...so, yeah.' Nobody knows where the trail went.\n\nHow to spot it: if you can't hear your own ending coming, you skipped *Now what*, the step that tells people where to walk next.",
+    "simpler": "Someone asks Sam, 'Have you thought about the budget?' Sam says 'basically' three times, goes back to slide 4, and ends four minutes later with '...so, yeah.' Nobody knows where the trail went. Here's how to spot it. If you can't hear your own ending coming, **you skipped Now what**, the step that tells people where to walk next."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "A friend says: 'I get a dry mouth before I speak, so I must just be a bad speaker.' What's the sharpest reply from this chapter?",
+    "prompt": "Lena is asked why the team should switch to the new rota. She says, 'It gives everyone one free Friday a month. That means fewer people burn out over winter.' Then she stops. Which step did she skip?",
     "options": [
      {
       "id": "a",
-      "text": "Dry mouth is your body stopping spit to get ready to run. It says nothing about your talk, and a sip of water fixes it."
+      "text": "What"
      },
      {
       "id": "b",
-      "text": "Dry mouth means you've been talking too much already. Rest your voice."
+      "text": "So what"
      },
      {
       "id": "c",
-      "text": "Dry mouth comes from staring at your notes too long. Put the notes away."
+      "text": "Now what"
      }
     ],
-    "answer": "a",
+    "answer": "c",
     "whyNot": {
-     "b": "That's a tired voice, not nerves: this dry mouth arrives before you've said a word.",
-     "c": "That's a guess at the cause, not the cause: notes don't dry your mouth, the run-from-danger switch does."
+     "a": "That's the step she got right, not the gap: 'one free Friday a month' is her answer in one sentence.",
+     "b": "That's there, not missing: 'fewer people burn out' is why it matters to them."
     },
-    "reteach": "Every nerve symptom, including dry mouth, comes from one switch: the body preparing to run. That switch is not a judge of your talk. You turn it down with a long out-breath, planted feet and a sip of water."
+    "reteach": "Line the answer up against the three steps. What is the answer itself, So what is why they should care, and Now what is the next move. Lena gave the first two and left the team standing at the fork."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Nerves are your body getting ready to run, which is why your breath, mouth and speech all speed up at once. **In the 2 minutes before, breathe out longer than you breathe in**, plant your feet, sip water, and your body gets the message before your mind does.",
-    "simpler": "Nerves are your body getting ready to run. That is why your breath, your mouth and your speech all speed up at the same time. **In the 2 minutes before, breathe out longer than you breathe in.** Then plant your feet and sip some water. Your body gets the message before your mind does."
+    "body": "When a question surprises you, **stop for two seconds, then answer in three steps**: what you think, why it matters to them, and what happens next. Before you speak, breathe out slowly. When a question is fuzzy, or when you ask the room one, ask, then wait.\n\nTomorrow: why your last slide should never say 'thank you'.",
+    "simpler": "When a question surprises you, **stop for two seconds, then answer in three steps**: what you think, why it matters to them, and what happens next. Before you speak, breathe out slowly. When a question is unclear, ask and then wait. Do the same when you ask the room a question. Tomorrow: why your last slide should never say 'thank you'."
    },
    {
     "type": "try",
-    "body": "Tonight, before a phone call you'd rather not make, breathe in for 4 and out for 6, 8 times. Notice whether your first sentence comes out slower than usual.",
-    "simpler": "Try this tonight. Pick a phone call you would rather not make. Before you dial, breathe in for a count of 4 and out for a count of 6. Do that 8 times. Then make the call. **Notice whether your first sentence comes out slower than usual.** That is the whole test."
+    "body": "Tonight, ask someone at home to throw one random question at you, like 'Best meal of your life?' Pause for two seconds, then answer with What, So what, Now what. Time it. Aim for under a minute.",
+    "simpler": "Tonight, ask someone at home to throw one random question at you, like 'Best meal of your life?' **Pause for two seconds**, then answer in three steps: What, So what, Now what. Time yourself while you do it. Try to finish in under a minute."
    }
   ],
-  "outcomeLine": "You can now name what nerves do to your body and slow your heart with a 4-in, 6-out breath in the 2 minutes before you stand up."
+  "outcomeLine": "You can now answer a question you didn't expect in under a minute, with a clear beginning, middle and end.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"10,190 130,50 190,115 240,70 310,190\" fill=\"#1F7A4D\"/><polygon points=\"118,64 130,50 142,64\" fill=\"#F2A93B\"/><path d=\"M30 190 Q90 170 120 150 T200 130 T250 100\" fill=\"none\" stroke=\"#F2A93B\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-dasharray=\"1 9\"/><ellipse cx=\"152\" cy=\"143\" rx=\"15\" ry=\"8\" fill=\"#1B1A17\"/><circle cx=\"118\" cy=\"112\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"118\" y1=\"118\" x2=\"118\" y2=\"136\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><polyline points=\"111,150 118,136 125,150\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"118\" y1=\"124\" x2=\"134\" y2=\"114\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><rect x=\"20\" y=\"18\" width=\"56\" height=\"36\" rx=\"12\" fill=\"#F2A93B\"/><polygon points=\"40,54 54,54 34,72\" fill=\"#F2A93B\"/><text x=\"48\" y=\"45\" font-size=\"24\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">?</text><text x=\"210\" y=\"34\" font-size=\"18\" fill=\"#1B1A17\" font-family=\"sans-serif\">pause</text></svg>"
  },
- "seconds": 76.80118799209595
+ "repairedFrom": {
+  "score": 7,
+  "failed_checks": [
+   "hook",
+   "concrete_images",
+   "one_idea",
+   "would_keep_reading",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "Patrick Winston (MIT, 'How to Speak') did advise waiting out the silence after asking a room a question, but the chapter states it without his specific advice; worth checking the exact wording before attributing it."
+  ],
+  "weakest_card": 1,
+  "why": "The first card opens on a credentials line ('Matt Abrahams, who teaches at Stanford, says...'), which is throat-clearing, and the trail scene that should hook the reader comes second.",
+  "fix": "Open card 1 with the moment itself, \"Halfway up a trail, someone behind you shouts, 'Wait, why this way?'\", and move the Abrahams line to the teach card where his What/So what/Now what shape is introduced."
+ }
 }

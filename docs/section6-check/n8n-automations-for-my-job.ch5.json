@@ -5,120 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Picture a worker standing where the belt forks in two. Every box that reaches them gets one glance at one label, say a red *urgent* sticker, and one push: red goes left to the hot line, no red goes right to the normal line.\n\n**One check, two belts, and every box ends up on exactly one of them.** Nothing stops, nothing gets binned.",
-    "simpler": "Imagine a worker standing where a conveyor belt splits in two. Each box that arrives gets one quick look at one label. If it has a red urgent sticker, the worker pushes it left to the fast line. If not, it goes right to the normal line.\n\n**One check, two belts, and every box lands on exactly one of them.** Nothing waits and nothing gets thrown away."
+    "body": "What should happen to the one email out of 30 that says 'urgent'? Nothing, unless you say so. On your assembly line every item rides the same belt past the same stations, so you add a **sorting gate**: one station that looks at one thing on each item and pushes it down one of two belts.",
+    "simpler": "What should happen to the one email out of 30 that says 'urgent'? Nothing, unless you tell it to. Your workflow is like an assembly line. Every item rides the same belt past the same stations. So you add a **sorting gate**. It is one station that looks at one thing on each item and pushes it down one of two belts."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "A box reaches the fork station. The worker's only instruction is: 'fragile sticker goes left, everything else goes right.' What happens to a box with no sticker at all?",
+    "prompt": "Your line pulls in 30 support emails. One subject line says 'URGENT: checkout is down'. There's no sorting station yet. What happens to that email?",
     "options": [
      {
       "id": "a",
-      "text": "It waits at the fork until someone adds a sticker."
+      "text": "n8n spots the word and moves it to the front of the queue."
      },
      {
       "id": "b",
-      "text": "It goes right, with everything else that is not fragile."
+      "text": "It rides the same belt as the other 29 and gets exactly the same treatment."
      },
      {
       "id": "c",
-      "text": "It gets thrown in the bin for failing the check."
+      "text": "The workflow pauses and asks you what to do with it."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a jam, not a sort: the fork never holds a box, it always sends each one somewhere.",
-     "c": "That's the Filter station's habit, not the fork's: the fork keeps every box and gives it a belt."
+     "a": "That's a person reading the subject, not a workflow: n8n only notices what a station tells it to check.",
+     "c": "That's a person checking in, not an assembly line: with no sorting station, nothing makes the belt stop or ask."
     },
-    "reteach": "The fork asks one yes-or-no question about each box. Yes goes one way, no goes the other. 'No sticker' is just a no, so the box rides the normal belt."
+    "reteach": "A workflow has no opinions. Every item goes past every station in order until a station tells it to go somewhere else. Without a sorting gate, the urgent email and the newsletter get handled exactly the same way."
    },
    {
     "type": "teach",
-    "title": "The IF node asks one question",
-    "body": "In n8n the fork is the *IF node*. You give it one condition made of three parts: a field, a comparison, and a value. For example: the field priority, the comparison *is equal to*, the value urgent.\n\nEvery item that arrives gets checked on its own. Items where the answer is yes leave through the output labelled *true*. All the others leave through the output labelled *false*.\n\n**Both outputs are real exits.** You can drag a node onto either one. The IF node never deletes anything. It only decides which door each item walks out of.",
-    "simpler": "In n8n, the fork is the IF node. You give it one question with three parts: a field, a comparison, and a value. For example: the field priority, the comparison is equal to, the value urgent.\n\nEach item gets checked by itself. Items that match leave through the exit marked true. The rest leave through the exit marked false.\n\n**Both exits are real doors.** The IF node never throws anything away. It only picks which door each item uses."
+    "title": "One question, two exits",
+    "body": "The IF node asks one yes-or-no question about each item. That question is called a *condition*: does the subject contain 'urgent'?\n\nOn the right side of the box are two exits, labelled true and false. Think of a parcel depot with one chute splitting in two. **Every item leaves by one exit or the other**, and you plug a different station into each.\n\nYou build the condition in three parts: the field to check, the test (*contains*, *is equal to*), and the value. *One small catch: 'Urgent' and 'urgent' look different to n8n unless you switch on Ignore Case.*",
+    "simpler": "The IF node asks one yes-or-no question about each item, called a condition: does the subject contain 'urgent'? It has two exits, true and false, like a parcel chute that splits in two. **Every item leaves by one exit or the other**, and each exit feeds a different station. A condition has three parts: the field, the test (contains, is equal to), and the value. One catch: n8n sees 'Urgent' and 'urgent' as different unless you turn on Ignore Case."
    },
    {
     "type": "example",
-    "title": "The ticket that shouted",
-    "body": "Say a support form feeds your workflow, and a field called urgency holds either urgent or normal. You add an IF node: urgency is equal to urgent. True goes to Slack, false goes to Google Sheets.\n\nYou run it on 9 test responses. 8 sort perfectly. One lands on the false side even though the customer plainly meant it: they typed URGENT in capitals. The IF node compares text exactly, so URGENT and urgent are two different words to it. Tick the *Ignore Case* option in the node and the shouting customer gets routed with the rest.",
-    "simpler": "A support form feeds the workflow. Its urgency field holds either urgent or normal. You add an IF node: urgency is equal to urgent. True goes to Slack, false goes to Google Sheets.\n\nYou test 9 responses and 8 sort correctly. One lands on the false side. They typed URGENT in capitals. **The IF node compares text exactly**, so URGENT and urgent count as two different words. Tick Ignore Case in the node and that customer sorts with the rest."
+    "title": "The snapped chain",
+    "body": "Priya handles repair bookings for a small bike shop, and every booking form lands in n8n. She adds an IF node: is the field urgency equal to 'Today'? On Monday 14 bookings come in. After the run, the canvas shows **2 items on the true belt**, which pings the mechanic in Slack, and 12 on the false belt, which go into a Google Sheet for later in the week. The mechanic now hears about the snapped chain before the customer has to phone twice.",
+    "simpler": "Priya takes repair bookings for a bike shop. Each booking lands in n8n. She adds an IF node that asks: is urgency equal to 'Today'? On Monday, 14 bookings arrive. After the run, the canvas shows **2 items on the true belt**. Those ping the mechanic in Slack. The other 12 go down the false belt into a Google Sheet for later in the week. The mechanic hears about the snapped chain before the customer has to call twice."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You want urgent form responses to post in a Slack channel and every other response to land in a spreadsheet. Which setup does that?",
+    "prompt": "Each invoice has a field called status. You want the overdue ones emailed to finance and every other invoice added to a sheet. Which setup does that?",
     "options": [
      {
       "id": "a",
-      "text": "A Filter node set to urgency is equal to urgent, with Slack and Sheets both connected after it."
+      "text": "IF node: status is equal to 'overdue'. True belt goes to Gmail, false belt goes to Google Sheets."
      },
      {
       "id": "b",
-      "text": "An IF node set to urgency is equal to urgent, Slack on the true output, Sheets on the false output."
+      "text": "IF node: status is equal to 'overdue'. Gmail and Google Sheets both on the true belt."
      },
      {
       "id": "c",
-      "text": "Two IF nodes in a row, the first checking for urgent and the second checking for normal."
+      "text": "Filter node keeping only 'overdue', then Gmail, then Google Sheets."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's a Filter, not a fork: the normal responses get dropped before they ever reach Sheets.",
-     "c": "That's two forks where one does the job: the first IF node's false output already holds every non-urgent item."
+     "b": "That's one belt doing both jobs, not two belts: the paid invoices go out the false exit and land nowhere.",
+     "c": "That's the Filter, not the IF: it throws away every invoice that isn't overdue, so the sheet never sees them."
     },
-    "reteach": "One IF node gives you two doors. Put what you want for urgent items behind the true door, and what you want for everyone else behind the false door. One check, both groups handled."
+    "reteach": "Ask what each pile needs. Overdue invoices need an email, and the rest need a row in a sheet. Two piles with two jobs means two belts, so use the IF node and plug one station into each exit."
    },
    {
     "type": "teach",
-    "title": "Filter: the station with a bin",
-    "body": "The *Filter node* looks like IF but has one exit. Items that pass the condition carry on. Items that fail are dropped from the run, and n8n lists them in a *discarded* tab so you can see what went.\n\nPick between them with one question: does the other group need anything done? If yes, use IF. If the other group can simply vanish, use Filter.\n\n**The IF node checks items one at a time.** Send 10 in and you might get 3 out of true and 7 out of false. If one side gets zero items, the nodes behind that door just do not run this time. That is normal, not an error.",
-    "simpler": "The Filter node looks like IF but has one exit. Passing items carry on. Failing items are dropped, and n8n shows them in a discarded tab.\n\nTo choose, ask: does the other group need anything done? If yes, use IF. If not, use Filter.\n\n**The IF node checks items one at a time.** Send 10 in and maybe 3 go true and 7 go false. If one side gets nothing, the nodes behind that door skip this run. That is normal."
+    "title": "A bin instead of a belt",
+    "body": "Sometimes the 'no' pile doesn't need a second belt. It needs a bin. The Filter node uses the same kind of condition but has only one exit. Items that pass carry on. Items that fail are dropped, like a sorter at the post office tossing junk mail before it reaches the bags.\n\nYou'd think throwing data away is risky. For noise, it's a relief. Out-of-office replies and newsletters need nothing done to them.\n\nHere's the rule: **if the 'no' items still need a job, use IF.** If they need nothing, use Filter.",
+    "simpler": "Sometimes the 'no' pile needs a bin, not a second belt. The Filter node runs the same kind of check but has only one exit. Items that pass carry on. Items that fail are dropped, like a post office sorter tossing junk mail. Dropping data sounds risky, but for noise it's a relief. Out-of-office replies and newsletters need nothing done. The rule: **if the 'no' items still need a job, use IF.** If they need nothing, use Filter."
    },
    {
     "type": "mistake",
-    "body": "Sam builds an IF node, drags a Slack node onto the true output, runs it, and gets 2 messages from 11 responses. Where did the other 9 go? They are sitting at the false output with nothing connected, delivered to a door nobody opened.\n\n**Spot it by clicking the IF node and opening the false tab in its output panel.** If the count there is not zero, something is waiting for you.",
-    "simpler": "Sam builds an IF node, connects a Slack node to the true exit, runs it, and gets 2 messages from 11 responses. Where did the other 9 go? They are sitting at the false exit with nothing connected. They were delivered to a door nobody opened.\n\n**Spot it by clicking the IF node and opening the false tab in its output panel.** If the count there is not zero, something is waiting for you."
+    "body": "Tom wants urgent emails posted in Slack, so he adds a Filter for 'urgent' and plugs in Slack. It works perfectly. Three weeks later a colleague asks why the inbox log stopped getting the normal emails. They'd been dropped at the Filter since the day he built it. The way to spot it: after a test run, **count what leaves the station**. If items that still needed a job aren't on any belt, you wanted an IF.",
+    "simpler": "Tom wants urgent emails posted in Slack. He adds a Filter for 'urgent' and connects Slack. It works perfectly. Three weeks later, a colleague asks why the inbox log stopped getting normal emails. The Filter had been dropping them since the day he built it. How to catch this: after a test run, **count what leaves the station**. If items that still needed a job aren't on any belt, you needed an IF."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "12 expense claims arrive. An IF node checks: amount is greater than 500. 4 claims pass. What happens to the other 8?",
+    "prompt": "Which sentence describes the IF node, not the Filter node?",
     "options": [
      {
       "id": "a",
-      "text": "They are removed from the run and show up in a discarded tab."
+      "text": "Every item leaves by one of two exits, true or false."
      },
      {
       "id": "b",
-      "text": "They leave through the false output and wait for whatever you connect there."
+      "text": "Items that fail the check are dropped and go nowhere."
      },
      {
       "id": "c",
-      "text": "They go back to the trigger and get checked again on the next run."
+      "text": "It reads each email and decides for itself what counts as urgent."
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's what the Filter node does, not IF: a Filter has a bin, an IF node has a second door.",
-     "c": "That's not how the belt moves: items only travel forward, and the IF node has already given each one a door."
+     "b": "That's the Filter, not the IF: the Filter has one exit and a bin, while the IF keeps both piles moving.",
+     "c": "That's guessing, not a condition: n8n only runs the exact test you write, like 'subject contains urgent'."
     },
-    "reteach": "An IF node sorts, it never removes. Every item comes out of exactly one of its two outputs. 4 went true, so 8 went false, and they are only as lost as the empty space after that output."
+    "reteach": "Picture the IF node as a fork in the belt. Nothing falls off. Every item takes the true road or the false road, decided by one test you wrote. The Filter is the one with a bin."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**An IF node asks one yes-or-no question about each item and sends it out the true door or the false door, keeping every item.** A Filter node asks the same question but drops the no's, so use it only when the no's can disappear.",
-    "simpler": "**An IF node asks one yes-or-no question about each item and sends it out the true door or the false door, keeping every item.** A Filter node asks the same question but throws away the no's. Use Filter only when the no's can disappear. Think of a sorting worker versus a worker with a bin."
+    "body": "An IF node checks one field on each item and sends it down a true belt or a false belt, so urgent and normal things get different jobs. **A Filter uses the same check but drops whatever fails**, so only use it when the 'no' pile needs nothing done.\n\nTomorrow: when a station jams, n8n marks it in red. Here's how to read it.",
+    "simpler": "An IF node checks one field on each item and sends it down a true belt or a false belt. That way urgent and normal things get different jobs. **A Filter uses the same check but drops whatever fails**, so use it only when the 'no' pile needs nothing done. Tomorrow: when a station jams, n8n marks it in red, and you'll learn how to read it."
    },
    {
     "type": "try",
-    "body": "Open a workflow from an earlier chapter and add an IF node after the first node. Set one condition on a field you can see. Run it, then click the true and false tabs and count the items on each side.",
-    "simpler": "Open a workflow you built in an earlier chapter. Add an IF node right after the first node. Give it one condition on a field you can actually see in the data. Run the workflow. Then click the true tab and the false tab and **count how many items landed on each side.**"
+    "body": "Open the workflow from last chapter. Add an IF node just before the final app step, check one field for one word, and run it once. Then read the two belts: how many items went true, and how many went false?",
+    "simpler": "Open the workflow you built last chapter. Add an IF node just before the final app step. Have it check one field for one word, then run it once. Now **read the two belts**: how many items went down true, and how many went down false?"
    }
   ],
-  "outcomeLine": "You can now route items down two different paths based on one field's value."
+  "outcomeLine": "You can now send items down two different belts based on one field's value, and drop the ones that need nothing.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"10\" y1=\"104\" x2=\"112\" y2=\"104\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><rect x=\"28\" y=\"88\" width=\"16\" height=\"16\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"68\" y=\"88\" width=\"16\" height=\"16\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polygon points=\"140,74 168,102 140,130 112,102\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-linejoin=\"round\"/><text x=\"140\" y=\"108\" font-family=\"sans-serif\" font-size=\"16\" text-anchor=\"middle\" fill=\"#1B1A17\">?</text><line x1=\"168\" y1=\"102\" x2=\"300\" y2=\"46\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"168\" y1=\"102\" x2=\"300\" y2=\"158\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><rect x=\"222\" y=\"60\" width=\"16\" height=\"16\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"222\" y=\"112\" width=\"16\" height=\"16\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"300\" y=\"34\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"end\" fill=\"#1B1A17\">true</text><text x=\"300\" y=\"182\" font-family=\"sans-serif\" font-size=\"14\" text-anchor=\"end\" fill=\"#1B1A17\">false</text></svg>"
  },
- "seconds": 88.69238877296448
+ "seconds": 74.04206085205078
 }

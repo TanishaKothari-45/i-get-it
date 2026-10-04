@@ -5,121 +5,136 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Your workflow can read the clock, but it cannot open a single spreadsheet. It has no badge. On the assembly line, a station that fetches parts from the warehouse wears a key card on a lanyard. In n8n that key card is a *credential*: **a saved permission for n8n to act as you** inside one app, such as Google Sheets or Slack. The station is the node. The badge is a separate thing, and the badge is what opens the door.",
-    "simpler": "Your workflow can tell the time, but it cannot open your spreadsheet. It has no permission yet. Think of a worker who fetches parts from a locked storeroom. They need a key card on a lanyard. In n8n that key card is a credential: **a saved permission for n8n to act as you** inside one app, like Google Sheets or Slack. The worker is the node. The key card is separate, and the key card opens the door."
+    "body": "Your line from chapter 1 wakes up on time, but right now it can't touch a single one of your work apps. Every station that reaches into Gmail, Google Sheets or Slack needs a key card: a **credential**, a saved permission that lets n8n work inside one app for you. You make the card once and hang it on a hook, and any station on any line can borrow it.",
+    "simpler": "Your line from chapter 1 now wakes up on time. But it still can't touch any of your work apps. Any station that reaches into Gmail, Google Sheets or Slack needs a key card. That key card is a **credential**: a saved permission that lets n8n work inside one app for you. You make it once and hang it on a hook. Then any station on any line can borrow it."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Priya drops a Google Sheets node onto her canvas, picks 'Append row', hits Test step, and n8n stops with a warning before it touches any sheet. What is she missing?",
+    "prompt": "You drag a Slack station onto your line so it can post 'New lead!' in #sales-wins. What does it need before it can do anything?",
     "options": [
      {
       "id": "a",
-      "text": "A second Google Sheets node, because one is never enough"
+      "text": "A second trigger, so Slack knows when to listen"
      },
      {
       "id": "b",
-      "text": "A credential, so n8n is allowed to act as her Google account"
+      "text": "A saved permission from Slack to post there"
      },
      {
       "id": "c",
-      "text": "A Schedule Trigger, because nothing runs without a bell"
+      "text": "A copy of the Slack app installed inside n8n"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the station, not the badge: a second node still has no permission to open her sheet.",
-     "c": "That's the bell from chapter 1, not the badge: Test step runs the node by hand, so the trigger isn't what stopped her."
+     "a": "That's the bell, not the key card: the line already has a trigger, and a trigger only decides when the run starts.",
+     "c": "That's installing the app, not getting permission: n8n already knows how to talk to Slack and only needs your OK."
     },
-    "reteach": "The node knows how to append a row. It does not have the right to. Google asks: who is this, and did they say yes? The credential is the saved yes, made once and picked from a dropdown in the node."
+    "reteach": "The station already knows how to talk to Slack. What it doesn't have is permission. A credential is that permission, saved once, so the station can walk into Slack with a badge Slack itself handed over."
    },
    {
     "type": "teach",
-    "title": "What the badge is",
-    "body": "A Slack or Gmail node knows how to do the job. It does not have the right to do it. The app on the far end asks: who is this, and did they agree? The credential answers for you.\n\nOn n8n Cloud, for the big apps, making one is a sign-in button. Click *Create new credential*, a Google or Slack window opens, it lists what n8n wants to do, you click Allow. n8n keeps a *token*, a long code that stands in for your password, so your password is never typed into n8n.\n\nYou'd think the node holds the login. It doesn't. **The credential lives on its own** in the Credentials page, and the node only points at it.",
-    "simpler": "A Slack or Gmail node knows how to do the job, but it has no permission. The credential is that permission. For big apps, you sign in: a Google or Slack window lists what n8n wants to do, and you click Allow. n8n keeps a token, a long code that stands in for your password, so your password never goes into n8n. **The credential lives on its own** in the Credentials page, and the node only points at it."
+    "title": "What the key card is",
+    "body": "A *credential* is a small saved record that says: this n8n may act in this app, for this account. With most work apps, n8n never even sees your password.\n\nYou make one from inside a station. Open a Slack or Google Sheets node, find the *Credential to connect with* box and create a new one. Slack or Google opens its own window, lists what n8n wants to do, and you click Allow.\n\nn8n stores it encrypted (scrambled, so nobody can read it off the disk). Here's the useful part: **one card works on every line you build**.",
+    "simpler": "A credential is a small saved note: this n8n may act in this app, for this account. Most work apps never show n8n your password. To make one, open a Slack or Google Sheets station and create a new one under *Credential to connect with*. Slack or Google opens a window listing what n8n wants to do. You click Allow. n8n stores it scrambled so nobody can read it. And **one card works on every line you build**."
    },
    {
     "type": "example",
-    "title": "Dana and the callbacks sheet",
-    "body": "Dana runs the front desk at a dental clinic and keeps missed-call callbacks in a Google Sheet. In n8n she adds a Google Sheets node, chooses 'Append row', and clicks Create new credential. A Google window opens, says n8n wants to see and edit her spreadsheets, and she clicks Allow. The window closes and n8n shows a green tick that the connection tested fine. Back in the node, the sheet field now offers a list, and 'Patient callbacks' is sitting right there, because **n8n is now looking at Drive with her eyes**.",
-    "simpler": "Dana works the front desk at a dental clinic. She tracks missed-call callbacks in a Google Sheet. In n8n she adds a Google Sheets node, picks Append row, and clicks Create new credential. A Google window says n8n wants to see and edit her spreadsheets. She clicks Allow. n8n shows a green tick, meaning the connection works. Back in the node, the sheet dropdown now lists Patient callbacks, because **n8n is now looking at Drive with her eyes**."
+    "title": "Priya's first row",
+    "body": "Priya runs office ops and keeps a sheet called 'Visitor Log \u2013 Oct'. She adds a Google Sheets node, picks *Append Row*, creates a credential and clicks Allow in the Google window that pops up. Suddenly the Document dropdown lists her own sheets: **that list is the proof the key card works**. She presses the button to run just that step (Test step or Execute step, depending on her n8n version), and a row reading 'test test' appears. Three weeks later it's still there, because nobody will ever delete it.",
+    "simpler": "Priya runs office operations and keeps a sheet called 'Visitor Log \u2013 Oct'. She adds a Google Sheets station, picks *Append Row*, creates a credential and clicks Allow in the Google window that pops up. Right away, the Document list shows her own sheets. **That list is the proof the key card works.** She presses the button that runs just that step (called Test step or Execute step, depending on the version), and a row saying 'test test' appears. Three weeks later it's still there, because nobody will ever delete it."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "Marcus connected Slack last week for a workflow that posts daily sales. Today he builds a second workflow that also posts to Slack. What does he do in the new Slack node?",
+    "prompt": "On Monday, Sam made a Slack credential for his 'Standup reminder' line. On Wednesday he builds a second line that also posts to Slack. What should he do in the new Slack station?",
     "options": [
      {
       "id": "a",
-      "text": "Click Create new credential and sign in to Slack again from scratch"
+      "text": "Pick his Monday Slack credential from the dropdown"
      },
      {
       "id": "b",
-      "text": "Open the credential dropdown and pick the Slack credential he already has"
+      "text": "Make a fresh Slack credential, one per line"
      },
      {
       "id": "c",
-      "text": "Paste his Slack password into the node's message field"
+      "text": "Type his Slack password into the message text"
      }
     ],
-    "answer": "b",
+    "answer": "a",
     "whyNot": {
-     "a": "That's making a second badge for the same door: it works, but the point of a credential is to make it once and reuse it.",
-     "c": "That's mixing the badge into the message: the message field is what gets posted, and n8n never wants your password typed into a node."
+     "b": "That's a new key card when he could reuse the old one: one card per app per account is enough, and duplicates get confusing fast.",
+     "c": "That's a password, not a credential: anything in the message text gets posted for everyone to read."
     },
-    "reteach": "The badge is not part of any one node. It sits on its own in the Credentials page, and every Slack node in every workflow can point at the same one. Make it once, pick it many times."
+    "reteach": "A credential belongs to an account and an app, not to one workflow. Picture one key card on a hook by the door: every station on every line borrows that same card. Make it once, then pick it from the list."
    },
    {
     "type": "teach",
-    "title": "One badge, many stations",
-    "body": "Because the badge is separate, you make it once. Every Slack node in every workflow can pick the same credential from the dropdown. When someone leaves the team, you delete that one credential and every node that used it stops. That is exactly what you want.\n\nKeep two things straight. **The credential says who; the node's settings say what.** 'Append a row to Patient callbacks' is the node. 'As dana@clinic' is the badge.\n\nName badges by account. *Google Sheets, work, dana@* beats *Google Sheets account 2*, especially in three weeks when you have four of them and one belongs to a laptop you no longer own.",
-    "simpler": "Because the badge is separate, you make it once. Any Slack node in any workflow can pick the same credential. When someone leaves the team, you delete that one credential and every node using it stops. Keep two things apart. **The credential says who; the node's settings say what.** Append a row to Patient callbacks is the node. As dana@clinic is the badge. Name badges by account. Google Sheets, work, dana@ beats Google Sheets account 2 once you have four of them."
+    "title": "It only opens the doors it's given",
+    "body": "You'd think plugging n8n into Slack gives it some special robot access to the whole company. It doesn't. **A credential only opens the doors it was given.** A Google credential borrows your account, so the station reaches exactly what you can reach and nothing more.\n\nIf you can't open the finance team's budget sheet in your own browser, your Sheets station can't open it either. Slack is often set up as a bot instead, and a bot can usually only post in channels it's been invited to.\n\nEither way, whatever the station does, it does in front of real colleagues. Test in a channel or sheet only you can see first.",
+    "simpler": "You might think plugging n8n into Slack gives it robot access to the whole company. It doesn't. **A credential only opens the doors it was given.** A Google credential borrows your account, so the station reaches exactly what you reach, and nothing more. If you can't open the finance team's budget sheet yourself, neither can your station. Slack often works as a bot instead, and a bot usually can only post in channels it's been invited to. Either way, it acts in front of real colleagues. Test first in a channel or sheet only you can see."
    },
    {
     "type": "mistake",
-    "body": "Rahul connects Google Sheets, opens the sheet dropdown in his node, and sees only 'Fantasy league 2024' and 'Flat deposit'. He spends 10 minutes convinced the work sheet is broken. It isn't; he clicked Allow while signed in to his personal Gmail. Spot it: **when the list of sheets, channels or labels looks like someone else's life, you have the wrong badge**, not a bad node. Make a second credential with the work account and name it so.",
-    "simpler": "Rahul connects Google Sheets, opens the sheet dropdown, and sees only Fantasy league 2024 and Flat deposit. He spends ten minutes sure the work sheet is broken. It isn't. He clicked Allow while signed in to his personal Gmail. The sign to look for: **when the list of sheets, channels or labels looks like someone else's life, you have the wrong badge**, not a bad node. Make a second credential with the work account and name it clearly."
+    "body": "Leo connects Google Sheets on a Friday afternoon while his browser is signed into his personal Gmail. The Document dropdown fills with 'Wedding budget' and 'Sourdough log' instead of 'Q4 Leads', and he spends 20 minutes sure that n8n is broken. The sign to look for: **if the file list looks like the wrong part of your life, check which account the credential belongs to**. Put the email in each credential's name, like 'Sheets \u2013 leo@work', so you can tell at a glance.",
+    "simpler": "On a Friday afternoon, Leo connects Google Sheets while his browser is signed into his personal Gmail. The Document list fills with 'Wedding budget' and 'Sourdough log' instead of 'Q4 Leads'. He spends 20 minutes sure n8n is broken. The clue: **if the file list looks like the wrong part of your life, check which account the credential belongs to**. Put your email in each credential's name, like 'Sheets \u2013 leo@work', so you can tell at a glance."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Which line is true about a credential in n8n?",
+    "prompt": "Your Sheets station fails because it can't find 'Team Budget 2026', a sheet your manager owns and never shared with you. The trigger fired fine. What's the most likely cause?",
     "options": [
      {
       "id": "a",
-      "text": "It tells n8n what to do, such as append a row or send a message"
+      "text": "The trigger needs to fire at a different time"
      },
      {
       "id": "b",
-      "text": "It tells n8n which account to act as, and the node's settings say what to do"
+      "text": "The credential acts as you, and your account can't open that sheet"
      },
      {
       "id": "c",
-      "text": "Each node needs its own fresh one, even for the same app and account"
+      "text": "Every sheet needs its own separate credential"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's the node's job, not the badge's: the operation is chosen inside the node, the credential only says who.",
-     "c": "That's the opposite of why badges live separately: one credential is made once and shared by every node that needs that account."
+     "a": "That's the bell, not the key card: the run already reached this station, so the trigger did its job.",
+     "c": "That's one card per sheet when it's really one per account: a single Google credential opens every sheet your account can open."
     },
-    "reteach": "Picture the badge on the lanyard and the station on the belt. The station decides the job. The badge decides whose name is on the job. One badge opens the door for as many stations as you like."
+    "reteach": "A Google credential is your badge, not a master key. The station walks into Google as you, so it can't open any sheet you can't open in your own browser. Once your manager shares the sheet, the same credential will work."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "A credential is a badge: your saved yes that lets n8n act as you in one app, made once and reused by any node. The node decides what to do; **the badge decides who it does it as**.\n\nTomorrow: how a customer's name travels from station 1 to station 3.",
-    "simpler": "A credential is a badge. It is your saved yes that lets n8n act as you inside one app. You make it once, and any node can reuse it. The node decides what to do; **the badge decides who it does it as**. Tomorrow we look at how a customer's name travels from station 1 to station 3."
+    "body": "Picture the hooks by the door. One Slack card that both of Sam's lines borrow. One Google card that fills Priya's visitor log every morning, and still can't open 'Team Budget 2026', because nobody shared it with her.\n\nThat's a credential: a saved permission for one app, made once, reused by every line, opening only the doors it was given.",
+    "simpler": "Picture the hooks by the door. One Slack card that both of Sam's lines borrow. One Google card that fills Priya's visitor log, but still can't open 'Team Budget 2026', because nobody shared it with her. That's a credential: a saved permission for one app. You make it once, every line reuses it, and **it opens only the doors it was given**."
    },
    {
     "type": "try",
-    "body": "Open n8n, click Credentials in the left menu, and create one for an app you use at work. Name it with the account's email. Then add a node for that app and watch the dropdown fill up.",
-    "simpler": "Open n8n and click Credentials in the left menu. Create one for an app you use at work. **Name it with the account's email address** so you always know whose it is. Then add a node for that app and pick that credential. Watch the dropdown fill up with your real sheets, channels or labels."
+    "body": "Open n8n, add a Google Sheets or Slack node and create one credential with your work account. Rename it to include your email. If you run n8n on your own computer, n8n's docs cover the extra Google setup.\n\nTomorrow: the lead's name your form caught at station 1 shows up, spelled right, in station 3's Slack message.",
+    "simpler": "Open n8n, add a Google Sheets or Slack station, and make one credential with your work account. Then **rename it so the name includes your email**. If you run n8n on your own computer, Google needs some extra setup, and n8n's help pages walk you through it. Tomorrow: the lead's name your form caught at station 1 shows up, spelled right, in station 3's Slack message."
    }
   ],
-  "outcomeLine": "You can now connect one work app to n8n and make it add a row or send a message as you.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M18 150 Q160 146 302 150\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><path d=\"M18 166 Q160 170 302 166\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"158\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"120\" cy=\"158\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"190\" cy=\"158\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"260\" cy=\"158\" r=\"6\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"48\" y=\"88\" width=\"78\" height=\"60\" rx=\"7\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><text x=\"87\" y=\"124\" font-size=\"15\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">node</text><path d=\"M126 118 L240 118\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><path d=\"M232 112 L242 118 L232 124\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"244\" y=\"70\" width=\"56\" height=\"78\" rx=\"4\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><circle cx=\"290\" cy=\"110\" r=\"3\" fill=\"#1B1A17\"/><text x=\"272\" y=\"62\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">Sheets</text><path d=\"M160 20 Q168 50 160 68\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"136\" y=\"66\" width=\"48\" height=\"62\" rx=\"6\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><circle cx=\"160\" cy=\"86\" r=\"9\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M146 104 L174 104 M146 112 L174 112\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><text x=\"160\" y=\"40\" font-size=\"13\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\">badge</text></svg>"
+  "outcomeLine": "You can now connect one work app to n8n and make it add a row or send a message.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"140\" width=\"280\" height=\"16\" rx=\"8\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"36\" cy=\"148\" r=\"4\" fill=\"#1B1A17\"/><circle cx=\"284\" cy=\"148\" r=\"4\" fill=\"#1B1A17\"/><rect x=\"45\" y=\"78\" width=\"64\" height=\"62\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"180\" y=\"78\" width=\"64\" height=\"62\" rx=\"6\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><rect x=\"132\" y=\"124\" width=\"26\" height=\"16\" rx=\"2\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M240 82 Q258 66 262 50\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><rect x=\"240\" y=\"18\" width=\"58\" height=\"34\" rx=\"4\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\" transform=\"rotate(6 269 35)\"/><line x1=\"252\" y1=\"26\" x2=\"266\" y2=\"27\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"256\" y=\"45\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"bold\" fill=\"#1B1A17\" transform=\"rotate(6 269 35)\">YOU</text></svg>"
  },
- "seconds": 103.32567811012268
+ "repairedFrom": {
+  "score": 8,
+  "failed_checks": [
+   "hook",
+   "concrete_images",
+   "facts_ok",
+   "open_loop"
+  ],
+  "dubious_claims": [
+   "The Slack 'acts as you' framing (badge, can't post in #leadership): n8n's Slack credential is often a bot token or OAuth app that posts as the app, not as you. The bot has to be invited to a channel, and your own channel memberships don't directly limit it.",
+   "The 'Test step' button: newer n8n versions call it 'Execute step', so a reader may not find the label as written."
+  ],
+  "weakest_card": 9,
+  "why": "The 'In one breath' teach card is pure abstraction with no thing, place or moment, so it fails concrete_images. Its 'Tomorrow' teaser is the chapter's only open loop, but the try card follows it, so the chapter ends on a note about n8n's docs instead.",
+  "fix": "Rewrite card 9 around one image, e.g. 'one key card on the hook, borrowed by Sam's standup line and Priya's visitor log, and it still can't open your manager's Team Budget 2026.' Then move the teaser to the last line of the try card and make it sharper: 'Tomorrow: the lead's name your form caught at station 1 shows up, spelled right, in station 3's Slack message.'"
+ }
 }

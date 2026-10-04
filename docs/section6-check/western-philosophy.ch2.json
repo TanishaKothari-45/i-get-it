@@ -5,121 +5,121 @@
   "cards": [
    {
     "type": "picture",
-    "body": "In 399 BC a jury of about 500 Athenians voted to kill a 70-year-old man whose only weapon was a question. Socrates wrote nothing; he stood in the market and asked people what their big words meant, courage, justice, piety, and kept asking until the answers ran out.\n\nAt the long dinner table he is the first guest, and the one who **won't let anyone leave until they've explained what they just said.**",
-    "simpler": "In 399 BC, about 500 people in Athens voted to put a 70-year-old man to death. His only weapon was a question. Socrates never wrote a book. He stood in the market and asked people what their big words meant, like courage or fairness, and kept asking until they ran out of answers.\n\nAt our long dinner table he is the first guest, the one who **won't let anyone leave until they've explained what they just said.**"
+    "body": "Socrates wrote nothing down, yet in 399 BC Athens put him to death for talking. At our 2,500-year dinner table, he's the guest who never makes a speech. He leans toward whoever sounds most sure, asks **what exactly they mean**, and keeps asking until the food goes cold.",
+    "simpler": "Socrates never wrote anything down. Still, in 399 BC, the city of Athens put him to death for talking. At our dinner table of thinkers from the last 2,500 years, he's the guest who never gives a speech. He leans toward whoever sounds most sure of themselves and asks **what exactly they mean**. Then he keeps asking until the food goes cold."
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "A general tells Socrates: 'Courage is standing your ground in battle.' Socrates asks: 'And the cavalry who retreat, then wheel round and win? Cowards?' What is Socrates doing?",
+    "prompt": "A general at the table says courage means never running from the enemy. Socrates hasn't argued back yet. What does he most likely do next?",
     "options": [
      {
       "id": "a",
-      "text": "Proving the general is a coward"
+      "text": "Give a short speech on what courage really is."
      },
      {
       "id": "b",
-      "text": "Finding one case the definition doesn't fit, so the general has to think again"
+      "text": "Ask about soldiers who retreat on purpose to win, and whether they're brave."
      },
      {
       "id": "c",
-      "text": "Showing that courage doesn't really exist"
+      "text": "Nod politely and pass the bread."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's an insult, not a question: Socrates goes after the sentence, never the man.",
-     "c": "That's the conclusion people fear, not the one he draws: a definition that fails doesn't make the thing unreal, it means we haven't pinned it yet."
+     "a": "That's a lecturer, not Socrates: he rarely offered his own answer first.",
+     "c": "That's good manners, not his method: he stayed on a claim until it held or cracked."
     },
-    "reteach": "Socrates takes a confident sentence and holds one real case against it. If the case doesn't fit, the sentence was too small. The general isn't wrong about courage; he's wrong about having finished thinking about it."
+    "reteach": "Socrates worked with questions, not speeches. He found a case the claim didn't fit, then let the speaker try to explain it. The speaker did the work of noticing the gap."
    },
    {
     "type": "teach",
-    "title": "Ask until it runs out",
-    "body": "The method is short. Find someone sure of something. Ask 'what do you mean by that?' Take their answer and test it against one real case. Ask again. Philosophers call this *elenchus*, a Greek word for cross-examination, but it's really just not letting go.\n\nBy the third or fourth question most people have nothing left. **That empty spot is the point.** Before it, they were repeating; after it, they're thinking.\n\nIt works like tapping along a wall to find the hollow part. The sound changes. Socrates said the one thing he knew was that he knew nothing, and he meant it as a tool, not an apology.",
-    "simpler": "The method is short. Find someone sure of something. Ask what they mean. Test the answer on one real case. Ask again. By question three or four, most people have nothing left. **That empty spot is the point.** Before it they were repeating. After it they are thinking.\n\nIt's like tapping a wall to find the hollow part. Socrates said the only thing he knew was that he knew nothing. He meant that as a tool, not an apology."
+    "title": "Questions as a tool",
+    "body": "Socrates spent his days in the *agora*, the open marketplace of Athens, stopping people who claimed to know things: generals about courage, priests about holiness, speakers about justice.\n\nThe pattern had three steps. Get a clear claim. Test it with a case. See whether it survives. The Greek name for this is *elenchus*, roughly 'testing by cross-examination'.\n\nYou'd think the goal was to win. It wasn't. **The goal was to find out whether someone actually knew what they thought they knew.** Usually they didn't. Neither, he said, did he.",
+    "simpler": "In the *agora*, the open marketplace of Athens, Socrates stopped people who claimed to know things: generals on courage, priests on holiness, speakers on justice. He'd get a clear claim, test it with an example, and see if it held up. The Greek word for this is *elenchus*, roughly 'testing by questioning'. He wasn't out to win. **He wanted to see if people really knew what they thought they knew.** Usually they didn't. Neither, he said, did he."
    },
    {
     "type": "example",
-    "title": "Euthyphro has somewhere to be",
-    "body": "Outside the Athens court, a man named Euthyphro tells Socrates he is prosecuting his own father for murder, and he is certain the gods approve. Socrates asks what 'approved by the gods' means. Euthyphro: 'Whatever the gods love.' Socrates points out the gods quarrel constantly, and anyway, do they love a thing because it's right, or is it right because they love it? Four tries later, **Euthyphro remembers he's in a hurry** and walks off. Plato wrote the whole exchange down; it still ends with nobody knowing what piety is.",
-    "simpler": "Outside the Athens court, Euthyphro tells Socrates he is prosecuting his own father for murder. He is sure the gods approve. Socrates asks what that means. Euthyphro says: whatever the gods love. But the gods argue constantly, Socrates says. Do they love a thing because it is right, or is it right because they love it? Four tries later, **Euthyphro remembers he is in a hurry** and walks off. Plato wrote it down. Nobody ever says what piety means."
+    "title": "Euthyphro is suddenly late",
+    "body": "Outside the courthouse, Socrates meets Euthyphro, who is prosecuting his own father over a worker's death and is sure the gods approve. Socrates asks him what holiness is. Whatever the gods love, says Euthyphro. Socrates asks: is a thing holy because the gods love it, or do the gods love it because it's holy? Euthyphro suddenly remembers he's in a hurry, and **the talk ends with no answer**, which for Socrates still counts as progress.",
+    "simpler": "Outside the courthouse, Socrates meets Euthyphro. Euthyphro is taking his own father to court over a worker's death, and he's sure the gods approve. Socrates asks him what holiness is. Whatever the gods love, Euthyphro says. Socrates asks: is something holy because the gods love it, or do the gods love it because it's holy? Euthyphro suddenly remembers he's in a hurry. **The talk ends with no answer**, and Socrates still counts that as progress."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You believe 'hard work always pays off.' You want to run Socrates on it. Which next step is his?",
+    "prompt": "Your flatmate Priya announces: 'Breakfast is the most important meal of the day.' Which reply runs Socrates' method?",
     "options": [
      {
       "id": "a",
-      "text": "Find three success stories that prove it"
+      "text": "'That's just cereal-company marketing.'"
      },
      {
       "id": "b",
-      "text": "Look for one person who worked hard and it didn't pay off, and see what the belief does with them"
+      "text": "'Most important for what? And what about people who skip it and feel fine?'"
      },
      {
       "id": "c",
-      "text": "Replace it with 'nothing pays off', since it's clearly not always true"
+      "text": "'Fair enough, you know more about food than me.'"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's building a case for the claim, not testing it: Socrates goes looking for the case that doesn't fit.",
-     "c": "That's swapping one unexamined claim for another: a belief that fails one case needs sharpening, not flipping."
+     "a": "That's a counter-claim, not a question: you've swapped her certainty for yours and tested nothing.",
+     "c": "That's deferring, not questioning: Socrates went to people who claimed to know precisely so he could test them."
     },
-    "reteach": "The move is always the same. Say the belief out loud, then hunt for the one real case it can't explain. When you find it, the belief either shrinks or gets more precise. Either way you now know something you didn't."
+    "reteach": "The method asks; it doesn't assert. First get the person to say what they mean, then offer a case that might not fit. A solid claim survives. A shaky one shows its gap, and they see it themselves."
    },
    {
     "type": "teach",
-    "title": "Why it got him killed",
-    "body": "You'd think questions are harmless. In 399 BC Athens had just lost a long war to Sparta, and some of the men who'd wrecked the city had once sat at Socrates' feet. The charges were corrupting the young and not believing in the city's gods. He called himself a horsefly on a lazy horse, the horse being Athens. The jury voted guilty, and he drank hemlock.\n\nOne question you can't answer costs a little face. Five in a row, in the market, in front of your friends, costs a lot. **A whole city can want the horsefly gone.**\n\nYour version is quieter. Pick a belief, ask why, answer, ask why again. Count the rounds before you say 'it just is.' That number is the depth of the belief.",
-    "simpler": "Questions look harmless. But Athens had just lost a long war, and some men who wrecked the city had been Socrates' students. He was charged with corrupting the young and not believing in the city's gods. He called himself a horsefly biting the lazy horse of Athens. He was found guilty and drank poison.\n\nOne question you can't answer stings a little. Five in a row, in public, stings a lot. **A whole city can want the horsefly gone.**"
+    "title": "Why it cost him his life",
+    "body": "Having your answers taken apart in front of a crowd stings. Young Athenians loved watching and copied him. Powerful Athenians did not.\n\nIn 399 BC he was charged with disrespecting the city's gods and corrupting the young. A jury of several hundred citizens found him guilty, and he drank hemlock, a poison. At his trial, which Plato later wrote up as the *Apology*, he argued that a life without this kind of questioning isn't worth living.\n\nNow the useful twist: **point the questions at yourself**. You're not trying to prove a belief false. You're finding where its reasons run out.",
+    "simpler": "Young Athenians loved watching him question people, and copied him. Powerful ones did not. In 399 BC he was charged with disrespecting the gods and corrupting the young. A jury of several hundred found him guilty, and he drank hemlock, a poison. At his trial, written up by Plato as the *Apology*, he said an unquestioned life isn't worth living. Now **point the questions at yourself**, not to prove a belief false, but to find where its reasons run out."
    },
    {
     "type": "mistake",
-    "body": "Maya tries it on her flatmate over the recycling. Six questions in, the flatmate says 'fine, you win' and goes to bed. Maya feels sharp. She has done debate, not philosophy. **The tell is that she never pointed the questions at herself.** Socrates' method finds gaps; if the only gap you ever find is in someone else, you're holding it the wrong way round.",
-    "simpler": "Maya tries the method on her flatmate during an argument about recycling. After six questions the flatmate says 'fine, you win' and goes to bed. Maya feels clever. But she has done debate, not philosophy. **The giveaway is that she never pointed the questions at herself.** Socrates' method is for finding gaps. If the only gaps you ever find are in other people, you are holding the tool the wrong way round."
+    "body": "Dev tries the method on 'I should answer work email on Sundays.' Why? To stay on top of things. Why does that matter? Dev feels a small wince, decides that's a good enough answer, and stops at question two. Spot it: **the wince is where the questions start being useful**, so keep going until you hear yourself say 'just because' or 'everyone does'.",
+    "simpler": "Dev tries this on one belief: 'I should answer work email on Sundays.' Why? To stay on top of things. Why does that matter? Dev feels a small wince of discomfort, decides that's a good enough answer, and stops after two questions. Here's the catch: **the wince is where the questions start being useful**. Keep going until you hear yourself say 'just because' or 'everyone does'."
    },
    {
     "type": "exercise",
     "kind": "recall",
-    "prompt": "Socrates said the only thing he knew was that he knew nothing. In this chapter's terms, what did he mean?",
+    "prompt": "You ask yourself why five times about 'I need a degree to be taken seriously.' At why number four you answer: 'Because my parents always said so.' What has the method just done?",
     "options": [
      {
       "id": "a",
-      "text": "Nothing can be known, so stop trying"
+      "text": "Proved the belief is false."
      },
      {
       "id": "b",
-      "text": "He'd tapped the wall on his own beliefs too, found the hollow spots, and that's where his thinking started"
+      "text": "Shown where your reasons run out, so you know what to check next."
      },
      {
       "id": "c",
-      "text": "He hadn't read enough books yet"
+      "text": "Failed, because it should end with a clear final answer."
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's giving up, not the method: he kept asking precisely because the gap can be narrowed.",
-     "c": "That's about information, not understanding: a general can know everything about battles and still not be able to say what courage is."
+     "a": "That's a verdict, not an examination: a belief with a weak reason can still be true; you've only found where its support runs thin.",
+     "c": "That's a finished argument, not the method: Euthyphro's talk ended with no answer, and Socrates still counted it as progress."
     },
-    "reteach": "The empty spot where answers run out isn't a failure, it's the starting line. Socrates found it in generals and priests, but he also found it in himself, and said so. Knowing where your knowledge stops is the one piece of knowledge he claimed."
+    "reteach": "Think of each why as a spade digging one layer down. The layer where your answer turns into 'because someone said so' is the spot to look at next. The belief might still be right; now you know which part needs a better reason."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "Socrates asked people what they meant, tested the answer against one real case, and kept going until the answers ran out. **That gap is where thinking starts**, and Athens killed him for finding it in public.\n\nTomorrow: teacher and student, 20 years together, split over whether this table is real.",
-    "simpler": "Socrates asked people what they meant. He tested each answer against one real case, and kept going until the answers ran out. **That gap is where thinking starts.** Athens killed him for finding it in public.\n\nTomorrow: a teacher and a student, 20 years together, who split over whether this table is real."
+    "body": "Socrates tested what people claimed to know by asking questions until their answers held or ran out, and Athens executed him in 399 BC after he'd embarrassed plenty of important people that way. Point the same questions at your own beliefs and you'll find exactly where your reasons stop.\n\nTomorrow: his student Plato argues the table in front of you isn't the real one.",
+    "simpler": "Socrates tested what people said they knew by asking questions until their answers either held up or ran out. That habit embarrassed plenty of important people, and in 399 BC Athens executed him. **Turn the same questions on your own beliefs** and you'll find exactly where your reasons stop. Tomorrow: his student Plato argues that the table in front of you isn't the real one."
    },
    {
     "type": "try",
-    "body": "Tonight, say one thing you're sure of out loud. Ask 'why?' and answer. Ask again. Count the rounds before you reach 'it just is', and write that number down.",
-    "simpler": "Tonight, say one thing you are sure of, out loud. Ask yourself why. Answer it. Then ask why again, about the new answer. Keep going. **Count how many rounds you get through** before you reach 'it just is.' Write that number down. It tells you how deep the belief really goes."
+    "body": "Pick one belief you held this morning, like 'I need coffee to function.' Ask why five times, typing each answer into your notes app. Circle the answer where you first wanted to stop.",
+    "simpler": "Pick one belief you held this morning, something ordinary like 'I need coffee to function.' Then **ask yourself why, five times in a row**, typing each answer into your notes app. When you're done, circle the answer where you first wanted to stop."
    }
   ],
-  "outcomeLine": "You can now ask 5 'why' questions in a row about a belief you hold and notice where the answers run out.",
-  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"120\" width=\"240\" height=\"14\" rx=\"4\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"60\" y1=\"134\" x2=\"56\" y2=\"180\" stroke=\"#1B1A17\" stroke-width=\"3\"/><line x1=\"260\" y1=\"134\" x2=\"264\" y2=\"180\" stroke=\"#1B1A17\" stroke-width=\"3\"/><ellipse cx=\"110\" cy=\"118\" rx=\"16\" ry=\"4\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><ellipse cx=\"210\" cy=\"118\" rx=\"16\" ry=\"4\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><circle cx=\"90\" cy=\"86\" r=\"12\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M78 120 Q90 98 102 120\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"230\" cy=\"86\" r=\"12\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M218 120 Q230 98 242 120\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"160\" cy=\"70\" r=\"13\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M146 120 Q160 80 174 120\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M150 52 Q140 20 172 18 Q204 16 198 40 Q194 54 172 50 L160 60 Z\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"156\" y=\"40\" font-size=\"16\" font-family=\"sans-serif\" fill=\"#1B1A17\">why?</text><text x=\"232\" y=\"62\" font-size=\"14\" font-family=\"sans-serif\" fill=\"#1B1A17\">...</text></svg>"
+  "outcomeLine": "You can now ask 5 'why' questions in a row about a belief you hold and notice where your answers run out.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"130\" width=\"240\" height=\"14\" rx=\"4\" fill=\"#1F7A4D\"/><line x1=\"60\" y1=\"144\" x2=\"60\" y2=\"190\" stroke=\"#1B1A17\" stroke-width=\"4\"/><line x1=\"260\" y1=\"144\" x2=\"260\" y2=\"190\" stroke=\"#1B1A17\" stroke-width=\"4\"/><circle cx=\"90\" cy=\"80\" r=\"16\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M70 130 Q90 95 110 130\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"3\"/><circle cx=\"230\" cy=\"80\" r=\"16\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M210 130 Q230 95 250 130\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"3\"/><ellipse cx=\"160\" cy=\"126\" rx=\"18\" ry=\"5\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M110 30 h70 a10 10 0 0 1 10 10 v20 a10 10 0 0 1 -10 10 h-50 l-14 12 l2 -12 h-8 a10 10 0 0 1 -10 -10 v-20 a10 10 0 0 1 10 -10z\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><text x=\"145\" y=\"56\" font-family=\"Georgia\" font-size=\"18\" text-anchor=\"middle\" fill=\"#1B1A17\">why?</text></svg>"
  },
- "seconds": 104.58314800262451
+ "seconds": 90.95442700386047
 }

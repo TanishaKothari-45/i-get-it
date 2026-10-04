@@ -5,120 +5,132 @@
   "cards": [
    {
     "type": "picture",
-    "body": "Think of sliding a tray across a wet kitchen counter: one shove, then it slides on by itself. The *glide* is that shove, done on the water-bed. **You push off the wall once, make yourself long and thin like an arrow, and the water carries you** while you do nothing at all.\n\nThis is the shape every stroke starts from. Learn it here, and chapters 5 to 7 just add things on top.",
-    "simpler": "Picture sliding a tray across a wet counter. One shove, and it slides on by itself. The glide is that shove, done in the water. **You push off the wall once, make your body long and thin like an arrow, and the water carries you** while you do nothing.\n\nEvery stroke starts from this shape. Learn it now, and chapters 5 to 7 just add things on top."
+    "body": "Push off a pool wall, then do nothing at all, and you can slide around 4 metres. If the water is a bed, a push off the wall is sliding across it on your front. **The thinner you make yourself, the further the bed carries you.**",
+    "simpler": "Push off a pool wall, then do nothing at all, and you can slide around 4 metres. Think of the water as a bed. Pushing off the wall is like sliding across that bed on your front. **The thinner you make yourself, the further the bed carries you.**"
    },
    {
     "type": "exercise",
     "kind": "guess",
-    "prompt": "Two friends push off the same wall with the same shove. Priya stretches both arms ahead, hands stacked, face looking at the pool floor. Tom keeps his head up to watch the far wall, arms at his sides. Who glides further?",
+    "prompt": "Same pool, same push, twice. The first time you look up at the far wall. The second time your face is down, with your head tucked between your arms. Which glide goes further?",
     "options": [
      {
       "id": "a",
-      "text": "Tom. Head up, he can see where he is going and steer."
+      "text": "Looking at the far wall, because you can steer"
      },
      {
       "id": "b",
-      "text": "Priya. Long and thin slips through the water; a lifted head and loose arms drag."
+      "text": "Face down, head between your arms"
      },
      {
       "id": "c",
-      "text": "The same. Same wall, same push, same distance."
+      "text": "Both go the same distance, because only the push matters"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's a wish to see, not a way to glide: a lifted head drops your hips, and dropped hips act like a brake.",
-     "c": "That's only the push. The push is the same, but shape decides how far the push carries you."
+     "a": "That's steering, not gliding. Lifting your head tips your legs down, and sinking legs drag you to a stop.",
+     "c": "That's the push, not the shape. The same push goes much further when your body is long and level."
     },
-    "reteach": "Picture the tray again. Slide it flat and it travels. Tip one end up and it stops dead. Your body on the water works the same way: flat and long goes far, head up and arms out to the sides stops you."
+    "reteach": "Your body rests on the water like a seesaw. When your head goes up, your legs go down, and sinking legs drag like an anchor. With your head down between your arms you stay flat on the bed, so the push lasts longer."
    },
    {
     "type": "teach",
-    "title": "Make the arrow first",
-    "body": "The glide is a shape before it is a push. Stand in chest-deep water, back to the wall, and make the shape while you are still standing: **both arms stretched ahead, one hand on top of the other, upper arms squeezing your ears**. Swimmers call this *streamline*, which just means the thinnest shape your body can make.\n\nNow the head. Tuck your chin so your face points at the pool floor, not at the far wall. Your head is heavy. Where it goes, your hips follow: head down, hips up, body flat.\n\nLegs together, toes pointed behind you. Now you are an arrow, not a starfish.",
-    "simpler": "First the shape, then the push. Stand in chest-deep water, back to the wall, and make the shape while standing: **both arms stretched ahead, one hand on the other, upper arms squeezing your ears**. Swimmers call this streamline, the thinnest shape you can make.\n\nTuck your chin so your face points at the floor. Your heavy head leads, and your hips follow: head down, hips up, body flat. Legs together, toes pointed. You are an arrow, not a starfish."
+    "title": "The push",
+    "body": "Stand in chest-deep water with your back to the wall and one hand on the edge. Bring both feet up flat against the wall behind you, knees bent. Take a big breath, let go of the edge, put your face in and stretch both arms ahead.\n\nNow **push with both feet, straight along the water, not up**. Your shoulders should be just under the surface as you leave the wall.\n\nThen hold the shape: one hand on top of the other, upper arms squeezing your ears, legs together, toes pointed. A pencil slides. A starfish stops.",
+    "simpler": "Stand in chest-deep water with your back to the wall and one hand on the edge. Put both feet flat on the wall behind you, knees bent. Take a big breath, let go, put your face in and reach both arms forward. Now **push with both feet, straight along the water, not up**, with your shoulders just under the surface. Then hold still: one hand on the other, upper arms squeezing your ears, legs together, toes pointed. A pencil slides. A starfish stops."
    },
    {
     "type": "example",
-    "title": "The quietest 3 metres",
-    "body": "Maya, at her first adult lesson, has been told to push off and count until she stops. She puts both feet on the wall, stacks her hands, tucks her chin, and shoves. Then she does nothing, which feels deeply unnatural.\n\nOne, two, three, four. She slows, pulls her knees in, and stands. She is nearly 3 metres from the wall. Nobody kicked, nobody paddled. The water did all of it. She says it was the quietest 3 metres of her life.",
-    "simpler": "At her first adult lesson, Maya is told to push off and count until she stops. She puts both feet on the wall, stacks her hands, tucks her chin, and shoves. Then she does nothing, which feels strange.\n\nOne, two, three, four. She slows, pulls her knees in, and stands. She is nearly 3 metres from the wall. **Nobody kicked and nobody paddled. The water did all of it.** She calls it the quietest 3 metres of her life."
+    "title": "Priya's two glides",
+    "body": "Priya, 34, pushes off at her local pool with her chin up and her eyes on the far wall, so she can see where she's going. Her hips drop, her feet touch the floor after about a metre, and she stands up puzzled. On the second try she uses the same push, but with her face down, her head tucked between her arms and her eyes on the floor tiles. She slides 4 metres and comes up convinced someone has moved the far wall closer.",
+    "simpler": "Priya, 34, pushes off at her local pool with her chin up and her eyes on the far wall, so she can see where she's going. Her hips sink, her feet hit the floor after about a metre, and she stands up confused. Next time she uses the same push, but **with her face down**, head tucked between her arms and eyes on the floor tiles. She slides 4 metres and comes up sure someone moved the far wall closer."
    },
    {
     "type": "exercise",
     "kind": "apply",
-    "prompt": "You push off nicely, but after a second your legs start sinking and you grind to a halt. What is the most likely cause?",
+    "prompt": "Tom pushes off hard, then starts kicking and paddling straight away. He stops after 2 metres, out of breath. What should he change on his next push?",
     "options": [
      {
       "id": "a",
-      "text": "Your chin came up to look where you were going, so your hips dropped."
+      "text": "Push even harder, so the splashing has more speed to work with"
      },
      {
       "id": "b",
-      "text": "You did not push hard enough off the wall."
+      "text": "Push, make himself long and thin, and stay still until the glide fades"
      },
      {
       "id": "c",
-      "text": "You breathed out too early and lost your air."
-     }
-    ],
-    "answer": "a",
-    "whyNot": {
-     "b": "That's push strength, which changes how far you go, not whether your legs sink. Sinking legs come from the shape.",
-     "c": "That's chapter 2's breath. Breathing out slowly during a glide is fine; your lungs still hold plenty to keep your chest up."
-    },
-    "reteach": "Your head is the heaviest thing on the water-bed. Lift it and the other end of you, your hips and legs, goes down to balance it. Face at the floor keeps you flat, and flat is what glides."
-   },
-   {
-    "type": "teach",
-    "title": "Then the push, then nothing",
-    "body": "Now add the push. Crouch with your shoulders under the water and **both feet flat on the wall, like a frog about to jump**. Arms already stretched ahead before you leave. If you push first and reach second, you lose the glide in the gap.\n\nPush through both feet at once, straight ahead, not upwards. Your face goes in as you go. Breathe out slowly through your nose, as in chapter 2.\n\nThen the hard part: do nothing. No kick, no paddle. Count. When you feel almost still, finish it the chapter 1 way: knees in, hands press down, feet plant, stand. 3 to 5 metres is a good glide.",
-    "simpler": "Now add the push. Crouch, shoulders under the water, **both feet flat on the wall, like a frog about to jump**. Stretch your arms ahead before you leave, or you lose the glide. Push through both feet at once, straight ahead, not up. Face in, breathe out slowly through your nose.\n\nThen the hard part: do nothing. No kick, no paddle. Count. When you feel almost still, stand the chapter 1 way. 3 to 5 metres is a good glide."
-   },
-   {
-    "type": "mistake",
-    "body": "Dev pushes off well, and the instant his feet leave the tiles he starts windmilling his arms. He is trying to help. He never finds out how far the push alone would have taken him, so he never trusts it, so he keeps windmilling.\n\nSpot it in yourself: **if anything moved before you slowed down, you did not glide**. You swam badly from a standing start. Push, hold the arrow, count, then stand.",
-    "simpler": "Dev pushes off well. The moment his feet leave the wall, he starts windmilling his arms. He is trying to help. But he never finds out how far the push alone would take him, so he never trusts it, so he keeps windmilling.\n\nSpot it in yourself: **if anything moved before you slowed down, you did not glide**. You swam badly from a standing start. Push, hold the arrow, count, then stand."
-   },
-   {
-    "type": "exercise",
-    "kind": "recall",
-    "prompt": "Which of these is the glide, as this chapter means it?",
-    "options": [
-     {
-      "id": "a",
-      "text": "Pushing off the wall and kicking hard all the way across the pool."
-     },
-     {
-      "id": "b",
-      "text": "Pushing off into a long thin shape, face down, and doing nothing until you slow, then standing."
-     },
-     {
-      "id": "c",
-      "text": "Lying on your back with ears in the water and drifting wherever you end up."
+      "text": "Push upwards, so his body rides higher on the water"
      }
     ],
     "answer": "b",
     "whyNot": {
-     "a": "That's kicking, which is chapter 5. A glide is the stretch of travel before you add anything.",
-     "c": "That's the back float from chapter 3. A glide starts with a push and moves you forward on your front."
+     "a": "That's more effort, not a better shape. The splashing is what slows him, and a harder push won't fix that.",
+     "c": "That's pushing up, not along. An upward push bobs you up and then down, and the glide dies early."
     },
-    "reteach": "The glide has 3 parts: an arrow shape made before you leave, one push with both feet, and a stretch of doing nothing while the water carries you. Everything that moves after that belongs to a later chapter."
+    "reteach": "In a glide, the push is your only engine. After that, your job is to be a thin shape the water can slide past, and every flailing arm or leg works like a brake. Long and still goes further than busy and short."
+   },
+   {
+    "type": "teach",
+    "title": "Let it run out",
+    "body": "You'd think the push is the hard part. It isn't. **The hard part is doing nothing afterwards.** Every instinct says kick, paddle, look up. Stay a pencil and let the water slow you down on its own, the way a sledge runs out of hill, while you breathe out a slow trickle of bubbles through your nose.\n\nWhen you've nearly stopped, use the move from chapter 1: knees in, hands press down, head up, feet down. Stand up without reaching for the wall.\n\nTerry Laughlin built his *Total Immersion* method around this idea: a long, balanced body beats a strong, busy one. Every stroke you learn will start from this shape.",
+    "simpler": "Pushing isn't the hard part. **The hard part is doing nothing afterwards.** Don't kick, paddle or look up. Stay a pencil and let the water slow you, like a sledge running out of hill, while you breathe slow bubbles out of your nose. Nearly stopped? Stand using the chapter 1 move: knees in, hands press down, head up, feet down. No grabbing the wall. Terry Laughlin's *Total Immersion* method says a long, balanced body beats a strong, busy one. Every stroke starts here."
+   },
+   {
+    "type": "mistake",
+    "body": "Jo pushes off and glides nicely for a metre, then lifts up to check how far the glide has gone. Up goes the head, down go the legs like the far end of a seesaw, and Jo is standing after 2 metres instead of 4. **The tell: if your feet touch the floor before you decided to stand, your head came up first.**",
+    "simpler": "Jo pushes off and glides well for a metre, then lifts up to see how far they've gone. The head comes up, and the legs drop like the other end of a seesaw. Jo ends up standing after 2 metres instead of 4. **The sign: if your feet touch the floor before you chose to stand, your head came up first.**"
+   },
+   {
+    "type": "exercise",
+    "kind": "recall",
+    "prompt": "A friend asks what a good glide feels like. Which answer is right?",
+    "options": [
+     {
+      "id": "a",
+      "text": "A hard push, then kick hard to keep the speed going"
+     },
+     {
+      "id": "b",
+      "text": "One push, then long, thin and still until it fades"
+     },
+     {
+      "id": "c",
+      "text": "A push angled upwards, so you ride high on top of the water"
+     }
+    ],
+    "answer": "b",
+    "whyNot": {
+     "a": "That's the kick, which comes next chapter. For now, moving legs break your long shape and slow you down.",
+     "c": "That's pushing up, not along. Angling up makes you bob up and down, and the glide dies early."
+    },
+    "reteach": "Think of the push as the engine and your body as the shape of the car. You can't add more push halfway through a glide, but you can stop adding brakes: arms long, head down, legs together, nothing moving."
    },
    {
     "type": "teach",
     "title": "In one breath",
-    "body": "**Make the arrow before you push**: hands stacked, ears squeezed, chin tucked, legs together. Then one shove off the wall with both feet, hold still while the water carries you 3 to 5 metres, and stand the chapter 1 way when you slow.",
-    "simpler": "**Make the arrow before you push**: hands stacked, ears squeezed, chin tucked, legs together. Then one shove off the wall with both feet. Hold still while the water carries you 3 to 5 metres. When you slow down, stand the chapter 1 way. That is the whole glide."
+    "body": "Push off the wall with both feet, straight along the water, and make yourself a long, thin pencil: arms stretched, head between them, legs together. Then stay still and let the glide run out before you stand.",
+    "simpler": "Push off the wall with both feet, straight along the water, not up. Then **make yourself a long, thin pencil**: arms stretched out, head tucked between them, legs together. Now stay still and let the glide slow down on its own before you stand up."
    },
    {
     "type": "try",
-    "body": "Next time you are in the shallow end: shoulders under, both feet on the wall, arms already out ahead, face down. Push once and count seconds until you stop. Then stand. Write the count down. Beat it tomorrow.",
-    "simpler": "Next time you are in the shallow end, try this. Shoulders under the water, both feet on the wall, arms already out ahead, face down. **Push once and count the seconds until you stop.** Then stand. Write the number down. Tomorrow, try to beat it."
+    "body": "Tonight, in a doorway: stretch both arms overhead, one hand on top of the other, upper arms squeezing your ears, chin slightly tucked. Hold it for 10 seconds. That's your glide shape, practised on dry land.\n\nTomorrow: why a bigger, splashier kick usually moves you less, not more.",
+    "simpler": "Tonight, stand in a doorway. Stretch both arms over your head, one hand on top of the other, upper arms squeezing your ears, chin tucked in a little. Hold it for 10 seconds. **That's your glide shape, practised on dry land.** Think of it as a rehearsal before the real thing in the pool. Tomorrow: why a bigger, splashier kick usually moves you less, not more."
    }
   ],
-  "outcomeLine": "You can now push off the wall into a long thin shape and glide 3 to 5 metres with your face in the water, then stand up without grabbing anything."
+  "outcomeLine": "You can now push off the wall into a long, thin shape, glide 3 to 5 metres face down, and stand up without grabbing anything.",
+  "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"8\" y=\"40\" width=\"22\" height=\"150\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M30 96 Q70 90 110 96 T190 96 T270 96 T312 94\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"3\"/><path d=\"M30 160 Q80 154 130 160 T230 160 T312 158\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2\" stroke-dasharray=\"6 6\"/><line x1=\"78\" y1=\"112\" x2=\"212\" y2=\"112\" stroke=\"#F2A93B\" stroke-width=\"12\" stroke-linecap=\"round\"/><line x1=\"78\" y1=\"112\" x2=\"212\" y2=\"112\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><circle cx=\"224\" cy=\"112\" r=\"11\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"222\" y1=\"104\" x2=\"292\" y2=\"106\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><line x1=\"222\" y1=\"120\" x2=\"292\" y2=\"108\" stroke=\"#1B1A17\" stroke-width=\"4\" stroke-linecap=\"round\"/><polyline points=\"78,112 66,108 66,116 78,112\" fill=\"#1B1A17\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"38\" y1=\"104\" x2=\"56\" y2=\"104\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"34\" y1=\"112\" x2=\"56\" y2=\"112\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"38\" y1=\"120\" x2=\"56\" y2=\"120\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-linecap=\"round\"/><text x=\"160\" y=\"185\" font-family=\"sans-serif\" font-size=\"18\" fill=\"#1B1A17\" text-anchor=\"middle\">be a pencil</text></svg>"
  },
- "seconds": 71.09290981292725
+ "repairedFrom": {
+  "score": 9,
+  "failed_checks": [
+   "hook",
+   "would_keep_reading",
+   "open_loop"
+  ],
+  "dubious_claims": [],
+  "weakest_card": 1,
+  "why": "It opens with the filler 'Here's an odd thing about...' before the surprising fact. It then mixes two pictures, a bed and a letter slid under a door, so the hook is muddled before the chapter even starts.",
+  "fix": "Open card 1 with 'Push off a pool wall, then do nothing at all, and you'll slide 4 metres.' Cut the letter-under-a-door comparison so only the bed picture is left. Separately, move the 'Tomorrow: why a bigger, splashier kick...' line after the dry-land try card, so it becomes the last line of the chapter."
+ }
 }
