@@ -14,6 +14,13 @@ Last: I can close it, reopen it, and my plan and my rungs are still there.   DON
 
 FROZEN 4 Oct 16:50 (Shaktimaan): no new features until one coursemate has used the live link on their phone with no help and we've written down where they stopped. Then Prateek's own phone test.
 
+Next builds, decided by Prateek 5 Oct evening (in this order unless he reorders):
+1. First-screen copy batch: headline "Seven nights from 'I keep meaning to' to 'I get it'.", the line under it "Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap.", the button (open question). Done screen: "Next: Chapter N" and a main "Start chapter N now" button instead of "Tomorrow" (bingeing is fine: Prateek).
+2. Adaptive chapters: chapter N+1 is written knowing what the reader missed in chapter N (which quiz, what they confused) and opens by re-teaching it another way. Readers may wait a little for this (Prateek).
+3. Chapters slide up like Reels (DESIGN.md section 2), instead of sideways.
+4. Days 8 to 28, live before 12 Oct (the first day 8 for anyone who starts on 5 Oct). Generated once a reader finishes chapter 7. Day 8 is also where week 1's free time ends, so it's where the Pay sheet belongs. About ₹15 a chapter.
+5. Rewrite Prateek's live options chapter 1 with the beginner check (later).
+
 Acceptance test (not a milestone): a stranger, logged out, on their own phone, gets through night 1 without Prateek saying a word.
 
 Parked (not now), in the order they'd come:
@@ -28,5 +35,4 @@ Parked (not now), in the order they'd come:
 - "Don't remember" on recall, counted as a miss.
 - A reminder at the chosen time (needs an email or push provider: ask Prateek first).
 - Share-to-app from Instagram or YouTube; reading a reel or video.
-- Days 8 to 28.
 - Streaks, badges, share cards, payments, anything social.
