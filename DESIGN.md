@@ -108,6 +108,54 @@ For: attaching the night to a person.
 Top to bottom: "Keep this handbook on every device", one line on what we store (the plan and the chapters you passed, nothing else), the sign-in control, a quiet "Not now".
 States: loading "Signing you in…", error as above, done returns to Done with the time picker.
 
+Navigation (added 7 Oct, agent)
+For: getting between handbooks and screens. Every screen has its own address (/, /new, /library, /signin, /h/:id, /h/:id/chapter/:n, /h/:id/chapter/:n/done), so back, refresh and a shared link land where they should.
+Laptop (768 px and up): the wordmark on the left, three quiet links on the right in small sans, ink-2, the current one in ink and underlined: My handbooks · New topic · Sign in (or Sign out). No accent.
+Phone: a three-line menu button (44 px) on the right opens the bottom sheet (same sheet as the feedback): rows of 56 px, ink, with a small ink-2 line under "Sign in" ("Keep your handbooks on every device") and "You're here" under the current one; a ghost Close button.
+Also: the topic name on a chapter screen links back to its plan; on the plan, chapters already reached are links (re-read a passed one).
+
+My handbooks (/library) (added 7 Oct, agent)
+For: seeing and picking any handbook.
+Top to bottom: "Your handbooks", (not signed in) "These live on this phone. Sign in to keep them on every device.", one row per handbook, newest first: the topic, one status line, the rung bar.
+Status lines: "Being written…" · "Waiting on one answer from you" · "Didn't come through. Open it to try again." · "Chapter 1 is next" · "Chapter N is next · K of 7 done" · "All 7 chapters done".
+Main action: Start a new handbook → /new.
+Empty: "Nothing here yet. Type the one thing you keep meaning to learn, and its handbook starts here."
+
+Recap (added 8 Oct, agent)
+For: picking up where you left off. Chapter 2 onward opens with the previous chapter's "In one breath" card (its outcome line if it has none), before recall and the new cards. Header: "Recap · from chapter N". Kicker: "Last time · Chapter N: [title]". No "Say it simpler" on it. The summary also stays as the last teaching card of its own chapter.
+
+Go deeper (bonus) (added 8 Oct, agent)
+For: someone who got every exercise in a chapter right first time and wants more of the same idea. Optional; never the main action, never moves the rung.
+Done screen, under the night's lines: a dashed box (like the "try it" card), label "Bonus, if you want it", "Every exercise right, first time. Want to go one layer deeper on this idea?", an outlined button "Go deeper". After it's done: "You've done this chapter's bonus." / "Read the bonus again".
+Plan: under that chapter's line, "Go deeper (bonus)", then "Bonus done · read it again".
+Bonus screen (/h/:id/chapter/:n/deeper): the card stack, header "Bonus · chapter N · card x of y", last button "Finish the bonus" → back to the plan.
+Loading: "Bonus · chapter N" / "Going deeper." / "One layer deeper on [chapter title]: the nuance, the edge cases, a harder real case. Optional, and it doesn't change your plan." Button "Writing your bonus…" with the thin bar; after 8 s: "About 30 seconds. It reads the chapter you just did first." Quiet link: "Back to the handbook".
+Error: "It didn't come through. Your chapter is saved; try again." Button: Try again. Busy: "Busy right now. Try again in a few minutes."
+
+Another way (added 8 Oct, agent)
+For: someone who missed at least one exercise in a chapter: the same idea explained from a different angle (a new comparison, a slower worked example, the usual confusion named, fresh gentler questions). Nothing new, nothing harder, never framed as a failure. The mirror of "go deeper": a chapter offers exactly one of the two. Optional; never moves the rung.
+Done screen: the same dashed box, label "If you want it", "That one took a few tries. Want to see it explained another way?", outlined button "Explain it another way". After: "You've seen it the other way too." / "Read it again".
+Plan: "See it another way", then "Seen it another way · read it again".
+Screen (/h/:id/chapter/:n/another-way): header "Another way · chapter N · card x of y", last button "Finish" → back to the plan.
+Loading: "Another way · chapter N" / "Another way in." / "[chapter title], explained from a different angle: a new comparison, a slower example, fresh questions. Optional, and it doesn't change your plan." Button "Writing it…". Error as for go deeper.
+
+Nudges and the installable app (added 9 Oct, agent)
+For: one reminder a day at the learner's time, even with the app closed (Web Push), and an app icon on the home screen.
+Done screen (not after chapter 7): a dashed box, heading "Keep going, or see you tomorrow?", "Chapter [N] is ready whenever you are. We'll tap you on the shoulder at [9pm]." (chosen by Tanisha, 9 Oct). Two buttons only: outlined "Allow" (then the browser's own prompt) and quiet "Not now" (quiet for a week). On iPhone outside the Home Screen, Allow shows: "On iPhone, add I Get It to your Home Screen first: tap Share, then Add to Home Screen, then open it from there and tap Allow again." Right after Allow: "Done. See you at [9pm] tomorrow for chapter [N]." Later visits, once on: "We'll tap you on the shoulder at [9pm] if you haven't opened it by then." Android, when installable: a quiet "Add I Get It to your home screen".
+The nudge itself (chosen by Tanisha, 9 Oct): seven fixed lines, one per day in turn, N = the chapter they're on; no AI call. One emoji each (a deliberate exception: notifications aren't lesson prose). Opens the handbook. One a day at most, never if they already studied that day. Swap the seven for a fresh set from time to time (the list in convex/pushSend.ts).
+1 "👋 Hey, ready for chapter N?" / "It's chapter o'clock. Twenty minutes, one new idea."
+2 "👀 Psst… chapter N has a twist" / "It's waiting for you. Shall we?"
+3 "🧠 Your brain called" / "It wants chapter N. We promised we'd pass the message on."
+4 "☕ Chai + chapter N?" / "Best combo of the evening. Twenty minutes, tops."
+5 "🚀 Chapter N, ready for liftoff" / "Twenty minutes to your next “oh, I get it”."
+6 "🍿 Tonight's episode: chapter N" / "No ads. No spoilers. Just press play."
+7 "🎯 One chapter closer" / "Chapter N is twenty minutes away. Let's get it."
+App icon: **MISSING: Prateek to pick.** Placeholder built: an ink "I" on paper with seven rung segments, three lit.
+
+Someone else's handbook link (added 7 Oct, agent)
+"This handbook is someone else's." / "You can start your own on the same thing: [topic]." Button: Start my own (busy: "Starting yours…").
+A link that leads nowhere: "Nothing here." / "This link doesn't lead to a handbook." Button: Go to my handbooks.
+
 ## 5. The first screen's words
 **MISSING: Prateek to write.** The lines below are the agent's draft from Prateek's own phrases in PRODUCT.md, built as placeholders; the handbook says the user never ships AI copy. Rewrite before the five-second test.
 Headline: You keep saving it. Tonight, get it.

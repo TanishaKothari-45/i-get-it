@@ -2,6 +2,8 @@ import { useState } from 'react'
 import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
+import Nudge from '../components/Nudge'
+import { prettyTime } from '../lib/time'
 
 type Props = {
   topic: string
@@ -15,19 +17,31 @@ type Props = {
   onKeep: () => void
   onPickTime: (at: string) => Promise<void>
   onContinue: () => void
+  // The chapter's optional bonus: "deeper" if every exercise was right first time, "another" if any
+  // was missed. Never the main action.
+  bonus?: { kind: 'deeper' | 'another'; done: boolean; onGo: () => void }
+  deviceToken: string         // for "want a nudge?" on this device
+}
+
+const BONUS_COPY = {
+  deeper: {
+    label: 'Bonus, if you want it',
+    offer: 'Every exercise right, first time. Want to go one layer deeper on this idea?', go: 'Go deeper',
+    done: "You've done this chapter's bonus.", again: 'Read the bonus again',
+  },
+  another: {
+    label: 'If you want it',
+    offer: 'That one took a few tries. Want to see it explained another way?', go: 'Explain it another way',
+    done: "You've seen it the other way too.", again: 'Read it again',
+  },
 }
 
 const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
-
-function pretty(t: string) {
-  const [h, m] = t.split(':').map(Number)
-  const ampm = h >= 12 ? 'pm' : 'am'
-  const hh = ((h + 11) % 12) + 1
-  return m ? `${hh}:${String(m).padStart(2, '0')}${ampm}` : `${hh}${ampm}`
-}
+const pretty = prettyTime
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, bonus, deviceToken }: Props) {
+  const copy = bonus ? BONUS_COPY[bonus.kind] : null
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
   const last = n >= 7
@@ -40,6 +54,16 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
+
+      {!last && <Nudge deviceToken={deviceToken} next={n + 1} at={tomorrowAt} />}
+
+      {bonus && copy && (
+        <div className="bonus-offer">
+          <p className="label">{copy.label}</p>
+          <p className="serif">{bonus.done ? copy.done : copy.offer}</p>
+          <button type="button" className="btn btn-ghost" onClick={bonus.onGo}>{bonus.done ? copy.again : copy.go}</button>
+        </div>
+      )}
 
       {signedIn && (
         <>
