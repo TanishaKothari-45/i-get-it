@@ -5,7 +5,8 @@ Written 4 Oct 2026 (night) by the coding agent on Prateek's go-ahead, from docs/
 
 ## 1. The feeling, in labels
 **Changed 4 Oct evening on the first user's words:** "far less interesting than the first version... the jump from Instagram into this plain text workbook is too wide. The roadmap has to be at least half as interesting as Instagram." The paper-and-serif field guide is retired for chapters and the roadmap. Chapters are now Stories: full-screen frames, one idea per tap, bold colour per frame (ink, marigold, green, indigo, coral, cream), big sans type, the key phrase highlighted as it appears, story bars on top, tap right or swipe to go on, tap left to go back. The roadmap is a journey: a dark gradient cover with the handbook's illustration, then a winding path of seven stops, each showing its hook like a teaser, tonight's stop pulsing. The cream page stays for the first screen, Make it yours and the sign-in.
-**MISSING: Prateek to pick.** The labels below are the agent's, rewritten 5 Oct to match what's built; keep, cut or replace them in your words.
+**The feeling, in Prateek's words (5 Oct):** when someone finishes a chapter, they feel "I get it, and I want more."
+The labels below are the agent's, describing how the screens are built toward that feeling (agent).
 - The chapter: Instagram Stories, not a book. Full-screen frames, one idea per tap, bold colour per frame, big sans type, the one key phrase highlighted as it appears. Thin story bars across the top; tap right or swipe to go on, tap left to go back.
 - The pictures: every teaching card opens with one printed plate in the risograph style Prateek picked (design/style-anchor.md): marigold, indigo and ink on cream, grain, flat figures with no detailed faces, never any text. The picture fades in when it's drawn and drifts slowly, like a camera over artwork. Only on a card's first frame; the frames after it are words only.
 - The roadmap: a journey. A dark gradient cover, then a winding path of seven stops, each with its hook as a teaser; tonight's stop pulses; the seventh is the summit.
@@ -16,7 +17,12 @@ Written 4 Oct 2026 (night) by the coding agent on Prateek's go-ahead, from docs/
 ## 2. References, one per component
 **Picked by Prateek (5 Oct):** chapter pictures. Epified's illustrated explainers (named by Prateek) for the feel: narration-led, one art style throughout. The style itself he chose from 18 test pictures: B, a three-colour risograph print (design/style-anchor.md). Take: one medium, the app's palette, people as simple figures, nothing that must be exact. Ignore: video, moving characters, text inside pictures.
 
-**MISSING: Prateek to pick** for everything below. The agent chose these references from memory of shipped products, not from a Pinterest or Mobbin search; swap any for one you actually like, with your own take/ignore lines. Two of them are retired by what's built (marked).
+**Picked by Prateek (5 Oct): chapters feel like Instagram Reels.**
+Take: broadly all of it. Full screen, slide up to the next card, one idea per screen, the pace.
+Ignore: the endless feed (a chapter ends, and finishing is the win), likes, comments and shares.
+Gap to build: chapters move sideways today (tap right, swipe left, like Stories); Reels moves up. The swipe direction should change to slide-up.
+
+The references below are the agent's, chosen from memory for the smaller parts (exercise card, progress bar, feedback sheet, first screen), and sit under Prateek's Reels reference (agent). Two are retired by what's built (marked).
 Plan screen (the handbook cover and chapter list): the GrowthX Build Sprint handbook's own section page, docs/product-thinking/00-overview.md, "The chapters" block.
 Take: outcome line first ("By the end you'll have…"), then numbered chapters, each a title plus one plain line, the current one marked. Quiet numerals, not icons.
 Ignore: the level pills, the "+2 advanced" tags, the sidebar.
@@ -186,3 +192,4 @@ Contradictions for Prateek to rule on (agent, 5 Oct). These principles were writ
 3. "Motion is spent on a pass and the rung, never on reading" vs frames sliding in, the key phrase highlighting, and the picture drifting while you read.
 4. "No memes, no clips, no feed inside the chapter" vs the chapter now looking like a feed (Stories). The pictures are still, not clips, so this one may still hold.
 5. Section 2's Readwise and the old "Teaching card" screen notes describe a reading page that no longer exists in chapters.
+6. Prateek's reference is Reels (slide up); chapters move sideways today. To build.
