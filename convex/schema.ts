@@ -47,6 +47,7 @@ export default defineSchema({
     factCheck: v.optional(v.object({ status: v.string(), fixes: v.number(), notes: v.array(v.string()), model: v.optional(v.string()), at: v.number() })),  // live chapters: "passed" | "fixed" | "unchecked"
     cacheVersion: v.optional(v.number()),
     title: v.optional(v.string()),
+    recallCards: v.optional(v.any()),   // 2 fresh quizzes on this chapter's idea, new examples; shown at the start of a later chapter
     cards: v.optional(v.any()),   // array of cards, exercises include answer/whyNot/reteach (never sent raw to the client)
     outcomeLine: v.optional(v.string()),
     error: v.optional(v.string()),
@@ -57,6 +58,7 @@ export default defineSchema({
     handbookId: v.id("handbooks"),
     currentChapter: v.number(),
     currentCard: v.number(),
+    currentPart: v.optional(v.number()),   // which frame of that card (a long card is 2 or 3 frames), so a reload lands on the same frame
     chaptersPassed: v.array(v.number()),
     passedExercises: v.array(v.string()),   // "chapter:cardIndex"
     missedExercises: v.array(v.string()),   // "chapter:cardIndex" that needed a second go or were shown the answer

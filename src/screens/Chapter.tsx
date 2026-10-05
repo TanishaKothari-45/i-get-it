@@ -27,7 +27,8 @@ type Props = {
   passed: number[]
   passedExercises: string[]
   startAt: number
-  onPosition: (cardIndex: number) => void
+  startPart?: number
+  onPosition: (cardIndex: number, part: number) => void
   onAnswer: (item: Item, optionId: string, attempt: number) => Promise<AnswerResult>
   onFinish: (stats: { minutes: number; right: number; total: number }) => Promise<void>
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
@@ -64,7 +65,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, caution, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -97,6 +98,8 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
   const firstChapterFrame = frames.findIndex((f) => !f.item.recall)
   const [i, setI] = useState(() => {
     if (startAt <= 0) return 0
+    const exact = frames.findIndex((f) => !f.item.recall && f.item.cardIndex === startAt && f.part === startPart)
+    if (exact >= 0) return exact
     const at = frames.findIndex((f) => !f.item.recall && f.item.cardIndex === startAt)
     return at >= 0 ? at : Math.max(0, firstChapterFrame)
   })
@@ -123,7 +126,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
   const canAdvance = item.card.type !== 'exercise' || exercisePassed
   const reset = () => { setAttempt(1); setPicked(null); setMissed([]); setResult(null); setError(null) }
 
-  useEffect(() => { if (!item.recall) onPosition(item.cardIndex) }, [item.cardIndex, item.recall]) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (!item.recall) onPosition(item.cardIndex, frame.part) }, [item.cardIndex, item.recall, frame.part]) // eslint-disable-line react-hooks/exhaustive-deps
   // after a card's frames change (simpler/original), land on that card's first frame
   useEffect(() => {
     if (jumpTo === null) return

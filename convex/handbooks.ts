@@ -100,7 +100,7 @@ async function ensureChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
   const fromCache = await cachedChapter(ctx, h, n);
   if (fromCache) {
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
-    const doc = { status: "ready" as const, title: fromCache.title, cards: fromCache.cards, outcomeLine: fromCache.outcomeLine, svg: fromCache.svg, pictures: fromCache.pictures, cacheVersion: row?.version ?? 0, error: undefined };
+    const doc = { status: "ready" as const, title: fromCache.title, cards: fromCache.cards, outcomeLine: fromCache.outcomeLine, svg: fromCache.svg, pictures: fromCache.pictures, recallCards: fromCache.recallCards, cacheVersion: row?.version ?? 0, error: undefined };
     if (existing) await ctx.db.patch(existing._id, doc);
     else await ctx.db.insert("chapters", { handbookId: h._id, n, createdAt: Date.now(), ...doc });
     return;
@@ -157,7 +157,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
     signedIn: !!h.userId,
     chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch))),
     progress: progress ? {
-      currentChapter: progress.currentChapter, currentCard: progress.currentCard, chaptersPassed: progress.chaptersPassed,
+      currentChapter: progress.currentChapter, currentCard: progress.currentCard, currentPart: progress.currentPart ?? 0, chaptersPassed: progress.chaptersPassed,
       passedExercises: progress.passedExercises, missedExercises: progress.missedExercises, tomorrowAt: progress.tomorrowAt,
     } : null,
   };
@@ -214,6 +214,8 @@ export const get = query({
 });
 
 // Two or three exercises from chapters already passed, for the start of night N.
+const RECALL_BASE = 100;   // recall quizzes are addressed as cardIndex 100, 101 on their chapter
+
 export const recallFor = query({
   args: { handbookId: v.id("handbooks"), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, deviceToken }) => {
@@ -225,6 +227,13 @@ export const recallFor = query({
     for (const n of passed) {
       const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
       if (!ch?.cards) continue;
+      // Fresh quizzes on the same idea with new examples (cardIndex 100+), so the reader recalls the idea, not which button.
+      if (Array.isArray(ch.recallCards) && ch.recallCards.length) {
+        const fresh = n === passed[0] ? ch.recallCards.slice(0, 2) : ch.recallCards.slice(0, 1);
+        fresh.forEach((c: any, k: number) => picks.push({ chapter: n, cardIndex: RECALL_BASE + k, card: publicCards([c])![0] }));
+        if (picks.length >= 3) break;
+        continue;
+      }
       const ex = ch.cards.map((c: any, i: number) => ({ c, i })).filter((x: any) => x.c.type === "exercise");
       // the "apply" and "recall" ones from the latest chapter, then one from the chapter before
       const wanted = n === passed[0] ? ex.filter((x: any) => x.c.kind !== "guess").slice(0, 2) : ex.filter((x: any) => x.c.kind === "recall").slice(0, 1);
@@ -259,7 +268,7 @@ export const create = mutation({
         ownerToken: deviceToken, userId: userId ?? undefined, source: "cache", createdAt: now,
       });
       for (const ch of cached.chapters) {
-        await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: ch.svg, pictures: ch.pictures, cacheVersion: cached.version ?? 0, createdAt: now });
+        await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: ch.svg, pictures: ch.pictures, recallCards: ch.recallCards, cacheVersion: cached.version ?? 0, createdAt: now });
       }
       await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
       return { handbookId, fromCache: true, existing: false };
@@ -370,8 +379,11 @@ export const generateChapter = internalAction({
       exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer));
     if (!sane) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: "chapter failed the shape check" }); return; }
     const title = String(ch.title ?? h.plan.chapters[n - 1]?.title ?? `Chapter ${n}`);
-    const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards);
-    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards: checked.cards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report });
+    // Fresh recall quizzes (new examples) are checked in the same pass, then split off.
+    const recall = (Array.isArray(ch.recallQuizzes) ? ch.recallQuizzes : []).filter((e: any) => e?.type === "exercise" && Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer)).slice(0, 2);
+    const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, [...ch.cards, ...recall]);
+    const cards = checked.cards.slice(0, ch.cards.length), recallCards = checked.cards.slice(ch.cards.length);
+    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report });
     // Pictures come after the words: the chapter opens now, each picture fades in when it's drawn.
     await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
   },
@@ -403,12 +415,13 @@ export const startChapter = internalMutation({
   },
 });
 export const setChapter = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), title: v.string(), cards: v.any(), outcomeLine: v.string(), svg: v.optional(v.string()), model: v.optional(v.string()), factCheck: v.optional(v.any()) },
-  handler: async (ctx, { handbookId, n, title, cards, outcomeLine, svg, model, factCheck }) => {
+  args: { handbookId: v.id("handbooks"), n: v.number(), title: v.string(), cards: v.any(), recallCards: v.optional(v.any()), outcomeLine: v.string(), svg: v.optional(v.string()), model: v.optional(v.string()), factCheck: v.optional(v.any()) },
+  handler: async (ctx, { handbookId, n, title, cards, recallCards, outcomeLine, svg, model, factCheck }) => {
     const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     const shuffled = shuffleExercises(cards, `${handbookId}:${n}`);
-    if (existing) await ctx.db.patch(existing._id, { status: "ready", title, cards: shuffled, outcomeLine, svg, model, factCheck, stale: false, error: undefined });
-    else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, outcomeLine, svg, model, factCheck, createdAt: Date.now() });
+    const recall = recallCards?.length ? shuffleExercises(recallCards, `${handbookId}:${n}:recall`) : undefined;
+    if (existing) await ctx.db.patch(existing._id, { status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, stale: false, error: undefined });
+    else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, createdAt: Date.now() });
   },
 });
 // ---------- adapting to the reader ----------
@@ -526,12 +539,12 @@ export const logAiCall = internalMutation({
 // ---------- reading and answering ----------
 
 export const setPosition = mutation({
-  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), deviceToken: v.optional(v.string()) },
-  handler: async (ctx, { handbookId, chapter, cardIndex, deviceToken }) => {
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), part: v.optional(v.number()), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, chapter, cardIndex, part, deviceToken }) => {
     await ownedHandbook(ctx, handbookId, deviceToken);
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     if (!p) return;
-    await ctx.db.patch(p._id, { currentChapter: chapter, currentCard: cardIndex, lastOpenedAt: Date.now(), updatedAt: Date.now() });
+    await ctx.db.patch(p._id, { currentChapter: chapter, currentCard: cardIndex, currentPart: Math.max(0, Math.min(20, Math.floor(part ?? 0))), lastOpenedAt: Date.now(), updatedAt: Date.now() });
   },
 });
 
@@ -541,7 +554,7 @@ export const recordAnswer = mutation({
   handler: async (ctx, { handbookId, chapter, cardIndex, optionId, attempt, recall, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
-    const card = ch?.cards?.[cardIndex];
+    const card = cardIndex >= RECALL_BASE ? ch?.recallCards?.[cardIndex - RECALL_BASE] : ch?.cards?.[cardIndex];
     if (!card || card.type !== "exercise") throw new Error("Not an exercise");
     const correct = card.answer === optionId;
     // Passing the chapter's last quiz starts writing the next chapter, so the closing card and the Done
@@ -713,7 +726,7 @@ export const syncFromCache = mutation({
       if (!unread || ch.model || ch.vote || (ch.cacheVersion ?? 0) >= row.version) continue;
       const fresh = row.chapters.find((c: any) => c.n === ch.n);
       if (!fresh) continue;
-      await ctx.db.patch(ch._id, { status: "ready", title: fresh.title, cards: fresh.cards, outcomeLine: fresh.outcomeLine, svg: fresh.svg, pictures: fresh.pictures, cacheVersion: row.version, stale: false, error: undefined });
+      await ctx.db.patch(ch._id, { status: "ready", title: fresh.title, cards: fresh.cards, outcomeLine: fresh.outcomeLine, svg: fresh.svg, pictures: fresh.pictures, recallCards: fresh.recallCards, cacheVersion: row.version, stale: false, error: undefined });
       updated++;
     }
     // the plan too (hooks, sources), only if the person hasn't started reading at all

@@ -220,7 +220,8 @@ export default function App() {
           passed={passed}
           passedExercises={progress?.passedExercises ?? []}
           startAt={progress?.currentCard ?? 0}
-          onPosition={(cardIndex) => { setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, deviceToken: token }).catch(() => {}) }}
+          startPart={(progress as any)?.currentPart ?? 0}
+          onPosition={(cardIndex, part) => { setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, part, deviceToken: token }).catch(() => {}) }}
           onAnswer={async (item, optionId, attempt) => (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult}
           onFinish={async (stats) => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneStats(stats); setDoneN(chapter.n); setView('done') }}
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}

@@ -17,6 +17,8 @@ import type * as images from "../images.js";
 import type * as landing from "../landing.js";
 import type * as pricing from "../pricing.js";
 import type * as prompts from "../prompts.js";
+import type * as repair from "../repair.js";
+import type * as repairData from "../repairData.js";
 import type * as stats from "../stats.js";
 
 import type {
@@ -35,6 +37,8 @@ declare const fullApi: ApiFromModules<{
   landing: typeof landing;
   pricing: typeof pricing;
   prompts: typeof prompts;
+  repair: typeof repair;
+  repairData: typeof repairData;
   stats: typeof stats;
 }>;
 
