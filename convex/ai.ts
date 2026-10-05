@@ -48,13 +48,13 @@ type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit
 // Per-job table, set by Prateek 6 Oct: quality first, cost and latency to be handled with prices or limits later.
 // Thinking counts against max_tokens, so max-effort jobs get large caps (and stream; see callAnthropic).
 const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> = {
-  plan: { model: OPUS, effort: "max", maxTokens: 32000 },
+  plan: { model: OPUS, effort: "high", maxTokens: 32000 },   // 6 Oct: "max" thought >5 min, hit 32k and was cut off (2 of 2)
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
   simpler: { model: SONNET, effort: "max", maxTokens: 8000 },
   chapter: { model: OPUS, effort: "medium", maxTokens: 16000 },
   scenes: { model: HAIKU, maxTokens: 2000 },
   audit: { model: OPUS, effort: "high", maxTokens: 16000 },   // measurement only (convex/audit.ts): what slipped past the fact check   // one scene line per teaching card, for the chapter pictures
-  check: { model: OPUS, effort: "max", maxTokens: 32000 },   // fact check of live chapters. 4 Oct on the chess chapter: Opus low caught all 7 (~33 s, ~₹7), Opus medium the same 7; Sonnet 5.5 wrote new false claims. Fable 5.1 max is the independent alternative at about 2.5x the price
+  check: { model: OPUS, effort: "high", maxTokens: 32000 },   // fact check of live chapters. 4 Oct on the chess chapter: Opus low caught all 7 (~33 s, ~₹7), Opus medium the same 7; Sonnet 5.5 wrote new false claims. Fable 5.1 max is the independent alternative at about 2.5x the price
 };
 
 let anthropic: Anthropic | null = null;
