@@ -203,7 +203,7 @@ What landed: what it does (an AI tutor). What missed: who it's for. The screen n
 
 ## 6. Principles (kept, not tactics)
 - One main action per screen, full width, low enough for a thumb. Says what happens, never "Continue" or "Get started".
-- Reading is the product. The serif column is the largest thing on every teaching screen; nothing decorative competes with it.
+- The idea is the product. Each frame carries one idea, big enough to read at arm's length, with a picture that shows it. (Rewritten 6 Oct to fit the Reels-style chapters; agent draft, chosen by Prateek.)
 - The accent appears in two places only: the main button and the filled rung segments. If it appears anywhere else, that's a bug.
 - The rung moves only on a passed check. Motion is spent on a pass and the rung, never on reading or time.
 - The prose carries the engagement: one vivid or dry-funny example per chapter, bold for the one idea. No memes, no clips, no feed inside the chapter: the feed is the habit being fired. (Added 4 Oct after the first user test.)
@@ -215,7 +215,7 @@ What landed: what it does (an AI tutor). What missed: who it's for. The screen n
 - Copy that a user reads is a placeholder until Prateek has rewritten it. Mark it (agent) until then.
 
 Contradictions for Prateek to rule on (agent, 5 Oct). These principles were written for the paper-and-serif version; the Stories version breaks them. Keep the principle and change the screen, or rewrite the principle:
-1. "Reading is the product. The serif column is the largest thing" vs Stories frames in big sans, with a picture above the words on every teaching card.
+1. RESOLVED 6 Oct: principle rewritten ("The idea is the product…").
 2. "The accent appears in two places only" vs marigold as a whole frame colour, and in every picture.
 3. "Motion is spent on a pass and the rung, never on reading" vs frames sliding in, the key phrase highlighting, and the picture drifting while you read.
 4. "No memes, no clips, no feed inside the chapter" vs the chapter now looking like a feed (Stories). The pictures are still, not clips, so this one may still hold.
