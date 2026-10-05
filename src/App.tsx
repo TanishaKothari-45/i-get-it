@@ -4,6 +4,7 @@ import { useAuthActions } from '@convex-dev/auth/react'
 import type { FunctionReturnType } from 'convex/server'
 import { api } from '../convex/_generated/api'
 import type { Id } from '../convex/_generated/dataModel'
+import { languageInfo } from '../convex/languages'
 import { deviceToken } from './lib/device'
 import { Link, matchRoute, navigate, navState, paths, usePath, type BonusKind, type Route } from './lib/router'
 import Nav from './components/Nav'
@@ -73,10 +74,19 @@ function useTitle(title: string | null) {
   useEffect(() => { document.title = title ? `${title} · I Get It` : 'I Get It' }, [title])
 }
 
+// The page's language follows the handbook's, so screen readers and fonts treat Hindi as Hindi.
+function usePageLanguage(language: string | null) {
+  useEffect(() => {
+    const code = (language && languageInfo(language)?.code) || 'en'
+    document.documentElement.lang = code
+    return () => { document.documentElement.lang = 'en' }
+  }, [language])
+}
+
 function useCreateHandbook(token: string) {
   const create = useMutation(api.handbooks.create)
-  return async (topic: string, level: Level, voice: Voice) => {
-    const { handbookId } = await create({ topic, level, voice, deviceToken: token })
+  return async (topic: string, level: Level, voice: Voice, language?: string) => {
+    const { handbookId } = await create({ topic, level, voice, language, deviceToken: token })
     navigate(paths.handbook(handbookId))
   }
 }
@@ -130,10 +140,11 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
   const goFurther = useMutation(api.handbooks.goFurther)
   const hb = data?.kind === 'mine' ? data.handbook : null
   useTitle(hb ? (hb.plan?.topic ?? hb.topic) : null)
+  usePageLanguage(hb?.language ?? null)
 
   if (data === undefined) return <Splash>Opening your handbook…</Splash>
   if (data.kind === 'missing') return <NotFound />
-  if (data.kind === 'notMine') return <NotMine topic={data.topic} level={data.level} voice={data.voice} token={token} />
+  if (data.kind === 'notMine') return <NotMine topic={data.topic} level={data.level} voice={data.voice} language={data.language} token={token} />
   if (!hb) return <NotFound />
 
   const id = hb._id
@@ -204,7 +215,7 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
           related: Array.isArray(plan.related) ? plan.related.filter((t: unknown) => typeof t === 'string' && t.trim()).slice(0, 3) : [],
           fresh: examples.filter((t) => t !== topic && !(plan.related ?? []).includes(t)).slice(0, 3),
           onGoFurther: async () => { const { handbookId } = await goFurther({ handbookId: id, deviceToken: token }); navigate(paths.handbook(handbookId)) },
-          onStart: (t) => create(t, 'new', hb.voice),
+          onStart: (t) => create(t, 'new', hb.voice, hb.language),
         } : undefined}
       />
     )
@@ -221,7 +232,7 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
       chapterFailed={current?.status === 'failed'}
       chapterLink={(n) => (n <= currentN && isReady(n) ? paths.chapter(id, n) : null)}
       bonusFor={(n) => { const b = bonusOf(n); return b ? { href: paths.bonus(id, n, b.kind), label: BONUS_TEXT[b.kind].planLink[b.done ? 1 : 0] } : null }}
-      voiceNote={hb.source === 'seed' && hb.voice !== hb.bookVoice ? `This one was written in the friendly voice ahead of time. Your "${hb.voice}" choice applies to handbooks written fresh.` : undefined}
+      voiceNote={hb.bookVoice && hb.voice !== hb.bookVoice ? `This one was written in the friendly voice ahead of time. Your "${hb.voice}" choice applies to handbooks written fresh.` : undefined}
       onStart={() => navigate(paths.chapter(id, currentN))}
       onRetry={() => { retry({ handbookId: id, deviceToken: token }).catch(() => {}) }}
       onChangeLine={() => navigate(paths.new, { state: { topic: hb.topic } })}
@@ -266,11 +277,11 @@ function ChapterRoute({ hb, n, token }: { hb: HandbookView; n: number; token: st
 
 type ChapterView = HandbookView['chapters'][number]
 
-// The previous chapter's "In one breath" card, or its outcome line if it has none.
+// The previous chapter's "In one breath" card (flagged as the summary in a translated chapter), or its outcome line if it has none.
 function recapOf(prev: ChapterView | undefined, plan: any): Recap | null {
   if (!prev || prev.status !== 'ready' || !Array.isArray(prev.cards)) return null
   const title = prev.title ?? plan?.chapters?.[prev.n - 1]?.title ?? `Chapter ${prev.n}`
-  const summary = (prev.cards as Card[]).find((c) => c.type === 'teach' && /in one breath/i.test(c.title ?? ''))
+  const summary = (prev.cards as Card[]).find((c) => c.type === 'teach' && (c.summary || /in one breath/i.test(c.title ?? '')))
   if (summary) return { chapter: prev.n, title, card: summary }
   if (prev.outcomeLine) return { chapter: prev.n, title, card: { type: 'teach', title: 'In one breath', body: prev.outcomeLine } }
   return null
@@ -360,14 +371,14 @@ function BonusRoute({ hb, n, kind, token }: { hb: HandbookView; n: number; kind:
 }
 
 // Someone else's link: show what it's about and offer their own copy (ready topics open straight away).
-function NotMine({ topic, level, voice, token }: { topic: string; level: Level; voice: Voice; token: string }) {
+function NotMine({ topic, level, voice, language, token }: { topic: string; level: Level; voice: Voice; language: string; token: string }) {
   useTitle(topic)
   const create = useCreateHandbook(token)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const startMine = async () => {
     setBusy(true); setError(null)
-    try { await create(topic, level, voice) }
+    try { await create(topic, level, voice, language) }
     catch (e) { setError(String((e as Error)?.message ?? e).includes('busy') ? 'Busy right now. Try again in a few minutes.' : "Couldn't start it just now. Try once more in a minute.") }
     finally { setBusy(false) }
   }

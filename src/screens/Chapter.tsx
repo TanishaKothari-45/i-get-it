@@ -6,7 +6,7 @@ import Rich, { inline } from '../components/Rich'
 import { Link } from '../lib/router'
 
 export type Card =
-  | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number }
+  | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number; summary?: boolean }
   | { type: 'exercise'; kind: 'guess' | 'apply' | 'recall'; prompt: string; options: { id: string; text: string }[] }
 
 export type AnswerResult =

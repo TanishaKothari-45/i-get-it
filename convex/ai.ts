@@ -22,7 +22,7 @@ type Result = { ok: true; json: any; model: string } | { ok: false; error: strin
 type Reply = { text: string; tokensIn?: number; tokensOut?: number; model: string };
 
 // A failure worth one more try: a timeout, a dropped connection, a rate limit, the provider having a bad moment.
-class RetryableError extends Error {
+export class RetryableError extends Error {
   retryAfterMs?: number;
   constructor(message: string, retryAfterMs?: number) { super(message); this.retryAfterMs = retryAfterMs; }
 }
@@ -32,7 +32,7 @@ function retryAfterMs(res: Response): number | undefined {
   return Number.isFinite(seconds) && seconds > 0 ? Math.min(seconds * 1000, MAX_RETRY_AFTER_MS) : undefined;
 }
 
-async function postJson(label: string, url: string, headers: Record<string, string>, body: unknown, timeoutMs: number): Promise<any> {
+export async function postJson(label: string, url: string, headers: Record<string, string>, body: unknown, timeoutMs: number): Promise<any> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   let res: Response;
@@ -85,13 +85,13 @@ async function callAnthropic(system: string, user: string, maxOut: number, timeo
 }
 
 // A reply that isn't valid JSON is usually a one-off (cut short, or chatty); worth the one retry.
-function extractJson(text: string): any {
+export function extractJson(text: string): any {
   const m = text.match(/\{[\s\S]*\}/);
   if (!m) throw new RetryableError("no JSON in model output");
   try { return JSON.parse(m[0]); } catch (e: any) { throw new RetryableError(`unreadable JSON in model output: ${e?.message ?? e}`); }
 }
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const generate = internalAction({
   args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("deeper"), v.literal("another")), system: v.string(), user: v.string() },
