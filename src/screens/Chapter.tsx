@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Sheet from '../components/Sheet'
 import Rich, { inline } from '../components/Rich'
-import Illustration from '../components/Illustration'
 import AskCard from '../components/AskCard'
 import type { Id } from '../../convex/_generated/dataModel'
 
@@ -66,7 +65,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, caution, picturesPending, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, pictures, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -271,8 +270,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
             <>
               {frame.cover && <h1 className="story-title">{title}</h1>}
               {pic ? <div className="story-pic"><img src={pic} alt="" /></div>
-                : frame.cover && picturesPending ? <div className="story-pic pic-pending" aria-hidden="true" />
-                : frame.cover && svg && <div className="story-illo"><Illustration svg={svg} /></div>}
+                : null /* no picture yet, or none: no box at all; the picture fades in when it lands */}
               {!frame.cover && frame.part === 0 && (KICKER[c.type] || c.title) && <p className="story-kicker">{KICKER[c.type] ?? c.title}</p>}
               <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover || pic ? (pic && !frame.cover && sizeOf(frame.text ?? '') === 'xl' ? 'lg' : 'md') : sizeOf(frame.text ?? '')}`} />
               {isLast && (

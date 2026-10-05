@@ -66,7 +66,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
           <li className={slow ? 'on' : ''}>Choosing the seven nights and the one picture that carries them</li>
           <li>Writing chapter 1 while you read the plan</li>
         </ol>
-        <p className="note">Your plan in about 30 seconds. Chapter 1 is written while you read it.</p>
+        <p className="note">Your plan in about 40 seconds. Chapter 1 is written while you read it.</p>
         <div className="busybar" aria-hidden="true" />
         {story && (
           <section className="wait-story" aria-label="A story while you wait">
@@ -157,7 +157,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
 
       {below && !writing && below(pick)}
 
-      <ActionBar busy={writing} note={writing && slow ? 'About 30 seconds. Seven chapters take a moment to plan.' : undefined}>
+      <ActionBar busy={writing} note={writing && slow ? 'About 40 seconds. Seven chapters take a moment to plan.' : undefined}>
         {status === 'failed' && onRetry && topic.trim() === initialTopic.trim() ? (
           <button className="btn" onClick={() => onRetry().catch((e) => setLocalError(friendly(e)))}>Try again</button>
         ) : (

@@ -1,5 +1,4 @@
 import ActionBar from '../components/ActionBar'
-import Illustration from '../components/Illustration'
 
 type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string }
 type Props = {
@@ -25,7 +24,7 @@ type Props = {
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg, coverPicture, coverPending, caution, onLibrary, libraryCount }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -38,8 +37,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
         <p className="roadmap-outcome">{plan.outcome7}</p>
         {caution && <p className="roadmap-caution">Study aid, verify before you act.</p>}
         {coverPicture ? <div className="roadmap-pic"><img src={coverPicture} alt="" /></div>
-          : coverPending || !coverSvg ? <div className="roadmap-pic pic-pending" aria-hidden="true" />
-          : <div className="roadmap-illo"><Illustration svg={coverSvg} /></div>}
+          : null /* no picture yet: no box; it fades in when chapter 1's picture lands */}
         {plan.picture && <p className="roadmap-picture"><strong>The picture for the whole journey:</strong> {plan.picture.line}</p>}
       </section>
 

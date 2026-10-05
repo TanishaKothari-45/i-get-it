@@ -103,3 +103,78 @@ export const targets = internalQuery({
     return out;
   },
 });
+
+// Options rebalanced (BALANCE_PROMPT): replace option texts by id, only when the ids match exactly.
+function balanceCards(cards: any[], fixes: any[], where: "cards" | "recall"): { cards: any[]; fixed: number } {
+  let fixed = 0;
+  const out = (cards ?? []).map((c) => ({ ...c }));
+  for (const f of fixes) {
+    if (f?.where !== where) continue;
+    const c = out[Number(f.index)];
+    if (!c || c.type !== "exercise" || !Array.isArray(f.options) || f.options.length !== 3) continue;
+    const ids = new Set(c.options.map((o: any) => o.id));
+    if (!f.options.every((o: any) => ids.has(o?.id) && typeof o.text === "string" && o.text.trim())) continue;
+    c.options = c.options.map((o: any) => ({ ...o, text: f.options.find((x: any) => x.id === o.id).text.trim() }));
+    fixed++;
+  }
+  return { cards: out, fixed };
+}
+
+export const applyBalance = internalMutation({
+  args: { t: target, fixes: v.any() },
+  handler: async (ctx, { t, fixes }) => {
+    if (t.kind === "chapter") {
+      const ch = await ctx.db.get(t.chapterId);
+      if (!ch?.cards) return { fixed: 0, copies: 0 };
+      const a = balanceCards(ch.cards, fixes, "cards"), b = balanceCards(ch.recallCards ?? [], fixes, "recall");
+      await ctx.db.patch(ch._id, { cards: a.cards, ...(ch.recallCards ? { recallCards: b.cards } : {}) });
+      return { fixed: a.fixed + b.fixed, copies: 0 };
+    }
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", t.topicKey).eq("level", t.level)).unique();
+    const base = row?.chapters.find((c: any) => c.n === t.n);
+    if (!row || !base) return { fixed: 0, copies: 0 };
+    const a = balanceCards(base.cards, fixes, "cards"), b = balanceCards(base.recallCards ?? [], fixes, "recall");
+    const keys = new Set<string>();
+    for (const c of await ctx.db.query("cache").collect()) {
+      if (c.level !== t.level || c.topic !== row.topic) continue;
+      const m = c.chapters.find((x: any) => x.n === t.n);
+      if (!m || m.title !== base.title) continue;
+      await ctx.db.patch(c._id, { chapters: c.chapters.map((x: any) => (x.n === t.n ? { ...x, cards: a.cards, ...(base.recallCards ? { recallCards: b.cards } : {}) } : x)) });
+      keys.add(c.topicKey);
+    }
+    let copies = 0;
+    for (const h of await ctx.db.query("handbooks").collect()) {
+      if (h.source !== "cache" || !keys.has(h.topicKey) || h.level !== t.level) continue;
+      const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", t.n)).unique();
+      if (!ch || ch.title !== base.title || ch.model) continue;
+      await ctx.db.patch(ch._id, { cards: balanceCards(ch.cards, fixes, "cards").cards, ...(ch.recallCards ? { recallCards: balanceCards(ch.recallCards, fixes, "recall").cards } : {}) });
+      copies++;
+    }
+    return { fixed: a.fixed + b.fixed, copies };
+  },
+});
+
+// Chapters with at least one quiz whose right option is the longest by 10% or more.
+function uneven(cards: any[]): boolean {
+  return (cards ?? []).some((c: any) => {
+    if (c?.type !== "exercise" || !Array.isArray(c.options)) return false;
+    const right = c.options.find((o: any) => o.id === c.answer)?.text?.length ?? 0;
+    const others = c.options.filter((o: any) => o.id !== c.answer).map((o: any) => o.text?.length ?? 0);
+    return right >= 1.1 * Math.max(...others);
+  });
+}
+export const balanceTargets = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const seen = new Map<string, any>();
+    for (const r of await ctx.db.query("cache").collect()) if (!seen.has(`${r.topic}|${r.level}`)) seen.set(`${r.topic}|${r.level}`, r);
+    const out: any[] = [];
+    for (const r of seen.values()) for (const c of r.chapters) if (uneven([...(c.cards ?? []), ...(c.recallCards ?? [])])) out.push({ kind: "cache", topicKey: r.topicKey, level: r.level, n: c.n });
+    for (const ch of await ctx.db.query("chapters").collect()) {
+      if (ch.status !== "ready" || !ch.cards || !uneven([...ch.cards, ...(ch.recallCards ?? [])])) continue;
+      const h = await ctx.db.get(ch.handbookId);
+      if (h && (h.source !== "cache" || ch.model)) out.push({ kind: "chapter", chapterId: ch._id });
+    }
+    return out;
+  },
+});
