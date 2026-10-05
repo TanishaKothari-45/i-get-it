@@ -1,27 +1,33 @@
 # DESIGN.md
 Read this before building or changing any screen. If a choice isn't covered here, ask me instead of guessing.
 
-Written 4 Oct 2026 (night) by the coding agent on Prateek's go-ahead, from docs/design-thinking/. The agent made the choices needed to build a first version; each one Prateek must own is marked **MISSING: Prateek to pick** (Shaktimaan's guardrail). Until he does, those lines are placeholders that happen to be built.
+Written 4 Oct 2026 (night) by the coding agent on Prateek's go-ahead, from docs/design-thinking/. Brought up to date with what's built on 5 Oct (agent); the open contradictions are listed at the end of section 6 for Prateek to rule on. The agent made the choices needed to build a first version; each one Prateek must own is marked **MISSING: Prateek to pick** (Shaktimaan's guardrail). Until he does, those lines are placeholders that happen to be built.
 
 ## 1. The feeling, in labels
 **Changed 4 Oct evening on the first user's words:** "far less interesting than the first version... the jump from Instagram into this plain text workbook is too wide. The roadmap has to be at least half as interesting as Instagram." The paper-and-serif field guide is retired for chapters and the roadmap. Chapters are now Stories: full-screen frames, one idea per tap, bold colour per frame (ink, marigold, green, indigo, coral, cream), big sans type, the key phrase highlighted as it appears, story bars on top, tap right or swipe to go on, tap left to go back. The roadmap is a journey: a dark gradient cover with the handbook's illustration, then a winding path of seven stops, each showing its hook like a teaser, tonight's stop pulsing. The cream page stays for the first screen, Make it yours and the sign-in.
-**MISSING: Prateek to pick.** The labels below are the agent's; keep, cut or replace them in your words.
-- The page: a well-edited field guide on a phone, not an app. Warm paper, ink text, generous margins, one column. Reading is the product, so the reading column is the biggest thing on every screen.
-- The chapter number and the rung bar: a seven-segment bar at the top of every chapter screen, segments fill left to right as chapters pass. It is the only place the accent appears besides the main button. It moves only when a check is passed.
-- Teaching cards: book typography. A serif for the body at reading size, a short bold sans heading, paragraphs separated by space not lines. One bold phrase per card for the one idea, italics for a term or an aside, nothing else. No icons in the prose, no bullet soup. Cards under 120 words; the first check by card 2. (Changed 4 Oct morning: "I got bored in between".)
-- Exercise cards: one question, three tall full-width options, a thumb's height each. Tapping one answers it. The feedback rises from the bottom as a sheet: the named confusion in ink, the re-teach in the same serif, one button.
-- Motion: on a pass and on the rung, nowhere else. Cards slide in from the right, 240 ms, ease-out. The chosen option glides and pops on a pass (420 ms). The rung segment fills with a 400 ms ease-out. One confetti burst, in the paper palette, when a chapter is done, once a night. Nothing spins, nothing moves for reading or tapping. (Changed 4 Oct morning after the first user test: "the glide when you get it right", "a wow moment".)
-- The main button: full width, low on the screen, accent fill with ink text, one per screen. Says what happens.
+**MISSING: Prateek to pick.** The labels below are the agent's, rewritten 5 Oct to match what's built; keep, cut or replace them in your words.
+- The chapter: Instagram Stories, not a book. Full-screen frames, one idea per tap, bold colour per frame, big sans type, the one key phrase highlighted as it appears. Thin story bars across the top; tap right or swipe to go on, tap left to go back.
+- The pictures: every teaching card opens with one printed plate in the risograph style Prateek picked (design/style-anchor.md): marigold, indigo and ink on cream, grain, flat figures with no detailed faces, never any text. The picture fades in when it's drawn and drifts slowly, like a camera over artwork. Only on a card's first frame; the frames after it are words only.
+- The roadmap: a journey. A dark gradient cover, then a winding path of seven stops, each with its hook as a teaser; tonight's stop pulses; the seventh is the summit.
+- Exercise frames: an ink frame, one question in big type, three tall cream options a thumb's height each. Tapping one answers it. The feedback rises from the bottom as a sheet: the named confusion first, the re-teach, one button.
+- Motion: the frame slides in, the key phrase highlights, the picture drifts, the chosen option glides and pops on a pass, one confetti burst when a chapter is done. Nothing spins. Reduced-motion turns all of it off.
+- The cream pages (first screen, pricing, Make it yours, sign-in, stats): a well-edited field guide. Warm paper, ink text, one column, one main button, full width, low on the screen.
 
 ## 2. References, one per component
-**MISSING: Prateek to pick.** The agent chose these references from memory of shipped products, not from a Pinterest or Mobbin search; swap any for one you actually like, with your own take/ignore lines.
+**Picked by Prateek (5 Oct):** chapter pictures. Epified's illustrated explainers (named by Prateek) for the feel: narration-led, one art style throughout. The style itself he chose from 18 test pictures: B, a three-colour risograph print (design/style-anchor.md). Take: one medium, the app's palette, people as simple figures, nothing that must be exact. Ignore: video, moving characters, text inside pictures.
+
+**MISSING: Prateek to pick** for everything below. The agent chose these references from memory of shipped products, not from a Pinterest or Mobbin search; swap any for one you actually like, with your own take/ignore lines. Two of them are retired by what's built (marked).
 Plan screen (the handbook cover and chapter list): the GrowthX Build Sprint handbook's own section page, docs/product-thinking/00-overview.md, "The chapters" block.
 Take: outcome line first ("By the end you'll have…"), then numbered chapters, each a title plus one plain line, the current one marked. Quiet numerals, not icons.
 Ignore: the level pills, the "+2 advanced" tags, the sidebar.
 
-Teaching card (the reading surface): a Readwise Reader or Instapaper article page on a phone.
+Teaching card (the reading surface): RETIRED 4 Oct evening, chapters are Stories now; kept for the cream pages only. A Readwise Reader or Instapaper article page on a phone.
 Take: serif body at 17 to 18 px, line length about 60 characters, 1.55 line height, paragraph spacing of one line, headings in a bold sans one step up. Text starts near the top, no hero image.
 Ignore: the toolbars, highlights, the share row.
+
+Chapter frames: Instagram Stories (agent's choice after the first user's words, 4 Oct evening).
+Take: full-screen frames, bars across the top, tap right to go on, tap left to go back, one thing per frame.
+Ignore: autoplay timers, replies, the avatar row.
 
 Exercise card: a Duolingo lesson screen.
 Take: one question at the top, three stacked full-width options with a 1.5 px ink outline, 56 px tall, 12 px radius, selected state fills; the feedback panel slides up from the bottom and holds until the one button is tapped; the correct option tints green only on reveal.
@@ -49,6 +55,8 @@ Pass: #1F7A4D, only on a passed option and the "done" line. Never as a surface.
 Errors and misses: brick #B3402B, only on error text. A missed option gets an ink outline, never red fill.
 Tokens, defined once as CSS variables and used by name only: --paper, --ink, --ink-2, --tint, --accent, --pass, --error; --display, --heading, --body, --ui, --small; --s 8, --m 16, --l 24, --xl 40; --radius 12 (options, inputs, buttons), --radius-sheet 20 (the bottom sheet). Nothing else is rounded.
 Dark mode: not in v1. One theme, paper.
+Chapter frame colours (Stories, 4 Oct evening): ink #1B1A17, indigo #3442B8, green #1F7A4D, marigold #F2A93B, coral #E8604C, cream #FAF7F0, one per frame in a fixed rotation by card type. Light frames (marigold, coral, cream) use ink text; dark frames use cream text. This breaks the "accent in two places" rule below; see section 6.
+Picture palette (design/style-anchor.md): cream #FAF7F0, ink #1B1A17, marigold #F2A93B, indigo #3A4170, green #1F7A4D, coral #E0735A. The picture indigo and coral are softer than the frame indigo and coral on purpose (print ink, not screen colour); a picture always sits on a frame as a cream plate with rounded corners.
 
 ## 4. Screens
 Flow: open the link → type the thing, pick a level → see the plan → read chapter 1, pass its exercises → the rung lights → sign in and pick a time → tomorrow: recall, chapter 2.
@@ -63,9 +71,9 @@ Loading: the button becomes "Writing your handbook…" with a thin indeterminate
 Error: "Couldn't write it just now. Your line is still here; try once more in a minute." Button: Try again. If the one clarifying question comes back: show it under the box as a single question with the box ready, button "That's it".
 Done: goes to Plan.
 
-Plan (the handbook cover)
+Plan (the handbook cover, drawn as a journey since 4 Oct evening)
 For: seeing the whole thing before the first chapter, so starting isn't skipping levels.
-Top to bottom: the topic as a title, "By day 7 you'll be able to …" in the serif, the one picture (analogy) in one line, the seven chapters as a numbered list (title, one line), chapter 1 marked "Tonight", days 14 and 28 as two quiet lines at the end, the main button.
+Top to bottom: a dark gradient cover with "Your handbook · N of 7", the topic, "By day 7 you'll be able to …", the handbook's drawing and its one picture (analogy) line; "Draws on" with up to three real works; then "The path": seven stops on a dashed winding line, each with its hook as the teaser, tonight's stop pulsing, the seventh drawn as the summit; days 14 and 28 as two quiet lines; the main button.
 Main action: Start chapter 1 → Chapter. (Coming back mid-path: "Continue chapter N".)
 Empty: never empty; it exists only after a plan.
 Loading (chapter 1 still being written when they tap): button becomes "Writing chapter 1…", same thin bar, same 8 s line.
@@ -73,18 +81,18 @@ Error: "Chapter 1 didn't come through. The plan is saved; try again." Button: Tr
 Done: Chapter opens on card 1.
 If the AI answer is wrong (the plan misses the point): a quiet link under the button, "Not what you meant? Change the line", back to Start with the line kept. Comments-and-regenerate is parked.
 
-Chapter (the card stack: teaching cards and exercises)
-For: reading one thing and being checked on it, one card at a time.
-Top to bottom: the rung bar, "Chapter 1 of 7 · card 3 of 9" small, the card (heading, serif body), the main button low. On an exercise card: the question in serif, three options, no button until one is tapped.
-Main action: Next → the next card. On the last card: Finish chapter → Done.
-Quiet row under every teaching card: "Lost? Say it simpler" → the card is rewritten in plainer words (pre-written for ready topics, live otherwise, "Rewriting in plainer words…" while it happens), and the handbook stays simple until "Show the original" is tapped. Never a second main button. (Added 4 Oct afternoon, first user test.)
+Chapter (Stories since 4 Oct evening: full-screen frames)
+For: reading one thing and being checked on it, one frame at a time.
+Top to bottom: story bars (one per frame), "Chapter 1 of 7" and the topic small, a close ×; the frame; a tool row at the bottom ("Say it simpler", "Ask or object", "Tap →"). A teaching card is split into frames, one paragraph each. Its first frame opens with its picture (4:3 cream plate, rounded, slow drift) above the words; the chapter's first frame also carries the chapter title. An exercise is one ink frame: kicker ("Quick guess", "Your call", "Lock it in"), the question in big type, three cream options.
+Main action: tap right, swipe left, or → to go on; on the last frame, Finish chapter → Done.
+Pictures: written after the chapter (one scene per teaching card, then drawn by Runway, about a minute for all of them). The chapter opens without waiting; each picture fades in when it lands. If pictures fail, the chapter's own drawing shows on the first frame, and the other frames are words only. Ready topics carry their pictures already.
+Say it simpler: the card is rewritten in plainer words (pre-written for ready topics, live otherwise, "Rewriting…" while it happens), and the handbook stays simple until "Show the original" is tapped.
 Empty: never empty.
-Loading: cards are already written; nothing to load. If the chapter failed to save, the Plan screen's error.
-Error (an exercise tapped offline): "Couldn't save that answer. It still counts here; try the next one when you're back online."
-Miss: the feedback sheet rises: the named confusion in one bold line, the re-teach under it, button "Try again". The question returns with the missed option outlined. A second miss shows the correct option with its one-line reason, button "Got it", and the rung does not move for that exercise.
-Pass: the sheet rises: "That's it." plus one line on why, button "Next". The option tints pass green.
-Done: the last exercise passed → the Done screen.
-If the AI answer is wrong (a question with a bad key): "Report this question" as a small link in the sheet; it logs the card id and the answer given, and lets them continue. Never blocks.
+Loading: cards are already written; pictures may still be arriving (no spinner, they fade in).
+Error (an answer can't be saved): "Couldn't save that answer. Check your connection and tap again."
+Miss: the feedback sheet rises: the named confusion in one bold line, the re-teach under it, button "Try again". The missed option is crossed out. A second miss shows the correct option, button "Got it".
+Pass: the sheet: "That's it." plus one line on why, button "Keep going". The option glides and tints green.
+Done: the last frame → the Done screen.
 
 Done (the rung lights)
 For: seeing the night's result and the next step.
@@ -124,7 +132,11 @@ A bordered link block: the speaker in bold, the talk title in the serif, "Open i
 Laptop (900 px and up)
 Two columns: a 260 px rail (topic, chapters done, chapter list, "The handbook", "Make it yours", "Start another topic") and a 38 rem reading column. The action bar sits at the bottom of the column, not across the window. The feedback sheet floats centred. "← Handbook" on every inner screen. Keys: → or Enter next, ← back, 1 2 3 answer, Esc closes the sheet.
 
-Illustration (on the picture card): a flat SVG in the two accent colours plus ink on white inside a tinted frame, max height 220 px, drawn by the model, sanitised. If it fails to parse, nothing shows; the card is still complete without it.
+Illustration (fallback, and the handbook cover): a flat SVG in the two accent colours plus ink, drawn by the chapter model, sanitised. Shown on the plan cover, and on a chapter's first frame only when its pictures failed. Exact things (a chessboard, a chart) are a known weakness of both the SVG and the pictures; app-drawn diagrams are the next job.
+
+Numbers (/stats, public)
+For: building in public, and the reviewer's read-only analytics.
+Top to bottom: "The numbers, in public.", one line on what's counted (counts only, no names), a two-column grid of tiles (visitors today, visitors all time, started a handbook, passed chapter 1, signed up), a 14-day bar chart of visitors, where visitors came from, and a quiet "This is my phone: don't count it". Pay numbers ("Tapped Pay", "Free spots claimed") show only to the owner, signed in, so visitors can't learn payments aren't live. Copy (agent).
 
 Tonight (coming back, signed in or on the same phone)
 For: the daily 20 minutes from night 2.
@@ -159,3 +171,10 @@ Five-second test: not yet run. First two coursemates on Monday.
 - No new colour, size, font or radius without asking. Tokens by name, never raw values, outside the token block.
 - Check every screen at 390 px wide and on a real phone before saying done.
 - Copy that a user reads is a placeholder until Prateek has rewritten it. Mark it (agent) until then.
+
+Contradictions for Prateek to rule on (agent, 5 Oct). These principles were written for the paper-and-serif version; the Stories version breaks them. Keep the principle and change the screen, or rewrite the principle:
+1. "Reading is the product. The serif column is the largest thing" vs Stories frames in big sans, with a picture above the words on every teaching card.
+2. "The accent appears in two places only" vs marigold as a whole frame colour, and in every picture.
+3. "Motion is spent on a pass and the rung, never on reading" vs frames sliding in, the key phrase highlighting, and the picture drifting while you read.
+4. "No memes, no clips, no feed inside the chapter" vs the chapter now looking like a feed (Stories). The pictures are still, not clips, so this one may still hold.
+5. Section 2's Readwise and the old "Teaching card" screen notes describe a reading page that no longer exists in chapters.
