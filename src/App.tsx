@@ -99,6 +99,11 @@ export default function App() {
     )
   }
 
+  // A first-time visitor (nothing on this phone): the landing page, which has its own box.
+  if (!hb && view !== 'start-again' && libRows.length === 0 && lib !== undefined) {
+    return <Landing onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
+  }
+
   // No handbook yet, or the person wants a different line: the first screen.
   if (!hb || view === 'start-again' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed') {
     const status = !hb || view === 'start-again' ? 'idle' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : 'failed'
@@ -115,7 +120,6 @@ export default function App() {
           onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
-          below={!hb && view !== 'start-again' && libRows.length === 0 ? (pick) => <Landing onPick={pick} /> : undefined}
         />
       </Shell>
     )
