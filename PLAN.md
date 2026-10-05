@@ -23,6 +23,9 @@ Next builds, decided by Prateek 5 Oct evening (in this order unless he reorders)
 4. Days 8 to 28, live before 12 Oct (the first day 8 for anyone who starts on 5 Oct). Generated once a reader finishes chapter 7. Day 8 is also where week 1's free time ends, so it's where the Pay sheet belongs. About ₹15 a chapter.
 5. Rewrite Prateek's live options chapter 1 with the beginner check (later).
 
+7. Exact pictures for exact things (Prateek, 6 Oct: chess, options trading need boards, graphs and tables): the chapter names what to show as data (a board position, a payoff line from strike and premium, a small table) and the app draws it, correct every time and ours. Runway keeps the scenes. Web-found images only from Wikimedia Commons with their licence shown, never general web search (copyright, and they won't match the numbers in the text).
+8. Model table (Prateek, 6 Oct): plan on Opus 5.5 max, chapter on Opus 5.5 medium, fact check on Opus 5.5 max, Say it simpler on Sonnet 5.5 max, Ask unchanged. Quality first; cost and wait to be handled later with prices or limits. Measure time to chapter 1 and cost per chapter right after switching.
+
 Acceptance test (not a milestone): a stranger, logged out, on their own phone, gets through night 1 without Prateek saying a word.
 
 Parked (not now), in the order they'd come:
