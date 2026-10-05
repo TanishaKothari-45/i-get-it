@@ -291,6 +291,33 @@ export const create = mutation({
   },
 });
 
+// "Go further": the next level of a handbook they've finished. Starts at "know some" and picks up where the
+// last one ended. Typing it again (or a double tap) reopens the one they already have, like any topic.
+export const goFurther = mutation({
+  args: { handbookId: v.id("handbooks"), deviceToken: v.string() },
+  handler: async (ctx, { handbookId, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    if (!h.plan || !p || p.chaptersPassed.length < CHAPTERS) throw new Error("Finish this one first");
+    const topic = `${String(h.plan.topic ?? h.topic)}: the next level`.slice(0, 200);
+    const topicKey = topicKeyOf(topic);
+    const userId = await getAuthUserId(ctx);
+    const already = (await ownedBooks(ctx, userId, deviceToken)).find((x) => x.topicKey === topicKey);
+    if (already) return { handbookId: already._id, existing: true };
+    const all = await limiter.limit(ctx, "generateAll");
+    const mine = await limiter.limit(ctx, "generateDevice", { key: ownerKey(h) });
+    if (!all.ok || !mine.ok) throw new Error("busy");
+    const now = Date.now();
+    const id = await ctx.db.insert("handbooks", {
+      topic, topicKey, level: "some", language: h.language, voice: h.voice ?? "friend", status: "planning",
+      ownerToken: deviceToken, userId: userId ?? undefined, source: "live", continuesHandbookId: h._id, createdAt: now,
+    });
+    await ctx.db.insert("progress", { handbookId: id, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
+    await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId: id });
+    return { handbookId: id, existing: false };
+  },
+});
+
 export const answerQuestion = mutation({
   args: { handbookId: v.id("handbooks"), answer: v.string(), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, answer, deviceToken }) => {
@@ -325,10 +352,16 @@ export const generatePlan = internalAction({
   handler: async (ctx, { handbookId, clarification }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification) });
+    // "Go further": tell the plan what they just finished, so it picks up from there.
+    const prev = h.continuesHandbookId ? await ctx.runQuery(internal.handbooks.readHandbook, { handbookId: h.continuesHandbookId }) : null;
+    const previous = prev?.plan ? {
+      topic: String(prev.plan.topic ?? prev.topic), outcome7: prev.plan.outcome7 ?? undefined, horizon14: prev.plan.horizon14 ?? undefined,
+      chapterTitles: (prev.plan.chapters ?? []).map((c: any) => String(c.title ?? "")),
+    } : undefined;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, previous) });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: r.error }); return; }
     const plan = r.json;
-    if (plan.needsClarification && plan.question && !clarification) {
+    if (plan.needsClarification && plan.question && !clarification && !previous) {
       await ctx.runMutation(internal.handbooks.setQuestion, { handbookId, question: String(plan.question) });
       return;
     }

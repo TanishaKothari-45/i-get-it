@@ -3,6 +3,8 @@ import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
 import Nudge from '../components/Nudge'
+import WhatsNext from '../components/WhatsNext'
+import type { ComponentProps } from 'react'
 
 type Props = {
   topic: string
@@ -22,6 +24,7 @@ type Props = {
   // The chapter's optional bonus: "deeper" if every exercise was right first time, "another" if any
   // was missed. Never the main action.
   bonus?: { kind: 'deeper' | 'another'; done: boolean; onGo: () => void }
+  whatsNext?: ComponentProps<typeof WhatsNext>   // after the last chapter: go further, related, something new
 }
 
 // (agent) placeholders until Prateek rewrites them, as DESIGN.md asks.
@@ -48,7 +51,7 @@ function pretty(t: string) {
 }
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, deviceToken, bonus }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, deviceToken, bonus, whatsNext }: Props) {
   const copy = bonus ? BONUS_COPY[bonus.kind] : null
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
@@ -73,6 +76,8 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
         </div>
       )}
       {last && sources && sources.length > 0 && <p className="sources"><span className="label">Read next</span> {sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em>{x.why ? ` (${x.why})` : ''}</span>)}</p>}
+
+      {last && whatsNext && <WhatsNext {...whatsNext} />}
 
       {last && (
         <div className="nudge" style={{ marginTop: 'var(--l)' }}>

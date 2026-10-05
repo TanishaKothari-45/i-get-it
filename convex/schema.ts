@@ -27,6 +27,7 @@ export default defineSchema({
     source: v.union(v.literal("live"), v.literal("cache")),
     error: v.optional(v.string()),
     hiddenAt: v.optional(v.number()),   // a duplicate topic found when two devices merged at sign-in; kept, not deleted
+    continuesHandbookId: v.optional(v.id("handbooks")),   // "go further": the finished handbook this one is the next level of
     createdAt: v.number(),
   })
     .index("by_token", ["ownerToken"])

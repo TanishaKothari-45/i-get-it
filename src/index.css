@@ -323,6 +323,15 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 /* the 9pm nudge card: Allow, with a quiet Not now under it */
 .nudge-ask .serif { margin: var(--s) 0 var(--m); }
 .nudge-actions { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+/* after chapter 7: go further, related topics, something new */
+.whats-next { margin-top: var(--xl); }
+.whats-next .label { margin-top: var(--l); }
+.next-card .label { margin-top: 0; }
+.next-card .serif { margin: var(--s) 0 var(--m); }
+.next-list { list-style: none; margin: var(--s) 0 0; padding: 0; border-top: 1px solid var(--tint); }
+.next-list button { display: flex; flex-direction: column; width: 100%; min-height: 48px; padding: 12px 0; background: none; border: 0; border-bottom: 1px solid var(--tint); text-align: left; font-size: var(--ui); font-weight: 600; color: var(--ink); }
+.next-list button:hover { text-decoration: underline; text-underline-offset: 0.18em; }
+.next-list small { font-size: var(--small); font-weight: 400; color: var(--ink-2); }
 /* a finished chapter's bonus link, under its stop on the path */
 .stop-bonus { padding: 6px 0 0; text-align: left; font-size: var(--small); }
 .shelf { list-style: none; padding: 0; margin: var(--m) 0; display: grid; gap: 12px; }

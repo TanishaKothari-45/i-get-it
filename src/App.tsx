@@ -46,6 +46,7 @@ export default function App() {
   const compareModels = useMutation(api.handbooks.compareModels)
   const voteModel = useMutation(api.handbooks.voteModel)
   const syncFromCache = useMutation(api.handbooks.syncFromCache)
+  const goFurther = useMutation(api.handbooks.goFurther)
   const profile = useQuery(api.handbooks.myProfile, { deviceToken: token })
 
   const [view, setView] = useState<View>('auto')
@@ -152,6 +153,8 @@ export default function App() {
     return null
   }
   const openBonus = (n: number, kind: BonusKind) => { setBonusSel({ n, kind }); setView('bonus') }
+  // Switch to another handbook (a new or next-level one) and show it from the top.
+  const openHandbook = (id: string) => { pin(id); setDoneN(null); setBonusSel(null); setView('auto') }
 
   // Which screen, when nothing has been chosen on this visit.
   const resolved: View = view !== 'auto' ? view
@@ -205,6 +208,14 @@ export default function App() {
           onContinue={() => { setDoneN(null); setView('plan') }}
           deviceToken={token}
           bonus={(() => { const b = bonusOf(doneN); return b ? { ...b, onGo: () => openBonus(doneN, b.kind) } : undefined })()}
+          whatsNext={doneN === 7 ? {
+            topic: plan?.topic ?? hb.topic,
+            nextLine: plan?.horizon14 ?? undefined,
+            related: Array.isArray(plan?.related) ? plan.related.filter((t: unknown) => typeof t === 'string' && t.trim()).slice(0, 3) : [],
+            fresh: examples.filter((t) => t !== (plan?.topic ?? hb.topic) && !(plan?.related ?? []).includes(t)).slice(0, 3),
+            onGoFurther: async () => { const r = await goFurther({ handbookId: hb._id, deviceToken: token }); openHandbook(String(r.handbookId)) },
+            onStart: async (t) => { const r = await create({ topic: t, level: 'new', voice: (hb as any).voice ?? 'friend', deviceToken: token }); openHandbook(String(r.handbookId)) },
+          } : undefined}
         />
       </Shell>
     )
