@@ -215,6 +215,7 @@ export default function App() {
           onFinish={async () => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneN(chapter.n); setView('done') }}
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
+          pictures={(chapter as any).pictures ?? {}}
           onExit={() => setView('plan')}
           handbookId={hb._id}
           deviceToken={token}

@@ -42,12 +42,13 @@ async function callOpenAI(system: string, user: string, maxOut: number): Promise
 // chapters stay on Haiku unless the reader picked a writer in the comparison; card rewrites stay on Haiku.
 const HAIKU = "claude-haiku-4-5-20251001";
 const OPUS = "claude-opus-5-5";
-type Kind = "plan" | "chapter" | "simpler" | "ask" | "check";
+type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes";
 const JOB: Record<Kind, { model: string; effort?: "low" | "medium" | "high"; maxTokens: number }> = {
   plan: { model: OPUS, effort: "medium", maxTokens: 8000 },   // thinking counts against max_tokens: leave room
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
   simpler: { model: HAIKU, maxTokens: 600 },
   chapter: { model: HAIKU, maxTokens: 6000 },
+  scenes: { model: HAIKU, maxTokens: 2000 },   // one scene line per teaching card, for the chapter pictures
   check: { model: OPUS, effort: "low", maxTokens: 10000 },   // fact check of live chapters. Tested 4 Oct on the bad chess chapter: Opus low caught all 7 problems (~33 s, ~₹7); Opus medium the same 7 (~43 s, ~₹8.90); Sonnet 5.5 low/medium introduced new false claims
 };
 
@@ -83,7 +84,7 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"))) },
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"))) },
   handler: async (ctx, { kind, system, user, model, effort }): Promise<Result> => {
     const started = Date.now();
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;

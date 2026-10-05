@@ -32,6 +32,7 @@ type Props = {
   onFinish: () => Promise<void>
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
   svg?: string
+  pictures: Record<number, string>   // card index -> Runway picture URL, arriving after the chapter
   onExit: () => void
   handbookId: Id<'handbooks'>
   deviceToken: string
@@ -62,7 +63,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -203,6 +204,8 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
   }
 
   const c = item.card
+  // A card's picture sits on its first frame only, so the words keep the screen on the frames after it.
+  const pic = !item.recall && frame.part === 0 && c.type !== 'exercise' && c.type !== 'watch' ? pictures[item.cardIndex] : undefined
   const revealId = result && !result.correct && result.reveal ? result.reveal.id : null
   const label = item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of 7`
 
@@ -249,9 +252,10 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
           ) : (
             <>
               {frame.cover && <h1 className="story-title">{title}</h1>}
-              {frame.cover && svg && <div className="story-illo"><Illustration svg={svg} /></div>}
+              {pic ? <div className="story-pic"><img src={pic} alt="" /></div>
+                : frame.cover && svg && <div className="story-illo"><Illustration svg={svg} /></div>}
               {!frame.cover && frame.part === 0 && (KICKER[c.type] || c.title) && <p className="story-kicker">{KICKER[c.type] ?? c.title}</p>}
-              <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover ? 'md' : sizeOf(frame.text ?? '')}`} />
+              <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover || pic ? (pic && !frame.cover && sizeOf(frame.text ?? '') === 'xl' ? 'lg' : 'md') : sizeOf(frame.text ?? '')}`} />
               {isLast && (
                 <button type="button" className="story-finish no-tap" onClick={finish} disabled={finishing}>{finishing ? 'Saving…' : `Finish chapter ${n}`}</button>
               )}

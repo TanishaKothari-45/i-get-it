@@ -24,6 +24,7 @@ const limiter = new RateLimiter(components.rateLimiter, {
   askAll: { kind: "fixed window", rate: 200, period: HOUR },      // ~₹0.5 each
   searchAll: { kind: "fixed window", rate: 20, period: HOUR },    // ~₹9.4 each
   simplerAll: { kind: "fixed window", rate: 300, period: HOUR },  // ~₹0.06 each
+  picturesAll: { kind: "fixed window", rate: 400, period: HOUR }, // Runway pictures, 1 credit (~₹0.85) each
 });
 
 export function topicKeyOf(topic: string) {
@@ -99,7 +100,7 @@ async function ensureChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
   const fromCache = await cachedChapter(ctx, h, n);
   if (fromCache) {
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
-    const doc = { status: "ready" as const, title: fromCache.title, cards: fromCache.cards, outcomeLine: fromCache.outcomeLine, svg: fromCache.svg, cacheVersion: row?.version ?? 0, error: undefined };
+    const doc = { status: "ready" as const, title: fromCache.title, cards: fromCache.cards, outcomeLine: fromCache.outcomeLine, svg: fromCache.svg, pictures: fromCache.pictures, cacheVersion: row?.version ?? 0, error: undefined };
     if (existing) await ctx.db.patch(existing._id, doc);
     else await ctx.db.insert("chapters", { handbookId: h._id, n, createdAt: Date.now(), ...doc });
     return;
@@ -125,9 +126,11 @@ function publicCards(cards: any[] | undefined) {
   });
 }
 
-function publicChapter(ch: Doc<"chapters">) {
+async function publicChapter(ctx: QueryCtx, ch: Doc<"chapters">) {
   const variants = ch.variants?.map((vnt: any) => ({ key: vnt.key, status: vnt.status, title: vnt.title, outcomeLine: vnt.outcomeLine, svg: vnt.svg, cards: publicCards(vnt.cards) }));
-  return { n: ch.n, status: ch.status, title: ch.title, outcomeLine: ch.outcomeLine, cards: publicCards(ch.cards), error: ch.error, svg: (ch as any).svg, stale: ch.stale ?? false, variants, vote: ch.vote };
+  const pictures: Record<number, string> = {};
+  for (const p of ch.pictures ?? []) if (p.storageId) { const url = await ctx.storage.getUrl(p.storageId); if (url) pictures[p.card] = url; }
+  return { n: ch.n, status: ch.status, title: ch.title, outcomeLine: ch.outcomeLine, cards: publicCards(ch.cards), error: ch.error, svg: (ch as any).svg, stale: ch.stale ?? false, variants, vote: ch.vote, pictures };
 }
 
 async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
@@ -136,7 +139,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   return {
     _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error,
     signedIn: !!h.userId,
-    chapters: chapters.sort((a, b) => a.n - b.n).map(publicChapter),
+    chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch))),
     progress: progress ? {
       currentChapter: progress.currentChapter, currentCard: progress.currentCard, chaptersPassed: progress.chaptersPassed,
       passedExercises: progress.passedExercises, missedExercises: progress.missedExercises, tomorrowAt: progress.tomorrowAt,
@@ -240,7 +243,7 @@ export const create = mutation({
         ownerToken: deviceToken, userId: userId ?? undefined, source: "cache", createdAt: now,
       });
       for (const ch of cached.chapters) {
-        await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: ch.svg, cacheVersion: cached.version ?? 0, createdAt: now });
+        await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: ch.svg, pictures: ch.pictures, cacheVersion: cached.version ?? 0, createdAt: now });
       }
       await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
       return { handbookId, fromCache: true, existing: false };
@@ -352,6 +355,8 @@ export const generateChapter = internalAction({
     const title = String(ch.title ?? h.plan.chapters[n - 1]?.title ?? `Chapter ${n}`);
     const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards);
     await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards: checked.cards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report });
+    // Pictures come after the words: the chapter opens now, each picture fades in when it's drawn.
+    await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
   },
 });
 
@@ -389,6 +394,56 @@ export const setChapter = internalMutation({
     else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, outcomeLine, svg, model, factCheck, createdAt: Date.now() });
   },
 });
+// ---------- pictures ----------
+
+export const takePictureBudget = internalMutation({
+  args: { count: v.number() },
+  handler: async (ctx, { count }) => (await limiter.limit(ctx, "picturesAll", { count })).ok,
+});
+
+export const setPictures = internalMutation({
+  args: { handbookId: v.id("handbooks"), n: v.number(), status: v.string(), pictures: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")) }))) },
+  handler: async (ctx, { handbookId, n, status, pictures }) => {
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+    if (ch) await ctx.db.patch(ch._id, { picturesStatus: status, ...(pictures ? { pictures } : {}) });
+  },
+});
+
+export const readCacheChapter = internalQuery({
+  args: { topicKey: v.string(), level, n: v.number() },
+  handler: async (ctx, { topicKey, level: lvl, n }) => {
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
+    return row ? { topic: row.topic, plan: row.plan, chapter: row.chapters.find((c: any) => c.n === n) ?? null } : null;
+  },
+});
+
+export const listCache = internalQuery({
+  args: {},
+  handler: async (ctx) => (await ctx.db.query("cache").collect()).map((r) => ({ topicKey: r.topicKey, level: r.level, topic: r.topic, chapters: r.chapters.map((c: any) => ({ n: c.n, pictures: (c.pictures ?? []).length })) })),
+});
+
+// Store a ready topic's pictures on the cache row, and give them to every reader's copy of that
+// chapter that has none yet (same cards only: a copy rewritten for a reader keeps its own).
+export const setCachePictures = internalMutation({
+  args: { topicKey: v.string(), level, n: v.number(), pictures: v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")) })) },
+  handler: async (ctx, { topicKey, level: lvl, n, pictures }) => {
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
+    if (!row) return 0;
+    const chapters = row.chapters.map((c: any) => (c.n === n ? { ...c, pictures } : c));
+    await ctx.db.patch(row._id, { chapters });
+    const cached = chapters.find((c: any) => c.n === n);
+    let copies = 0;
+    for (const h of await ctx.db.query("handbooks").collect()) {
+      if (h.source !== "cache" || h.topicKey !== topicKey || h.level !== lvl) continue;
+      const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
+      if (!ch || ch.pictures?.length || ch.title !== cached?.title) continue;
+      await ctx.db.patch(ch._id, { pictures, picturesStatus: "done" });
+      copies++;
+    }
+    return copies;
+  },
+});
+
 export const setChapterFailed = internalMutation({
   args: { handbookId: v.id("handbooks"), n: v.number(), error: v.string() },
   handler: async (ctx, { handbookId, n, error }) => {
@@ -588,7 +643,7 @@ export const syncFromCache = mutation({
       if (!unread || ch.model || ch.vote || (ch.cacheVersion ?? 0) >= row.version) continue;
       const fresh = row.chapters.find((c: any) => c.n === ch.n);
       if (!fresh) continue;
-      await ctx.db.patch(ch._id, { status: "ready", title: fresh.title, cards: fresh.cards, outcomeLine: fresh.outcomeLine, svg: fresh.svg, cacheVersion: row.version, stale: false, error: undefined });
+      await ctx.db.patch(ch._id, { status: "ready", title: fresh.title, cards: fresh.cards, outcomeLine: fresh.outcomeLine, svg: fresh.svg, pictures: fresh.pictures, cacheVersion: row.version, stale: false, error: undefined });
       updated++;
     }
     // the plan too (hooks, sources), only if the person hasn't started reading at all
