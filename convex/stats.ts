@@ -74,6 +74,12 @@ export const summary = query({
     const users = (await ctx.db.query("users").collect()).filter((u) => !xUsers.has(String(u._id)));
     const intents = (await ctx.db.query("priceIntents").collect()).filter((i) =>
       !(i.userId && xUsers.has(String(i.userId))) && !(i.deviceToken && xTokens.has(i.deviceToken)));
+    // Pay numbers are shown only to the owner (emails in STATS_OWNER_EMAILS): a visitor who learns that
+    // payments aren't live before tapping Pay would spoil the count of people willing to pay.
+    const viewerId = await getAuthUserId(ctx);
+    const viewer = viewerId ? await ctx.db.get(viewerId) : null;
+    const owners = (process.env.STATS_OWNER_EMAILS ?? "").toLowerCase().split(",").map((e) => e.trim()).filter(Boolean);
+    const isOwner = !!viewer?.email && owners.includes(viewer.email.toLowerCase());
     const payers = new Set(intents.map((i) => (i.userId ? `u:${i.userId}` : `d:${i.deviceToken ?? i._id}`)));
 
     return {
@@ -85,8 +91,7 @@ export const summary = query({
       passedChapter1: passed.size,
       signups: users.length,
       signupsToday: users.filter((u) => dayOf(u._creationTime) === today).length,
-      tappedPay: payers.size,
-      freeSpotsClaimed: intents.filter((i) => i.freeMonths).length,
+      pay: isOwner ? { tapped: payers.size, freeSpotsClaimed: intents.filter((i) => i.freeMonths).length } : null,
       thisPhoneExcluded: !!deviceToken && xTokens.has(deviceToken),
       at: Date.now(),
     };

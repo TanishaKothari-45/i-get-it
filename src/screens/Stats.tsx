@@ -26,8 +26,8 @@ export default function Stats() {
               <Stat n={s.started} label="Started a handbook" />
               <Stat n={s.passedChapter1} label="Passed chapter 1" />
               <Stat n={s.signups} label={`Signed up${s.signupsToday ? ` (${s.signupsToday} today)` : ''}`} />
-              <Stat n={s.tappedPay} label="Tapped Pay (payments not live yet)" />
-              <Stat n={s.freeSpotsClaimed} label="Free-months spots claimed, of 25" />
+              {s.pay && <Stat n={s.pay.tapped} label="Tapped Pay (only you see this)" />}
+              {s.pay && <Stat n={s.pay.freeSpotsClaimed} label="Free spots claimed, of 25 (only you)" />}
             </div>
 
             <h2 className="stats-h">Visitors, last 14 days</h2>
