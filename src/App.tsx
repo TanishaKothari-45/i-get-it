@@ -5,7 +5,7 @@ import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
 import Start from './screens/Start'
 import Plan from './screens/Plan'
-import Chapter, { type AnswerResult, type Card } from './screens/Chapter'
+import Chapter, { type AnswerResult, type Card, type Recap } from './screens/Chapter'
 import Done from './screens/Done'
 import SignIn from './screens/SignIn'
 import Tune from './screens/Tune'
@@ -208,6 +208,7 @@ export default function App() {
           title={chapter.title ?? plan?.chapters?.[chapter.n - 1]?.title ?? `Chapter ${chapter.n}`}
           cards={chapter.cards as Card[]}
           recall={recall as any}
+          recap={progress?.currentCard === 0 ? recapOf(hb.chapters, chapter.n, plan) : null}
           passed={passed}
           passedExercises={progress?.passedExercises ?? []}
           startAt={progress?.currentCard ?? 0}
@@ -264,4 +265,17 @@ function Shell({ children, onSignOut, rail, back }: { children: React.ReactNode;
       <footer className="foot"><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
     </div>
   )
+}
+
+// The chapter before this one, in one breath: its "In one breath" card, else its outcome line.
+function recapOf(chapters: { n: number; status: string; title?: string; outcomeLine?: string; cards?: unknown }[], n: number, plan: any): Recap | null {
+  const prev = chapters.find((c) => c.n === n - 1)
+  if (!prev || prev.status !== 'ready' || !Array.isArray(prev.cards)) return null
+  const title = prev.title ?? plan?.chapters?.[prev.n - 1]?.title ?? `Chapter ${prev.n}`
+  const summary = (prev.cards as Card[]).find((c) => c.type === 'teach' && (c.summary || /in one breath/i.test(c.title ?? '')))
+  // The card's closing "Tomorrow: ..." teaser was for last night; the recap keeps only the summary.
+  const body = summary && 'body' in summary
+    ? summary.body.split(/\n\n+/).filter((p) => !/^\W*tomorrow\b/i.test(p.trim())).join('\n\n')
+    : prev.outcomeLine
+  return body ? { chapter: prev.n, title, body } : null
 }

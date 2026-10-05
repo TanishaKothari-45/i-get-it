@@ -6,7 +6,7 @@ import AskCard from '../components/AskCard'
 import type { Id } from '../../convex/_generated/dataModel'
 
 export type Card =
-  | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number }
+  | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number; summary?: boolean }
   | { type: 'watch'; who: string; what: string; url: string; from?: string; minutes?: number; watchFor: string }
   | { type: 'exercise'; kind: 'guess' | 'apply' | 'recall'; prompt: string; options: { id: string; text: string }[] }
 
@@ -14,7 +14,9 @@ export type AnswerResult =
   | { correct: true; text: string; why: string | null }
   | { correct: false; whyNot: string; reteach: string; reveal: { id: string; text: string } | null }
 
-type Item = { chapter: number; cardIndex: number; card: Card; recall?: boolean }
+// recap: the previous chapter in one breath, shown first. It rides as a recall item, so it never moves the reader's place.
+type Item = { chapter: number; cardIndex: number; card: Card; recall?: boolean; recap?: boolean }
+export type Recap = { chapter: number; title: string; body: string }
 type Tone = 'marigold' | 'green' | 'coral' | 'indigo' | 'ink' | 'cream'
 type Frame = { item: Item; text?: string; part: number; parts: number; tone: Tone; cover?: boolean }
 
@@ -24,6 +26,7 @@ type Props = {
   title: string
   cards: Card[]
   recall: Item[]
+  recap?: Recap | null
   passed: number[]
   passedExercises: string[]
   startAt: number
@@ -63,10 +66,14 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, recap, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
-    () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
-    [cards, recall, n],
+    () => [
+      ...(recap ? [{ chapter: recap.chapter, cardIndex: -1, card: { type: 'teach' as const, title: `Last time: ${recap.title}`, body: recap.body }, recall: true, recap: true }] : []),
+      ...recall.map((r) => ({ ...r, recall: true })),
+      ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card })),
+    ],
+    [cards, recall, recap, n],
   )
 
   const [simplePref, setSimplePref] = useState<boolean>(() => { try { return localStorage.getItem('igetit.simple') === '1' } catch { return false } })
@@ -207,7 +214,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
   // A card's picture sits on its first frame only, so the words keep the screen on the frames after it.
   const pic = !item.recall && frame.part === 0 && c.type !== 'exercise' && c.type !== 'watch' ? pictures[item.cardIndex] : undefined
   const revealId = result && !result.correct && result.reveal ? result.reveal.id : null
-  const label = item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of 7`
+  const label = item.recap ? `Recap · chapter ${item.chapter}` : item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of 7`
 
   return (
     <div className="story" role="dialog" aria-label={`${title}, chapter ${n}`}>
@@ -265,7 +272,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
         </div>
 
         <div className="story-tools no-tap">
-          {teaching && c.type !== 'try' && (showingSimpler
+          {teaching && c.type !== 'try' && !item.recall && (showingSimpler
             ? <button type="button" onClick={showOriginal}>Show the original</button>
             : rewriting === item.cardIndex ? <span>Rewriting…</span>
             : <button type="button" onClick={saySimpler}>Say it simpler</button>)}
