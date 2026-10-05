@@ -122,6 +122,24 @@ export default defineSchema({
     at: v.number(),
   }),
 
+  // A device that said yes to nudges: where to send them (the browser's push address and keys),
+  // whose they are, and the device's timezone so "9pm" means their 9pm.
+  pushSubscriptions: defineTable({
+    endpoint: v.string(),
+    p256dh: v.string(),
+    auth: v.string(),
+    deviceToken: v.string(),
+    userId: v.optional(v.id("users")),
+    timezone: v.string(),              // e.g. "Asia/Kolkata"
+    createdAt: v.number(),
+    lastSentDay: v.optional(v.string()),   // the device's local date of the last nudge, "2026-10-05"
+    // Kept (not deleted) when nudges stop, so we can see who turned them off and when.
+    stoppedAt: v.optional(v.number()),
+    stoppedReason: v.optional(v.string()), // "gone (410)": the browser dropped it; "turned off": they did
+  })
+    .index("by_endpoint", ["endpoint"])
+    .index("by_device", ["deviceToken"]),
+
   // Every model call, so the last 100 can be read.
   aiCalls: defineTable({
     kind: v.string(),

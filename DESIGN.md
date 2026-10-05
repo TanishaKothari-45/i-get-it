@@ -139,6 +139,19 @@ Plan: "See it another way", then "Seen it another way · read it again".
 Screen (/h/:id/chapter/:n/another-way): header "Another way · chapter N · card x of y", last button "Finish" → back to the plan.
 Loading: "Another way · chapter N" / "Another way in." / "[chapter title], explained from a different angle: a new comparison, a slower example, fresh questions. Optional, and it doesn't change your plan." Button "Writing it…". Error as for go deeper.
 
+Nudges and the installable app (added 9 Oct, agent)
+For: one reminder a day at the learner's time, even with the app closed (Web Push), and an app icon on the home screen.
+Done screen (not after chapter 7): a dashed box, heading "Keep going, or see you tomorrow?", "Chapter [N] is ready whenever you are. We'll tap you on the shoulder at [9pm]." (chosen by Tanisha, 9 Oct). Two buttons only: outlined "Allow" (then the browser's own prompt) and quiet "Not now" (quiet for a week). On iPhone outside the Home Screen, Allow shows: "On iPhone, add I Get It to your Home Screen first: tap Share, then Add to Home Screen, then open it from there and tap Allow again." Right after Allow: "Done. See you at [9pm] tomorrow for chapter [N]." Later visits, once on: "We'll tap you on the shoulder at [9pm] if you haven't opened it by then." Android, when installable: a quiet "Add I Get It to your home screen".
+The nudge itself (chosen by Tanisha, 9 Oct): seven fixed lines, one per day in turn, N = the chapter they're on; no AI call. One emoji each (a deliberate exception: notifications aren't lesson prose). Opens the handbook. One a day at most, never if they already studied that day. Swap the seven for a fresh set from time to time (the list in convex/pushSend.ts).
+1 "👋 Hey, ready for chapter N?" / "It's chapter o'clock. Twenty minutes, one new idea."
+2 "👀 Psst… chapter N has a twist" / "It's waiting for you. Shall we?"
+3 "🧠 Your brain called" / "It wants chapter N. We promised we'd pass the message on."
+4 "☕ Chai + chapter N?" / "Best combo of the evening. Twenty minutes, tops."
+5 "🚀 Chapter N, ready for liftoff" / "Twenty minutes to your next “oh, I get it”."
+6 "🍿 Tonight's episode: chapter N" / "No ads. No spoilers. Just press play."
+7 "🎯 One chapter closer" / "Chapter N is twenty minutes away. Let's get it."
+App icon: **MISSING: Prateek to pick.** Placeholder built: an ink "I" on paper with seven rung segments, three lit.
+
 Someone else's handbook link (added 7 Oct, agent)
 "This handbook is someone else's." / "You can start your own on the same thing: [topic]." Button: Start my own (busy: "Starting yours…").
 A link that leads nowhere: "Nothing here." / "This link doesn't lead to a handbook." Button: Go to my handbooks.

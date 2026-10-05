@@ -2,6 +2,8 @@ import { useState } from 'react'
 import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
+import Nudge from '../components/Nudge'
+import { prettyTime } from '../lib/time'
 
 type Props = {
   topic: string
@@ -18,6 +20,7 @@ type Props = {
   // The chapter's optional bonus: "deeper" if every exercise was right first time, "another" if any
   // was missed. Never the main action.
   bonus?: { kind: 'deeper' | 'another'; done: boolean; onGo: () => void }
+  deviceToken: string         // for "want a nudge?" on this device
 }
 
 const BONUS_COPY = {
@@ -34,16 +37,10 @@ const BONUS_COPY = {
 }
 
 const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
-
-function pretty(t: string) {
-  const [h, m] = t.split(':').map(Number)
-  const ampm = h >= 12 ? 'pm' : 'am'
-  const hh = ((h + 11) % 12) + 1
-  return m ? `${hh}:${String(m).padStart(2, '0')}${ampm}` : `${hh}${ampm}`
-}
+const pretty = prettyTime
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, bonus }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, bonus, deviceToken }: Props) {
   const copy = bonus ? BONUS_COPY[bonus.kind] : null
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
@@ -57,6 +54,8 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
+
+      {!last && <Nudge deviceToken={deviceToken} next={n + 1} at={tomorrowAt} />}
 
       {bonus && copy && (
         <div className="bonus-offer">

@@ -74,8 +74,10 @@ main { flex: 1; display: flex; flex-direction: column; padding-bottom: 120px; }
 .library a:hover .t { text-decoration: underline; text-underline-offset: 0.18em; }
 
 /* "go deeper": an optional bonus, never the main action (so no accent) */
-.bonus-offer { margin-top: var(--xl); border: 1.5px dashed var(--tint); border-radius: var(--radius); padding: var(--m); }
-.bonus-offer .serif { margin: var(--s) 0 var(--m); }
+.bonus-offer, .nudge { margin-top: var(--xl); border: 1.5px dashed var(--tint); border-radius: var(--radius); padding: var(--m); }
+.bonus-offer .serif, .nudge .serif { margin: var(--s) 0 var(--m); }
+/* "want a nudge?": Allow and Not now only; Allow outlined, never the accent */
+.nudge-actions { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .chapters .c .bonus-link { color: var(--ink); font-family: var(--sans); font-size: var(--small); font-weight: 600; text-underline-offset: 0.18em; }
 
 /* plan: chapters they can open are links, quiet until touched */

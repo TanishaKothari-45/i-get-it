@@ -196,6 +196,7 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
         onPickTime={async (at) => { await setTomorrow({ handbookId: id, at, deviceToken: token }) }}
         onContinue={() => navigate(paths.handbook(id))}
         bonus={(() => { const b = bonusOf(n); return b ? { ...b, onGo: () => navigate(paths.bonus(id, n, b.kind)) } : undefined })()}
+        deviceToken={token}
       />
     )
   }
