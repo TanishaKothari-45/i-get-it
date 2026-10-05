@@ -80,6 +80,17 @@ main { flex: 1; display: flex; flex-direction: column; padding-bottom: 120px; }
 .nudge-actions { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .chapters .c .bonus-link { color: var(--ink); font-family: var(--sans); font-size: var(--small); font-weight: 600; text-underline-offset: 0.18em; }
 
+/* after the last chapter: what's next */
+.whats-next { margin-top: var(--xl); }
+.whats-next .label { margin-top: var(--l); }
+.next-card { margin-top: var(--m); border: 1.5px dashed var(--tint); border-radius: var(--radius); padding: var(--m); }
+.next-card .label { margin-top: 0; }
+.next-card .serif { margin: var(--s) 0 var(--m); }
+.next-list { list-style: none; margin: var(--s) 0 0; padding: 0; border-top: 1px solid var(--tint); }
+.next-list button { display: flex; flex-direction: column; width: 100%; min-height: 48px; padding: 12px 0; background: none; border: 0; border-bottom: 1px solid var(--tint); text-align: left; font-size: var(--ui); font-weight: 600; color: var(--ink); }
+.next-list button:hover { text-decoration: underline; text-underline-offset: 0.18em; }
+.next-list small { font-size: var(--small); font-weight: 400; color: var(--ink-2); }
+
 /* plan: chapters they can open are links, quiet until touched */
 .chapters .t a { color: inherit; text-decoration: none; }
 .chapters .t a:hover { text-decoration: underline; text-underline-offset: 0.18em; }

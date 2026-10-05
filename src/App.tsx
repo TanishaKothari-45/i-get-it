@@ -127,6 +127,7 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
   const answerQuestion = useMutation(api.handbooks.answerQuestion)
   const retry = useMutation(api.handbooks.retry)
   const setTomorrow = useMutation(api.handbooks.setTomorrow)
+  const goFurther = useMutation(api.handbooks.goFurther)
   const hb = data?.kind === 'mine' ? data.handbook : null
   useTitle(hb ? (hb.plan?.topic ?? hb.topic) : null)
 
@@ -197,6 +198,14 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
         onContinue={() => navigate(paths.handbook(id))}
         bonus={(() => { const b = bonusOf(n); return b ? { ...b, onGo: () => navigate(paths.bonus(id, n, b.kind)) } : undefined })()}
         deviceToken={token}
+        whatsNext={n === 7 ? {
+          topic,
+          nextLine: plan.horizon14 ?? undefined,
+          related: Array.isArray(plan.related) ? plan.related.filter((t: unknown) => typeof t === 'string' && t.trim()).slice(0, 3) : [],
+          fresh: examples.filter((t) => t !== topic && !(plan.related ?? []).includes(t)).slice(0, 3),
+          onGoFurther: async () => { const { handbookId } = await goFurther({ handbookId: id, deviceToken: token }); navigate(paths.handbook(handbookId)) },
+          onStart: (t) => create(t, 'new', hb.voice),
+        } : undefined}
       />
     )
   }

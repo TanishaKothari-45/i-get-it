@@ -3,6 +3,8 @@ import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
 import Nudge from '../components/Nudge'
+import WhatsNext from '../components/WhatsNext'
+import type { ComponentProps } from 'react'
 import { prettyTime } from '../lib/time'
 
 type Props = {
@@ -21,6 +23,7 @@ type Props = {
   // was missed. Never the main action.
   bonus?: { kind: 'deeper' | 'another'; done: boolean; onGo: () => void }
   deviceToken: string         // for "want a nudge?" on this device
+  whatsNext?: ComponentProps<typeof WhatsNext>   // after the last chapter: go further, related, something new
 }
 
 const BONUS_COPY = {
@@ -40,7 +43,7 @@ const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
 const pretty = prettyTime
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, bonus, deviceToken }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, bonus, deviceToken, whatsNext }: Props) {
   const copy = bonus ? BONUS_COPY[bonus.kind] : null
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
@@ -53,7 +56,8 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       <h1>Chapter {n} of 7: done.</h1>
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
-      {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
+      {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Seven chapters, done.</p>}
+      {last && whatsNext && <WhatsNext {...whatsNext} />}
 
       {!last && <Nudge deviceToken={deviceToken} next={n + 1} at={tomorrowAt} />}
 

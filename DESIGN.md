@@ -152,6 +152,10 @@ The nudge itself (chosen by Tanisha, 9 Oct): seven fixed lines, one per day in t
 7 "🎯 One chapter closer" / "Chapter N is twenty minutes away. Let's get it."
 App icon: **MISSING: Prateek to pick.** Placeholder built: an ink "I" on paper with seven rung segments, three lit.
 
+What's next (added 10 Oct, agent)
+For: the moment someone finishes chapter 7, so the end of a handbook is the start of the next one. On the last Done screen, under "That's the whole handbook. Seven chapters, done.":
+"What's next?" then three parts. (1) Go further: a dashed card, label "Go further", "[topic]: the next level. It picks up where this one ends. Where it heads: [the plan's day-14 line]", outlined button "Start the next level" (busy: "Starting the next level…"). It starts at "know some", continues from what they finished, never repeats it. (2) "You might also like": the three related topics the plan suggested, as rows (hidden when the plan has none, e.g. the pre-written books). (3) "Or something new": three ready handbooks on other things (open straight away), then a box "Or type anything you keep meaning to learn" and an outlined "Write my handbook". Rows show "Starting…" while one starts. Error: "Couldn't start it just now. Try once more in a minute." / busy: "Busy right now. Try again in a few minutes."
+
 Someone else's handbook link (added 7 Oct, agent)
 "This handbook is someone else's." / "You can start your own on the same thing: [topic]." Button: Start my own (busy: "Starting yours…").
 A link that leads nowhere: "Nothing here." / "This link doesn't lead to a handbook." Button: Go to my handbooks.

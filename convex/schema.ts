@@ -78,6 +78,7 @@ export default defineSchema({
     question: v.optional(v.string()),
     error: v.optional(v.string()),
     bookId: v.optional(v.id("books")),   // set once the plan exists
+    continuesBookId: v.optional(v.id("books")),   // "go further": the book this one is the next level of
     ownerToken: v.optional(v.string()),
     userId: v.optional(v.id("users")),
     createdAt: v.number(),
