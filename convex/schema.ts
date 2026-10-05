@@ -5,6 +5,19 @@ import { authTables } from "@convex-dev/auth/server";
 export const level = v.union(v.literal("new"), v.literal("some"));
 export const voice = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
 
+// Something the learner shared to learn from: a YouTube or Instagram link, or a photo. Read once by Gemini;
+// only the notes are kept (a photo is deleted after reading, a video is never stored).
+export const sourceV = v.object({
+  kind: v.union(v.literal("youtube"), v.literal("instagram"), v.literal("image")),
+  url: v.optional(v.string()),
+  storageId: v.optional(v.id("_storage")),   // a photo, until it has been read
+  status: v.union(v.literal("waiting"), v.literal("reading"), v.literal("read"), v.literal("failed")),
+  via: v.optional(v.string()),     // how it was read: "video", "transcript", "caption", "photo"
+  title: v.optional(v.string()),   // what it teaches, in a few words
+  notes: v.optional(v.string()),   // what it teaches, in detail (server only)
+  error: v.optional(v.string()),
+});
+
 export default defineSchema({
   ...authTables,
 
@@ -24,6 +37,9 @@ export default defineSchema({
     // A translated book: the English book it was translated from. Its chapters are translated one at
     // a time, as readers reach them, from that book's chapters. Missing on English books.
     sourceBookId: v.optional(v.id("books")),
+    // Written from one person's own links or photos: never given to anyone else (no topic keys point to it).
+    private: v.optional(v.boolean()),
+    sourceNotes: v.optional(v.string()),   // what those sources teach; chapters are written from it
   })
     .index("by_source", ["source"])
     .index("by_translation", ["sourceBookId", "language"]),
@@ -84,6 +100,7 @@ export default defineSchema({
     error: v.optional(v.string()),
     bookId: v.optional(v.id("books")),   // set once the plan exists
     continuesBookId: v.optional(v.id("books")),   // "go further": the book this one is the next level of
+    sources: v.optional(v.array(sourceV)),        // started from links or photos instead of (or as well as) a typed line
     ownerToken: v.optional(v.string()),
     userId: v.optional(v.id("users")),
     createdAt: v.number(),

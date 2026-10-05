@@ -4,7 +4,8 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage, type BonusKind } from "./prompts";
+import { CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage, sourcesBlock, type BonusKind } from "./prompts";
+import { buildSources, sourceNotesOf } from "./sources";
 import { level, voice as voiceV } from "./schema";
 import { ENGLISH, languageInfo } from "./languages";
 
@@ -36,6 +37,9 @@ export const limiter = new RateLimiter(components.rateLimiter, {
   generateAll: { kind: "fixed window", rate: 60, period: HOUR },
   generateDevice: { kind: "token bucket", rate: 6, period: HOUR, capacity: 3 },
   simplerDevice: { kind: "token bucket", rate: 30, period: HOUR, capacity: 10 },
+  // Photo uploads (read once, then deleted): per phone and across the app, so storage can't be flooded.
+  uploadDevice: { kind: "token bucket", rate: 20, period: HOUR, capacity: 6 },
+  uploadAll: { kind: "fixed window", rate: 500, period: HOUR },
 });
 
 export function topicKeyOf(topic: string) {
@@ -238,6 +242,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   }
   return {
     bonus: bonus.map((b) => ({ kind: b.kind, n: b.n, status: b.status, title: b.title, cards: publicCards(b.cards), error: b.error })),
+    sources: (h.sources ?? []).map((s) => ({ kind: s.kind, url: s.url, status: s.status, via: s.via, title: s.title, error: s.error })),
     _id: h._id, topic: h.topic, level: h.level, voice: h.voice, language: h.language, bookVoice: book?.voice ?? null, source: book?.source ?? null,
     status: h.status, question: h.question, plan: book?.plan ?? null, error: h.error,
     signedIn: !!h.userId,
@@ -333,7 +338,7 @@ export const recallFor = query({
 
 // ---------- creating a handbook ----------
 
-type StartArgs = { topic: string; level: Level; voice?: Voice; language?: string; deviceToken: string; continuesBookId?: Id<"books"> };
+type StartArgs = { topic: string; level: Level; voice?: Voice; language?: string; deviceToken: string; continuesBookId?: Id<"books">; links?: string[]; images?: Id<"_storage">[] };
 type HandbookBase = Omit<Doc<"handbooks">, "_id" | "_creationTime" | "topic" | "status">;
 
 // A handbook pointing to a book that already exists: nothing is written or copied.
@@ -344,13 +349,32 @@ async function handbookOnBook(ctx: MutationCtx, base: HandbookBase, book: Doc<"b
   return { handbookId, fromCache: true };
 }
 
+// Started from links or photos: always written fresh for this person (their own sources, never a shared book).
+// The sources are read first (sourcesRead.readAll), then the plan is written from what they teach.
+async function startFromSources(ctx: MutationCtx, a: { clean: string; level: Level; voice: Voice; language: string; deviceToken: string; links: string[]; images: Id<"_storage">[] }) {
+  const sources = buildSources(a.links, a.images);
+  if (!sources.length) throw new Error("Add a link or a photo first.");
+  const all = await limiter.limit(ctx, "generateAll");
+  const mine = await limiter.limit(ctx, "generateDevice", { key: a.deviceToken });
+  if (!all.ok || !mine.ok) throw new Error("busy");
+  const userId = await getAuthUserId(ctx);
+  const handbookId = await ctx.db.insert("handbooks", {
+    topic: a.clean, topicKey: "", level: a.level, language: a.language, voice: a.voice, status: "planning", sources,
+    ownerToken: a.deviceToken, userId: userId ?? undefined, createdAt: Date.now(),
+  });
+  await newProgress(ctx, handbookId);
+  await ctx.scheduler.runAfter(0, internal.sourcesRead.readAll, { handbookId });
+  return { handbookId, fromCache: false };
+}
+
 // A new handbook for this line: reopen one they already have, point to a shared book if one exists,
 // translate the English book if only that exists, otherwise write it (within the caps).
-async function startHandbook(ctx: MutationCtx, { topic, level: lvl, voice, language, deviceToken, continuesBookId }: StartArgs) {
+async function startHandbook(ctx: MutationCtx, { topic, level: lvl, voice, language, deviceToken, continuesBookId, links, images }: StartArgs) {
   const clean = topic.trim().slice(0, 200);
-  if (clean.length < 2) throw new Error("Type a few words first.");
   const lang = language ?? ENGLISH;
   if (!languageInfo(lang)) throw new Error("Unknown language");
+  if (links?.length || images?.length) return startFromSources(ctx, { clean, level: lvl, voice: voice ?? DEFAULT_VOICE, language: lang, deviceToken, links: links ?? [], images: images ?? [] });
+  if (clean.length < 2) throw new Error("Type a few words first.");
   const userId = await getAuthUserId(ctx);
   const topicKey = topicKeyOf(clean);
   const v = voice ?? DEFAULT_VOICE;
@@ -386,8 +410,8 @@ async function startHandbook(ctx: MutationCtx, { topic, level: lvl, voice, langu
 }
 
 export const create = mutation({
-  args: { topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV), language: v.optional(v.string()) },
-  handler: async (ctx, { topic, level: lvl, deviceToken, voice, language }) => startHandbook(ctx, { topic, level: lvl, voice, language, deviceToken }),
+  args: { topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV), language: v.optional(v.string()), links: v.optional(v.array(v.string())), images: v.optional(v.array(v.id("_storage"))) },
+  handler: async (ctx, { topic, level: lvl, deviceToken, voice, language, links, images }) => startHandbook(ctx, { topic, level: lvl, voice, language, deviceToken, links, images }),
 });
 
 // "Go further": the next level of a handbook they've finished. Starts at "know some", picks up where
@@ -413,6 +437,14 @@ export const answerQuestion = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     if (h.status !== "question") throw new Error("No question open");
     const clarification = answer.trim().slice(0, 300);
+    // Started from links or photos: no shared book to find; the answer steers the plan.
+    if (h.sources?.length) {
+      const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
+      if (!mine.ok) throw new Error("busy");
+      await ctx.db.patch(handbookId, { status: "planning", question: undefined, topic: h.topic || clarification });
+      await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId, clarification });
+      return;
+    }
     // The answered line may already have a book (in this language, or in English to translate).
     const key = topicKeyOf(`${h.topic} (${clarification})`);
     const book = await findBook(ctx, key, h.level, h.language, h.voice);
@@ -437,6 +469,13 @@ export const retry = mutation({
     const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
     if (!mine.ok) throw new Error("busy");
     const book = h.bookId ? await ctx.db.get(h.bookId) : null;
+    if (!book && h.sources?.length) {
+      await ctx.db.patch(handbookId, { status: "planning", error: undefined });
+      const unread = h.sources.some((s) => s.status !== "read" && s.status !== "failed");
+      if (unread || !sourceNotesOf(h)) await ctx.scheduler.runAfter(0, internal.sourcesRead.readAll, { handbookId });
+      else await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
+      return;
+    }
     if (!book) {
       await ctx.db.patch(handbookId, { status: "planning", error: undefined });
       // The English book may already be written and only its translation failed: translate again, don't rewrite.
@@ -465,10 +504,12 @@ export const generatePlan = internalAction({
     } : undefined;
     // Always written in English (translated after); only a clarifying question is asked in their language.
     const reader = h.language === ENGLISH ? "" : `\nThe learner reads ${h.language}. Write everything in English, except the clarifying question, if you ask one: write that in ${h.language}.`;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, ENGLISH, h.voice, clarification, previous) + reader });
+    const notes = sourceNotesOf(h);
+    const grounding = notes ? sourcesBlock(notes, "plan") : "";
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, ENGLISH, h.voice, clarification, previous) + reader + grounding });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: r.error }); return; }
     const plan = r.json;
-    if (plan.needsClarification && plan.question && !clarification && !previous) {
+    if (plan.needsClarification && plan.question && !clarification && !previous && !notes) {
       await ctx.runMutation(internal.handbooks.setQuestion, { handbookId, question: String(plan.question) });
       return;
     }
@@ -489,17 +530,20 @@ export const savePlan = internalMutation({
     const line = clarification ? `${h.topic} (${clarification})` : h.topic;
     const keys = [topicKeyOf(line), topicKeyOf(String(plan.topic ?? ""))];
     let book: Doc<"books"> | null = null;
-    for (const k of keys) { book = await findBook(ctx, k, h.level, ENGLISH, h.voice); if (book) break; }
+    const notes = sourceNotesOf(h);
+    if (!notes) for (const k of keys) { book = await findBook(ctx, k, h.level, ENGLISH, h.voice); if (book) break; }
     if (!book) {
       const freshness = freshnessOf(plan.freshness);
       const now = Date.now();
       const bookId = await ctx.db.insert("books", {
         topic: String(plan.topic ?? line), level: h.level, language: ENGLISH, voice: h.voice, plan, source: "live",
         createdAt: now, freshness, expiresAt: now + TTL_MS[freshness],
+        ...(notes ? { private: true, sourceNotes: notes } : {}),
       });
       book = (await ctx.db.get(bookId))!;
     }
-    await addKeys(ctx, book, keys);
+    // A private book (from someone's own sources) is never given a topic key, so no one else lands on it.
+    if (!book.private) await addKeys(ctx, book, keys);
     // Another language: the handbook stays "planning" until the plan's translation lands.
     if (h.language !== ENGLISH) {
       await ctx.db.patch(handbookId, { topic: line, topicKey: keys[0], question: undefined, error: undefined });
@@ -516,7 +560,7 @@ export const generateChapter = internalAction({
   handler: async (ctx, { bookId, n }) => {
     const book = await ctx.runQuery(internal.handbooks.readBook, { bookId });
     if (!book?.plan) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(book.plan, book.level, book.language, book.voice, n) });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(book.plan, book.level, book.language, book.voice, n, book.sourceNotes) });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { bookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");

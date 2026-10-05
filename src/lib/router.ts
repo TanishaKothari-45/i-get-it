@@ -10,6 +10,7 @@ const BONUS_SEGMENT: Record<BonusKind, string> = { deeper: 'deeper', another: 'a
 export type Route =
   | { name: 'home' }
   | { name: 'new' }
+  | { name: 'share' }   // another app shared a link here (Android: "Share to I Get It")
   | { name: 'library' }
   | { name: 'signin' }
   | { name: 'handbook'; id: string }
@@ -33,6 +34,7 @@ export function matchRoute(pathname: string): Route {
   const parts = pathname.split('/').filter(Boolean)
   if (parts.length === 0) return { name: 'home' }
   if (parts.length === 1 && parts[0] === 'new') return { name: 'new' }
+  if (parts.length === 1 && parts[0] === 'share') return { name: 'share' }
   if (parts.length === 1 && parts[0] === 'library') return { name: 'library' }
   if (parts.length === 1 && parts[0] === 'signin') return { name: 'signin' }
   if (parts[0] === 'h' && parts[1]) {

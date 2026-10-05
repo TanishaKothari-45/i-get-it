@@ -24,8 +24,8 @@ export function planUserMessage(topic: string, level: "new" | "some", language: 
     : base;
 }
 
-export function chapterUserMessage(plan: unknown, level: "new" | "some", language: string, voice: Voice, n: number) {
-  return `Plan: ${JSON.stringify(plan)}\nLevel: ${level}\nLanguage: ${language}\nVoice: ${voice}\nWrite chapter ${n}.`;
+export function chapterUserMessage(plan: unknown, level: "new" | "some", language: string, voice: Voice, n: number, sources?: string) {
+  return `Plan: ${JSON.stringify(plan)}\nLevel: ${level}\nLanguage: ${language}\nVoice: ${voice}${sources ? sourcesBlock(sources, "chapter") : ""}\nWrite chapter ${n}.`;
 }
 
 // "Go deeper": a short bonus lesson for someone who got every exercise in a chapter right first time.
@@ -83,4 +83,48 @@ Rules:
 - Names of people stay names; places and brands keep their usual ${language} spelling.
 
 You get {"items":[{"id":"...","card":<number>,"text":"..."}]}. Return JSON only, the same items with the same ids, each with its translated text: {"items":[{"id":"...","text":"..."}]}`;
+}
+
+// ---------- learning from links and photos ----------
+
+// One source: a reel, a YouTube video, a transcript or a photo. Only what it actually teaches, nothing added.
+export const SOURCE_READ_PROMPT = `You read one thing a learner saved because they want to learn from it: a short video, a transcript of one, or a photo. Write down exactly what it teaches, so a teacher who never saw it could build a lesson from your notes.
+
+Rules:
+- Only what the source shows or says: its claims, steps, commands, names, numbers, and any text or code on screen. Never add what it didn't say.
+- For a video, put the time (m:ss) before each point where you can tell it. Note anything shown on screen that isn't said aloud.
+- Keep commands, code, product names and numbers exactly as shown.
+- If it teaches nothing (a meme, an ad, music only, a selfie), set "learnable" to false and say why in "title".
+- "title": what it teaches, 2-6 plain words (for example "Claude Code plugins").
+- "notes": up to 250 words, in English, in the order the source teaches.
+
+Return JSON only: {"learnable": true, "title": "...", "notes": "..."}`;
+
+export function sourceReadMessage(kind: string, extra?: { caption?: string; transcript?: string }) {
+  const what = kind === "image" ? "a photo" : kind === "youtube" ? "a YouTube video" : "an Instagram reel";
+  return `This is ${what} the learner shared.` +
+    (extra?.caption ? `\nIts caption: ${extra.caption.slice(0, 1500)}` : "") +
+    (extra?.transcript ? `\nWhat is said in it (transcript): ${extra.transcript.slice(0, 6000)}` : "") +
+    `\nWrite down what it teaches.`;
+}
+
+// Several sources (and maybe a typed line) into one topic for one handbook, or one question if they don't fit together.
+export const COMBINE_PROMPT = `A learner shared a few things to learn from (reels, videos, photos), and maybe typed a line. Notes on each are given. Decide what ONE seven-chapter handbook should teach them.
+
+Rules:
+- If they share one subject (even from different angles), "question" is null and "topic" is one line naming what to learn, in the learner's terms, 3-12 words (for example "Using plugins in Claude Code"). If they typed a line, it wins: the sources then shape it.
+- If the sources are about clearly different subjects and nothing typed decides it, set "question" to ONE short question offering the subjects as choices (for example "These cover Claude Code plugins and prompt writing. Which one should this handbook be about?").
+- If no source teaches anything, set "question" to "What do you want to learn from these?".
+- "use": the source numbers that belong to the chosen topic (all of them when they fit).
+
+Return JSON only: {"topic": "..." or null, "question": null or "...", "use": [1, 2]}`;
+
+export function combineMessage(typed: string, sources: { n: number; kind: string; title: string; notes: string }[]) {
+  return (typed ? `Line typed: "${typed}"\n` : "No line typed.\n") +
+    sources.map((x) => `Source ${x.n} (${x.kind}): ${x.title}\n${x.notes}`).join("\n\n");
+}
+
+// What the plan and every chapter are written from, when the handbook started from the learner's own sources.
+export function sourcesBlock(sources: string, part: "plan" | "chapter") {
+  return `\n\nSources the learner shared (build ${part === "plan" ? "the seven chapters" : "this chapter"} around what they teach):\n${sources}\n\nUsing the sources:\n- Teach what the sources teach, in a sensible order, and fill the gaps they leave with well-established knowledge.\n- Where a source is out of date or wrong, teach the correct version and say plainly that it has changed.\n- Never claim a source said something it didn't.${part === "plan" ? "\n- Give each chapter a \"from\" list: the source numbers it draws on (empty if none)." : "\n- When a card draws on a source, you may say so in passing (\"the second reel showed...\"), never more than once a card."}`;
 }

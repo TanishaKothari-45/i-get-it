@@ -5,11 +5,13 @@ import type { FunctionReturnType } from 'convex/server'
 import { api } from '../convex/_generated/api'
 import type { Id } from '../convex/_generated/dataModel'
 import { languageInfo } from '../convex/languages'
+import { linksIn } from '../convex/links'
+import { shrinkPhoto } from './lib/photo'
 import { deviceToken } from './lib/device'
 import { Link, matchRoute, navigate, navState, paths, usePath, type BonusKind, type Route } from './lib/router'
 import Nav from './components/Nav'
 import ActionBar from './components/ActionBar'
-import Start from './screens/Start'
+import Start, { type NewSources } from './screens/Start'
 import Plan from './screens/Plan'
 import Chapter, { type AnswerResult, type Card, type Recap } from './screens/Chapter'
 import Done from './screens/Done'
@@ -38,6 +40,7 @@ export default function App() {
   switch (route.name) {
     case 'home': screen = <Home token={token} />; break
     case 'new': screen = <NewHandbook token={token} />; break
+    case 'share': screen = <SharedIn />; break
     case 'library': screen = <LibraryRoute token={token} signedIn={isAuthenticated} />; break
     case 'signin': screen = <SignInRoute token={token} />; break
     case 'handbook':
@@ -85,10 +88,31 @@ function usePageLanguage(language: string | null) {
 
 function useCreateHandbook(token: string) {
   const create = useMutation(api.handbooks.create)
-  return async (topic: string, level: Level, voice: Voice, language?: string) => {
-    const { handbookId } = await create({ topic, level, voice, language, deviceToken: token })
+  const uploadUrl = useMutation(api.sources.uploadUrl)
+  return async (topic: string, level: Level, voice: Voice, language?: string, sources?: NewSources) => {
+    // Photos go to Convex's file storage first (shrunk on the phone); they're deleted once read.
+    const images: Id<'_storage'>[] = []
+    for (const photo of sources?.photos ?? []) {
+      const blob = await shrinkPhoto(photo)
+      const res = await fetch(await uploadUrl({ deviceToken: token }), { method: 'POST', headers: { 'Content-Type': blob.type || 'image/jpeg' }, body: blob })
+      if (!res.ok) throw new Error('upload failed')
+      images.push((await res.json()).storageId)
+    }
+    const { handbookId } = await create({ topic, level, voice, language, deviceToken: token, links: sources?.links, images })
     navigate(paths.handbook(handbookId))
   }
+}
+
+// A link shared in from another app (Android's share sheet sends title, text and url): open the first screen with
+// the links filled in. Moved to /new straight away, so a refresh or the back button doesn't share it twice.
+function SharedIn() {
+  // Read once, before moving: the move clears the address (and React may run the effect twice).
+  const [links] = useState(() => {
+    const q = new URLSearchParams(window.location.search)
+    return [...new Set(linksIn([q.get('url'), q.get('text'), q.get('title')].filter(Boolean).join(' ')))].join('\n')
+  })
+  useEffect(() => { navigate(paths.new, { replace: true, state: { links } }) }, [links])
+  return <Splash>Opening what you shared…</Splash>
 }
 
 // ---------- routes ----------
@@ -108,8 +132,8 @@ function NewHandbook({ token }: { token: string }) {
   useTitle(null)
   const create = useCreateHandbook(token)
   const examples = useQuery(api.handbooks.cachedTopics, {}) ?? []
-  const keptLine = navState<{ topic?: string }>()?.topic ?? ''
-  return <Start initialTopic={keptLine} status="idle" examples={examples} onCreate={create} />
+  const kept = navState<{ topic?: string; links?: string }>()
+  return <Start initialTopic={kept?.topic ?? ''} initialLinks={kept?.links ?? ''} status="idle" examples={examples} onCreate={create} />
 }
 
 function LibraryRoute({ token, signedIn }: { token: string; signedIn: boolean }) {
@@ -155,6 +179,7 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
       <Start
         key={`${id}-${hb.status}`}
         initialTopic={hb.topic}
+        sources={hb.sources}
         status={status}
         question={hb.question}
         error={hb.error}
@@ -226,6 +251,7 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
     <Plan
       topic={topic}
       plan={plan}
+      sourceLabels={sourceLabelsOf(hb.sources)}
       passed={passed}
       current={currentN}
       chapterReady={isReady(currentN)}
@@ -406,3 +432,11 @@ function NotFound() {
     </>
   )
 }
+
+// What the reader calls each thing they shared, numbered in the order they added it: "Reel 1", "Video 2", "Photo 3".
+function sourceLabelsOf(sources: HandbookView['sources']): string[] | undefined {
+  if (!sources?.length) return undefined
+  const name = { instagram: 'Reel', youtube: 'Video', image: 'Photo' } as const
+  return sources.map((s, i) => `${name[s.kind]} ${i + 1}`)
+}
+
