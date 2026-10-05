@@ -173,7 +173,8 @@ Headline: Seven nights from "I keep meaning to" to "I get it". (10 words, inside
 Under it: Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap. (Days 8 to 28 are promised: PLAN.md has them live before 12 Oct.)
 Button: Show me the way (kept by Prateek over "Get my 7-night plan" and "Start night 1"; it leads to the path screen).
 Earlier versions: "You keep saving it. Tonight, get it." (agent; Prateek's phone test found it unclear), then "From zero to one in 7 days, on any topic you want." (Prateek; 11 words).
-Five-second test: not yet run.
+Five-second test, 6 Oct, a project manager friend (on the current headline, line and button): "an AI tutor for non-technical folks who don't use ChatGPT, Claude etc."
+What landed: what it does (an AI tutor). What missed: who it's for. The screen never names the reader PRODUCT.md is built for (someone who keeps saving reels about a thing and never learns it), so the tester guessed "people who don't use ChatGPT". Open for Prateek: name the reader on the first screen, or accept the broader read.
 
 ## 6. Principles (kept, not tactics)
 - One main action per screen, full width, low enough for a thumb. Says what happens, never "Continue" or "Get started".
