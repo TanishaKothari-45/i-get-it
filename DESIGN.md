@@ -153,11 +153,12 @@ Top to bottom: "Keep this handbook on every device", one line on what we store (
 States: loading "Signing you in…", error as above, done returns to Done with the time picker.
 
 ## 5. The first screen's words
-**MISSING: Prateek to write.** The lines below are the agent's draft from Prateek's own phrases in PRODUCT.md, built as placeholders; the handbook says the user never ships AI copy. Rewrite before the five-second test.
-Headline: You keep saving it. Tonight, get it.
-Under it: Type the one thing you keep meaning to learn. You get a seven-chapter handbook written for it, and you pass chapter 1 tonight. No sign-up.
-Button: Write my handbook
-Five-second test: not yet run. First two coursemates on Monday.
+Written by Prateek, 5 Oct 2026 (spelling tidied by the agent, nothing else).
+Headline: From zero to one in 7 days, on any topic you want.
+Under it: Like going from brain fog to giving a coherent extempore on a topic, on the spot.
+Button: Show me the way
+Replaces the agent's draft ("You keep saving it. Tonight, get it."), which Prateek's own phone test found unclear and text-heavy.
+Five-second test: not yet run.
 
 ## 6. Principles (kept, not tactics)
 - One main action per screen, full width, low enough for a thumb. Says what happens, never "Continue" or "Get started".
