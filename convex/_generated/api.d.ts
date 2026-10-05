@@ -13,9 +13,13 @@ import type * as auth from "../auth.js";
 import type * as crons from "../crons.js";
 import type * as handbooks from "../handbooks.js";
 import type * as http from "../http.js";
+import type * as languages from "../languages.js";
 import type * as prompts from "../prompts.js";
 import type * as push from "../push.js";
 import type * as pushSend from "../pushSend.js";
+import type * as translate from "../translate.js";
+import type * as translateShape from "../translateShape.js";
+import type * as translations from "../translations.js";
 
 import type {
   ApiFromModules,
@@ -29,9 +33,13 @@ declare const fullApi: ApiFromModules<{
   crons: typeof crons;
   handbooks: typeof handbooks;
   http: typeof http;
+  languages: typeof languages;
   prompts: typeof prompts;
   push: typeof push;
   pushSend: typeof pushSend;
+  translate: typeof translate;
+  translateShape: typeof translateShape;
+  translations: typeof translations;
 }>;
 
 /**

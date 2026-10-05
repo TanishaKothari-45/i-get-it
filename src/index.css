@@ -126,6 +126,20 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .chips { display: flex; gap: var(--s); margin-top: var(--m); }
 .chip { flex: 1; min-height: 48px; border: 1.5px solid var(--tint); border-radius: var(--radius); background: transparent; font-size: var(--ui); font-weight: 500; }
 .chip[aria-pressed="true"] { border-color: var(--ink); background: var(--paper-2); }
+/* a longer set (languages): wraps, three to a row on a phone */
+.chips-wrap { flex-wrap: wrap; }
+.chips-wrap .chip { flex: 0 0 calc((100% - 2 * var(--s)) / 3); }
+/* "More" sits at the end of a chip row, smaller and quieter than the choices */
+.chip-more { flex: 0 0 auto; padding: 0 16px; font-size: var(--small); color: var(--ink-2); }
+/* the language drawer: a title, the Indian / International switch, then the languages */
+.sheet-title { margin-top: 0; }
+.lang-grid { margin-top: var(--l); }
+/* a fixed-height sheet: the title and the Indian / International switch stay put, the languages scroll */
+.sheet.sheet-tall { height: 55dvh; overflow: hidden; display: flex; flex-direction: column; }
+.sheet.sheet-tall > div { width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.sheet-tall .lang-grid { flex: 1; min-height: 0; overflow-y: auto; align-content: flex-start; padding-bottom: var(--m); }
+.lang-chip { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; }
+.lang-chip small { font-size: 12px; font-weight: 400; color: var(--ink-2); }
 .error { color: var(--error); font-size: var(--small); margin-top: var(--s); }
 .note { color: var(--ink-2); font-size: var(--small); margin-top: var(--s); }
 

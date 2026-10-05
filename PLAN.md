@@ -25,4 +25,7 @@ Parked (not now), in the order they'd come:
 - A reminder at the chosen time (needs an email or push provider: ask Prateek first).
 - Share-to-app from Instagram or YouTube; reading a reel or video.
 - Days 8 to 28.
+- Voice (text to speech) for translated handbooks: Sarvam Bulbul for Indian languages (credits), Gemini for English.
+- The app's own words (buttons, menus, nudges) in the reader's language: fixed translations, no AI call.
+- Gemini writing the English handbooks (for the Google hackathon), next to OpenAI and Anthropic.
 - Streaks, badges, share cards, payments, anything social.

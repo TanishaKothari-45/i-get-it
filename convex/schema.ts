@@ -21,7 +21,12 @@ export default defineSchema({
     // How fast the topic goes stale (the plan says), and when new learners stop being given this book.
     freshness: v.optional(v.union(v.literal("fast"), v.literal("medium"), v.literal("stable"))),
     expiresAt: v.optional(v.number()),
-  }).index("by_source", ["source"]),
+    // A translated book: the English book it was translated from. Its chapters are translated one at
+    // a time, as readers reach them, from that book's chapters. Missing on English books.
+    sourceBookId: v.optional(v.id("books")),
+  })
+    .index("by_source", ["source"])
+    .index("by_translation", ["sourceBookId", "language"]),
 
   // Every normalised line that leads to a book: the typed line, the plan's topic, seed aliases.
   bookKeys: defineTable({
