@@ -27,13 +27,11 @@ Plan screen (the handbook cover and chapter list): the GrowthX Build Sprint hand
 Take: outcome line first ("By the end you'll have…"), then numbered chapters, each a title plus one plain line, the current one marked. Quiet numerals, not icons.
 Ignore: the level pills, the "+2 advanced" tags, the sidebar.
 
-Teaching card (the reading surface): RETIRED 4 Oct evening, chapters are Stories now; kept for the cream pages only. A Readwise Reader or Instapaper article page on a phone.
-Take: serif body at 17 to 18 px, line length about 60 characters, 1.55 line height, paragraph spacing of one line, headings in a bold sans one step up. Text starts near the top, no hero image.
+Cream pages (first screen, pricing, Make it yours, sign-in, stats): a Readwise Reader or Instapaper article page on a phone (agent).
+Take: serif body at 17 to 18 px, line length about 60 characters, 1.55 line height, headings in a bold sans one step up.
 Ignore: the toolbars, highlights, the share row.
 
-Chapter frames: Instagram Stories (agent's choice after the first user's words, 4 Oct evening).
-Take: full-screen frames, bars across the top, tap right to go on, tap left to go back, one thing per frame.
-Ignore: autoplay timers, replies, the avatar row.
+(Instagram Stories was the agent's chapter reference from 4 Oct evening; replaced on 6 Oct by Prateek's pick, Instagram Reels, above. The progress bars across the top stay.)
 
 Exercise card: a Duolingo lesson screen.
 Take: one question at the top, three stacked full-width options with a 1.5 px ink outline, 56 px tall, 12 px radius, selected state fills; the feedback panel slides up from the bottom and holds until the one button is tapped; the correct option tints green only on reveal.
@@ -76,8 +74,8 @@ Font: two. Bricolage Grotesque (already loaded) for the headline, headings, chap
 Sizes: display 34 (clamp 28 to 38) for the headline and the chapter title · heading 22 · body 17.5 (serif) · ui 16 (sans, buttons, options) · small 13.5 (labels, "Chapter 1 of 7", timings). No other sizes without asking.
 Line height: body 1.55 · headings 1.15 · display 1.05.
 Text: ink #1B1A17 on paper #FAF7F0. Secondary text ink at 62% (#5F5B53). Lines and tints: ink at 12% (#E3DED2).
-Accent: marigold #F2A93B, only on the main button fill and the filled rung segments. Button text is ink, never white on marigold (contrast).
-Pass: #1F7A4D, only on a passed option and the "done" line. Never as a surface.
+Accent: marigold #F2A93B means "this is the way forward": the main button fill, the filled rung segments, the landing hero, and one of six chapter frame colours. Never for warnings or errors. Button text is ink, never white on marigold (contrast). (6 Oct)
+Pass: #1F7A4D on a passed option, the "done" line and the love line; inside chapters it is also one of the six frame colours. (6 Oct)
 Errors and misses: brick #B3402B, only on error text. A missed option gets an ink outline, never red fill.
 Tokens, defined once as CSS variables and used by name only: --paper, --ink, --ink-2, --tint, --accent, --pass, --error; --display, --heading, --body, --ui, --small; --s 8, --m 16, --l 24, --xl 40; --radius 12 (options, inputs, buttons), --radius-sheet 20 (the bottom sheet). Nothing else is rounded.
 Dark mode: not in v1. One theme, paper.
@@ -205,8 +203,8 @@ What landed: what it does (an AI tutor). What missed: who it's for. The screen n
 - One main action per screen, full width, low enough for a thumb. Says what happens, never "Continue" or "Get started".
 - The idea is the product. Each frame carries one idea, big enough to read at arm's length, with a picture that shows it. (Rewritten 6 Oct to fit the Reels-style chapters; agent draft, chosen by Prateek.)
 - Marigold means "this is the way forward": the main button, the rung, and the hero. Inside chapters it's one of six frame colours, never used for warnings or errors. (Rewritten 6 Oct; agent draft, chosen by Prateek.)
-- The rung moves only on a passed check. Motion is spent on a pass and the rung, never on reading or time.
-- The prose carries the engagement: one vivid or dry-funny example per chapter, bold for the one idea. No memes, no clips, no feed inside the chapter: the feed is the habit being fired. (Added 4 Oct after the first user test.)
+- The rung moves only on a passed check. Motion is spent on arrival and on wins: a frame arriving, a picture settling, a pass, the rung. Nothing moves while the reader is working out an answer, and reduced-motion turns all of it off. (Rewritten 6 Oct by the agent on Prateek's go-ahead.)
+- A chapter looks like a feed but ends like a book. One idea per frame, a picture that shows it, one vivid or dry-funny example; no memes, no video clips, no endless scroll. Every chapter has a last frame and a win, because finishing is the habit being built and the endless feed is the one being replaced. (Rewritten 6 Oct by the agent on Prateek's go-ahead.)
 - Feedback names the confusion, never "wrong" or "incorrect", and always offers the next tap.
 - Every screen has its empty, loading, error and done words written here before it is built. A loading state says what is happening and roughly how long.
 - No sign-in, no name, no permission, no tour before the first exercise is passed.
@@ -214,10 +212,10 @@ What landed: what it does (an AI tutor). What missed: who it's for. The screen n
 - Check every screen at 390 px wide and on a real phone before saying done.
 - Copy that a user reads is a placeholder until Prateek has rewritten it. Mark it (agent) until then.
 
-Contradictions for Prateek to rule on (agent, 5 Oct). These principles were written for the paper-and-serif version; the Stories version breaks them. Keep the principle and change the screen, or rewrite the principle:
-1. RESOLVED 6 Oct: principle rewritten ("The idea is the product…").
-2. RESOLVED 6 Oct: principle rewritten ("Marigold means 'this is the way forward'…").
-3. "Motion is spent on a pass and the rung, never on reading" vs frames sliding in, the key phrase highlighting, and the picture drifting while you read.
-4. "No memes, no clips, no feed inside the chapter" vs the chapter now looking like a feed (Stories). The pictures are still, not clips, so this one may still hold.
-5. Section 2's Readwise and the old "Teaching card" screen notes describe a reading page that no longer exists in chapters.
-6. Prateek's reference is Reels (slide up); chapters move sideways today. To build.
+Contradictions between the old principles and what's built (listed 5 Oct, all resolved 6 Oct; 1 and 2 chosen by Prateek, 3 to 6 decided by the agent on his go-ahead: "Fix all the contradictions yourself"):
+1. Reading vs the Reels-style frames: principle rewritten ("The idea is the product…").
+2. The accent in two places vs marigold frames and pictures: principle rewritten ("Marigold means 'this is the way forward'…"); section 3's colour lines match.
+3. No motion while reading vs frames arriving and pictures drifting: principle rewritten ("Motion is spent on arrival and on wins…"). The rule kept: nothing moves while an answer is being worked out.
+4. No feed inside the chapter vs a feed-like chapter: principle rewritten ("A chapter looks like a feed but ends like a book…").
+5. The old reading-page reference: kept only for the cream pages; the Stories reference marked replaced by Prateek's Reels.
+6. Reels slides up, chapters moved sideways: chapters now also slide up (swipe up for the next frame, down to go back, frames arrive from below); tapping right and left still works.

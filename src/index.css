@@ -230,7 +230,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .story-topic { color: var(--fg2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .story-close { background: none; border: 0; color: var(--fg); font-size: 28px; line-height: 1; padding: 0 4px; }
 .story-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 18px 2px; animation: frin 300ms var(--ease) both; min-height: 0; overflow-y: auto; }
-@keyframes frin { from { opacity: 0; transform: translateY(10px) scale(0.985); } to { opacity: 1; transform: none; } }
+@keyframes frin { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: none; } }   /* arrives from below, like Reels */
 .story-kicker { font-size: var(--small); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg2); margin-bottom: 14px; }
 .story-title { font-size: clamp(2rem, 1.4rem + 3vw, 2.6rem); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 18px; color: var(--fg); }
 .story-illo .illo { margin: 0 0 18px; border: 0; border-radius: 20px; padding: 14px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); }

@@ -210,7 +210,14 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
   const onTouchEnd = (e: React.TouchEvent) => {
     const s = touch.current; touch.current = null; if (!s) return
     const dx = e.changedTouches[0].clientX - s.x, dy = e.changedTouches[0].clientY - s.y
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { if (dx < 0) next(); else back() }
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { if (dx < 0) next(); else back(); return }
+    // Reels-style (DESIGN.md section 2): swipe up for the next frame, down to go back. A long frame scrolls first.
+    if (Math.abs(dy) > 60 && Math.abs(dy) > Math.abs(dx)) {
+      const body = (e.target as HTMLElement).closest('.story-body') as HTMLElement | null
+      const atEnd = !body || body.scrollTop + body.clientHeight >= body.scrollHeight - 4
+      const atTop = !body || body.scrollTop <= 4
+      if (dy < 0 && atEnd) next(); else if (dy > 0 && atTop) back()
+    }
   }
 
   const c = item.card

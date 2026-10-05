@@ -19,7 +19,7 @@ Next builds, decided by Prateek 5 Oct evening (in this order unless he reorders)
 2. DONE 6 Oct (live topics; ready topics don't adapt). Adaptive chapters, one at a time, roadmap titles unchanged: chapter N+1 is written knowing how chapter N went. Missed quizzes are re-taught another way first; all right on the first try and fast means harder quizzes (more apply-to-a-tricky-case, a harder third question), progressively. Writing starts when the reader answers chapter N's last quiz, so the closing card and the Done screen hide most of the wait (Prateek: readers may wait a little for personalisation; keep latency in check).
 1b. Done screen love: a cheesy, funny line that compares the reader's time and first-try score with our own 20-minute budget ("6 minutes. We budgeted 20. Show-off."), never with an invented average; real comparisons ("faster than 7 in 10 readers") once 50 chapters are finished. Lines are (agent) until Prateek rewrites them.
 6. Placement before chapter 1: 10 questions, each harder, with "I'm completely new, skip this"; the plan starts where the reader is (Prateek). Measured 5 Oct: chapters take about 4 to 16 minutes, and 16 of 18 quizzes were right first try.
-3. Chapters slide up like Reels (DESIGN.md section 2), instead of sideways.
+3. DONE 6 Oct. Chapters slide up like Reels (DESIGN.md section 2), instead of sideways.
 4. PAUSED 6 Oct (Shaktimaan: nothing new until the coursemate test; the promise is off the page). Days 8 to 28, live before 12 Oct (the first day 8 for anyone who starts on 5 Oct). Generated once a reader finishes chapter 7. Day 8 is also where week 1's free time ends, so it's where the Pay sheet belongs. About ₹15 a chapter.
 5. Rewrite Prateek's live options chapter 1 with the beginner check (later).
 
