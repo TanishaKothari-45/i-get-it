@@ -64,3 +64,17 @@ When a cap is hit or the call fails: "Couldn't write it just now. Your line is s
 Every call is saved in aiCalls (in, out, tokens, ms) so the last 100 can be read.
 Login: Convex Auth, after chapter 1 is passed, never before. Anonymous nights live under a device token.
 The AI must never: invent facts, names, dates, tools or statistics; put quoted words after a real person's name unless a verified reference gives that phrase; attach a general claim to a named expert; link anywhere outside the verified reference list; write exercises that test something the chapter didn't teach; use the words "incorrect" or "wrong"; give medical, legal or financial advice as instruction (it may teach how a balance sheet works, it may not tell someone what to buy); write more than seven chapters or fewer.
+
+<!-- convex-ai-start -->
+
+This project uses [Convex](https://convex.dev) as its backend.
+
+When working on Convex code, **always read
+`convex/_generated/ai/guidelines.md` first** for important guidelines on
+how to correctly use Convex APIs and patterns. The file contains rules that
+override what you may have learned about Convex from training data.
+
+Convex agent skills for common tasks can be installed by running
+`npx convex ai-files install`.
+
+<!-- convex-ai-end -->
