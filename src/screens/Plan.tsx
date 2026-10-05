@@ -19,10 +19,12 @@ type Props = {
   coverSvg?: string
   onLibrary?: () => void
   libraryCount?: number
+  // A finished chapter's bonus lesson, if it unlocked one: the link under that stop.
+  bonusFor?: (n: number) => { label: string; onGo: () => void } | null
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg, onLibrary, libraryCount }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg, onLibrary, libraryCount, bonusFor }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -53,6 +55,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
                 <span className="stop-n">Chapter {c.n}{now && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}{done && <span className="tag done">Done</span>}</span>
                 <span className="stop-t">{c.title}</span>
                 <span className="stop-hook">{c.hook || c.covers}</span>
+                {done && (() => { const b = bonusFor?.(c.n); return b ? <button type="button" className="quiet stop-bonus" onClick={b.onGo}>{b.label}</button> : null })()}
               </div>
             </li>
           )

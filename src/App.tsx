@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useConvexAuth, useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
+import type { FunctionReturnType } from 'convex/server'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
 import Start from './screens/Start'
@@ -13,8 +14,10 @@ import Compare from './screens/Compare'
 import Library from './screens/Library'
 import Pricing from './screens/Pricing'
 import SignupNudge from './components/SignupNudge'
+import ActionBar from './components/ActionBar'
 
-type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again' | 'tune' | 'compare' | 'library' | 'pricing'
+type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again' | 'tune' | 'compare' | 'library' | 'pricing' | 'bonus'
+type BonusKind = 'deeper' | 'another'
 
 export default function App() {
   const token = useMemo(() => deviceToken(), [])
@@ -47,6 +50,7 @@ export default function App() {
 
   const [view, setView] = useState<View>('auto')
   const [doneN, setDoneN] = useState<number | null>(null)
+  const [bonusSel, setBonusSel] = useState<{ n: number; kind: BonusKind } | null>(null)
   const [draftTopic, setDraftTopic] = useState('')
   // The writer comparison is for testers only: open the app once with ?compare=1 and this phone remembers it.
   const [tester] = useState(() => {
@@ -141,6 +145,13 @@ export default function App() {
   const toPlan = { label: 'Handbook', onClick: () => { setDoneN(null); setView('plan') } }
   const chapterReady = chapter?.status === 'ready' && Array.isArray(chapter.cards)
   const chapterFailed = chapter?.status === 'failed'
+  // The bonus a finished chapter unlocked, if any: "deeper" (all right first time) or "another" (any miss).
+  const bonusOf = (n: number): { kind: BonusKind; done: boolean } | null => {
+    if (progress?.deeperUnlocked?.includes(n)) return { kind: 'deeper', done: !!progress.bonusPassed?.includes(n) }
+    if (progress?.anotherUnlocked?.includes(n)) return { kind: 'another', done: !!progress.anotherPassed?.includes(n) }
+    return null
+  }
+  const openBonus = (n: number, kind: BonusKind) => { setBonusSel({ n, kind }); setView('bonus') }
 
   // Which screen, when nothing has been chosen on this visit.
   const resolved: View = view !== 'auto' ? view
@@ -193,7 +204,16 @@ export default function App() {
           onPickTime={async (at) => { await setTomorrow({ handbookId: hb._id, at, deviceToken: token }) }}
           onContinue={() => { setDoneN(null); setView('plan') }}
           deviceToken={token}
+          bonus={(() => { const b = bonusOf(doneN); return b ? { ...b, onGo: () => openBonus(doneN, b.kind) } : undefined })()}
         />
+      </Shell>
+    )
+  }
+
+  if (resolved === 'bonus' && bonusSel && bonusOf(bonusSel.n)?.kind === bonusSel.kind) {
+    return (
+      <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail} back={toPlan}>
+        <BonusScreen key={`${hb._id}-${bonusSel.kind}-${bonusSel.n}`} hb={hb} n={bonusSel.n} kind={bonusSel.kind} token={token} onBack={() => { setBonusSel(null); setView('plan') }} />
       </Shell>
     )
   }
@@ -242,6 +262,7 @@ export default function App() {
         comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
         coverSvg={(hb.chapters.find((c) => c.n === 1) as any)?.svg}
         onLibrary={() => setView('library')}
+        bonusFor={(n) => { const b = bonusOf(n); return b ? { label: BONUS_TEXT[b.kind].planLink[b.done ? 1 : 0], onGo: () => openBonus(n, b.kind) } : null }}
         libraryCount={libRows.length}
         onRetry={() => { retry({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }}
         onChangeLine={() => { setDraftTopic(hb.topic); setView('start-again') }}
@@ -279,3 +300,86 @@ function recapOf(chapters: { n: number; status: string; title?: string; outcomeL
     : prev.outcomeLine
   return body ? { chapter: prev.n, title, body } : null
 }
+
+// Words for the two bonus lessons. (agent) placeholders until Prateek rewrites them, as DESIGN.md asks.
+const BONUS_TEXT: Record<BonusKind, { label: (n: number) => string; heading: string; lede: (title: string) => string; finish: string; planLink: [string, string] }> = {
+  deeper: {
+    label: (n) => `Bonus · chapter ${n}`,
+    heading: 'Going deeper.',
+    lede: (t) => `One layer deeper on ${t}: the nuance, the edge cases, a harder real case. Optional, and it doesn't change your path.`,
+    finish: 'Finish the bonus',
+    planLink: ['Go deeper (bonus) ▸', 'Bonus done · read it again'],
+  },
+  another: {
+    label: (n) => `Another way · chapter ${n}`,
+    heading: 'Another way in.',
+    lede: (t) => `${t}, explained from a different angle: a new comparison, a slower example, fresh questions. Optional, and it doesn't change your path.`,
+    finish: 'Finish',
+    planLink: ['See it another way ▸', 'Seen it another way · read it again'],
+  },
+}
+
+type HandbookData = NonNullable<NonNullable<FunctionReturnType<typeof api.handbooks.current>>['handbook']>
+
+// A bonus lesson for chapter n. Written the first time they ask, then played in the same Stories player.
+function BonusScreen({ hb, n, kind, token, onBack }: { hb: HandbookData; n: number; kind: BonusKind; token: string; onBack: () => void }) {
+  const requestBonus = useMutation(api.bonus.requestBonus)
+  const recordAnswer = useMutation(api.handbooks.recordAnswer)
+  const finishBonus = useMutation(api.bonus.finishBonus)
+  const bonus = hb.bonus.find((b) => b.n === n && b.kind === kind)
+  const text = BONUS_TEXT[kind]
+  const chapterTitle = hb.chapters.find((c) => c.n === n)?.title ?? (hb.plan as any)?.chapters?.[n - 1]?.title ?? `Chapter ${n}`
+  const [error, setError] = useState<string | null>(null)
+  const writing = !bonus || bonus.status === 'writing'
+
+  const ask = async () => {
+    setError(null)
+    try { await requestBonus({ handbookId: hb._id, n, kind, deviceToken: token }) }
+    catch (e) { setError(String((e as Error)?.message ?? e).includes('busy') ? 'Busy right now. Try again in a few minutes.' : "Couldn't start it just now. Try again in a minute.") }
+  }
+  // First visit: ask for it. A failed one waits for "Try again".
+  useEffect(() => { if (!bonus) ask() }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (bonus?.status === 'ready' && Array.isArray(bonus.cards)) {
+    return (
+      <Chapter
+        topic={(hb.plan as any)?.topic ?? hb.topic}
+        n={n}
+        title={bonus.title ?? chapterTitle}
+        cards={bonus.cards as Card[]}
+        recall={[]}
+        passed={hb.progress?.chaptersPassed ?? []}
+        passedExercises={[]}
+        startAt={0}
+        label={text.label(n)}
+        finishLabel={text.finish}
+        tools={false}
+        onPosition={() => {}}
+        onAnswer={async (item, optionId, attempt) => (await recordAnswer({ handbookId: hb._id, chapter: n, cardIndex: item.cardIndex, optionId, attempt, bonus: true, bonusKind: kind, deviceToken: token })) as AnswerResult}
+        onFinish={async () => { await finishBonus({ handbookId: hb._id, n, kind, deviceToken: token }); onBack() }}
+        onSimpler={async () => ({ ready: false })}
+        pictures={{}}
+        onExit={onBack}
+        handbookId={hb._id}
+        deviceToken={token}
+      />
+    )
+  }
+
+  const failed = bonus?.status === 'failed'
+  return (
+    <>
+      <p className="label" style={{ marginTop: 'var(--l)' }}>{text.label(n)}</p>
+      <h1 style={{ marginTop: 6 }}>{text.heading}</h1>
+      <p className="lede">{text.lede(chapterTitle)}</p>
+      {(failed || error) && <p className="error">{error ?? "It didn't come through. Your chapter is saved; try again."}</p>}
+      <ActionBar busy={writing && !error} note={writing && !error ? 'Writing it and checking its facts… about a minute.' : undefined}>
+        {failed || error
+          ? <button className="btn" onClick={ask}>Try again</button>
+          : <button className="btn" disabled>Writing it…</button>}
+        <button type="button" className="quiet" onClick={onBack}>Back to the handbook</button>
+      </ActionBar>
+    </>
+  )
+}
+

@@ -34,7 +34,7 @@ export function topicKeyOf(topic: string) {
 
 // The model puts the right answer in the middle more often than not. Shuffle each
 // exercise's options deterministically (per chapter and card) and remap the ids.
-function shuffleExercises(cards: any[], seed: string): any[] {
+export function shuffleExercises(cards: any[], seed: string): any[] {
   let h = 2166136261;
   for (const ch of seed) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; }
   const rnd = () => { h = (Math.imul(h, 1664525) + 1013904223) >>> 0; return h / 4294967296; };
@@ -65,11 +65,27 @@ function owns(h: Doc<"handbooks">, who: { userId: Id<"users"> | null; deviceToke
   return false;
 }
 
-async function ownedHandbook(ctx: QueryCtx | MutationCtx, handbookId: Id<"handbooks">, deviceToken?: string) {
+export async function ownedHandbook(ctx: QueryCtx | MutationCtx, handbookId: Id<"handbooks">, deviceToken?: string) {
   const h = await ctx.db.get(handbookId);
   if (!h) throw new Error("No such handbook");
   if (!owns(h, await viewer(ctx, deviceToken))) throw new Error("Not yours");
   return h;
+}
+
+// ---------- bonus lessons: shared helpers (the functions live in bonus.ts) ----------
+
+export const bonusKindV = v.union(v.literal("deeper"), v.literal("another"));
+export type BonusKind = "deeper" | "another";
+
+export async function bonusChapter(ctx: QueryCtx | MutationCtx, handbookId: Id<"handbooks">, kind: BonusKind, n: number) {
+  return ctx.db.query("bonusChapters").withIndex("by_handbookId_and_kind_and_n", (q) => q.eq("handbookId", handbookId).eq("kind", kind).eq("n", n)).unique();
+}
+// Which chapters' bonus of this kind a person has unlocked, and which they've finished.
+export function bonusUnlocked(p: Doc<"progress"> | null, kind: BonusKind): number[] {
+  return (kind === "deeper" ? p?.deeperUnlocked : p?.anotherUnlocked) ?? [];
+}
+export function bonusFinished(p: Doc<"progress"> | null, kind: BonusKind): number[] {
+  return (kind === "deeper" ? p?.bonusPassed : p?.anotherPassed) ?? [];
 }
 
 // Per-person caps count against whoever owns the handbook (the account, else the phone that made it),
@@ -79,7 +95,7 @@ function ownerKey(h: Doc<"handbooks">) {
 }
 
 // One plan or chapter write (a chapter includes its fact check): the app-wide cap and the owner's cap.
-async function takeGeneration(ctx: MutationCtx, h: Doc<"handbooks">) {
+export async function takeGeneration(ctx: MutationCtx, h: Doc<"handbooks">) {
   const mine = await limiter.limit(ctx, "generateDevice", { key: ownerKey(h) });
   if (!mine.ok) return false;
   return (await limiter.limit(ctx, "generateAll")).ok;
@@ -136,13 +152,24 @@ async function publicChapter(ctx: QueryCtx, ch: Doc<"chapters">) {
 async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   const chapters = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect();
   const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
+  // Only the bonus lessons this person has unlocked (at most one per chapter, so at most seven).
+  const bonus: Doc<"bonusChapters">[] = [];
+  for (const kind of ["deeper", "another"] as const) {
+    for (const n of bonusUnlocked(progress, kind)) {
+      const row = await bonusChapter(ctx, h._id, kind, n);
+      if (row) bonus.push(row);
+    }
+  }
   return {
+    bonus: bonus.map((b) => ({ kind: b.kind, n: b.n, status: b.status, title: b.title, cards: publicCards(b.cards), error: b.error })),
     _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error,
     signedIn: !!h.userId,
     chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch))),
     progress: progress ? {
       currentChapter: progress.currentChapter, currentCard: progress.currentCard, chaptersPassed: progress.chaptersPassed,
       passedExercises: progress.passedExercises, missedExercises: progress.missedExercises, tomorrowAt: progress.tomorrowAt,
+      deeperUnlocked: bonusUnlocked(progress, "deeper"), bonusPassed: bonusFinished(progress, "deeper"),
+      anotherUnlocked: bonusUnlocked(progress, "another"), anotherPassed: bonusFinished(progress, "another"),
     } : null,
   };
 }
@@ -323,7 +350,7 @@ function validFix(orig: any, fixed: any): boolean {
   if (orig.type !== "exercise") return typeof fixed.body === "string" || typeof fixed.prompt === "string";
   return Array.isArray(fixed.options) && fixed.options.length === 3 && fixed.options.some((o: any) => o.id === fixed.answer);
 }
-async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" } = {}): Promise<{ cards: any[]; report: FactReport }> {
+export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" } = {}): Promise<{ cards: any[]; report: FactReport }> {
   const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: CHECK_PROMPT, user: checkUserMessage(topic, level, { title, cards }), ...opts });
   if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() } };
   const out = cards.slice();
@@ -478,17 +505,20 @@ export const setPosition = mutation({
 
 // The check. Returns the feedback the client is allowed to see; the rung moves only on a pass.
 export const recordAnswer = mutation({
-  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), optionId: v.string(), attempt: v.number(), recall: v.optional(v.boolean()), deviceToken: v.optional(v.string()) },
-  handler: async (ctx, { handbookId, chapter, cardIndex, optionId, attempt, recall, deviceToken }) => {
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), optionId: v.string(), attempt: v.number(), recall: v.optional(v.boolean()), bonus: v.optional(v.boolean()), bonusKind: v.optional(bonusKindV), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, chapter, cardIndex, optionId, attempt, recall, bonus, bonusKind, deviceToken }) => {
     await ownedHandbook(ctx, handbookId, deviceToken);
-    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
+    const kind = bonusKind ?? "deeper";
+    const ch = bonus ? await bonusChapter(ctx, handbookId, kind, chapter)
+      : await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
     const card = ch?.cards?.[cardIndex];
     if (!card || card.type !== "exercise") throw new Error("Not an exercise");
     const correct = card.answer === optionId;
     const key = `${chapter}:${cardIndex}`;
-    await ctx.db.insert("answers", { handbookId, chapter, cardIndex, optionId, correct, attempt, recall: !!recall, at: Date.now() });
+    await ctx.db.insert("answers", { handbookId, chapter, cardIndex, optionId, correct, attempt, recall: !!recall, bonus: !!bonus, bonusKind: bonus ? kind : undefined, at: Date.now() });
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
-    if (p && !recall) {
+    // A bonus answer is recorded but never touches the chapter's rung.
+    if (p && !recall && !bonus) {
       const passed = new Set(p.passedExercises); const missed = new Set(p.missedExercises);
       if (correct && attempt === 1) passed.add(key);
       if (!correct) missed.add(key);
@@ -522,7 +552,15 @@ export const finishChapter = mutation({
     if (!allPassed) throw new Error("Finish the exercises first");
     const chaptersPassed = p.chaptersPassed.includes(n) ? p.chaptersPassed : [...p.chaptersPassed, n];
     const next = Math.min(n + 1, CHAPTERS);
-    await ctx.db.patch(p._id, { chaptersPassed, currentChapter: n < CHAPTERS ? next : n, currentCard: 0, updatedAt: Date.now() });
+    // Every exercise right first time unlocks "go deeper"; any miss unlocks "another way". Decided once, at the
+    // first pass, so a later re-read can't swap or take one away.
+    const firstPass = !p.chaptersPassed.includes(n);
+    const deeper = bonusUnlocked(p, "deeper");
+    const another = bonusUnlocked(p, "another");
+    const missedAny = exerciseKeys.some((k) => p.missedExercises.includes(k));
+    const deeperUnlocked = firstPass && exerciseKeys.length > 0 && !missedAny && !deeper.includes(n) ? [...deeper, n] : deeper;
+    const anotherUnlocked = firstPass && missedAny && !another.includes(n) ? [...another, n] : another;
+    await ctx.db.patch(p._id, { chaptersPassed, deeperUnlocked, anotherUnlocked, currentChapter: n < CHAPTERS ? next : n, currentCard: 0, updatedAt: Date.now() });
     // Write the next chapter now if it isn't there yet (cached handbooks may already have it).
     if (n < CHAPTERS) await ensureChapter(ctx, h, next);
   },

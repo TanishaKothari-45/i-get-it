@@ -53,6 +53,21 @@ export default defineSchema({
     createdAt: v.number(),
   }).index("by_handbook_n", ["handbookId", "n"]),
 
+  // Optional bonus lessons on chapter n's idea, written for this handbook the first time the reader asks.
+  // "deeper": unlocked by getting every exercise right first time. "another": unlocked by missing at least one.
+  bonusChapters: defineTable({
+    handbookId: v.id("handbooks"),
+    kind: v.union(v.literal("deeper"), v.literal("another")),
+    n: v.number(),
+    status: v.union(v.literal("writing"), v.literal("ready"), v.literal("failed")),
+    title: v.optional(v.string()),
+    cards: v.optional(v.any()),
+    factCheck: v.optional(v.object({ status: v.string(), fixes: v.number(), notes: v.array(v.string()), model: v.optional(v.string()), at: v.number() })),
+    error: v.optional(v.string()),
+    createdAt: v.number(),
+    startedAt: v.optional(v.number()),   // when the current write began, to spot a stuck one
+  }).index("by_handbookId_and_kind_and_n", ["handbookId", "kind", "n"]),
+
   progress: defineTable({
     handbookId: v.id("handbooks"),
     currentChapter: v.number(),
@@ -61,6 +76,10 @@ export default defineSchema({
     passedExercises: v.array(v.string()),   // "chapter:cardIndex"
     missedExercises: v.array(v.string()),   // "chapter:cardIndex" that needed a second go or were shown the answer
     tomorrowAt: v.optional(v.string()),     // "21:00"
+    deeperUnlocked: v.optional(v.array(v.number())),  // chapters passed with every exercise right first time
+    bonusPassed: v.optional(v.array(v.number())),     // chapters whose "go deeper" bonus they finished
+    anotherUnlocked: v.optional(v.array(v.number())), // chapters passed with at least one exercise missed
+    anotherPassed: v.optional(v.array(v.number())),   // chapters whose "another way" lesson they finished
     lastOpenedAt: v.number(),
     updatedAt: v.number(),
   }).index("by_handbook", ["handbookId"]),
@@ -73,6 +92,8 @@ export default defineSchema({
     correct: v.boolean(),
     attempt: v.number(),
     recall: v.boolean(),
+    bonus: v.optional(v.boolean()),         // an answer in a bonus lesson (never moves the rung)
+    bonusKind: v.optional(v.union(v.literal("deeper"), v.literal("another"))),
     at: v.number(),
   }).index("by_handbook", ["handbookId"]),
 

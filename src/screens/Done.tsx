@@ -19,6 +19,23 @@ type Props = {
   onContinue: () => void
   onPricing: () => void
   deviceToken: string         // for "keep going, or see you tomorrow?" on this device
+  // The chapter's optional bonus: "deeper" if every exercise was right first time, "another" if any
+  // was missed. Never the main action.
+  bonus?: { kind: 'deeper' | 'another'; done: boolean; onGo: () => void }
+}
+
+// (agent) placeholders until Prateek rewrites them, as DESIGN.md asks.
+const BONUS_COPY = {
+  deeper: {
+    lead: 'Bonus, if you want it',
+    offer: 'Every check right, first time. Want to go one layer deeper on this idea?', go: 'Go deeper',
+    done: "You've done this chapter's bonus.", again: 'Read the bonus again',
+  },
+  another: {
+    lead: 'If you want it',
+    offer: 'That one took a few tries. Want to see it explained another way?', go: 'Explain it another way',
+    done: "You've seen it the other way too.", again: 'Read it again',
+  },
 }
 
 const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
@@ -31,7 +48,8 @@ function pretty(t: string) {
 }
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, deviceToken }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, deviceToken, bonus }: Props) {
+  const copy = bonus ? BONUS_COPY[bonus.kind] : null
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
   const last = n >= 7
@@ -46,6 +64,14 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
 
       {!last && <Nudge deviceToken={deviceToken} next={n + 1} at={tomorrowAt} />}
+
+      {bonus && copy && (
+        <div className="nudge">
+          <p className="nudge-lead">{copy.lead}</p>
+          <p className="serif">{bonus.done ? copy.done : copy.offer}</p>
+          <button type="button" className="btn btn-ghost nudge-btn" onClick={bonus.onGo}>{bonus.done ? copy.again : copy.go}</button>
+        </div>
+      )}
       {last && sources && sources.length > 0 && <p className="sources"><span className="label">Read next</span> {sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em>{x.why ? ` (${x.why})` : ''}</span>)}</p>}
 
       {last && (

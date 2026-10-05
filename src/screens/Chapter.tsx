@@ -39,6 +39,11 @@ type Props = {
   onExit: () => void
   handbookId: Id<'handbooks'>
   deviceToken: string
+  // A bonus lesson plays in the same player: its own label and finish words, and no card tools
+  // ("Say it simpler" and "Ask or object" work on chapter cards only).
+  label?: string
+  finishLabel?: string
+  tools?: boolean
 }
 
 // Only http(s) links from the known hosts reach the page; anything else is dropped.
@@ -66,7 +71,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, recap, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, recap, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, onExit, handbookId, deviceToken, label: labelOverride, finishLabel, tools = true }: Props) {
   const items: Item[] = useMemo(
     () => [
       ...(recap ? [{ chapter: recap.chapter, cardIndex: -1, card: { type: 'teach' as const, title: `Last time: ${recap.title}`, body: recap.body }, recall: true, recap: true }] : []),
@@ -214,7 +219,7 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
   // A card's picture sits on its first frame only, so the words keep the screen on the frames after it.
   const pic = !item.recall && frame.part === 0 && c.type !== 'exercise' && c.type !== 'watch' ? pictures[item.cardIndex] : undefined
   const revealId = result && !result.correct && result.reveal ? result.reveal.id : null
-  const label = item.recap ? `Recap · chapter ${item.chapter}` : item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of 7`
+  const label = item.recap ? `Recap · chapter ${item.chapter}` : item.recall ? `Remember this? · from chapter ${item.chapter}` : (labelOverride ?? `Chapter ${n} of 7`)
 
   return (
     <div className="story" role="dialog" aria-label={`${title}, chapter ${n}`}>
@@ -264,7 +269,7 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
               {!frame.cover && frame.part === 0 && (KICKER[c.type] || c.title) && <p className="story-kicker">{KICKER[c.type] ?? c.title}</p>}
               <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover || pic ? (pic && !frame.cover && sizeOf(frame.text ?? '') === 'xl' ? 'lg' : 'md') : sizeOf(frame.text ?? '')}`} />
               {isLast && (
-                <button type="button" className="story-finish no-tap" onClick={finish} disabled={finishing}>{finishing ? 'Saving…' : `Finish chapter ${n}`}</button>
+                <button type="button" className="story-finish no-tap" onClick={finish} disabled={finishing}>{finishing ? 'Saving…' : (finishLabel ?? `Finish chapter ${n}`)}</button>
               )}
             </>
           )}
@@ -272,11 +277,11 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
         </div>
 
         <div className="story-tools no-tap">
-          {teaching && c.type !== 'try' && !item.recall && (showingSimpler
+          {tools && teaching && c.type !== 'try' && !item.recall && (showingSimpler
             ? <button type="button" onClick={showOriginal}>Show the original</button>
             : rewriting === item.cardIndex ? <span>Rewriting…</span>
             : <button type="button" onClick={saySimpler}>Say it simpler</button>)}
-          {!item.recall && c.type !== 'try' && <button type="button" onClick={() => setAskOpen(true)}>Ask or object</button>}
+          {tools && !item.recall && c.type !== 'try' && <button type="button" onClick={() => setAskOpen(true)}>Ask or object</button>}
           <span className="story-tapnote">{canAdvance ? (isLast ? 'Last one' : 'Tap →') : 'Pick one'}</span>
         </div>
       </div>
