@@ -12,6 +12,7 @@ import Tune from './screens/Tune'
 import Compare from './screens/Compare'
 import Library from './screens/Library'
 import Pricing from './screens/Pricing'
+import Landing from './screens/Landing'
 import SignupNudge from './components/SignupNudge'
 
 type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again' | 'tune' | 'compare' | 'library' | 'pricing'
@@ -114,6 +115,7 @@ export default function App() {
           onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
+          below={!hb && view !== 'start-again' && libRows.length === 0 ? (pick) => <Landing onPick={pick} /> : undefined}
         />
       </Shell>
     )
