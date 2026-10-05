@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
+import Nudge from '../components/Nudge'
 
 type Props = {
   topic: string
@@ -17,6 +18,7 @@ type Props = {
   onPickTime: (at: string) => Promise<void>
   onContinue: () => void
   onPricing: () => void
+  deviceToken: string         // for "keep going, or see you tomorrow?" on this device
 }
 
 const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
@@ -29,7 +31,7 @@ function pretty(t: string) {
 }
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, deviceToken }: Props) {
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
   const last = n >= 7
@@ -42,6 +44,8 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
+
+      {!last && <Nudge deviceToken={deviceToken} next={n + 1} at={tomorrowAt} />}
       {last && sources && sources.length > 0 && <p className="sources"><span className="label">Read next</span> {sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em>{x.why ? ` (${x.why})` : ''}</span>)}</p>}
 
       {last && (
@@ -60,7 +64,7 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {signedIn && (
         <>
           <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `See you at ${pretty(tomorrowAt)}.` : "When do tomorrow's 20 minutes happen?"}</h2>
-          {tomorrowAt && <p className="note">Chapter {n + 1} is ready when you are. (No reminder is sent yet; this is your own promise.)</p>}
+          {tomorrowAt && <p className="note">Chapter {n + 1} is ready when you are. With nudges on, that's when we tap you on the shoulder.</p>}
           <div className="times">
             {TIMES.map((t) => (
               <button key={t} type="button" className="chip" aria-pressed={tomorrowAt === t} disabled={!!saving}

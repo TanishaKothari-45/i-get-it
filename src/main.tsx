@@ -7,8 +7,12 @@ import App from './App.tsx'
 import Stats from './screens/Stats'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
+import { registerServiceWorker } from './lib/push'
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string)
+
+// Makes the app installable and lets nudges arrive with the app closed.
+registerServiceWorker()
 
 // /stats is the public numbers page; every other page load counts as a visit (once a day per phone).
 const onStats = window.location.pathname.replace(/\/+$/, '') === '/stats'

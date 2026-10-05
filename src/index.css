@@ -320,6 +320,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .nudge.compact { padding: 12px 14px; }
 .nudge.compact .nudge-lead { font-weight: 600; font-size: var(--ui); }
 .nudge.compact .nudge-btn { min-height: 44px; margin-top: 10px; }
+/* the 9pm nudge card: Allow, with a quiet Not now under it */
+.nudge-ask .serif { margin: var(--s) 0 var(--m); }
+.nudge-actions { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .shelf { list-style: none; padding: 0; margin: var(--m) 0; display: grid; gap: 12px; }
 .shelf-card { width: 100%; text-align: left; display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 18px; background: #fff; border: 1px solid var(--tint); }
 .shelf-card.active { border: 2px solid var(--accent); }

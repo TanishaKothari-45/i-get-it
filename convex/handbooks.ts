@@ -531,6 +531,8 @@ export const finishChapter = mutation({
 export const setTomorrow = mutation({
   args: { handbookId: v.id("handbooks"), at: v.string(), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, at, deviceToken }) => {
+    // "21:00" only: the 9pm nudge reads this time, and anything else would send it at the wrong hour.
+    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(at)) throw new Error("Pick a time like 21:00");
     await ownedHandbook(ctx, handbookId, deviceToken);
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     if (p) await ctx.db.patch(p._id, { tomorrowAt: at, updatedAt: Date.now() });

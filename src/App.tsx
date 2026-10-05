@@ -192,6 +192,7 @@ export default function App() {
           onPricing={() => setView('pricing')}
           onPickTime={async (at) => { await setTomorrow({ handbookId: hb._id, at, deviceToken: token }) }}
           onContinue={() => { setDoneN(null); setView('plan') }}
+          deviceToken={token}
         />
       </Shell>
     )
