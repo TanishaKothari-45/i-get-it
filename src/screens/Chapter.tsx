@@ -29,7 +29,7 @@ type Props = {
   startAt: number
   onPosition: (cardIndex: number) => void
   onAnswer: (item: Item, optionId: string, attempt: number) => Promise<AnswerResult>
-  onFinish: () => Promise<void>
+  onFinish: (stats: { minutes: number; right: number; total: number }) => Promise<void>
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
   svg?: string
   pictures: Record<number, string>   // card index -> Runway picture URL, arriving after the chapter
@@ -69,6 +69,9 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
     [cards, recall, n],
   )
 
+  // For the Done screen's line: minutes since this chapter was opened, and quizzes right on the first try.
+  const openedAt = useRef(Date.now())
+  const firstTries = useRef<Map<string, boolean>>(new Map())
   const [simplePref, setSimplePref] = useState<boolean>(() => { try { return localStorage.getItem('igetit.simple') === '1' } catch { return false } })
   const [simplified, setSimplified] = useState<Set<number>>(() => new Set())
   const [original, setOriginal] = useState<Set<number>>(() => new Set())
@@ -144,6 +147,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
     setSending(true); setPicked(optionId); setError(null)
     try {
       const r = await onAnswer(item, optionId, attempt)
+      if (!item.recall && !firstTries.current.has(key)) firstTries.current.set(key, attempt === 1 && r.correct)
       setResult(r)
       if (r.correct) { if (!item.recall) { setPassedHere((s) => new Set(s).add(key)); setPassedChoice((m) => ({ ...m, [key]: optionId })) } }
       else setMissed((m) => [...m, optionId])
@@ -154,7 +158,8 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
 
   const finish = async () => {
     setFinishing(true); setError(null)
-    try { await onFinish() } catch (e: any) { setError(String(e?.message ?? e).includes('Finish') ? 'One check is still open. Go back and answer it.' : 'Could not save the chapter. Try again.') }
+    const tries = [...firstTries.current.values()]
+    try { await onFinish({ minutes: Math.max(1, Math.round((Date.now() - openedAt.current) / 60000)), right: tries.filter(Boolean).length, total: tries.length }) } catch (e: any) { setError(String(e?.message ?? e).includes('Finish') ? 'One check is still open. Go back and answer it.' : 'Could not save the chapter. Try again.') }
     finally { setFinishing(false) }
   }
 

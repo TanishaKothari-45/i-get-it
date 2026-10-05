@@ -63,8 +63,8 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   return (
     <>
       {/* Prateek's words, DESIGN.md section 5 */}
-      <h1>From zero to one in 7 days, on any topic you want.</h1>
-      <p className="lede">Like going from brain fog to giving a coherent extempore on a topic, on the spot.</p>
+      <h1>Seven nights from “I keep meaning to” to “I get it”.</h1>
+      <p className="lede">Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap.</p>
 
       <div className="field">
         <label htmlFor="topic">What do you keep meaning to learn?</label>

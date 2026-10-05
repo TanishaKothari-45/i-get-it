@@ -48,6 +48,7 @@ export default function App() {
 
   const [view, setView] = useState<View>('auto')
   const [doneN, setDoneN] = useState<number | null>(null)
+  const [doneStats, setDoneStats] = useState<{ minutes: number; right: number; total: number } | null>(null)
   const [draftTopic, setDraftTopic] = useState('')
   // The writer comparison is for testers only: open the app once with ?compare=1 and this phone remembers it.
   const [tester] = useState(() => {
@@ -198,6 +199,9 @@ export default function App() {
           onPricing={() => setView('pricing')}
           onPickTime={async (at) => { await setTomorrow({ handbookId: hb._id, at, deviceToken: token }) }}
           onContinue={() => { setDoneN(null); setView('plan') }}
+          stats={doneStats}
+          nextReady={chapterReady && chapter?.n === doneN + 1}
+          onNext={() => { setDoneN(null); setView(chapterReady ? 'chapter' : 'plan') }}
         />
       </Shell>
     )
@@ -218,7 +222,7 @@ export default function App() {
           startAt={progress?.currentCard ?? 0}
           onPosition={(cardIndex) => { setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, deviceToken: token }).catch(() => {}) }}
           onAnswer={async (item, optionId, attempt) => (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult}
-          onFinish={async () => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneN(chapter.n); setView('done') }}
+          onFinish={async (stats) => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneStats(stats); setDoneN(chapter.n); setView('done') }}
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}

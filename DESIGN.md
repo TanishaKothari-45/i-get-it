@@ -110,7 +110,9 @@ Done: the last frame → the Done screen.
 Done (the rung lights)
 For: seeing the night's result and the next step.
 Top to bottom: the rung bar with segment 1 filling, "Chapter 1 of 7 on [topic]: done.", "You can now [outcome line]" in serif, "Tomorrow: Chapter 2, [title]" in one line, the main button, a quiet second line under it.
-Main action (not signed in): Keep this handbook → Sign in. Quiet line: "Not now" → stays on Done; the handbook stays on this phone.
+Since 6 Oct: under the title, one line of love comparing their time and first-try score with our own 20-minute budget, cheesy on purpose ("6 minutes, 3 of 3 first try. We budgeted 20. Show-off."), never with an average we don't have (agent copy). "Next: Chapter N, [title]" replaces "Tomorrow": bingeing is fine (Prateek).
+Main action (not signed in): Keep this handbook → Sign in. Quiet line: "Not now, start chapter N" → straight into the next chapter.
+Main action (signed in): Start chapter N now (or "writing it, about a minute" while it's written); quiet "Back to the handbook"; the time picker stays for people who want a set time.
 Main action (signed in): Pick when tomorrow is → Time. Then: See you at [time].
 Empty/Loading: none.
 Error (sign-in failed): "Sign-in didn't go through. Your chapter is saved on this phone." Button: Try again.
@@ -166,11 +168,11 @@ Top to bottom: "Keep this handbook on every device", one line on what we store (
 States: loading "Signing you in…", error as above, done returns to Done with the time picker.
 
 ## 5. The first screen's words
-Written by Prateek, 5 Oct 2026 (spelling tidied by the agent, nothing else).
-Headline: From zero to one in 7 days, on any topic you want.
-Under it: Like going from brain fog to giving a coherent extempore on a topic, on the spot.
-Button: Show me the way
-Replaces the agent's draft ("You keep saving it. Tonight, get it."), which Prateek's own phone test found unclear and text-heavy.
+Written by Prateek, 5 to 6 Oct 2026 (headline picked from three agent drafts and kept as his; the rest in his words).
+Headline: Seven nights from "I keep meaning to" to "I get it". (10 words, inside the lesson's limit.)
+Under it: Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap. (Days 8 to 28 are promised: PLAN.md has them live before 12 Oct.)
+Button: Show me the way (kept by Prateek over "Get my 7-night plan" and "Start night 1"; it leads to the path screen).
+Earlier versions: "You keep saving it. Tonight, get it." (agent; Prateek's phone test found it unclear), then "From zero to one in 7 days, on any topic you want." (Prateek; 11 words).
 Five-second test: not yet run.
 
 ## 6. Principles (kept, not tactics)

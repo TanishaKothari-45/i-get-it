@@ -78,8 +78,8 @@ export default function Landing({ onCreate }: Props) {
       <section className="lp-hero">
         <div className="lp-hero-copy">
           {/* Prateek's words, DESIGN.md section 5 */}
-          <h1 className="lp-poster"><span>From zero</span> <span>to one</span> <span>in 7 days,</span> <span className="lp-poster-small">on any topic you want.</span></h1>
-          <p className="lp-lede">Like going from brain fog to giving a coherent extempore on a topic, on the spot.</p>
+          <h1 className="lp-poster"><span>Seven nights</span> <span className="lp-poster-small">from “I keep meaning to”</span> <span>to “I get it”.</span></h1>
+          <p className="lp-lede">Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap.</p>
           {form('hero')}
         </div>
         <figure className="lp-hero-art"><img src="/images/landing/hero.jpg" alt="Someone climbing out of the fog toward one bright summit" /></figure>
