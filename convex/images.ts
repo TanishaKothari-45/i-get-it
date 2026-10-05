@@ -108,6 +108,21 @@ export const forCache = internalAction({
   },
 });
 
+// The ready-topic backfill as a server-side queue: draw one chapter, then schedule the next.
+// Nothing waits on a terminal. Start it with: npx convex run --prod images:backfill '{"queue":[...]}'
+const chapterRef = v.object({ topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")), n: v.number() });
+export const backfill = internalAction({
+  args: { queue: v.array(chapterRef), done: v.optional(v.number()), failed: v.optional(v.array(chapterRef)) },
+  handler: async (ctx, { queue, done = 0, failed = [] }): Promise<void> => {
+    const [head, ...rest] = queue;
+    if (!head) { console.log(`backfill finished: ${done} chapters drawn, ${failed.length} failed`, JSON.stringify(failed)); return; }
+    let ok = false;
+    try { const r: any = await ctx.runAction(internal.images.forCache, head); ok = !!r?.ok; console.log("backfill", JSON.stringify(head), JSON.stringify(r)); }
+    catch (e: any) { console.log("backfill error", JSON.stringify(head), String(e?.message ?? e).slice(0, 200)); }
+    await ctx.scheduler.runAfter(0, internal.images.backfill, { queue: rest, done: done + (ok ? 1 : 0), failed: ok ? failed : [...failed, head] });
+  },
+});
+
 // Style tests and one-off pictures.
 export const draw = internalAction({
   args: { prompt: v.string(), model: v.string(), ratio: v.string(), seed: v.optional(v.number()) },
