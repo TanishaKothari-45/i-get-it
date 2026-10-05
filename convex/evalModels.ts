@@ -64,3 +64,33 @@ export const check = internalAction({
     return { ok: true, ms, tokensIn: r.tokensIn, tokensOut: r.tokensOut, fixes: r.json?.fixes ?? [] };
   },
 });
+
+export const ping = internalAction({
+  args: { model: v.string() },
+  handler: async (ctx, { model }): Promise<any> => {
+    const t0 = Date.now();
+    const r: any = await ctx.runAction(internal.ai.generate, { kind: "simpler", system: "Reply with JSON.", user: 'Return {"ok": true}', model, effort: "low" });
+    return { ms: Date.now() - t0, ...r };
+  },
+});
+
+// Which service issued the cheaper-inference key, from its shape only (the key itself is never returned).
+export const keyShape = internalAction({
+  args: {},
+  handler: async (): Promise<any> => {
+    const k = process.env.CHEAPER_INFERENCE_API_KEY ?? "";
+    const known: [string, RegExp][] = [["OpenRouter", /^sk-or-/], ["Groq", /^gsk_/], ["Together", /^tgp_/], ["Fireworks", /^fw_/], ["DeepSeek or OpenAI-style", /^sk-[A-Za-z0-9]{20,}$/], ["Anthropic", /^sk-ant-/], ["Zhipu (id.secret)", /^[A-Za-z0-9]{20,}\.[A-Za-z0-9]{8,}$/], ["Hugging Face", /^hf_/], ["Google", /^AIza/]];
+    return { length: k.length, looksLike: known.find(([, re]) => re.test(k))?.[0] ?? "unknown", hasDot: k.includes("."), hasDash: k.includes("-"), whitespace: /\s/.test(k) };
+  },
+});
+
+// The model ids the cheaper-inference marketplace offers (names only).
+export const listModels = internalAction({
+  args: {},
+  handler: async (): Promise<any> => {
+    const base = process.env.GLM_BASE_URL ?? "https://api.z.ai/api/paas/v4";
+    const res = await fetch(`${base}/models`, { headers: { Authorization: `Bearer ${process.env.CHEAPER_INFERENCE_API_KEY ?? ""}` } });
+    const body: any = await res.json().catch(() => ({}));
+    return { status: res.status, ids: (body.data ?? []).map((m: any) => m.id), error: res.ok ? undefined : JSON.stringify(body).slice(0, 200) };
+  },
+});

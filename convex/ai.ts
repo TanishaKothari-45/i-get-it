@@ -85,6 +85,28 @@ async function callAnthropic(kind: Kind, system: string, user: string, modelOver
   return { text, tokensIn: res.usage.input_tokens, tokensOut: res.usage.output_tokens, model: res.model };
 }
 
+// GLM (Zhipu / Z.ai), OpenAI-style chat API. Key in the Convex env variable CHEAPER_INFERENCE_API_KEY (Prateek's credits).
+// Only used when a model id starts with "glm-" (6 Oct: under test in the model comparison, not on the reader's path).
+async function callGLM(system: string, user: string, model: string, maxTokens: number, effort?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+  const key = process.env.CHEAPER_INFERENCE_API_KEY;
+  if (!key) throw new Error("No GLM key");
+  const base = process.env.GLM_BASE_URL ?? "https://api.z.ai/api/paas/v4";
+  const res = await fetch(`${base}/chat/completions`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model, max_tokens: Math.min(maxTokens, 32000),
+      messages: [{ role: "system", content: system + "\n\nReturn only the JSON object. No prose, no code fences." }, { role: "user", content: user }],
+      thinking: { type: effort && effort !== "low" ? "enabled" : "disabled" },
+    }),
+  });
+  const body: any = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`GLM ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
+  const choice = body.choices?.[0];
+  if (choice?.finish_reason === "length") throw new Error("reply cut off at the token limit");
+  return { text: String(choice?.message?.content ?? ""), tokensIn: body.usage?.prompt_tokens, tokensOut: body.usage?.completion_tokens, model: body.model ?? model };
+}
+
 function extractJson(text: string): any {
   const m = text.match(/\{[\s\S]*\}/);
   if (!m) throw new Error("no JSON in model output");
@@ -102,12 +124,14 @@ export const generate = internalAction({
       return { ok: false, error: "no provider key set", model: "none" };
     }
     try {
-      let r = provider === "anthropic" ? await callAnthropic(kind, system, user, model, effort) : await callOpenAI(system, user, maxOut);
+      const viaGLM = !!model?.startsWith("glm-");
+      const call = () => viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
+      let r = await call();
       let json: any;
       // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure.
       try { json = extractJson(r.text); }
       catch {
-        r = provider === "anthropic" ? await callAnthropic(kind, system, user, model, effort) : await callOpenAI(system, user, maxOut);
+        r = await call();
         json = extractJson(r.text);
       }
       await ctx.runMutation(internal.handbooks.logAiCall, {
