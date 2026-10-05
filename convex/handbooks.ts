@@ -339,7 +339,7 @@ function validFix(orig: any, fixed: any): boolean {
   if (orig.type !== "exercise") return typeof fixed.body === "string" || typeof fixed.prompt === "string";
   return Array.isArray(fixed.options) && fixed.options.length === 3 && fixed.options.some((o: any) => o.id === fixed.answer);
 }
-async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" } = {}): Promise<{ cards: any[]; report: FactReport }> {
+async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max" } = {}): Promise<{ cards: any[]; report: FactReport }> {
   const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: CHECK_PROMPT, user: checkUserMessage(topic, level, { title, cards }), ...opts });
   if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() } };
   const out = cards.slice();
@@ -361,7 +361,8 @@ export const generateChapter = internalAction({
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h?.plan) return;
     const prof = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId });
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, prof.line), model: prof.model });
+    const howTheyDid: string | null = await ctx.runQuery(internal.handbooks.readingReport, { handbookId, n });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, prof.line, howTheyDid ?? undefined), model: prof.model });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");
@@ -410,6 +411,48 @@ export const setChapter = internalMutation({
     else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, outcomeLine, svg, model, factCheck, createdAt: Date.now() });
   },
 });
+// ---------- adapting to the reader ----------
+
+// What the writer of chapter n learns about chapter n-1: missed quizzes (what they picked and what it was
+// confused with), the first-try score, and a step up (1 to 3) for each perfect chapter in a row.
+export const readingReport = internalQuery({
+  args: { handbookId: v.id("handbooks"), n: v.number() },
+  handler: async (ctx, { handbookId, n }): Promise<string | null> => {
+    if (n <= 1) return null;
+    const answers = (await ctx.db.query("answers").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).collect()).filter((a) => !a.recall);
+    const chapterStats = async (m: number) => {
+      const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", m)).unique();
+      const rows = answers.filter((a) => a.chapter === m).sort((a, b) => a.at - b.at);
+      const byCard = new Map<number, typeof rows>();
+      for (const r of rows) byCard.set(r.cardIndex, [...(byCard.get(r.cardIndex) ?? []), r]);
+      const quizzes = [...byCard.entries()].map(([cardIndex, rs]) => ({ cardIndex, first: rs[0], card: ch?.cards?.[cardIndex] }));
+      return { ch, rows, quizzes, right: quizzes.filter((q) => q.first.correct).length };
+    };
+    const last = await chapterStats(n - 1);
+    if (!last.quizzes.length) return null;
+    let streak = 0;
+    for (let m = n - 1; m >= 1; m--) {
+      const s = await chapterStats(m);
+      if (s.quizzes.length && s.right === s.quizzes.length) streak++; else break;
+    }
+    const lines: string[] = [];
+    const minutes = last.rows.length > 1 ? Math.max(1, Math.round((last.rows[last.rows.length - 1].at - last.rows[0].at) / 60000)) : null;
+    lines.push(`Chapter ${n - 1}: ${last.right} of ${last.quizzes.length} quizzes right on the first try${minutes ? `, quizzes done in about ${minutes} minute${minutes === 1 ? "" : "s"}` : ""}.`);
+    const missed = last.quizzes.filter((q) => !q.first.correct && q.card?.type === "exercise");
+    if (missed.length) {
+      lines.push("Missed (re-teach these first):");
+      for (const q of missed.slice(0, 3)) {
+        const picked = q.card.options?.find((o: any) => o.id === q.first.optionId)?.text ?? "";
+        const why = q.card.whyNot?.[q.first.optionId] ?? "";
+        lines.push(`- Quiz: "${String(q.card.prompt ?? "").slice(0, 220)}" They picked "${String(picked).slice(0, 140)}". ${String(why).slice(0, 220)}`);
+      }
+    } else if (streak > 0) {
+      lines.push(`Step up: ${Math.min(3, streak)} of 3.`);
+    }
+    return lines.join("\n");
+  },
+});
+
 // ---------- pictures ----------
 
 export const takePictureBudget = internalMutation({
@@ -496,11 +539,15 @@ export const setPosition = mutation({
 export const recordAnswer = mutation({
   args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), optionId: v.string(), attempt: v.number(), recall: v.optional(v.boolean()), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, chapter, cardIndex, optionId, attempt, recall, deviceToken }) => {
-    await ownedHandbook(ctx, handbookId, deviceToken);
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
     const card = ch?.cards?.[cardIndex];
     if (!card || card.type !== "exercise") throw new Error("Not an exercise");
     const correct = card.answer === optionId;
+    // Passing the chapter's last quiz starts writing the next chapter, so the closing card and the Done
+    // screen hide most of the wait. Its writer reads how this chapter went (readingReport).
+    const lastQuiz = Math.max(...(ch!.cards as any[]).map((c, i) => (c?.type === "exercise" ? i : -1)));
+    if (correct && !recall && cardIndex === lastQuiz && chapter < CHAPTERS) await ensureChapter(ctx, h, chapter + 1);
     const key = `${chapter}:${cardIndex}`;
     await ctx.db.insert("answers", { handbookId, chapter, cardIndex, optionId, correct, attempt, recall: !!recall, at: Date.now() });
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();

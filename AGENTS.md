@@ -51,7 +51,7 @@ Where it runs: a Convex action. Never in the interface.
 Key: OPENAI_API_KEY / ANTHROPIC_API_KEY in Convex environment variables, dev and prod.
 Reply cap: see the job table above. Thinking tokens count against the cap on Opus, Sonnet and Fable, so their caps are larger.
 Token rules (added 4 Oct afternoon, when personalisation came in):
-- One chapter at a time, written when opened, never ahead. Plans are never regenerated for tone or persona.
+- One chapter at a time, never more than one ahead: since 6 Oct (Prateek, adaptive chapters) chapter N+1 starts writing when the reader passes chapter N's last quiz, and its writer gets a short report on chapter N (handbooks.ts readingReport): missed quizzes with what they picked and why it was wrong (the chapter re-teaches them first, in a "Before we go on" card), or a step up (1 to 3) for each perfect chapter in a row (harder quizzes, never harder reading). Ready topics are pre-written and don't adapt. Plans are never regenerated for tone or persona.
 - The reader's profile is one line, about 100 tokens, in a fixed order, sent with every chapter call. It is the only personalisation payload; never send chat history or earlier chapters.
 - A profile change marks unread chapters stale; a stale chapter is rewritten once, when opened. Chapters already started are never rewritten.
 - "Say it simpler" rewrites one card (600 tokens out) and stores it, so the second tap is free. Pre-generated for cached topics.
