@@ -63,6 +63,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   return (
     <>
       {/* Prateek's words, DESIGN.md section 5 */}
+      <p className="for-line">For everything you saved and never got back to.</p>
       <h1>Seven nights from “I keep meaning to” to “I get it”.</h1>
       <p className="lede">Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap.</p>
 

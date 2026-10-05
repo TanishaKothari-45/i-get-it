@@ -169,6 +169,7 @@ States: loading "Signing you in…", error as above, done returns to Done with t
 
 ## 5. The first screen's words
 Written by Prateek, 5 to 6 Oct 2026 (headline picked from three agent drafts and kept as his; the rest in his words).
+Above it (6 Oct, after the five-second test; agent draft Prateek chose): For everything you saved and never got back to.
 Headline: Seven nights from "I keep meaning to" to "I get it". (10 words, inside the lesson's limit.)
 Under it: Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap. (Days 8 to 28 are promised: PLAN.md has them live before 12 Oct.)
 Button: Show me the way (kept by Prateek over "Get my 7-night plan" and "Start night 1"; it leads to the path screen).

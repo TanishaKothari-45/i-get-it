@@ -78,6 +78,7 @@ export default function Landing({ onCreate }: Props) {
       <section className="lp-hero">
         <div className="lp-hero-copy">
           {/* Prateek's words, DESIGN.md section 5 */}
+          <p className="lp-for">For everything you saved and never got back to.</p>
           <h1 className="lp-poster"><span>Seven nights</span> <span className="lp-poster-small">from “I keep meaning to”</span> <span>to “I get it”.</span></h1>
           <p className="lp-lede">Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap.</p>
           {form('hero')}
