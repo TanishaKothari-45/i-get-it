@@ -245,6 +245,7 @@ export default function App() {
         onCompare={!tester ? undefined : () => { if (chapter?.variants?.length) { setView('compare'); return } compareModels({ handbookId: hb._id, n: currentN, deviceToken: token }).then(() => setView('compare')).catch(() => {}) }}
         comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
         coverSvg={(hb.chapters.find((c) => c.n === 1) as any)?.svg}
+        coverPicture={firstPicture((hb.chapters.find((c) => c.n === 1) as any)?.pictures)}
         onLibrary={() => setView('library')}
         libraryCount={libRows.length}
         onRetry={() => { retry({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }}
@@ -269,4 +270,10 @@ function Shell({ children, onSignOut, rail, back }: { children: React.ReactNode;
       <footer className="foot"><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
     </div>
   )
+}
+
+// The cover shows chapter 1's first Runway picture; the model's freehand drawing only until it arrives.
+function firstPicture(pictures?: Record<string, string>): string | undefined {
+  const keys = Object.keys(pictures ?? {}).map(Number).sort((a, b) => a - b)
+  return keys.length ? pictures![String(keys[0])] : undefined
 }

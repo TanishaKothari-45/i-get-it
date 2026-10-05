@@ -485,3 +485,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 @media (prefers-reduced-motion: reduce) { .lp-poster span { animation: none; } .lp-field button { transition: none; } }
 .lp-ladder span:first-child em { left: 0; transform: none; }
 .lp-ladder span:last-child em { left: auto; right: 0; transform: none; }
+
+/* the plan cover's picture: chapter 1's printed plate (design/style-anchor.md) */
+.roadmap-pic { aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden; margin: 18px 0; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); background: #f3eee3; }
+.roadmap-pic img { width: 100%; height: 100%; object-fit: cover; display: block; animation: picin 700ms var(--ease) both; }
