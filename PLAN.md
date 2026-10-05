@@ -17,6 +17,7 @@ FROZEN 4 Oct 16:50 (Shaktimaan): no new features until one coursemate has used t
 Acceptance test (not a milestone): a stranger, logged out, on their own phone, gets through night 1 without Prateek saying a word.
 
 Parked (not now), in the order they'd come:
+- Tanisha Kothari's PR #2 (merged on GitHub 5 Oct, code not taken: built on a copy 15 commits old, clashed in 8 files). Port one at a time after the coursemate test, from commits fef4d86, cb57b35, c2023bd: chapter recap; "go deeper" bonus lessons; an "another way" lesson for a chapter with a missed exercise; shared handbook library with in-app navigation, cache expiry and AI retry (overlaps our library: compare first).
 - Memes, AI-generated reels or clips inside a chapter (first user test, 4 Oct). Parked on purpose: the feed is the habit we're firing; the chapter earns attention with prose, examples and the checks instead.
 - Regenerate the plan with comments, done chapters kept.
 - "Go deeper" on a card, and language change mid-path. ("Say it simpler" shipped 4 Oct afternoon after a user asked for it.)
