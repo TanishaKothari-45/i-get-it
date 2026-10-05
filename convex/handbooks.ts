@@ -422,25 +422,32 @@ export const listCache = internalQuery({
   handler: async (ctx) => (await ctx.db.query("cache").collect()).map((r) => ({ topicKey: r.topicKey, level: r.level, topic: r.topic, chapters: r.chapters.map((c: any) => ({ n: c.n, pictures: (c.pictures ?? []).length })) })),
 });
 
-// Store a ready topic's pictures on the cache row, and give them to every reader's copy of that
-// chapter that has none yet (same cards only: a copy rewritten for a reader keeps its own).
+// Store a ready topic's pictures on the cache row and on every other spelling of the same topic
+// ("ww2", "wwii"... are separate rows with the same chapters), then give them to every reader's copy
+// of that chapter that has none yet (same title only: a copy rewritten for a reader keeps its own).
 export const setCachePictures = internalMutation({
   args: { topicKey: v.string(), level, n: v.number(), pictures: v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")) })) },
   handler: async (ctx, { topicKey, level: lvl, n, pictures }) => {
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
-    if (!row) return 0;
-    const chapters = row.chapters.map((c: any) => (c.n === n ? { ...c, pictures } : c));
-    await ctx.db.patch(row._id, { chapters });
-    const cached = chapters.find((c: any) => c.n === n);
+    const title = row?.chapters.find((c: any) => c.n === n)?.title;
+    if (!row || !title) return { rows: 0, copies: 0 };
+    const keys = new Set<string>();
+    for (const r of await ctx.db.query("cache").collect()) {
+      if (r.level !== lvl || r.topic !== row.topic) continue;
+      const c = r.chapters.find((x: any) => x.n === n);
+      if (!c || c.title !== title || (r.topicKey !== topicKey && c.pictures?.length)) continue;
+      await ctx.db.patch(r._id, { chapters: r.chapters.map((x: any) => (x.n === n ? { ...x, pictures } : x)) });
+      keys.add(r.topicKey);
+    }
     let copies = 0;
     for (const h of await ctx.db.query("handbooks").collect()) {
-      if (h.source !== "cache" || h.topicKey !== topicKey || h.level !== lvl) continue;
+      if (h.source !== "cache" || !keys.has(h.topicKey) || h.level !== lvl) continue;
       const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
-      if (!ch || ch.pictures?.length || ch.title !== cached?.title) continue;
+      if (!ch || ch.pictures?.length || ch.title !== title) continue;
       await ctx.db.patch(ch._id, { pictures, picturesStatus: "done" });
       copies++;
     }
-    return copies;
+    return { rows: keys.size, copies };
   },
 });
 

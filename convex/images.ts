@@ -50,7 +50,7 @@ async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RA
 
 // Scenes for a chapter's teaching cards (one Haiku call), then one picture per scene, drawn in parallel.
 type Picture = { card: number; scene: string; storageId?: Id<"_storage"> };
-async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[]): Promise<{ status: string; pictures: Picture[] }> {
+async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true): Promise<{ status: string; pictures: Picture[] }> {
   const teaching = cards.map((c: any, i: number) => ({ c, i })).filter(({ c }) => c && c.type !== "exercise" && c.type !== "watch" && typeof c.body === "string").slice(0, MAX_PICTURES);
   if (!teaching.length) return { status: "skipped", pictures: [] };
   const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))) });
@@ -61,7 +61,8 @@ async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: stri
     if (wanted.has(card) && scene && !scenes.some((y) => y.card === card)) scenes.push({ card, scene });
   }
   if (!scenes.length) return { status: "failed", pictures: [] };
-  if (!(await ctx.runMutation(internal.handbooks.takePictureBudget, { count: scenes.length }))) return { status: "failed", pictures: [] };
+  // Readers' chapters count against the app-wide hourly cap; the hand-run ready-topic backfill does not.
+  if (capped && !(await ctx.runMutation(internal.handbooks.takePictureBudget, { count: scenes.length }))) return { status: "failed", pictures: [] };
   const drawn = await Promise.all(scenes.map((s) => drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${s.scene} ${PICTURE_NEVER}`)));
   const pictures: Picture[] = scenes.map((s, k) => ({ ...s, storageId: drawn[k].ok ? (drawn[k] as any).storageId : undefined }));
   return { status: pictures.some((p) => p.storageId) ? "done" : "failed", pictures };
@@ -83,13 +84,13 @@ export const forChapter = internalAction({
 // A ready topic's chapter: drawn once, shared by every reader. Run by hand: npx convex run images:forCache '{...}'
 export const forCache = internalAction({
   args: { topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")), n: v.number() },
-  handler: async (ctx, { topicKey, level, n }): Promise<{ ok: boolean; error?: string; pictures?: number; of?: number; copies?: number }> => {
+  handler: async (ctx, { topicKey, level, n }): Promise<{ ok: boolean; error?: string; pictures?: number; of?: number; rows?: number; copies?: number }> => {
     const row: any = await ctx.runQuery(internal.handbooks.readCacheChapter, { topicKey, level, n });
     if (!row?.chapter) return { ok: false, error: "no such cached chapter" };
-    const r = await picturesFor(ctx, row.plan?.topic ?? row.topic, row.plan, row.chapter.title ?? "", row.chapter.cards ?? []);
+    const r = await picturesFor(ctx, row.plan?.topic ?? row.topic, row.plan, row.chapter.title ?? "", row.chapter.cards ?? [], false);
     if (r.status !== "done") return { ok: false, error: r.status };
-    const copies: number = await ctx.runMutation(internal.handbooks.setCachePictures, { topicKey, level, n, pictures: r.pictures });
-    return { ok: true, pictures: r.pictures.filter((p) => p.storageId).length, of: r.pictures.length, copies };
+    const shared: { rows: number; copies: number } = await ctx.runMutation(internal.handbooks.setCachePictures, { topicKey, level, n, pictures: r.pictures });
+    return { ok: true, pictures: r.pictures.filter((p) => p.storageId).length, of: r.pictures.length, ...shared };
   },
 });
 
