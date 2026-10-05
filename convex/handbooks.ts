@@ -295,39 +295,59 @@ export const recallFor = query({
 
 // ---------- creating a handbook ----------
 
+type StartArgs = { topic: string; level: Level; voice?: Voice; deviceToken: string; continuesBookId?: Id<"books"> };
+
+// A new handbook for this line: reopen one they already have, point to a shared book if one exists,
+// otherwise write it (within the caps).
+async function startHandbook(ctx: MutationCtx, { topic, level: lvl, voice, deviceToken, continuesBookId }: StartArgs) {
+  const clean = topic.trim().slice(0, 200);
+  if (clean.length < 2) throw new Error("Type a few words first.");
+  const userId = await getAuthUserId(ctx);
+  const topicKey = topicKeyOf(clean);
+  const v = voice ?? DEFAULT_VOICE;
+  const base = { topicKey, level: lvl, language: LANGUAGE, voice: v, ownerToken: deviceToken, userId: userId ?? undefined, continuesBookId, createdAt: Date.now() };
+  const book = await findBook(ctx, topicKey, lvl, LANGUAGE, v);
+
+  // Asking again for something they already have (or a double tap): reopen it, never a second copy.
+  const owned = await myHandbooks(ctx, deviceToken);
+  const again = owned.find((h) => (book ? h.bookId === book._id : h.status === "planning" && h.topicKey === topicKey && h.level === lvl && h.voice === v));
+  if (again) return { handbookId: again._id, fromCache: !!book };
+
+  // Someone already has this book: point to it, nothing is written or copied.
+  if (book) {
+    const handbookId = await ctx.db.insert("handbooks", { ...base, topic: book.topic, status: "ready", bookId: book._id });
+    await newProgress(ctx, handbookId);
+    await ensureChapter(ctx, book, 1);
+    return { handbookId, fromCache: true };
+  }
+
+  // Live generation: the caps are checked here, in the kitchen.
+  const all = await limiter.limit(ctx, "generateAll");
+  const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken });
+  if (!all.ok || !mine.ok) throw new Error("busy");
+
+  const handbookId = await ctx.db.insert("handbooks", { ...base, topic: clean, status: "planning" });
+  await newProgress(ctx, handbookId);
+  await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
+  return { handbookId, fromCache: false };
+}
+
 export const create = mutation({
   args: { topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV) },
-  handler: async (ctx, { topic, level: lvl, deviceToken, voice }) => {
-    const clean = topic.trim().slice(0, 200);
-    if (clean.length < 2) throw new Error("Type a few words first.");
-    const userId = await getAuthUserId(ctx);
-    const topicKey = topicKeyOf(clean);
-    const v = voice ?? DEFAULT_VOICE;
-    const base = { topicKey, level: lvl, language: LANGUAGE, voice: v, ownerToken: deviceToken, userId: userId ?? undefined, createdAt: Date.now() };
-    const book = await findBook(ctx, topicKey, lvl, LANGUAGE, v);
+  handler: async (ctx, { topic, level: lvl, deviceToken, voice }) => startHandbook(ctx, { topic, level: lvl, voice, deviceToken }),
+});
 
-    // Asking again for something they already have (or a double tap): reopen it, never a second copy.
-    const owned = await myHandbooks(ctx, deviceToken);
-    const again = owned.find((h) => (book ? h.bookId === book._id : h.status === "planning" && h.topicKey === topicKey && h.level === lvl && h.voice === v));
-    if (again) return { handbookId: again._id, fromCache: !!book };
-
-    // Someone already has this book: point to it, nothing is written or copied.
-    if (book) {
-      const handbookId = await ctx.db.insert("handbooks", { ...base, topic: book.topic, status: "ready", bookId: book._id });
-      await newProgress(ctx, handbookId);
-      await ensureChapter(ctx, book, 1);
-      return { handbookId, fromCache: true };
-    }
-
-    // Live generation: the caps are checked here, in the kitchen.
-    const all = await limiter.limit(ctx, "generateAll");
-    const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken });
-    if (!all.ok || !mine.ok) throw new Error("busy");
-
-    const handbookId = await ctx.db.insert("handbooks", { ...base, topic: clean, status: "planning" });
-    await newProgress(ctx, handbookId);
-    await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
-    return { handbookId, fromCache: false };
+// "Go further": the next level of a handbook they've finished. Starts at "know some", picks up where
+// the last one ended, and is shared like any book (the next person to finish gets it straight away).
+export const goFurther = mutation({
+  args: { handbookId: v.id("handbooks"), deviceToken: v.string() },
+  handler: async (ctx, { handbookId, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    const book = h.bookId ? await ctx.db.get(h.bookId) : null;
+    const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    if (!book || !p || p.chaptersPassed.length < CHAPTERS) throw new Error("Finish this one first");
+    const title = String(book.plan?.topic ?? book.topic);
+    return startHandbook(ctx, { topic: `${title}: the next level`, level: "some", voice: h.voice, deviceToken, continuesBookId: book._id });
   },
 });
 
@@ -375,10 +395,16 @@ export const generatePlan = internalAction({
   handler: async (ctx, { handbookId, clarification }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice, clarification) });
+    // "Go further": tell the plan what they just finished, so it picks up from there.
+    const prev = h.continuesBookId ? await ctx.runQuery(internal.handbooks.readBook, { bookId: h.continuesBookId }) : null;
+    const previous = prev?.plan ? {
+      topic: String(prev.plan.topic ?? prev.topic), outcome7: prev.plan.outcome7 ?? undefined, horizon14: prev.plan.horizon14 ?? undefined,
+      chapterTitles: (prev.plan.chapters ?? []).map((c: any) => String(c.title ?? "")),
+    } : undefined;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice, clarification, previous) });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: r.error }); return; }
     const plan = r.json;
-    if (plan.needsClarification && plan.question && !clarification) {
+    if (plan.needsClarification && plan.question && !clarification && !previous) {
       await ctx.runMutation(internal.handbooks.setQuestion, { handbookId, question: String(plan.question) });
       return;
     }
