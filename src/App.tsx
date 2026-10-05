@@ -98,7 +98,7 @@ function useCreateHandbook(token: string) {
       if (!res.ok) throw new Error('upload failed')
       images.push((await res.json()).storageId)
     }
-    const { handbookId } = await create({ topic, level, voice, language, deviceToken: token, links: sources?.links, images })
+    const { handbookId } = await create({ topic, level, voice, language, deviceToken: token, links: sources?.links, images, creator: sources?.creator })
     navigate(paths.handbook(handbookId))
   }
 }
@@ -180,6 +180,8 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
         key={`${id}-${hb.status}`}
         initialTopic={hb.topic}
         sources={hb.sources}
+        creator={hb.creator}
+        choices={hb.choices}
         status={status}
         question={hb.question}
         error={hb.error}
@@ -252,6 +254,8 @@ function HandbookRoute({ route, token }: { route: HandbookRouteName; token: stri
       topic={topic}
       plan={plan}
       sourceLabels={sourceLabelsOf(hb.sources)}
+      sourcesNote={sourcesNoteOf(hb.sources, hb.creator)}
+      sourceLinks={hb.sources?.map((s) => s.url)}
       passed={passed}
       current={currentN}
       chapterReady={isReady(currentN)}
@@ -431,6 +435,14 @@ function NotFound() {
       </ActionBar>
     </>
   )
+}
+
+// The line under the plan's outcome: what it was built from (only the sources it used).
+function sourcesNoteOf(sources: HandbookView['sources'], creator: string | null): string | undefined {
+  const labels = sourceLabelsOf(sources)
+  const used = (sources ?? []).flatMap((s, i) => (s.status === 'read' ? [labels![i]] : []))
+  if (!used.length) return undefined
+  return creator ? `Based on @${creator}'s reels: ${used.join(' · ')}.` : `Built from what you shared: ${used.join(' · ')}.`
 }
 
 // What the reader calls each thing they shared, numbered in the order they added it: "Reel 1", "Video 2", "Photo 3".

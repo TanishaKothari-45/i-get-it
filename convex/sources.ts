@@ -88,3 +88,51 @@ export function sourceNotesOf(h: Pick<Doc<"handbooks">, "sources">): string | un
   const lines = (h.sources ?? []).flatMap((s, i) => (s.status === "read" && s.notes ? [`Source ${i + 1} (${label[s.kind]}${s.title ? `: ${s.title}` : ""}):\n${s.notes}`] : []));
   return lines.length ? lines.join("\n\n").slice(0, 12000) : undefined;
 }
+
+// ---------- learning from a creator ----------
+
+type Theme = { name: string; reels: number[] };
+
+// Only the chosen theme's reels are read; the rest are set aside (kept, never read, never shown as used).
+export function keepReels(sources: Source[], reels: number[]): Source[] {
+  const keep = new Set(reels);
+  return sources.map((s, i) => (keep.has(i + 1) ? s : { ...s, status: "failed" as const, error: "about something else" }));
+}
+
+// The theme a tapped (or typed) answer means: the choices read "Theme name (4 reels)".
+export function themeFor(themes: Theme[] | undefined, answer: string): Theme | undefined {
+  const a = answer.trim().toLowerCase();
+  return (themes ?? []).find((t) => a === t.name.toLowerCase() || a.startsWith(`${t.name.toLowerCase()} (`));
+}
+
+// A creator's latest reels are in. Several themes: ask which, with the themes to tap. One theme: go straight
+// on with its reels. None: ask what they want from these reels.
+export const setCreatorReels = internalMutation({
+  args: {
+    handbookId: v.id("handbooks"),
+    reels: v.array(v.object({ url: v.string(), caption: v.optional(v.string()), transcript: v.optional(v.string()), videoUrl: v.optional(v.string()) })),
+    themes: v.array(v.object({ name: v.string(), reels: v.array(v.number()) })),
+  },
+  handler: async (ctx, { handbookId, reels, themes }) => {
+    const h = await ctx.db.get(handbookId);
+    if (!h?.creator) return;
+    const sources: Source[] = reels.map((r) => ({
+      kind: "instagram", url: r.url, status: "waiting",
+      caption: r.caption?.slice(0, 3000), transcript: r.transcript?.slice(0, 8000), videoUrl: r.videoUrl,
+    }));
+    const creator = { ...h.creator, themes };
+    const handle = h.creator.handle;
+    if (themes.length === 1 || (themes.length > 1 && h.topic)) {
+      // One theme, or they already typed what they want: no need to ask.
+      const theme = themeFor(themes, h.topic) ?? (themes.length === 1 ? themes[0] : undefined);
+      await ctx.db.patch(handbookId, { creator, sources: theme ? keepReels(sources, theme.reels) : sources, topic: h.topic || theme?.name || "" });
+      await ctx.scheduler.runAfter(0, internal.sourcesRead.readAll, { handbookId });
+      return;
+    }
+    const plural = (n: number) => `${n} reel${n === 1 ? "" : "s"}`;
+    await ctx.db.patch(handbookId, themes.length > 1
+      ? { creator, sources, status: "question", question: `@${handle}'s latest reels cover a few things. Which one should this handbook be about?`, choices: themes.map((t) => `${t.name} (${plural(t.reels.length)})`) }
+      : { creator, sources, status: "question", question: `What do you want to learn from @${handle}'s reels?`, choices: undefined });
+  },
+});
+

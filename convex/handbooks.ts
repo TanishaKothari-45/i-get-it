@@ -5,7 +5,8 @@ import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 import { CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage, sourcesBlock, type BonusKind } from "./prompts";
-import { buildSources, sourceNotesOf } from "./sources";
+import { buildSources, keepReels, sourceNotesOf, themeFor } from "./sources";
+import { parseCreator } from "./links";
 import { level, voice as voiceV } from "./schema";
 import { ENGLISH, languageInfo } from "./languages";
 
@@ -243,6 +244,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   return {
     bonus: bonus.map((b) => ({ kind: b.kind, n: b.n, status: b.status, title: b.title, cards: publicCards(b.cards), error: b.error })),
     sources: (h.sources ?? []).map((s) => ({ kind: s.kind, url: s.url, status: s.status, via: s.via, title: s.title, error: s.error })),
+    creator: h.creator ? h.creator.handle : null, choices: h.choices ?? null,
     _id: h._id, topic: h.topic, level: h.level, voice: h.voice, language: h.language, bookVoice: book?.voice ?? null, source: book?.source ?? null,
     status: h.status, question: h.question, plan: book?.plan ?? null, error: h.error,
     signedIn: !!h.userId,
@@ -338,7 +340,7 @@ export const recallFor = query({
 
 // ---------- creating a handbook ----------
 
-type StartArgs = { topic: string; level: Level; voice?: Voice; language?: string; deviceToken: string; continuesBookId?: Id<"books">; links?: string[]; images?: Id<"_storage">[] };
+type StartArgs = { topic: string; level: Level; voice?: Voice; language?: string; deviceToken: string; continuesBookId?: Id<"books">; links?: string[]; images?: Id<"_storage">[]; creator?: string };
 type HandbookBase = Omit<Doc<"handbooks">, "_id" | "_creationTime" | "topic" | "status">;
 
 // A handbook pointing to a book that already exists: nothing is written or copied.
@@ -367,12 +369,31 @@ async function startFromSources(ctx: MutationCtx, a: { clean: string; level: Lev
   return { handbookId, fromCache: false };
 }
 
+// Started from a creator: their latest public reels are gathered and sorted into themes (sourcesRead.gatherCreator),
+// the learner picks one, and the handbook is written from that theme's reels. Private, like any handbook from sources.
+async function startFromCreator(ctx: MutationCtx, a: { clean: string; level: Level; voice: Voice; language: string; deviceToken: string; creator: string }) {
+  const handle = parseCreator(a.creator);
+  if (!handle) throw new Error("That doesn't look like an Instagram handle.");
+  const all = await limiter.limit(ctx, "generateAll");
+  const mine = await limiter.limit(ctx, "generateDevice", { key: a.deviceToken });
+  if (!all.ok || !mine.ok) throw new Error("busy");
+  const userId = await getAuthUserId(ctx);
+  const handbookId = await ctx.db.insert("handbooks", {
+    topic: a.clean, topicKey: "", level: a.level, language: a.language, voice: a.voice, status: "planning", sources: [], creator: { handle },
+    ownerToken: a.deviceToken, userId: userId ?? undefined, createdAt: Date.now(),
+  });
+  await newProgress(ctx, handbookId);
+  await ctx.scheduler.runAfter(0, internal.sourcesRead.gatherCreator, { handbookId });
+  return { handbookId, fromCache: false };
+}
+
 // A new handbook for this line: reopen one they already have, point to a shared book if one exists,
 // translate the English book if only that exists, otherwise write it (within the caps).
-async function startHandbook(ctx: MutationCtx, { topic, level: lvl, voice, language, deviceToken, continuesBookId, links, images }: StartArgs) {
+async function startHandbook(ctx: MutationCtx, { topic, level: lvl, voice, language, deviceToken, continuesBookId, links, images, creator }: StartArgs) {
   const clean = topic.trim().slice(0, 200);
   const lang = language ?? ENGLISH;
   if (!languageInfo(lang)) throw new Error("Unknown language");
+  if (creator) return startFromCreator(ctx, { clean, level: lvl, voice: voice ?? DEFAULT_VOICE, language: lang, deviceToken, creator });
   if (links?.length || images?.length) return startFromSources(ctx, { clean, level: lvl, voice: voice ?? DEFAULT_VOICE, language: lang, deviceToken, links: links ?? [], images: images ?? [] });
   if (clean.length < 2) throw new Error("Type a few words first.");
   const userId = await getAuthUserId(ctx);
@@ -410,8 +431,8 @@ async function startHandbook(ctx: MutationCtx, { topic, level: lvl, voice, langu
 }
 
 export const create = mutation({
-  args: { topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV), language: v.optional(v.string()), links: v.optional(v.array(v.string())), images: v.optional(v.array(v.id("_storage"))) },
-  handler: async (ctx, { topic, level: lvl, deviceToken, voice, language, links, images }) => startHandbook(ctx, { topic, level: lvl, voice, language, deviceToken, links, images }),
+  args: { topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV), language: v.optional(v.string()), links: v.optional(v.array(v.string())), images: v.optional(v.array(v.id("_storage"))), creator: v.optional(v.string()) },
+  handler: async (ctx, { topic, level: lvl, deviceToken, voice, language, links, images, creator }) => startHandbook(ctx, { topic, level: lvl, voice, language, deviceToken, links, images, creator }),
 });
 
 // "Go further": the next level of a handbook they've finished. Starts at "know some", picks up where
@@ -437,6 +458,15 @@ export const answerQuestion = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     if (h.status !== "question") throw new Error("No question open");
     const clarification = answer.trim().slice(0, 300);
+    // Started from a creator: the answer is a theme (or what they typed). Its reels are read, then the plan is written.
+    if (h.creator && h.sources?.length) {
+      const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
+      if (!mine.ok) throw new Error("busy");
+      const theme = themeFor(h.creator.themes, clarification);
+      await ctx.db.patch(handbookId, { status: "planning", question: undefined, choices: undefined, topic: h.topic || theme?.name || clarification, sources: theme ? keepReels(h.sources, theme.reels) : h.sources });
+      await ctx.scheduler.runAfter(0, internal.sourcesRead.readAll, { handbookId });
+      return;
+    }
     // Started from links or photos: no shared book to find; the answer steers the plan.
     if (h.sources?.length) {
       const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
@@ -469,6 +499,11 @@ export const retry = mutation({
     const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
     if (!mine.ok) throw new Error("busy");
     const book = h.bookId ? await ctx.db.get(h.bookId) : null;
+    if (!book && h.creator && !h.sources?.length) {
+      await ctx.db.patch(handbookId, { status: "planning", error: undefined });
+      await ctx.scheduler.runAfter(0, internal.sourcesRead.gatherCreator, { handbookId });
+      return;
+    }
     if (!book && h.sources?.length) {
       await ctx.db.patch(handbookId, { status: "planning", error: undefined });
       const unread = h.sources.some((s) => s.status !== "read" && s.status !== "failed");

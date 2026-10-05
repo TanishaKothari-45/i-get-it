@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import ActionBar from '../components/ActionBar'
 import LanguagePicker from '../components/LanguagePicker'
 import SourcesInput, { SourcesProgress } from '../components/SourcesInput'
-import { MAX_LINKS, classifyLink, linksIn } from '../../convex/links'
+import { MAX_LINKS, classifyLink, linksIn, parseCreator } from '../../convex/links'
 import { ENGLISH, languageInfo } from '../../convex/languages'
 
 type Level = 'new' | 'some'
@@ -18,12 +18,14 @@ type Props = {
   examples: string[]
   initialLinks?: string          // links shared into the app from another one ("Share to I Get It")
   sources?: { kind: 'youtube' | 'instagram' | 'image'; url?: string; status: 'waiting' | 'reading' | 'read' | 'failed'; title?: string; error?: string }[]
+  creator?: string | null        // the handbook was started from this creator's reels
+  choices?: string[] | null      // the question's answers to tap (a creator's themes)
 }
 
-export type NewSources = { links: string[]; photos: File[] }
+export type NewSources = { links: string[]; photos: File[]; creator?: string }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, initialLinks = '', sources = [] }: Props) {
+export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, initialLinks = '', sources = [], creator: startedFrom = null, choices = null }: Props) {
   const [topic, setTopic] = useState(initialTopic)
   const [level, setLevel] = useState<Level>('new')
   const [voice, setVoice] = useState<Voice>('friend')
@@ -33,8 +35,10 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const [localError, setLocalError] = useState<string | null>(null)
   const [linksText, setLinksText] = useState(initialLinks)
   const [photos, setPhotos] = useState<File[]>([])
+  const [creator, setCreator] = useState('')
   const writing = status === 'writing'
-  const reading = writing && sources.some((s) => s.status === 'waiting' || s.status === 'reading')
+  const gathering = writing && !!startedFrom && sources.length === 0
+  const reading = gathering || (writing && sources.some((s) => s.status === 'waiting' || s.status === 'reading'))
 
   useEffect(() => {
     if (!writing) { setSlow(false); return }
@@ -45,6 +49,12 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const submit = async () => {
     setLocalError(null)
     const links = linksIn(linksText)
+    if (creator.trim()) {
+      const handle = parseCreator(creator)
+      if (!handle) { setLocalError("That doesn't look like an Instagram handle."); return }
+      try { await onCreate(topic.trim(), level, voice, language, { links: [], photos: [], creator: handle }) } catch (e: any) { setLocalError(friendly(e)) }
+      return
+    }
     const hasSources = links.length > 0 || photos.length > 0
     if (links.some((l) => !classifyLink(l))) { setLocalError('Only YouTube and Instagram links for now. Take out the others.'); return }
     if (links.length > MAX_LINKS) { setLocalError(`Up to ${MAX_LINKS} links for one handbook.`); return }
@@ -57,8 +67,13 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
       <>
         <h1>One question first.</h1>
         <p className="lede">{question}</p>
+        {choices && choices.length > 0 && (
+          <div className="choice-list">
+            {choices.map((c) => <button key={c} type="button" className="chip" onClick={() => onAnswer?.(c).catch((e) => setLocalError(friendly(e)))}>{c}</button>)}
+          </div>
+        )}
         <div className="field">
-          <label htmlFor="answer">Your answer</label>
+          <label htmlFor="answer">{choices?.length ? 'Or say what you want' : 'Your answer'}</label>
           <input id="answer" className="input" autoFocus value={answer} onChange={(e) => setAnswer(e.target.value)} enterKeyHint="go"
             onKeyDown={(e) => { if (e.key === 'Enter' && answer.trim()) onAnswer?.(answer.trim()) }} />
         </div>
@@ -77,7 +92,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
 
       <div className="field">
         <label htmlFor="topic">What do you keep meaning to learn?</label>
-        <input id="topic" className="input" type="text" autoComplete="off" enterKeyHint="go" placeholder={linksText || photos.length ? 'Optional with links or photos' : examples[0] ?? 'Swimming'} value={topic}
+        <input id="topic" className="input" type="text" autoComplete="off" enterKeyHint="go" placeholder={linksText || photos.length || creator ? 'Optional with links, photos or a creator' : examples[0] ?? 'Swimming'} value={topic}
           onChange={(e) => setTopic(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') submit() }} disabled={writing} />
         {examples.length > 1 && (
           <p className="note">Tonight's ready handbooks: {examples.slice(0, 6).map((x, i) => (
@@ -86,9 +101,9 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
         )}
       </div>
 
-      {writing && sources.length > 0
-        ? <SourcesProgress sources={sources} />
-        : <SourcesInput text={linksText} onText={setLinksText} photos={photos} onPhotos={setPhotos} disabled={writing} />}
+      {gathering ? <p className="note">Finding @{startedFrom}'s latest reels and sorting them into themes…</p>
+        : writing && sources.length > 0 ? <SourcesProgress sources={sources.filter((s) => s.error !== 'about something else')} />
+        : <SourcesInput text={linksText} onText={setLinksText} photos={photos} onPhotos={setPhotos} creator={creator} onCreator={setCreator} disabled={writing} />}
 
       <div className="chips" role="group" aria-label="Level">
         <button type="button" className="chip" aria-pressed={level === 'new'} onClick={() => setLevel('new')} disabled={writing}>New to this</button>
@@ -134,6 +149,7 @@ function friendly(e: any): string {
   if (m.includes('busy')) return "Busy right now. Try again in a few minutes."
   if (m.includes('few words')) return 'A few words is enough. What is it?'
   if (m.includes('YouTube and Instagram')) return 'Only YouTube and Instagram links for now. Take out the others.'
+  if (m.includes('Instagram handle')) return "That doesn't look like an Instagram handle."
   if (m.includes('At most')) return m.replace(/^.*?(At most \d+ \w+).*$/, '$1 for one handbook.')
   return "Couldn't write it just now. Your line is still here; try once more in a minute."
 }

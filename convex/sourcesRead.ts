@@ -10,7 +10,8 @@ import { v } from "convex/values";
 import { internalAction, type ActionCtx } from "./_generated/server";
 import { internal } from "./_generated/api";
 import type { Doc, Id } from "./_generated/dataModel";
-import { COMBINE_PROMPT, SOURCE_READ_PROMPT, combineMessage, sourceReadMessage } from "./prompts";
+import { COMBINE_PROMPT, SOURCE_READ_PROMPT, THEMES_PROMPT, combineMessage, sourceReadMessage, themesMessage } from "./prompts";
+import { CREATOR_REELS } from "./links";
 
 const MAX_SECONDS = 180;                      // a video is read up to 3 minutes (about ₹0.5 a minute at low resolution)
 const MAX_VIDEO_BYTES = 20 * 1024 * 1024;     // a reel is a few MB; anything bigger is read from its transcript instead
@@ -85,20 +86,28 @@ function transcriptText(t: unknown): string {
   return "";
 }
 
-// Apify's Instagram Reel Scraper: caption, transcript and the video file's link, for a public reel, without logging in.
-async function apifyReel(url: string): Promise<{ caption?: string; transcript?: string; videoUrl?: string } | null> {
+type Reel = { url?: string; caption?: string; transcript?: string; videoUrl?: string };
+
+// Apify's Instagram Reel Scraper: for a reel link, or a public creator's handle (their latest reels), the caption,
+// transcript and video file's link, without logging in. null when no key is set.
+async function apifyReels(target: string, limit: number): Promise<Reel[] | null> {
   const token = process.env.APIFY_TOKEN;
   if (!token) return null;
   const res = await fetchWithTimeout("https://api.apify.com/v2/acts/apify~instagram-reel-scraper/run-sync-get-dataset-items?timeout=110", {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ username: [url], resultsLimit: 1, includeTranscript: true }),
+    body: JSON.stringify({ username: [target], resultsLimit: limit, includeTranscript: true }),
   });
   if (!res.ok) throw new Error(`Apify ${res.status}`);
   const items: any[] = await res.json();
-  const item = items?.[0];
-  if (!item || item.error) return null;
-  return { caption: item.caption ?? undefined, transcript: transcriptText(item.transcript) || undefined, videoUrl: item.videoUrl ?? undefined };
+  return (items ?? []).filter((item) => item && !item.error).slice(0, limit).map((item) => ({
+    url: item.url ?? undefined, caption: item.caption ?? undefined,
+    transcript: transcriptText(item.transcript) || undefined, videoUrl: item.videoUrl ?? undefined,
+  }));
+}
+
+async function apifyReel(url: string): Promise<Reel | null> {
+  return (await apifyReels(url, 1))?.[0] ?? null;
 }
 
 // The reel's video, downloaded once for Gemini to watch, then dropped. null if too big or gone.
@@ -139,8 +148,9 @@ async function instagramCaption(url: string): Promise<string | null> {
   return text || null;
 }
 
-async function readInstagram(ctx: ActionCtx, url: string): Promise<Read> {
-  const reel = await apifyReel(url).catch(() => null);
+// pre: what was already fetched (a creator's reels are gathered in one call), so the reel isn't fetched again.
+async function readInstagram(ctx: ActionCtx, url: string, pre?: Reel): Promise<Read> {
+  const reel = pre ?? await apifyReel(url).catch(() => null);
   if (reel) {
     const rich = words(reel.transcript) >= RICH_TRANSCRIPT_WORDS && !LOOKS_VISUAL.test(reel.caption ?? "");
     if (rich) return readText(ctx, "instagram", "transcript", reel, url);
@@ -170,7 +180,7 @@ async function readImage(ctx: ActionCtx, storageId: Id<"_storage">): Promise<Rea
 
 async function readOne(ctx: ActionCtx, s: Source): Promise<Read> {
   if (s.kind === "youtube" && s.url) return readYoutube(ctx, s.url);
-  if (s.kind === "instagram" && s.url) return readInstagram(ctx, s.url);
+  if (s.kind === "instagram" && s.url) return readInstagram(ctx, s.url, s.caption || s.transcript || s.videoUrl ? { caption: s.caption, transcript: s.transcript, videoUrl: s.videoUrl } : undefined);
   if (s.kind === "image" && s.storageId) return readImage(ctx, s.storageId);
   throw new Error("nothing to read");
 }
@@ -182,7 +192,7 @@ export const readAll = internalAction({
     const h = await ctx.runQuery(internal.sources.readHandbook, { handbookId });
     if (!h?.sources) return;
     await Promise.all(h.sources.map(async (s, index) => {
-      if (s.status === "read") return;
+      if (s.status === "read" || s.error === "about something else") return;
       await ctx.runMutation(internal.sources.setSource, { handbookId, index, fields: { status: "reading", error: undefined } });
       try {
         const r = await readOne(ctx, s);
@@ -216,3 +226,29 @@ export const readAll = internalAction({
     }
   },
 });
+
+// "Learn from a creator": their latest public reels in one call, sorted into themes for the learner to pick from.
+export const gatherCreator = internalAction({
+  args: { handbookId: v.id("handbooks") },
+  handler: async (ctx, { handbookId }) => {
+    const h = await ctx.runQuery(internal.sources.readHandbook, { handbookId });
+    const handle = h?.creator?.handle;
+    if (!handle) return;
+    let reels: Reel[] | null;
+    try { reels = await apifyReels(handle, CREATOR_REELS); }
+    catch (e: any) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `couldn't reach @${handle}'s reels: ${String(e?.message ?? e).slice(0, 200)}` }); return; }
+    if (reels === null) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: "no reel service key set" }); return; }
+    const found = reels.filter((r) => r.url);
+    if (!found.length) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `no public reels found for @${handle}` }); return; }
+    const numbered = found.map((r, i) => ({ n: i + 1, caption: r.caption, transcript: r.transcript }));
+    let themes: { name: string; reels: number[] }[] = [];
+    try {
+      const json = await gemini(ctx, "source-themes", THEMES_PROMPT, [{ text: themesMessage(handle, numbered) }], `@${handle}`);
+      themes = (Array.isArray(json?.themes) ? json.themes : [])
+        .map((t: any) => ({ name: String(t?.name ?? "").slice(0, 60), reels: (Array.isArray(t?.reels) ? t.reels : []).map(Number).filter((n: number) => n >= 1 && n <= found.length) }))
+        .filter((t: { name: string; reels: number[] }) => t.name && t.reels.length);
+    } catch { /* no themes: the learner is asked what they want from these reels */ }
+    await ctx.runMutation(internal.sources.setCreatorReels, { handbookId, reels: found.map((r) => ({ url: r.url!, caption: r.caption, transcript: r.transcript, videoUrl: r.videoUrl })), themes: themes.slice(0, 4) });
+  },
+});
+

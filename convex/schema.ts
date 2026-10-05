@@ -16,6 +16,10 @@ export const sourceV = v.object({
   title: v.optional(v.string()),   // what it teaches, in a few words
   notes: v.optional(v.string()),   // what it teaches, in detail (server only)
   error: v.optional(v.string()),
+  // Gathered from a creator's profile in one go (server only): read later without fetching the reel again.
+  caption: v.optional(v.string()),
+  transcript: v.optional(v.string()),
+  videoUrl: v.optional(v.string()),
 });
 
 export default defineSchema({
@@ -101,6 +105,9 @@ export default defineSchema({
     bookId: v.optional(v.id("books")),   // set once the plan exists
     continuesBookId: v.optional(v.id("books")),   // "go further": the book this one is the next level of
     sources: v.optional(v.array(sourceV)),        // started from links or photos instead of (or as well as) a typed line
+    // Started from a creator: their handle, and the themes their latest reels fall into (reel numbers per theme).
+    creator: v.optional(v.object({ handle: v.string(), themes: v.optional(v.array(v.object({ name: v.string(), reels: v.array(v.number()) }))) })),
+    choices: v.optional(v.array(v.string())),     // the question's tap-to-answer options (a creator's themes)
     ownerToken: v.optional(v.string()),
     userId: v.optional(v.id("users")),
     createdAt: v.number(),

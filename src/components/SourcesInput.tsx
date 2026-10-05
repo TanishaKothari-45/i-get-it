@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { MAX_LINKS, MAX_PHOTOS, classifyLink, linksIn } from '../../convex/links'
+import { CREATOR_REELS, MAX_LINKS, MAX_PHOTOS, classifyLink, linksIn, parseCreator } from '../../convex/links'
 
 type Props = {
   text: string                    // the pasted links, as typed
   onText: (text: string) => void
   photos: File[]
   onPhotos: (photos: File[]) => void
+  creator: string                 // an Instagram handle, as typed
+  onCreator: (creator: string) => void
   disabled?: boolean
 }
 
@@ -13,8 +15,8 @@ const KIND_LABEL = { youtube: 'YouTube', instagram: 'Instagram reel' } as const
 
 // "Or learn from what you saved": paste YouTube / Instagram links, or add photos (camera or gallery).
 // Closed until opened, so the typed line stays the main way in.
-export default function SourcesInput({ text, onText, photos, onPhotos, disabled }: Props) {
-  const [open, setOpen] = useState<'links' | 'photo' | null>(text ? 'links' : photos.length ? 'photo' : null)
+export default function SourcesInput({ text, onText, photos, onPhotos, creator, onCreator, disabled }: Props) {
+  const [open, setOpen] = useState<'links' | 'photo' | 'creator' | null>(text ? 'links' : photos.length ? 'photo' : creator ? 'creator' : null)
   const camera = useRef<HTMLInputElement>(null)
   const gallery = useRef<HTMLInputElement>(null)
   const links = useMemo(() => linksIn(text).map((raw) => ({ raw, ok: classifyLink(raw) })), [text])
@@ -34,6 +36,19 @@ export default function SourcesInput({ text, onText, photos, onPhotos, disabled 
         <button type="button" className="chip" aria-pressed={open === 'links'} disabled={disabled} onClick={() => setOpen(open === 'links' ? null : 'links')}>Paste links</button>
         <button type="button" className="chip" aria-pressed={open === 'photo'} disabled={disabled} onClick={() => setOpen(open === 'photo' ? null : 'photo')}>Add a photo</button>
       </div>
+      <div className="chips">
+        <button type="button" className="chip" aria-pressed={open === 'creator'} disabled={disabled} onClick={() => setOpen(open === 'creator' ? null : 'creator')}>Learn from a creator</button>
+      </div>
+
+      {open === 'creator' && (
+        <div className="field" style={{ marginTop: 'var(--m)' }}>
+          <label htmlFor="creator">Their Instagram handle</label>
+          <input id="creator" className="input" type="text" autoComplete="off" autoCapitalize="none" spellCheck={false} placeholder="@creator" value={creator} disabled={disabled}
+            onChange={(e) => onCreator(e.target.value)} />
+          {creator.trim() && !parseCreator(creator) && <p className="error">That doesn't look like an Instagram handle.</p>}
+          <p className="note">Their latest {CREATOR_REELS} public reels, sorted into themes; you pick one. Your handbook stays private, teaches their ideas in its own words and links back to every reel it uses.</p>
+        </div>
+      )}
 
       {open === 'links' && (
         <div className="field" style={{ marginTop: 'var(--m)' }}>

@@ -30,3 +30,20 @@ export function classifyLink(raw: string): { kind: LinkKind; url: string } | nul
 export function linksIn(text: string): string[] {
   return text.match(/https?:\/\/[^\s<>"']+/g) ?? [];
 }
+
+// How many of a creator's latest public reels are gathered for one handbook.
+export const CREATOR_REELS = 10;
+
+// An Instagram handle from "@name", "name" or a profile link; null if it can't be one.
+export function parseCreator(raw: string): string | null {
+  let s = raw.trim();
+  if (/^(www\.|m\.)?instagram\.com\//i.test(s)) s = `https://${s}`;   // pasted without https://
+  try {
+    const u = new URL(s);
+    if (u.hostname.replace(/^(www\.|m\.)/, "") !== "instagram.com") return null;
+    s = u.pathname.split("/").filter(Boolean)[0] ?? "";
+  } catch { /* not a link: a handle */ }
+  s = s.replace(/^@/, "");
+  return /^[A-Za-z0-9._]{1,30}$/.test(s) && !/^(reel|reels|p|explore|stories)$/i.test(s) ? s.toLowerCase() : null;
+}
+

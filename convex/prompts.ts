@@ -126,5 +126,20 @@ export function combineMessage(typed: string, sources: { n: number; kind: string
 
 // What the plan and every chapter are written from, when the handbook started from the learner's own sources.
 export function sourcesBlock(sources: string, part: "plan" | "chapter") {
-  return `\n\nSources the learner shared (build ${part === "plan" ? "the seven chapters" : "this chapter"} around what they teach):\n${sources}\n\nUsing the sources:\n- Teach what the sources teach, in a sensible order, and fill the gaps they leave with well-established knowledge.\n- Where a source is out of date or wrong, teach the correct version and say plainly that it has changed.\n- Never claim a source said something it didn't.${part === "plan" ? "\n- Give each chapter a \"from\" list: the source numbers it draws on (empty if none)." : "\n- When a card draws on a source, you may say so in passing (\"the second reel showed...\"), never more than once a card."}`;
+  return `\n\nSources the learner shared (build ${part === "plan" ? "the seven chapters" : "this chapter"} around what they teach):\n${sources}\n\nUsing the sources:\n- Teach what the sources teach, in a sensible order, and fill the gaps they leave with well-established knowledge.\n- Where a source is out of date or wrong, teach the correct version and say plainly that it has changed.\n- Never claim a source said something it didn't.\n- Teach the ideas in your own words: never copy a source's script or caption word for word. Credit the creator by name where it's natural.${part === "plan" ? "\n- Give each chapter a \"from\" list: the source numbers it draws on (empty if none)." : "\n- When a card draws on a source, you may say so in passing (\"the second reel showed...\"), never more than once a card."}`;
 }
+
+// A creator's latest reels into themes, so the learner can pick what they want a handbook on.
+export const THEMES_PROMPT = `You get a creator's latest reels, numbered, each with its caption and what is said in it. Group them by what they teach, so a learner can pick one theme for a seven-chapter handbook.
+
+Rules:
+- 1 to 4 themes. Each theme is 2-6 plain words naming what it teaches (for example "Claude Code plugins"), never the creator's slogan or a vague label like "tips".
+- Each reel goes in at most one theme. Reels that teach nothing (ads, memes, personal updates) go in no theme.
+- Order themes by how many reels they have, most first.
+
+Return JSON only: {"themes": [{"name": "...", "reels": [1, 4, 7]}]}`;
+
+export function themesMessage(handle: string, reels: { n: number; caption?: string; transcript?: string }[]) {
+  return `Creator: @${handle}\n\n` + reels.map((r) => `Reel ${r.n}\nCaption: ${(r.caption ?? "").slice(0, 400)}\nSaid: ${(r.transcript ?? "").slice(0, 800)}`).join("\n\n");
+}
+
