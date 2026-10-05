@@ -55,7 +55,7 @@ const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> =
   scenes: { model: HAIKU, maxTokens: 2000 },
   audit: { model: OPUS, effort: "high", maxTokens: 16000 },
   repair: { model: OPUS, effort: "medium", maxTokens: 16000 },   // one-off fixes to chapters already written (convex/repair.ts)   // measurement only (convex/audit.ts): what slipped past the fact check   // one scene line per teaching card, for the chapter pictures
-  check: { model: OPUS, effort: "high", maxTokens: 32000 },   // fact check of live chapters. 4 Oct on the chess chapter: Opus low caught all 7 (~33 s, ~₹7), Opus medium the same 7; Sonnet 5.5 wrote new false claims. Fable 5.1 max is the independent alternative at about 2.5x the price
+  check: { model: SONNET, effort: "low", maxTokens: 16000 },   // Prateek, 6 Oct, from evals/model-choice.md: 10 of 10 planted mistakes, no stray changes, ~14 s (Opus high: 10 of 10, 38 s, ~3.5x the cost). Watch: on 4 Oct Sonnet once wrote new mistakes while fixing
 };
 
 let anthropic: Anthropic | null = null;
