@@ -42,36 +42,42 @@ async function callOpenAI(system: string, user: string, maxOut: number): Promise
 // chapters stay on Haiku unless the reader picked a writer in the comparison; card rewrites stay on Haiku.
 const HAIKU = "claude-haiku-4-5-20251001";
 const OPUS = "claude-opus-5-5";
+const SONNET = "claude-sonnet-5-5";
+type Effort = "low" | "medium" | "high" | "xhigh" | "max";
 type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit";
-const JOB: Record<Kind, { model: string; effort?: "low" | "medium" | "high"; maxTokens: number }> = {
-  plan: { model: OPUS, effort: "medium", maxTokens: 8000 },   // thinking counts against max_tokens: leave room
+// Per-job table, set by Prateek 6 Oct: quality first, cost and latency to be handled with prices or limits later.
+// Thinking counts against max_tokens, so max-effort jobs get large caps (and stream; see callAnthropic).
+const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> = {
+  plan: { model: OPUS, effort: "max", maxTokens: 32000 },
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
-  simpler: { model: HAIKU, maxTokens: 600 },
-  chapter: { model: HAIKU, maxTokens: 6000 },
+  simpler: { model: SONNET, effort: "max", maxTokens: 8000 },
+  chapter: { model: OPUS, effort: "medium", maxTokens: 16000 },
   scenes: { model: HAIKU, maxTokens: 2000 },
   audit: { model: OPUS, effort: "high", maxTokens: 16000 },   // measurement only (convex/audit.ts): what slipped past the fact check   // one scene line per teaching card, for the chapter pictures
-  check: { model: OPUS, effort: "low", maxTokens: 10000 },   // fact check of live chapters. Tested 4 Oct on the bad chess chapter: Opus low caught all 7 problems (~33 s, ~₹7); Opus medium the same 7 (~43 s, ~₹8.90); Sonnet 5.5 low/medium introduced new false claims
+  check: { model: OPUS, effort: "max", maxTokens: 32000 },   // fact check of live chapters. 4 Oct on the chess chapter: Opus low caught all 7 (~33 s, ~₹7), Opus medium the same 7; Sonnet 5.5 wrote new false claims. Fable 5.1 max is the independent alternative at about 2.5x the price
 };
 
 let anthropic: Anthropic | null = null;
 function client() { return (anthropic ??= new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })); }
 
-async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string, effortOverride?: "low" | "medium" | "high"): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string, effortOverride?: Effort): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const job = JOB[kind];
   const model = modelOverride ?? process.env.ANTHROPIC_MODEL ?? job.model;
   const isHaiku = model.startsWith("claude-haiku");
   // Current-generation models think before answering; give them room and a set effort. Haiku takes neither.
-  const maxTokens = isHaiku ? job.maxTokens : Math.max(job.maxTokens, kind === "chapter" ? 12000 : job.maxTokens);
+  const maxTokens = isHaiku ? Math.min(job.maxTokens, 8000) : Math.max(job.maxTokens, kind === "chapter" ? 12000 : job.maxTokens);
   const effort = isHaiku ? undefined : (effortOverride ?? job.effort ?? "medium");
-  const res = await client().beta.messages.create({
+  const params = {
     model,
     max_tokens: maxTokens,
     system: system + "\n\nReturn only the JSON object. No prose, no code fences.",
-    messages: [{ role: "user", content: user }],
+    messages: [{ role: "user" as const, content: user }],
     ...(effort ? { output_config: { effort } } : {}),
     // If a current-generation model declines, Anthropic re-runs the request on a suitable model inside the same call.
     ...(isHaiku ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }),
-  });
+  };
+  // Large caps (max effort) stream, so a long think doesn't hit the HTTP timeout.
+  const res = maxTokens > 16000 ? await client().beta.messages.stream(params as any).finalMessage() : await client().beta.messages.create(params as any);
   if (res.stop_reason === "refusal") throw new Error(`declined (${res.stop_details?.category ?? "no category"})`);
   if (res.stop_reason === "max_tokens") throw new Error("reply cut off at the token limit");
   const text = res.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("");
@@ -85,7 +91,7 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"))) },
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))) },
   handler: async (ctx, { kind, system, user, model, effort }): Promise<Result> => {
     const started = Date.now();
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
@@ -95,8 +101,14 @@ export const generate = internalAction({
       return { ok: false, error: "no provider key set", model: "none" };
     }
     try {
-      const r = provider === "anthropic" ? await callAnthropic(kind, system, user, model, effort) : await callOpenAI(system, user, maxOut);
-      const json = extractJson(r.text);
+      let r = provider === "anthropic" ? await callAnthropic(kind, system, user, model, effort) : await callOpenAI(system, user, maxOut);
+      let json: any;
+      // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure.
+      try { json = extractJson(r.text); }
+      catch {
+        r = provider === "anthropic" ? await callAnthropic(kind, system, user, model, effort) : await callOpenAI(system, user, maxOut);
+        json = extractJson(r.text);
+      }
       await ctx.runMutation(internal.handbooks.logAiCall, {
         kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
         tokensIn: r.tokensIn, tokensOut: r.tokensOut, ms: Date.now() - started, ok: true,
