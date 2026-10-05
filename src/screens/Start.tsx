@@ -72,7 +72,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
           onChange={(e) => setTopic(e.target.value)} disabled={writing}
           // Enter only closes the keyboard and shows the level and voice; the button starts the writing.
           onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); levelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) } }} />
-        {examples.length > 1 && (
+        {examples.length > 1 && !below && (
           <p className="note">Tonight's ready handbooks: {examples.slice(0, 6).map((x, i) => (
             <span key={x}>{i > 0 && ' · '}<button type="button" className="quiet" style={{ padding: 0 }} onClick={() => setTopic(x)} disabled={writing}>{x}</button></span>
           ))}</p>

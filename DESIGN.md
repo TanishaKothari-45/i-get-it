@@ -71,6 +71,12 @@ Loading: the button becomes "Writing your handbook…" with a thin indeterminate
 Error: "Couldn't write it just now. Your line is still here; try once more in a minute." Button: Try again. If the one clarifying question comes back: show it under the box as a single question with the box ready, button "That's it".
 Done: goes to Plan.
 
+Landing (under the first screen, first-time visitors only; built 5 Oct)
+For: a stranger from a shared link sees what a chapter feels like before typing anything. People with a handbook on this phone never see it.
+Top to bottom: the first screen exactly as section 5 (headline, line, box, level and voice, the button pinned low; the inline list of ready topics is hidden because the shelf replaces it); "This is what tonight looks like." with a tappable phone running the real Public speaking chapter 1 (6 frames with their pictures and the first quiz, plays itself once when scrolled into view, stops at the quiz or the first tap, off under reduced motion; the last frame's button brings back the box); "Seven nights, twenty minutes each." with the seven nights and their hooks on a marigold line; "Ready tonight, or type your own." a sideways shelf of printed covers, tap one to put it in the box; one paragraph on price; a footer line linking the live numbers and the code.
+Main action: Show me the way (the same pinned button everywhere on the page; empty box scrolls back up to it).
+Copy (agent): every line on the landing except section 5's three. The loading text "Finding your way…" on the first screen's button is (agent) too.
+
 Plan (the handbook cover, drawn as a journey since 4 Oct evening)
 For: seeing the whole thing before the first chapter, so starting isn't skipping levels.
 Top to bottom: a dark gradient cover with "Your handbook · N of 7", the topic, "By day 7 you'll be able to …", the handbook's drawing and its one picture (analogy) line; "Draws on" with up to three real works; then "The path": seven stops on a dashed winding line, each with its hook as the teaser, tonight's stop pulsing, the seventh drawn as the summit; days 14 and 28 as two quiet lines; the main button.
