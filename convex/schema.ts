@@ -106,6 +106,19 @@ export default defineSchema({
     .index("by_device", ["deviceToken"]),
 
   // The two-way street: one question about one card, answered from that card and the chapter title only.
+  // Teach it back (optional, 6 Oct): the reader explains the chapter's idea in their own words; a short reply.
+  teachBacks: defineTable({
+    handbookId: v.id("handbooks"),
+    chapter: v.number(),
+    text: v.string(),
+    status: v.union(v.literal("thinking"), v.literal("ready"), v.literal("failed")),
+    verdict: v.optional(v.string()),   // "nailed" | "close" | "not yet"
+    got: v.optional(v.string()),
+    missed: v.optional(v.string()),
+    tip: v.optional(v.string()),
+    at: v.number(),
+  }).index("by_chapter", ["handbookId", "chapter"]),
+
   cardQuestions: defineTable({
     handbookId: v.id("handbooks"),
     chapter: v.number(),

@@ -107,3 +107,14 @@ export const BALANCE_PROMPT = `You fix the quiz options in one chapter of a begi
 For every exercise where the right option is noticeably longer, more detailed, more qualified or more precise than the other two, rewrite the options so all three are the same length (within a few words) and the same level of detail. Keep the same ids, keep the same option right, and keep each option's meaning, so the existing feedback lines still fit. The wrong options must stay plausible and specific. Leave exercises that are already even untouched. Never the words "incorrect" or "wrong".
 
 Return only JSON: {"fixes": [{"where": "cards|recall", "index": <number>, "options": [{"id": "a", "text": "..."}, {"id": "b", "text": "..."}, {"id": "c", "text": "..."}]}]}`;
+
+// Teach it back (optional): the reader explains the chapter's idea in their own words.
+export const TEACH_PROMPT = `A reader just finished one chapter of a beginner's handbook and, by choice, explained its idea in their own words. Reply like a sharp, warm friend who knows the subject. Judge only against what the chapter taught (given), not outside knowledge.
+
+Return only JSON: {"verdict": "nailed" | "close" | "not yet", "got": "<one sentence: what they got right, quoting a few of their own words>", "missed": "<one sentence: the single most important piece missing or off, or empty if nothing>", "tip": "<one short sentence: how to say it even more sharply>"}
+
+Rules: under 70 words in total. Plain words. Never the words "incorrect" or "wrong", never "great job" or "great question". If their text is empty of meaning, rude or off-topic, verdict "not yet" and gently ask for the idea in their own words. Never mention scores.`;
+
+export function teachUserMessage(topic: string, chapterTitle: string, oneBreath: string, outcome: string, theirWords: string) {
+  return `Topic: ${topic}\nChapter: ${chapterTitle}\nWhat the chapter taught, in one breath: ${oneBreath}\nOutcome: ${outcome}\n\nThe reader's own words:\n${theirWords}`;
+}

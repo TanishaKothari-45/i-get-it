@@ -36,12 +36,12 @@ const RATIO = "1792:1344";        // 4:3
 const MAX_PICTURES = 8;
 const AT_ONCE = 3;                // Runway queues ("THROTTLED") past its concurrency limit; more at once just waits longer
 
-async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RATIO, seed?: number): Promise<{ ok: true; storageId: Id<"_storage">; ms: number } | { ok: false; error: string; ms: number }> {
+async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RATIO, seed?: number, extra: Record<string, unknown> = {}): Promise<{ ok: true; storageId: Id<"_storage">; ms: number } | { ok: false; error: string; ms: number }> {
   const t0 = Date.now();
   try {
-    const task = await runway("/text_to_image", { method: "POST", body: JSON.stringify({ model, promptText: prompt, ratio, ...(seed !== undefined ? { seed } : {}) }) });
+    const task = await runway("/text_to_image", { method: "POST", body: JSON.stringify({ model, promptText: prompt, ratio, ...(seed !== undefined ? { seed } : {}), ...extra }) });
     let t: any = task;
-    for (let i = 0; i < 90; i++) {   // up to 7.5 minutes; a Convex action may run 10
+    for (let i = 0; i < 110; i++) {   // up to ~9 minutes (big posters are slow); a Convex action may run 10
       await sleep(5000);
       t = await runway(`/tasks/${task.id}`);
       if (t.status === "SUCCEEDED" || t.status === "FAILED" || t.status === "CANCELLED") break;
@@ -125,9 +125,9 @@ export const backfill = internalAction({
 
 // Style tests and one-off pictures.
 export const draw = internalAction({
-  args: { prompt: v.string(), model: v.string(), ratio: v.string(), seed: v.optional(v.number()) },
-  handler: async (ctx, { prompt, model, ratio, seed }): Promise<{ ok: boolean; error?: string; url?: string | null; storageId?: Id<"_storage">; ms: number }> => {
-    const r = await drawOne(ctx, prompt, model, ratio, model.startsWith("gen4") ? seed : undefined);
+  args: { prompt: v.string(), model: v.string(), ratio: v.string(), seed: v.optional(v.number()), extra: v.optional(v.any()) },
+  handler: async (ctx, { prompt, model, ratio, seed, extra }): Promise<{ ok: boolean; error?: string; url?: string | null; storageId?: Id<"_storage">; ms: number }> => {
+    const r = await drawOne(ctx, prompt, model, ratio, model.startsWith("gen4") ? seed : undefined, extra ?? {});
     return r.ok ? { ...r, url: await ctx.storage.getUrl(r.storageId) } : r;
   },
 });

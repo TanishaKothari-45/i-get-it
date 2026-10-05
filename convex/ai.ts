@@ -44,7 +44,7 @@ const HAIKU = "claude-haiku-4-5-20251001";
 const OPUS = "claude-opus-5-5";
 const SONNET = "claude-sonnet-5-5";
 type Effort = "low" | "medium" | "high" | "xhigh" | "max";
-type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair";
+type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach";
 // Per-job table, set by Prateek 6 Oct: quality first, cost and latency to be handled with prices or limits later.
 // Thinking counts against max_tokens, so max-effort jobs get large caps (and stream; see callAnthropic).
 const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> = {
@@ -54,7 +54,8 @@ const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> =
   chapter: { model: OPUS, effort: "medium", maxTokens: 16000 },
   scenes: { model: HAIKU, maxTokens: 2000 },
   audit: { model: OPUS, effort: "high", maxTokens: 16000 },
-  repair: { model: OPUS, effort: "medium", maxTokens: 16000 },   // one-off fixes to chapters already written (convex/repair.ts)   // measurement only (convex/audit.ts): what slipped past the fact check   // one scene line per teaching card, for the chapter pictures
+  repair: { model: OPUS, effort: "medium", maxTokens: 16000 },
+  teach: { model: SONNET, effort: "low", maxTokens: 2000 },   // teach it back: a short reply to the reader's own 2 sentences   // one-off fixes to chapters already written (convex/repair.ts)   // measurement only (convex/audit.ts): what slipped past the fact check   // one scene line per teaching card, for the chapter pictures
   check: { model: SONNET, effort: "low", maxTokens: 16000 },   // Prateek, 6 Oct, from evals/model-choice.md: 10 of 10 planted mistakes, no stray changes, ~14 s (Opus high: 10 of 10, 38 s, ~3.5x the cost). Watch: on 4 Oct Sonnet once wrote new mistakes while fixing
 };
 
@@ -114,7 +115,7 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))) },
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))) },
   handler: async (ctx, { kind, system, user, model, effort }): Promise<Result> => {
     const started = Date.now();
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;

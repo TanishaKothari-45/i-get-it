@@ -133,6 +133,7 @@ Done (the rung lights)
 For: seeing the night's result and the next step.
 Top to bottom: the rung bar with segment 1 filling, "Chapter 1 of 7 on [topic]: done.", "You can now [outcome line]" in serif, "Tomorrow: Chapter 2, [title]" in one line, the main button, a quiet second line under it.
 Since 6 Oct: under the title, one line of love comparing their time and first-try score with our own 20-minute budget, cheesy on purpose ("6 minutes, 3 of 3 first try. We budgeted 20. Show-off."), never with an average we don't have (agent copy). "Next: Chapter N, [title]" replaces "Tomorrow": bingeing is fine (Prateek).
+Teach it back (optional, 6 Oct; Prateek, from Karpathy's "teach/summarize everything you learn in your own words"): under the outcome line, a quiet dashed line "Teach it back (optional): explain today's idea in your own words." Tapping opens a box ("Explain today's idea in 2 sentences, as if to a friend."), "Check my explanation" and "Skip". The reply: "You nailed it." / "Close." / "Not quite yet.", what they got (in their own words), what's missing, one tip. Never required; the rung and the next chapter never wait on it. Copy (agent).
 Main action (not signed in): Keep this handbook → Sign in. Quiet line: "Not now, start chapter N" → straight into the next chapter.
 Main action (signed in): Start chapter N now (or "writing it, about a minute" while it's written); quiet "Back to the handbook"; the time picker stays for people who want a set time.
 Main action (signed in): Pick when tomorrow is → Time. Then: See you at [time].

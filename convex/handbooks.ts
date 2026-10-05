@@ -4,7 +4,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
+import { TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
@@ -25,6 +25,8 @@ const limiter = new RateLimiter(components.rateLimiter, {
   searchAll: { kind: "fixed window", rate: 20, period: HOUR },    // ~₹9.4 each
   simplerAll: { kind: "fixed window", rate: 300, period: HOUR },  // ~₹0.06 each
   picturesAll: { kind: "fixed window", rate: 400, period: HOUR }, // Runway pictures, 1 credit (~₹0.85) each
+  teachDevice: { kind: "token bucket", rate: 20, period: HOUR, capacity: 6 },
+  teachAll: { kind: "fixed window", rate: 300, period: HOUR },     // ~₹0.2 each
 });
 
 export function topicKeyOf(topic: string) {
@@ -948,6 +950,64 @@ export const readVariants = internalQuery({
 });
 
 // ---------- the two-way street: ask about this card ----------
+
+// ---------- teach it back (optional) ----------
+
+export const teachBackFor = query({
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, chapter, deviceToken }) => {
+    await ownedHandbook(ctx, handbookId, deviceToken);
+    const rows = await ctx.db.query("teachBacks").withIndex("by_chapter", (q) => q.eq("handbookId", handbookId).eq("chapter", chapter)).collect();
+    const last = rows.sort((a, b) => b.at - a.at)[0];
+    return last ? { status: last.status, text: last.text, verdict: last.verdict ?? null, got: last.got ?? null, missed: last.missed ?? null, tip: last.tip ?? null } : null;
+  },
+});
+
+export const teachBack = mutation({
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), text: v.string(), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, chapter, text, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    if (!Number.isInteger(chapter) || chapter < 1 || chapter > CHAPTERS) throw new Error("No such chapter");
+    const t = text.trim().slice(0, 600);
+    if (t.length < 10) throw new Error("A sentence or two is enough.");
+    const mine = await limiter.limit(ctx, "teachDevice", { key: ownerKey(h) });
+    if (!mine.ok || !(await limiter.limit(ctx, "teachAll")).ok) throw new Error("busy");
+    const id = await ctx.db.insert("teachBacks", { handbookId, chapter, text: t, status: "thinking", at: Date.now() });
+    await ctx.scheduler.runAfter(0, internal.handbooks.replyToTeachBack, { id });
+  },
+});
+
+export const readTeachBack = internalQuery({
+  args: { id: v.id("teachBacks") },
+  handler: async (ctx, { id }) => {
+    const row = await ctx.db.get(id);
+    if (!row) return null;
+    const h = await ctx.db.get(row.handbookId);
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", row.handbookId).eq("n", row.chapter)).unique();
+    const teach = (ch?.cards ?? []).filter((c: any) => c?.type === "teach");
+    const oneBreath = String((teach.find((c: any) => /one breath/i.test(c.title ?? "")) ?? teach[teach.length - 1])?.body ?? "").slice(0, 900);
+    return { row, topic: (h?.plan as any)?.topic ?? h?.topic ?? "", title: ch?.title ?? `Chapter ${row.chapter}`, oneBreath, outcome: ch?.outcomeLine ?? "" };
+  },
+});
+
+export const setTeachBack = internalMutation({
+  args: { id: v.id("teachBacks"), ok: v.boolean(), verdict: v.optional(v.string()), got: v.optional(v.string()), missed: v.optional(v.string()), tip: v.optional(v.string()) },
+  handler: async (ctx, { id, ok, verdict, got, missed, tip }) => {
+    await ctx.db.patch(id, ok ? { status: "ready", verdict, got, missed, tip } : { status: "failed" });
+  },
+});
+
+export const replyToTeachBack = internalAction({
+  args: { id: v.id("teachBacks") },
+  handler: async (ctx, { id }) => {
+    const d: any = await ctx.runQuery(internal.handbooks.readTeachBack, { id });
+    if (!d) return;
+    const r: any = await ctx.runAction(internal.ai.generate, { kind: "teach", system: TEACH_PROMPT, user: teachUserMessage(d.topic, d.title, d.oneBreath, d.outcome, d.row.text) });
+    const j = r.ok ? r.json : null;
+    const clean = (x: any) => (typeof x === "string" && x.trim() ? x.trim().slice(0, 300) : undefined);
+    await ctx.runMutation(internal.handbooks.setTeachBack, { id, ok: !!j, verdict: clean(j?.verdict), got: clean(j?.got), missed: clean(j?.missed), tip: clean(j?.tip) });
+  },
+});
 
 export const questionsFor = query({
   args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), deviceToken: v.optional(v.string()) },

@@ -203,6 +203,8 @@ export default function App() {
           onPickTime={async (at) => { await setTomorrow({ handbookId: hb._id, at, deviceToken: token }) }}
           onContinue={() => { setDoneN(null); setView('plan') }}
           stats={doneStats}
+          handbookId={hb._id}
+          deviceToken={token}
           nextReady={chapterReady && chapter?.n === doneN + 1}
           onNext={() => { setDoneN(null); setView(chapterReady ? 'chapter' : 'plan') }}
         />

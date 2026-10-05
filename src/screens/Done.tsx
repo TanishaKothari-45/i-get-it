@@ -2,6 +2,8 @@ import { useState } from 'react'
 import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
+import TeachBack from '../components/TeachBack'
+import type { Id } from '../../convex/_generated/dataModel'
 
 type Props = {
   topic: string
@@ -20,6 +22,8 @@ type Props = {
   stats?: { minutes: number; right: number; total: number } | null
   nextReady?: boolean
   onNext?: () => void
+  handbookId?: Id<'handbooks'>
+  deviceToken?: string
 }
 
 const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
@@ -46,7 +50,7 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   return `You took your time, and it stuck. That's the whole point.`
 }
 
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken }: Props) {
   const line = cheer(n, stats)
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
@@ -59,6 +63,7 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       <h1>Chapter {n} of 7: done.</h1>
       {line && <p className="cheer">{line}</p>}
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
+      {handbookId && deviceToken && <TeachBack handbookId={handbookId} n={n} deviceToken={deviceToken} />}
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Next: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
       {last && sources && sources.length > 0 && <p className="sources"><span className="label">Read next</span> {sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em>{x.why ? ` (${x.why})` : ''}</span>)}</p>}

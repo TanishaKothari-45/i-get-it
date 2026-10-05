@@ -26,6 +26,8 @@ Next builds, decided by Prateek 5 Oct evening (in this order unless he reorders)
 7. Exact pictures for exact things (Prateek, 6 Oct: chess, options trading need boards, graphs and tables): the chapter names what to show as data (a board position, a payoff line from strike and premium, a small table) and the app draws it, correct every time and ours. Runway keeps the scenes. Web-found images only from Wikimedia Commons with their licence shown, never general web search (copyright, and they won't match the numbers in the text).
 8. Model table (Prateek, 6 Oct): plan on Opus 5.5 max, chapter on Opus 5.5 medium, fact check on Opus 5.5 max, Say it simpler on Sonnet 5.5 max, Ask unchanged. Quality first; cost and wait to be handled later with prices or limits. Measure time to chapter 1 and cost per chapter right after switching.
 
+9. DONE 6 Oct. Teach it back, optional (Prateek, 6 Oct, from Karpathy's note on learning: "Teach/summarize everything you learn in your own words"): on the Done screen, the reader may explain the chapter's idea in 2 sentences; a short reply says what they got, the one piece missed, and a tip. Never required, never holds the rung. Sonnet 5.5 low, capped per person and per hour.
+
 Acceptance test (not a milestone): a stranger, logged out, on their own phone, gets through night 1 without Prateek saying a word.
 
 Parked (not now), in the order they'd come:
