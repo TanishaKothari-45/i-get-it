@@ -1,5 +1,6 @@
 import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
+import { Link } from '../lib/router'
 
 type Chapter = { n: number; title: string; covers: string; outcome: string }
 type Props = {
@@ -13,10 +14,14 @@ type Props = {
   onRetry: () => void
   onChangeLine: () => void
   voiceNote?: string
+  // The address of a chapter they can open (passed, or the current one once written); null if not yet.
+  chapterLink?: (n: number) => string | null
+  // The chapter's optional bonus ("go deeper" or "another way"), when they've unlocked one.
+  bonusFor?: (n: number) => { href: string; label: string } | null
 }
 
 // The handbook cover: the plan before the first lesson, so starting isn't skipping levels.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, chapterLink, bonusFor }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -30,11 +35,14 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
       <ol className="chapters">
         {plan.chapters.map((c) => {
           const state = passed.includes(c.n) ? 'done' : c.n === current ? 'now' : ''
+          const href = chapterLink?.(c.n) ?? null
+          const bonus = bonusFor?.(c.n) ?? null
           return (
             <li key={c.n} className={state}>
               <span className="n">{passed.includes(c.n) ? '✓' : c.n}</span>
-              <span className="t">{c.title}{c.n === current && !passed.includes(c.n) && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}</span>
+              <span className="t">{href ? <Link to={href}>{c.title}</Link> : c.title}{c.n === current && !passed.includes(c.n) && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}</span>
               <span className="c">{c.covers}</span>
+              {bonus && <span className="c"><Link to={bonus.href} className="bonus-link">{bonus.label}</Link></span>}
             </li>
           )
         })}
