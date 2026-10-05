@@ -10,7 +10,7 @@ const PLAN_MAX_OUT = 3000;
 const CHAPTER_MAX_OUT = 6000;
 const SIMPLER_MAX_OUT = 600;
 
-type Result = { ok: true; json: any; model: string } | { ok: false; error: string; model: string };
+type Result = { ok: true; json: any; model: string; tokensIn?: number; tokensOut?: number } | { ok: false; error: string; model: string };
 
 async function callOpenAI(system: string, user: string, maxOut: number): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const model = process.env.OPENAI_MODEL ?? "gpt-6-luna";
@@ -114,7 +114,7 @@ export const generate = internalAction({
         kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
         tokensIn: r.tokensIn, tokensOut: r.tokensOut, ms: Date.now() - started, ok: true,
       });
-      return { ok: true, json, model: r.model };
+      return { ok: true, json, model: r.model, tokensIn: r.tokensIn, tokensOut: r.tokensOut };
     } catch (e: any) {
       const error = String(e?.message ?? e).slice(0, 500);
       await ctx.runMutation(internal.handbooks.logAiCall, { kind, model: provider, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });
