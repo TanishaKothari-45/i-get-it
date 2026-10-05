@@ -153,7 +153,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   const chapters = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect();
   const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
   return {
-    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error, caution: cautionOf(h),
+    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error, caution: cautionOf(h), pushback: h.pushback ?? (h.plan as any)?.pushback ?? null, suggestions: h.suggestions ?? [],
     signedIn: !!h.userId,
     chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch))),
     progress: progress ? {
@@ -184,6 +184,7 @@ export const library = query({
     const userId = await getAuthUserId(ctx);
     const rows = [];
     for (const h of await ownedBooks(ctx, userId, deviceToken)) {
+      if (h.status === "declined") continue;   // a topic we won't teach never sits on the shelf
       const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
       rows.push({ _id: h._id, topic: (h.plan as any)?.topic ?? h.topic, status: h.status, passed: p?.chaptersPassed.length ?? 0, current: p?.currentChapter ?? 1, lastAt: p?.updatedAt ?? h.createdAt, outcome: (h.plan as any)?.outcome7 ?? null });
     }
@@ -324,8 +325,19 @@ export const generatePlan = internalAction({
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h) return;
     const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification) });
+    // Claude's own safety check said no: say so plainly, never "try again".
+    if (!r.ok && /^declined/.test(r.error)) {
+      const ready: any[] = await ctx.runQuery(internal.handbooks.listCache, {});
+      const picks = [...new Set(ready.map((x) => String(x.topic)))].sort(() => Math.random() - 0.5).slice(0, 3);
+      await ctx.runMutation(internal.handbooks.setDeclined, { handbookId, pushback: "That's not something I Get It will teach. Pick something that helps you or the people around you, and we'll go all in.", suggestions: picks });
+      return;
+    }
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: r.error }); return; }
     const plan = r.json;
+    if (plan.declined) {
+      await ctx.runMutation(internal.handbooks.setDeclined, { handbookId, pushback: String(plan.pushback ?? "That's not something I Get It will teach."), suggestions: (Array.isArray(plan.suggestions) ? plan.suggestions : []).map(String).slice(0, 3) });
+      return;
+    }
     if (plan.needsClarification && plan.question && !clarification) {
       await ctx.runMutation(internal.handbooks.setQuestion, { handbookId, question: String(plan.question) });
       return;
@@ -401,6 +413,10 @@ export const setPlan = internalMutation({
 export const setQuestion = internalMutation({
   args: { handbookId: v.id("handbooks"), question: v.string() },
   handler: async (ctx, { handbookId, question }) => { await ctx.db.patch(handbookId, { status: "question", question }); },
+});
+export const setDeclined = internalMutation({
+  args: { handbookId: v.id("handbooks"), pushback: v.string(), suggestions: v.array(v.string()) },
+  handler: async (ctx, { handbookId, pushback, suggestions }) => { await ctx.db.patch(handbookId, { status: "declined", pushback: pushback.slice(0, 400), suggestions: suggestions.map((x) => x.slice(0, 80)) }); },
 });
 export const setFailed = internalMutation({
   args: { handbookId: v.id("handbooks"), error: v.string() },

@@ -8,7 +8,7 @@ type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
 type Props = {
   initialTopic?: string
-  status: 'idle' | 'writing' | 'question' | 'failed'
+  status: 'idle' | 'writing' | 'question' | 'failed' | 'declined'
   question?: string
   error?: string
   onCreate: (topic: string, level: Level, voice: Voice) => Promise<void>
@@ -19,11 +19,16 @@ type Props = {
   below?: (pick: (topic: string) => void) => ReactNode
   // While a plan is written: add the handbook the waiting story comes from, without leaving this one.
   onAddOther?: (topic: string) => Promise<void>
+  pushback?: string
+  suggestions?: string[]
 }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, below, onAddOther }: Props) {
-  const [topic, setTopic] = useState(initialTopic)
+export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [] }: Props) {
+  const declined = status === 'declined'
+  const [topic, setTopic] = useState(status === 'declined' ? '' : initialTopic)
+  // A declined line never stays in the box: the reader starts fresh.
+  useEffect(() => { if (status === 'declined') setTopic('') }, [status])
   const [level, setLevel] = useState<Level>('new')
   const [voice, setVoice] = useState<Voice>('friend')
   const [answer, setAnswer] = useState('')
@@ -102,6 +107,21 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   return (
     <>
       {/* Prateek's words, DESIGN.md section 5 */}
+      {declined && (
+        <section className="declined" role="status">
+          <p className="declined-kicker">Not this one</p>
+          <p className="declined-line">{pushback ?? "That's not something I Get It will teach."}</p>
+          {suggestions.length > 0 && (
+            <>
+              <p className="note">Something you might enjoy instead:</p>
+              <div className="declined-suggestions">
+                {suggestions.map((s) => <button key={s} type="button" className="chip" onClick={() => onCreate(s, level, voice).catch((e) => setLocalError(friendly(e)))}>{s}</button>)}
+              </div>
+            </>
+          )}
+          <p className="note">Or type something else below.</p>
+        </section>
+      )}
       <p className="for-line">For everything you saved and never got back to.</p>
       <h1>Seven nights from “I keep meaning to” to “I get it”.</h1>
       <p className="lede">Twenty minutes a day: a small step. 7 days: a small jump.</p>
@@ -131,7 +151,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
         <button type="button" className="chip" aria-pressed={voice === 'stories'} onClick={() => setVoice('stories')} disabled={writing}>Stories</button>
       </div>
 
-      {(localError || (status === 'failed' && topic.trim() === initialTopic.trim())) && (
+      {(localError || (status === 'failed' && !declined && topic.trim() === initialTopic.trim())) && (
         <p className="error">{localError ?? "Couldn't write it just now. Your line is still here; try once more in a minute, or pick one of tonight's ready handbooks."}</p>
       )}
 

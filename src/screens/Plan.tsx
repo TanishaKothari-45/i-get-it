@@ -4,7 +4,7 @@ import Illustration from '../components/Illustration'
 type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string }
 type Props = {
   topic: string
-  plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[] }
+  plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[]; pushback?: string | null }
   passed: number[]
   current: number
   chapterReady: boolean
@@ -34,6 +34,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
           <span className="roadmap-chip">Your handbook · {passed.length} of 7</span>
         </div>
         <h1>{topic}</h1>
+        {plan.pushback && <p className="roadmap-pushback">{plan.pushback}</p>}
         <p className="roadmap-outcome">{plan.outcome7}</p>
         {caution && <p className="roadmap-caution">Study aid, verify before you act.</p>}
         {coverPicture ? <div className="roadmap-pic"><img src={coverPicture} alt="" /></div>

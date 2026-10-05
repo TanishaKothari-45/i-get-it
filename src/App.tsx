@@ -106,8 +106,8 @@ export default function App() {
   }
 
   // No handbook yet, or the person wants a different line: the first screen.
-  if (!hb || view === 'start-again' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed') {
-    const status = !hb || view === 'start-again' ? 'idle' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : 'failed'
+  if (!hb || view === 'start-again' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed' || (hb.status as string) === 'declined') {
+    const status = !hb || view === 'start-again' ? 'idle' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : (hb.status as string) === 'declined' ? 'declined' : 'failed'
     return (
       <Shell>
         {view === 'start-again' && libRows.length > 0 && !lib?.signedIn && <SignupNudge onSignIn={() => signIn('start-again')} context="second-topic" compact />}
@@ -122,6 +122,8 @@ export default function App() {
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
           onAddOther={async (topic) => { await create({ topic, level: 'new', voice: 'friend', deviceToken: token }) }}
+          pushback={(hb as any)?.pushback ?? undefined}
+          suggestions={(hb as any)?.suggestions ?? []}
         />
       </Shell>
     )

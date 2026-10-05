@@ -524,3 +524,10 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .wait-story-text p { font-size: var(--body); line-height: 1.55; margin: 0 0 10px; }
 .wait-story-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: var(--m); }
 .wait-story-added { font: 700 var(--ui) var(--sans); color: var(--pass); }
+
+/* we won't teach that (Prateek, 6 Oct: be a good person, push back, point somewhere good) */
+.declined { margin: var(--l) 0 var(--xl); padding: var(--m); border-radius: var(--radius); background: var(--paper-2); border-left: 4px solid var(--ink); }
+.declined-kicker { font: 700 var(--small) var(--sans); color: var(--ink-2); margin: 0 0 6px; }
+.declined-line { font: 600 var(--heading) var(--sans); line-height: 1.3; margin: 0 0 var(--m); }
+.declined-suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 var(--m); }
+.roadmap-pushback { margin: 8px 0 12px; padding: 10px 12px; border-radius: 12px; background: rgba(250, 247, 240, 0.12); border: 1px solid rgba(250, 247, 240, 0.35); font: 600 var(--ui) var(--sans); line-height: 1.4; }

@@ -19,8 +19,11 @@ export default defineSchema({
       v.literal("question"),      // the model asked one clarifying question
       v.literal("ready"),
       v.literal("failed"),
+      v.literal("declined"),      // we won't teach this (6 Oct, Prateek: be a good person, push back)
     ),
     question: v.optional(v.string()),
+    pushback: v.optional(v.string()),          // one plain, kind sentence: what we won't teach, why, and what instead
+    suggestions: v.optional(v.array(v.string())),
     plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }
     ownerToken: v.optional(v.string()),
     userId: v.optional(v.id("users")),
