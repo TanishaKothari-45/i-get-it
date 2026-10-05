@@ -50,7 +50,7 @@ type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit
 const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> = {
   plan: { model: OPUS, effort: "high", maxTokens: 32000 },   // 6 Oct: "max" thought >5 min, hit 32k and was cut off (2 of 2)
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
-  simpler: { model: SONNET, effort: "max", maxTokens: 8000 },
+  simpler: { model: SONNET, effort: "medium", maxTokens: 8000 },   // 6 Oct: "max" thought 49 s and was cut off at 8,000 with no answer
   chapter: { model: OPUS, effort: "medium", maxTokens: 16000 },
   scenes: { model: HAIKU, maxTokens: 2000 },
   audit: { model: OPUS, effort: "high", maxTokens: 16000 },   // measurement only (convex/audit.ts): what slipped past the fact check   // one scene line per teaching card, for the chapter pictures
