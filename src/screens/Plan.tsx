@@ -18,12 +18,13 @@ type Props = {
   comparing?: boolean
   coverSvg?: string
   coverPicture?: string
+  caution?: string | null
   onLibrary?: () => void
   libraryCount?: number
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg, coverPicture, onLibrary, libraryCount }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg, coverPicture, caution, onLibrary, libraryCount }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -33,6 +34,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
         </div>
         <h1>{topic}</h1>
         <p className="roadmap-outcome">{plan.outcome7}</p>
+        {caution && <p className="roadmap-caution">Study aid, verify before you act.</p>}
         {coverPicture ? <div className="roadmap-pic"><img src={coverPicture} alt="" /></div>
           : coverSvg && <div className="roadmap-illo"><Illustration svg={coverSvg} /></div>}
         {plan.picture && <p className="roadmap-picture"><strong>The picture for the whole journey:</strong> {plan.picture.line}</p>}

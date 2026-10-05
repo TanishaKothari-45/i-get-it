@@ -226,6 +226,7 @@ export default function App() {
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}
+          caution={(hb as any).caution ?? null}
           onExit={() => setView('plan')}
           handbookId={hb._id}
           deviceToken={token}
@@ -250,6 +251,7 @@ export default function App() {
         comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
         coverSvg={(hb.chapters.find((c) => c.n === 1) as any)?.svg}
         coverPicture={firstPicture((hb.chapters.find((c) => c.n === 1) as any)?.pictures)}
+        caution={(hb as any).caution ?? null}
         onLibrary={() => setView('library')}
         libraryCount={libRows.length}
         onRetry={() => { retry({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }}

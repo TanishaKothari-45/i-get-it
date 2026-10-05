@@ -133,11 +133,27 @@ async function publicChapter(ctx: QueryCtx, ch: Doc<"chapters">) {
   return { n: ch.n, status: ch.status, title: ch.title, outcomeLine: ch.outcomeLine, cards: publicCards(ch.cards), error: ch.error, svg: (ch as any).svg, stale: ch.stale ?? false, variants, vote: ch.vote, pictures };
 }
 
+// Money, health and legal topics carry a fixed line on every chapter: "Study aid, verify before you act."
+// (Shaktimaan, 6 Oct: covers the slips no checker catches.) New plans are tagged by Opus; older ones by keywords.
+const CAUTION_WORDS: [string, RegExp][] = [
+  ["money", /\b(stock|share market|invest|trading|trader|options?|futures|f&o|nifty|sensex|crypto|bitcoin|forex|mutual fund|sip\b|tax|loan|mortgage|insurance|personal finance|finance|financial|balance sheet|retire|wealth|money)/i],
+  ["health", /\b(health|diet|nutrition|calorie|protein|weight loss|fitness|strength training|workout|medic|medicine|symptom|disease|drug|supplement|mental health|anxiety|depression|therapy|pregnan|sleep)/i],
+  ["legal", /\b(law|legal|contract|court|visa|immigration|tenan|lease|divorce|will and|patent|trademark|gdpr|compliance)/i],
+];
+function cautionOf(h: Doc<"handbooks">): string | null {
+  const tag = (h.plan as any)?.caution;
+  if (tag === "money" || tag === "health" || tag === "legal") return tag;
+  if (tag === "none") return null;
+  const text = `${h.topic} ${(h.plan as any)?.topic ?? ""}`;
+  for (const [kind, re] of CAUTION_WORDS) if (re.test(text)) return kind;
+  return null;
+}
+
 async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   const chapters = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect();
   const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
   return {
-    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error,
+    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error, caution: cautionOf(h),
     signedIn: !!h.userId,
     chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch))),
     progress: progress ? {

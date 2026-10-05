@@ -495,3 +495,8 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 /* who it's for, above the headline (five-second test, 6 Oct) */
 .lp-for { font: 700 clamp(0.8rem, 0.55rem + 1.1vw, 1.05rem) var(--sans); max-width: 100%; margin: 0 0 14px; display: inline-block; background: var(--ink); color: var(--accent); padding: 6px 12px; border-radius: 999px; transform: rotate(-1.5deg); }
 .for-line { font: 600 var(--ui) var(--sans); color: var(--ink-2); margin: 8px 0 6px; }
+
+/* money / health / legal topics: the fixed study-aid line (Shaktimaan, 6 Oct) */
+.story-caution { align-self: flex-start; margin: 0 0 14px; padding: 6px 12px; border-radius: 999px; background: rgba(0, 0, 0, 0.32); color: #fff; font: 700 var(--small) var(--sans); }
+.tone-cream .story-caution, .tone-marigold .story-caution, .tone-coral .story-caution { background: rgba(27, 26, 23, 0.85); }
+.roadmap-caution { margin: 10px 0 0; padding: 10px 12px; border-radius: 12px; background: rgba(242, 169, 59, 0.18); border: 1px solid rgba(242, 169, 59, 0.5); font: 600 var(--small) var(--sans); line-height: 1.45; }

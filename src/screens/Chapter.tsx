@@ -33,6 +33,7 @@ type Props = {
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
   svg?: string
   pictures: Record<number, string>   // card index -> Runway picture URL, arriving after the chapter
+  caution?: string | null            // money / health / legal topics: the fixed study-aid line
   onExit: () => void
   handbookId: Id<'handbooks'>
   deviceToken: string
@@ -63,7 +64,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -227,6 +228,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
         </div>
 
         <div className="story-body" key={i}>
+          {caution && i === 0 && <p className="story-caution">Study aid, verify before you act.</p>}
           {c.type === 'exercise' ? (
             <>
               <p className="story-kicker">{item.recall ? 'Remember this?' : KICKER[c.kind]}</p>
