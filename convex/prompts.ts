@@ -30,8 +30,13 @@ export function chapterUserMessage(plan: unknown, level: "new" | "some", languag
 
 export const SIMPLER_PROMPT = "Rewrite one card from a short handbook for someone meeting the idea for the very first time. Same idea, same facts, nothing new. Plain everyday words, short sentences, one everyday comparison if it helps. 40 to 80 words. Keep **bold** on the one idea (one bolded phrase). No headings, no lists, no emoji. Never say 'in simple terms' or 'basically'. Return JSON only: {\"simpler\": \"...\"}";
 
-export function simplerUserMessage(topic: string, chapterTitle: string, card: { type: string; title?: string; body: string }) {
-  return `Topic: ${topic}\nChapter: ${chapterTitle}\nCard type: ${card.type}${card.title ? `\nCard title: ${card.title}` : ""}\nCard text:\n${card.body}`;
+// Any language but English: a line asking for the reply in the handbook's language.
+function inLanguage(language?: string) {
+  return language && language !== "English" ? `\nWrite your reply in ${language}, in the same style as the card.` : "";
+}
+
+export function simplerUserMessage(topic: string, chapterTitle: string, card: { type: string; title?: string; body: string }, language?: string) {
+  return `Topic: ${topic}\nChapter: ${chapterTitle}\nCard type: ${card.type}${card.title ? `\nCard title: ${card.title}` : ""}\nCard text:\n${card.body}${inLanguage(language)}`;
 }
 
 export const ASK_PROMPT = "You are the voice of a short teaching handbook, answering one reader's question about one card they just read. Answer only from the card text and the chapter title given; if the answer isn't there, say so in one line and point to what the card does say. Match the reader's profile if given. Plain words, at most 90 words, one everyday comparison if it helps, no headings, no lists, no emoji, never 'great question'. If the reader objects or disagrees, take the objection seriously: concede what is true, then say what the card would answer. Return JSON only: {\"answer\": \"...\"}";
@@ -53,8 +58,8 @@ How to answer:
 - Match the reader's profile if given. Plain words, at most 120 words, no headings, no lists, no emoji, never "great question".
 Reply with the answer text only.`;
 
-export function askSearchUserMessage(topic: string, chapterTitle: string, card: string, question: string, reader?: string) {
-  return `Topic: ${topic}\nChapter: ${chapterTitle}${reader ? `\nReader: ${reader}` : ""}\nThe card they just read:\n${card}\n\nThe reader asks: ${question.slice(0, 300)}`;
+export function askSearchUserMessage(topic: string, chapterTitle: string, card: string, question: string, reader?: string, language?: string) {
+  return `Topic: ${topic}\nChapter: ${chapterTitle}${reader ? `\nReader: ${reader}` : ""}\nThe card they just read:\n${card}\n\nThe reader asks: ${question.slice(0, 300)}${inLanguage(language)}`;
 }
 
 // Fact check for chapters written live (cached chapters went through the offline judge). Opus reads the finished
@@ -102,4 +107,39 @@ export type BonusKind = "deeper" | "another";
 export function bonusUserMessage(kind: BonusKind, plan: unknown, level: "new" | "some", language: string, voice: Voice, n: number, chapter: { title?: string; cards: unknown }, reader?: string) {
   const ask = kind === "deeper" ? `Write the bonus lesson that goes deeper on chapter ${n}.` : `Write the lesson that explains chapter ${n}'s idea another way.`;
   return `Plan: ${JSON.stringify(plan)}\nLevel: ${level}\nLanguage: ${language}\nVoice: ${voice}${reader ? `\nReader: ${reader}` : ""}\nChapter ${n}, "${chapter.title ?? ""}", as the learner read it: ${JSON.stringify(chapter.cards)}\n${ask}`;
+}
+
+// ---------- translation ----------
+
+// The same three voices the English was written in, so the translation keeps the one the reader picked.
+const VOICE_LINE: Record<Voice, string> = {
+  friend: "\"friend\": a sharp, warm friend who knows the subject, not a textbook. Keep the warmth, the asides and the one moment that makes the reader smile.",
+  straight: "\"straight\": no warm-up, no asides, no jokes, the facts and the steps in the fewest words. Keep it that bare; add no warmth.",
+  stories: "\"stories\": teaching through named people in specific moments, consequences first, rule second. Keep it a story: the people, the scene, the turn, told the way a native storyteller would.",
+};
+
+// How it should sound. Indian languages: the everyday language an educated reader speaks, not the formal register.
+function registerLine(language: string, indian: boolean) {
+  return indian
+    ? `Write everyday ${language} in its native script, the way an educated urban reader actually speaks and texts, not formal or textbook ${language}. Technical terms people normally say in English (for example API, interest rate, startup, battery) stay in English, in Latin script.`
+    : `Write natural, everyday ${language}, the way a native speaker talks, not a word-for-word rendering. Keep technical terms in English only where native speakers do.`;
+}
+
+export function translatePrompt(language: string, voice: Voice, indian: boolean) {
+  return `You translate parts of a short learning handbook from English into ${language}. The reader picked ${language} and this voice, and must get the same handbook a reader in English gets.
+
+The voice: ${VOICE_LINE[voice]}
+
+${registerLine(language, indian)}
+
+Rules:
+- Retell, don't transliterate: each item should read as if it were written in ${language} first, in the same voice.
+- Same meaning: keep every fact, number, name, date, example and step. Add nothing, drop nothing.
+- Keep the formatting exactly: **bold** and *italics* around the same ideas, and "\\n\\n" paragraph breaks in the same places.
+- Items with the same "card" belong to one card; read them together so the card hangs together.
+- Answer options in an exercise must stay distinct and parallel; never make the right one easier to spot than in English.
+- Never use the word for "incorrect" or "wrong".
+- Names of people stay names; places and brands keep their usual ${language} spelling.
+
+You get {"items":[{"id":"...","card":<number>,"text":"..."}]}. Return JSON only, the same items with the same ids, each with its translated text: {"items":[{"id":"...","text":"..."}]}`;
 }

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import ActionBar from '../components/ActionBar'
+import LanguagePicker from '../components/LanguagePicker'
+import { ENGLISH, languageInfo } from '../../convex/languages'
 
 type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
@@ -8,7 +10,7 @@ type Props = {
   status: 'idle' | 'writing' | 'question' | 'failed'
   question?: string
   error?: string
-  onCreate: (topic: string, level: Level, voice: Voice) => Promise<void>
+  onCreate: (topic: string, level: Level, voice: Voice, language: string) => Promise<void>
   onAnswer?: (answer: string) => Promise<void>
   onRetry?: () => Promise<void>
   examples: string[]
@@ -19,6 +21,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const [topic, setTopic] = useState(initialTopic)
   const [level, setLevel] = useState<Level>('new')
   const [voice, setVoice] = useState<Voice>('friend')
+  const [language, setLanguage] = useState<string>(rememberedLanguage)
   const [answer, setAnswer] = useState('')
   const [slow, setSlow] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
@@ -34,7 +37,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const submit = async () => {
     setLocalError(null)
     if (topic.trim().length < 2) { setLocalError('A few words is enough. What is it?'); return }
-    try { await onCreate(topic.trim(), level, voice) } catch (e: any) { setLocalError(friendly(e)) }
+    try { await onCreate(topic.trim(), level, voice, language) } catch (e: any) { setLocalError(friendly(e)) }
   }
 
   if (status === 'question' && question) {
@@ -85,6 +88,9 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
         <button type="button" className="chip" aria-pressed={voice === 'stories'} onClick={() => setVoice('stories')} disabled={writing}>Stories</button>
       </div>
 
+      <p className="sub" style={{ marginTop: 'var(--l)', marginBottom: 6 }}>Read it in</p>
+      <LanguagePicker value={language} disabled={writing} onChange={(name) => { setLanguage(name); rememberLanguage(name) }} />
+
       {(localError || (status === 'failed' && topic.trim() === initialTopic.trim())) && (
         <p className="error">{localError ?? "Couldn't write it just now. Your line is still here; try once more in a minute, or pick one of tonight's ready handbooks."}</p>
       )}
@@ -105,4 +111,13 @@ function friendly(e: any): string {
   if (m.includes('busy')) return "Busy right now. Try again in a few minutes."
   if (m.includes('few words')) return 'A few words is enough. What is it?'
   return "Couldn't write it just now. Your line is still here; try once more in a minute."
+}
+
+// The language picked last time on this phone, so a Hindi reader doesn't pick Hindi every time.
+const LANGUAGE_KEY = 'igetit.language'
+function rememberedLanguage(): string {
+  try { const saved = localStorage.getItem(LANGUAGE_KEY); return saved && languageInfo(saved) ? saved : ENGLISH } catch { return ENGLISH }
+}
+function rememberLanguage(name: string) {
+  try { localStorage.setItem(LANGUAGE_KEY, name) } catch { /* private windows can refuse storage */ }
 }

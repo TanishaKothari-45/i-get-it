@@ -6,11 +6,12 @@ import { internalAction, internalMutation, internalQuery, mutation, query, type 
 import type { Doc, Id } from "./_generated/dataModel";
 import { ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
+import { ENGLISH, languageInfo } from "./languages";
+import { translateChapterText, translatePlanText } from "./translations";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
 
 const CHAPTERS = 7;
-const LANGUAGE = "English";
 
 // Caps (AGENTS.md section 4): 60 generations an hour across the app, 6 an hour per device.
 const limiter = new RateLimiter(components.rateLimiter, {
@@ -28,7 +29,11 @@ const limiter = new RateLimiter(components.rateLimiter, {
 });
 
 export function topicKeyOf(topic: string) {
-  return topic.toLowerCase().replace(/https?:\/\/\S+/g, " ").replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ").slice(0, 80);
+  // Latin script keeps the old rule (only a-z, so cached keys still match); letters, vowel signs and digits of any
+  // other script are kept too, so a line typed in Hindi has a key of its own instead of an empty one.
+  return topic.toLowerCase().replace(/https?:\/\/\S+/g, " ")
+    .replace(/\p{Script=Latin}/gu, (c) => (c >= "a" && c <= "z" ? c : " "))
+    .replace(/[^\p{L}\p{M}\p{N}]+/gu, " ").trim().replace(/\s+/g, " ").slice(0, 80);
 }
 
 
@@ -109,11 +114,20 @@ async function cachedChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
   return ch ?? null;
 }
 
-async function ensureChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
+export async function ensureChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
   if (!Number.isInteger(n) || n < 1 || n > CHAPTERS) return;
   const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
   if (existing && (existing.status === "ready" || existing.status === "writing")) return;
   const fromCache = await cachedChapter(ctx, h, n);
+  // A ready topic in another language: translated when reached (a paid call, so it counts like a write).
+  if (fromCache && h.language !== ENGLISH) {
+    const status = (await takeGeneration(ctx, h)) ? "writing" as const : "failed" as const;
+    const error = status === "failed" ? "busy" : undefined;
+    if (existing) await ctx.db.patch(existing._id, { status, error });
+    else await ctx.db.insert("chapters", { handbookId: h._id, n, status, error, createdAt: Date.now() });
+    if (status === "writing") await ctx.scheduler.runAfter(0, internal.translations.chapterFromCache, { handbookId: h._id, n });
+    return;
+  }
   if (fromCache) {
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
     const doc = { status: "ready" as const, title: fromCache.title, cards: fromCache.cards, outcomeLine: fromCache.outcomeLine, svg: fromCache.svg, pictures: fromCache.pictures, cacheVersion: row?.version ?? 0, error: undefined };
@@ -162,7 +176,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   }
   return {
     bonus: bonus.map((b) => ({ kind: b.kind, n: b.n, status: b.status, title: b.title, cards: publicCards(b.cards), error: b.error })),
-    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error,
+    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", language: h.language, status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error,
     signedIn: !!h.userId,
     chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch))),
     progress: progress ? {
@@ -249,24 +263,40 @@ export const recallFor = query({
 // ---------- creating a handbook ----------
 
 export const create = mutation({
-  args: { topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV) },
-  handler: async (ctx, { topic, level: lvl, deviceToken, voice }) => {
+  args: { topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV), language: v.optional(v.string()) },
+  handler: async (ctx, { topic, level: lvl, deviceToken, voice, language }) => {
     const clean = topic.trim().slice(0, 200);
     if (clean.length < 2) throw new Error("Type a few words first.");
+    const lang = language ?? ENGLISH;
+    if (!languageInfo(lang)) throw new Error("Unknown language");
     const userId = await getAuthUserId(ctx);
     const topicKey = topicKeyOf(clean);
     const now = Date.now();
 
     const cached = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
 
-    // One handbook per topic per person: typing a topic you've already started opens it where you left off.
-    const already = (await ownedBooks(ctx, userId, deviceToken)).find((h) =>
-      h.topicKey === topicKey || (cached && h.source === "cache" && h.topic === cached.topic));
+    // One handbook per topic per person (and per language): typing a topic you've already started opens it where you left off.
+    const already = (await ownedBooks(ctx, userId, deviceToken)).find((h) => (h.language ?? ENGLISH) === lang &&
+      (h.topicKey === topicKey || (cached && h.source === "cache" && (h.sourcePlan?.topic ?? h.topic) === cached.topic)));
     if (already) return { handbookId: already._id, fromCache: already.source === "cache", existing: true };
+
+    // A ready topic in another language: its plan is translated now, its chapters as they're reached.
+    if (cached && lang !== ENGLISH) {
+      const all = await limiter.limit(ctx, "generateAll");
+      const mine = await limiter.limit(ctx, "generateDevice", { key: userId ? String(userId) : deviceToken });
+      if (!all.ok || !mine.ok) throw new Error("busy");
+      const handbookId = await ctx.db.insert("handbooks", {
+        topic: cached.topic, topicKey, level: lvl, language: lang, voice: voice ?? "friend", status: "planning",
+        ownerToken: deviceToken, userId: userId ?? undefined, source: "cache", createdAt: now,
+      });
+      await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
+      await ctx.scheduler.runAfter(0, internal.translations.planFromCache, { handbookId });
+      return { handbookId, fromCache: true, existing: false };
+    }
 
     if (cached) {
       const handbookId = await ctx.db.insert("handbooks", {
-        topic: cached.topic, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "ready", plan: cached.plan,
+        topic: cached.topic, topicKey, level: lvl, language: lang, voice: voice ?? "friend", status: "ready", plan: cached.plan,
         ownerToken: deviceToken, userId: userId ?? undefined, source: "cache", createdAt: now,
       });
       for (const ch of cached.chapters) {
@@ -282,7 +312,7 @@ export const create = mutation({
     if (!all.ok || !mine.ok) throw new Error("busy");
 
     const handbookId = await ctx.db.insert("handbooks", {
-      topic: clean, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "planning",
+      topic: clean, topicKey, level: lvl, language: lang, voice: voice ?? "friend", status: "planning",
       ownerToken: deviceToken, userId: userId ?? undefined, source: "live", createdAt: now,
     });
     await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
@@ -337,7 +367,9 @@ export const retry = mutation({
       if (h.status !== "failed") return;   // a plan is already being written
       if (!(await takeGeneration(ctx, h))) throw new Error("busy");
       await ctx.db.patch(handbookId, { status: "planning", error: undefined });
-      await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
+      // A ready topic whose translation failed: translate it again, never write a new plan.
+      if (h.source === "cache" && h.language !== ENGLISH) await ctx.scheduler.runAfter(0, internal.translations.planFromCache, { handbookId });
+      else await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
       return;
     }
     const failed = (await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId)).collect()).filter((c) => c.status === "failed");
@@ -358,7 +390,9 @@ export const generatePlan = internalAction({
       topic: String(prev.plan.topic ?? prev.topic), outcome7: prev.plan.outcome7 ?? undefined, horizon14: prev.plan.horizon14 ?? undefined,
       chapterTitles: (prev.plan.chapters ?? []).map((c: any) => String(c.title ?? "")),
     } : undefined;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, previous) });
+    // Always written in English (translated after); only a clarifying question is asked in their language.
+    const reader = h.language === ENGLISH ? "" : `\nThe learner reads ${h.language}. Write everything in English, except the clarifying question, if you ask one: write that in ${h.language}.`;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, ENGLISH, h.voice ?? "friend", clarification, previous) + reader });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: r.error }); return; }
     const plan = r.json;
     if (plan.needsClarification && plan.question && !clarification && !previous) {
@@ -369,7 +403,9 @@ export const generatePlan = internalAction({
       await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `plan had ${plan.chapters?.length ?? 0} chapters` });
       return;
     }
-    await ctx.runMutation(internal.handbooks.setPlan, { handbookId, plan, topic: clarification ? `${h.topic} (${clarification})` : h.topic });
+    const translated = await translatePlanText(ctx, h.language, h.voice ?? "friend", plan);
+    if (!translated.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: translated.error }); return; }
+    await ctx.runMutation(internal.handbooks.setPlan, { handbookId, plan: translated.plan, sourcePlan: h.language === ENGLISH ? undefined : plan, topic: clarification ? `${h.topic} (${clarification})` : h.topic });
     await ctx.runMutation(internal.handbooks.startChapter, { handbookId, n: 1 });
     await ctx.runAction(internal.handbooks.generateChapter, { handbookId, n: 1 });
   },
@@ -405,16 +441,21 @@ export const generateChapter = internalAction({
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h?.plan) return;
     const prof = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId });
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, prof.line), model: prof.model });
+    // Written in English from the English plan, fact checked in English, then translated (handbook in another language).
+    const plan = h.sourcePlan ?? h.plan;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(plan, h.level, ENGLISH, h.voice ?? "friend", n, prof.line), model: prof.model });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");
     const sane = Array.isArray(ch.cards) && ch.cards.length >= 5 && exercises.length >= 2 &&
       exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer));
     if (!sane) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: "chapter failed the shape check" }); return; }
-    const title = String(ch.title ?? h.plan.chapters[n - 1]?.title ?? `Chapter ${n}`);
-    const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards);
-    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards: checked.cards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report });
+    const englishTitle = String(ch.title ?? plan.chapters[n - 1]?.title ?? `Chapter ${n}`);
+    const checked = await factCheck(ctx, plan?.topic ?? h.topic, h.level, englishTitle, ch.cards);
+    const t = await translateChapterText(ctx, h.language, h.voice ?? "friend", "chapter", { title: englishTitle, outcomeLine: String(ch.outcomeLine ?? ""), cards: checked.cards });
+    if (!t.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: t.error }); return; }
+    const title = t.title;
+    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards: t.cards, outcomeLine: t.outcomeLine, svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report });
     // Pictures come after the words: the chapter opens now, each picture fades in when it's drawn.
     await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
   },
@@ -426,8 +467,8 @@ export const readHandbook = internalQuery({
 });
 
 export const setPlan = internalMutation({
-  args: { handbookId: v.id("handbooks"), plan: v.any(), topic: v.string() },
-  handler: async (ctx, { handbookId, plan, topic }) => { await ctx.db.patch(handbookId, { status: "ready", plan, topic, question: undefined, error: undefined }); },
+  args: { handbookId: v.id("handbooks"), plan: v.any(), sourcePlan: v.optional(v.any()), topic: v.string() },
+  handler: async (ctx, { handbookId, plan, sourcePlan, topic }) => { await ctx.db.patch(handbookId, { status: "ready", plan, sourcePlan, topic, question: undefined, error: undefined }); },
 });
 export const setQuestion = internalMutation({
   args: { handbookId: v.id("handbooks"), question: v.string() },
@@ -681,7 +722,7 @@ export const writeSimpler = internalAction({
     const ch = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n: chapter });
     const card = ch?.cards?.[cardIndex];
     if (!h || !ch || !card) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "simpler", system: SIMPLER_PROMPT, user: simplerUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${chapter}`, card) });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "simpler", system: SIMPLER_PROMPT, user: simplerUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${chapter}`, card, h.language) });
     const text = r.ok && typeof r.json?.simpler === "string" ? r.json.simpler.trim() : null;
     await ctx.runMutation(internal.handbooks.setSimpler, { handbookId, chapter, cardIndex, simpler: text ?? "", failed: !text });
   },
@@ -710,7 +751,7 @@ export const syncFromCache = mutation({
   args: { handbookId: v.id("handbooks"), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
-    if (h.source !== "cache") return { updated: 0 };
+    if (h.source !== "cache" || h.language !== ENGLISH) return { updated: 0 };   // a translated one keeps its translation
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
     if (!row?.version) return { updated: 0 };
     const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
@@ -964,7 +1005,7 @@ export const answerQuestionAboutCard = internalAction({
     if (!h || !ch || !card) { await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: "", failed: true }); return; }
     const prof = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId: row.handbookId });
     const body = card.type === "exercise" ? `${card.prompt}\n${(card.options ?? []).map((o: any) => `${o.id}) ${o.text}`).join("\n")}` : card.type === "watch" ? `${card.who}, ${card.what}. ${card.watchFor}` : card.body;
-    const r = await ctx.runAction(internal.ai.askWithSearch, { system: ASK_SEARCH_PROMPT, user: askSearchUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${row.chapter}`, body, row.question, prof.line), searchKey: String(h.userId ?? h.ownerToken ?? h._id) });
+    const r = await ctx.runAction(internal.ai.askWithSearch, { system: ASK_SEARCH_PROMPT, user: askSearchUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${row.chapter}`, body, row.question, prof.line, h.language), searchKey: String(h.userId ?? h.ownerToken ?? h._id) });
     if (r.ok && r.answer) await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: r.answer, sources: r.sources, failed: false });
     else await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: "", failed: true });
   },

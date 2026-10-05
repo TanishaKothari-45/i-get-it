@@ -4,6 +4,7 @@ import { useAuthActions } from '@convex-dev/auth/react'
 import type { FunctionReturnType } from 'convex/server'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
+import { languageInfo } from '../convex/languages'
 import Start from './screens/Start'
 import Plan from './screens/Plan'
 import Chapter, { type AnswerResult, type Card, type Recap } from './screens/Chapter'
@@ -62,6 +63,8 @@ export default function App() {
   })
 
   const hb = data?.handbook ?? null
+  // The page's language follows the handbook's, so screen readers and fonts treat Hindi as Hindi.
+  useEffect(() => { document.documentElement.lang = languageInfo(hb?.language ?? '')?.code ?? 'en' }, [hb?.language])
   const progress = hb?.progress ?? null
   const currentN = progress?.currentChapter ?? 1
   const passed = progress?.chaptersPassed ?? []
@@ -116,7 +119,7 @@ export default function App() {
           question={hb?.question}
           error={hb?.error}
           examples={examples}
-          onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
+          onCreate={async (topic, level, voice, language) => { setDraftTopic(topic); const r = await create({ topic, level, voice, language, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
         />
@@ -214,7 +217,7 @@ export default function App() {
             related: Array.isArray(plan?.related) ? plan.related.filter((t: unknown) => typeof t === 'string' && t.trim()).slice(0, 3) : [],
             fresh: examples.filter((t) => t !== (plan?.topic ?? hb.topic) && !(plan?.related ?? []).includes(t)).slice(0, 3),
             onGoFurther: async () => { const r = await goFurther({ handbookId: hb._id, deviceToken: token }); openHandbook(String(r.handbookId)) },
-            onStart: async (t) => { const r = await create({ topic: t, level: 'new', voice: (hb as any).voice ?? 'friend', deviceToken: token }); openHandbook(String(r.handbookId)) },
+            onStart: async (t) => { const r = await create({ topic: t, level: 'new', voice: (hb as any).voice ?? 'friend', language: hb.language, deviceToken: token }); openHandbook(String(r.handbookId)) },
           } : undefined}
         />
       </Shell>

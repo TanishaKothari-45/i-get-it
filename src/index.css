@@ -323,6 +323,17 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 /* the 9pm nudge card: Allow, with a quiet Not now under it */
 .nudge-ask .serif { margin: var(--s) 0 var(--m); }
 .nudge-actions { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+/* "Read it in": a row of languages plus a small "More", which opens a fixed-height drawer */
+.chips-wrap { flex-wrap: wrap; }
+.chips-wrap .chip { flex: 0 0 calc((100% - 2 * var(--s)) / 3); }
+.chip-more { flex: 0 0 auto; padding: 0 16px; font-size: var(--small); color: var(--ink-2); }
+.sheet-title { margin-top: 0; }
+.lang-grid { margin-top: var(--l); }
+.sheet.sheet-tall { height: 55dvh; overflow: hidden; display: flex; flex-direction: column; }
+.sheet.sheet-tall > div { width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.sheet-tall .lang-grid { flex: 1; min-height: 0; overflow-y: auto; align-content: flex-start; padding-bottom: var(--m); }
+.lang-chip { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; }
+.lang-chip small { font-size: 12px; font-weight: 400; color: var(--ink-2); }
 /* after chapter 7: go further, related topics, something new */
 .whats-next { margin-top: var(--xl); }
 .whats-next .label { margin-top: var(--l); }

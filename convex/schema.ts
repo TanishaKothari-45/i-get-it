@@ -21,7 +21,8 @@ export default defineSchema({
       v.literal("failed"),
     ),
     question: v.optional(v.string()),
-    plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }
+    plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }, in the handbook's language
+    sourcePlan: v.optional(v.any()),   // the English plan, when the handbook is in another language: chapters are written from it
     ownerToken: v.optional(v.string()),
     userId: v.optional(v.id("users")),
     source: v.union(v.literal("live"), v.literal("cache")),

@@ -6,6 +6,8 @@ import { internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, type MutationCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 import { ANOTHER_PROMPT, DEEPER_PROMPT, bonusUserMessage } from "./prompts";
+import { ENGLISH } from "./languages";
+import { translateChapterText } from "./translations";
 import { type BonusKind, bonusChapter, bonusFinished, bonusKindV, bonusUnlocked, factCheck, ownedHandbook, shuffleExercises, takeGeneration } from "./handbooks";
 
 const BONUS_PROMPT: Record<BonusKind, string> = { deeper: DEEPER_PROMPT, another: ANOTHER_PROMPT };
@@ -66,17 +68,20 @@ export const generateBonus = internalAction({
       return;
     }
     const prof = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId });
+    // Written in English from the English plan (the chapter's cards as the reader read them), then translated.
     const r = await ctx.runAction(internal.ai.generate, {
       kind, system: BONUS_PROMPT[kind],
-      user: bonusUserMessage(kind, h.plan, h.level, h.language, h.voice ?? "friend", n, { title: chapter.title, cards: chapter.cards }, prof.line),
+      user: bonusUserMessage(kind, h.sourcePlan ?? h.plan, h.level, ENGLISH, h.voice ?? "friend", n, { title: chapter.title, cards: chapter.cards }, prof.line),
     });
     if (!r.ok) { await ctx.runMutation(internal.bonus.setBonusFailed, { handbookId, kind, n, error: r.error }); return; }
     const cards = r.json?.cards;
     if (!wellFormed(cards)) { await ctx.runMutation(internal.bonus.setBonusFailed, { handbookId, kind, n, error: "bonus failed the shape check" }); return; }
     const title = String(r.json.title ?? BONUS_FALLBACK_TITLE[kind](n));
     // Same rule as a live chapter: checked before the reader sees it; a failed check never blocks it.
-    const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, cards);
-    await ctx.runMutation(internal.bonus.saveBonus, { handbookId, kind, n, title, cards: checked.cards, factCheck: checked.report });
+    const checked = await factCheck(ctx, (h.sourcePlan ?? h.plan)?.topic ?? h.topic, h.level, title, cards);
+    const t = await translateChapterText(ctx, h.language, h.voice ?? "friend", kind, { title, cards: checked.cards });
+    if (!t.ok) { await ctx.runMutation(internal.bonus.setBonusFailed, { handbookId, kind, n, error: t.error }); return; }
+    await ctx.runMutation(internal.bonus.saveBonus, { handbookId, kind, n, title: t.title, cards: t.cards, factCheck: checked.report });
   },
 });
 
