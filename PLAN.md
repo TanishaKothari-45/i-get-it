@@ -10,7 +10,7 @@ Before milestone 1: DESIGN.md (done 4 Oct night, taste choices marked MISSING fo
 5. I can sign in after the rung, pick when tomorrow is, and my night is attached to me.   DONE (checked on dev)
 6. I can come back, answer recall on chapter 1, and get chapter 2.   DONE (checked on dev, chapter 2 passed)
 7. I can open it on another device after sign-in and land on the same rung.   DONE (device token removed, sign-in kept, two rungs shown)
-Last: I can close it, reopen it, and my plan and my rungs are still there.   DONE on dev; on production only the first screen and the failure path were checked   <- next: a real phone on mobile data
+Last: I can close it, reopen it, and my plan and my rungs are still there.   DONE on dev; production checked by Prateek on his own phone, logged out, on mobile data (4 Oct evening, chess basics: found the missing picture and false facts, fixed by the live fact check)
 
 FROZEN 4 Oct 16:50 (Shaktimaan): no new features until one coursemate has used the live link on their phone with no help and we've written down where they stopped. Then Prateek's own phone test.
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ActionBar from '../components/ActionBar'
 
 type Level = 'new' | 'some'
@@ -23,6 +23,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const [slow, setSlow] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
   const writing = status === 'writing'
+  const levelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!writing) { setSlow(false); return }
@@ -61,8 +62,10 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
 
       <div className="field">
         <label htmlFor="topic">What do you keep meaning to learn?</label>
-        <input id="topic" className="input" type="text" autoComplete="off" enterKeyHint="go" placeholder={examples[0] ?? 'Swimming'} value={topic}
-          onChange={(e) => setTopic(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') submit() }} disabled={writing} />
+        <input id="topic" className="input" type="text" autoComplete="off" enterKeyHint="done" placeholder={examples[0] ?? 'Swimming'} value={topic}
+          onChange={(e) => setTopic(e.target.value)} disabled={writing}
+          // Enter only closes the keyboard and shows the level and voice; the button starts the writing.
+          onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); levelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) } }} />
         {examples.length > 1 && (
           <p className="note">Tonight's ready handbooks: {examples.slice(0, 6).map((x, i) => (
             <span key={x}>{i > 0 && ' · '}<button type="button" className="quiet" style={{ padding: 0 }} onClick={() => setTopic(x)} disabled={writing}>{x}</button></span>
@@ -70,7 +73,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
         )}
       </div>
 
-      <div className="chips" role="group" aria-label="Level">
+      <div className="chips" role="group" aria-label="Level" ref={levelRef}>
         <button type="button" className="chip" aria-pressed={level === 'new'} onClick={() => setLevel('new')} disabled={writing}>New to this</button>
         <button type="button" className="chip" aria-pressed={level === 'some'} onClick={() => setLevel('some')} disabled={writing}>Know some</button>
       </div>
