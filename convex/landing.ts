@@ -1,3 +1,4 @@
+import { v } from "convex/values";
 import { query } from "./_generated/server";
 
 // Public content for the landing page, all from the ready topics: a tappable demo of
@@ -41,5 +42,24 @@ export const content = query({
       path: demoRow?.plan ? { topic: demoRow.plan.topic, outcome: demoRow.plan.outcome7, chapters: (demoRow.plan.chapters ?? []).map((c: any) => ({ n: c.n, title: c.title, hook: c.hook })) } : null,
       shelf: shelf.filter((s) => s.cover).concat(shelf.filter((s) => !s.cover)),
     };
+  },
+});
+
+// A story to read while a new plan is written (Prateek, 6 Oct): one "Story time" card with its picture from a
+// ready handbook, so the wait is worth something and the reader can add that handbook too. The seed picks which.
+export const waitStory = query({
+  args: { seed: v.number() },
+  handler: async (ctx, { seed }) => {
+    const rows = (await ctx.db.query("cache").collect()).filter((r) => r.level === "new");
+    const seen = new Map<string, any>();
+    for (const r of rows) if (!seen.has(r.topic)) seen.set(r.topic, r);
+    const stories: { topic: string; chapter: string; title?: string; text: string; storageId: any }[] = [];
+    for (const r of seen.values()) for (const ch of r.chapters) (ch.cards ?? []).forEach((c: any, i: number) => {
+      const pic = ch.pictures?.find((p: any) => p.card === i && p.storageId);
+      if (c?.type === "example" && typeof c.body === "string" && pic) stories.push({ topic: r.plan?.topic ?? r.topic, chapter: ch.title ?? `Chapter ${ch.n}`, title: c.title, text: c.body, storageId: pic.storageId });
+    });
+    if (!stories.length) return null;
+    const s = stories[Math.abs(Math.floor(seed)) % stories.length];
+    return { topic: s.topic, chapter: s.chapter, title: s.title ?? null, text: s.text, picture: await ctx.storage.getUrl(s.storageId), count: stories.length };
   },
 });

@@ -104,6 +104,10 @@ Top to bottom: a slim top bar (I Get It, "Start tonight"); hero: Prateek's headl
 Main action: Show me the way (both boxes share one line; an empty box scrolls back to the hero box).
 Copy (agent): everything except section 5's headline and line, and the button.
 
+Waiting for a new plan (6 Oct; Shaktimaan: "the handoff jars"; Prateek: fill the wait with a story and send people to where it's from)
+For: the 30 seconds after "Show me the way" on a topic that isn't ready.
+Top to bottom: "Writing your seven nights", the topic large, three steps that light up (reading what you typed; choosing the seven nights and the one picture; writing chapter 1 while you read the plan), "Your plan in about 30 seconds. Chapter 1 is written while you read it.", a thin moving bar. Under it, "While you wait, a story from another handbook": one Story time card from a ready handbook with its picture, "From [topic], [chapter].", a ghost button "Add [topic] to my handbooks" (saves it to the library without leaving; then "Added. It's in Your handbooks.") and a quiet "Another story". Never the level and voice form again. Copy (agent).
+
 Plan (the handbook cover, drawn as a journey since 4 Oct evening)
 For: seeing the whole thing before the first chapter, so starting isn't skipping levels.
 Top to bottom: a dark gradient cover with "Your handbook · N of 7", the topic, "By day 7 you'll be able to …", the handbook's drawing and its one picture (analogy) line; "Draws on" with up to three real works; then "The path": seven stops on a dashed winding line, each with its hook as the teaser, tonight's stop pulsing, the seventh drawn as the summit; days 14 and 28 as two quiet lines; the main button.

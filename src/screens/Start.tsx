@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import ActionBar from '../components/ActionBar'
+import Rich from '../components/Rich'
+import { useQuery } from 'convex/react'
+import { api } from '../../convex/_generated/api'
 
 type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
@@ -14,10 +17,12 @@ type Props = {
   examples: string[]
   // The landing sections, shown under the first screen to first-time visitors. pick('') just brings the box back.
   below?: (pick: (topic: string) => void) => ReactNode
+  // While a plan is written: add the handbook the waiting story comes from, without leaving this one.
+  onAddOther?: (topic: string) => Promise<void>
 }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, below }: Props) {
+export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, below, onAddOther }: Props) {
   const [topic, setTopic] = useState(initialTopic)
   const [level, setLevel] = useState<Level>('new')
   const [voice, setVoice] = useState<Voice>('friend')
@@ -26,6 +31,9 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const [localError, setLocalError] = useState<string | null>(null)
   const writing = status === 'writing'
   const levelRef = useRef<HTMLDivElement>(null)
+  const [storySeed, setStorySeed] = useState(() => Math.floor(Math.random() * 1000))
+  const story = useQuery(api.landing.waitStory, writing ? { seed: storySeed } : 'skip')
+  const [added, setAdded] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const backToBox = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 350) }
   const pick = (t: string) => { if (t) setTopic(t); setLocalError(null); backToBox() }
@@ -55,6 +63,20 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
         </ol>
         <p className="note">Your plan in about 30 seconds. Chapter 1 is written while you read it.</p>
         <div className="busybar" aria-hidden="true" />
+        {story && (
+          <section className="wait-story" aria-label="A story while you wait">
+            <p className="wait-story-kicker">While you wait, a story from another handbook</p>
+            {story.picture && <div className="story-pic"><img src={story.picture} alt="" /></div>}
+            {story.title && <p className="wait-story-title">{story.title}</p>}
+            <Rich text={story.text} className="serif wait-story-text" />
+            <p className="note">From <strong>{story.topic}</strong>, {story.chapter}.</p>
+            <div className="wait-story-actions">
+              {added === story.topic ? <span className="wait-story-added">Added. It's in Your handbooks.</span>
+                : onAddOther && <button type="button" className="btn btn-ghost" onClick={async () => { try { await onAddOther(story.topic); setAdded(story.topic) } catch { /* the plan still comes; adding can wait */ } }}>Add {story.topic} to my handbooks</button>}
+              {story.count > 1 && <button type="button" className="quiet" onClick={() => setStorySeed((x) => x + 7)}>Another story</button>}
+            </div>
+          </section>
+        )}
       </div>
     )
   }

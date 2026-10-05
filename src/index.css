@@ -515,3 +515,12 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .plan-wait-steps li::before { content: ''; position: absolute; left: 0; top: 4px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--tint); }
 .plan-wait-steps li.on { color: var(--ink); }
 .plan-wait-steps li.on::before { background: var(--accent); border-color: var(--accent); }
+
+/* the story while a plan is written (Prateek, 6 Oct): reuse a ready handbook's Story time card */
+.wait-story { margin-top: var(--xl); padding-top: var(--l); border-top: 1px solid var(--tint); }
+.wait-story-kicker { font: 700 var(--small) var(--sans); color: var(--ink-2); margin: 0 0 12px; }
+.wait-story .story-pic { box-shadow: none; border: 1px solid var(--tint); }
+.wait-story-title { font: 700 var(--heading) var(--sans); margin: 0 0 8px; }
+.wait-story-text p { font-size: var(--body); line-height: 1.55; margin: 0 0 10px; }
+.wait-story-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: var(--m); }
+.wait-story-added { font: 700 var(--ui) var(--sans); color: var(--pass); }
