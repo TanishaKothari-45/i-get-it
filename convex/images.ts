@@ -10,28 +10,38 @@ import { PICTURE_ANCHOR, PICTURE_NEVER, SCENES_PROMPT, scenesUserMessage } from 
 const RUNWAY = "https://api.dev.runwayml.com/v1";
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-async function runway(path: string, init?: RequestInit) {
+async function runway(path: string, init?: RequestInit, tries = 3): Promise<any> {
   const key = process.env.Runway ?? process.env.RUNWAYML_API_SECRET;
   if (!key) throw new Error("No Runway key");
-  const res = await fetch(`${RUNWAY}${path}`, {
-    ...init,
-    headers: { Authorization: `Bearer ${key}`, "X-Runway-Version": "2024-11-06", "Content-Type": "application/json", ...(init?.headers ?? {}) },
-  });
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(`Runway ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
-  return body as any;
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const res = await fetch(`${RUNWAY}${path}`, {
+        ...init,
+        headers: { Authorization: `Bearer ${key}`, "X-Runway-Version": "2024-11-06", "Content-Type": "application/json", ...(init?.headers ?? {}) },
+      });
+      const body = await res.json().catch(() => ({}));
+      // Busy or a server hiccup: wait and try again. Anything else is a real refusal.
+      if ((res.status === 429 || res.status >= 500) && attempt < tries) { await sleep(4000 * attempt); continue; }
+      if (!res.ok) throw new Error(`Runway ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
+      return body;
+    } catch (e: any) {
+      if (attempt >= tries || String(e?.message).startsWith("Runway ")) throw e;
+      await sleep(4000 * attempt);   // network blip ("fetch failed")
+    }
+  }
 }
 
 const MODEL = "muse_image";      // design/style-anchor.md: 1 credit a picture; Gen-4 wrote text into pictures
 const RATIO = "1792:1344";        // 4:3
 const MAX_PICTURES = 8;
+const AT_ONCE = 3;                // Runway queues ("THROTTLED") past its concurrency limit; more at once just waits longer
 
 async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RATIO, seed?: number): Promise<{ ok: true; storageId: Id<"_storage">; ms: number } | { ok: false; error: string; ms: number }> {
   const t0 = Date.now();
   try {
     const task = await runway("/text_to_image", { method: "POST", body: JSON.stringify({ model, promptText: prompt, ratio, ...(seed !== undefined ? { seed } : {}) }) });
     let t: any = task;
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 90; i++) {   // up to 7.5 minutes; a Convex action may run 10
       await sleep(5000);
       t = await runway(`/tasks/${task.id}`);
       if (t.status === "SUCCEEDED" || t.status === "FAILED" || t.status === "CANCELLED") break;
@@ -63,7 +73,11 @@ async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: stri
   if (!scenes.length) return { status: "failed", pictures: [] };
   // Readers' chapters count against the app-wide hourly cap; the hand-run ready-topic backfill does not.
   if (capped && !(await ctx.runMutation(internal.handbooks.takePictureBudget, { count: scenes.length }))) return { status: "failed", pictures: [] };
-  const drawn = await Promise.all(scenes.map((s) => drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${s.scene} ${PICTURE_NEVER}`)));
+  const drawn: Awaited<ReturnType<typeof drawOne>>[] = new Array(scenes.length);
+  let next = 0;
+  await Promise.all(Array.from({ length: Math.min(AT_ONCE, scenes.length) }, async () => {
+    while (next < scenes.length) { const k = next++; drawn[k] = await drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${scenes[k].scene} ${PICTURE_NEVER}`); }
+  }));
   const pictures: Picture[] = scenes.map((s, k) => ({ ...s, storageId: drawn[k].ok ? (drawn[k] as any).storageId : undefined }));
   return { status: pictures.some((p) => p.storageId) ? "done" : "failed", pictures };
 }
