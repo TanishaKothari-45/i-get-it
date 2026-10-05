@@ -307,9 +307,9 @@ const BONUS_TEXT: Record<BonusKind, { label: (n: number) => string; heading: str
 
 // A bonus lesson for chapter n ("go deeper" or "another way"). Written the first time anyone asks, shared after.
 function BonusRoute({ hb, n, kind, token }: { hb: HandbookView; n: number; kind: BonusKind; token: string }) {
-  const requestBonus = useMutation(api.handbooks.requestBonus)
+  const requestBonus = useMutation(api.bonus.requestBonus)
   const recordAnswer = useMutation(api.handbooks.recordAnswer)
-  const finishBonus = useMutation(api.handbooks.finishBonus)
+  const finishBonus = useMutation(api.bonus.finishBonus)
   const bonus = hb.bonus.find((b) => b.n === n && b.kind === kind)
   const text = BONUS_TEXT[kind]
   const chapterTitle = hb.chapters.find((c) => c.n === n)?.title ?? hb.plan?.chapters?.[n - 1]?.title ?? `Chapter ${n}`

@@ -89,10 +89,10 @@ export const translateBonus = internalAction({
     const book = await ctx.runQuery(internal.handbooks.readBook, { bookId });
     if (!book?.sourceBookId) return;
     const english = await ctx.runQuery(internal.translations.readBonus, { bookId: book.sourceBookId, kind, n });
-    if (english?.status !== "ready") { await ctx.runMutation(internal.handbooks.setBonusFailed, { bookId, kind, n, error: "English bonus not ready" }); return; }
+    if (english?.status !== "ready") { await ctx.runMutation(internal.bonus.setBonusFailed, { bookId, kind, n, error: "English bonus not ready" }); return; }
     const units = chapterUnits(english);
     const r: Translated = await ctx.runAction(internal.translate.groups, { language: book.language, voice: book.voice, kind, groups: readableGroups(units) });
-    if (!r.ok) { await ctx.runMutation(internal.handbooks.setBonusFailed, { bookId, kind, n, error: r.error }); return; }
+    if (!r.ok) { await ctx.runMutation(internal.bonus.setBonusFailed, { bookId, kind, n, error: r.error }); return; }
     const { title, cards } = chapterFromUnits(withTranslations(units, r.groups));
     await ctx.runMutation(internal.translations.saveTranslatedBonus, { bookId, kind, n, title, cards });
   },
