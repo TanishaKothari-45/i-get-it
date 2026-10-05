@@ -110,6 +110,23 @@ export default defineSchema({
   }).index("by_card", ["handbookId", "chapter", "cardIndex"]),
 
   // Willingness to pay, week 1: no payment taken, just "keep me going at this price".
+  // One row per phone per day it opened the app (India time), for the public /stats page.
+  visits: defineTable({
+    visitor: v.string(),           // the phone's device token
+    day: v.string(),               // "2026-10-05", India time
+    source: v.optional(v.string()), // utm_source, else the referring site's name
+    at: v.number(),
+  })
+    .index("by_visitor_day", ["visitor", "day"])
+    .index("by_day", ["day"]),
+
+  // Phones and accounts their owner asked us not to count (Prateek's own). Anyone can only exclude themselves.
+  statsExcluded: defineTable({
+    deviceToken: v.optional(v.string()),
+    userId: v.optional(v.id("users")),
+    at: v.number(),
+  }),
+
   priceIntents: defineTable({
     userId: v.optional(v.id("users")),
     deviceToken: v.optional(v.string()),
