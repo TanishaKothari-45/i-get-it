@@ -51,6 +51,26 @@ First screen: the GrowthX handbook cover page at growthx.club/learn/build-sprint
 Take: one headline, one line under it, one box and one button, nothing else above the fold. Warm paper, lots of air.
 Ignore: the login, the badges, the countdown.
 
+## 2b. Teardown: one Instagram Reel, by Prateek (6 Oct)
+Ten things he noticed, in his words (the agent asked the questions and shaped each into element, what it does, how).
+1. The content: the centre of the screen is the first and only place the eye lands.
+2. The caption: barely 10% of the screen. You read it only if the video already got you.
+3. The swipe: the thumb swipes up and the next one is there instantly. No lag.
+4. What's next: you never wonder if there's more; it's an endless loop. (Kept out of I Get It: a chapter ends. Section 2.)
+5. The buttons: like, comment, share, save sit bottom-right, under 10% of the screen, never over the content.
+6. The like: one tap turns the white heart red and it fills. Instant, small, satisfying.
+7. No frame: no background colour or border around the video; the content is the whole screen as it is.
+8. The first 10 to 15 seconds: that's the decision to stay or swipe. Hooks and delivery decide it, then he watches the whole thing.
+9. The surprise: you don't know what's coming next (friends, celebrities, knowledge creators), so it keeps you intrigued.
+10. What to steal: the way content is presented. It holds interest, gives a small dopamine hit and keeps you going, again and again.
+
+What this means for chapters (agent's reading, for Prateek to confirm):
+- Slide up, and the next card must already be there (3). Pictures that fade in a minute later break this; ready topics already have theirs.
+- Text should be the minority of the screen (2, 7). Today a teaching frame is mostly text; one idea per frame, shorter, with the picture as the screen.
+- The tools (Say it simpler, Ask) belong small and in a corner (5), as they are now.
+- A tiny instant reward on every answer (6), not only the green option.
+- The first frame of each card is the hook (8); vary the shape from card to card so the next one is a small surprise (9).
+
 ## 3. Type and colour
 Font: two. Bricolage Grotesque (already loaded) for the headline, headings, chapter numbers, buttons and labels. Newsreader (Google Fonts, optical size 16) for the teaching body, examples, the mistake card, the feedback sheet's re-teach text and the exercise prompt.
 Sizes: display 34 (clamp 28 to 38) for the headline and the chapter title · heading 22 · body 17.5 (serif) · ui 16 (sans, buttons, options) · small 13.5 (labels, "Chapter 1 of 7", timings). No other sizes without asking.
