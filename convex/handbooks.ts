@@ -20,6 +20,10 @@ const limiter = new RateLimiter(components.rateLimiter, {
   askDevice: { kind: "token bucket", rate: 40, period: HOUR, capacity: 8 },
   searchDaily: { kind: "fixed window", rate: 3, period: 24 * HOUR },   // web-searched answers per person per day (~₹9.5 each)
   compareAll: { kind: "fixed window", rate: 10, period: HOUR },   // three expensive-model calls each: hard cap across the app
+  // App-wide backstops for the cheaper paid calls: a made-up device token gets a fresh per-device bucket, never a fresh app bucket.
+  askAll: { kind: "fixed window", rate: 200, period: HOUR },      // ~₹0.5 each
+  searchAll: { kind: "fixed window", rate: 20, period: HOUR },    // ~₹9.4 each
+  simplerAll: { kind: "fixed window", rate: 300, period: HOUR },  // ~₹0.06 each
 });
 
 export function topicKeyOf(topic: string) {
@@ -67,6 +71,19 @@ async function ownedHandbook(ctx: QueryCtx | MutationCtx, handbookId: Id<"handbo
   return h;
 }
 
+// Per-person caps count against whoever owns the handbook (the account, else the phone that made it),
+// never against the token sent with the call, which costs nothing to make up.
+function ownerKey(h: Doc<"handbooks">) {
+  return h.userId ? String(h.userId) : (h.ownerToken ?? String(h._id));
+}
+
+// One plan or chapter write (a chapter includes its fact check): the app-wide cap and the owner's cap.
+async function takeGeneration(ctx: MutationCtx, h: Doc<"handbooks">) {
+  const mine = await limiter.limit(ctx, "generateDevice", { key: ownerKey(h) });
+  if (!mine.ok) return false;
+  return (await limiter.limit(ctx, "generateAll")).ok;
+}
+
 
 // A pre-generated chapter for this topic, if the cache has it. Used before any model call.
 async function cachedChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
@@ -76,8 +93,9 @@ async function cachedChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
 }
 
 async function ensureChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
+  if (!Number.isInteger(n) || n < 1 || n > CHAPTERS) return;
   const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
-  if (existing && existing.status === "ready") return;
+  if (existing && (existing.status === "ready" || existing.status === "writing")) return;
   const fromCache = await cachedChapter(ctx, h, n);
   if (fromCache) {
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
@@ -87,9 +105,12 @@ async function ensureChapter(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
     return;
   }
   if (!h.plan) return;
-  if (existing) await ctx.db.patch(existing._id, { status: "writing", error: undefined });
-  else await ctx.db.insert("chapters", { handbookId: h._id, n, status: "writing", createdAt: Date.now() });
-  await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId: h._id, n });
+  // Over a cap: store it as failed, so the reader sees "try again" instead of a chapter that never comes.
+  const status = (await takeGeneration(ctx, h)) ? "writing" as const : "failed" as const;
+  const error = status === "failed" ? "busy" : undefined;
+  if (existing) await ctx.db.patch(existing._id, { status, error });
+  else await ctx.db.insert("chapters", { handbookId: h._id, n, status, error, createdAt: Date.now() });
+  if (status === "writing") await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId: h._id, n });
 }
 
 // ---------- what the client is allowed to see ----------
@@ -227,7 +248,7 @@ export const create = mutation({
 
     // Live generation: the caps are checked here, in the kitchen.
     const all = await limiter.limit(ctx, "generateAll");
-    const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken });
+    const mine = await limiter.limit(ctx, "generateDevice", { key: userId ? String(userId) : deviceToken });
     if (!all.ok || !mine.ok) throw new Error("busy");
 
     const handbookId = await ctx.db.insert("handbooks", {
@@ -245,8 +266,7 @@ export const answerQuestion = mutation({
   handler: async (ctx, { handbookId, answer, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     if (h.status !== "question") throw new Error("No question open");
-    const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
-    if (!mine.ok) throw new Error("busy");
+    if (!(await takeGeneration(ctx, h))) throw new Error("busy");
     await ctx.db.patch(handbookId, { status: "planning", question: undefined });
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId, clarification: answer.trim().slice(0, 300) });
   },
@@ -256,9 +276,9 @@ export const retry = mutation({
   args: { handbookId: v.id("handbooks"), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
-    const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
-    if (!mine.ok) throw new Error("busy");
     if (!h.plan) {
+      if (h.status !== "failed") return;   // a plan is already being written
+      if (!(await takeGeneration(ctx, h))) throw new Error("busy");
       await ctx.db.patch(handbookId, { status: "planning", error: undefined });
       await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
       return;
@@ -430,9 +450,11 @@ export const finishChapter = mutation({
   args: { handbookId: v.id("handbooks"), n: v.number(), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, n, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    if (!Number.isInteger(n) || n < 1 || n > CHAPTERS) throw new Error("No such chapter");
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     if (!p) return;
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+    if (!ch || ch.status !== "ready") throw new Error("Chapter not ready");
     const exerciseKeys: string[] = (ch?.cards ?? []).map((c: any, i: number) => (c.type === "exercise" ? `${n}:${i}` : null)).filter(Boolean);
     const allPassed = exerciseKeys.every((k) => p.passedExercises.includes(k));
     if (!allPassed) throw new Error("Finish the exercises first");
@@ -510,8 +532,8 @@ export const requestSimpler = mutation({
     const card = ch?.cards?.[cardIndex];
     if (!ch || !card || card.type === "exercise") throw new Error("Not a teaching card");
     if (card.simpler) return { ready: true as const };
-    const mine = await limiter.limit(ctx, "simplerDevice", { key: deviceToken ?? String(h.userId) });
-    if (!mine.ok) throw new Error("busy");
+    const mine = await limiter.limit(ctx, "simplerDevice", { key: ownerKey(h) });
+    if (!mine.ok || !(await limiter.limit(ctx, "simplerAll")).ok) throw new Error("busy");
     await ctx.scheduler.runAfter(0, internal.handbooks.writeSimpler, { handbookId, chapter, cardIndex });
     return { ready: false as const };
   },
@@ -682,8 +704,7 @@ export const refreshIfStale = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     if (!ch || !ch.stale || !h.plan) return { rewriting: false };
-    const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
-    if (!mine.ok) { await ctx.db.patch(ch._id, { stale: false }); return { rewriting: false }; }
+    if (!(await takeGeneration(ctx, h))) { await ctx.db.patch(ch._id, { stale: false }); return { rewriting: false }; }
     await ctx.db.patch(ch._id, { status: "writing", stale: false, error: undefined });
     await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n });
     return { rewriting: true };
@@ -711,9 +732,7 @@ export const compareModels = mutation({
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     if (ch?.variants && ch.variants.length === 3) return { started: false };
     const cmp = await limiter.limit(ctx, "compareAll");
-    const all = await limiter.limit(ctx, "generateAll");
-    const mine = await limiter.limit(ctx, "generateDevice", { key: deviceToken ?? String(h.userId) });
-    if (!cmp.ok || !all.ok || !mine.ok) throw new Error("busy");
+    if (!cmp.ok || !(await takeGeneration(ctx, h))) throw new Error("busy");
     const order = ["sonnet", "opus", "fable"].sort(() => Math.random() - 0.5);
     const variants = order.map((k, i) => ({ key: ["A", "B", "C"][i], model: MODELS[k], status: "writing" }));
     if (ch) await ctx.db.patch(ch._id, { variants });
@@ -791,8 +810,8 @@ export const ask = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const q = question.trim().slice(0, 300);
     if (q.length < 3) throw new Error("Ask in a few words.");
-    const mine = await limiter.limit(ctx, "askDevice", { key: deviceToken ?? String(h.userId) });
-    if (!mine.ok) throw new Error("busy");
+    const mine = await limiter.limit(ctx, "askDevice", { key: ownerKey(h) });
+    if (!mine.ok || !(await limiter.limit(ctx, "askAll")).ok) throw new Error("busy");
     const id = await ctx.db.insert("cardQuestions", { handbookId, chapter, cardIndex, question: q, status: "thinking", at: Date.now() });
     await ctx.scheduler.runAfter(0, internal.handbooks.answerQuestionAboutCard, { questionId: id });
     return id;
@@ -818,7 +837,7 @@ export const answerQuestionAboutCard = internalAction({
 
 export const takeSearchToken = internalMutation({
   args: { key: v.string() },
-  handler: async (ctx, { key }) => (await limiter.limit(ctx, "searchDaily", { key })).ok,
+  handler: async (ctx, { key }) => (await limiter.limit(ctx, "searchDaily", { key })).ok && (await limiter.limit(ctx, "searchAll")).ok,
 });
 
 export const readQuestion = internalQuery({
