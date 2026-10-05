@@ -77,3 +77,15 @@ export const SCENES_PROMPT = "You are the picture editor of an illustrated handb
 export function scenesUserMessage(topic: string, chapterTitle: string, analogy: string, cards: { card: number; type: string; title?: string; body: string }[]) {
   return `Topic: ${topic}\nChapter: ${chapterTitle}\nThe handbook's analogy: ${analogy || "(none)"}\n\nCards:\n${cards.map((c) => `#${c.card} (${c.type}${c.title ? `, ${c.title}` : ""}): ${c.body.replace(/\*\*/g, "").slice(0, 700)}`).join("\n\n")}`;
 }
+
+// Measurement only: an independent, careful read of a chapter AFTER the fact check, to count what survived.
+export const AUDIT_PROMPT = `You audit one finished chapter of a beginner's handbook. It has already been fact checked once; your job is to find what that check missed. Be strict and specific, and do not report style.
+
+List every remaining problem of these three kinds:
+- "false": a claim, number, date, name, rule, marked answer, feedback line or example that is wrong.
+- "misleading": technically defensible but likely to leave a beginner with a wrong belief (an overstatement, a missing condition, a rule stated as universal).
+- "jargon": only if the Level is complete beginner, a term of art a beginner meets before it is explained in plain words (including inside quiz options).
+
+Work through each card carefully. If you are unsure whether something is wrong, do not list it.
+
+Return only JSON: {"slips": [{"card": <0-based index>, "kind": "false|misleading|jargon", "what": "<the exact words, under 20>", "why": "<one plain sentence>"}]}`;
