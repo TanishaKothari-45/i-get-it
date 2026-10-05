@@ -32,7 +32,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
 
   useEffect(() => {
     if (!writing) { setSlow(false); return }
-    const t = setTimeout(() => setSlow(true), 8000)
+    const t = setTimeout(() => setSlow(true), 6000)
     return () => clearTimeout(t)
   }, [writing])
 
@@ -40,6 +40,23 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
     setLocalError(null)
     if (topic.trim().length < 2) { setLocalError('A few words is enough. What is it?'); backToBox(); return }
     try { await onCreate(topic.trim(), level, voice) } catch (e: any) { setLocalError(friendly(e)) }
+  }
+
+  // While the plan is written: the topic and what's happening, not the form again (Shaktimaan, 6 Oct).
+  if (writing) {
+    return (
+      <div className="plan-wait" role="status" aria-live="polite">
+        <p className="plan-wait-kicker">Writing your seven nights</p>
+        <h1 className="plan-wait-topic">{topic.trim() || initialTopic}</h1>
+        <ol className="plan-wait-steps">
+          <li className="on">Reading what you typed</li>
+          <li className={slow ? 'on' : ''}>Choosing the seven nights and the one picture that carries them</li>
+          <li>Writing chapter 1 while you read the plan</li>
+        </ol>
+        <p className="note">Your plan in about 30 seconds. Chapter 1 is written while you read it.</p>
+        <div className="busybar" aria-hidden="true" />
+      </div>
+    )
   }
 
   if (status === 'question' && question) {
@@ -65,7 +82,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
       {/* Prateek's words, DESIGN.md section 5 */}
       <p className="for-line">For everything you saved and never got back to.</p>
       <h1>Seven nights from “I keep meaning to” to “I get it”.</h1>
-      <p className="lede">Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap.</p>
+      <p className="lede">Twenty minutes a day: a small step. 7 days: a small jump.</p>
 
       <div className="field">
         <label htmlFor="topic">What do you keep meaning to learn?</label>

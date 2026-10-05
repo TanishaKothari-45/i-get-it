@@ -80,7 +80,7 @@ export default function Landing({ onCreate }: Props) {
           {/* Prateek's words, DESIGN.md section 5 */}
           <p className="lp-for">For everything you saved and never got back to.</p>
           <h1 className="lp-poster"><span>Seven nights</span> <span className="lp-poster-small">from “I keep meaning to”</span> <span>to “I get it”.</span></h1>
-          <p className="lp-lede">Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap.</p>
+          <p className="lp-lede">Twenty minutes a day: a small step. 7 days: a small jump.</p>
           {form('hero')}
         </div>
         <figure className="lp-hero-art"><img src="/images/landing/hero.jpg" alt="Someone climbing out of the fog toward one bright summit" /></figure>
@@ -133,7 +133,7 @@ export default function Landing({ onCreate }: Props) {
       {c && c.shelf.length > 0 && (
         <section className="lp-shelf">
           <h2>Ready tonight.</h2>
-          <p className="lp-body">These open instantly. Anything else gets written for you in about a minute.</p>
+          <p className="lp-body">These open instantly. Anything else: your plan in about 30 seconds, and chapter 1 is written while you read it.</p>
           <ul>
             {c.shelf.map((s: { topic: string; outcome: string; cover: string | null }) => (
               <li key={s.topic}>

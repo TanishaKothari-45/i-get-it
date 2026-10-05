@@ -35,6 +35,7 @@ type Props = {
   svg?: string
   pictures: Record<number, string>   // card index -> Runway picture URL, arriving after the chapter
   caution?: string | null            // money / health / legal topics: the fixed study-aid line
+  picturesPending?: boolean          // pictures are still being drawn: a quiet plate, never the rough drawing
   onExit: () => void
   handbookId: Id<'handbooks'>
   deviceToken: string
@@ -65,7 +66,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, caution, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, caution, picturesPending, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -263,6 +264,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
             <>
               {frame.cover && <h1 className="story-title">{title}</h1>}
               {pic ? <div className="story-pic"><img src={pic} alt="" /></div>
+                : frame.cover && picturesPending ? <div className="story-pic pic-pending" aria-hidden="true" />
                 : frame.cover && svg && <div className="story-illo"><Illustration svg={svg} /></div>}
               {!frame.cover && frame.part === 0 && (KICKER[c.type] || c.title) && <p className="story-kicker">{KICKER[c.type] ?? c.title}</p>}
               <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover || pic ? (pic && !frame.cover && sizeOf(frame.text ?? '') === 'xl' ? 'lg' : 'md') : sizeOf(frame.text ?? '')}`} />

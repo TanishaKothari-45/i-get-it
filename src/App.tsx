@@ -228,6 +228,7 @@ export default function App() {
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}
           caution={(hb as any).caution ?? null}
+          picturesPending={!!(chapter as any).picturesPending}
           onExit={() => setView('plan')}
           handbookId={hb._id}
           deviceToken={token}
@@ -252,6 +253,7 @@ export default function App() {
         comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
         coverSvg={(hb.chapters.find((c) => c.n === 1) as any)?.svg}
         coverPicture={firstPicture((hb.chapters.find((c) => c.n === 1) as any)?.pictures)}
+        coverPending={!!(hb.chapters.find((c) => c.n === 1) as any)?.picturesPending}
         caution={(hb as any).caution ?? null}
         onLibrary={() => setView('library')}
         libraryCount={libRows.length}

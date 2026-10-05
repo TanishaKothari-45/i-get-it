@@ -18,13 +18,14 @@ type Props = {
   comparing?: boolean
   coverSvg?: string
   coverPicture?: string
+  coverPending?: boolean
   caution?: string | null
   onLibrary?: () => void
   libraryCount?: number
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg, coverPicture, caution, onLibrary, libraryCount }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg, coverPicture, coverPending, caution, onLibrary, libraryCount }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -36,12 +37,13 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
         <p className="roadmap-outcome">{plan.outcome7}</p>
         {caution && <p className="roadmap-caution">Study aid, verify before you act.</p>}
         {coverPicture ? <div className="roadmap-pic"><img src={coverPicture} alt="" /></div>
-          : coverSvg && <div className="roadmap-illo"><Illustration svg={coverSvg} /></div>}
+          : coverPending || !coverSvg ? <div className="roadmap-pic pic-pending" aria-hidden="true" />
+          : <div className="roadmap-illo"><Illustration svg={coverSvg} /></div>}
         {plan.picture && <p className="roadmap-picture"><strong>The picture for the whole journey:</strong> {plan.picture.line}</p>}
       </section>
 
       {plan.sources && plan.sources.length > 0 && (
-        <p className="sources"><span className="label">Draws on</span> {plan.sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em></span>)}</p>
+        <p className="sources"><span className="label">Further reading</span> {plan.sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em></span>)}</p>
       )}
       {voiceNote && <p className="note" style={{ marginBottom: 'var(--m)' }}>{voiceNote}</p>}
 

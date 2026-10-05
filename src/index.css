@@ -500,3 +500,18 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .story-caution { align-self: flex-start; margin: 0 0 14px; padding: 6px 12px; border-radius: 999px; background: rgba(0, 0, 0, 0.32); color: #fff; font: 700 var(--small) var(--sans); }
 .tone-cream .story-caution, .tone-marigold .story-caution, .tone-coral .story-caution { background: rgba(27, 26, 23, 0.85); }
 .roadmap-caution { margin: 10px 0 0; padding: 10px 12px; border-radius: 12px; background: rgba(242, 169, 59, 0.18); border: 1px solid rgba(242, 169, 59, 0.5); font: 600 var(--small) var(--sans); line-height: 1.45; }
+
+/* a picture still being drawn: a quiet printed plate, never the rough drawing (Shaktimaan, 6 Oct) */
+.pic-pending { background: repeating-linear-gradient(135deg, #f3eee3 0 14px, #ece5d6 14px 28px); animation: platepulse 1.6s ease-in-out infinite alternate; }
+@keyframes platepulse { from { opacity: 0.55; } to { opacity: 0.9; } }
+@media (prefers-reduced-motion: reduce) { .pic-pending { animation: none; } }
+
+/* the wait after "Show me the way": the topic, and what's happening */
+.plan-wait { padding: var(--xl) 0; }
+.plan-wait-kicker { font: 700 var(--small) var(--sans); color: var(--ink-2); margin: 0 0 8px; }
+.plan-wait-topic { font-size: var(--display); line-height: 1.05; margin: 0 0 var(--l); }
+.plan-wait-steps { list-style: none; padding: 0; margin: 0 0 var(--l); display: grid; gap: 12px; }
+.plan-wait-steps li { position: relative; padding-left: 28px; font: 500 var(--ui) var(--sans); color: var(--ink-2); }
+.plan-wait-steps li::before { content: ''; position: absolute; left: 0; top: 4px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--tint); }
+.plan-wait-steps li.on { color: var(--ink); }
+.plan-wait-steps li.on::before { background: var(--accent); border-color: var(--accent); }

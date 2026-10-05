@@ -191,7 +191,7 @@ States: loading "Signing you in…", error as above, done returns to Done with t
 Written by Prateek, 5 to 6 Oct 2026 (headline picked from three agent drafts and kept as his; the rest in his words).
 Above it (6 Oct, after the five-second test; agent draft Prateek chose): For everything you saved and never got back to.
 Headline: Seven nights from "I keep meaning to" to "I get it". (10 words, inside the lesson's limit.)
-Under it: Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap. (Days 8 to 28 are promised: PLAN.md has them live before 12 Oct.)
+Under it: Twenty minutes a day: a small step. 7 days: a small jump. (Prateek's line; "28 days: a big leap." taken off on 6 Oct on Shaktimaan's review, "don't promise on the page what isn't built", until days 8 to 28 exist.)
 Button: Show me the way (kept by Prateek over "Get my 7-night plan" and "Start night 1"; it leads to the path screen).
 Earlier versions: "You keep saving it. Tonight, get it." (agent; Prateek's phone test found it unclear), then "From zero to one in 7 days, on any topic you want." (Prateek; 11 words).
 Five-second test, 6 Oct, a project manager friend (on the current headline, line and button): "an AI tutor for non-technical folks who don't use ChatGPT, Claude etc."
