@@ -85,7 +85,8 @@ export const summary = query({
       passedChapter1: passed.size,
       signups: users.length,
       signupsToday: users.filter((u) => dayOf(u._creationTime) === today).length,
-      saidTheydPay: payers.size,
+      tappedPay: payers.size,
+      freeSpotsClaimed: intents.filter((i) => i.freeMonths).length,
       thisPhoneExcluded: !!deviceToken && xTokens.has(deviceToken),
       at: Date.now(),
     };

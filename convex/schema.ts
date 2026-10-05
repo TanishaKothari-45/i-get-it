@@ -133,6 +133,8 @@ export default defineSchema({
     handbookId: v.optional(v.id("handbooks")),
     price: v.number(),
     at: v.number(),
+    freeMonths: v.optional(v.number()),   // 3 for the first FREE_SPOTS people who tapped Pay and signed in
+    claimedAt: v.optional(v.number()),
   })
     .index("by_user", ["userId"])
     .index("by_device", ["deviceToken"]),
