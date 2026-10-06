@@ -11,7 +11,7 @@ export type Card =
   | { type: 'exercise'; kind: 'guess' | 'apply' | 'recall'; prompt: string; options: { id: string; text: string }[] }
 
 export type AnswerResult =
-  | { correct: true; text: string; why: string | null }
+  | { correct: true; text: string; why: string | null; chapterPassed?: true }
   | { correct: false; whyNot: string; reteach: string; reveal: { id: string; text: string } | null }
 
 type Item = { chapter: number; cardIndex: number; card: Card; recall?: boolean }
@@ -297,9 +297,15 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
         <Sheet onClose={closeSheet}>
           {result.correct ? (
             <>
-              <p className="verdict pass">That's it.</p>
+              <p className="verdict pass">{result.chapterPassed ? `That's it. Chapter ${n} passed.` : "That's it."}</p>
               <p className="serif">{result.text}{result.why ? ` — ${result.why}` : ''}</p>
-              <button className="btn" onClick={closeSheet}>{isLast ? 'Finish' : 'Keep going'}</button>
+              {result.chapterPassed && !isLast ? (
+                <>
+                  <p className="serif" style={{ marginTop: 'var(--s)' }}>Your rung is lit. What's left is a bonus.</p>
+                  <button className="btn" onClick={() => { setResult(null); finish() }} disabled={finishing}>See your rung</button>
+                  <button type="button" className="quiet" onClick={closeSheet}>Read the bonus first</button>
+                </>
+              ) : <button className="btn" onClick={closeSheet}>{isLast ? 'Finish' : 'Keep going'}</button>}
             </>
           ) : (
             <>

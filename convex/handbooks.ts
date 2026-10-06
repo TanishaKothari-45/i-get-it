@@ -562,6 +562,7 @@ export const setPosition = mutation({
     await ownedHandbook(ctx, handbookId, deviceToken);
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     if (!p) return;
+    if (p.chaptersPassed.includes(chapter) && p.currentChapter > chapter) { await ctx.db.patch(p._id, { lastOpenedAt: Date.now() }); return; }
     await ctx.db.patch(p._id, { currentChapter: chapter, currentCard: cardIndex, currentPart: Math.max(0, Math.min(20, Math.floor(part ?? 0))), lastOpenedAt: Date.now(), updatedAt: Date.now() });
   },
 });
@@ -587,7 +588,18 @@ export const recordAnswer = mutation({
       if (correct && attempt === 1) passed.add(key);
       if (!correct) missed.add(key);
       if (correct && attempt > 1) { passed.add(key); }
-      await ctx.db.patch(p._id, { passedExercises: [...passed], missedExercises: [...missed], updatedAt: Date.now() });
+      // The chapter is passed the moment its last quiz is, with every quiz in it passed (6 Oct, from /admin: 4 readers
+      // reached the last cards and never tapped finish). The cards after it are a bonus; the reader's place moves on.
+      const exerciseKeys = (ch!.cards as any[]).map((c, i) => (c?.type === "exercise" ? `${chapter}:${i}` : null)).filter(Boolean) as string[];
+      const passesNow = correct && cardIndex === lastQuiz && exerciseKeys.every((k) => passed.has(k)) && !p.chaptersPassed.includes(chapter);
+      await ctx.db.patch(p._id, {
+        passedExercises: [...passed], missedExercises: [...missed], updatedAt: Date.now(),
+        ...(passesNow ? { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < CHAPTERS ? chapter + 1 : chapter, currentCard: 0, currentPart: 0 } : {}),
+      });
+      if (passesNow) {
+        const right = card.options.find((o: any) => o.id === optionId);
+        return { correct: true as const, text: right?.text ?? "", why: card.whyRight ?? null, chapterPassed: true as const };
+      }
     }
     if (correct) {
       const right = card.options.find((o: any) => o.id === optionId);

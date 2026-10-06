@@ -48,6 +48,8 @@ export default function App() {
 
   const [view, setView] = useState<View>('auto')
   const [doneN, setDoneN] = useState<number | null>(null)
+  // The chapter on screen stays on screen when its last quiz passes it and the server moves the reader on (6 Oct).
+  const [readingN, setReadingN] = useState<number | null>(null)
   const [doneStats, setDoneStats] = useState<{ minutes: number; right: number; total: number } | null>(null)
   const [draftTopic, setDraftTopic] = useState('')
   // The writer comparison is for testers only: open the app once with ?compare=1 and this phone remembers it.
@@ -62,7 +64,7 @@ export default function App() {
   const progress = hb?.progress ?? null
   const currentN = progress?.currentChapter ?? 1
   const passed = progress?.chaptersPassed ?? []
-  const chapter = hb?.chapters.find((c) => c.n === currentN)
+  const chapter = hb?.chapters.find((c) => c.n === (readingN ?? currentN))
   const recall = useQuery(api.handbooks.recallFor, hb && passed.length > 0 && progress?.currentCard === 0 ? { handbookId: hb._id, deviceToken: token } : 'skip') ?? []
 
   // After sign-in, the anonymous night attaches to the person.
@@ -75,6 +77,7 @@ export default function App() {
   }, [isAuthenticated, attachToMe, token])
   useEffect(() => { window.scrollTo({ top: 0 }) }, [view, hb?._id])
   useEffect(() => { if (view !== 'auto' && view !== 'plan') setFlash(null) }, [view])
+  useEffect(() => { if (view !== 'chapter') setReadingN(null) }, [view])
   // Pick up newer cached chapters for anything not started yet (the cache improves over the sprint).
   useEffect(() => { if (hb?._id && hb.status === 'ready') syncFromCache({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }, [hb?._id, hb?.status, syncFromCache, token])
 
@@ -221,13 +224,13 @@ export default function App() {
           n={chapter.n}
           title={chapter.title ?? plan?.chapters?.[chapter.n - 1]?.title ?? `Chapter ${chapter.n}`}
           cards={chapter.cards as Card[]}
-          recall={recall as any}
+          recall={(chapter.n === currentN ? recall : []) as any}
           passed={passed}
           passedExercises={progress?.passedExercises ?? []}
           startAt={progress?.currentCard ?? 0}
           startPart={(progress as any)?.currentPart ?? 0}
           onPosition={(cardIndex, part) => { setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, part, deviceToken: token }).catch(() => {}) }}
-          onAnswer={async (item, optionId, attempt) => (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult}
+          onAnswer={async (item, optionId, attempt) => { setReadingN(chapter.n); setView('chapter'); return (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult }}
           onFinish={async (stats) => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneStats(stats); setDoneN(chapter.n); setView('done') }}
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
