@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import ActionBar from '../components/ActionBar'
 import LanguagePicker from '../components/LanguagePicker'
-import SourcesInput, { SourcesProgress } from '../components/SourcesInput'
-import { MAX_LINKS, classifyLink, linksIn, parseCreator } from '../../convex/links'
+import SourcesInput, { SourcesProgress, absorb, type Gathered } from '../components/SourcesInput'
+import { MAX_LINKS, classifyLink } from '../../convex/links'
 import { ENGLISH, languageInfo } from '../../convex/languages'
 
 type Level = 'new' | 'some'
@@ -33,9 +33,10 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const [answer, setAnswer] = useState('')
   const [slow, setSlow] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
-  const [linksText, setLinksText] = useState(initialLinks)
+  const [links, setLinks] = useState<string[]>(() => absorb(initialLinks, [], null, true).links)
   const [photos, setPhotos] = useState<File[]>([])
-  const [creator, setCreator] = useState('')
+  const [creator, setCreator] = useState<string | null>(null)
+  const take = (g: Gathered) => { setTopic(g.text); setLinks(g.links); setCreator(g.creator) }
   const writing = status === 'writing'
   const gathering = writing && !!startedFrom && sources.length === 0
   const reading = gathering || (writing && sources.some((s) => s.status === 'waiting' || s.status === 'reading'))
@@ -48,18 +49,19 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
 
   const submit = async () => {
     setLocalError(null)
-    const links = linksIn(linksText)
-    if (creator.trim()) {
-      const handle = parseCreator(creator)
-      if (!handle) { setLocalError("That doesn't look like an Instagram handle."); return }
-      try { await onCreate(topic.trim(), level, voice, language, { links: [], photos: [], creator: handle }) } catch (e: any) { setLocalError(friendly(e)) }
+    const g = absorb(topic, links, creator, true)   // a link or @handle still at the end of the box
+    take(g)
+    const line = g.text.replace(/(^|\s)@\s*$/, '').trim()
+    if (g.creator) {
+      if (g.links.length || photos.length) { setLocalError("One at a time: a creator's reels, or your own reels and photos."); return }
+      try { await onCreate(line, level, voice, language, { links: [], photos: [], creator: g.creator }) } catch (e: any) { setLocalError(friendly(e)) }
       return
     }
-    const hasSources = links.length > 0 || photos.length > 0
-    if (links.some((l) => !classifyLink(l))) { setLocalError('Only YouTube and Instagram links for now. Take out the others.'); return }
-    if (links.length > MAX_LINKS) { setLocalError(`Up to ${MAX_LINKS} links for one handbook.`); return }
-    if (!hasSources && topic.trim().length < 2) { setLocalError('A few words is enough. What is it?'); return }
-    try { await onCreate(topic.trim(), level, voice, language, hasSources ? { links, photos } : undefined) } catch (e: any) { setLocalError(friendly(e)) }
+    const hasSources = g.links.length > 0 || photos.length > 0
+    if (g.links.some((l) => !classifyLink(l))) { setLocalError('Only Instagram reels and YouTube videos for now. Take out the others.'); return }
+    if (g.links.length > MAX_LINKS) { setLocalError(`Up to ${MAX_LINKS} links for one handbook.`); return }
+    if (!hasSources && line.length < 2) { setLocalError('A few words is enough. What is it?'); return }
+    try { await onCreate(line, level, voice, language, hasSources ? { links: g.links, photos } : undefined) } catch (e: any) { setLocalError(friendly(e)) }
   }
 
   if (status === 'question' && question) {
@@ -90,20 +92,19 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
       <h1>You keep saving it.<br />Tonight, get it.</h1>
       <p className="lede">Type the one thing you keep meaning to learn. You get a seven-chapter handbook written for it, and you pass chapter 1 tonight. No sign-up.</p>
 
-      <div className="field">
-        <label htmlFor="topic">What do you keep meaning to learn?</label>
-        <input id="topic" className="input" type="text" autoComplete="off" enterKeyHint="go" placeholder={linksText || photos.length || creator ? 'Optional with links, photos or a creator' : examples[0] ?? 'Swimming'} value={topic}
-          onChange={(e) => setTopic(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') submit() }} disabled={writing} />
-        {examples.length > 1 && (
+      <SourcesInput text={topic} links={links} creator={creator} onChange={take} photos={photos} onPhotos={setPhotos} disabled={writing} onSubmit={submit}
+        placeholder={links.length || photos.length || creator ? 'Add a few words, if you like' : examples[0] ?? 'Swimming'}
+        showWays={!writing}>
+        {examples.length > 1 && !(links.length || photos.length || creator) && (
           <p className="note">Tonight's ready handbooks: {examples.slice(0, 6).map((x, i) => (
             <span key={x}>{i > 0 && ' · '}<button type="button" className="quiet" style={{ padding: 0 }} onClick={() => setTopic(x)} disabled={writing}>{x}</button></span>
           ))}</p>
         )}
-      </div>
+      </SourcesInput>
 
       {gathering ? <p className="note">Finding @{startedFrom}'s latest reels and sorting them into themes…</p>
         : writing && sources.length > 0 ? <SourcesProgress sources={sources.filter((s) => s.error !== 'about something else')} />
-        : <SourcesInput text={linksText} onText={setLinksText} photos={photos} onPhotos={setPhotos} creator={creator} onCreator={setCreator} disabled={writing} />}
+        : null}
 
       <div className="chips" role="group" aria-label="Level">
         <button type="button" className="chip" aria-pressed={level === 'new'} onClick={() => setLevel('new')} disabled={writing}>New to this</button>
@@ -148,7 +149,7 @@ function friendly(e: any): string {
   const m = String(e?.message ?? e)
   if (m.includes('busy')) return "Busy right now. Try again in a few minutes."
   if (m.includes('few words')) return 'A few words is enough. What is it?'
-  if (m.includes('YouTube and Instagram')) return 'Only YouTube and Instagram links for now. Take out the others.'
+  if (m.includes('YouTube and Instagram')) return 'Only Instagram reels and YouTube videos for now. Take out the others.'
   if (m.includes('Instagram handle')) return "That doesn't look like an Instagram handle."
   if (m.includes('At most')) return m.replace(/^.*?(At most \d+ \w+).*$/, '$1 for one handbook.')
   return "Couldn't write it just now. Your line is still here; try once more in a minute."

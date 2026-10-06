@@ -50,7 +50,7 @@ export const setSource = internalMutation({
     handbookId: v.id("handbooks"), index: v.number(),
     fields: v.object({
       status: v.optional(v.union(v.literal("waiting"), v.literal("reading"), v.literal("read"), v.literal("failed"))),
-      via: v.optional(v.string()), title: v.optional(v.string()), notes: v.optional(v.string()), error: v.optional(v.string()),
+      via: v.optional(v.string()), title: v.optional(v.string()), notes: v.optional(v.string()), hook: v.optional(v.string()), error: v.optional(v.string()),
       clearStorage: v.optional(v.boolean()),
     }),
   },
@@ -85,13 +85,13 @@ export const finishReading = internalMutation({
 // The notes the plan and chapters are written from: every source that was read, numbered as the reader saw them.
 export function sourceNotesOf(h: Pick<Doc<"handbooks">, "sources" | "sourcesIntent" | "creator">): string | undefined {
   const label = { youtube: "YouTube video", instagram: "Instagram reel", image: "Photo" } as const;
-  const lines = (h.sources ?? []).flatMap((s, i) => (s.status === "read" && s.notes ? [`Source ${i + 1} (${label[s.kind]}${s.title ? `: ${s.title}` : ""}):\n${s.notes}`] : []));
+  const lines = (h.sources ?? []).flatMap((s, i) => (s.status === "read" && s.notes ? [`Source ${i + 1} (${label[s.kind]}${s.title ? `: ${s.title}` : ""}):\n${s.hook ? `Hook: ${s.hook}\n` : ""}${s.notes}`] : []));
   if (!lines.length) return undefined;
   const head = [
     h.sourcesIntent ? `What the learner is after: ${h.sourcesIntent}` : "",
     h.creator ? `All from one creator: @${h.creator.handle}.` : "",
   ].filter(Boolean).join("\n");
-  return ((head ? `${head}\n\n` : "") + lines.join("\n\n")).slice(0, 12000);
+  return ((head ? `${head}\n\n` : "") + lines.join("\n\n")).slice(0, 16000);
 }
 
 // ---------- learning from a creator ----------

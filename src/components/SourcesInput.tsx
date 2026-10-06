@@ -1,98 +1,161 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { CREATOR_REELS, MAX_LINKS, MAX_PHOTOS, classifyLink, linksIn, parseCreator } from '../../convex/links'
 
-type Props = {
-  text: string                    // the pasted links, as typed
-  onText: (text: string) => void
-  photos: File[]
-  onPhotos: (photos: File[]) => void
-  creator: string                 // an Instagram handle, as typed
-  onCreator: (creator: string) => void
-  disabled?: boolean
+export type Gathered = { text: string; links: string[]; creator: string | null }
+
+const sameLink = (a: string, b: string) => (classifyLink(a)?.url ?? a) === (classifyLink(b)?.url ?? b)
+
+// One box takes everything: typed words stay as the topic; a pasted reel or Short link, an Instagram profile link or a
+// finished "@handle" is lifted out of the text and shown under the box. `final` (on submit, or a paste) also takes a
+// link or handle still at the end of the text; while typing, only once a space follows it, so half a word isn't taken.
+export function absorb(raw: string, links: string[], creator: string | null, final: boolean): Gathered {
+  let text = raw
+  const nextLinks = [...links]
+  let nextCreator = creator
+  const urls = final ? linksIn(raw) : raw.match(/https?:\/\/[^\s<>"']+(?=\s)/g) ?? []
+  for (const url of urls) {
+    text = text.replace(url, ' ')
+    const profile = !classifyLink(url) && /instagram\.com/i.test(url) ? parseCreator(url) : null
+    if (profile) nextCreator = profile
+    else if (!nextLinks.some((l) => sameLink(l, url))) nextLinks.push(url)
+  }
+  const handle = text.match(final ? /(^|\s)@([A-Za-z0-9._]{1,30})(?=\s|$)/ : /(^|\s)@([A-Za-z0-9._]{1,30})(?=\s)/)
+  if (handle && parseCreator(handle[2])) {
+    nextCreator = parseCreator(handle[2])
+    text = text.replace(handle[0], handle[1])
+  }
+  return { text: text === raw ? raw : text.replace(/\s{2,}/g, ' ').trimStart(), links: nextLinks, creator: nextCreator }
 }
 
-const KIND_LABEL = { youtube: 'YouTube', instagram: 'Instagram reel' } as const
+type Props = {
+  text: string
+  links: string[]
+  creator: string | null
+  onChange: (g: Gathered) => void
+  photos: File[]
+  onPhotos: (photos: File[]) => void
+  placeholder: string
+  disabled?: boolean
+  onSubmit: () => void
+  showWays: boolean               // the "Or learn from what you saved" shortcuts (hidden while reading)
+  children?: ReactNode            // under the box: tonight's ready handbooks
+}
 
-// "Or learn from what you saved": paste YouTube / Instagram links, or add photos (camera or gallery).
-// Closed until opened, so the typed line stays the main way in.
-export default function SourcesInput({ text, onText, photos, onPhotos, creator, onCreator, disabled }: Props) {
-  const [open, setOpen] = useState<'links' | 'photo' | 'creator' | null>(text ? 'links' : photos.length ? 'photo' : creator ? 'creator' : null)
-  const camera = useRef<HTMLInputElement>(null)
-  const gallery = useRef<HTMLInputElement>(null)
-  const links = useMemo(() => linksIn(text).map((raw) => ({ raw, ok: classifyLink(raw) })), [text])
+function linkLabel(url: string) {
+  const c = classifyLink(url)
+  if (!c) return 'Not a reel or Short'
+  if (c.kind === 'instagram') return 'Instagram reel'
+  return c.url.includes('/shorts/') ? 'YouTube Short' : 'YouTube video'
+}
+const shortUrl = (url: string) => url.replace(/^https?:\/\/(www\.|m\.)?/, '').replace(/\?.*$/, '')
+
+// The first screen's box (DESIGN.md section 4, Start): a topic, reels and Shorts, photos and a creator, all in one place.
+export default function SourcesInput({ text, links, creator, onChange, photos, onPhotos, placeholder, disabled, onSubmit, showWays, children }: Props) {
+  const input = useRef<HTMLInputElement>(null)
+  const picker = useRef<HTMLInputElement>(null)
+  const [hint, setHint] = useState<string | null>(null)
   const previews = useMemo(() => photos.map((f) => URL.createObjectURL(f)), [photos])
   useEffect(() => () => previews.forEach((u) => URL.revokeObjectURL(u)), [previews])
 
+  const update = (raw: string, final: boolean) => onChange(absorb(raw, links, creator, final))
   const addPhotos = (list: FileList | null) => {
     if (!list) return
-    const images = [...list].filter((f) => f.type.startsWith('image/'))
-    onPhotos([...photos, ...images].slice(0, MAX_PHOTOS))
+    onPhotos([...photos, ...[...list].filter((f) => f.type.startsWith('image/'))].slice(0, MAX_PHOTOS))
   }
 
+  // Straight from the clipboard where the browser allows it; otherwise the cursor waits in the box.
+  const pasteLink = async () => {
+    try {
+      const clip = await navigator.clipboard.readText()
+      if (linksIn(clip).length) { update(`${text} ${clip}`, true); setHint(null); return }
+    } catch { /* not allowed here: paste by hand */ }
+    setHint('Paste the reel or Short link here')
+    input.current?.focus()
+  }
+  const askCreator = () => {
+    setHint('@ their Instagram handle')
+    if (!/(^|\s)@\S*$/.test(text)) onChange({ text: text ? `${text.trimEnd()} @` : '@', links, creator })
+    input.current?.focus()
+  }
+
+  const hasSources = links.length > 0 || photos.length > 0 || !!creator
   return (
-    <div className="sources">
-      <p className="sub" style={{ marginBottom: 6 }}>Or learn from what you saved</p>
-      <div className="chips" role="group" aria-label="Learn from">
-        <button type="button" className="chip" aria-pressed={open === 'links'} disabled={disabled} onClick={() => setOpen(open === 'links' ? null : 'links')}>Paste links</button>
-        <button type="button" className="chip" aria-pressed={open === 'photo'} disabled={disabled} onClick={() => setOpen(open === 'photo' ? null : 'photo')}>Add a photo</button>
-      </div>
-      <div className="chips">
-        <button type="button" className="chip" aria-pressed={open === 'creator'} disabled={disabled} onClick={() => setOpen(open === 'creator' ? null : 'creator')}>Learn from a creator</button>
-      </div>
+    <>
+      <div className="field">
+        <label htmlFor="topic">What do you keep meaning to learn?</label>
+        <input id="topic" ref={input} className="input" type="text" autoComplete="off" autoCapitalize="sentences" enterKeyHint="go"
+          placeholder={hint ?? placeholder} value={text} disabled={disabled}
+          onChange={(e) => update(e.target.value, false)}
+          onPaste={(e) => {
+            const pasted = e.clipboardData.getData('text')
+            if (!/https?:\/\/|@/.test(pasted)) return
+            e.preventDefault()
+            const el = e.currentTarget
+            const at = el.selectionStart ?? text.length
+            update(`${text.slice(0, at)} ${pasted} ${text.slice(el.selectionEnd ?? at)}`, true)
+            setHint(null)
+          }}
+          onKeyDown={(e) => { if (e.key === 'Enter') onSubmit() }} />
 
-      {open === 'creator' && (
-        <div className="field" style={{ marginTop: 'var(--m)' }}>
-          <label htmlFor="creator">Their Instagram handle</label>
-          <input id="creator" className="input" type="text" autoComplete="off" autoCapitalize="none" spellCheck={false} placeholder="@creator" value={creator} disabled={disabled}
-            onChange={(e) => onCreator(e.target.value)} />
-          {creator.trim() && !parseCreator(creator) && <p className="error">That doesn't look like an Instagram handle.</p>}
-          <p className="note">Their latest {CREATOR_REELS} public reels, sorted into themes; you pick one. Your handbook stays private, teaches their ideas in its own words and links back to every reel it uses.</p>
-        </div>
-      )}
+        {(links.length > 0 || creator) && (
+          <ul className="source-list got-list">
+            {creator && (
+              <li>
+                <span><span className="source-kind">@{creator}'s latest reels</span><span className="source-url">Their latest {CREATOR_REELS}, sorted into themes; you pick one.</span></span>
+                {!disabled && <button type="button" className="remove" aria-label={`Remove @${creator}`} onClick={() => onChange({ text, links, creator: null })}>×</button>}
+              </li>
+            )}
+            {links.map((l) => (
+              <li key={l} className={classifyLink(l) ? '' : 'bad'}>
+                <span><span className="source-kind">{linkLabel(l)}</span><span className="source-url">{shortUrl(l)}</span></span>
+                {!disabled && <button type="button" className="remove" aria-label={`Remove ${shortUrl(l)}`} onClick={() => onChange({ text, links: links.filter((x) => x !== l), creator })}>×</button>}
+              </li>
+            ))}
+          </ul>
+        )}
+        {links.length > MAX_LINKS && <p className="error">Up to {MAX_LINKS} links for one handbook.</p>}
 
-      {open === 'links' && (
-        <div className="field" style={{ marginTop: 'var(--m)' }}>
-          <label htmlFor="links">YouTube or Instagram links, up to {MAX_LINKS}</label>
-          <textarea id="links" className="input sources-links" rows={3} value={text} disabled={disabled} autoComplete="off"
-            placeholder="https://www.instagram.com/reel/…" onChange={(e) => onText(e.target.value)} />
-          {links.length > 0 && (
-            <ul className="source-list">
-              {links.slice(0, MAX_LINKS + 2).map((l, i) => (
-                <li key={i} className={l.ok ? '' : 'bad'}>
-                  <span className="source-kind">{l.ok ? KIND_LABEL[l.ok.kind] : 'Not a YouTube or Instagram link'}</span>
-                  <span className="source-url">{l.raw}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          {links.length > MAX_LINKS && <p className="error">Up to {MAX_LINKS} links for one handbook.</p>}
-        </div>
-      )}
-
-      {open === 'photo' && (
-        <div style={{ marginTop: 'var(--m)' }}>
-          <input ref={camera} type="file" accept="image/*" capture="environment" hidden onChange={(e) => { addPhotos(e.target.files); e.target.value = '' }} />
-          <input ref={gallery} type="file" accept="image/*" multiple hidden onChange={(e) => { addPhotos(e.target.files); e.target.value = '' }} />
-          <div className="chips">
-            <button type="button" className="chip" disabled={disabled || photos.length >= MAX_PHOTOS} onClick={() => camera.current?.click()}>Take a photo</button>
-            <button type="button" className="chip" disabled={disabled || photos.length >= MAX_PHOTOS} onClick={() => gallery.current?.click()}>Choose from gallery</button>
+        {photos.length > 0 && (
+          <div className="photo-row">
+            {previews.map((src, i) => (
+              <div key={src} className="photo-thumb">
+                <img src={src} alt={`Photo ${i + 1}`} />
+                {!disabled && <button type="button" aria-label={`Remove photo ${i + 1}`} onClick={() => onPhotos(photos.filter((_, j) => j !== i))}>×</button>}
+              </div>
+            ))}
           </div>
-          {photos.length > 0 && (
-            <div className="photo-row">
-              {previews.map((src, i) => (
-                <div key={src} className="photo-thumb">
-                  <img src={src} alt={`Photo ${i + 1}`} />
-                  {!disabled && <button type="button" aria-label={`Remove photo ${i + 1}`} onClick={() => onPhotos(photos.filter((_, j) => j !== i))}>×</button>}
-                </div>
-              ))}
-            </div>
-          )}
-          <p className="note">Up to {MAX_PHOTOS}. A chart, a page, a screen, a thing you want to understand. Read once, then deleted.</p>
+        )}
+        {hasSources && <p className="note">Handbooks from what you saved stay private to you, and link back to every reel they use.</p>}
+        {children}
+      </div>
+
+      {/* No `capture`: the phone then offers its own choice of camera or gallery, and a laptop opens its file picker. */}
+      <input ref={picker} type="file" accept="image/*" multiple hidden onChange={(e) => { addPhotos(e.target.files); e.target.value = '' }} />
+      {showWays && (
+        <div className="sources">
+          <p className="sub" style={{ marginBottom: 6 }}>Or learn from what you saved</p>
+          <div className="chips saved-ways">
+            <button type="button" className="chip" disabled={disabled || links.length >= MAX_LINKS} onClick={pasteLink}>
+              <PlayIcon /><span>Paste a reel or Short</span>
+            </button>
+            <button type="button" className="chip" disabled={disabled || photos.length >= MAX_PHOTOS} onClick={() => picker.current?.click()}>
+              <CameraIcon /><span>Photo of a page or notes</span>
+            </button>
+            <button type="button" className="chip" disabled={disabled || !!creator} onClick={askCreator}>
+              <AtIcon /><span>A creator you follow</span>
+            </button>
+          </div>
+          <p className="note">Photos: a book page, your notes, a slide, a chart or a screenshot. Up to {MAX_PHOTOS}.</p>
         </div>
       )}
-    </div>
+    </>
   )
 }
+
+const iconProps = { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true }
+const PlayIcon = () => <svg {...iconProps}><rect x="3" y="4" width="18" height="16" rx="3" /><path d="M10 9l5 3-5 3z" fill="currentColor" /></svg>
+const CameraIcon = () => <svg {...iconProps}><path d="M4 8h3l2-3h6l2 3h3v11H4z" /><circle cx="12" cy="13" r="3.5" /></svg>
+const AtIcon = () => <svg {...iconProps}><circle cx="12" cy="12" r="4" /><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1" /></svg>
 
 type Progress = { kind: 'youtube' | 'instagram' | 'image'; url?: string; status: 'waiting' | 'reading' | 'read' | 'failed'; title?: string; error?: string }
 const PROGRESS_LABEL = { youtube: 'YouTube', instagram: 'Instagram reel', image: 'Photo' } as const

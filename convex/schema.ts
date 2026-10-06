@@ -15,6 +15,7 @@ export const sourceV = v.object({
   via: v.optional(v.string()),     // how it was read: "video", "transcript", "caption", "photo"
   title: v.optional(v.string()),   // what it teaches, in a few words
   notes: v.optional(v.string()),   // what it teaches, in detail (server only)
+  hook: v.optional(v.string()),    // the payoff it opens with or its caption sells, one sentence (server only)
   error: v.optional(v.string()),
   // Gathered from a creator's profile in one go (server only): read later without fetching the reel again.
   caption: v.optional(v.string()),

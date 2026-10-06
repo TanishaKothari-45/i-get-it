@@ -3,7 +3,7 @@
 // - YouTube: Gemini watches the link directly (clipped to MAX_SECONDS).
 // - Instagram: Apify fetches the reel's video and caption (no transcript add-on: Gemini hears the audio, in any
 //   language, and reads what's on screen). Video unavailable: Supadata's transcript, then the caption.
-// - Photo: Gemini reads it, and the photo is deleted.
+// - Photo: Gemini reads it at high resolution (small print on a page), and the photo is deleted.
 // Then the notes are combined into one topic and what the learner is after (or one question).
 // Tested 6 Oct on real reels: Flash-Lite read as well as Flash, 2-8 s each against 14-50 s, and never hit
 // "high demand"; watching found names and links (on screen) a transcript got wrong or missed. About ₹0.10 a reel.
@@ -15,8 +15,13 @@ import type { Doc, Id } from "./_generated/dataModel";
 import { COMBINE_PROMPT, SOURCE_READ_PROMPT, THEMES_PROMPT, combineMessage, sourceReadMessage, themesMessage } from "./prompts";
 import { CREATOR_REELS } from "./links";
 
-const MODEL = () => process.env.GEMINI_MODEL ?? "gemini-3.5-flash-lite";
-const BACKUP_MODEL = () => process.env.GEMINI_BACKUP_MODEL ?? "gemini-3.8-flash";
+// Two jobs, two models. Reading (watching each reel, reading each photo) is mostly seeing and hearing: Flash-Lite,
+// fast and steady, with Flash as its backup. Judging (one topic and why it was saved, or a creator's themes) shapes
+// the whole handbook and reads only short notes: Flash, with Flash-Lite as its backup so it never fails for being busy.
+const READER = () => process.env.GEMINI_READ_MODEL ?? "gemini-3.5-flash-lite";
+const JUDGE = () => process.env.GEMINI_JUDGE_MODEL ?? "gemini-3.8-flash";
+const READ_MODELS = () => [READER(), READER(), JUDGE()];
+const JUDGE_MODELS = () => [JUDGE(), READER(), READER()];
 const MAX_SECONDS = 180;                      // a video is read up to 3 minutes
 const MAX_VIDEO_BYTES = 20 * 1024 * 1024;     // a reel is a few MB; anything bigger falls back to its transcript or caption
 const TIMEOUT_MS = 120_000;
@@ -25,7 +30,7 @@ const SUPADATA_POLLS = 6;
 const SUPADATA_POLL_MS = 5_000;
 
 type Source = NonNullable<Doc<"handbooks">["sources"]>[number];
-type Read = { learnable: boolean; title: string; notes: string; via: string };
+type Read = { learnable: boolean; title: string; notes: string; hook?: string; via: string };
 type Reel = { url?: string; caption?: string; videoUrl?: string };
 
 // A failure worth another go: Gemini busy ("high demand", 429, 5xx) or slow.
@@ -37,7 +42,9 @@ async function fetchWithTimeout(url: string, init: RequestInit = {}, ms = TIMEOU
   try { return await fetch(url, { ...init, signal: controller.signal }); } finally { clearTimeout(timer); }
 }
 
-async function callGemini(model: string, system: string, parts: any[]): Promise<{ json: any; text: string; tokensIn?: number; tokensOut?: number }> {
+type Resolution = "MEDIA_RESOLUTION_LOW" | "MEDIA_RESOLUTION_HIGH";
+
+async function callGemini(model: string, system: string, parts: any[], resolution: Resolution): Promise<{ json: any; text: string; tokensIn?: number; tokensOut?: number }> {
   let res: Response;
   try {
     res = await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
@@ -46,7 +53,7 @@ async function callGemini(model: string, system: string, parts: any[]): Promise<
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: system }] },
         contents: [{ role: "user", parts }],
-        generationConfig: { responseMimeType: "application/json", maxOutputTokens: 4096, mediaResolution: "MEDIA_RESOLUTION_LOW", thinkingConfig: { thinkingLevel: "low" } },
+        generationConfig: { responseMimeType: "application/json", maxOutputTokens: 4096, mediaResolution: resolution, thinkingConfig: { thinkingLevel: "low" } },
       }),
     });
   } catch (e: any) {
@@ -64,16 +71,17 @@ async function callGemini(model: string, system: string, parts: any[]): Promise<
   return { json: JSON.parse(m[0]), text, tokensIn: data.usageMetadata?.promptTokenCount, tokensOut: data.usageMetadata?.candidatesTokenCount };
 }
 
-// One Gemini call that answers in JSON: the main model, once more if it's busy, then the backup model.
-// Every attempt is logged in aiCalls.
-async function gemini(ctx: ActionCtx, label: string, system: string, parts: any[], input: string): Promise<any> {
+// One Gemini call that answers in JSON: each model in turn while the last one was busy. Every attempt is logged in aiCalls.
+// Videos are watched at low resolution (cheap, and enough for on-screen text); photos at high.
+async function gemini(ctx: ActionCtx, label: string, system: string, parts: any[], input: string,
+  { models = READ_MODELS(), resolution = "MEDIA_RESOLUTION_LOW" }: { models?: string[]; resolution?: Resolution } = {}): Promise<any> {
   if (!process.env.GEMINI_API_KEY) throw new Error("no Gemini key set");
-  const attempts = [MODEL(), MODEL(), BACKUP_MODEL()];
+  const attempts = models;
   let last = "";
   for (const [i, model] of attempts.entries()) {
     const started = Date.now();
     try {
-      const r = await callGemini(model, system, parts);
+      const r = await callGemini(model, system, parts, resolution);
       await ctx.runMutation(internal.handbooks.logAiCall, { kind: label, model, input, output: r.text.slice(0, 20000), tokensIn: r.tokensIn, tokensOut: r.tokensOut, ms: Date.now() - started, ok: true });
       return r.json;
     } catch (e: any) {
@@ -88,7 +96,8 @@ async function gemini(ctx: ActionCtx, label: string, system: string, parts: any[
 }
 
 function asRead(json: any, via: string): Read {
-  return { learnable: json?.learnable !== false && typeof json?.notes === "string" && json.notes.trim().length > 0, title: String(json?.title ?? "").slice(0, 80), notes: String(json?.notes ?? "").slice(0, 3000), via };
+  const hook = typeof json?.hook === "string" && json.hook.trim() ? json.hook.trim().slice(0, 300) : undefined;
+  return { learnable: json?.learnable !== false && typeof json?.notes === "string" && json.notes.trim().length > 0, title: String(json?.title ?? "").slice(0, 80), notes: String(json?.notes ?? "").slice(0, 4000), hook, via };
 }
 
 const clip = { endOffset: `${MAX_SECONDS}s` };
@@ -178,7 +187,7 @@ async function readImage(ctx: ActionCtx, storageId: Id<"_storage">): Promise<Rea
   const blob = await ctx.storage.get(storageId);
   if (!blob) throw new Error("photo missing");
   const data = Buffer.from(await blob.arrayBuffer()).toString("base64");
-  const json = await gemini(ctx, "source-photo", SOURCE_READ_PROMPT, [{ inlineData: { mimeType: blob.type || "image/jpeg", data } }, { text: sourceReadMessage("image") }], "photo");
+  const json = await gemini(ctx, "source-photo", SOURCE_READ_PROMPT, [{ inlineData: { mimeType: blob.type || "image/jpeg", data } }, { text: sourceReadMessage("image") }], "photo", { resolution: "MEDIA_RESOLUTION_HIGH" });
   return asRead(json, "photo");
 }
 
@@ -198,7 +207,7 @@ async function readSources(ctx: ActionCtx, handbookId: Id<"handbooks">) {
     try {
       const r = await readOne(ctx, s);
       await ctx.runMutation(internal.sources.setSource, { handbookId, index, fields: r.learnable
-        ? { status: "read", via: r.via, title: r.title, notes: r.notes, clearStorage: s.kind === "image" }
+        ? { status: "read", via: r.via, title: r.title, notes: r.notes, hook: r.hook, clearStorage: s.kind === "image" }
         : { status: "failed", via: r.via, title: r.title, error: "nothing to learn in it", clearStorage: s.kind === "image" } });
     } catch (e: any) {
       await ctx.runMutation(internal.sources.setSource, { handbookId, index, fields: { status: "failed", error: String(e?.message ?? e).slice(0, 200), clearStorage: s.kind === "image" } });
@@ -211,7 +220,7 @@ async function readSources(ctx: ActionCtx, handbookId: Id<"handbooks">) {
 // The read sources (not set aside) into one topic and what the learner is after, or one question.
 async function combine(ctx: ActionCtx, handbookId: Id<"handbooks">) {
   const h = await ctx.runQuery(internal.sources.readHandbook, { handbookId });
-  const read = (h?.sources ?? []).flatMap((s, i) => (s.status === "read" ? [{ n: i + 1, kind: s.kind, title: s.title ?? "", notes: s.notes ?? "" }] : []));
+  const read = (h?.sources ?? []).flatMap((s, i) => (s.status === "read" ? [{ n: i + 1, kind: s.kind, title: s.title ?? "", hook: s.hook, notes: s.notes ?? "" }] : []));
   const typed = (h?.topic ?? "").trim();
   if (!read.length) {
     // Nothing readable. A typed line can still carry the handbook; otherwise ask.
@@ -220,7 +229,7 @@ async function combine(ctx: ActionCtx, handbookId: Id<"handbooks">) {
     return;
   }
   try {
-    const json = await gemini(ctx, "source-combine", COMBINE_PROMPT, [{ text: combineMessage(typed, read) }], typed || read.map((r) => r.title).join("; "));
+    const json = await gemini(ctx, "source-combine", COMBINE_PROMPT, [{ text: combineMessage(typed, read) }], typed || read.map((r) => r.title).join("; "), { models: JUDGE_MODELS() });
     const use = Array.isArray(json?.use) ? json.use.map(Number).filter((n: number) => read.some((r) => r.n === n)) : undefined;
     await ctx.runMutation(internal.sources.finishReading, { handbookId, topic: json?.topic ? String(json.topic) : undefined, intent: json?.intent ? String(json.intent).slice(0, 600) : undefined, question: json?.question ? String(json.question) : undefined, use });
   } catch {
@@ -271,11 +280,11 @@ export const gatherCreator = internalAction({
 async function sortThemes(ctx: ActionCtx, handbookId: Id<"handbooks">) {
   const h = await ctx.runQuery(internal.sources.readHandbook, { handbookId });
   const handle = h?.creator?.handle ?? "";
-  const read = (h?.sources ?? []).flatMap((s, i) => (s.status === "read" ? [{ n: i + 1, title: s.title ?? "", notes: s.notes ?? "" }] : []));
+  const read = (h?.sources ?? []).flatMap((s, i) => (s.status === "read" ? [{ n: i + 1, title: s.title ?? "", hook: s.hook, notes: s.notes ?? "" }] : []));
   let themes: { name: string; reels: number[] }[] = [];
   if (read.length) {
     try {
-      const json = await gemini(ctx, "source-themes", THEMES_PROMPT, [{ text: themesMessage(handle, read) }], `@${handle}`);
+      const json = await gemini(ctx, "source-themes", THEMES_PROMPT, [{ text: themesMessage(handle, read) }], `@${handle}`, { models: JUDGE_MODELS() });
       themes = (Array.isArray(json?.themes) ? json.themes : [])
         .map((t: any) => ({ name: String(t?.name ?? "").slice(0, 60), reels: (Array.isArray(t?.reels) ? t.reels : []).map(Number).filter((n: number) => read.some((r) => r.n === n)) }))
         .filter((t: { name: string; reels: number[] }) => t.name && t.reels.length)

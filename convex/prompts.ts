@@ -88,17 +88,20 @@ You get {"items":[{"id":"...","card":<number>,"text":"..."}]}. Return JSON only,
 // ---------- learning from links and photos ----------
 
 // One source: a reel, a YouTube video, a transcript or a photo. Only what it actually teaches, nothing added.
-export const SOURCE_READ_PROMPT = `You read one thing a learner saved because they want to learn from it: a short video, a transcript of one, or a photo. Write down exactly what it teaches, so a teacher who never saw it could build a lesson from your notes.
+export const SOURCE_READ_PROMPT = `You read one thing a learner saved because they want to learn from it: a short video, a transcript of one, or a photo. Gather everything it offers, so a teacher who never saw it could build a full lesson from your notes alone.
 
 Rules:
-- Only what the source shows or says: its claims, steps, commands, names, numbers, and any text or code on screen. Never add what it didn't say.
-- For a video, put the time (m:ss) before each point where you can tell it. Note anything shown on screen that isn't said aloud.
-- Keep commands, code, product names and numbers exactly as shown.
+- Capture all of it: the main idea, every claim, step, example, tool, command, name, number, warning and tip, and any text, code, link or diagram on screen or in the photo. Missing a detail is worse than a long note.
+- Only what the source shows or says. Never add what it didn't say.
+- For a video, put the time (m:ss) before each point where you can tell it, and note what is shown on screen but not said aloud. It may be spoken in any language or a mix of languages; write the notes in English.
+- For a photo, read every word you can (print, handwriting, labels, axes, captions) and describe what a chart or diagram shows. If part is too blurry to read, say which part.
+- Keep commands, code, product names, links and numbers exactly as shown.
 - If it teaches nothing (a meme, an ad, music only, a selfie), set "learnable" to false and say why in "title".
 - "title": what it teaches, in 2-6 plain words.
-- "notes": up to 250 words, in English, in the order the source teaches.
+- "hook": one sentence on the payoff it opens with or its caption sells, the reason someone would save it, in plain words. null if there is none.
+- "notes": up to 400 words, in the order the source teaches.
 
-Return JSON only: {"learnable": true, "title": "...", "notes": "..."}`;
+Return JSON only: {"learnable": true, "title": "...", "hook": "..." or null, "notes": "..."}`;
 
 export function sourceReadMessage(kind: string, extra?: { caption?: string; transcript?: string }) {
   const what = kind === "image" ? "a photo" : kind === "youtube" ? "a YouTube video" : "an Instagram reel";
@@ -113,16 +116,16 @@ export const COMBINE_PROMPT = `A learner saved a few things to learn from (reels
 
 Rules:
 - If they share one subject (even from different angles), "question" is null and "topic" is one line naming what to learn, in the learner's terms, 3-12 words. If they typed a line, it wins: the sources then shape it.
-- "intent": two sentences. First, the thread that connects what they saved: the curiosity or goal behind it, a little wider than any one source (what kind of thing they want more of). Second, the hook: the payoff these sources promised that made them worth saving. Plain words; describe the learner's interest, not the creators.
+- "intent": two sentences. First, the thread that connects what they saved: the curiosity or goal behind it, a little wider than any one source (what kind of thing they want more of). Second, the hook: the payoff these sources promised that made them worth saving (each source's "Hook" line says what it opens with or sells). Plain words; describe the learner's interest, not the creators.
 - If the sources are about clearly different subjects and nothing typed decides it, set "question" to ONE short question offering the subjects as choices.
 - If no source teaches anything, set "question" to "What do you want to learn from these?".
 - "use": the source numbers that belong to the chosen topic (all of them when they fit).
 
 Return JSON only: {"topic": "..." or null, "intent": "..." or null, "question": null or "...", "use": [1, 2]}`;
 
-export function combineMessage(typed: string, sources: { n: number; kind: string; title: string; notes: string }[]) {
+export function combineMessage(typed: string, sources: { n: number; kind: string; title: string; hook?: string; notes: string }[]) {
   return (typed ? `Line typed: "${typed}"\n` : "No line typed.\n") +
-    sources.map((x) => `Source ${x.n} (${x.kind}): ${x.title}\n${x.notes}`).join("\n\n");
+    sources.map((x) => `Source ${x.n} (${x.kind}): ${x.title}\n${x.hook ? `Hook: ${x.hook}\n` : ""}${x.notes}`).join("\n\n");
 }
 
 // What the plan and every chapter are written from, when the handbook started from the learner's own sources.
@@ -151,7 +154,7 @@ Rules:
 Return JSON only: {"themes": [{"name": "...", "reels": [1, 4, 7]}]}`;
 
 
-export function themesMessage(handle: string, reels: { n: number; title: string; notes: string }[]) {
-  return `Creator: @${handle}\n\n` + reels.map((r) => `Reel ${r.n}: ${r.title}\n${r.notes.slice(0, 900)}`).join("\n\n");
+export function themesMessage(handle: string, reels: { n: number; title: string; hook?: string; notes: string }[]) {
+  return `Creator: @${handle}\n\n` + reels.map((r) => `Reel ${r.n}: ${r.title}\n${r.hook ? `Hook: ${r.hook}\n` : ""}${r.notes.slice(0, 1200)}`).join("\n\n");
 }
 
