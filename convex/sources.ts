@@ -7,6 +7,8 @@ import { internalMutation, internalQuery, mutation } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 import { MAX_LINKS, MAX_PHOTOS, classifyLink } from "./links";
 import { limiter } from "./handbooks";
+import { briefV } from "./schema";
+import { briefText } from "./prompts";
 
 type Source = NonNullable<Doc<"handbooks">["sources"]>[number];
 
@@ -63,11 +65,11 @@ export const setSource = internalMutation({
   },
 });
 
-// All sources read. Either one question (nothing to learn, or two different subjects), or the topic is set
-// and the plan is written from the sources.
+// All sources read. Either one question (nothing to learn, or two different subjects), or the title and brief
+// are set and the plan is written from them and the sources.
 export const finishReading = internalMutation({
-  args: { handbookId: v.id("handbooks"), topic: v.optional(v.string()), intent: v.optional(v.string()), question: v.optional(v.string()), use: v.optional(v.array(v.number())) },
-  handler: async (ctx, { handbookId, topic, intent, question, use }) => {
+  args: { handbookId: v.id("handbooks"), topic: v.optional(v.string()), brief: v.optional(briefV), question: v.optional(v.string()), use: v.optional(v.array(v.number())) },
+  handler: async (ctx, { handbookId, topic, brief, question, use }) => {
     const h = await ctx.db.get(handbookId);
     if (!h?.sources) return;
     if (question || !topic) {
@@ -77,18 +79,18 @@ export const finishReading = internalMutation({
     // Sources that don't belong to the chosen topic are set aside, not deleted.
     const keep = new Set(use ?? h.sources.map((_, i) => i + 1));
     const sources = h.sources.map((s, i) => (s.status === "read" && !keep.has(i + 1) ? { ...s, status: "failed" as const, error: "about something else" } : s));
-    await ctx.db.patch(handbookId, { topic: topic.slice(0, 200), sources, ...(intent ? { sourcesIntent: intent } : {}) });
+    await ctx.db.patch(handbookId, { topic: topic.slice(0, 200), sources, ...(brief ? { sourcesBrief: brief } : {}) });
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
   },
 });
 
 // The notes the plan and chapters are written from: every source that was read, numbered as the reader saw them.
-export function sourceNotesOf(h: Pick<Doc<"handbooks">, "sources" | "sourcesIntent" | "creator">): string | undefined {
+export function sourceNotesOf(h: Pick<Doc<"handbooks">, "sources" | "sourcesIntent" | "sourcesBrief" | "creator">): string | undefined {
   const label = { youtube: "YouTube video", instagram: "Instagram reel", image: "Photo" } as const;
   const lines = (h.sources ?? []).flatMap((s, i) => (s.status === "read" && s.notes ? [`Source ${i + 1} (${label[s.kind]}${s.title ? `: ${s.title}` : ""}):\n${s.hook ? `Hook: ${s.hook}\n` : ""}${s.notes}`] : []));
   if (!lines.length) return undefined;
   const head = [
-    h.sourcesIntent ? `What the learner is after: ${h.sourcesIntent}` : "",
+    h.sourcesBrief ? briefText(h.sourcesBrief) : h.sourcesIntent ? `What the learner is after: ${h.sourcesIntent}` : "",
     h.creator ? `All from one creator: @${h.creator.handle}.` : "",
   ].filter(Boolean).join("\n");
   return ((head ? `${head}\n\n` : "") + lines.join("\n\n")).slice(0, 16000);

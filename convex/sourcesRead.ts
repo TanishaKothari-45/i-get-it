@@ -12,7 +12,7 @@ import { v } from "convex/values";
 import { internalAction, type ActionCtx } from "./_generated/server";
 import { internal } from "./_generated/api";
 import type { Doc, Id } from "./_generated/dataModel";
-import { COMBINE_PROMPT, SOURCE_READ_PROMPT, THEMES_PROMPT, combineMessage, sourceReadMessage, themesMessage } from "./prompts";
+import { COMBINE_PROMPT, SOURCE_READ_PROMPT, THEMES_PROMPT, combineMessage, sourceReadMessage, themesMessage, type Brief } from "./prompts";
 import { CREATOR_REELS } from "./links";
 
 // Two jobs, two models. Reading (watching each reel, reading each photo) is mostly seeing and hearing: Flash-Lite,
@@ -217,6 +217,23 @@ async function readSources(ctx: ActionCtx, handbookId: Id<"handbooks">) {
   }));
 }
 
+const KINDS = ["picks", "howto", "explainer", "story", "mixed"];
+const strings = (xs: unknown, n: number, len: number) => (Array.isArray(xs) ? xs : []).filter((x) => typeof x === "string" && x.trim()).slice(0, n).map((x: string) => x.trim().slice(0, len));
+const line = (x: unknown, len: number) => (typeof x === "string" && x.trim() ? x.trim().slice(0, len) : undefined);
+
+// Flash's brief, checked: known kinds only, short fields, examples pointing at sources that exist.
+function briefOf(json: any, sources: number[]): Brief | undefined {
+  if (!json?.topic) return undefined;
+  return {
+    kind: KINDS.includes(json.kind) ? json.kind : "mixed",
+    want: line(json.want, 300), intent: line(json.intent, 600), core: line(json.core, 500),
+    examples: (Array.isArray(json.examples) ? json.examples : []).filter((e: any) => typeof e?.what === "string" && e.what.trim()).slice(0, 15)
+      .map((e: any) => ({ what: e.what.trim().slice(0, 240), from: (Array.isArray(e.from) ? e.from : []).map(Number).filter((n: number) => sources.includes(n)) })),
+    beyond: strings(json.beyond, 4, 240), assumes: strings(json.assumes, 4, 200), claims: strings(json.claims, 8, 240),
+    fresh: ["fast", "medium", "stable"].includes(json.fresh) ? json.fresh : undefined,
+  };
+}
+
 // The read sources (not set aside) into one topic and what the learner is after, or one question.
 async function combine(ctx: ActionCtx, handbookId: Id<"handbooks">) {
   const h = await ctx.runQuery(internal.sources.readHandbook, { handbookId });
@@ -231,7 +248,7 @@ async function combine(ctx: ActionCtx, handbookId: Id<"handbooks">) {
   try {
     const json = await gemini(ctx, "source-combine", COMBINE_PROMPT, [{ text: combineMessage(typed, read) }], typed || read.map((r) => r.title).join("; "), { models: JUDGE_MODELS() });
     const use = Array.isArray(json?.use) ? json.use.map(Number).filter((n: number) => read.some((r) => r.n === n)) : undefined;
-    await ctx.runMutation(internal.sources.finishReading, { handbookId, topic: json?.topic ? String(json.topic) : undefined, intent: json?.intent ? String(json.intent).slice(0, 600) : undefined, question: json?.question ? String(json.question) : undefined, use });
+    await ctx.runMutation(internal.sources.finishReading, { handbookId, topic: json?.topic ? String(json.topic) : undefined, brief: briefOf(json, read.map((r) => r.n)), question: json?.question ? String(json.question) : undefined, use });
   } catch {
     // The combining call failed: the typed line, else the first source's own title, carries it.
     await ctx.runMutation(internal.sources.finishReading, { handbookId, topic: typed || read[0].title || "What these sources teach" });

@@ -4,7 +4,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage, sourcesBlock, type BonusKind } from "./prompts";
+import { CHAPTER_PROMPT, PLAN_PROMPT, SIMPLER_PROMPT, briefText, chapterUserMessage, needsResearch, planUserMessage, researchBlock, simplerUserMessage, sourcesBlock, type BonusKind } from "./prompts";
 import { buildSources, keepReels, sourceNotesOf, themeFor } from "./sources";
 import { parseCreator } from "./links";
 import { level, voice as voiceV } from "./schema";
@@ -540,7 +540,13 @@ export const generatePlan = internalAction({
     // Always written in English (translated after); only a clarifying question is asked in their language.
     const reader = h.language === ENGLISH ? "" : `\nThe learner reads ${h.language}. Write everything in English, except the clarifying question, if you ask one: write that in ${h.language}.`;
     const notes = sourceNotesOf(h);
-    const grounding = notes ? sourcesBlock(notes, "plan") : "";
+    // From saved picks, or about something that changes fast: search the web once, before the plan (kept for the chapters).
+    let found = h.research;
+    if (notes && found === undefined && h.sourcesBrief && needsResearch(h.sourcesBrief)) {
+      found = (await ctx.runAction(internal.research.run, { topic: h.topic, brief: briefText(h.sourcesBrief) })) ?? "";
+      await ctx.runMutation(internal.handbooks.setResearch, { handbookId, research: found });
+    }
+    const grounding = (notes ? sourcesBlock(notes, "plan") : "") + (found ? researchBlock(found) : "");
     const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, ENGLISH, h.voice, clarification, previous) + reader + grounding });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: r.error }); return; }
     const plan = r.json;
@@ -573,7 +579,7 @@ export const savePlan = internalMutation({
       const bookId = await ctx.db.insert("books", {
         topic: String(plan.topic ?? line), level: h.level, language: ENGLISH, voice: h.voice, plan, source: "live",
         createdAt: now, freshness, expiresAt: now + TTL_MS[freshness],
-        ...(notes ? { private: true, sourceNotes: notes } : {}),
+        ...(notes ? { private: true, sourceNotes: notes, ...(h.research ? { research: h.research } : {}) } : {}),
       });
       book = (await ctx.db.get(bookId))!;
     }
@@ -595,7 +601,14 @@ export const generateChapter = internalAction({
   handler: async (ctx, { bookId, n }) => {
     const book = await ctx.runQuery(internal.handbooks.readBook, { bookId });
     if (!book?.plan) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(book.plan, book.level, book.language, book.voice, n, book.sourceNotes) });
+    // A typed topic that changes fast: search the web once, before its first chapter; the book keeps the findings for all
+    // seven chapters (and for everyone else who gets this book).
+    let research = book.research;
+    if (research === undefined && !book.sourceNotes && n === 1 && needsResearch(undefined, book.freshness)) {
+      research = (await ctx.runAction(internal.research.run, { topic: String(book.plan.topic ?? book.topic), chapters: (book.plan.chapters ?? []).map((c: any) => String(c.title ?? "")) })) ?? "";
+      await ctx.runMutation(internal.handbooks.setBookResearch, { bookId, research });
+    }
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(book.plan, book.level, book.language, book.voice, n, book.sourceNotes, research || undefined) });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { bookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");
@@ -614,6 +627,16 @@ export const readHandbook = internalQuery({
 export const readBook = internalQuery({
   args: { bookId: v.id("books") },
   handler: async (ctx, { bookId }) => ctx.db.get(bookId),
+});
+
+// Research findings ("" when searched and nothing found, so it isn't searched again).
+export const setResearch = internalMutation({
+  args: { handbookId: v.id("handbooks"), research: v.string() },
+  handler: async (ctx, { handbookId, research }) => { await ctx.db.patch(handbookId, { research }); },
+});
+export const setBookResearch = internalMutation({
+  args: { bookId: v.id("books"), research: v.string() },
+  handler: async (ctx, { bookId, research }) => { await ctx.db.patch(bookId, { research }); },
 });
 
 export const setQuestion = internalMutation({

@@ -19,6 +19,7 @@ import type * as links from "../links.js";
 import type * as prompts from "../prompts.js";
 import type * as push from "../push.js";
 import type * as pushSend from "../pushSend.js";
+import type * as research from "../research.js";
 import type * as sources from "../sources.js";
 import type * as sourcesRead from "../sourcesRead.js";
 import type * as translate from "../translate.js";
@@ -43,6 +44,7 @@ declare const fullApi: ApiFromModules<{
   prompts: typeof prompts;
   push: typeof push;
   pushSend: typeof pushSend;
+  research: typeof research;
   sources: typeof sources;
   sourcesRead: typeof sourcesRead;
   translate: typeof translate;
