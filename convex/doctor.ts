@@ -20,12 +20,14 @@ export const candidates = internalQuery({
     const xTokens = new Set(excluded.map((e) => e.deviceToken).filter(Boolean) as string[]);
     const since = Date.now() - 14 * DAY;
     const running = new Set((await ctx.db.query("experiments").collect()).filter((e) => e.status === "running").map((e) => e.topic));
+    // Only topics still on the shelf: an old topic with no stored copy (the first Avengers) has nothing to rewrite.
+    const shelf = new Set((await ctx.db.query("cache").collect()).filter((r) => r.level === "new").map((r) => r.topic));
     const books = (await ctx.db.query("handbooks").collect()).filter((h) => h.source === "cache" && h.createdAt >= since && !h.ownerToken?.startsWith("abuse-") && !(h.ownerToken && xTokens.has(h.ownerToken)));
     const byTopic = new Map<string, Doc<"handbooks">[]>();
     for (const h of books) { if (!byTopic.has(h.topic)) byTopic.set(h.topic, []); byTopic.get(h.topic)!.push(h); }
     const out: any[] = [];
     for (const [topic, hs] of byTopic) {
-      if (running.has(topic)) continue;
+      if (running.has(topic) || !shelf.has(topic)) continue;
       const quitters: any[] = [];
       for (const h of hs) {
         const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
