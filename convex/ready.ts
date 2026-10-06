@@ -2,7 +2,7 @@ import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { internalAction } from "./_generated/server";
 import { CHAPTER_PROMPT, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
-import { factCheck, topicKeyOf } from "./handbooks";
+import { factCheck, noQuizzes, topicKeyOf } from "./handbooks";
 
 // Writes a new ready topic for the shelf, the same way a reader's handbook is written (plan on the plan model,
 // each chapter on the chapter model, every chapter fact-checked), then stores it in the cache and queues its pictures.
@@ -50,7 +50,7 @@ export const build = internalAction({
       const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(plan, "new", "English", "friend", n) });
       const ch = r.ok ? r.json : null;
       const exercises = (ch?.cards ?? []).filter((c: any) => c.type === "exercise");
-      const sane = ch && Array.isArray(ch.cards) && ch.cards.length >= 5 && exercises.length >= (n === 1 ? 0 : 2) &&
+      const sane = ch && Array.isArray(ch.cards) && ch.cards.length >= 5 && exercises.length >= (n === 1 || noQuizzes(plan) ? 0 : 2) &&
         exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer));
       if (!sane) {
         console.log(`ready ${topic}: chapter ${n} not usable (${r.ok ? "shape" : r.error})`);

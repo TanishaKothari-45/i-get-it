@@ -34,6 +34,7 @@ export default defineSchema({
     plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }
     ownerToken: v.optional(v.string()),
     userId: v.optional(v.id("users")),
+    brief: v.optional(v.any()),   // research before writing (research.ts, 7 Oct): format, chapter count, facts, sources, plot, recap, NISM
     source: v.union(v.literal("live"), v.literal("cache")),
     error: v.optional(v.string()),
     hiddenAt: v.optional(v.number()),   // a duplicate topic found when two devices merged at sign-in; kept, not deleted

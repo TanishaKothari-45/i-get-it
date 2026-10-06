@@ -261,3 +261,40 @@ export const stripChapter1Quizzes = internalMutation({
     return { rows, library, copies, tests };
   },
 });
+
+// Story topics take no quizzes at all (Prateek, 7 Oct: "we don't need to quiz them like for avengers").
+// Strips every exercise (polls too) and the recall cards from story-mode ready topics, and from readers' copies of
+// chapters they haven't started. Chapters someone is partway through are left alone. dryRun only counts.
+function stripAll(ch: any) {
+  if (!ch?.cards) return null;
+  const keep: number[] = [];
+  ch.cards.forEach((c: any, i: number) => { if (c?.type !== "exercise") keep.push(i); });
+  if (keep.length === ch.cards.length && !(ch.recallCards?.length)) return null;
+  const map = new Map(keep.map((old, k) => [old, k]));
+  return { cards: keep.map((i) => ch.cards[i]), pictures: (ch.pictures ?? []).filter((p: any) => map.has(p.card)).map((p: any) => ({ ...p, card: map.get(p.card) })), recallCards: [] };
+}
+export const stripStoryQuizzes = internalMutation({
+  args: { dryRun: v.optional(v.boolean()) },
+  handler: async (ctx, { dryRun = true }) => {
+    const topics = new Set<string>(); let rows = 0, copies = 0, skippedStarted = 0;
+    for (const c of await ctx.db.query("cache").collect()) {
+      if ((c.plan as any)?.mode !== "story") continue;
+      topics.add(c.topic);
+      const chapters = c.chapters.map((x: any) => { const s = stripAll(x); return s ? { ...x, ...s } : x; });
+      if (JSON.stringify(chapters) === JSON.stringify(c.chapters)) continue;
+      if (!dryRun) await ctx.db.patch(c._id, { chapters, version: Date.now() });
+      rows++;
+    }
+    for (const h of await ctx.db.query("handbooks").collect()) {
+      if (h.source !== "cache" || !topics.has(h.topic)) continue;
+      const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
+      for (const ch of await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect()) {
+        if (p && (p.chaptersPassed.includes(ch.n) || (p.currentChapter === ch.n && p.currentCard > 0))) { skippedStarted++; continue; }
+        const s = stripAll(ch); if (!s) continue;
+        if (!dryRun) await ctx.db.patch(ch._id, s as any);
+        copies++;
+      }
+    }
+    return { dryRun, topics: [...topics], rows, copies, skippedStarted };
+  },
+});

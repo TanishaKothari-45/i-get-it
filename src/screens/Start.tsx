@@ -67,14 +67,14 @@ export default function Start({ initialTopic = '', status, question, intents, on
   if (writing) {
     return (
       <div className="plan-wait" role="status" aria-live="polite">
-        <p className="plan-wait-kicker">Writing your seven nights</p>
+        <p className="plan-wait-kicker">Writing your handbook</p>
         <h1 className="plan-wait-topic">{topic.trim() || initialTopic}</h1>
         <ol className="plan-wait-steps">
-          <li className="on">Reading what you typed</li>
-          <li className={slow ? 'on' : ''}>Choosing the seven nights and the one picture that carries them</li>
+          <li className="on">Looking it up: Wikipedia, reviews, recaps, the official syllabus where there is one</li>
+          <li className={slow ? 'on' : ''}>Deciding how much it needs: a quick run-through, or seven nights</li>
           <li>Writing chapter 1 while you read the plan</li>
         </ol>
-        <p className="note">Your plan in about 40 seconds. Chapter 1 is written while you read it.</p>
+        <p className="note">Your plan in about a minute. Chapter 1 is written while you read it.</p>
         <div className="busybar" aria-hidden="true" />
         {story && (
           <section className="wait-story" aria-label="A story while you wait">

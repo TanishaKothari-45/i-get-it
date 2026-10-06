@@ -92,6 +92,7 @@ const BODY: Record<PolicyPage, ReactNode> = {
         <li><strong>Convex</strong> (United States) stores everything above and hosts the site.</li>
         <li><strong>Anthropic</strong> (United States) receives your topic, level, profile line and questions so Claude can write and check your chapters. Anthropic doesn't train its models on this data. Some questions are answered with a web search run through Anthropic; the search sees the question, not who asked it.</li>
         <li><strong>Razorpay</strong> (India) handles payments and sees what you enter in its payment sheet.</li>
+        <li><strong>Research before writing:</strong> when you type a topic, its words (never anything about you) are used in web searches run through Anthropic, to look it up on Wikipedia, and, for films, series, books and games, to fetch the transcript of a public YouTube recap through <strong>Supadata</strong>.</li>
         <li><strong>Runway</strong> may draw a chapter's pictures from the chapter's own text. Photos come from Wikimedia Commons. Neither gets anything about you.</li>
         <li><strong>Google Fonts</strong> serves the typefaces, so your browser contacts Google when the page loads.</li>
         <li><strong>Your browser's push service</strong> (Google, Apple or Mozilla) delivers reminders, if you turned them on.</li>

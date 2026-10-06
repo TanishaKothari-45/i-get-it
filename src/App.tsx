@@ -75,6 +75,7 @@ export default function App() {
   const progress = hb?.progress ?? null
   const currentN = progress?.currentChapter ?? 1
   const passed = progress?.chaptersPassed ?? []
+  const total: number = (hb as any)?.total ?? 7   // 7, or 1 to 3 for a quick handbook (7 Oct)
   const chapter = hb?.chapters.find((c) => c.n === (readingN ?? currentN))
   const recallLive = useQuery(api.handbooks.recallFor, hb && (passed.length > 0 || currentN > 1) && progress?.currentCard === 0 ? { handbookId: hb._id, deviceToken: token } : 'skip')
   // Keep the "Remember this?" cards once loaded. The query stops when the reader leaves card 0, and dropping them
@@ -152,7 +153,7 @@ export default function App() {
   if (view === 'pricing') {
     return (
       <Shell back={{ label: 'Back', onClick: () => setView(hb ? 'plan' : 'library') }}>
-        <Pricing plans={plansData as any} fromDone={doneN === 7} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={(plan) => payOrder({ plan })} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => setView(hb ? 'plan' : 'library')} onSignIn={() => signIn('pricing')} />
+        <Pricing plans={plansData as any} fromDone={doneN === total} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={(plan) => payOrder({ plan })} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => setView(hb ? 'plan' : 'library')} onSignIn={() => signIn('pricing')} />
       </Shell>
     )
   }
@@ -204,7 +205,7 @@ export default function App() {
   const rail = plan ? (
     <>
       <p className="rail-topic">{plan.topic ?? hb.topic}</p>
-      <p className="rail-sub">{passed.length} of 7 chapters done</p>
+      <p className="rail-sub">{passed.length} of {total} chapters done</p>
       <ol>
         {plan.chapters?.map((c: any) => (
           <li key={c.n} className={passed.includes(c.n) ? 'done' : c.n === currentN ? 'now' : ''}><span className="n">{passed.includes(c.n) ? '✓' : c.n}</span><span>{c.title}</span></li>
@@ -228,7 +229,7 @@ export default function App() {
 
   // Which screen, when nothing has been chosen on this visit.
   const resolved: View = view === 'chapter' && lockNote ? 'plan' : view !== 'auto' ? view
-    : passed.length === 7 ? 'plan'
+    : passed.length >= total ? 'plan'
     : (progress?.currentCard ?? 0) > 0 ? 'chapter'
     : 'plan'
 
@@ -263,6 +264,7 @@ export default function App() {
     return (
       <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail} back={toPlan}>
         <Done
+          total={total}
           topic={plan?.topic ?? hb.topic}
           n={doneN}
           passed={passed}
@@ -293,6 +295,7 @@ export default function App() {
     return (
       <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
         <Chapter
+          total={total}
           key={`${hb._id}-${chapter.n}`}
           topic={plan?.topic ?? hb.topic}
           n={chapter.n}
@@ -323,6 +326,7 @@ export default function App() {
   return (
     <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
       <Plan
+        total={total}
         topic={plan?.topic ?? hb.topic}
         plan={plan}
         passed={passed}
@@ -341,7 +345,7 @@ export default function App() {
         caution={(hb as any).caution ?? null}
         onLibrary={() => setView('library')}
         libraryCount={libRows.length}
-        nextUp={passed.length >= 7 ? null : (progress?.currentCard ?? 0) > 0 && !passed.includes(currentN) && chapter?.cards
+        nextUp={passed.length >= total ? null : (progress?.currentCard ?? 0) > 0 && !passed.includes(currentN) && chapter?.cards
           ? { kind: 'resume', n: currentN, card: (progress?.currentCard ?? 0) + 1, left: Math.max(1, chapter.cards.length - (progress?.currentCard ?? 0)) }
           : passed.length > 0 && !passed.includes(currentN) ? { kind: 'next', n: currentN } : null}
         whatsNext={<WhatsNext topic={plan?.topic ?? hb.topic} deviceToken={token} onReady={async (t) => { const r = await create({ topic: t, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />}

@@ -73,7 +73,8 @@ export async function typedAllowance(ctx: QueryCtx | MutationCtx, userId: Id<"us
     for (const h of books) {
       if (h.hiddenAt) continue;
       const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
-      if ((p?.chaptersPassed.length ?? 0) < 7) active++;
+      const total = Array.isArray((h.plan as any)?.chapters) && (h.plan as any).chapters.length ? Math.min(7, (h.plan as any).chapters.length) : 7;
+      if ((p?.chaptersPassed.length ?? 0) < total) active++;
     }
     const why = active >= LIMITS.memberActiveTyped ? "member-active" : month >= LIMITS.memberTypedPerMonth ? "member-month" : null;
     return { member, used: active, limit: LIMITS.memberActiveTyped, month, ok: !why, why };

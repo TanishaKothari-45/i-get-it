@@ -20,6 +20,7 @@ type Tone = 'marigold' | 'green' | 'coral' | 'indigo' | 'ink' | 'cream'
 type Frame = { item: Item; text?: string; part: number; parts: number; tone: Tone; cover?: boolean }
 
 type Props = {
+  total?: number
   topic: string
   n: number
   title: string
@@ -68,7 +69,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -171,8 +172,8 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
     try { await onFinish({ minutes: Math.max(1, Math.round((Date.now() - openedAt.current) / 60000)), right: tries.filter(Boolean).length, total: tries.length }) } catch (e: any) {
       // A quiz still open (7 Oct: one was skipped by the recall bug): go straight to it instead of a dead end.
       const open = e?.data?.code === 'open-check' ? frames.findIndex((f) => !f.item.recall && f.item.cardIndex === e.data.card) : -1
-      if (open >= 0) { setI(open); reset(); setError('One quiz in this chapter is still open. Answer it, then finish from the last card.') }
-      else setError(String(e?.message ?? e).includes('Finish') ? 'One check is still open. Go back and answer it.' : 'Could not save the chapter. Try again.')
+      if (open >= 0) { setI(open); reset(); setError('One quiz is still open. Answer it, then finish.') }
+      else setError(String(e?.message ?? e).includes('Finish') ? 'One quiz is still open. Answer it, then finish.' : "Couldn't save that. Check your connection and tap again.")
     }
     finally { setFinishing(false) }
   }
@@ -187,7 +188,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
     }
     setRewriting(idx); setError(null)
     try { const r = await onSimpler(item); if (r.ready) { setSimplified((s) => new Set(s).add(idx)); setJumpTo(idx); setRewriting(null) } }
-    catch (e: any) { setRewriting(null); setError(limitCode(e) === 'simpler-free' ? limitMessage(e)! : String(e?.message ?? e).includes('busy') || limitCode(e) === 'busy' ? 'A few too many rewrites in a row. Try again in a bit.' : "Can't rewrite this one right now.") }
+    catch (e: any) { setRewriting(null); setError(limitCode(e) === 'simpler-free' ? limitMessage(e)! : String(e?.message ?? e).includes('busy') || limitCode(e) === 'busy' ? 'A few too many rewrites in a row. Try again in a bit.' : "Couldn't rewrite this one just now. Try again in a minute.") }
   }
   const showOriginal = () => { const idx = item.cardIndex; setOriginal((s) => new Set(s).add(idx)); setSimplePref(false); try { localStorage.setItem('igetit.simple', '0') } catch {}; setJumpTo(idx) }
   const showingSimpler = !!teaching?.simpler && !original.has(item.cardIndex) && (simplePref || simplified.has(item.cardIndex))
@@ -233,7 +234,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
   // A card's picture sits on its first frame only, so the words keep the screen on the frames after it.
   const pic = !item.recall && frame.part === 0 && c.type !== 'exercise' && c.type !== 'watch' ? pictures[item.cardIndex] : undefined
   const revealId = result && !result.correct && result.reveal ? result.reveal.id : null
-  const label = item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of 7`
+  const label = item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of ${total}`
 
   return (
     <div className="story" role="dialog" aria-label={`${title}, chapter ${n}`}>
@@ -338,7 +339,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
         <Sheet onClose={() => setAskOpen(false)}>
           <p className="verdict" style={{ fontSize: 'var(--ui)' }}>Ask or object</p>
           <AskCard handbookId={handbookId} chapter={item.chapter} cardIndex={item.cardIndex} deviceToken={deviceToken} />
-          <button className="btn btn-ghost" onClick={() => setAskOpen(false)}>Back to the story</button>
+          <button className="btn btn-ghost" onClick={() => setAskOpen(false)}>Back to the chapter</button>
         </Sheet>
       )}
     </div>

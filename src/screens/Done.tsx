@@ -10,6 +10,7 @@ import { subscribe, canInstall, install, isIOS, isStandalone } from '../lib/push
 import type { Id } from '../../convex/_generated/dataModel'
 
 type Props = {
+  total?: number
   topic: string
   n: number
   passed: number[]
@@ -58,17 +59,17 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   return `You took your time, and it stuck. That's the whole point.`
 }
 
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext }: Props) {
+export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext }: Props) {
   const [rated, setRated] = useState<string | null>(null)
   const line = cheer(n, stats)
   const [stay, setStay] = useState(false)
-  const last = n >= 7
+  const last = n >= total
   return (
     <>
       <Confetti fire />
       <RungBar passed={passed} filling={n} />
       <p className="sub" style={{ marginTop: 10 }}>{topic}</p>
-      <h1>Chapter {n} of 7: done.</h1>
+      <h1>Chapter {n} of {total}: done.</h1>
       {line && <p className="cheer">{line}</p>}
       {onRate && (
         <div className="rate" role="group" aria-label={`How was chapter ${n}?`}>
@@ -85,20 +86,20 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {handbookId && deviceToken && <TeachBack handbookId={handbookId} n={n} deviceToken={deviceToken} />}
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Next: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
-      {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
+      {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>{total === 7 ? "That's the whole handbook. Days 14 and 28 come later." : "That's all of it. Quick and done."}</p>}
       {last && whatsNext}
       {last && sources && sources.length > 0 && <p className="sources"><span className="label">Read next</span> {sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em>{x.why ? ` (${x.why})` : ''}</span>)}</p>}
 
       {last && (
         <div className="nudge" style={{ marginTop: 'var(--l)' }}>
-          <p className="nudge-lead">That was week 1.</p>
+          <p className="nudge-lead">That's the summit.</p>
           <p className="serif">Want more? Members keep 3 topics of their own on the go, read up to 7 chapters a day, get 30 web-checked answers a month, and can save any handbook as a PDF.</p>
           <button type="button" className="btn btn-ghost nudge-btn" onClick={onPricing}>See what members get</button>
         </div>
       )}
       {!signedIn && !last && (
         <div className="nudge compact" style={{ marginTop: 'var(--l)' }}>
-          <p className="nudge-lead">Signing in keeps this handbook on every device, lets you run several topics at once, and carries your settings with you. Free.</p>
+          <p className="nudge-lead">Signing in keeps your handbooks on every device and carries your settings with you. Free.</p>
         </div>
       )}
 
@@ -145,7 +146,7 @@ function Reminder({ n, tomorrowAt, onPickTime, handbookId, deviceToken }: { n: n
   }
   return (
     <section className="remind">
-      <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `See you at ${pretty(tomorrowAt)}.` : `When should chapter ${n + 1} remind you?`}</h2>
+      <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `See you at ${pretty(tomorrowAt)}.` : `When should we remind you about chapter ${n + 1}?`}</h2>
       <div className="times">
         {TIMES.map((t) => (
           <button key={t} type="button" className="chip" aria-pressed={tomorrowAt === t} disabled={!!saving} onClick={() => pick(t)}>{pretty(t)}</button>

@@ -4,8 +4,9 @@ import { track } from '../lib/track'
 
 type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string }
 type Props = {
+  total?: number   // chapters in this handbook: 7, or 1 to 3 for a quick one (7 Oct)
   topic: string
-  plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[]; pushback?: string | null }
+  plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[]; pushback?: string | null; framing?: string | null; format?: string }
   passed: number[]
   current: number
   chapterReady: boolean
@@ -32,7 +33,7 @@ type Props = {
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
+export default function Plan({ total = 7, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
   useEffect(() => { track('plan_view', undefined, 'plan_view:' + topic) }, [topic])
   const first = passed.length === 0 && current === 1   // a reader who came in at chapter 2 from a post is on 2
   const upTitle = nextUp ? plan.chapters[nextUp.n - 1]?.title : null
@@ -47,13 +48,15 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
           <button type="button" className="btn" onClick={onStart}>{nextUp.kind === 'resume' ? 'Pick up where you left off' : `Start chapter ${nextUp.n}`}</button>
         </section>
       )}
-      {passed.length >= 7 && whatsNext}
+      {passed.length >= total && whatsNext}
       <section className="roadmap-hero">
         <div className="roadmap-hero-top">
-          <span className="roadmap-chip">Your handbook · {passed.length} of 7</span>
+          <span className="roadmap-chip">Your handbook · {passed.length} of {total}</span>
         </div>
         <h1>{topic}</h1>
         {plan.pushback && <p className="roadmap-pushback">{plan.pushback}</p>}
+        {/* A quick handbook (a recap, one recipe; 7 Oct) says so up top: no weeks of study for this one. */}
+        {!plan.pushback && plan.framing && <p className="roadmap-pushback">{plan.framing}</p>}
         <p className="roadmap-outcome">{plan.outcome7}</p>
         {caution && <p className="roadmap-caution">Study aid, verify before you act.</p>}
         {coverPicture ? <div className="roadmap-pic"><img src={coverPicture} alt="" /></div>
@@ -85,9 +88,9 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
         <li className="stop summit">
           <span className="node" aria-hidden="true">★</span>
           <div className="stop-card">
-            <span className="stop-n">Day 7</span>
+            <span className="stop-n">The summit</span>
             <span className="stop-t">You can do it</span>
-            {plan.horizon14 && <span className="stop-hook">Later peaks: {plan.horizon14}</span>}
+            {total === 7 && plan.horizon14 && <span className="stop-hook">Later peaks: {plan.horizon14}</span>}
           </div>
         </li>
       </ol>
@@ -96,7 +99,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
         <button type="button" className="quiet" onClick={onTune}>Make it yours: who teaches you, and how</button>
         {onCompare && <button type="button" className="quiet" onClick={onCompare}>{comparing ? `Three writers are on chapter ${current}…` : `Compare three writers on chapter ${current}`}</button>}
         {onLibrary && <button type="button" className="quiet" onClick={onLibrary}>{libraryCount && libraryCount > 1 ? `Your handbooks (${libraryCount})` : 'Start another topic, keep this one'}</button>}
-        <button type="button" className="quiet" onClick={onChangeLine}>Not what you meant? Change the line</button>
+        <button type="button" className="quiet" onClick={onChangeLine}>Not what you meant? Change what you typed</button>
       </div>
 
       <ActionBar busy={!chapterReady && !chapterFailed} note={!chapterReady && !chapterFailed ? `Writing chapter ${current} and checking its facts… about a minute.` : undefined}>
@@ -111,7 +114,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
             <button className="btn" onClick={onRetry}>Try again</button>
           </>
         ) : (
-          <button className="btn" onClick={onStart} disabled={!chapterReady}>{first ? 'Start chapter 1 ▸' : `Play chapter ${current} ▸`}</button>
+          <button className="btn" onClick={onStart} disabled={!chapterReady}>{`Start chapter ${current} ▸`}</button>
         )}
       </ActionBar>
     </>
