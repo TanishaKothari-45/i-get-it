@@ -95,7 +95,7 @@ Rules:
 - For a video, put the time (m:ss) before each point where you can tell it. Note anything shown on screen that isn't said aloud.
 - Keep commands, code, product names and numbers exactly as shown.
 - If it teaches nothing (a meme, an ad, music only, a selfie), set "learnable" to false and say why in "title".
-- "title": what it teaches, 2-6 plain words (for example "Claude Code plugins").
+- "title": what it teaches, in 2-6 plain words.
 - "notes": up to 250 words, in English, in the order the source teaches.
 
 Return JSON only: {"learnable": true, "title": "...", "notes": "..."}`;
@@ -109,15 +109,16 @@ export function sourceReadMessage(kind: string, extra?: { caption?: string; tran
 }
 
 // Several sources (and maybe a typed line) into one topic for one handbook, or one question if they don't fit together.
-export const COMBINE_PROMPT = `A learner shared a few things to learn from (reels, videos, photos), and maybe typed a line. Notes on each are given. Decide what ONE seven-chapter handbook should teach them.
+export const COMBINE_PROMPT = `A learner saved a few things to learn from (reels, videos, photos), and maybe typed a line. Notes on each are given. Decide what ONE seven-chapter handbook should teach them, and why they saved these.
 
 Rules:
-- If they share one subject (even from different angles), "question" is null and "topic" is one line naming what to learn, in the learner's terms, 3-12 words (for example "Using plugins in Claude Code"). If they typed a line, it wins: the sources then shape it.
-- If the sources are about clearly different subjects and nothing typed decides it, set "question" to ONE short question offering the subjects as choices (for example "These cover Claude Code plugins and prompt writing. Which one should this handbook be about?").
+- If they share one subject (even from different angles), "question" is null and "topic" is one line naming what to learn, in the learner's terms, 3-12 words. If they typed a line, it wins: the sources then shape it.
+- "intent": two sentences. First, the thread that connects what they saved: the curiosity or goal behind it, a little wider than any one source (what kind of thing they want more of). Second, the hook: the payoff these sources promised that made them worth saving. Plain words; describe the learner's interest, not the creators.
+- If the sources are about clearly different subjects and nothing typed decides it, set "question" to ONE short question offering the subjects as choices.
 - If no source teaches anything, set "question" to "What do you want to learn from these?".
 - "use": the source numbers that belong to the chosen topic (all of them when they fit).
 
-Return JSON only: {"topic": "..." or null, "question": null or "...", "use": [1, 2]}`;
+Return JSON only: {"topic": "..." or null, "intent": "..." or null, "question": null or "...", "use": [1, 2]}`;
 
 export function combineMessage(typed: string, sources: { n: number; kind: string; title: string; notes: string }[]) {
   return (typed ? `Line typed: "${typed}"\n` : "No line typed.\n") +
@@ -126,20 +127,31 @@ export function combineMessage(typed: string, sources: { n: number; kind: string
 
 // What the plan and every chapter are written from, when the handbook started from the learner's own sources.
 export function sourcesBlock(sources: string, part: "plan" | "chapter") {
-  return `\n\nSources the learner shared (build ${part === "plan" ? "the seven chapters" : "this chapter"} around what they teach):\n${sources}\n\nUsing the sources:\n- Teach what the sources teach, in a sensible order, and fill the gaps they leave with well-established knowledge.\n- Where a source is out of date or wrong, teach the correct version and say plainly that it has changed.\n- Never claim a source said something it didn't.\n- Teach the ideas in your own words: never copy a source's script or caption word for word. Credit the creator by name where it's natural.${part === "plan" ? "\n- Give each chapter a \"from\" list: the source numbers it draws on (empty if none)." : "\n- When a card draws on a source, you may say so in passing (\"the second reel showed...\"), never more than once a card."}`;
+  const rules = [
+    "Build around what the learner is after (given above the sources), not only what the sources happen to show: teach the idea underneath them, cover what they show, then go a step beyond to closely related options, methods or examples of the same kind, and how to judge and choose between them.",
+    "Keep the hook: open with the payoff that made them save these, and make every chapter deliver part of it.",
+    "Fill the gaps the sources leave with well-established knowledge, in a sensible order.",
+    "Treat numbers, rankings and promises in a source (\"saves half\", \"the best\", \"free forever\") as that creator's claims: say whose they are, and use them only where they are well established. Where a source is out of date or wrong, teach the correct version and say plainly that it changed.",
+    "Never claim a source said something it didn't. Teach in your own words: never copy a source's script or caption word for word. Credit a creator by name where it's natural.",
+    part === "plan"
+      ? "Give each chapter a \"from\" list: the source numbers it draws on (empty for chapters that go beyond them)."
+      : "When a card draws on a source, you may say so in passing (\"the second reel showed...\"), never more than once a card.",
+  ];
+  return `\n\nSources the learner saved (build ${part === "plan" ? "the seven chapters" : "this chapter"} from them):\n${sources}\n\nUsing the sources:\n${rules.map((r) => `- ${r}`).join("\n")}`;
 }
 
 // A creator's latest reels into themes, so the learner can pick what they want a handbook on.
-export const THEMES_PROMPT = `You get a creator's latest reels, numbered, each with its caption and what is said in it. Group them by what they teach, so a learner can pick one theme for a seven-chapter handbook.
+export const THEMES_PROMPT = `You get a creator's latest reels, numbered, each with notes on what it teaches. Group them by what they teach, so a learner can pick one theme for a seven-chapter handbook.
 
 Rules:
-- 1 to 4 themes. Each theme is 2-6 plain words naming what it teaches (for example "Claude Code plugins"), never the creator's slogan or a vague label like "tips".
+- 1 to 4 themes. Each theme is 2-6 plain words naming what it teaches, never the creator's slogan or a vague label like "tips".
 - Each reel goes in at most one theme. Reels that teach nothing (ads, memes, personal updates) go in no theme.
 - Order themes by how many reels they have, most first.
 
 Return JSON only: {"themes": [{"name": "...", "reels": [1, 4, 7]}]}`;
 
-export function themesMessage(handle: string, reels: { n: number; caption?: string; transcript?: string }[]) {
-  return `Creator: @${handle}\n\n` + reels.map((r) => `Reel ${r.n}\nCaption: ${(r.caption ?? "").slice(0, 400)}\nSaid: ${(r.transcript ?? "").slice(0, 800)}`).join("\n\n");
+
+export function themesMessage(handle: string, reels: { n: number; title: string; notes: string }[]) {
+  return `Creator: @${handle}\n\n` + reels.map((r) => `Reel ${r.n}: ${r.title}\n${r.notes.slice(0, 900)}`).join("\n\n");
 }
 

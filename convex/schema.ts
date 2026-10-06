@@ -108,6 +108,7 @@ export default defineSchema({
     // Started from a creator: their handle, and the themes their latest reels fall into (reel numbers per theme).
     creator: v.optional(v.object({ handle: v.string(), themes: v.optional(v.array(v.object({ name: v.string(), reels: v.array(v.number()) }))) })),
     choices: v.optional(v.array(v.string())),     // the question's tap-to-answer options (a creator's themes)
+    sourcesIntent: v.optional(v.string()),        // from the sources: what the learner is after, the thread and the hook
     ownerToken: v.optional(v.string()),
     userId: v.optional(v.id("users")),
     createdAt: v.number(),

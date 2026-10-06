@@ -464,7 +464,7 @@ export const answerQuestion = mutation({
       if (!mine.ok) throw new Error("busy");
       const theme = themeFor(h.creator.themes, clarification);
       await ctx.db.patch(handbookId, { status: "planning", question: undefined, choices: undefined, topic: h.topic || theme?.name || clarification, sources: theme ? keepReels(h.sources, theme.reels) : h.sources });
-      await ctx.scheduler.runAfter(0, internal.sourcesRead.readAll, { handbookId });
+      await ctx.scheduler.runAfter(0, internal.sourcesRead.combineChosen, { handbookId });
       return;
     }
     // Started from links or photos: no shared book to find; the answer steers the plan.

@@ -66,8 +66,8 @@ export const setSource = internalMutation({
 // All sources read. Either one question (nothing to learn, or two different subjects), or the topic is set
 // and the plan is written from the sources.
 export const finishReading = internalMutation({
-  args: { handbookId: v.id("handbooks"), topic: v.optional(v.string()), question: v.optional(v.string()), use: v.optional(v.array(v.number())) },
-  handler: async (ctx, { handbookId, topic, question, use }) => {
+  args: { handbookId: v.id("handbooks"), topic: v.optional(v.string()), intent: v.optional(v.string()), question: v.optional(v.string()), use: v.optional(v.array(v.number())) },
+  handler: async (ctx, { handbookId, topic, intent, question, use }) => {
     const h = await ctx.db.get(handbookId);
     if (!h?.sources) return;
     if (question || !topic) {
@@ -77,16 +77,21 @@ export const finishReading = internalMutation({
     // Sources that don't belong to the chosen topic are set aside, not deleted.
     const keep = new Set(use ?? h.sources.map((_, i) => i + 1));
     const sources = h.sources.map((s, i) => (s.status === "read" && !keep.has(i + 1) ? { ...s, status: "failed" as const, error: "about something else" } : s));
-    await ctx.db.patch(handbookId, { topic: topic.slice(0, 200), sources });
+    await ctx.db.patch(handbookId, { topic: topic.slice(0, 200), sources, ...(intent ? { sourcesIntent: intent } : {}) });
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
   },
 });
 
 // The notes the plan and chapters are written from: every source that was read, numbered as the reader saw them.
-export function sourceNotesOf(h: Pick<Doc<"handbooks">, "sources">): string | undefined {
+export function sourceNotesOf(h: Pick<Doc<"handbooks">, "sources" | "sourcesIntent" | "creator">): string | undefined {
   const label = { youtube: "YouTube video", instagram: "Instagram reel", image: "Photo" } as const;
   const lines = (h.sources ?? []).flatMap((s, i) => (s.status === "read" && s.notes ? [`Source ${i + 1} (${label[s.kind]}${s.title ? `: ${s.title}` : ""}):\n${s.notes}`] : []));
-  return lines.length ? lines.join("\n\n").slice(0, 12000) : undefined;
+  if (!lines.length) return undefined;
+  const head = [
+    h.sourcesIntent ? `What the learner is after: ${h.sourcesIntent}` : "",
+    h.creator ? `All from one creator: @${h.creator.handle}.` : "",
+  ].filter(Boolean).join("\n");
+  return ((head ? `${head}\n\n` : "") + lines.join("\n\n")).slice(0, 12000);
 }
 
 // ---------- learning from a creator ----------
@@ -105,34 +110,39 @@ export function themeFor(themes: Theme[] | undefined, answer: string): Theme | u
   return (themes ?? []).find((t) => a === t.name.toLowerCase() || a.startsWith(`${t.name.toLowerCase()} (`));
 }
 
-// A creator's latest reels are in. Several themes: ask which, with the themes to tap. One theme: go straight
-// on with its reels. None: ask what they want from these reels.
+// A creator's latest reels are in: each is watched next (readAll), then sorted into themes (creatorThemes).
 export const setCreatorReels = internalMutation({
   args: {
     handbookId: v.id("handbooks"),
-    reels: v.array(v.object({ url: v.string(), caption: v.optional(v.string()), transcript: v.optional(v.string()), videoUrl: v.optional(v.string()) })),
-    themes: v.array(v.object({ name: v.string(), reels: v.array(v.number()) })),
+    reels: v.array(v.object({ url: v.string(), caption: v.optional(v.string()), videoUrl: v.optional(v.string()) })),
   },
-  handler: async (ctx, { handbookId, reels, themes }) => {
+  handler: async (ctx, { handbookId, reels }) => {
     const h = await ctx.db.get(handbookId);
     if (!h?.creator) return;
-    const sources: Source[] = reels.map((r) => ({
-      kind: "instagram", url: r.url, status: "waiting",
-      caption: r.caption?.slice(0, 3000), transcript: r.transcript?.slice(0, 8000), videoUrl: r.videoUrl,
-    }));
+    const sources: Source[] = reels.map((r) => ({ kind: "instagram", url: r.url, status: "waiting", caption: r.caption?.slice(0, 3000), videoUrl: r.videoUrl }));
+    await ctx.db.patch(handbookId, { sources });
+    await ctx.scheduler.runAfter(0, internal.sourcesRead.readAll, { handbookId });
+  },
+});
+
+// The creator's reels, watched and sorted. Several themes: ask which, with the themes to tap. One theme, or a typed
+// line that names one: go straight on with its reels. None: ask what they want from these reels.
+export const creatorThemes = internalMutation({
+  args: { handbookId: v.id("handbooks"), themes: v.array(v.object({ name: v.string(), reels: v.array(v.number()) })) },
+  handler: async (ctx, { handbookId, themes }) => {
+    const h = await ctx.db.get(handbookId);
+    if (!h?.creator || !h.sources) return;
     const creator = { ...h.creator, themes };
     const handle = h.creator.handle;
-    if (themes.length === 1 || (themes.length > 1 && h.topic)) {
-      // One theme, or they already typed what they want: no need to ask.
-      const theme = themeFor(themes, h.topic) ?? (themes.length === 1 ? themes[0] : undefined);
-      await ctx.db.patch(handbookId, { creator, sources: theme ? keepReels(sources, theme.reels) : sources, topic: h.topic || theme?.name || "" });
-      await ctx.scheduler.runAfter(0, internal.sourcesRead.readAll, { handbookId });
+    const chosen = themeFor(themes, h.topic) ?? (themes.length === 1 ? themes[0] : undefined);
+    if (chosen || (h.topic && themes.length)) {
+      await ctx.db.patch(handbookId, { creator, sources: chosen ? keepReels(h.sources, chosen.reels) : h.sources, topic: h.topic || chosen?.name || "" });
+      await ctx.scheduler.runAfter(0, internal.sourcesRead.combineChosen, { handbookId });
       return;
     }
     const plural = (n: number) => `${n} reel${n === 1 ? "" : "s"}`;
     await ctx.db.patch(handbookId, themes.length > 1
-      ? { creator, sources, status: "question", question: `@${handle}'s latest reels cover a few things. Which one should this handbook be about?`, choices: themes.map((t) => `${t.name} (${plural(t.reels.length)})`) }
-      : { creator, sources, status: "question", question: `What do you want to learn from @${handle}'s reels?`, choices: undefined });
+      ? { creator, status: "question", question: `@${handle}'s latest reels cover a few things. Which one should this handbook be about?`, choices: themes.map((t) => `${t.name} (${plural(t.reels.length)})`) }
+      : { creator, status: "question", question: `What do you want to learn from @${handle}'s reels?`, choices: undefined });
   },
 });
-
