@@ -62,6 +62,10 @@ $Q
 - $T_VIS visitors since yesterday, $T_X of them from X.
 - Sign-ups all time: $SIGNUPS.
 - Numbers are all time with your devices left out, minus Shaktimaan's 3 test runs.
+
+## Stories from the last day (docs/launch/post-ideas.md: what shipped, and your "idea:" notes)
+
+$(YDAY=$(date -v-1d +%Y-%m-%d); [ -f docs/launch/post-ideas.md ] && awk -v y="- $YDAY" -v t="- $TODAY" 'index($0, y) == 1 || index($0, t) == 1 { on = 1; print; next } /^- / { on = 0 } on' docs/launch/post-ideas.md | cut -c1-300 || echo "- Nothing logged yet.")
 EOF
 
 osascript -e "display notification \"Day $DAY: $VIS visitors, $PASSED passed chapter 1. Add your line.\" with title \"Today's X post is ready\" sound name \"Glass\"" || true
