@@ -5,6 +5,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { v } from "convex/values";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
+import { RESEARCH_PROMPT, researchMessage, researchText } from "./prompts";
 
 const PLAN_MAX_OUT = 3000;
 const CHAPTER_MAX_OUT = 6000;
@@ -227,6 +228,46 @@ export const askWithSearch = internalAction({
       const error = String(e?.message ?? e).slice(0, 500);
       await ctx.runMutation(internal.handbooks.logAiCall, { kind: "ask", model: OPUS, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });
       return { ok: false, error };
+    }
+  },
+});
+
+// Research before writing (from what the learner saved, or a topic that changes fast): one call with web search, at
+// most 3 searches, a short report (at most 12 findings and 6 checked claims, one line each with its link). The plan and
+// chapters get only that report, never raw pages. No key, a failed call or nothing found: written without it.
+const RESEARCH_MAX_SEARCHES = 3;
+export const research = internalAction({
+  args: { topic: v.string(), brief: v.optional(v.string()), chapters: v.optional(v.array(v.string())) },
+  handler: async (ctx, { topic, brief, chapters }): Promise<string | null> => {
+    const started = Date.now();
+    const input = researchMessage(topic, { brief, chapters });
+    const model = process.env.RESEARCH_MODEL ?? HAIKU;
+    if (!process.env.ANTHROPIC_API_KEY) {
+      await ctx.runMutation(internal.handbooks.logAiCall, { kind: "research", model: "none", input: input.slice(0, 2000), output: "", ms: 0, ok: false, error: "no Anthropic key: written without research" });
+      return null;
+    }
+    let tokensIn = 0, tokensOut = 0, searches = 0;
+    try {
+      const messages: Anthropic.MessageParam[] = [{ role: "user", content: input }];
+      let res: Anthropic.Message | null = null;
+      for (let turn = 0; turn < 3; turn++) {   // a server tool can pause a long turn; resume it at most twice
+        res = await client().messages.create({
+          model, max_tokens: 1500, system: RESEARCH_PROMPT, messages,
+          tools: [{ type: "web_search_20250305", name: "web_search", max_uses: RESEARCH_MAX_SEARCHES }],
+        });
+        tokensIn += res.usage.input_tokens; tokensOut += res.usage.output_tokens;
+        searches += res.usage.server_tool_use?.web_search_requests ?? 0;
+        if (res.stop_reason !== "pause_turn") break;
+        messages.push({ role: "assistant", content: res.content });
+      }
+      if (!res) throw new Error("no response");
+      const text = res.content.filter((b): b is Anthropic.TextBlock => b.type === "text").map((b) => b.text).join("");
+      const found = researchText(extractJson(text));
+      await ctx.runMutation(internal.handbooks.logAiCall, { kind: "research", model: res.model, input: input.slice(0, 2000), output: `[${searches} searches] ${text}`.slice(0, 20000), tokensIn, tokensOut, ms: Date.now() - started, ok: true });
+      return found ?? null;
+    } catch (e: any) {
+      await ctx.runMutation(internal.handbooks.logAiCall, { kind: "research", model, input: input.slice(0, 2000), output: "", tokensIn, tokensOut, ms: Date.now() - started, ok: false, error: `written without research: ${String(e?.message ?? e)}`.slice(0, 500) });
+      return null;
     }
   },
 });

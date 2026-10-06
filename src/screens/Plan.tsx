@@ -1,6 +1,6 @@
 import ActionBar from '../components/ActionBar'
 
-type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string }
+type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string; from?: number[] }
 type Props = {
   topic: string
   plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[]; pushback?: string | null }
@@ -23,10 +23,14 @@ type Props = {
   libraryCount?: number
   // A finished chapter's bonus lesson, if it unlocked one: the link under that stop.
   bonusFor?: (n: number) => { label: string; onGo: () => void } | null
+  // Started from what they saved: what each source is called ("Reel 1", "Photo 2") and its original, by source number - 1.
+  sourceLabels?: string[]
+  sourcesNote?: string           // "Built from what you shared: …" or "Based on @creator's reels: …"
+  sourceLinks?: (string | undefined)[]
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, bonusFor }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, bonusFor, sourceLabels, sourcesNote, sourceLinks }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -47,6 +51,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
         <p className="sources"><span className="label">Further reading</span> {plan.sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em></span>)}</p>
       )}
       {voiceNote && <p className="note" style={{ marginBottom: 'var(--m)' }}>{voiceNote}</p>}
+      {sourcesNote && <p className="note">{sourcesNote}</p>}
 
       <h2 className="path-title">The path</h2>
       <ol className="path">
@@ -60,6 +65,15 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
                 <span className="stop-n">Chapter {c.n}{now && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}{done && <span className="tag done">Done</span>}</span>
                 <span className="stop-t">{c.title}</span>
                 <span className="stop-hook">{c.hook || c.covers}</span>
+                {(() => {
+                  // Each source it draws on, linking back to the original reel or video (credit to the creator).
+                  const from = (c.from ?? []).filter((k) => sourceLabels?.[k - 1])
+                  if (!from.length) return null
+                  return <span className="stop-from">From {from.map((k, i) => {
+                    const href = sourceLinks?.[k - 1]
+                    return <span key={k}>{i > 0 && ' · '}{href ? <a href={href} target="_blank" rel="noopener noreferrer">{sourceLabels![k - 1]}</a> : sourceLabels![k - 1]}</span>
+                  })}</span>
+                })()}
                 {done && (() => { const b = bonusFor?.(c.n); return b ? <button type="button" className="quiet stop-bonus" onClick={b.onGo}>{b.label}</button> : null })()}
               </div>
             </li>

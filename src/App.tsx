@@ -4,8 +4,11 @@ import { useAuthActions } from '@convex-dev/auth/react'
 import type { FunctionReturnType } from 'convex/server'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
-import { languageInfo } from '../convex/languages'
-import Start from './screens/Start'
+import { ENGLISH, languageInfo } from '../convex/languages'
+import { absorb } from './components/SourcesInput'
+import Start, { type NewSources } from './screens/Start'
+import { shrinkPhoto } from './lib/photo'
+import type { Id } from '../convex/_generated/dataModel'
 import Plan from './screens/Plan'
 import Chapter, { type AnswerResult, type Card, type Recap } from './screens/Chapter'
 import Done from './screens/Done'
@@ -35,6 +38,29 @@ export default function App() {
   const [flash, setFlash] = useState<string | null>(null)
   const examples = useQuery(api.handbooks.cachedTopics, {}) ?? []
   const create = useMutation(api.handbooks.create)
+  const uploadUrl = useMutation(api.sources.uploadUrl)
+  // A handbook from a typed line, or from what they saved. Photos go to Convex's file storage first (shrunk on the
+  // phone) and are deleted once read.
+  const createFrom = async (topic: string, level: 'new' | 'some', voice: 'friend' | 'straight' | 'stories', language: string, sources?: NewSources) => {
+    const images: Id<'_storage'>[] = []
+    for (const photo of sources?.photos ?? []) {
+      const blob = await shrinkPhoto(photo)
+      const res = await fetch(await uploadUrl({ deviceToken: token }), { method: 'POST', headers: { 'Content-Type': blob.type || 'image/jpeg' }, body: blob })
+      if (!res.ok) throw new Error('upload failed')
+      images.push((await res.json()).storageId)
+    }
+    return create({ topic, level, voice, language, deviceToken: token, links: sources?.links?.length ? sources.links : undefined, images: images.length ? images : undefined, creator: sources?.creator })
+  }
+  // "Share to I Get It" (Android, installed app): the share sheet opens /share?url=…&text=…. Read the links once, put the
+  // address back to /, and open the first screen with them listed.
+  const [shared] = useState(() => {
+    try {
+      if (window.location.pathname !== '/share') return ''
+      const q = new URLSearchParams(window.location.search)
+      window.history.replaceState(null, '', '/')
+      return [q.get('url'), q.get('text'), q.get('title')].filter(Boolean).join(' ')
+    } catch { return '' }
+  })
   const answerQuestion = useMutation(api.handbooks.answerQuestion)
   const retry = useMutation(api.handbooks.retry)
   const setPosition = useMutation(api.handbooks.setPosition)
@@ -51,7 +77,7 @@ export default function App() {
   const goFurther = useMutation(api.handbooks.goFurther)
   const profile = useQuery(api.handbooks.myProfile, { deviceToken: token })
 
-  const [view, setView] = useState<View>('auto')
+  const [view, setView] = useState<View>(() => (shared ? 'start-again' : 'auto'))
   const [doneN, setDoneN] = useState<number | null>(null)
   const [bonusSel, setBonusSel] = useState<{ n: number; kind: BonusKind } | null>(null)
   const [doneStats, setDoneStats] = useState<{ minutes: number; right: number; total: number } | null>(null)
@@ -110,7 +136,7 @@ export default function App() {
 
   // A first-time visitor (nothing on this phone): the landing page, which has its own box.
   if (!hb && view !== 'start-again' && libRows.length === 0 && lib !== undefined) {
-    return <Landing onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
+    return <Landing onCreate={async (topic, level, voice) => { setDraftTopic(topic); const g = absorb(topic, [], null, true); const r = await createFrom(g.text.trim(), level, voice, ENGLISH, g.links.length || g.creator ? { links: g.creator ? [] : g.links, photos: [], creator: g.creator ?? undefined } : undefined); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
   }
 
   // No handbook yet, or the person wants a different line: the first screen.
@@ -126,12 +152,16 @@ export default function App() {
           question={hb?.question}
           error={hb?.error}
           examples={examples}
-          onCreate={async (topic, level, voice, language) => { setDraftTopic(topic); const r = await create({ topic, level, voice, language, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
+          onCreate={async (topic, level, voice, language, sources) => { setDraftTopic(topic); const r = await createFrom(topic, level, voice, language, sources); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
           onAddOther={async (topic) => { await create({ topic, level: 'new', voice: 'friend', deviceToken: token }) }}
           pushback={(hb as any)?.pushback ?? undefined}
           suggestions={(hb as any)?.suggestions ?? []}
+          initialLinks={view === 'start-again' ? shared : ''}
+          sources={view === 'start-again' ? [] : ((hb as any)?.sources ?? [])}
+          creator={view === 'start-again' ? null : ((hb as any)?.creator ?? null)}
+          choices={view === 'start-again' ? null : ((hb as any)?.choices ?? null)}
         />
       </Shell>
     )
@@ -298,6 +328,9 @@ export default function App() {
         onLibrary={() => setView('library')}
         bonusFor={(n) => { const b = bonusOf(n); return b ? { label: BONUS_TEXT[b.kind].planLink[b.done ? 1 : 0], onGo: () => openBonus(n, b.kind) } : null }}
         libraryCount={libRows.length}
+        sourceLabels={sourceLabelsOf((hb as any).sources)}
+        sourcesNote={sourcesNoteOf((hb as any).sources, (hb as any).creator ?? null)}
+        sourceLinks={((hb as any).sources ?? []).map((x: SourceView) => x.url)}
         onRetry={() => { retry({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }}
         onChangeLine={() => { setDraftTopic(hb.topic); setView('start-again') }}
       />
@@ -421,4 +454,23 @@ function BonusScreen({ hb, n, kind, token, onBack }: { hb: HandbookData; n: numb
 function firstPicture(pictures?: Record<string, string>): string | undefined {
   const keys = Object.keys(pictures ?? {}).map(Number).sort((a, b) => a - b)
   return keys.length ? pictures![String(keys[0])] : undefined
+}
+
+// ---------- handbooks from what they saved ----------
+
+type SourceView = { kind: 'youtube' | 'instagram' | 'image'; url?: string; status: string }
+
+// What the reader calls each thing they shared, numbered in the order they added it: "Reel 1", "Video 2", "Photo 3".
+function sourceLabelsOf(sources?: SourceView[]): string[] | undefined {
+  if (!sources?.length) return undefined
+  const name = { instagram: 'Reel', youtube: 'Video', image: 'Photo' } as const
+  return sources.map((x, i) => `${name[x.kind]} ${i + 1}`)
+}
+
+// The plan's credit line: which of the things they shared it was built from.
+function sourcesNoteOf(sources: SourceView[] | undefined, creator: string | null): string | undefined {
+  const labels = sourceLabelsOf(sources)
+  const used = (sources ?? []).flatMap((x, i) => (x.status === 'read' ? [labels![i]] : []))
+  if (!used.length) return undefined
+  return creator ? `Based on @${creator}'s reels: ${used.join(' · ')}.` : `Built from what you shared: ${used.join(' · ')}.`
 }

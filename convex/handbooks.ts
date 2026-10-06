@@ -4,7 +4,9 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
+import { TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage, sourcesBlock, researchBlock, briefText, needsResearch } from "./prompts";
+import { buildSources, keepReels, sourceNotesOf, themeFor } from "./sources";
+import { MAX_LINKS, classifyLink, parseCreator } from "./links";
 import { level } from "./schema";
 import { ENGLISH, languageInfo } from "./languages";
 import { translateChapterText, translatePlanText } from "./translations";
@@ -14,7 +16,7 @@ const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("st
 const CHAPTERS = 7;
 
 // Caps (AGENTS.md section 4): 60 generations an hour across the app, 6 an hour per device.
-const limiter = new RateLimiter(components.rateLimiter, {
+export const limiter = new RateLimiter(components.rateLimiter, {
   generateAll: { kind: "fixed window", rate: 60, period: HOUR },
   generateDevice: { kind: "token bucket", rate: 6, period: HOUR, capacity: 3 },
   simplerDevice: { kind: "token bucket", rate: 30, period: HOUR, capacity: 10 },
@@ -28,6 +30,9 @@ const limiter = new RateLimiter(components.rateLimiter, {
   picturesAll: { kind: "fixed window", rate: 400, period: HOUR }, // Runway pictures, 1 credit (~₹0.85) each
   teachDevice: { kind: "token bucket", rate: 20, period: HOUR, capacity: 6 },
   teachAll: { kind: "fixed window", rate: 300, period: HOUR },     // ~₹0.2 each
+  // Photos sent before a handbook from what you saved (free to store, deleted once read).
+  uploadDevice: { kind: "token bucket", rate: 20, period: HOUR, capacity: 6 },
+  uploadAll: { kind: "fixed window", rate: 500, period: HOUR },
 });
 
 export function topicKeyOf(topic: string) {
@@ -196,6 +201,10 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
     bonus: bonus.map((b) => ({ kind: b.kind, n: b.n, status: b.status, title: b.title, cards: publicCards(b.cards), error: b.error })),
     _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", language: h.language, status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error, caution: cautionOf(h), pushback: h.pushback ?? (h.plan as any)?.pushback ?? null, suggestions: h.suggestions ?? [],
     signedIn: !!h.userId,
+    // From what they saved: each source's progress (never its notes), the creator, and a question's tap-to-answer options.
+    sources: (h.sources ?? []).map((s) => ({ kind: s.kind, url: s.url, status: s.status, title: s.title, error: s.error })),
+    creator: h.creator?.handle ?? null,
+    choices: h.choices ?? null,
     chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch))),
     progress: progress ? {
       currentChapter: progress.currentChapter, currentCard: progress.currentCard, currentPart: progress.currentPart ?? 0, chaptersPassed: progress.chaptersPassed,
@@ -290,13 +299,76 @@ export const recallFor = query({
 
 // ---------- creating a handbook ----------
 
+// ---------- from what the learner saved ----------
+
+type SourceStart = { clean: string; level: "new" | "some"; voice: "friend" | "straight" | "stories"; language: string; deviceToken: string };
+
+// The same links (in any order, tracking codes stripped) or the same creator: one key, so sharing them again reopens it.
+function sourcesKeyOf(links: string[], creator?: string): string {
+  if (creator) return `@${creator}`;
+  // By the video's or reel's own id, so youtu.be/x, youtube.com/shorts/x and watch?v=x are the same thing.
+  const idOf = (l: string) => {
+    const c = classifyLink(l);
+    if (!c) return l.trim();
+    const id = c.kind === "youtube" ? (c.url.match(/(?:youtu\.be\/|shorts\/|[?&]v=)([\w-]+)/)?.[1]) : c.url.match(/\/(?:reel|p)\/([\w-]+)/)?.[1];
+    return `${c.kind}:${id ?? c.url}`;
+  };
+  return [...new Set(links.map(idOf))].sort().join(" ");
+}
+
+// Sharing the same links or creator again (or a double tap) reopens the handbook they already have, never a second one.
+async function reopenSources(ctx: MutationCtx, deviceToken: string, key: string, language: string) {
+  const userId = await getAuthUserId(ctx);
+  const again = (await ownedBooks(ctx, userId, deviceToken)).find((h) => h.sourcesKey === key && (h.language ?? ENGLISH) === language && h.status !== "failed");
+  return again ? { handbookId: again._id, fromCache: false, existing: true } : null;
+}
+
+async function startSourcesHandbook(ctx: MutationCtx, a: SourceStart, fields: Partial<Doc<"handbooks">>, next: "readAll" | "gatherCreator") {
+  const userId = await getAuthUserId(ctx);
+  const all = await limiter.limit(ctx, "generateAll");
+  const mine = await limiter.limit(ctx, "generateDevice", { key: userId ? String(userId) : a.deviceToken });
+  if (!all.ok || !mine.ok) throw new Error("busy");
+  const now = Date.now();
+  // topicKey stays empty: the topic comes from the sources, and this handbook never meets the shared cache.
+  const handbookId = await ctx.db.insert("handbooks", {
+    topic: a.clean, topicKey: "", level: a.level, language: a.language, voice: a.voice, status: "planning",
+    ownerToken: a.deviceToken, userId: userId ?? undefined, source: "live", createdAt: now, ...fields,
+  });
+  await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
+  await ctx.scheduler.runAfter(0, next === "readAll" ? internal.sourcesRead.readAll : internal.sourcesRead.gatherCreator, { handbookId });
+  return { handbookId, fromCache: false, existing: false };
+}
+
+async function startFromSources(ctx: MutationCtx, a: SourceStart, links: string[], images: Id<"_storage">[]) {
+  const sources = buildSources(links, images);
+  const key = images.length ? undefined : sourcesKeyOf(links);   // new photos are always a new handbook
+  if (key) { const again = await reopenSources(ctx, a.deviceToken, key, a.language); if (again) return again; }
+  return startSourcesHandbook(ctx, a, { sources, sourcesKey: key }, "readAll");
+}
+
+async function startFromCreator(ctx: MutationCtx, a: SourceStart, creator: string) {
+  const handle = parseCreator(creator);
+  if (!handle) throw new Error("That doesn't look like an Instagram handle.");
+  const key = sourcesKeyOf([], handle);
+  const again = await reopenSources(ctx, a.deviceToken, key, a.language);
+  if (again) return again;
+  return startSourcesHandbook(ctx, a, { sources: [], creator: { handle }, sourcesKey: key }, "gatherCreator");
+}
+
 export const create = mutation({
-  args: { topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV), language: v.optional(v.string()) },
-  handler: async (ctx, { topic, level: lvl, deviceToken, voice, language }) => {
+  args: {
+    topic: v.string(), level, deviceToken: v.string(), voice: v.optional(voiceV), language: v.optional(v.string()),
+    links: v.optional(v.array(v.string())), images: v.optional(v.array(v.id("_storage"))), creator: v.optional(v.string()),
+  },
+  handler: async (ctx, { topic, level: lvl, deviceToken, voice, language, links, images, creator }) => {
     const clean = topic.trim().slice(0, 200);
-    if (clean.length < 2) throw new Error("Type a few words first.");
     const lang = language ?? ENGLISH;
     if (!languageInfo(lang)) throw new Error("Unknown language");
+    // From what they saved: a creator's latest reels, or their own links and photos. The typed line is optional then.
+    const start: SourceStart = { clean, level: lvl, voice: voice ?? "friend", language: lang, deviceToken };
+    if (creator) return startFromCreator(ctx, start, creator);
+    if (links?.length || images?.length) return startFromSources(ctx, start, (links ?? []).slice(0, MAX_LINKS + 1), images ?? []);
+    if (clean.length < 2) throw new Error("Type a few words first.");
     const userId = await getAuthUserId(ctx);
     const topicKey = topicKeyOf(clean);
     const now = Date.now();
@@ -305,7 +377,7 @@ export const create = mutation({
 
     // One handbook per topic per person (and per language): typing a topic you've already started opens it where you left off.
     const already = (await ownedBooks(ctx, userId, deviceToken)).find((h) => (h.language ?? ENGLISH) === lang &&
-      (h.topicKey === topicKey || (cached && h.source === "cache" && (h.sourcePlan?.topic ?? h.topic) === cached.topic)));
+      ((topicKey && h.topicKey === topicKey) || (cached && h.source === "cache" && (h.sourcePlan?.topic ?? h.topic) === cached.topic)));
     if (already) return { handbookId: already._id, fromCache: already.source === "cache", existing: true };
 
     // A ready topic in another language: its plan is translated now, its chapters as they're reached.
@@ -382,6 +454,20 @@ export const answerQuestion = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     if (h.status !== "question") throw new Error("No question open");
     if (!(await takeGeneration(ctx, h))) throw new Error("busy");
+    // Started from a creator: the answer is a theme (or what they typed). Its reels are read, then the plan is written.
+    if (h.creator && h.sources?.length && !h.plan) {
+      const said = answer.trim().slice(0, 300);
+      const theme = themeFor(h.creator.themes, said);
+      await ctx.db.patch(handbookId, { status: "planning", question: undefined, choices: undefined, topic: h.topic || theme?.name || said, sources: theme ? keepReels(h.sources, theme.reels) : h.sources });
+      await ctx.scheduler.runAfter(0, internal.sourcesRead.combineChosen, { handbookId });
+      return;
+    }
+    // Started from links or photos that couldn't be read or disagree: the answer becomes the line the plan is written for.
+    if (h.sources?.length && !h.topic) {
+      await ctx.db.patch(handbookId, { status: "planning", question: undefined, topic: answer.trim().slice(0, 200) });
+      await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
+      return;
+    }
     await ctx.db.patch(handbookId, { status: "planning", question: undefined });
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId, clarification: answer.trim().slice(0, 300) });
   },
@@ -395,6 +481,13 @@ export const retry = mutation({
       if (h.status !== "failed") return;   // a plan is already being written
       if (!(await takeGeneration(ctx, h))) throw new Error("busy");
       await ctx.db.patch(handbookId, { status: "planning", error: undefined });
+      // From a creator, and their reels never came: gather them again.
+      if (h.creator && !h.sources?.length) { await ctx.scheduler.runAfter(0, internal.sourcesRead.gatherCreator, { handbookId }); return; }
+      // From links or photos: read what isn't read yet (never twice), or go straight to the plan.
+      if (h.sources?.length && (h.sources.some((s) => s.status === "waiting" || s.status === "reading") || !h.topic)) {
+        await ctx.scheduler.runAfter(0, internal.sourcesRead.readAll, { handbookId });
+        return;
+      }
       // A ready topic whose translation failed: translate it again, never write a new plan.
       if (h.source === "cache" && h.language !== ENGLISH) await ctx.scheduler.runAfter(0, internal.translations.planFromCache, { handbookId });
       else await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
@@ -420,7 +513,8 @@ export const generatePlan = internalAction({
     } : undefined;
     // Always written in English (translated after); only a clarifying question is asked in their language.
     const reader = h.language === ENGLISH ? "" : `\nThe learner reads ${h.language}. Write everything in English, except the clarifying question, if you ask one: write that in ${h.language}.`;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, ENGLISH, h.voice ?? "friend", clarification, previous) + reader });
+    const grounding = await groundingFor(ctx, h, "plan");
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, ENGLISH, h.voice ?? "friend", clarification, previous) + reader + grounding });
     // Claude's own safety check said no: say so plainly, never "try again".
     if (!r.ok && /^declined/.test(r.error)) {
       const ready: any[] = await ctx.runQuery(internal.handbooks.listCache, {});
@@ -434,7 +528,7 @@ export const generatePlan = internalAction({
       await ctx.runMutation(internal.handbooks.setDeclined, { handbookId, pushback: String(plan.pushback ?? "That's not something I Get It will teach."), suggestions: (Array.isArray(plan.suggestions) ? plan.suggestions : []).map(String).slice(0, 3) });
       return;
     }
-    if (plan.needsClarification && plan.question && !clarification && !previous) {
+    if (plan.needsClarification && plan.question && !clarification && !previous && !h.sources?.length) {
       await ctx.runMutation(internal.handbooks.setQuestion, { handbookId, question: String(plan.question) });
       return;
     }
@@ -483,7 +577,8 @@ export const generateChapter = internalAction({
     // Written in English from the English plan, fact checked in English, then translated (handbook in another language).
     const plan = h.sourcePlan ?? h.plan;
     const howTheyDid: string | null = await ctx.runQuery(internal.handbooks.readingReport, { handbookId, n });
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(plan, h.level, ENGLISH, h.voice ?? "friend", n, prof.line, howTheyDid ?? undefined), model: prof.model });
+    const grounding = await groundingFor(ctx, h, "chapter");
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(plan, h.level, ENGLISH, h.voice ?? "friend", n, prof.line, howTheyDid ?? undefined, grounding), model: prof.model });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");
@@ -502,6 +597,25 @@ export const generateChapter = internalAction({
     // Pictures come after the words: the chapter opens now, each picture fades in when it's drawn.
     await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
   },
+});
+
+// A handbook from the learner's own sources is written from what they saved: the notes on each source, the brief
+// (what they're after, and how to shape it), and for saved picks or fast-changing subjects, one web search done before
+// the plan and kept on the handbook for every chapter. A typed topic has none of this: "".
+async function groundingFor(ctx: any, h: Doc<"handbooks">, part: "plan" | "chapter"): Promise<string> {
+  const notes = sourceNotesOf(h);
+  if (!notes) return "";
+  let found = h.research;
+  if (found === undefined && h.sourcesBrief && needsResearch(h.sourcesBrief)) {
+    found = (await ctx.runAction(internal.ai.research, { topic: h.topic, brief: briefText(h.sourcesBrief) })) ?? "";
+    await ctx.runMutation(internal.handbooks.setResearch, { handbookId: h._id, research: found });
+  }
+  return sourcesBlock(notes, part) + (found ? researchBlock(found) : "");
+}
+
+export const setResearch = internalMutation({
+  args: { handbookId: v.id("handbooks"), research: v.string() },
+  handler: async (ctx, { handbookId, research }) => { await ctx.db.patch(handbookId, { research }); },
 });
 
 export const readHandbook = internalQuery({
@@ -766,7 +880,8 @@ export const attachToMe = mutation({
     let attached = 0, hidden = 0;
     for (const h of deviceBooks) {
       await ctx.db.patch(h._id, { userId }); attached++;
-      const twin = accountBooks.find((a) => a._id !== h._id && (a.topicKey === h.topicKey || (a.source === "cache" && h.source === "cache" && a.topic === h.topic)));
+      // Handbooks from what they saved have no topic key: they're twins only if they came from the same links or creator.
+      const twin = accountBooks.find((a) => a._id !== h._id && ((h.topicKey && a.topicKey === h.topicKey) || (h.sourcesKey && a.sourcesKey === h.sourcesKey) || (a.source === "cache" && h.source === "cache" && a.topic === h.topic)));
       if (twin) {
         const loser = (await passedCount(ctx, h._id)) >= (await passedCount(ctx, twin._id)) ? twin : h;
         await ctx.db.patch(loser._id, { hiddenAt: Date.now() }); hidden++;

@@ -5,6 +5,8 @@ import { ENGLISH, languageInfo } from '../../convex/languages'
 import Rich from '../components/Rich'
 import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
+import SourcesInput, { SourcesProgress, absorb, type Gathered } from '../components/SourcesInput'
+import { MAX_LINKS, classifyLink } from '../../convex/links'
 
 type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
@@ -13,7 +15,7 @@ type Props = {
   status: 'idle' | 'writing' | 'question' | 'failed' | 'declined'
   question?: string
   error?: string
-  onCreate: (topic: string, level: Level, voice: Voice, language: string) => Promise<void>
+  onCreate: (topic: string, level: Level, voice: Voice, language: string, sources?: NewSources) => Promise<void>
   onAnswer?: (answer: string) => Promise<void>
   onRetry?: () => Promise<void>
   examples: string[]
@@ -23,10 +25,16 @@ type Props = {
   onAddOther?: (topic: string) => Promise<void>
   pushback?: string
   suggestions?: string[]
+  initialLinks?: string          // links shared into the app from another one ("Share to I Get It")
+  sources?: { kind: 'youtube' | 'instagram' | 'image'; url?: string; status: 'waiting' | 'reading' | 'read' | 'failed'; title?: string; error?: string }[]
+  creator?: string | null        // the handbook was started from this creator's reels
+  choices?: string[] | null      // the question's answers to tap (a creator's themes)
 }
 
+export type NewSources = { links: string[]; photos: File[]; creator?: string }
+
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [] }: Props) {
+export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [], initialLinks = '', sources = [], creator: startedFrom = null, choices = null }: Props) {
   const declined = status === 'declined'
   const [topic, setTopic] = useState(status === 'declined' ? '' : initialTopic)
   // A declined line never stays in the box: the reader starts fresh.
@@ -38,6 +46,16 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const [slow, setSlow] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
   const writing = status === 'writing'
+  // From what they saved: reel and Short links, photos, or a creator, gathered from the one box.
+  const [links, setLinks] = useState<string[]>(() => absorb(initialLinks, [], null, true).links)
+  const [photos, setPhotos] = useState<File[]>([])
+  const [creator, setCreator] = useState<string | null>(null)
+  const take = (g: Gathered) => { setTopic(g.text); setLinks(g.links); setCreator(g.creator) }
+  const fromSaved = sources.length > 0 || !!startedFrom
+  const gathering = writing && !!startedFrom && sources.length === 0
+  // A failed write: its message and "Try again" while the line is unchanged, and always for one from saved things
+  // (it has no typed line to compare; trying again reads only what isn't read yet, then writes).
+  const failedHere = status === 'failed' && !declined && (fromSaved || topic.trim() === initialTopic.trim())
   const levelRef = useRef<HTMLDivElement>(null)
   const [storySeed, setStorySeed] = useState(() => Math.floor(Math.random() * 1000))
   const story = useQuery(api.landing.waitStory, writing ? { seed: storySeed } : 'skip')
@@ -54,8 +72,19 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
 
   const submit = async () => {
     setLocalError(null)
-    if (topic.trim().length < 2) { setLocalError('A few words is enough. What is it?'); backToBox(); return }
-    try { await onCreate(topic.trim(), level, voice, language) } catch (e: any) { setLocalError(friendly(e)) }
+    const g = absorb(topic, links, creator, true)   // a link or @handle still at the end of the box
+    take(g)
+    const line = g.text.replace(/(^|\s)@\s*$/, '').trim()
+    if (g.creator) {
+      if (g.links.length || photos.length) { setLocalError("One at a time: a creator's reels, or your own reels and photos."); return }
+      try { await onCreate(line, level, voice, language, { links: [], photos: [], creator: g.creator }) } catch (e: any) { setLocalError(friendly(e)) }
+      return
+    }
+    const hasSources = g.links.length > 0 || photos.length > 0
+    if (g.links.some((l) => !classifyLink(l))) { setLocalError('Only Instagram reels and YouTube videos for now. Take out the others.'); return }
+    if (g.links.length > MAX_LINKS) { setLocalError(`Up to ${MAX_LINKS} links for one handbook.`); return }
+    if (!hasSources && line.length < 2) { setLocalError('A few words is enough. What is it?'); backToBox(); return }
+    try { await onCreate(line, level, voice, language, hasSources ? { links: g.links, photos } : undefined) } catch (e: any) { setLocalError(friendly(e)) }
   }
 
   // While the plan is written: the topic and what's happening, not the form again (Shaktimaan, 6 Oct).
@@ -63,9 +92,11 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
     return (
       <div className="plan-wait" role="status" aria-live="polite">
         <p className="plan-wait-kicker">Writing your seven nights</p>
-        <h1 className="plan-wait-topic">{topic.trim() || initialTopic}</h1>
+        <h1 className="plan-wait-topic">{topic.trim() || initialTopic || (startedFrom ? `@${startedFrom}'s reels` : 'What you saved')}</h1>
+        {gathering && <p className="note">Finding @{startedFrom}'s latest reels and sorting them into themes…</p>}
+        {fromSaved && sources.length > 0 && <SourcesProgress sources={sources.filter((x) => x.error !== 'about something else')} />}
         <ol className="plan-wait-steps">
-          <li className="on">Reading what you typed</li>
+          <li className="on">{fromSaved ? 'Watching and reading what you saved' : 'Reading what you typed'}</li>
           <li className={slow ? 'on' : ''}>Choosing the seven nights and the one picture that carries them</li>
           <li>Writing chapter 1 while you read the plan</li>
         </ol>
@@ -94,8 +125,13 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
       <>
         <h1>One question first.</h1>
         <p className="lede">{question}</p>
+        {choices && choices.length > 0 && (
+          <div className="choice-list">
+            {choices.map((c) => <button key={c} type="button" className="chip" onClick={() => onAnswer?.(c).catch((e) => setLocalError(friendly(e)))}>{c}</button>)}
+          </div>
+        )}
         <div className="field">
-          <label htmlFor="answer">Your answer</label>
+          <label htmlFor="answer">{choices?.length ? 'Or say what you want' : 'Your answer'}</label>
           <input id="answer" className="input" autoFocus value={answer} onChange={(e) => setAnswer(e.target.value)} enterKeyHint="go"
             onKeyDown={(e) => { if (e.key === 'Enter' && answer.trim()) onAnswer?.(answer.trim()) }} />
         </div>
@@ -129,18 +165,19 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
       <h1>Seven nights from “I keep meaning to” to “I get it”.</h1>
       <p className="lede">Twenty minutes a day: a small step. 7 days: a small jump.</p>
 
-      <div className="field">
-        <label htmlFor="topic">What do you keep meaning to learn?</label>
-        <input id="topic" ref={inputRef} className="input" type="text" autoComplete="off" enterKeyHint="done" placeholder={examples[0] ?? 'Swimming'} value={topic}
-          onChange={(e) => setTopic(e.target.value)} disabled={writing}
-          // Enter only closes the keyboard and shows the level and voice; the button starts the writing.
-          onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); levelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) } }} />
-        {examples.length > 1 && !below && (
+      {/* One box for a topic, reels and Shorts, photos and a creator (DESIGN.md section 4, Start). Enter only closes the
+          keyboard and shows the level and voice; the button starts the writing. */}
+      <SourcesInput text={topic} links={links} creator={creator} onChange={take} photos={photos} onPhotos={setPhotos} disabled={writing}
+        inputRef={inputRef} enterKeyHint="done"
+        onSubmit={() => { inputRef.current?.blur(); levelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }}
+        placeholder={links.length || photos.length || creator ? 'Add a few words, if you like' : examples[0] ?? 'Swimming'}
+        showWays={!writing}>
+        {examples.length > 1 && !below && !(links.length || photos.length || creator) && (
           <p className="note">Tonight's ready handbooks: {examples.slice(0, 6).map((x, i) => (
             <span key={x}>{i > 0 && ' · '}<button type="button" className="quiet" style={{ padding: 0 }} onClick={() => setTopic(x)} disabled={writing}>{x}</button></span>
           ))}</p>
         )}
-      </div>
+      </SourcesInput>
 
       <div className="chips" role="group" aria-label="Level" ref={levelRef}>
         <button type="button" className="chip" aria-pressed={level === 'new'} onClick={() => setLevel('new')} disabled={writing}>New to this</button>
@@ -157,14 +194,15 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
       <p className="sub" style={{ marginTop: 'var(--l)', marginBottom: 6 }}>Read it in</p>
       <LanguagePicker value={language} disabled={writing} onChange={(name) => { setLanguage(name); rememberLanguage(name) }} />
 
-      {(localError || (status === 'failed' && !declined && topic.trim() === initialTopic.trim())) && (
+      {failedHere && fromSaved && sources.length > 0 && <SourcesProgress sources={sources.filter((x) => x.error !== 'about something else')} />}
+      {(localError || failedHere) && (
         <p className="error">{localError ?? "Couldn't write it just now. Your line is still here; try once more in a minute, or pick one of tonight's ready handbooks."}</p>
       )}
 
       {below && !writing && below(pick)}
 
       <ActionBar busy={writing} note={writing && slow ? 'About 40 seconds. Seven chapters take a moment to plan.' : undefined}>
-        {status === 'failed' && onRetry && topic.trim() === initialTopic.trim() ? (
+        {failedHere && onRetry ? (
           <button className="btn" onClick={() => onRetry().catch((e) => setLocalError(friendly(e)))}>Try again</button>
         ) : (
           <button className="btn" onClick={submit} disabled={writing}>{writing ? 'Finding your way…' : 'Show me the way'}</button>
@@ -178,6 +216,9 @@ function friendly(e: any): string {
   const m = String(e?.message ?? e)
   if (m.includes('busy')) return "Busy right now. Try again in a few minutes."
   if (m.includes('few words')) return 'A few words is enough. What is it?'
+  if (m.includes('YouTube and Instagram')) return 'Only Instagram reels and YouTube videos for now. Take out the others.'
+  if (m.includes('Instagram handle')) return "That doesn't look like an Instagram handle."
+  if (m.includes('At most')) return m.replace(/^.*?(At most \d+ \w+).*$/, '$1 for one handbook.')
   return "Couldn't write it just now. Your line is still here; try once more in a minute."
 }
 

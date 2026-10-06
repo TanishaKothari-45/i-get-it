@@ -4,6 +4,36 @@ import { authTables } from "@convex-dev/auth/server";
 
 export const level = v.union(v.literal("new"), v.literal("some"));
 
+// One thing the learner saved: a YouTube or Instagram link, or a photo, and how far reading it has got.
+export const sourceV = v.object({
+  kind: v.union(v.literal("youtube"), v.literal("instagram"), v.literal("image")),
+  url: v.optional(v.string()),
+  storageId: v.optional(v.id("_storage")),   // a photo, until it has been read
+  status: v.union(v.literal("waiting"), v.literal("reading"), v.literal("read"), v.literal("failed")),
+  via: v.optional(v.string()),     // how it was read: "video", "transcript", "caption", "photo"
+  title: v.optional(v.string()),   // what it teaches, in a few words
+  notes: v.optional(v.string()),   // what it teaches, in detail (server only)
+  hook: v.optional(v.string()),    // the payoff it opens with or its caption sells, one sentence (server only)
+  error: v.optional(v.string()),
+  // Gathered from a creator's profile in one go (server only): read later without fetching the reel again.
+  caption: v.optional(v.string()),
+  transcript: v.optional(v.string()),
+  videoUrl: v.optional(v.string()),
+});
+
+// What the learner is after, judged from everything they saved: the brief the plan and chapters are built from.
+export const briefV = v.object({
+  kind: v.string(),                 // picks | howto | explainer | story | mixed: what they saved
+  want: v.optional(v.string()),     // what someone who saves this kind wants next
+  intent: v.optional(v.string()),   // that want made specific to these sources, then the hook
+  core: v.optional(v.string()),     // the simple idea tying the sources together, at their own level
+  examples: v.optional(v.array(v.object({ what: v.string(), from: v.array(v.number()) }))),
+  beyond: v.optional(v.array(v.string())),    // more of the same payoff than the sources gave
+  assumes: v.optional(v.array(v.string())),   // what the learner clearly already has or does: never taught
+  claims: v.optional(v.array(v.string())),    // numbers and promises to treat as the creator's until checked
+  fresh: v.optional(v.string()),    // fast | medium | stable: how fast this goes out of date
+});
+
 export default defineSchema({
   ...authTables,
 
@@ -32,6 +62,15 @@ export default defineSchema({
     error: v.optional(v.string()),
     hiddenAt: v.optional(v.number()),   // a duplicate topic found when two devices merged at sign-in; kept, not deleted
     continuesHandbookId: v.optional(v.id("handbooks")),   // "go further": the finished handbook this one is the next level of
+    // Started from what the learner saved (links, photos) instead of, or as well as, a typed line. Such a handbook is the
+    // learner's alone like any other, and never goes into the shared cache.
+    sources: v.optional(v.array(sourceV)),
+    // Started from a creator: their handle, and the themes their latest reels fall into (reel numbers per theme).
+    creator: v.optional(v.object({ handle: v.string(), themes: v.optional(v.array(v.object({ name: v.string(), reels: v.array(v.number()) }))) })),
+    sourcesKey: v.optional(v.string()),           // the links (or creator) it started from, so sharing the same ones again reopens it
+    choices: v.optional(v.array(v.string())),     // the question's tap-to-answer options (a creator's themes)
+    sourcesBrief: v.optional(briefV),             // from the sources: what the learner is after, and what to build it from
+    research: v.optional(v.string()),             // a web search's findings ("" when searched and nothing found)
     createdAt: v.number(),
   })
     .index("by_token", ["ownerToken"])
