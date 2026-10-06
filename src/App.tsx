@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useConvexAuth, useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
+import { track } from './lib/track'
 import Start from './screens/Start'
 import Plan from './screens/Plan'
 import Chapter, { type AnswerResult, type Card } from './screens/Chapter'
@@ -30,7 +31,8 @@ export default function App() {
   const lockPrice = useMutation(api.pricing.lockPrice)
   const [afterSignIn, setAfterSignIn] = useState<View>('done')
   const [flash, setFlash] = useState<string | null>(null)
-  const examples = useQuery(api.handbooks.cachedTopics, {}) ?? []
+  const readyTopics = useQuery(api.handbooks.cachedTopics, {})
+  const examples = readyTopics ?? []
   const create = useMutation(api.handbooks.create)
   const answerQuestion = useMutation(api.handbooks.answerQuestion)
   const retry = useMutation(api.handbooks.retry)
@@ -69,7 +71,32 @@ export default function App() {
   const currentN = progress?.currentChapter ?? 1
   const passed = progress?.chaptersPassed ?? []
   const chapter = hb?.chapters.find((c) => c.n === (readingN ?? currentN))
-  const recall = useQuery(api.handbooks.recallFor, hb && passed.length > 0 && progress?.currentCard === 0 ? { handbookId: hb._id, deviceToken: token } : 'skip') ?? []
+  const recall = useQuery(api.handbooks.recallFor, hb && (passed.length > 0 || currentN > 1) && progress?.currentCard === 0 ? { handbookId: hb._id, deviceToken: token } : 'skip') ?? []
+
+  // A link from a post (?t=public-speaking&ch=2, 7 Oct) opens that ready topic straight away, at that chapter,
+  // so a reader who just read chapter 1 on Instagram doesn't land on the landing page. Ready topics only: a link
+  // never starts a paid generation. A topic already on this phone opens where they left off.
+  const [deepLink, setDeepLink] = useState(() => {
+    const q = new URLSearchParams(window.location.search)
+    const t = q.get('t'), ch = Number(q.get('ch') ?? 1)
+    return t ? { t: t.toLowerCase(), ch: Number.isInteger(ch) && ch >= 1 && ch <= 7 ? ch : 1 } : null
+  })
+  const linkStarted = useRef(false)
+  useEffect(() => {
+    if (!deepLink || readyTopics === undefined || linkStarted.current) return
+    linkStarted.current = true
+    const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+    const topic = readyTopics.find((x) => slug(x) === deepLink.t)
+    const finish = () => setDeepLink(null)
+    if (!topic) { finish(); return }
+    ;(async () => {
+      const r = await create({ topic, level: 'new', voice: 'friend', deviceToken: token })
+      if (!r.existing && deepLink.ch > 1) await setPosition({ handbookId: r.handbookId, chapter: deepLink.ch, cardIndex: 0, deviceToken: token })
+      track('submit', { via: 'link', topic: topic.slice(0, 60) })
+      pin(String(r.handbookId))
+      if (!r.existing && deepLink.ch > 1) { setReadingN(deepLink.ch); setView('chapter') } else setView('auto')
+    })().catch(() => {}).finally(finish)
+  }, [deepLink, readyTopics]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // After sign-in, the anonymous night attaches to the person.
   // Merge runs only once the sign-in has reached the server (calling it straight after signIn races the new token).
@@ -85,7 +112,7 @@ export default function App() {
   // Pick up newer cached chapters for anything not started yet (the cache improves over the sprint).
   useEffect(() => { if (hb?._id && hb.status === 'ready') syncFromCache({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }, [hb?._id, hb?.status, syncFromCache, token])
 
-  if (data === undefined) return <Shell><div className="splash">Opening your handbook…</div></Shell>
+  if (data === undefined || deepLink) return <Shell><div className="splash">Opening your handbook…</div></Shell>
 
   const signIn = (back: View) => { setAfterSignIn(back); setView('signin') }
   const libRows = lib?.handbooks ?? []

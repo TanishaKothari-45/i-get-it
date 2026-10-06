@@ -227,9 +227,13 @@ export const recallFor = query({
   handler: async (ctx, { handbookId, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
-    if (!progress || progress.chaptersPassed.length === 0) return [];
+    if (!progress) return [];
+    // A reader who came in at chapter N from a post (?t=…&ch=N) has passed nothing here: recall the chapter before
+    // it, which they read on the post, so they prove it before going on (7 Oct). Its rung stays unlit.
+    const fromPost = progress.chaptersPassed.length === 0 && progress.currentChapter > 1 ? [progress.currentChapter - 1] : [];
+    if (progress.chaptersPassed.length === 0 && !fromPost.length) return [];
     const picks: { chapter: number; cardIndex: number; card: any }[] = [];
-    const passed = [...progress.chaptersPassed].sort((a, b) => b - a); // most recent first
+    const passed = progress.chaptersPassed.length ? [...progress.chaptersPassed].sort((a, b) => b - a) : fromPost; // most recent first
     for (const n of passed) {
       const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
       if (!ch?.cards) continue;
