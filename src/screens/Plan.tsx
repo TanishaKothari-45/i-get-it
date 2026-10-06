@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import ActionBar from '../components/ActionBar'
+import { track } from '../lib/track'
 
 type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string }
 type Props = {
@@ -25,6 +27,7 @@ type Props = {
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
 export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount }: Props) {
+  useEffect(() => { track('plan_view', undefined, 'plan_view:' + topic) }, [topic])
   const first = passed.length === 0
   return (
     <>
