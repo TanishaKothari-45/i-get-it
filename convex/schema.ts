@@ -169,6 +169,20 @@ export default defineSchema({
     .index("by_key", ["topicKey", "level"])
     .index("by_source", ["sourceHandbookId"]),
 
+  // Reminders by web push (6 Oct): one row per phone that said "remind me at 9pm". The reader's local time comes from tzOffsetMin.
+  pushSubs: defineTable({
+    deviceToken: v.string(),
+    endpoint: v.string(),
+    keys: v.object({ p256dh: v.string(), auth: v.string() }),
+    at: v.string(),                     // "21:00", the reader's local time
+    tzOffsetMin: v.number(),            // Date.getTimezoneOffset() on their phone (India: -330)
+    handbookId: v.optional(v.id("handbooks")),
+    lastSentDay: v.optional(v.string()),
+    createdAt: v.number(),
+  })
+    .index("by_endpoint", ["endpoint"])
+    .index("by_device", ["deviceToken"]),
+
   // Switches the owner flips on /admin (6 Oct): "provider" = "claude" | "inference" (The Inference Company, deepseek-v4-pro).
   settings: defineTable({
     key: v.string(),

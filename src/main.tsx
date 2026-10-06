@@ -7,11 +7,14 @@ import App from './App.tsx'
 import Stats from './screens/Stats'
 import Admin from './screens/Admin'
 import { initTrack, startSession } from './lib/track'
+import { registerServiceWorker, captureInstallPrompt } from './lib/push'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string)
 initTrack(convex)
+registerServiceWorker()
+captureInstallPrompt()
 
 // /stats is the public numbers page and /admin the owner's; every other page load counts as a visit (once a day per phone).
 const path = window.location.pathname.replace(/\/+$/, '')

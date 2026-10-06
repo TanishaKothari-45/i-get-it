@@ -4,6 +4,9 @@ import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
 import TeachBack from '../components/TeachBack'
 import { track } from '../lib/track'
+import { useMutation, useQuery } from 'convex/react'
+import { api } from '../../convex/_generated/api'
+import { subscribe, canInstall, install, isIOS, isStandalone } from '../lib/push'
 import type { Id } from '../../convex/_generated/dataModel'
 
 type Props = {
@@ -56,7 +59,6 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
 export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts }: Props) {
   const [rated, setRated] = useState<string | null>(null)
   const line = cheer(n, stats)
-  const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
   const last = n >= 7
   return (
@@ -97,18 +99,7 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
         </div>
       )}
 
-      {signedIn && (
-        <>
-          <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `See you at ${pretty(tomorrowAt)}.` : "When do tomorrow's 20 minutes happen?"}</h2>
-          {tomorrowAt && <p className="note">Chapter {n + 1} is ready when you are. (No reminder is sent yet; this is your own promise.)</p>}
-          <div className="times">
-            {TIMES.map((t) => (
-              <button key={t} type="button" className="chip" aria-pressed={tomorrowAt === t} disabled={!!saving}
-                onClick={async () => { setSaving(t); try { await onPickTime(t) } finally { setSaving(null) } }}>{pretty(t)}</button>
-            ))}
-          </div>
-        </>
-      )}
+      {!last && <Reminder n={n} tomorrowAt={tomorrowAt} onPickTime={onPickTime} handbookId={handbookId} deviceToken={deviceToken} />}
 
       <ActionBar>
         {!signedIn && !stay ? (
@@ -126,5 +117,42 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
         )}
       </ActionBar>
     </>
+  )
+}
+
+// "Remind me" (6 Oct): picks the time and, where the phone allows, sends a real notification then (web push).
+// iPhones only allow it once the app is on the home screen, so the block says so there.
+function Reminder({ n, tomorrowAt, onPickTime, handbookId, deviceToken }: { n: number; tomorrowAt?: string; onPickTime: (at: string) => Promise<void>; handbookId?: Id<'handbooks'>; deviceToken?: string }) {
+  const publicKey = useQuery(api.push.publicKey, {})
+  const save = useMutation(api.push.saveReminder)
+  const [saving, setSaving] = useState<string | null>(null)
+  const [note, setNote] = useState<string | null>(null)
+  const [installable, setInstallable] = useState(canInstall())
+  const pick = async (t: string) => {
+    setSaving(t); setNote(null)
+    try {
+      await onPickTime(t)
+      if (!publicKey || !deviceToken) { setNote(`Saved: ${pretty(t)}. Reminders aren't available just now.`); return }
+      const r = await subscribe(publicKey)
+      if (r.ok) { await save({ deviceToken, at: t, tzOffsetMin: new Date().getTimezoneOffset(), handbookId, subscription: r.subscription }); track('feedback', { n, v: 'reminder' }); setNote(`Done. This phone will remind you at ${pretty(t)}.`) }
+      else setNote(r.why === 'ios-install' ? `Saved: ${pretty(t)}. For a reminder on iPhone, tap Share, then Add to Home Screen, and open I Get It from there.`
+        : r.why === 'denied' ? `Saved: ${pretty(t)}. Notifications are off for this site, so no reminder.` : `Saved: ${pretty(t)}. This browser can't send reminders.`)
+    } catch { setNote("Couldn't save that. Try again.") }
+    finally { setSaving(null) }
+  }
+  return (
+    <section className="remind">
+      <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `See you at ${pretty(tomorrowAt)}.` : `When should chapter ${n + 1} remind you?`}</h2>
+      <div className="times">
+        {TIMES.map((t) => (
+          <button key={t} type="button" className="chip" aria-pressed={tomorrowAt === t} disabled={!!saving} onClick={() => pick(t)}>{pretty(t)}</button>
+        ))}
+      </div>
+      {note && <p className="note">{note}</p>}
+      {installable && !isStandalone() && (
+        <button type="button" className="quiet" onClick={async () => { await install(); setInstallable(false) }}>Add I Get It to your home screen</button>
+      )}
+      {!installable && isIOS() && !isStandalone() && !note && <p className="note">Tip: on iPhone, Share, then Add to Home Screen, puts I Get It next to your apps.</p>}
+    </section>
   )
 }

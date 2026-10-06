@@ -1,0 +1,14 @@
+{
+  "name": "I Get It",
+  "short_name": "I Get It",
+  "description": "Seven nights from “I keep meaning to” to “I get it”.",
+  "start_url": "/?utm_source=app",
+  "display": "standalone",
+  "background_color": "#faf7f0",
+  "theme_color": "#f2a93b",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
