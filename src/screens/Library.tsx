@@ -15,7 +15,7 @@ function ago(t: number) {
 export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSignIn, onPlans }: Props) {
   return (
     <>
-      <h1>Your handbooks</h1>
+      <h1>Your handbooks.</h1>
       <p className="lede">Each one remembers exactly where you stopped.</p>
       <ul className="shelf">
         {rows.map((r) => (
