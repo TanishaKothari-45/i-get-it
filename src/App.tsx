@@ -75,7 +75,13 @@ export default function App() {
   const currentN = progress?.currentChapter ?? 1
   const passed = progress?.chaptersPassed ?? []
   const chapter = hb?.chapters.find((c) => c.n === (readingN ?? currentN))
-  const recall = useQuery(api.handbooks.recallFor, hb && (passed.length > 0 || currentN > 1) && progress?.currentCard === 0 ? { handbookId: hb._id, deviceToken: token } : 'skip') ?? []
+  const recallLive = useQuery(api.handbooks.recallFor, hb && (passed.length > 0 || currentN > 1) && progress?.currentCard === 0 ? { handbookId: hb._id, deviceToken: token } : 'skip')
+  // Keep the "Remember this?" cards once loaded. The query stops when the reader leaves card 0, and dropping them
+  // mid-chapter shifted every frame and skipped the first quiz (7 Oct: Avengers chapter 2 couldn't be finished).
+  const recallKey = hb ? `${hb._id}:${currentN}` : ''
+  const [recallKept, setRecallKept] = useState<{ key: string; items: any[] } | null>(null)
+  useEffect(() => { if (recallLive?.length && recallKey) setRecallKept({ key: recallKey, items: recallLive }) }, [recallLive, recallKey])
+  const recall = recallKept?.key === recallKey ? recallKept.items : (recallLive ?? [])
 
   // A link from a post (?t=public-speaking&ch=2, 7 Oct) opens that ready topic straight away, at that chapter,
   // so a reader who just read chapter 1 on Instagram doesn't land on the landing page. Ready topics only: a link
