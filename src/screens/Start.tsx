@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import ActionBar from '../components/ActionBar'
 import LanguagePicker from '../components/LanguagePicker'
 import { ENGLISH, languageInfo } from '../../convex/languages'
+import { track } from '../lib/track'
 import Rich from '../components/Rich'
 import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
@@ -39,6 +40,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const [topic, setTopic] = useState(status === 'declined' ? '' : initialTopic)
   // A declined line never stays in the box: the reader starts fresh.
   useEffect(() => { if (status === 'declined') setTopic('') }, [status])
+  useEffect(() => { if (status === 'writing') track('wait_view', undefined, 'wait_view:' + initialTopic) }, [status, initialTopic])
   const [level, setLevel] = useState<Level>('new')
   const [voice, setVoice] = useState<Voice>('friend')
   const [language, setLanguage] = useState<string>(rememberedLanguage)

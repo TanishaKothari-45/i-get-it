@@ -431,6 +431,20 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .lp-seg button[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
 .lp-error { margin: 10px 0 0; font-weight: 600; color: #7a1d10; }
 .lp-fine { margin: 12px 0 0; font-size: var(--small); color: rgba(27, 26, 23, 0.75); }
+/* "start one tonight": ready topics right under the box, one tap starts them */
+.lp-quick { margin-top: 18px; }
+.lp-quick p { font: 700 var(--small) var(--sans); margin: 0 0 8px; }
+.lp-quick ul { list-style: none; margin: 0 calc(-1 * var(--m)) 0 0; padding: 2px var(--m) 10px 0; display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.lp-quick ul::-webkit-scrollbar { display: none; }
+.lp-quick li { scroll-snap-align: start; flex: none; }
+.lp-quick button { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 6px 14px 6px 6px; border: 2.5px solid var(--ink); border-radius: 14px; background: var(--paper); color: var(--ink);
+  font: 700 0.95rem var(--sans); cursor: pointer; box-shadow: 3px 3px 0 var(--ink); max-width: 240px; text-align: left; line-height: 1.2; }
+.lp-quick button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.lp-quick button:disabled { opacity: 0.6; }
+.lp-quick button:focus-visible { outline: 3px solid var(--riso-indigo); outline-offset: 3px; }
+.lp-quick-pic { width: 40px; height: 40px; flex: none; border-radius: 9px; overflow: hidden; background: var(--accent); border: 2px solid var(--ink); }
+.lp-quick-pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (min-width: 900px) { .lp-quick ul { flex-wrap: wrap; overflow: visible; margin: 0; padding: 2px 0 6px; } }
 .lp-field input:focus-visible, .lp-field button:focus-visible, .lp-seg button:focus-visible, .lp-top-cta:focus-visible { outline: 3px solid var(--riso-indigo); outline-offset: 3px; }
 
 /* the itch: an ink spread */
@@ -590,3 +604,33 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .got-list .remove { flex: 0 0 auto; width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--paper-2); color: var(--ink-2); font-size: 20px; line-height: 1; }
 .stop-from { display: block; margin-top: 4px; font-size: var(--small); color: var(--ink-2); }
 .stop-from a { color: inherit; }
+/* ---------- the owner's /admin dashboard ---------- */
+.adm { max-width: 1120px; margin: 0 auto; padding: 16px; min-height: 100dvh; background: var(--paper); }
+.adm-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 6px 0 14px; }
+.adm-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.adm-tabs button { border: 1.5px solid var(--tint); background: transparent; border-radius: 999px; padding: 6px 12px; font: 600 var(--small) var(--sans); min-height: 36px; }
+.adm-tabs button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.adm-card { background: #fff; border: 1px solid var(--tint); border-radius: 16px; padding: 16px; margin-top: 14px; }
+.adm-card h2 { margin: 0 0 10px; font-size: 1.1rem; }
+.adm-card h3 { margin: 14px 0 6px; font-size: var(--small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+.adm-grid { display: grid; gap: 0 14px; }
+@media (min-width: 900px) { .adm-grid { grid-template-columns: 1fr 1fr; } }
+.adm-frow { display: grid; grid-template-columns: minmax(130px, 1.2fr) 2fr 90px 40px; gap: 10px; align-items: center; padding: 5px 0; font-size: var(--small); }
+.adm-frow.small { grid-template-columns: minmax(120px, 1.2fr) 2fr 70px; }
+.adm-fbar, .adm-mini { height: 12px; border-radius: 6px; background: var(--paper-2); overflow: hidden; display: block; }
+.adm-fbar i, .adm-mini i { display: block; height: 100%; background: var(--accent); border-radius: 6px; }
+.adm-mini { width: 120px; }
+.adm-fn small, .adm-table small { color: var(--ink-2); }
+.adm-fdrop { color: var(--error); font-size: var(--small); text-align: right; }
+.adm-list { list-style: none; margin: 0; padding: 0; }
+.adm-list li { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--paper-2); font-size: var(--small); }
+.adm-scroll { overflow-x: auto; }
+.adm-table { width: 100%; border-collapse: collapse; font-size: var(--small); }
+.adm-table th { text-align: left; color: var(--ink-2); font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--tint); white-space: nowrap; }
+.adm-table td { padding: 6px 8px; border-bottom: 1px solid var(--paper-2); white-space: nowrap; }
+@media (max-width: 600px) { .adm-frow { grid-template-columns: 1fr 70px 34px; } .adm-frow .adm-fbar { display: none; } .adm-frow.small { grid-template-columns: 1fr 60px; } }
+
+/* The hero's grid column could grow to fit the "Or start one tonight" strip (544px on a 390px phone, the rest cut
+   off): let its children shrink so the strip scrolls inside the screen instead. */
+.lp-hero > * { min-width: 0; }
+

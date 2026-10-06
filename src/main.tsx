@@ -5,18 +5,23 @@ import { ConvexAuthProvider } from '@convex-dev/auth/react'
 import './index.css'
 import App from './App.tsx'
 import Stats from './screens/Stats'
+import Admin from './screens/Admin'
+import { initTrack } from './lib/track'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
 import { registerServiceWorker } from './lib/push'
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string)
+initTrack(convex)
 
 // Makes the app installable and lets nudges arrive with the app closed.
 registerServiceWorker()
 
-// /stats is the public numbers page; every other page load counts as a visit (once a day per phone).
-const onStats = window.location.pathname.replace(/\/+$/, '') === '/stats'
-if (!onStats) {
+// /stats is the public numbers page and /admin the owner's; every other page load counts as a visit (once a day per phone).
+const path = window.location.pathname.replace(/\/+$/, '')
+const onStats = path === '/stats'
+const onAdmin = path === '/admin'
+if (!onStats && !onAdmin) {
   const utm = new URLSearchParams(window.location.search).get('utm_source')
   const ref = document.referrer && !document.referrer.startsWith(window.location.origin) ? document.referrer : undefined
   convex.mutation(api.stats.recordVisit, { visitor: deviceToken(), source: utm ?? ref }).catch(() => {})
@@ -25,7 +30,7 @@ if (!onStats) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ConvexAuthProvider client={convex}>
-      {onStats ? <Stats /> : <App />}
+      {onAdmin ? <Admin /> : onStats ? <Stats /> : <App />}
     </ConvexAuthProvider>
   </StrictMode>,
 )

@@ -8,12 +8,14 @@
  * @module
  */
 
+import type * as admin from "../admin.js";
 import type * as ai from "../ai.js";
 import type * as audit from "../audit.js";
 import type * as auth from "../auth.js";
 import type * as bonus from "../bonus.js";
 import type * as crons from "../crons.js";
 import type * as evalModels from "../evalModels.js";
+import type * as events from "../events.js";
 import type * as handbooks from "../handbooks.js";
 import type * as http from "../http.js";
 import type * as images from "../images.js";
@@ -24,6 +26,7 @@ import type * as pricing from "../pricing.js";
 import type * as prompts from "../prompts.js";
 import type * as push from "../push.js";
 import type * as pushSend from "../pushSend.js";
+import type * as ready from "../ready.js";
 import type * as repair from "../repair.js";
 import type * as repairData from "../repairData.js";
 import type * as sources from "../sources.js";
@@ -40,12 +43,14 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  admin: typeof admin;
   ai: typeof ai;
   audit: typeof audit;
   auth: typeof auth;
   bonus: typeof bonus;
   crons: typeof crons;
   evalModels: typeof evalModels;
+  events: typeof events;
   handbooks: typeof handbooks;
   http: typeof http;
   images: typeof images;
@@ -56,6 +61,7 @@ declare const fullApi: ApiFromModules<{
   prompts: typeof prompts;
   push: typeof push;
   pushSend: typeof pushSend;
+  ready: typeof ready;
   repair: typeof repair;
   repairData: typeof repairData;
   sources: typeof sources;

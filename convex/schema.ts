@@ -203,6 +203,19 @@ export default defineSchema({
     .index("by_visitor_day", ["visitor", "day"])
     .index("by_day", ["day"]),
 
+  // What people do on the page, for the owner-only /admin funnel (6 Oct): landing seen, sections scrolled into view,
+  // box tapped and typed in, how a handbook was started, plan seen, chapter opened. A device token, never a name;
+  // typed topics stay in handbooks, never copied here.
+  events: defineTable({
+    visitor: v.string(),
+    name: v.string(),
+    props: v.optional(v.record(v.string(), v.union(v.string(), v.number()))),
+    day: v.string(),
+    at: v.number(),
+  })
+    .index("by_day", ["day"])
+    .index("by_visitor", ["visitor"]),
+
   // Phones and accounts their owner asked us not to count (Prateek's own). Anyone can only exclude themselves.
   statsExcluded: defineTable({
     deviceToken: v.optional(v.string()),

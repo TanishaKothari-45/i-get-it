@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import Rich, { inline } from '../components/Rich'
+import { track } from '../lib/track'
 
 // The landing page, for first-time visitors (DESIGN.md, Landing). A printed risograph poster that sells
 // before it asks: the promise, the itch, how tonight works, a real chapter to tap, the seven nights,
@@ -28,14 +29,37 @@ export default function Landing({ onCreate }: Props) {
   const [error, setError] = useState<string | null>(null)
   const heroInput = useRef<HTMLInputElement>(null)
 
+  // For the owner's /admin funnel: the page was seen, and how far down each visitor got.
+  useEffect(() => {
+    track('land', undefined, 'land')
+    // A section counts as reached once its top passes two thirds down the screen (sections that load later included).
+    const check = () => document.querySelectorAll('.lp > section').forEach((el) => {
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.66) return
+      const name = [...el.classList].find((c) => c.startsWith('lp-'))?.slice(3) ?? 'section'
+      track('section', { section: name }, 'section:' + name)
+    })
+    let t = 0
+    const onScroll = () => { if (!t) t = window.setTimeout(() => { t = 0; check() }, 250) }
+    check()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => { window.removeEventListener('scroll', onScroll); window.clearTimeout(t) }
+  }, [])
+
   const toBox = () => {
     window.scrollTo({ top: 0, behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
     setTimeout(() => heroInput.current?.focus({ preventScroll: true }), 400)
   }
-  const pick = (t: string) => { setTopic(t); setError(null); toBox() }
+  // A ready topic starts straight away: no typing, and it opens instantly (it's already written).
+  const pick = async (t: string, via: 'row' | 'shelf') => {
+    track('submit', { via, topic: t })
+    setTopic(t); setError(null); setBusy(true)
+    try { await onCreate(t, 'new', voice) }
+    catch { setError("Couldn't start it just now. Try once more in a minute."); setBusy(false); toBox() }
+  }
   const go = async () => {
     setError(null)
     if (topic.trim().length < 2) { setError('A few words is enough. What is it?'); toBox(); return }
+    track('submit', { via: 'box', len: topic.trim().length })
     setBusy(true)
     try { await onCreate(topic.trim(), level, voice) }
     catch (e: any) { setError(String(e?.message ?? e).includes('busy') ? 'Busy right now. Try again in a few minutes.' : "Couldn't start it just now. Your line is still here; try once more in a minute."); setBusy(false) }
@@ -45,7 +69,7 @@ export default function Landing({ onCreate }: Props) {
     <form className={`lp-form lp-form-${where}`} onSubmit={(e) => { e.preventDefault(); go() }}>
       <label htmlFor={`lp-topic-${where}`} className="lp-visually-hidden">What do you keep meaning to learn?</label>
       <div className="lp-field">
-        <input id={`lp-topic-${where}`} ref={where === 'hero' ? heroInput : undefined} value={topic} onChange={(e) => setTopic(e.target.value)}
+        <input id={`lp-topic-${where}`} ref={where === 'hero' ? heroInput : undefined} value={topic} onChange={(e) => { setTopic(e.target.value); track('box_type', undefined, 'box_type') }} onFocus={() => track('box_focus', undefined, 'box_focus')}
           placeholder="Public speaking, the stock market, n8n…" autoComplete="off" enterKeyHint="go" disabled={busy} maxLength={200} />
         <button type="submit" disabled={busy}>{busy ? 'Finding your way…' : 'Show me the way'}</button>
       </div>
@@ -65,6 +89,21 @@ export default function Landing({ onCreate }: Props) {
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
       <p className="lp-fine">Week 1 is free. No card, and no sign-up to start.</p>
+      {where === 'hero' && c && c.shelf.length > 0 && (
+        <div className="lp-quick">
+          <p>Or start one tonight. It opens instantly:</p>
+          <ul>
+            {c.shelf.slice(0, 9).map((s: { topic: string; cover: string | null }) => (
+              <li key={s.topic}>
+                <button type="button" onClick={() => pick(s.topic, 'row')} disabled={busy}>
+                  <span className="lp-quick-pic">{s.cover && <img src={s.cover} alt="" loading="lazy" />}</span>
+                  <span>{s.topic}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </form>
   )
 
@@ -137,7 +176,7 @@ export default function Landing({ onCreate }: Props) {
           <ul>
             {c.shelf.map((s: { topic: string; outcome: string; cover: string | null }) => (
               <li key={s.topic}>
-                <button type="button" onClick={() => pick(s.topic)}>
+                <button type="button" onClick={() => pick(s.topic, 'shelf')}>
                   <span className="lp-cover">{s.cover && <img src={s.cover} alt="" loading="lazy" />}</span>
                   <strong>{s.topic}</strong>
                   <span>{s.outcome}</span>
@@ -207,6 +246,7 @@ function Demo({ topic, title, frames, total, onTry }: { topic: string; title: st
   const step = (d: number) => { setTouched(true); setPicked(null); setI((x) => Math.max(0, Math.min(frames.length, x + d))) }
   const onTap = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest('button')) return
+    track('demo_tap', undefined, 'demo_tap')
     const r = e.currentTarget.getBoundingClientRect()
     step(e.clientX - r.left < r.width * 0.3 ? -1 : 1)
   }
