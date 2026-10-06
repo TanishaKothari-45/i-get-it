@@ -13,7 +13,7 @@ const UPDATED = '7 October 2026'
 // Prateek fills these. Shown on every page that needs them.
 const CONTACT = {
   name: 'Prateek Kurkanji',
-  email: '',      // TODO(Prateek): the support email readers and Razorpay see
+  email: 'prateekksubs@gmail.com',
   phone: '',      // TODO(Prateek)
   address: '',    // TODO(Prateek): operating address, city and PIN
 }
@@ -122,7 +122,7 @@ const BODY: Record<PolicyPage, ReactNode> = {
       <ul className="policy-list">
         <li><strong>Email:</strong> {CONTACT.email ? <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> : '(to be added)'}</li>
         {CONTACT.phone && <li><strong>Phone:</strong> {CONTACT.phone}</li>}
-        <li><strong>Address:</strong> {CONTACT.address || '(to be added)'}</li>
+        {CONTACT.address && <li><strong>Address:</strong> {CONTACT.address}</li>}
       </ul>
       <p>We reply within 2 working days.</p>
     </>
