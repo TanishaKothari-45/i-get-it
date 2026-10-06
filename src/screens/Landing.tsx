@@ -167,7 +167,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
         <ol>
           <li><img src="/images/landing/step1.jpg" alt="" loading="lazy" /><span className="lp-n">1</span><h3>Type it.</h3><p>Whatever you keep meaning to learn, in your own words. You get a seven-chapter plan for it in about 40 seconds.</p></li>
           <li><img src="/images/landing/step2.jpg" alt="" loading="lazy" /><span className="lp-n">2</span><h3>Tap through chapter 1.</h3><p>Full-screen frames, one idea each, with pictures. Stuck? Ask it, or have it said simpler.</p></li>
-          <li><img src="/images/landing/step3.jpg" alt="" loading="lazy" /><span className="lp-n">3</span><h3>Pass the checks.</h3><p>Three quick questions. Get them right and the first rung lights up. Tomorrow, chapter 2 starts by checking what stuck.</p></li>
+          <li><img src="/images/landing/step3.jpg" alt="" loading="lazy" /><span className="lp-n">3</span><h3>Light the first rung.</h3><p>Read to the end of chapter 1 and the first rung lights up. No quizzes tonight: chapter 2 opens with two quick questions on what stuck.</p></li>
         </ol>
       </section>
 
@@ -175,7 +175,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
         <section className="lp-demo">
           <div className="lp-demo-copy">
             <h2>Don't take our word for it.</h2>
-            <p className="lp-body">This is the real chapter 1 of {c.demo.topic}. Tap the right side to go on, the left to go back. Try the question.</p>
+            <p className="lp-body">This is the real chapter 1 of {c.demo.topic}. Tap the right side to go on, the left to go back.</p>
           </div>
           <Demo topic={c.demo.topic} title={c.demo.title ?? ''} frames={c.demo.frames as Frame[]} total={c.demo.total} onTry={toBox} />
         </section>

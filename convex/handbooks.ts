@@ -445,7 +445,8 @@ export const generateChapter = internalAction({
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");
-    const sane = Array.isArray(ch.cards) && ch.cards.length >= 5 && exercises.length >= 2 &&
+    // Chapter 1 is reading only (6 Oct): no quizzes required there; later chapters need at least 2.
+    const sane = Array.isArray(ch.cards) && ch.cards.length >= 5 && exercises.length >= (n === 1 ? 0 : 2) &&
       exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer));
     if (!sane) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: "chapter failed the shape check" }); return; }
     const title = String(ch.title ?? h.plan.chapters[n - 1]?.title ?? `Chapter ${n}`);
@@ -626,6 +627,16 @@ export const setPosition = mutation({
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     if (!p) return;
     if (p.chaptersPassed.includes(chapter) && p.currentChapter > chapter) { await ctx.db.patch(p._id, { lastOpenedAt: Date.now() }); return; }
+    // A chapter with no quizzes (chapter 1 since 6 Oct) is passed when the reader reaches its last card.
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
+    const cards = (ch?.cards ?? []) as any[];
+    const quizFree = cards.length > 0 && !cards.some((c) => c?.type === "exercise");
+    if (quizFree && cardIndex >= cards.length - 1 && !p.chaptersPassed.includes(chapter)) {
+      await ctx.db.patch(p._id, { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < CHAPTERS ? chapter + 1 : chapter, currentCard: 0, currentPart: 0, lastOpenedAt: Date.now(), updatedAt: Date.now() });
+      if (chapter < CHAPTERS) await ensureChapter(ctx, (await ctx.db.get(handbookId))!, chapter + 1);
+      if (chapter === 1) { await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); }
+      return;
+    }
     await ctx.db.patch(p._id, { currentChapter: chapter, currentCard: cardIndex, currentPart: Math.max(0, Math.min(20, Math.floor(part ?? 0))), lastOpenedAt: Date.now(), updatedAt: Date.now() });
   },
 });

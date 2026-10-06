@@ -222,3 +222,42 @@ export const dropCacheRow = internalMutation({
     return { removed: 1, topic: row.topic };
   },
 });
+
+// Chapter 1 becomes reading only (Prateek, 6 Oct: "stop quizzes in chapter 1"). Removes quiz cards (story polls stay)
+// from chapter 1 of ready topics, shared library entries and readers' copies they haven't started; each picture moves
+// with its card. Stops running A/B tests (they compared quiz orders). Run once: npx convex run repairData:stripChapter1Quizzes
+function strip(ch: any) {
+  if (!ch?.cards) return null;
+  const keep: number[] = [];
+  ch.cards.forEach((c: any, i: number) => { if (!(c?.type === "exercise" && c.kind !== "poll")) keep.push(i); });
+  if (keep.length === ch.cards.length) return null;
+  const map = new Map(keep.map((old, k) => [old, k]));
+  return { cards: keep.map((i) => ch.cards[i]), pictures: (ch.pictures ?? []).filter((p: any) => map.has(p.card)).map((p: any) => ({ ...p, card: map.get(p.card) })) };
+}
+export const stripChapter1Quizzes = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    let rows = 0, library = 0, copies = 0, tests = 0;
+    for (const c of await ctx.db.query("cache").collect()) {
+      const ch1 = c.chapters.find((x: any) => x.n === 1); const s = strip(ch1);
+      if (!s) continue;
+      await ctx.db.patch(c._id, { chapters: c.chapters.map((x: any) => (x.n === 1 ? { ...x, ...s } : x)), version: Date.now() }); rows++;
+    }
+    for (const l of await ctx.db.query("library").collect()) {
+      const s = strip(l.chapter1); if (!s) continue;
+      await ctx.db.patch(l._id, { chapter1: { ...l.chapter1, ...s } }); library++;
+    }
+    for (const ch of await ctx.db.query("chapters").collect()) {
+      if (ch.n !== 1) continue;
+      const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", ch.handbookId)).unique();
+      if (p && (p.currentCard > 0 || p.chaptersPassed.includes(1) || p.currentChapter > 1)) continue;   // they've started: leave it
+      const s = strip(ch); if (!s) continue;
+      await ctx.db.patch(ch._id, { cards: s.cards, pictures: s.pictures }); copies++;
+    }
+    for (const e of await ctx.db.query("experiments").collect()) {
+      if (e.status !== "running") continue;
+      await ctx.db.patch(e._id, { status: "stopped", endedAt: Date.now(), diagnosis: e.diagnosis + " (Stopped 6 Oct: chapter 1 became reading only.)" }); tests++;
+    }
+    return { rows, library, copies, tests };
+  },
+});

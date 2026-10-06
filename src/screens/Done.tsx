@@ -50,6 +50,7 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   const fast = s.minutes < 20
   const score = s.total ? `${s.right} of ${s.total} first try` : ''
   const mins = `${s.minutes} minute${s.minutes === 1 ? '' : 's'}`
+  if (!s.total) return fast ? `${mins}. We budgeted 20. Show-off.` : `You took your time with it. That's how it sticks.`   // a reading-only chapter (chapter 1 since 6 Oct)
   if (fast && perfect) return [`${mins}, ${score}. We budgeted 20. Show-off.`, `${score}, in ${mins}. Your brain called; it wants a raise.`, `Chapter ${n}, done before your chai went cold. ${score}, too.`][n % 3]
   if (perfect) return `${score}. Someone's been paying attention.`
   if (fast) return `${mins}, and you fixed every miss on the way. That's exactly how it sticks.`

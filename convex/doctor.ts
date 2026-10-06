@@ -54,7 +54,7 @@ export const diagnose = internalAction({
     if (!r.ok) return { ok: false, error: r.error };
     const cards = Array.isArray(r.json?.cards) ? r.json.cards : [];
     const exercises = cards.filter((c: any) => c?.type === "exercise");
-    if (cards.length < 6 || exercises.length < 2 || !exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer))) return { ok: false, error: "rewrite failed the shape check" };
+    if (cards.length < 6 || !exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer))) return { ok: false, error: "rewrite failed the shape check" };
     const checked = await factCheck(ctx, row.plan?.topic ?? topic, row.level, ch.title ?? "", cards);
     const id: Id<"experiments"> = await ctx.runMutation(internal.doctor.start, { topic, topicKey: row.topicKey, level: row.level, diagnosis: String(r.json.diagnosis ?? "").slice(0, 800), lesson: String(r.json.lesson ?? "").slice(0, 300), evidence, b: { title: ch.title, cards: checked.cards, outcomeLine: ch.outcomeLine } });
     await ctx.scheduler.runAfter(0, internal.images.forExperiment, { experimentId: id });
