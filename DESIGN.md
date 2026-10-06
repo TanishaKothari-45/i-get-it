@@ -174,7 +174,10 @@ Illustration (fallback, and the handbook cover): a flat SVG in the two accent co
 
 Numbers (/stats, public)
 For: building in public, and the reviewer's read-only analytics.
-Top to bottom: "The numbers, in public.", one line on what's counted (counts only, no names), a two-column grid of tiles (visitors today, visitors all time, started a handbook, passed chapter 1, signed up), a 14-day bar chart of visitors, where visitors came from, and a quiet "This is my phone: don't count it". Pay numbers ("Tapped Pay", "Free spots claimed") show only to the owner, signed in, so visitors can't learn payments aren't live. Copy (agent).
+Top to bottom: "The numbers, in public.", one line on what's counted (counts only, no names), a two-column grid of tiles (visitors today, visitors all time, started a handbook, passed chapter 1, signed up), a 14-day bar chart of visitors, where visitors came from, and a quiet "This is my phone: don't count it". The "Tapped Pay" number shows only to the owner, signed in. Copy (agent).
+
+### Terms, Privacy, Refunds, Contact (7 Oct)
+Four plain pages at /terms, /privacy, /refunds and /contact, linked in every footer (src/screens/Policy.tsx). Same shell as /stats: "Last updated", the title, then short sections in the serif. Every line states what the code does today (who sees which data, how payments work); change the page when the code changes. The refund rule (all of it back within 7 days, no questions) and every other line are (agent) until Prateek rewrites them. Not legal advice.
 
 Tonight (coming back, signed in or on the same phone)
 For: the daily 20 minutes from night 2.

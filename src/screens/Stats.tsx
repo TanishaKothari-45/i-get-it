@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import { deviceToken } from '../lib/device'
+import { PolicyLinks } from './Policy'
 
 // The public numbers page at /stats (counts only). Copy is (agent) until Prateek rewrites it.
 export default function Stats() {
@@ -60,7 +61,7 @@ export default function Stats() {
           </>
         )}
       </main>
-      <footer className="foot"><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
+      <footer className="foot"><p><PolicyLinks /></p><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
     </div>
   )
 }

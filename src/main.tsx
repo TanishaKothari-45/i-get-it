@@ -6,6 +6,7 @@ import './index.css'
 import App from './App.tsx'
 import Stats from './screens/Stats'
 import Admin from './screens/Admin'
+import Policy, { POLICY_PAGES, type PolicyPage } from './screens/Policy'
 import { initTrack, startSession } from './lib/track'
 import { registerServiceWorker, captureInstallPrompt } from './lib/push'
 import { api } from '../convex/_generated/api'
@@ -20,7 +21,9 @@ captureInstallPrompt()
 const path = window.location.pathname.replace(/\/+$/, '')
 const onStats = path === '/stats'
 const onAdmin = path === '/admin'
-if (!onStats && !onAdmin) {
+// /terms, /privacy, /refunds, /contact: plain pages, not counted as visits.
+const policy = POLICY_PAGES.find((p) => path === `/${p}`) as PolicyPage | undefined
+if (!onStats && !onAdmin && !policy) {
   startSession(path || '/')
   const utm = new URLSearchParams(window.location.search).get('utm_source')
   const ref = document.referrer && !document.referrer.startsWith(window.location.origin) ? document.referrer : undefined
@@ -30,7 +33,7 @@ if (!onStats && !onAdmin) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ConvexAuthProvider client={convex}>
-      {onAdmin ? <Admin /> : onStats ? <Stats /> : <App />}
+      {policy ? <Policy page={policy} /> : onAdmin ? <Admin /> : onStats ? <Stats /> : <App />}
     </ConvexAuthProvider>
   </StrictMode>,
 )

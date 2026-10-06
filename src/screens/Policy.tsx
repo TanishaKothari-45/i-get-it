@@ -1,0 +1,130 @@
+import type { ReactNode } from 'react'
+
+// Terms, Privacy, Refunds and Contact, each at its own address (/terms, /privacy, /refunds, /contact).
+// Razorpay checks these before live payments, and readers deserve them anyway. Every line describes what the
+// code does today; change the page when the code changes. Copy is (agent) until Prateek rewrites it, and it is
+// not legal advice: worth a lawyer's read before real volume.
+
+export const POLICY_PAGES = ['terms', 'privacy', 'refunds', 'contact'] as const
+export type PolicyPage = (typeof POLICY_PAGES)[number]
+
+const UPDATED = '7 October 2026'
+
+// Prateek fills these. Shown on every page that needs them.
+const CONTACT = {
+  name: 'Prateek Kurkanji',
+  email: '',      // TODO(Prateek): the support email readers and Razorpay see
+  phone: '',      // TODO(Prateek)
+  address: '',    // TODO(Prateek): operating address, city and PIN
+}
+
+const TITLES: Record<PolicyPage, string> = {
+  terms: 'Terms of use',
+  privacy: 'Privacy',
+  refunds: 'Refunds, cancellation and delivery',
+  contact: 'Contact',
+}
+
+export function PolicyLinks() {
+  return (
+    <span className="policy-links">
+      {POLICY_PAGES.map((p) => <a key={p} href={`/${p}`}>{p === 'refunds' ? 'Refunds' : TITLES[p].replace(' of use', '')}</a>)}
+    </span>
+  )
+}
+
+const Email = () => CONTACT.email ? <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> : <span>the email on the Contact page</span>
+
+export default function Policy({ page }: { page: PolicyPage }) {
+  document.title = `${TITLES[page]} · I Get It`
+  return (
+    <div className="shell">
+      <header className="top">
+        <a className="wordmark" href="/" style={{ color: 'inherit', textDecoration: 'none' }}>I Get It<small>Seven chapters. Twenty minutes a night.</small></a>
+      </header>
+      <main className="policy">
+        <p className="sub" style={{ marginTop: 10 }}>Last updated {UPDATED}</p>
+        <h1>{TITLES[page]}</h1>
+        {BODY[page]}
+      </main>
+      <footer className="foot"><p><PolicyLinks /></p><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
+    </div>
+  )
+}
+
+const BODY: Record<PolicyPage, ReactNode> = {
+  terms: (
+    <>
+      <p className="lede">I Get It is run by {CONTACT.name}, an individual in India. Using it means you agree to these terms. They're short on purpose.</p>
+      <h2>What I Get It is</h2>
+      <p>You type something you want to learn. An AI model (Claude, made by Anthropic) writes a seven-chapter handbook for you, one chapter at a time, and a second model checks each chapter for mistakes before you see it.</p>
+      <p>It's a study aid. The checks catch a lot, not everything. On money, health and legal topics, treat it as a starting point and check before you act. Nothing here is professional advice.</p>
+      <h2>Your account</h2>
+      <p>You can read without signing in; your progress is kept on your phone. Sign in to keep it across devices and to pay. Keep your password to yourself; you're responsible for what happens under your account.</p>
+      <h2>Fair use</h2>
+      <p>Don't use I Get It to learn to hurt, threaten, deceive or stalk people, break into accounts or devices, or make weapons or drugs. It will decline those topics or offer a better version. Don't try to overload or break the service, or scrape it.</p>
+      <h2>What you get, and what it costs</h2>
+      <p>Week 1 is free, with no card asked. After that it's ₹499 for your first month, and the price falls a little every month you pay, down to ₹250 a month from month 13. The full ladder is on the Pricing screen.</p>
+      <p>Each payment covers 30 days. Nothing renews by itself: you're only charged when you tap Pay and approve it in Razorpay's payment sheet. Prices include any taxes that apply.</p>
+      <p>While I Get It is this new, everything in it is open to everyone. Paying keeps it running and holds your place on the falling price. When parts become paid-only, this page will say so first.</p>
+      <h2>Handbooks you make</h2>
+      <p>The handbooks are written by the model for you. We may share a handbook in the public library so others can read it too. It's shared only after an automatic check that it holds nothing personal, and it never carries your name or email. If you want one taken down, write to <Email />.</p>
+      <h2>Changes and limits</h2>
+      <p>We may change or stop features; if a change affects what you paid for, you can ask for a refund for the unused part. The service is offered as it is; to the extent the law allows, our total responsibility to you is what you paid in the last 30 days. Indian law applies.</p>
+      <p>See also <a href="/privacy">Privacy</a> and <a href="/refunds">Refunds</a>. Questions: <Email />.</p>
+    </>
+  ),
+  privacy: (
+    <>
+      <p className="lede">What we keep, why, who else sees it, and how to have it deleted. No ads, no data sold, no outside analytics.</p>
+      <h2>What we keep</h2>
+      <ul className="policy-list">
+        <li><strong>What you type:</strong> your topic (up to 200 characters), level, reading voice, the one-line profile you set, questions you ask on a card, and what you write in "teach it back".</li>
+        <li><strong>How you read:</strong> your answers, progress, chapter ratings, and simple events (which screen and card you reached, phone or computer, screen width, the link you came from).</li>
+        <li><strong>A device code:</strong> a random code stored on your phone so your progress works before you sign in. No cookies from anyone else.</li>
+        <li><strong>If you sign in:</strong> your email and a scrambled form of your password (we never see the password itself).</li>
+        <li><strong>If you turn on reminders:</strong> the push address your browser gives us and the time you chose.</li>
+        <li><strong>If you pay:</strong> the amount, the date and Razorpay's order and payment numbers. Your card, UPI or bank details go to Razorpay only; we never see them.</li>
+      </ul>
+      <h2>Who else sees it</h2>
+      <ul className="policy-list">
+        <li><strong>Convex</strong> (United States) stores everything above and hosts the site.</li>
+        <li><strong>Anthropic</strong> (United States) receives your topic, level, profile line and questions so Claude can write and check your chapters. Anthropic doesn't train its models on this data. Some questions are answered with a web search run through Anthropic; the search sees the question, not who asked it.</li>
+        <li><strong>Razorpay</strong> (India) handles payments and sees what you enter in its payment sheet.</li>
+        <li><strong>Runway</strong> may draw a chapter's pictures from the chapter's own text. Photos come from Wikimedia Commons. Neither gets anything about you.</li>
+        <li><strong>Google Fonts</strong> serves the typefaces, so your browser contacts Google when the page loads.</li>
+        <li><strong>Your browser's push service</strong> (Google, Apple or Mozilla) delivers reminders, if you turned them on.</li>
+      </ul>
+      <p>Handbooks can be shared in the public library after an automatic check that they hold nothing personal. Shared copies never carry your name or email.</p>
+      <h2>How long, and your choices</h2>
+      <p>We keep your data while you use I Get It. Ask for a copy, a correction or deletion at <Email />, and we'll do it within 30 days. Deleting removes your handbooks, progress and sign-in. We keep payment records as long as Indian tax law requires.</p>
+      <p>If you're under 18, use I Get It with a parent's or guardian's permission.</p>
+      <p>Questions or complaints about your data go to {CONTACT.name} at <Email />.</p>
+    </>
+  ),
+  refunds: (
+    <>
+      <p className="lede">If it isn't worth it, you get your money back. Week 1 is free, so you can see what you're paying for first.</p>
+      <h2>Refunds</h2>
+      <p>Ask within 7 days of a payment and you get all of it back, no questions. After 7 days, we refund the unused part of the month if something on our side stopped you using it.</p>
+      <p>To ask, write to <Email /> from the email you signed in with, or with the Razorpay payment number from your receipt. We reply within 2 working days. Razorpay sends the money back to the same card, UPI or bank account, usually within 5 to 7 working days.</p>
+      <h2>Cancelling</h2>
+      <p>There's nothing to cancel: nothing renews by itself. If you don't pay for a new month, you aren't charged. Your handbooks and progress stay yours either way.</p>
+      <h2>Delivery</h2>
+      <p>I Get It is a digital service. Nothing is shipped. Your paid month starts the moment Razorpay confirms the payment, and the Pricing screen shows the date it runs until.</p>
+      <h2>If a payment goes wrong</h2>
+      <p>If you were charged but the app doesn't show it, wait 10 minutes: Razorpay sometimes confirms late. Still missing? Write to <Email /> with the payment number and we'll fix it or refund it.</p>
+    </>
+  ),
+  contact: (
+    <>
+      <p className="lede">I Get It is made by one person, {CONTACT.name}. Write in about anything: a payment, a refund, your data, or a chapter that got something wrong.</p>
+      <ul className="policy-list">
+        <li><strong>Email:</strong> {CONTACT.email ? <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> : '(to be added)'}</li>
+        {CONTACT.phone && <li><strong>Phone:</strong> {CONTACT.phone}</li>}
+        <li><strong>Address:</strong> {CONTACT.address || '(to be added)'}</li>
+      </ul>
+      <p>We reply within 2 working days.</p>
+    </>
+  ),
+}

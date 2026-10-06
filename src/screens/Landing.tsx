@@ -3,6 +3,7 @@ import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import Rich, { inline } from '../components/Rich'
 import { track } from '../lib/track'
+import { PolicyLinks } from './Policy'
 
 // The landing page, for first-time visitors (DESIGN.md, Landing). A printed risograph poster that sells
 // before it asks: the promise, the itch, how tonight works, a real chapter to tap, the seven nights,
@@ -239,6 +240,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
 
       <footer className="lp-foot">
         <p>I Get It is built in public for the GrowthX Build Sprint, October 2026. <a href="/stats">See the live numbers</a>. <a href="https://github.com/prateekk26/igetit" target="_blank" rel="noopener noreferrer">Read the code</a>.</p>
+        <p><PolicyLinks /></p>
       </footer>
     </div>
   )

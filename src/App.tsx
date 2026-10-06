@@ -12,6 +12,7 @@ import SignIn from './screens/SignIn'
 import Tune from './screens/Tune'
 import Compare from './screens/Compare'
 import Library from './screens/Library'
+import { PolicyLinks } from './screens/Policy'
 import Pricing from './screens/Pricing'
 import Landing from './screens/Landing'
 import Explore from './screens/Explore'
@@ -340,7 +341,7 @@ function Shell({ children, onSignOut, rail, back }: { children: React.ReactNode;
       </header>
       {rail && <aside className="rail">{rail}</aside>}
       <main>{children}</main>
-      <footer className="foot"><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
+      <footer className="foot"><p><PolicyLinks /></p><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
     </div>
   )
 }
