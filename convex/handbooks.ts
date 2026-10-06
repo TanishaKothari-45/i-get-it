@@ -1,4 +1,4 @@
-import { v } from "convex/values";
+import { ConvexError, v } from "convex/values";
 import { RateLimiter, HOUR } from "@convex-dev/rate-limiter";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
@@ -8,6 +8,7 @@ import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_S
 import { level } from "./schema";
 import { matchForIntent } from "./library";
 import { assignVariant } from "./doctor";
+import { COST_INR, LIMITS, isOpen, memberUntil, ownerIsMember, spendFits, tryOpen, typedAllowance } from "./membership";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
 
@@ -20,7 +21,10 @@ const limiter = new RateLimiter(components.rateLimiter, {
   generateDevice: { kind: "token bucket", rate: 6, period: HOUR, capacity: 3 },
   simplerDevice: { kind: "token bucket", rate: 30, period: HOUR, capacity: 10 },
   askDevice: { kind: "token bucket", rate: 40, period: HOUR, capacity: 8 },
-  searchDaily: { kind: "fixed window", rate: 3, period: 24 * HOUR },   // web-searched answers per person per day (~₹9.5 each)
+  // Free vs member (membership.ts LIMITS, 7 Oct): web-checked answers (~₹9.4 each) and simpler rewrites.
+  searchFreeWeek: { kind: "fixed window", rate: LIMITS.freeSearchPerWeek, period: 7 * 24 * HOUR },
+  searchMemberMonth: { kind: "fixed window", rate: LIMITS.memberSearchPerMonth, period: 30 * 24 * HOUR },
+  simplerFreeDay: { kind: "fixed window", rate: LIMITS.freeSimplerPerDay, period: 24 * HOUR },
   compareAll: { kind: "fixed window", rate: 10, period: HOUR },   // three expensive-model calls each: hard cap across the app
   // App-wide backstops for the cheaper paid calls: a made-up device token gets a fresh per-device bucket, never a fresh app bucket.
   askAll: { kind: "fixed window", rate: 200, period: HOUR },      // ~₹0.5 each
@@ -130,7 +134,9 @@ function publicCards(cards: any[] | undefined) {
   });
 }
 
-async function publicChapter(ctx: QueryCtx, ch: Doc<"chapters">) {
+async function publicChapter(ctx: QueryCtx, ch: Doc<"chapters">, open = true) {
+  // A chapter not opened yet (daily reading limits, membership.ts) goes out without its cards: "locked" until openChapter.
+  if (ch.status === "ready" && !open) return { n: ch.n, status: ch.status, title: ch.title, outcomeLine: ch.outcomeLine, cards: undefined, error: ch.error, svg: (ch as any).svg, stale: ch.stale ?? false, variants: undefined, vote: ch.vote, pictures: {}, credits: {}, picturesPending: false, locked: true };
   const variants = ch.variants?.map((vnt: any) => ({ key: vnt.key, status: vnt.status, title: vnt.title, outcomeLine: vnt.outcomeLine, svg: vnt.svg, cards: publicCards(vnt.cards) }));
   const pictures: Record<number, string> = {};
   const credits: Record<number, { credit: string; source?: string }> = {};
@@ -160,7 +166,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   return {
     _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, intents: h.intents ?? null, plan: h.plan, source: h.source, error: h.error, caution: cautionOf(h), pushback: h.pushback ?? (h.plan as any)?.pushback ?? null, suggestions: h.suggestions ?? [],
     signedIn: !!h.userId,
-    chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch))),
+    chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch, isOpen(progress, ch.n)))),
     progress: progress ? {
       currentChapter: progress.currentChapter, currentCard: progress.currentCard, currentPart: progress.currentPart ?? 0, chaptersPassed: progress.chaptersPassed,
       passedExercises: progress.passedExercises, missedExercises: progress.missedExercises, tomorrowAt: progress.tomorrowAt,
@@ -288,6 +294,11 @@ export const create = mutation({
       await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
       return { handbookId, fromCache: true, existing: false };
     }
+
+    // A typed topic: free readers get one, members six a month (membership.ts). Ready and shared ones above are free.
+    const allow = await typedAllowance(ctx, userId, deviceToken);
+    if (!allow.ok) throw new ConvexError(allow.why ?? "free-used");
+    if (!allow.member && !(await spendFits(ctx, COST_INR.handbook))) throw new ConvexError("busy");
 
     // Live generation: the caps are checked here, in the kitchen.
     const all = await limiter.limit(ctx, "generateAll");
@@ -627,6 +638,7 @@ export const setPosition = mutation({
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     if (!p) return;
     if (p.chaptersPassed.includes(chapter) && p.currentChapter > chapter) { await ctx.db.patch(p._id, { lastOpenedAt: Date.now() }); return; }
+    if (!isOpen(p, chapter)) return;   // a chapter is opened with openChapter (daily limits), never by moving the bookmark
     // A chapter with no quizzes (chapter 1 since 6 Oct) is passed when the reader reaches its last card.
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
     const cards = (ch?.cards ?? []) as any[];
@@ -638,6 +650,23 @@ export const setPosition = mutation({
       return;
     }
     await ctx.db.patch(p._id, { currentChapter: chapter, currentCard: cardIndex, currentPart: Math.max(0, Math.min(20, Math.floor(part ?? 0))), lastOpenedAt: Date.now(), updatedAt: Date.now() });
+  },
+});
+
+// Opening a chapter for the first time uses today's reading allowance (membership.ts). Going back never does.
+export const openChapter = mutation({
+  args: { handbookId: v.id("handbooks"), n: v.number(), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, n, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    if (!Number.isInteger(n) || n < 1 || n > CHAPTERS) throw new Error("No such chapter");
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+    if (ch?.status !== "ready") throw new ConvexError("not-ready");   // nothing to open yet; no allowance used
+    const r = await tryOpen(ctx, h, n);
+    if (!r.ok) throw new ConvexError(r.code);
+    // A post link can open a ready topic at chapter 2 (?t=…&ch=2): the bookmark moves there, so the recall cards show.
+    const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    if (p && p.currentChapter < n && !p.chaptersPassed.includes(n)) await ctx.db.patch(p._id, { currentChapter: n, currentCard: 0, currentPart: 0, updatedAt: Date.now() });
+    return { ok: true };
   },
 });
 
@@ -657,6 +686,7 @@ export const recordAnswer = mutation({
     const key = `${chapter}:${cardIndex}`;
     await ctx.db.insert("answers", { handbookId, chapter, cardIndex, optionId, correct, attempt, recall: !!recall, at: Date.now() });
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    if (!recall && !isOpen(p, chapter)) throw new Error("Chapter not open");
     if (p && !recall) {
       const passed = new Set(p.passedExercises); const missed = new Set(p.missedExercises);
       if (correct && attempt === 1) passed.add(key);
@@ -793,6 +823,8 @@ export const requestSimpler = mutation({
     const card = ch?.cards?.[cardIndex];
     if (!ch || !card || card.type === "exercise") throw new Error("Not a teaching card");
     if (card.simpler) return { ready: true as const };
+    // Free readers: 10 rewrites a day; members: no daily limit (the hourly caps below still apply).
+    if (!(await ownerIsMember(ctx, h)) && !(await limiter.limit(ctx, "simplerFreeDay", { key: ownerKey(h) })).ok) throw new ConvexError("simpler-free");
     const mine = await limiter.limit(ctx, "simplerDevice", { key: ownerKey(h) });
     if (!mine.ok || !(await limiter.limit(ctx, "simplerAll")).ok) throw new Error("busy");
     await ctx.scheduler.runAfter(0, internal.handbooks.writeSimpler, { handbookId, chapter, cardIndex });
@@ -1156,7 +1188,14 @@ export const answerQuestionAboutCard = internalAction({
 
 export const takeSearchToken = internalMutation({
   args: { key: v.string() },
-  handler: async (ctx, { key }) => (await limiter.limit(ctx, "searchDaily", { key })).ok && (await limiter.limit(ctx, "searchAll")).ok,
+  // key is the handbook owner: an account id, else a phone token. Members: 30 a month; free: 3 a week, within the daily reader budget.
+  handler: async (ctx, { key }) => {
+    const userId = ctx.db.normalizeId("users", key);
+    const member = !!(await memberUntil(ctx, userId));
+    if (member) return (await limiter.limit(ctx, "searchMemberMonth", { key })).ok && (await limiter.limit(ctx, "searchAll")).ok;
+    if (!(await limiter.limit(ctx, "searchFreeWeek", { key })).ok || !(await limiter.limit(ctx, "searchAll")).ok) return false;
+    return await spendFits(ctx, COST_INR.search);
+  },
 });
 
 export const readQuestion = internalQuery({
@@ -1196,5 +1235,30 @@ export const checkCardsDry = internalAction({
     const started = Date.now();
     const r = await factCheck(ctx, topic, level, title, cards, { model, effort });
     return { report: r.report, ms: Date.now() - started, cards: r.cards };
+  },
+});
+
+// ---------- printable handbook (members, 7 Oct) ----------
+
+// The whole handbook as one page to print or save as PDF. Members only, own handbooks only. Quiz answers are
+// included only for chapters the reader has passed, so printing can't be used to pass a chapter.
+export const printable = query({
+  args: { handbookId: v.id("handbooks"), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, deviceToken }) => {
+    const userId = await getAuthUserId(ctx);
+    if (!(await memberUntil(ctx, userId))) return { member: false as const };
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    const passed = new Set(p?.chaptersPassed ?? []);
+    const chapters = (await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId)).collect())
+      .filter((c) => c.status === "ready" && c.cards && isOpen(p, c.n)).sort((a, b) => a.n - b.n)
+      .map((c) => ({
+        n: c.n, title: c.title ?? `Chapter ${c.n}`, outcomeLine: c.outcomeLine ?? "",
+        cards: (c.cards as any[]).map((card) => card.type !== "exercise" ? card : {
+          type: "exercise", prompt: card.prompt, options: card.options,
+          answer: passed.has(c.n) ? (card.options.find((o: any) => o.id === card.answer)?.text ?? null) : null,
+        }),
+      }));
+    return { member: true as const, topic: (h.plan as any)?.topic ?? h.topic, chapters, total: CHAPTERS };
   },
 });

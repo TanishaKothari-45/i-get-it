@@ -682,3 +682,27 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .lp-tiers li.full { opacity: 0.55; }
 .lp-tiers li.full b { text-decoration: line-through; }
 
+
+/* Member mark next to the wordmark (7 Oct) */
+.member-mark { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--accent); color: var(--ink); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; vertical-align: 2px; }
+
+/* Printable handbook (7 Oct) */
+.print-chapter { margin-top: var(--l); }
+.print-chapter h3 { font-family: var(--sans); font-size: var(--ui); margin: var(--m) 0 4px; }
+.print-quiz { border-left: 3px solid var(--accent); padding-left: 12px; margin: var(--m) 0; }
+@media print {
+  .no-print, .rail { display: none !important; }
+  body, .print-page { background: #fff !important; color: #000 !important; }
+  .print-chapter { break-before: page; }
+  .print-chapter:first-of-type { break-before: auto; }
+}
+
+/* Free vs member on Pricing (7 Oct) */
+.compare { width: 100%; border-collapse: collapse; margin: var(--m) 0 6px; font-size: var(--small); }
+.compare th, .compare td { text-align: left; vertical-align: top; padding: 9px 6px; border-bottom: 1px solid var(--line, rgba(0,0,0,0.08)); }
+.compare thead th { font-family: var(--sans); font-weight: 700; color: var(--ink-2); }
+.compare thead th:last-child, .compare td:last-child { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.compare tbody th { font-family: var(--sans); font-weight: 600; width: 34%; }
+.unlocks { list-style: none; padding: 0; margin: var(--m) 0; display: grid; gap: 10px; font-family: var(--serif); font-size: 1.04rem; line-height: 1.45; }
+.unlocks strong { font-family: var(--sans); }
+.unlock-on { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 8px; border-radius: 50%; background: var(--pass, #1f7a4d); color: #fff; font-size: 0.8rem; font-weight: 700; }

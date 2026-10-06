@@ -4,6 +4,7 @@ import { api } from '../../convex/_generated/api'
 import Rich, { inline } from '../components/Rich'
 import { track } from '../lib/track'
 import { PolicyLinks } from './Policy'
+import { limitMessage } from '../lib/limits'
 
 // The landing page, for first-time visitors (DESIGN.md, Landing). A printed risograph poster that sells
 // before it asks: the promise, the itch, how tonight works, a real chapter to tap, the seven nights,
@@ -105,7 +106,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
     track('submit', { via: 'box', len: topic.trim().length })
     setBusy(true)
     try { await onCreate(topic.trim(), level, voice) }
-    catch (e: any) { setError(String(e?.message ?? e).includes('busy') ? 'Busy right now. Try again in a few minutes.' : "Couldn't start it just now. Your line is still here; try once more in a minute."); setBusy(false) }
+    catch (e: any) { setError(limitMessage(e) ?? (String(e?.message ?? e).includes('busy') ? 'Busy right now. Try again in a few minutes.' : "Couldn't start it just now. Your line is still here; try once more in a minute.")); setBusy(false) }
   }
 
   const form = (where: 'hero' | 'final') => (
@@ -131,7 +132,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
         </details>
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
-      <p className="lp-fine">Week 1 is free. No card, and no sign-up to start. Topics you start can appear in Explore, never with your name.</p>
+      <p className="lp-fine">Your first handbook is free. No card, and no sign-up to start. Topics you start can appear in Explore, never with your name.</p>
       {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
     </form>
   )
@@ -224,7 +225,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
           <section className="lp-offer">
             <div>
               <h2>Come early, pay less.</h2>
-              <p className="lp-body">Week 1 is free. After that, the earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
+              <p className="lp-body">Free: one handbook of your own, a chapter a night, plus a daily taste of the ready ones. Members keep 3 topics on the go, read up to 7 chapters a day and can save any handbook as a PDF. The earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
               <p className="lp-once">One-time payment · No auto-renew</p>
             </div>
             <ol className="lp-tiers">

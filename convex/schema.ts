@@ -74,6 +74,7 @@ export default defineSchema({
     missedExercises: v.array(v.string()),   // "chapter:cardIndex" that needed a second go or were shown the answer
     tomorrowAt: v.optional(v.string()),     // "21:00"
     feedback: v.optional(v.record(v.string(), v.string())),   // chapter number -> "too_easy" | "just_right" | "lost_me" (optional, Done screen)
+    opened: v.optional(v.array(v.object({ n: v.number(), day: v.string() }))),   // chapters opened and the IST day, for the daily reading limits (membership.ts, 7 Oct)
     lastOpenedAt: v.number(),
     updatedAt: v.number(),
   }).index("by_handbook", ["handbookId"]),

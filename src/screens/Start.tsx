@@ -4,6 +4,7 @@ import { track } from '../lib/track'
 import Rich from '../components/Rich'
 import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
+import { isMemberLimit, limitMessage } from '../lib/limits'
 
 type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
@@ -24,10 +25,11 @@ type Props = {
   onAddOther?: (topic: string) => Promise<void>
   pushback?: string
   suggestions?: string[]
+  onPricing?: () => void
 }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, intents, onChooseIntent, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [] }: Props) {
+export default function Start({ initialTopic = '', status, question, intents, onChooseIntent, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [], onPricing }: Props) {
   const declined = status === 'declined'
   const [topic, setTopic] = useState(status === 'declined' ? '' : initialTopic)
   // A declined line never stays in the box: the reader starts fresh.
@@ -38,6 +40,7 @@ export default function Start({ initialTopic = '', status, question, intents, on
   const [answer, setAnswer] = useState('')
   const [slow, setSlow] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
+  const [memberLimit, setMemberLimit] = useState(false)
   const writing = status === 'writing'
   const levelRef = useRef<HTMLDivElement>(null)
   const [storySeed, setStorySeed] = useState(() => Math.floor(Math.random() * 1000))
@@ -56,7 +59,8 @@ export default function Start({ initialTopic = '', status, question, intents, on
   const submit = async () => {
     setLocalError(null)
     if (topic.trim().length < 2) { setLocalError('A few words is enough. What is it?'); backToBox(); return }
-    try { await onCreate(topic.trim(), level, voice) } catch (e: any) { setLocalError(friendly(e)) }
+    setMemberLimit(false)
+    try { await onCreate(topic.trim(), level, voice) } catch (e: any) { setLocalError(friendly(e)); setMemberLimit(isMemberLimit(e)) }
   }
 
   // While the plan is written: the topic and what's happening, not the form again (Shaktimaan, 6 Oct).
@@ -180,6 +184,7 @@ export default function Start({ initialTopic = '', status, question, intents, on
       {(localError || (status === 'failed' && !declined && topic.trim() === initialTopic.trim())) && (
         <p className="error">{localError ?? "Couldn't write it just now. Your line is still here; try once more in a minute, or pick one of tonight's ready handbooks."}</p>
       )}
+      {memberLimit && onPricing && <button type="button" className="btn btn-ghost" style={{ marginTop: 8 }} onClick={onPricing}>See what members get</button>}
 
       {below && !writing && below(pick)}
 
@@ -195,6 +200,8 @@ export default function Start({ initialTopic = '', status, question, intents, on
 }
 
 function friendly(e: any): string {
+  const limit = limitMessage(e)
+  if (limit) return limit
   const m = String(e?.message ?? e)
   if (m.includes('busy')) return "Busy right now. Try again in a few minutes."
   if (m.includes('few words')) return 'A few words is enough. What is it?'

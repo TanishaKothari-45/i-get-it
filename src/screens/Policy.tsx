@@ -64,9 +64,10 @@ const BODY: Record<PolicyPage, ReactNode> = {
       <h2>Fair use</h2>
       <p>Don't use I Get It to learn to hurt, threaten, deceive or stalk people, break into accounts or devices, or make weapons or drugs. It will decline those topics or offer a better version. Don't try to overload or break the service, or scrape it.</p>
       <h2>What you get, and what it costs</h2>
-      <p>Week 1 is free, with no card asked. After that the price depends on when you first pay: the first 50 paying readers pay ₹199 a month or ₹1,999 a year, the next 100 pay ₹299 or ₹2,999, the next 200 pay ₹399 or ₹3,999, and everyone after that pays ₹499 or ₹4,999. You keep the price you first paid as long as you pay again within 7 days of your time running out. The Pricing screen shows the tiers and how many spots are left.</p>
+      <p>Free: one handbook you type, opening 1 new chapter of it a day; 1 new chapter a day from each of up to 3 ready or shared handbooks; 3 web-checked answers a week; 10 "Say it simpler" rewrites a day. Members: 3 typed handbooks on the go at a time (up to 6 new a month), up to 7 new chapters a day across everything, ready and shared handbooks without limit, 30 web-checked answers a month, unlimited "Say it simpler", printing or saving any of their handbooks as a PDF, and first access to new parts (a learning dashboard with streaks, Indian languages, days 8 to 28) when they launch. Chapters you've already opened stay open. When free readers' use costs too much in one day, new typed topics and web-checked answers pause for free readers until the next day; members are not paused.</p>
+      <p>The member price depends on when you first pay: the first 50 paying readers pay ₹199 a month or ₹1,999 a year, the next 100 pay ₹299 or ₹2,999, the next 200 pay ₹399 or ₹3,999, and everyone after that pays ₹499 or ₹4,999. You keep the price you first paid as long as you pay again within 7 days of your time running out. The Pricing screen shows the tiers and how many spots are left.</p>
       <p>Each payment is one-time: a month covers 30 days and a year covers 365 days. Nothing renews by itself: you're only charged when you tap Pay and approve it in Razorpay's payment sheet. Prices include any taxes that apply.</p>
-      <p>While I Get It is this new, everything in it is open to everyone. Paying keeps it running and holds your early price. When parts become paid-only, this page will say so first.</p>
+      <p>If we change what members get, this page will say so first, and anything you already paid for stays as it was until your time runs out.</p>
       <h2>Handbooks you make</h2>
       <p>The handbooks are written by the model for you. We may share a handbook in the public library so others can read it too. It's shared only after an automatic check that it holds nothing personal, and it never carries your name or email. If you want one taken down, write to <Email />.</p>
       <h2>Changes and limits</h2>
@@ -104,9 +105,9 @@ const BODY: Record<PolicyPage, ReactNode> = {
   ),
   refunds: (
     <>
-      <p className="lede">Week 1 is free, so you can see exactly what you're paying for before you pay.</p>
+      <p className="lede">Your first handbook is free, all seven chapters, so you can see exactly what you're paying for before you pay.</p>
       <h2>Refunds</h2>
-      <p>Payments are final: we don't give refunds, for a month or a year. That's why week 1 is free and nothing renews by itself, so you only ever pay for time you chose.</p>
+      <p>Payments are final: we don't give refunds, for a month or a year. That's why your first handbook is free and nothing renews by itself, so you only ever pay for time you chose.</p>
       <p>The one exception is a payment that went wrong; see below.</p>
       <h2>Cancelling</h2>
       <p>There's nothing to cancel: nothing renews by itself. If you don't pay again, you aren't charged. Your handbooks and progress stay yours either way.</p>

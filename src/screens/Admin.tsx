@@ -253,6 +253,7 @@ function TrendingCard() {
 // Razorpay (6 Oct): money in, by test and live. Amounts and times only.
 function PaymentsCard() {
   const d = useQuery(api.payments.adminList, {})
+  const budget = useQuery(api.membership.budgetToday, {})
   if (!d) return null
   const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
   const when = (t: number) => new Date(t).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
@@ -260,6 +261,7 @@ function PaymentsCard() {
     <section className="adm-card adm-wide">
       <h2>Payments (Razorpay)</h2>
       <p className="note">{d.live ? (d.mode === 'live' ? 'Live: real money.' : 'Test mode: no real money moves.') : 'Off: no Razorpay keys set, so Pay still only records the tap.'}</p>
+      {budget && <p className="note">Free readers' spend today: about ₹{budget.spent} of ₹{budget.budget}. Past that, new typed topics and web-checked answers pause for free readers until midnight IST; members aren't paused.</p>}
       <ul className="adm-list">
         <li><span>Paid, live</span><b>{d.paidLive} · {inr(d.rupeesLive)}</b></li>
         <li><span>Paid, test</span><b>{d.paidTest} · {inr(d.rupeesTest)}</b></li>

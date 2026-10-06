@@ -21,6 +21,7 @@ import type * as http from "../http.js";
 import type * as images from "../images.js";
 import type * as landing from "../landing.js";
 import type * as library from "../library.js";
+import type * as membership from "../membership.js";
 import type * as payments from "../payments.js";
 import type * as polish from "../polish.js";
 import type * as pricing from "../pricing.js";
@@ -54,6 +55,7 @@ declare const fullApi: ApiFromModules<{
   images: typeof images;
   landing: typeof landing;
   library: typeof library;
+  membership: typeof membership;
   payments: typeof payments;
   polish: typeof polish;
   pricing: typeof pricing;

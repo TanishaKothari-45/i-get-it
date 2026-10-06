@@ -91,9 +91,9 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
 
       {last && (
         <div className="nudge" style={{ marginTop: 'var(--l)' }}>
-          <p className="nudge-lead">That was week 1, free.</p>
-          <p className="serif">Here's exactly how it works from here, before anyone asks you for anything.</p>
-          <button type="button" className="btn btn-ghost nudge-btn" onClick={onPricing}>See how pricing works</button>
+          <p className="nudge-lead">That was week 1.</p>
+          <p className="serif">Want more? Members keep 3 topics of their own on the go, read up to 7 chapters a day, get 30 web-checked answers a month, and can save any handbook as a PDF.</p>
+          <button type="button" className="btn btn-ghost nudge-btn" onClick={onPricing}>See what members get</button>
         </div>
       )}
       {!signedIn && !last && (

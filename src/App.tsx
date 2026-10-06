@@ -13,6 +13,7 @@ import Tune from './screens/Tune'
 import Compare from './screens/Compare'
 import Library from './screens/Library'
 import { PolicyLinks } from './screens/Policy'
+import { limitMessage } from './lib/limits'
 import Pricing from './screens/Pricing'
 import Landing from './screens/Landing'
 import Explore from './screens/Explore'
@@ -82,6 +83,18 @@ export default function App() {
   const [recallKept, setRecallKept] = useState<{ key: string; items: any[] } | null>(null)
   useEffect(() => { if (recallLive?.length && recallKey) setRecallKept({ key: recallKey, items: recallLive }) }, [recallLive, recallKey])
   const recall = recallKept?.key === recallKey ? recallKept.items : (recallLive ?? [])
+  // A chapter not opened yet comes without its cards ("locked", membership.ts). Entering it asks the server to open
+  // it, which uses today's reading allowance; if there's none left, the handbook screen says when it opens.
+  const openChapter = useMutation(api.handbooks.openChapter)
+  const [lock, setLock] = useState<{ key: string; note: string } | null>(null)
+  const chapterLocked = chapter?.status === 'ready' && !!(chapter as any).locked
+  const lockKey = hb && chapter ? `${hb._id}:${chapter.n}` : ''
+  const wantsChapter = view === 'chapter' || (view === 'auto' && (progress?.currentCard ?? 0) > 0)
+  useEffect(() => {
+    if (!wantsChapter || !chapterLocked || !hb || !chapter || lock?.key === lockKey) return
+    openChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token })
+      .catch((e) => setLock({ key: lockKey, note: limitMessage(e) ?? "Couldn't open this chapter just now. Try again in a minute." }))
+  }, [wantsChapter, chapterLocked, lockKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // A link from a post (?t=public-speaking&ch=2, 7 Oct) opens that ready topic straight away, at that chapter,
   // so a reader who just read chapter 1 on Instagram doesn't land on the landing page. Ready topics only: a link
@@ -167,6 +180,7 @@ export default function App() {
       <Shell>
         {view === 'start-again' && libRows.length > 0 && !lib?.signedIn && <SignupNudge onSignIn={() => signIn('start-again')} context="second-topic" compact />}
         <Start
+          onPricing={() => setView('pricing')}
           key={hb?._id ?? 'new'}
           initialTopic={view === 'start-again' ? (draftTopic || hb?.topic || '') : (hb?.topic ?? '')}
           status={status as any}
@@ -201,17 +215,19 @@ export default function App() {
         <button type="button" className="quiet" onClick={() => setView('library')}>Your handbooks{libRows.length > 1 ? ` (${libRows.length})` : ''}</button>
         <button type="button" className="quiet" onClick={() => setView('tune')}>Make it yours</button>
         <button type="button" className="quiet" onClick={() => setView('pricing')}>Pricing</button>
+        <a className="quiet" href={`/print?h=${hb._id}`} target="_blank" rel="noopener">Print or save as PDF</a>
         <button type="button" className="quiet" onClick={() => { setDraftTopic(hb.topic); setView('start-again') }}>Start another topic</button>
         <button type="button" className="quiet" onClick={() => setView('explore')}>Explore what others are learning</button>
       </div>
     </>
   ) : undefined
   const toPlan = { label: 'Handbook', onClick: () => { setDoneN(null); setView('plan') } }
-  const chapterReady = chapter?.status === 'ready' && Array.isArray(chapter.cards)
+  const chapterReady = chapter?.status === 'ready' && (Array.isArray(chapter.cards) || chapterLocked)
+  const lockNote = lock && lock.key === lockKey && chapterLocked ? lock.note : null
   const chapterFailed = chapter?.status === 'failed'
 
   // Which screen, when nothing has been chosen on this visit.
-  const resolved: View = view !== 'auto' ? view
+  const resolved: View = view === 'chapter' && lockNote ? 'plan' : view !== 'auto' ? view
     : passed.length === 7 ? 'plan'
     : (progress?.currentCard ?? 0) > 0 ? 'chapter'
     : 'plan'
@@ -273,7 +289,7 @@ export default function App() {
     )
   }
 
-  if (resolved === 'chapter' && chapter && chapterReady) {
+  if (resolved === 'chapter' && chapter && chapterReady && !chapterLocked) {
     return (
       <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
         <Chapter
@@ -312,7 +328,8 @@ export default function App() {
         passed={passed}
         current={currentN}
         chapterReady={!!chapterReady}
-        chapterFailed={!!chapterFailed}
+        chapterFailed={!!chapterFailed} chapterError={(hb.chapters.find((c) => c.n === currentN) as any)?.error}
+        lockNote={lockNote} onPricing={() => setView('pricing')}
         voiceNote={flash ? flash : (chapter as any)?.stale ? 'You changed how you want to be taught after this chapter was written. Tap start and it gets rewritten and fact-checked for you first, about a minute.' : hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
         onStart={() => { if ((chapter as any)?.stale) { refreshIfStale({ handbookId: hb._id, n: currentN, deviceToken: token }).catch(() => {}) ; return } setView('chapter') }}
         onTune={() => setView('tune')}
@@ -336,10 +353,12 @@ export default function App() {
 }
 
 function Shell({ children, onSignOut, rail, back }: { children: React.ReactNode; onSignOut?: () => Promise<void> | void; rail?: React.ReactNode; back?: { label: string; onClick: () => void } }) {
+  // The member mark (7 Oct): paying should show, on every screen.
+  const member = useQuery(api.membership.status, { deviceToken: deviceToken() })?.member
   return (
     <div className="shell">
       <header className="top">
-        <p className="wordmark">I Get It<small>Seven chapters. Twenty minutes a night.</small></p>
+        <p className="wordmark">I Get It{member && <span className="member-mark">Member</span>}<small>Seven chapters. Twenty minutes a night.</small></p>
         <span style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
           {back && <button type="button" className="back-link" onClick={back.onClick}>← {back.label}</button>}
           {onSignOut && <button type="button" className="quiet" onClick={() => onSignOut()}>Sign out</button>}

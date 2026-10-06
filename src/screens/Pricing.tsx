@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { useQuery } from 'convex/react'
+import { api } from '../../convex/_generated/api'
+import { deviceToken } from '../lib/device'
 import ActionBar from '../components/ActionBar'
 import Sheet from '../components/Sheet'
 import { checkout, type Paid } from '../lib/razorpay'
@@ -13,10 +16,22 @@ type Props = { plans: Plans | undefined; onLock: () => Promise<{ price: number; 
 const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
 const WHO = ['First 50', 'Next 100', 'Next 200', 'After that']
 
+// Free vs member, side by side (membership.ts LIMITS are the numbers that are enforced; keep these in step).
+const COMPARE: { what: string; free: string; member: string }[] = [
+  { what: 'Topics you type', free: '1 handbook', member: '3 on the go at a time (up to 6 new a month)' },
+  { what: 'Your own handbooks', free: '1 new chapter a day', member: 'Up to 7 new chapters a day, across everything' },
+  { what: 'Ready and shared handbooks', free: '1 new chapter a day from each of up to 3', member: 'As many as you like' },
+  { what: 'Web-checked answers', free: '3 a week', member: '30 a month' },
+  { what: 'Say it simpler', free: '10 a day', member: 'As many as you like' },
+  { what: 'Print or save as PDF', free: '–', member: 'Any of your handbooks' },
+  { what: 'Coming next', free: '–', member: 'Your learning dashboard with streaks, Indian languages, days 8 to 28: members first' },
+]
+
 // Early-bird pricing (7 Oct): the first 50 paying readers pay least, and keep that price while they keep paying.
 // Every payment is one-time (a month or a year) and nothing renews by itself. Numbers come from convex/pricing.ts;
 // the spots left are the real count. Copy is (agent) until Prateek rewrites it.
 export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onSignIn, fromDone }: Props) {
+  const ms = useQuery(api.membership.status, { deviceToken: deviceToken() })
   const [busy, setBusy] = useState(false)
   const [plan, setPlan] = useState<PlanKind>('month')
   const [sheet, setSheet] = useState(false)
@@ -53,9 +68,28 @@ export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onS
   const until = (t: number) => new Date(t).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
   return (
     <>
-      <p className="sub" style={{ marginTop: 10 }}>{fromDone ? 'You finished week 1' : 'Pricing'}</p>
-      <h1>Come early, pay less, for as long as you stay.</h1>
-      <p className="lede">Week 1 is free, with no card asked. After that, your price depends on when you join: the first 50 readers pay the least.</p>
+      {ms?.member && ms.until ? (
+        <>
+          <p className="sub" style={{ marginTop: 10 }}><span className="member-mark" style={{ marginLeft: 0 }}>Member</span></p>
+          <h1>You're a member. Thank you.</h1>
+          <p className="lede">Covered until {until(ms.until)}. Here's everything that's switched on for you.</p>
+          <ul className="unlocks">
+            {COMPARE.filter((r) => r.member !== r.free).map((r) => <li key={r.what}><span className="unlock-on" aria-hidden="true">✓</span><strong>{r.what}:</strong> {r.member}</li>)}
+          </ul>
+          <p className="note">Your own handbooks on the go: {ms.typed.used} of {ms.typed.limit}. Going back to chapters you've opened is always free.</p>
+        </>
+      ) : (
+        <>
+          <p className="sub" style={{ marginTop: 10 }}>{fromDone ? 'You finished week 1' : 'Pricing'}</p>
+          <h1>Come early, pay less, for as long as you stay.</h1>
+          <p className="lede">Free: one handbook of your own, a chapter a night, plus a taste of the ready ones every day. No card asked. Members read more, and the first 50 pay the least.</p>
+          <table className="compare">
+            <thead><tr><th></th><th>Free</th><th>Member</th></tr></thead>
+            <tbody>{COMPARE.map((r) => <tr key={r.what}><th scope="row">{r.what}</th><td>{r.free}</td><td>{r.member}</td></tr>)}</tbody>
+          </table>
+          <p className="note">A "new chapter" is one you open for the first time. Going back to chapters you've opened is always free.</p>
+        </>
+      )}
 
       <ol className="tiers">
         {plans.tiers.map((t) => (
@@ -71,7 +105,7 @@ export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onS
       <p className="once"><strong>One-time payment. No auto-renew.</strong> You pay for a month or a year, once. Nothing is charged again unless you tap Pay again.</p>
 
       <ul className="rules">
-        <li><strong>No surprise on day 8.</strong> You see this now, before you're asked for anything.</li>
+        <li><strong>Free stays free.</strong> Your own handbook, a chapter a day, and everything you've already opened stay yours whether you pay or not.</li>
         <li><strong>A year saves {inr(saving)}.</strong> {inr(p.price.year)} once, instead of {inr(p.price.month)} twelve times.</li>
         <li><strong>Your price stays yours.</strong> Pay again within 7 days of your time running out and you keep it, even after it goes up for newcomers.</li>
         <li><strong>Nothing to cancel.</strong> If you don't pay again, you aren't charged. Your handbooks and progress stay yours.</li>

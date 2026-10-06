@@ -4,6 +4,7 @@ import { track } from '../lib/track'
 import Rich, { inline } from '../components/Rich'
 import AskCard from '../components/AskCard'
 import type { Id } from '../../convex/_generated/dataModel'
+import { limitCode, limitMessage } from '../lib/limits'
 
 export type Card =
   | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number }
@@ -181,7 +182,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
     }
     setRewriting(idx); setError(null)
     try { const r = await onSimpler(item); if (r.ready) { setSimplified((s) => new Set(s).add(idx)); setJumpTo(idx); setRewriting(null) } }
-    catch (e: any) { setRewriting(null); setError(String(e?.message ?? e).includes('busy') ? 'A few too many rewrites in a row. Try again in a bit.' : "Can't rewrite this one right now.") }
+    catch (e: any) { setRewriting(null); setError(limitCode(e) === 'simpler-free' ? limitMessage(e)! : String(e?.message ?? e).includes('busy') || limitCode(e) === 'busy' ? 'A few too many rewrites in a row. Try again in a bit.' : "Can't rewrite this one right now.") }
   }
   const showOriginal = () => { const idx = item.cardIndex; setOriginal((s) => new Set(s).add(idx)); setSimplePref(false); try { localStorage.setItem('igetit.simple', '0') } catch {}; setJumpTo(idx) }
   const showingSimpler = !!teaching?.simpler && !original.has(item.cardIndex) && (simplePref || simplified.has(item.cardIndex))
