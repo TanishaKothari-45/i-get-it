@@ -154,3 +154,32 @@ export const setPublished = mutation({
     await ctx.db.patch(id, { ...(published !== undefined ? { published } : {}), ...(pick !== undefined ? { pick } : {}) });
   },
 });
+
+// "What's next" (6 Oct): 3 topics to try after a handbook, from the ready shelf and the shared library. Prefers the same
+// kind of handbook (a story after a story), skips topics this reader already has, then the most started this week.
+export const related = query({
+  args: { topic: v.string(), deviceToken: v.string() },
+  handler: async (ctx, { topic, deviceToken }) => {
+    const userId = await getAuthUserId(ctx);
+    const mine = userId ? await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).collect() : await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).collect();
+    const have = new Set(mine.map((h) => h.topic.toLowerCase()).concat(mine.map((h) => String((h.plan as any)?.topic ?? "").toLowerCase())));
+    const url = async (id?: any) => (id ? await ctx.storage.getUrl(id) : null);
+    const cover = async (ch: any) => url((ch?.pictures ?? []).find((p: any) => p.storageId)?.storageId);
+    const weekAgo = Date.now() - 7 * DAY;
+    const recent = (await ctx.db.query("handbooks").collect()).filter((h) => h.createdAt >= weekAgo);
+    const current = (await ctx.db.query("cache").collect()).find((r) => r.topic === topic || String((r.plan as any)?.topic) === topic);
+    const myMode = (current?.plan as any)?.mode ?? mine.find((h) => h.topic === topic)?.mode ?? null;
+    const items: any[] = []; const seen = new Set<string>();
+    for (const r of (await ctx.db.query("cache").collect()).filter((x) => x.level === "new")) {
+      const t = String((r.plan as any)?.topic ?? r.topic);
+      if (seen.has(r.topic) || have.has(r.topic.toLowerCase()) || have.has(t.toLowerCase()) || r.topic === topic) continue; seen.add(r.topic);
+      items.push({ kind: "ready", topic: t, outcome: String((r.plan as any)?.outcome7 ?? "").split(/(?<=\.)\s/)[0], cover: await cover(r.chapters.find((c: any) => c.n === 1)),
+        score: ((r.plan as any)?.mode && (r.plan as any).mode === myMode ? 10 : 0) + recent.filter((h) => h.topic === r.topic).length });
+    }
+    for (const l of await ctx.db.query("library").collect()) {
+      if (!l.published || seen.has(l.topic) || have.has(l.topic.toLowerCase())) continue; seen.add(l.topic);
+      items.push({ kind: "shared", id: l._id, topic: l.topic, outcome: String(l.plan?.outcome7 ?? "").split(/(?<=\.)\s/)[0], cover: await cover(l.chapter1), score: (l.mode && l.mode === myMode ? 10 : 0) + l.starts });
+    }
+    return items.sort((a, b) => b.score - a.score).slice(0, 3).map(({ score: _s, ...x }) => x);
+  },
+});

@@ -46,8 +46,13 @@ export const due = internalQuery({
       const n = p?.currentChapter ?? 1;
       const title = (h?.plan as any)?.chapters?.[n - 1]?.title;
       const topic = (h?.plan as any)?.topic ?? h?.topic;
+      // A reader who stopped mid-chapter hears how little is left (6 Oct: nudges).
+      const ch = h ? await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique() : null;
+      const left = p && p.currentCard > 0 && ch?.cards ? Math.max(1, ch.cards.length - p.currentCard) : 0;
+      const body = left ? `${left} card${left === 1 ? "" : "s"} left in chapter ${n}${title ? `: ${title}` : ""}. About ${Math.max(2, left * 2)} minutes.`
+        : title ? `${title}. Twenty minutes, whenever you're ready.` : "Your next chapter is ready. Twenty minutes.";
       out.push({ id: s._id, today, subscription: { endpoint: s.endpoint, keys: s.keys },
-        payload: { title: topic ? `Chapter ${n} of ${topic}` : "I Get It", body: title ? `${title}. Twenty minutes, whenever you're ready.` : "Your next chapter is ready. Twenty minutes.", url: "/?utm_source=reminder" } });
+        payload: { title: topic ? `Chapter ${n} of ${topic}` : "I Get It", body, url: "/?utm_source=reminder" } });
     }
     return out;
   },

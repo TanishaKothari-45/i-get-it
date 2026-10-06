@@ -29,6 +29,7 @@ type Props = {
   handbookId?: Id<'handbooks'>
   deviceToken?: string
   onRate?: (rating: 'too_easy' | 'just_right' | 'lost_me') => Promise<void>
+  whatsNext?: React.ReactNode
   adapts?: boolean   // typed topics rewrite the next chapter from the rating; ready topics only record it
 }
 
@@ -57,7 +58,7 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   return `You took your time, and it stuck. That's the whole point.`
 }
 
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext }: Props) {
   const [rated, setRated] = useState<string | null>(null)
   const line = cheer(n, stats)
   const [stay, setStay] = useState(false)
@@ -85,6 +86,7 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       {handbookId && deviceToken && <TeachBack handbookId={handbookId} n={n} deviceToken={deviceToken} />}
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Next: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
+      {last && whatsNext}
       {last && sources && sources.length > 0 && <p className="sources"><span className="label">Read next</span> {sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em>{x.why ? ` (${x.why})` : ''}</span>)}</p>}
 
       {last && (

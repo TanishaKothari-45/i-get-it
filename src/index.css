@@ -646,3 +646,19 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 
 .adm-exp { border-top: 1px solid var(--paper-2); padding: 12px 0; }
 .adm-exp p + p { margin-top: 6px; }
+
+/* Up next and What's next (6 Oct) */
+.nextup { margin: 14px 0 8px; padding: 16px; border-radius: 18px; background: var(--accent); border: 2.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+.nextup-kicker { font: 700 var(--small) var(--sans); text-transform: uppercase; letter-spacing: 0.06em; color: rgba(27, 26, 23, 0.75); margin: 0; }
+.nextup-title { font: 800 1.25rem/1.2 var(--sans); margin: 6px 0 0; }
+.nextup-hook { font-family: var(--serif); margin: 6px 0 0; }
+.nextup .btn { margin-top: 12px; background: var(--ink); color: var(--paper); }
+.whatsnext { margin: var(--l) 0; }
+.whatsnext h2 { margin: 0 0 4px; }
+.whatsnext ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+.whatsnext button { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 84px 1fr; gap: 12px; align-items: center; width: 100%; padding: 8px; border: 1.5px solid var(--tint); border-radius: 14px; background: #fff; }
+.whatsnext button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.whatsnext-pic { width: 84px; height: 63px; border-radius: 10px; overflow: hidden; background: var(--paper-2); display: block; }
+.whatsnext-pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.whatsnext strong { display: block; font-size: 1rem; }
+.whatsnext-out { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-family: var(--serif); font-size: 0.92rem; color: var(--ink-2); }

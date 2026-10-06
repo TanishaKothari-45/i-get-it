@@ -15,6 +15,7 @@ import Library from './screens/Library'
 import Pricing from './screens/Pricing'
 import Landing from './screens/Landing'
 import Explore from './screens/Explore'
+import WhatsNext from './components/WhatsNext'
 import SignupNudge from './components/SignupNudge'
 
 type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again' | 'tune' | 'compare' | 'library' | 'pricing' | 'explore'
@@ -254,6 +255,7 @@ export default function App() {
           handbookId={hb._id}
           deviceToken={token}
           adapts={hb.source === 'live'}
+          whatsNext={<WhatsNext topic={plan?.topic ?? hb.topic} deviceToken={token} onReady={async (t) => { const r = await create({ topic: t, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setDoneN(null); setView('auto') }} onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setDoneN(null); setView('auto') }} />}
           onRate={async (rating) => { await rateChapter({ handbookId: hb._id, n: doneN, rating, deviceToken: token }) }}
           nextReady={chapterReady && chapter?.n === doneN + 1}
           onNext={() => { setDoneN(null); setView(chapterReady ? 'chapter' : 'plan') }}
@@ -313,6 +315,10 @@ export default function App() {
         caution={(hb as any).caution ?? null}
         onLibrary={() => setView('library')}
         libraryCount={libRows.length}
+        nextUp={passed.length >= 7 ? null : (progress?.currentCard ?? 0) > 0 && !passed.includes(currentN) && chapter?.cards
+          ? { kind: 'resume', n: currentN, card: (progress?.currentCard ?? 0) + 1, left: Math.max(1, chapter.cards.length - (progress?.currentCard ?? 0)) }
+          : passed.length > 0 && !passed.includes(currentN) ? { kind: 'next', n: currentN } : null}
+        whatsNext={<WhatsNext topic={plan?.topic ?? hb.topic} deviceToken={token} onReady={async (t) => { const r = await create({ topic: t, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />}
         onRetry={() => { retry({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }}
         onChangeLine={() => { setDraftTopic(hb.topic); setView('start-again') }}
       />

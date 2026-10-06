@@ -23,14 +23,27 @@ type Props = {
   caution?: string | null
   onLibrary?: () => void
   libraryCount?: number
+  nextUp?: { kind: 'resume'; n: number; card: number; left: number } | { kind: 'next'; n: number } | null
+  whatsNext?: React.ReactNode
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
   useEffect(() => { track('plan_view', undefined, 'plan_view:' + topic) }, [topic])
   const first = passed.length === 0 && current === 1   // a reader who came in at chapter 2 from a post is on 2
+  const upTitle = nextUp ? plan.chapters[nextUp.n - 1]?.title : null
+  const upHook = nextUp ? plan.chapters[nextUp.n - 1]?.hook : null
   return (
     <>
+      {nextUp && chapterReady && (
+        <section className="nextup" aria-label="Up next">
+          <p className="nextup-kicker">{nextUp.kind === 'resume' ? `You stopped at card ${nextUp.card} of chapter ${nextUp.n}` : 'Up next'}</p>
+          <p className="nextup-title">{nextUp.kind === 'resume' ? `${nextUp.left} card${nextUp.left === 1 ? '' : 's'} left, about ${Math.max(2, nextUp.left * 2)} minutes.` : `Chapter ${nextUp.n}: ${upTitle ?? ''}`}</p>
+          {nextUp.kind === 'next' && upHook && <p className="nextup-hook">{upHook}</p>}
+          <button type="button" className="btn" onClick={onStart}>{nextUp.kind === 'resume' ? 'Pick up where you left off' : `Start chapter ${nextUp.n}`}</button>
+        </section>
+      )}
+      {passed.length >= 7 && whatsNext}
       <section className="roadmap-hero">
         <div className="roadmap-hero-top">
           <span className="roadmap-chip">Your handbook · {passed.length} of 7</span>
