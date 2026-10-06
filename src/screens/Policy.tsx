@@ -47,7 +47,7 @@ export default function Policy({ page }: { page: PolicyPage }) {
         <h1>{TITLES[page]}</h1>
         {BODY[page]}
       </main>
-      <footer className="foot"><p><PolicyLinks /></p><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
+      <footer className="foot"><p><PolicyLinks /></p><p>Built in public for the GrowthX Build Sprint, October 2026.</p></footer>
     </div>
   )
 }

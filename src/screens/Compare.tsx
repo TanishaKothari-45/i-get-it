@@ -33,7 +33,7 @@ export default function Compare({ topic, n, variants, onVote, onBack }: Props) {
           <Illustration svg={v.svg} />
           <h2>{v.title}</h2>
           {v.cards?.map((c, i) => c.type === 'exercise' ? (
-            <div key={i} className="compare-ex"><p className="kicker">Check</p><p className="question" style={{ fontSize: 'var(--body)' }}>{inline(c.prompt)}</p>
+            <div key={i} className="compare-ex"><p className="kicker">Quick guess</p><p className="question" style={{ fontSize: 'var(--body)' }}>{inline(c.prompt)}</p>
               <ul>{c.options?.map((o: any) => <li key={o.id}>{o.text}</li>)}</ul></div>
           ) : c.type === 'watch' ? (
             <div key={i} className="compare-ex"><p className="kicker">Watch</p><p className="serif"><strong>{c.who}</strong>, {c.what}. Watch for: {c.watchFor}</p></div>

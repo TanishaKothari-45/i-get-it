@@ -14,7 +14,7 @@ export default function Explore({ onReady, onShared, onBack }: Props) {
   return (
     <div className="explore">
       <button type="button" className="quiet" onClick={onBack}>← Back</button>
-      <h1>What others are learning</h1>
+      <h1>What others are learning.</h1>
       <p className="lede">Every handbook here opens instantly. Shared without names.</p>
       {!items ? <p className="note">Loading…</p> : (
         <ul className="explore-grid">
@@ -25,7 +25,7 @@ export default function Explore({ onReady, onShared, onBack }: Props) {
                   <span className="explore-badges">
                     {it.hot && <span className="explore-badge hot">🔥 Most started this week</span>}
                     {it.loved && <span className="explore-badge loved">✨ Most finished</span>}
-                    {it.pick && <span className="explore-badge">Pick</span>}
+                    {it.pick && <span className="explore-badge">Our pick</span>}
                   </span>
                 </span>
                 <strong>{it.topic}</strong>

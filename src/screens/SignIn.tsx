@@ -27,7 +27,7 @@ export default function SignIn({ onDone, onBack }: Props) {
   return (
     <>
       <h1>Keep this handbook on every device.</h1>
-      <p className="lede">We store the plan and the chapters you passed. Nothing else.</p>
+      <p className="lede">Your handbooks and your place in each one, on any phone or laptop.</p>
       <div className="field">
         <label htmlFor="email">Email</label>
         <input id="email" className="input" type="email" autoComplete="email" inputMode="email" value={email} onChange={(e) => setEmail(e.target.value)} />
