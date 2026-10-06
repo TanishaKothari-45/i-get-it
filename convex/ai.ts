@@ -10,7 +10,7 @@ const PLAN_MAX_OUT = 3000;
 const CHAPTER_MAX_OUT = 6000;
 const SIMPLER_MAX_OUT = 600;
 
-type Result = { ok: true; json: any; model: string } | { ok: false; error: string; model: string };
+type Result = { ok: true; json: any; model: string; tokensIn?: number; tokensOut?: number } | { ok: false; error: string; model: string };
 
 async function callOpenAI(system: string, user: string, maxOut: number): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const model = process.env.OPENAI_MODEL ?? "gpt-6-luna";
@@ -42,41 +42,72 @@ async function callOpenAI(system: string, user: string, maxOut: number): Promise
 // chapters stay on Haiku unless the reader picked a writer in the comparison; card rewrites stay on Haiku.
 const HAIKU = "claude-haiku-4-5-20251001";
 const OPUS = "claude-opus-5-5";
-type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "deeper" | "another";
-const JOB: Record<Kind, { model: string; effort?: "low" | "medium" | "high"; maxTokens: number }> = {
-  plan: { model: OPUS, effort: "medium", maxTokens: 8000 },   // thinking counts against max_tokens: leave room
+const SONNET = "claude-sonnet-5-5";
+type Effort = "low" | "medium" | "high" | "xhigh" | "max";
+type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach" | "deeper" | "another";
+// Per-job table, set by Prateek 6 Oct: quality first, cost and latency to be handled with prices or limits later.
+// Thinking counts against max_tokens, so max-effort jobs get large caps (and stream; see callAnthropic).
+const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> = {
+  plan: { model: OPUS, effort: "high", maxTokens: 32000 },   // 6 Oct: "max" thought >5 min, hit 32k and was cut off (2 of 2)
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
-  simpler: { model: HAIKU, maxTokens: 600 },
-  chapter: { model: HAIKU, maxTokens: 6000 },
+  simpler: { model: SONNET, effort: "medium", maxTokens: 8000 },   // 6 Oct: "max" thought 49 s and was cut off at 8,000 with no answer
+  chapter: { model: OPUS, effort: "medium", maxTokens: 16000 },
   scenes: { model: HAIKU, maxTokens: 2000 },
   deeper: { model: HAIKU, maxTokens: 4500 },    // bonus lessons ("go deeper" / "another way"): shorter than a chapter
-  another: { model: HAIKU, maxTokens: 4500 },   // one scene line per teaching card, for the chapter pictures
-  check: { model: OPUS, effort: "low", maxTokens: 10000 },   // fact check of live chapters. Tested 4 Oct on the bad chess chapter: Opus low caught all 7 problems (~33 s, ~₹7); Opus medium the same 7 (~43 s, ~₹8.90); Sonnet 5.5 low/medium introduced new false claims
+  another: { model: HAIKU, maxTokens: 4500 },
+  audit: { model: OPUS, effort: "high", maxTokens: 16000 },
+  repair: { model: OPUS, effort: "medium", maxTokens: 16000 },
+  teach: { model: SONNET, effort: "low", maxTokens: 2000 },   // teach it back: a short reply to the reader's own 2 sentences   // one-off fixes to chapters already written (convex/repair.ts)   // measurement only (convex/audit.ts): what slipped past the fact check   // one scene line per teaching card, for the chapter pictures
+  check: { model: SONNET, effort: "low", maxTokens: 16000 },   // Prateek, 6 Oct, from evals/model-choice.md: 10 of 10 planted mistakes, no stray changes, ~14 s (Opus high: 10 of 10, 38 s, ~3.5x the cost). Watch: on 4 Oct Sonnet once wrote new mistakes while fixing
 };
 
 let anthropic: Anthropic | null = null;
 function client() { return (anthropic ??= new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })); }
 
-async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string, effortOverride?: "low" | "medium" | "high"): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string, effortOverride?: Effort): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const job = JOB[kind];
   const model = modelOverride ?? process.env.ANTHROPIC_MODEL ?? job.model;
   const isHaiku = model.startsWith("claude-haiku");
   // Current-generation models think before answering; give them room and a set effort. Haiku takes neither.
-  const maxTokens = isHaiku ? job.maxTokens : Math.max(job.maxTokens, kind === "chapter" ? 12000 : job.maxTokens);
+  const maxTokens = isHaiku ? Math.min(job.maxTokens, 8000) : Math.max(job.maxTokens, kind === "chapter" ? 12000 : job.maxTokens);
   const effort = isHaiku ? undefined : (effortOverride ?? job.effort ?? "medium");
-  const res = await client().beta.messages.create({
+  const params = {
     model,
     max_tokens: maxTokens,
     system: system + "\n\nReturn only the JSON object. No prose, no code fences.",
-    messages: [{ role: "user", content: user }],
+    messages: [{ role: "user" as const, content: user }],
     ...(effort ? { output_config: { effort } } : {}),
     // If a current-generation model declines, Anthropic re-runs the request on a suitable model inside the same call.
     ...(isHaiku ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }),
-  });
+  };
+  // Large caps (max effort) stream, so a long think doesn't hit the HTTP timeout.
+  const res = maxTokens > 16000 ? await client().beta.messages.stream(params as any).finalMessage() : await client().beta.messages.create(params as any);
   if (res.stop_reason === "refusal") throw new Error(`declined (${res.stop_details?.category ?? "no category"})`);
   if (res.stop_reason === "max_tokens") throw new Error("reply cut off at the token limit");
   const text = res.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("");
   return { text, tokensIn: res.usage.input_tokens, tokensOut: res.usage.output_tokens, model: res.model };
+}
+
+// GLM (Zhipu / Z.ai), OpenAI-style chat API. Key in the Convex env variable CHEAPER_INFERENCE_API_KEY (Prateek's credits).
+// Only used when a model id starts with "glm-" (6 Oct: under test in the model comparison, not on the reader's path).
+async function callGLM(system: string, user: string, model: string, maxTokens: number, effort?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+  const key = process.env.CHEAPER_INFERENCE_API_KEY;
+  if (!key) throw new Error("No GLM key");
+  const base = process.env.GLM_BASE_URL ?? "https://api.z.ai/api/paas/v4";
+  const res = await fetch(`${base}/chat/completions`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model, max_tokens: Math.min(maxTokens, 32000),
+      messages: [{ role: "system", content: system + "\n\nReturn only the JSON object. No prose, no code fences." }, { role: "user", content: user }],
+      thinking: { type: effort && effort !== "low" ? "enabled" : "disabled" },
+    }),
+  });
+  const body: any = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`GLM ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
+  const choice = body.choices?.[0];
+  if (choice?.finish_reason === "length") throw new Error("reply cut off at the token limit");
+  return { text: String(choice?.message?.content ?? ""), tokensIn: body.usage?.prompt_tokens, tokensOut: body.usage?.completion_tokens, model: body.model ?? model };
 }
 
 function extractJson(text: string): any {
@@ -86,7 +117,7 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("deeper"), v.literal("another")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"))) },
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("deeper"), v.literal("another")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))) },
   handler: async (ctx, { kind, system, user, model, effort }): Promise<Result> => {
     const started = Date.now();
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
@@ -96,13 +127,21 @@ export const generate = internalAction({
       return { ok: false, error: "no provider key set", model: "none" };
     }
     try {
-      const r = provider === "anthropic" ? await callAnthropic(kind, system, user, model, effort) : await callOpenAI(system, user, maxOut);
-      const json = extractJson(r.text);
+      const viaGLM = !!model?.startsWith("glm-");
+      const call = () => viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
+      let r = await call();
+      let json: any;
+      // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure.
+      try { json = extractJson(r.text); }
+      catch {
+        r = await call();
+        json = extractJson(r.text);
+      }
       await ctx.runMutation(internal.handbooks.logAiCall, {
         kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
         tokensIn: r.tokensIn, tokensOut: r.tokensOut, ms: Date.now() - started, ok: true,
       });
-      return { ok: true, json, model: r.model };
+      return { ok: true, json, model: r.model, tokensIn: r.tokensIn, tokensOut: r.tokensOut };
     } catch (e: any) {
       const error = String(e?.message ?? e).slice(0, 500);
       await ctx.runMutation(internal.handbooks.logAiCall, { kind, model: provider, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });

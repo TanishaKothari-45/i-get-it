@@ -1,24 +1,36 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import ActionBar from '../components/ActionBar'
 import LanguagePicker from '../components/LanguagePicker'
 import { ENGLISH, languageInfo } from '../../convex/languages'
+import Rich from '../components/Rich'
+import { useQuery } from 'convex/react'
+import { api } from '../../convex/_generated/api'
 
 type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
 type Props = {
   initialTopic?: string
-  status: 'idle' | 'writing' | 'question' | 'failed'
+  status: 'idle' | 'writing' | 'question' | 'failed' | 'declined'
   question?: string
   error?: string
   onCreate: (topic: string, level: Level, voice: Voice, language: string) => Promise<void>
   onAnswer?: (answer: string) => Promise<void>
   onRetry?: () => Promise<void>
   examples: string[]
+  // The landing sections, shown under the first screen to first-time visitors. pick('') just brings the box back.
+  below?: (pick: (topic: string) => void) => ReactNode
+  // While a plan is written: add the handbook the waiting story comes from, without leaving this one.
+  onAddOther?: (topic: string) => Promise<void>
+  pushback?: string
+  suggestions?: string[]
 }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples }: Props) {
-  const [topic, setTopic] = useState(initialTopic)
+export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [] }: Props) {
+  const declined = status === 'declined'
+  const [topic, setTopic] = useState(status === 'declined' ? '' : initialTopic)
+  // A declined line never stays in the box: the reader starts fresh.
+  useEffect(() => { if (status === 'declined') setTopic('') }, [status])
   const [level, setLevel] = useState<Level>('new')
   const [voice, setVoice] = useState<Voice>('friend')
   const [language, setLanguage] = useState<string>(rememberedLanguage)
@@ -27,17 +39,54 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const [localError, setLocalError] = useState<string | null>(null)
   const writing = status === 'writing'
   const levelRef = useRef<HTMLDivElement>(null)
+  const [storySeed, setStorySeed] = useState(() => Math.floor(Math.random() * 1000))
+  const story = useQuery(api.landing.waitStory, writing ? { seed: storySeed } : 'skip')
+  const [added, setAdded] = useState<string | null>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const backToBox = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 350) }
+  const pick = (t: string) => { if (t) setTopic(t); setLocalError(null); backToBox() }
 
   useEffect(() => {
     if (!writing) { setSlow(false); return }
-    const t = setTimeout(() => setSlow(true), 8000)
+    const t = setTimeout(() => setSlow(true), 6000)
     return () => clearTimeout(t)
   }, [writing])
 
   const submit = async () => {
     setLocalError(null)
-    if (topic.trim().length < 2) { setLocalError('A few words is enough. What is it?'); return }
+    if (topic.trim().length < 2) { setLocalError('A few words is enough. What is it?'); backToBox(); return }
     try { await onCreate(topic.trim(), level, voice, language) } catch (e: any) { setLocalError(friendly(e)) }
+  }
+
+  // While the plan is written: the topic and what's happening, not the form again (Shaktimaan, 6 Oct).
+  if (writing) {
+    return (
+      <div className="plan-wait" role="status" aria-live="polite">
+        <p className="plan-wait-kicker">Writing your seven nights</p>
+        <h1 className="plan-wait-topic">{topic.trim() || initialTopic}</h1>
+        <ol className="plan-wait-steps">
+          <li className="on">Reading what you typed</li>
+          <li className={slow ? 'on' : ''}>Choosing the seven nights and the one picture that carries them</li>
+          <li>Writing chapter 1 while you read the plan</li>
+        </ol>
+        <p className="note">Your plan in about 40 seconds. Chapter 1 is written while you read it.</p>
+        <div className="busybar" aria-hidden="true" />
+        {story && (
+          <section className="wait-story" aria-label="A story while you wait">
+            <p className="wait-story-kicker">While you wait, a story from another handbook</p>
+            {story.picture && <div className="story-pic"><img src={story.picture} alt="" /></div>}
+            {story.title && <p className="wait-story-title">{story.title}</p>}
+            <Rich text={story.text} className="serif wait-story-text" />
+            <p className="note">From <strong>{story.topic}</strong>, {story.chapter}.</p>
+            <div className="wait-story-actions">
+              {added === story.topic ? <span className="wait-story-added">Added. It's in Your handbooks.</span>
+                : onAddOther && <button type="button" className="btn btn-ghost" onClick={async () => { try { await onAddOther(story.topic); setAdded(story.topic) } catch { /* the plan still comes; adding can wait */ } }}>Add {story.topic} to my handbooks</button>}
+              {story.count > 1 && <button type="button" className="quiet" onClick={() => setStorySeed((x) => x + 7)}>Another story</button>}
+            </div>
+          </section>
+        )}
+      </div>
+    )
   }
 
   if (status === 'question' && question) {
@@ -60,16 +109,33 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
 
   return (
     <>
-      <h1>You keep saving it.<br />Tonight, get it.</h1>
-      <p className="lede">Type the one thing you keep meaning to learn. You get a seven-chapter handbook written for it, and you pass chapter 1 tonight. No sign-up.</p>
+      {/* Prateek's words, DESIGN.md section 5 */}
+      {declined && (
+        <section className="declined" role="status">
+          <p className="declined-kicker">Not this one</p>
+          <p className="declined-line">{pushback ?? "That's not something I Get It will teach."}</p>
+          {suggestions.length > 0 && (
+            <>
+              <p className="note">Something you might enjoy instead:</p>
+              <div className="declined-suggestions">
+                {suggestions.map((s) => <button key={s} type="button" className="chip" onClick={() => onCreate(s, level, voice, language).catch((e) => setLocalError(friendly(e)))}>{s}</button>)}
+              </div>
+            </>
+          )}
+          <p className="note">Or type something else below.</p>
+        </section>
+      )}
+      <p className="for-line">For everything you saved and never got back to.</p>
+      <h1>Seven nights from “I keep meaning to” to “I get it”.</h1>
+      <p className="lede">Twenty minutes a day: a small step. 7 days: a small jump.</p>
 
       <div className="field">
         <label htmlFor="topic">What do you keep meaning to learn?</label>
-        <input id="topic" className="input" type="text" autoComplete="off" enterKeyHint="done" placeholder={examples[0] ?? 'Swimming'} value={topic}
+        <input id="topic" ref={inputRef} className="input" type="text" autoComplete="off" enterKeyHint="done" placeholder={examples[0] ?? 'Swimming'} value={topic}
           onChange={(e) => setTopic(e.target.value)} disabled={writing}
           // Enter only closes the keyboard and shows the level and voice; the button starts the writing.
           onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); levelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) } }} />
-        {examples.length > 1 && (
+        {examples.length > 1 && !below && (
           <p className="note">Tonight's ready handbooks: {examples.slice(0, 6).map((x, i) => (
             <span key={x}>{i > 0 && ' · '}<button type="button" className="quiet" style={{ padding: 0 }} onClick={() => setTopic(x)} disabled={writing}>{x}</button></span>
           ))}</p>
@@ -91,15 +157,17 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
       <p className="sub" style={{ marginTop: 'var(--l)', marginBottom: 6 }}>Read it in</p>
       <LanguagePicker value={language} disabled={writing} onChange={(name) => { setLanguage(name); rememberLanguage(name) }} />
 
-      {(localError || (status === 'failed' && topic.trim() === initialTopic.trim())) && (
+      {(localError || (status === 'failed' && !declined && topic.trim() === initialTopic.trim())) && (
         <p className="error">{localError ?? "Couldn't write it just now. Your line is still here; try once more in a minute, or pick one of tonight's ready handbooks."}</p>
       )}
 
-      <ActionBar busy={writing} note={writing && slow ? 'About 30 seconds. Seven chapters take a moment to plan.' : undefined}>
+      {below && !writing && below(pick)}
+
+      <ActionBar busy={writing} note={writing && slow ? 'About 40 seconds. Seven chapters take a moment to plan.' : undefined}>
         {status === 'failed' && onRetry && topic.trim() === initialTopic.trim() ? (
           <button className="btn" onClick={() => onRetry().catch((e) => setLocalError(friendly(e)))}>Try again</button>
         ) : (
-          <button className="btn" onClick={submit} disabled={writing}>{writing ? 'Writing your handbook…' : 'Write my handbook'}</button>
+          <button className="btn" onClick={submit} disabled={writing}>{writing ? 'Finding your way…' : 'Show me the way'}</button>
         )}
       </ActionBar>
     </>

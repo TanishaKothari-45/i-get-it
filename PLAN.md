@@ -14,6 +14,20 @@ Last: I can close it, reopen it, and my plan and my rungs are still there.   DON
 
 FROZEN 4 Oct 16:50 (Shaktimaan): no new features until one coursemate has used the live link on their phone with no help and we've written down where they stopped. Then Prateek's own phone test.
 
+Next builds, decided by Prateek 5 Oct evening (in this order unless he reorders):
+1. First-screen copy batch: headline "Seven nights from 'I keep meaning to' to 'I get it'.", the line under it "Twenty minutes a day: a small step. 7 days: a small jump. 28 days: a big leap.", the button (open question). Done screen: "Next: Chapter N" and a main "Start chapter N now" button instead of "Tomorrow" (bingeing is fine: Prateek).
+2. DONE 6 Oct (live topics; ready topics don't adapt). Adaptive chapters, one at a time, roadmap titles unchanged: chapter N+1 is written knowing how chapter N went. Missed quizzes are re-taught another way first; all right on the first try and fast means harder quizzes (more apply-to-a-tricky-case, a harder third question), progressively. Writing starts when the reader answers chapter N's last quiz, so the closing card and the Done screen hide most of the wait (Prateek: readers may wait a little for personalisation; keep latency in check).
+1b. Done screen love: a cheesy, funny line that compares the reader's time and first-try score with our own 20-minute budget ("6 minutes. We budgeted 20. Show-off."), never with an invented average; real comparisons ("faster than 7 in 10 readers") once 50 chapters are finished. Lines are (agent) until Prateek rewrites them.
+6. Placement before chapter 1: 10 questions, each harder, with "I'm completely new, skip this"; the plan starts where the reader is (Prateek). Measured 5 Oct: chapters take about 4 to 16 minutes, and 16 of 18 quizzes were right first try.
+3. DONE 6 Oct. Chapters slide up like Reels (DESIGN.md section 2), instead of sideways.
+4. PAUSED 6 Oct (Shaktimaan: nothing new until the coursemate test; the promise is off the page). Days 8 to 28, live before 12 Oct (the first day 8 for anyone who starts on 5 Oct). Generated once a reader finishes chapter 7. Day 8 is also where week 1's free time ends, so it's where the Pay sheet belongs. About ₹15 a chapter.
+5. Rewrite Prateek's live options chapter 1 with the beginner check (later).
+
+7. Exact pictures for exact things (Prateek, 6 Oct: chess, options trading need boards, graphs and tables): the chapter names what to show as data (a board position, a payoff line from strike and premium, a small table) and the app draws it, correct every time and ours. Runway keeps the scenes. Web-found images only from Wikimedia Commons with their licence shown, never general web search (copyright, and they won't match the numbers in the text).
+8. Model table (Prateek, 6 Oct): plan on Opus 5.5 max, chapter on Opus 5.5 medium, fact check on Opus 5.5 max, Say it simpler on Sonnet 5.5 max, Ask unchanged. Quality first; cost and wait to be handled later with prices or limits. Measure time to chapter 1 and cost per chapter right after switching.
+
+9. DONE 6 Oct. Teach it back, optional (Prateek, 6 Oct, from Karpathy's note on learning: "Teach/summarize everything you learn in your own words"): on the Done screen, the reader may explain the chapter's idea in 2 sentences; a short reply says what they got, the one piece missed, and a tip. Never required, never holds the rung. Sonnet 5.5 low, capped per person and per hour.
+
 Acceptance test (not a milestone): a stranger, logged out, on their own phone, gets through night 1 without Prateek saying a word.
 
 Parked (not now), in the order they'd come:
@@ -28,5 +42,4 @@ Parked (not now), in the order they'd come:
 - "Don't remember" on recall, counted as a miss.
 - A reminder at the chosen time (needs an email or push provider: ask Prateek first).
 - Share-to-app from Instagram or YouTube; reading a reel or video.
-- Days 8 to 28.
 - Streaks, badges, share cards, payments, anything social.

@@ -1,10 +1,9 @@
 import ActionBar from '../components/ActionBar'
-import Illustration from '../components/Illustration'
 
 type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string }
 type Props = {
   topic: string
-  plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[] }
+  plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[]; pushback?: string | null }
   passed: number[]
   current: number
   chapterReady: boolean
@@ -17,6 +16,9 @@ type Props = {
   onCompare?: () => void
   comparing?: boolean
   coverSvg?: string
+  coverPicture?: string
+  coverPending?: boolean
+  caution?: string | null
   onLibrary?: () => void
   libraryCount?: number
   // A finished chapter's bonus lesson, if it unlocked one: the link under that stop.
@@ -24,7 +26,7 @@ type Props = {
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverSvg, onLibrary, libraryCount, bonusFor }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, bonusFor }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -33,13 +35,16 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
           <span className="roadmap-chip">Your handbook · {passed.length} of 7</span>
         </div>
         <h1>{topic}</h1>
+        {plan.pushback && <p className="roadmap-pushback">{plan.pushback}</p>}
         <p className="roadmap-outcome">{plan.outcome7}</p>
-        {coverSvg && <div className="roadmap-illo"><Illustration svg={coverSvg} /></div>}
+        {caution && <p className="roadmap-caution">Study aid, verify before you act.</p>}
+        {coverPicture ? <div className="roadmap-pic"><img src={coverPicture} alt="" /></div>
+          : null /* no picture yet: no box; it fades in when chapter 1's picture lands */}
         {plan.picture && <p className="roadmap-picture"><strong>The picture for the whole journey:</strong> {plan.picture.line}</p>}
       </section>
 
       {plan.sources && plan.sources.length > 0 && (
-        <p className="sources"><span className="label">Draws on</span> {plan.sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em></span>)}</p>
+        <p className="sources"><span className="label">Further reading</span> {plan.sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em></span>)}</p>
       )}
       {voiceNote && <p className="note" style={{ marginBottom: 'var(--m)' }}>{voiceNote}</p>}
 

@@ -5,6 +5,8 @@ import Confetti from '../components/Confetti'
 import Nudge from '../components/Nudge'
 import WhatsNext from '../components/WhatsNext'
 import type { ComponentProps } from 'react'
+import TeachBack from '../components/TeachBack'
+import type { Id } from '../../convex/_generated/dataModel'
 
 type Props = {
   topic: string
@@ -20,7 +22,11 @@ type Props = {
   onPickTime: (at: string) => Promise<void>
   onContinue: () => void
   onPricing: () => void
-  deviceToken: string         // for "keep going, or see you tomorrow?" on this device
+  stats?: { minutes: number; right: number; total: number } | null
+  nextReady?: boolean
+  onNext?: () => void
+  handbookId?: Id<'handbooks'>
+  deviceToken?: string
   // The chapter's optional bonus: "deeper" if every exercise was right first time, "another" if any
   // was missed. Never the main action.
   bonus?: { kind: 'deeper' | 'another'; done: boolean; onGo: () => void }
@@ -51,7 +57,22 @@ function pretty(t: string) {
 }
 
 // The rung lights. Sign-in is asked only here, after the night is done.
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, deviceToken, bonus, whatsNext }: Props) {
+// A little love when the chapter's done (agent copy until Prateek rewrites it). Compares only with our own
+// 20-minute budget and their own score, never with an average we don't have yet.
+function cheer(n: number, s?: { minutes: number; right: number; total: number } | null): string | null {
+  if (!s) return null
+  const perfect = s.total > 0 && s.right === s.total
+  const fast = s.minutes < 20
+  const score = s.total ? `${s.right} of ${s.total} first try` : ''
+  const mins = `${s.minutes} minute${s.minutes === 1 ? '' : 's'}`
+  if (fast && perfect) return [`${mins}, ${score}. We budgeted 20. Show-off.`, `${score}, in ${mins}. Your brain called; it wants a raise.`, `Chapter ${n}, done before your chai went cold. ${score}, too.`][n % 3]
+  if (perfect) return `${score}. Someone's been paying attention.`
+  if (fast) return `${mins}, and you fixed every miss on the way. That's exactly how it sticks.`
+  return `You took your time, and it stuck. That's the whole point.`
+}
+
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, bonus, whatsNext }: Props) {
+  const line = cheer(n, stats)
   const copy = bonus ? BONUS_COPY[bonus.kind] : null
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
@@ -62,11 +83,13 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       <RungBar passed={passed} filling={n} />
       <p className="sub" style={{ marginTop: 10 }}>{topic}</p>
       <h1>Chapter {n} of 7: done.</h1>
+      {line && <p className="cheer">{line}</p>}
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
-      {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Tomorrow: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
+      {handbookId && deviceToken && <TeachBack handbookId={handbookId} n={n} deviceToken={deviceToken} />}
+      {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Next: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>That's the whole handbook. Days 14 and 28 come later.</p>}
 
-      {!last && <Nudge deviceToken={deviceToken} next={n + 1} at={tomorrowAt} />}
+      {!last && deviceToken && <Nudge deviceToken={deviceToken} next={n + 1} at={tomorrowAt} />}
 
       {bonus && copy && (
         <div className="nudge">
@@ -109,10 +132,15 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
         {!signedIn && !stay ? (
           <>
             <button className="btn" onClick={onKeep}>Keep this handbook</button>
-            <button type="button" className="quiet" onClick={() => setStay(true)}>Not now. It stays on this phone.</button>
+            <button type="button" className="quiet" onClick={() => { setStay(true); if (!last) onNext?.() }}>{last ? 'Not now. It stays on this phone.' : `Not now, start chapter ${n + 1}`}</button>
           </>
         ) : (
-          <button className="btn btn-ghost" onClick={onContinue}>{last ? 'Back to the handbook' : 'Back to the handbook'}</button>
+          last || !onNext ? <button className="btn btn-ghost" onClick={onContinue}>Back to the handbook</button> : (
+            <>
+              <button className="btn" onClick={onNext}>{nextReady ? `Start chapter ${n + 1} now` : `Start chapter ${n + 1} (writing it, about a minute)`}</button>
+              <button type="button" className="quiet" onClick={onContinue}>Back to the handbook</button>
+            </>
+          )
         )}
       </ActionBar>
     </>

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Sheet from '../components/Sheet'
 import Rich, { inline } from '../components/Rich'
-import Illustration from '../components/Illustration'
 import AskCard from '../components/AskCard'
 import type { Id } from '../../convex/_generated/dataModel'
 
@@ -30,12 +29,15 @@ type Props = {
   passed: number[]
   passedExercises: string[]
   startAt: number
-  onPosition: (cardIndex: number) => void
+  startPart?: number
+  onPosition: (cardIndex: number, part: number) => void
   onAnswer: (item: Item, optionId: string, attempt: number) => Promise<AnswerResult>
-  onFinish: () => Promise<void>
+  onFinish: (stats: { minutes: number; right: number; total: number }) => Promise<void>
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
   svg?: string
   pictures: Record<number, string>   // card index -> Runway picture URL, arriving after the chapter
+  caution?: string | null            // money / health / legal topics: the fixed study-aid line
+  picturesPending?: boolean          // pictures are still being drawn: a quiet plate, never the rough drawing
   onExit: () => void
   handbookId: Id<'handbooks'>
   deviceToken: string
@@ -71,7 +73,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, recap, passed: _passed, passedExercises, startAt, onPosition, onAnswer, onFinish, onSimpler, svg, pictures, onExit, handbookId, deviceToken, label: labelOverride, finishLabel, tools = true }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, recap, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, pictures, caution, onExit, handbookId, deviceToken, label: labelOverride, finishLabel, tools = true }: Props) {
   const items: Item[] = useMemo(
     () => [
       ...(recap ? [{ chapter: recap.chapter, cardIndex: -1, card: { type: 'teach' as const, title: `Last time: ${recap.title}`, body: recap.body }, recall: true, recap: true }] : []),
@@ -81,6 +83,9 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
     [cards, recall, recap, n],
   )
 
+  // For the Done screen's line: minutes since this chapter was opened, and quizzes right on the first try.
+  const openedAt = useRef(Date.now())
+  const firstTries = useRef<Map<string, boolean>>(new Map())
   const [simplePref, setSimplePref] = useState<boolean>(() => { try { return localStorage.getItem('igetit.simple') === '1' } catch { return false } })
   const [simplified, setSimplified] = useState<Set<number>>(() => new Set())
   const [original, setOriginal] = useState<Set<number>>(() => new Set())
@@ -105,6 +110,8 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
   const firstChapterFrame = frames.findIndex((f) => !f.item.recall)
   const [i, setI] = useState(() => {
     if (startAt <= 0) return 0
+    const exact = frames.findIndex((f) => !f.item.recall && f.item.cardIndex === startAt && f.part === startPart)
+    if (exact >= 0) return exact
     const at = frames.findIndex((f) => !f.item.recall && f.item.cardIndex === startAt)
     return at >= 0 ? at : Math.max(0, firstChapterFrame)
   })
@@ -131,7 +138,7 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
   const canAdvance = item.card.type !== 'exercise' || exercisePassed
   const reset = () => { setAttempt(1); setPicked(null); setMissed([]); setResult(null); setError(null) }
 
-  useEffect(() => { if (!item.recall) onPosition(item.cardIndex) }, [item.cardIndex, item.recall]) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (!item.recall) onPosition(item.cardIndex, frame.part) }, [item.cardIndex, item.recall, frame.part]) // eslint-disable-line react-hooks/exhaustive-deps
   // after a card's frames change (simpler/original), land on that card's first frame
   useEffect(() => {
     if (jumpTo === null) return
@@ -156,6 +163,7 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
     setSending(true); setPicked(optionId); setError(null)
     try {
       const r = await onAnswer(item, optionId, attempt)
+      if (!item.recall && !firstTries.current.has(key)) firstTries.current.set(key, attempt === 1 && r.correct)
       setResult(r)
       if (r.correct) { if (!item.recall) { setPassedHere((s) => new Set(s).add(key)); setPassedChoice((m) => ({ ...m, [key]: optionId })) } }
       else setMissed((m) => [...m, optionId])
@@ -166,7 +174,8 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
 
   const finish = async () => {
     setFinishing(true); setError(null)
-    try { await onFinish() } catch (e: any) { setError(String(e?.message ?? e).includes('Finish') ? 'One check is still open. Go back and answer it.' : 'Could not save the chapter. Try again.') }
+    const tries = [...firstTries.current.values()]
+    try { await onFinish({ minutes: Math.max(1, Math.round((Date.now() - openedAt.current) / 60000)), right: tries.filter(Boolean).length, total: tries.length }) } catch (e: any) { setError(String(e?.message ?? e).includes('Finish') ? 'One check is still open. Go back and answer it.' : 'Could not save the chapter. Try again.') }
     finally { setFinishing(false) }
   }
 
@@ -212,7 +221,14 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
   const onTouchEnd = (e: React.TouchEvent) => {
     const s = touch.current; touch.current = null; if (!s) return
     const dx = e.changedTouches[0].clientX - s.x, dy = e.changedTouches[0].clientY - s.y
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { if (dx < 0) next(); else back() }
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { if (dx < 0) next(); else back(); return }
+    // Reels-style (DESIGN.md section 2): swipe up for the next frame, down to go back. A long frame scrolls first.
+    if (Math.abs(dy) > 60 && Math.abs(dy) > Math.abs(dx)) {
+      const body = (e.target as HTMLElement).closest('.story-body') as HTMLElement | null
+      const atEnd = !body || body.scrollTop + body.clientHeight >= body.scrollHeight - 4
+      const atTop = !body || body.scrollTop <= 4
+      if (dy < 0 && atEnd) next(); else if (dy > 0 && atTop) back()
+    }
   }
 
   const c = item.card
@@ -234,6 +250,7 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
         </div>
 
         <div className="story-body" key={i}>
+          {caution && i === 0 && <p className="story-caution">Study aid, verify before you act.</p>}
           {c.type === 'exercise' ? (
             <>
               <p className="story-kicker">{item.recall ? 'Remember this?' : KICKER[c.kind]}</p>
@@ -265,7 +282,7 @@ export default function Chapter({ topic, n, title, cards, recall, recap, passed:
             <>
               {frame.cover && <h1 className="story-title">{title}</h1>}
               {pic ? <div className="story-pic"><img src={pic} alt="" /></div>
-                : frame.cover && svg && <div className="story-illo"><Illustration svg={svg} /></div>}
+                : null /* no picture yet, or none: no box at all; the picture fades in when it lands */}
               {!frame.cover && frame.part === 0 && (KICKER[c.type] || c.title) && <p className="story-kicker">{KICKER[c.type] ?? c.title}</p>}
               <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover || pic ? (pic && !frame.cover && sizeOf(frame.text ?? '') === 'xl' ? 'lg' : 'md') : sizeOf(frame.text ?? '')}`} />
               {isLast && (

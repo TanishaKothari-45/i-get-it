@@ -14,6 +14,7 @@ import Tune from './screens/Tune'
 import Compare from './screens/Compare'
 import Library from './screens/Library'
 import Pricing from './screens/Pricing'
+import Landing from './screens/Landing'
 import SignupNudge from './components/SignupNudge'
 import ActionBar from './components/ActionBar'
 
@@ -53,6 +54,7 @@ export default function App() {
   const [view, setView] = useState<View>('auto')
   const [doneN, setDoneN] = useState<number | null>(null)
   const [bonusSel, setBonusSel] = useState<{ n: number; kind: BonusKind } | null>(null)
+  const [doneStats, setDoneStats] = useState<{ minutes: number; right: number; total: number } | null>(null)
   const [draftTopic, setDraftTopic] = useState('')
   // The writer comparison is for testers only: open the app once with ?compare=1 and this phone remembers it.
   const [tester] = useState(() => {
@@ -106,9 +108,14 @@ export default function App() {
     )
   }
 
+  // A first-time visitor (nothing on this phone): the landing page, which has its own box.
+  if (!hb && view !== 'start-again' && libRows.length === 0 && lib !== undefined) {
+    return <Landing onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
+  }
+
   // No handbook yet, or the person wants a different line: the first screen.
-  if (!hb || view === 'start-again' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed') {
-    const status = !hb || view === 'start-again' ? 'idle' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : 'failed'
+  if (!hb || view === 'start-again' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed' || (hb.status as string) === 'declined') {
+    const status = !hb || view === 'start-again' ? 'idle' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : (hb.status as string) === 'declined' ? 'declined' : 'failed'
     return (
       <Shell>
         {view === 'start-again' && libRows.length > 0 && !lib?.signedIn && <SignupNudge onSignIn={() => signIn('start-again')} context="second-topic" compact />}
@@ -122,6 +129,9 @@ export default function App() {
           onCreate={async (topic, level, voice, language) => { setDraftTopic(topic); const r = await create({ topic, level, voice, language, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
+          onAddOther={async (topic) => { await create({ topic, level: 'new', voice: 'friend', deviceToken: token }) }}
+          pushback={(hb as any)?.pushback ?? undefined}
+          suggestions={(hb as any)?.suggestions ?? []}
         />
       </Shell>
     )
@@ -209,7 +219,11 @@ export default function App() {
           onPricing={() => setView('pricing')}
           onPickTime={async (at) => { await setTomorrow({ handbookId: hb._id, at, deviceToken: token }) }}
           onContinue={() => { setDoneN(null); setView('plan') }}
+          stats={doneStats}
+          handbookId={hb._id}
           deviceToken={token}
+          nextReady={chapterReady && chapter?.n === doneN + 1}
+          onNext={() => { setDoneN(null); setView(chapterReady ? 'chapter' : 'plan') }}
           bonus={(() => { const b = bonusOf(doneN); return b ? { ...b, onGo: () => openBonus(doneN, b.kind) } : undefined })()}
           whatsNext={doneN === 7 ? {
             topic: plan?.topic ?? hb.topic,
@@ -246,12 +260,15 @@ export default function App() {
           passed={passed}
           passedExercises={progress?.passedExercises ?? []}
           startAt={progress?.currentCard ?? 0}
-          onPosition={(cardIndex) => { setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, deviceToken: token }).catch(() => {}) }}
+          startPart={(progress as any)?.currentPart ?? 0}
+          onPosition={(cardIndex, part) => { setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, part, deviceToken: token }).catch(() => {}) }}
           onAnswer={async (item, optionId, attempt) => (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult}
-          onFinish={async () => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneN(chapter.n); setView('done') }}
+          onFinish={async (stats) => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneStats(stats); setDoneN(chapter.n); setView('done') }}
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}
+          caution={(hb as any).caution ?? null}
+          picturesPending={!!(chapter as any).picturesPending}
           onExit={() => setView('plan')}
           handbookId={hb._id}
           deviceToken={token}
@@ -275,6 +292,9 @@ export default function App() {
         onCompare={!tester ? undefined : () => { if (chapter?.variants?.length) { setView('compare'); return } compareModels({ handbookId: hb._id, n: currentN, deviceToken: token }).then(() => setView('compare')).catch(() => {}) }}
         comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
         coverSvg={(hb.chapters.find((c) => c.n === 1) as any)?.svg}
+        coverPicture={firstPicture((hb.chapters.find((c) => c.n === 1) as any)?.pictures)}
+        coverPending={!!(hb.chapters.find((c) => c.n === 1) as any)?.picturesPending}
+        caution={(hb as any).caution ?? null}
         onLibrary={() => setView('library')}
         bonusFor={(n) => { const b = bonusOf(n); return b ? { label: BONUS_TEXT[b.kind].planLink[b.done ? 1 : 0], onGo: () => openBonus(n, b.kind) } : null }}
         libraryCount={libRows.length}
@@ -397,3 +417,8 @@ function BonusScreen({ hb, n, kind, token, onBack }: { hb: HandbookData; n: numb
   )
 }
 
+// The cover shows chapter 1's first Runway picture; the model's freehand drawing only until it arrives.
+function firstPicture(pictures?: Record<string, string>): string | undefined {
+  const keys = Object.keys(pictures ?? {}).map(Number).sort((a, b) => a - b)
+  return keys.length ? pictures![String(keys[0])] : undefined
+}

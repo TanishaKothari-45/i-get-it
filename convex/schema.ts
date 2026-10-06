@@ -19,8 +19,11 @@ export default defineSchema({
       v.literal("question"),      // the model asked one clarifying question
       v.literal("ready"),
       v.literal("failed"),
+      v.literal("declined"),      // we won't teach this (6 Oct, Prateek: be a good person, push back)
     ),
     question: v.optional(v.string()),
+    pushback: v.optional(v.string()),          // one plain, kind sentence: what we won't teach, why, and what instead
+    suggestions: v.optional(v.array(v.string())),
     plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }, in the handbook's language
     sourcePlan: v.optional(v.any()),   // the English plan, when the handbook is in another language: chapters are written from it
     ownerToken: v.optional(v.string()),
@@ -49,6 +52,7 @@ export default defineSchema({
     factCheck: v.optional(v.object({ status: v.string(), fixes: v.number(), notes: v.array(v.string()), model: v.optional(v.string()), at: v.number() })),  // live chapters: "passed" | "fixed" | "unchecked"
     cacheVersion: v.optional(v.number()),
     title: v.optional(v.string()),
+    recallCards: v.optional(v.any()),   // 2 fresh quizzes on this chapter's idea, new examples; shown at the start of a later chapter
     cards: v.optional(v.any()),   // array of cards, exercises include answer/whyNot/reteach (never sent raw to the client)
     outcomeLine: v.optional(v.string()),
     error: v.optional(v.string()),
@@ -74,6 +78,7 @@ export default defineSchema({
     handbookId: v.id("handbooks"),
     currentChapter: v.number(),
     currentCard: v.number(),
+    currentPart: v.optional(v.number()),   // which frame of that card (a long card is 2 or 3 frames), so a reload lands on the same frame
     chaptersPassed: v.array(v.number()),
     passedExercises: v.array(v.string()),   // "chapter:cardIndex"
     missedExercises: v.array(v.string()),   // "chapter:cardIndex" that needed a second go or were shown the answer
@@ -124,6 +129,19 @@ export default defineSchema({
     .index("by_device", ["deviceToken"]),
 
   // The two-way street: one question about one card, answered from that card and the chapter title only.
+  // Teach it back (optional, 6 Oct): the reader explains the chapter's idea in their own words; a short reply.
+  teachBacks: defineTable({
+    handbookId: v.id("handbooks"),
+    chapter: v.number(),
+    text: v.string(),
+    status: v.union(v.literal("thinking"), v.literal("ready"), v.literal("failed")),
+    verdict: v.optional(v.string()),   // "nailed" | "close" | "not yet"
+    got: v.optional(v.string()),
+    missed: v.optional(v.string()),
+    tip: v.optional(v.string()),
+    at: v.number(),
+  }).index("by_chapter", ["handbookId", "chapter"]),
+
   cardQuestions: defineTable({
     handbookId: v.id("handbooks"),
     chapter: v.number(),

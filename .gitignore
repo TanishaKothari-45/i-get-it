@@ -5,3 +5,5 @@ dist
 .impeccable/review
 .impeccable/build
 dist-dev
+docs/launch/
+brag-output*/
