@@ -217,6 +217,22 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
 
 // ---------- queries ----------
 
+// Every key a handbook answers to: the line typed, and the topic its plan settled on (in English and as shown), so
+// "public speaking" finds the handbook typed as "learn to speak in public" whose plan is called "Public speaking".
+function topicKeysOf(h: Doc<"handbooks">): Set<string> {
+  const keys = [h.topicKey, topicKeyOf(String(h.sourcePlan?.topic ?? "")), topicKeyOf(String(h.plan?.topic ?? ""))];
+  return new Set(keys.filter(Boolean));
+}
+
+// The same thing twice on one shelf (made before "one handbook per topic", or on two devices before sign-in): one key
+// per handbook for spotting it. From saved things: the links or creator; otherwise the topic its plan settled on.
+function twinKeyOf(h: Doc<"handbooks">): string {
+  const lang = h.language ?? ENGLISH;
+  if (h.sourcesKey) return `${lang}|saved|${h.sourcesKey}`;
+  const planned = topicKeyOf(String(h.sourcePlan?.topic ?? h.plan?.topic ?? ""));
+  return `${lang}|topic|${planned || h.topicKey || h._id}`;
+}
+
 async function ownedBooks(ctx: QueryCtx | MutationCtx, userId: Id<"users"> | null, deviceToken?: string) {
   const out = new Map<string, Doc<"handbooks">>();
   if (userId) for (const h of await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).collect()) out.set(h._id, h);
@@ -235,10 +251,17 @@ export const library = query({
   handler: async (ctx, { deviceToken }) => {
     const userId = await getAuthUserId(ctx);
     const rows = [];
+    const twins = new Map<string, number>();   // twin key -> index in rows
     for (const h of await ownedBooks(ctx, userId, deviceToken)) {
       if (h.status === "declined") continue;   // a topic we won't teach never sits on the shelf
       const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
-      rows.push({ _id: h._id, topic: (h.plan as any)?.topic ?? h.topic, status: h.status, passed: p?.chaptersPassed.length ?? 0, current: p?.currentChapter ?? 1, lastAt: p?.updatedAt ?? h.createdAt, outcome: (h.plan as any)?.outcome7 ?? null });
+      const row = { _id: h._id, topic: (h.plan as any)?.topic ?? (h.topic || (h.creator ? `@${h.creator.handle}'s reels` : "What you saved")), status: h.status, passed: p?.chaptersPassed.length ?? 0, current: p?.currentChapter ?? 1, lastAt: p?.updatedAt ?? h.createdAt, outcome: (h.plan as any)?.outcome7 ?? null };
+      // The same thing twice on this shelf: show the copy with more chapters passed (then the more recent). Display
+      // only: the other stays in the database, like the copies sign-in hides.
+      const key = twinKeyOf(h);
+      const at = twins.get(key);
+      if (at === undefined) { twins.set(key, rows.length); rows.push(row); }
+      else if (row.passed > rows[at].passed || (row.passed === rows[at].passed && row.lastAt > rows[at].lastAt)) rows[at] = row;
     }
     return { signedIn: !!userId, handbooks: rows.sort((a, b) => b.lastAt - a.lastAt) };
   },
@@ -376,8 +399,13 @@ export const create = mutation({
     const cached = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
 
     // One handbook per topic per person (and per language): typing a topic you've already started opens it where you left off.
-    const already = (await ownedBooks(ctx, userId, deviceToken)).find((h) => (h.language ?? ENGLISH) === lang &&
-      ((topicKey && h.topicKey === topicKey) || (cached && h.source === "cache" && (h.sourcePlan?.topic ?? h.topic) === cached.topic)));
+    // Two copies from before this rule: the one with more chapters passed.
+    let already: Doc<"handbooks"> | undefined, best = -1;
+    for (const h of (await ownedBooks(ctx, userId, deviceToken)).filter((h) => (h.language ?? ENGLISH) === lang &&
+      ((topicKey && topicKeysOf(h).has(topicKey)) || (cached && h.source === "cache" && (h.sourcePlan?.topic ?? h.topic) === cached.topic)))) {
+      const passed = await passedCount(ctx, h._id);
+      if (passed > best) { already = h; best = passed; }
+    }
     if (already) return { handbookId: already._id, fromCache: already.source === "cache", existing: true };
 
     // A ready topic in another language: its plan is translated now, its chapters as they're reached.
