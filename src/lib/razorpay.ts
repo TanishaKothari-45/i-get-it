@@ -1,5 +1,5 @@
 // Razorpay Checkout: their script draws the payment sheet (UPI, cards, netbanking). Loaded only when Pay is tapped.
-type Order = { keyId: string; orderId: string; amount: number; month: number; email?: string }
+type Order = { keyId: string; orderId: string; amount: number; month: number; plan: 'month' | 'year'; email?: string }
 export type Paid = { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }
 
 function load(): Promise<any> {
@@ -25,7 +25,7 @@ export async function checkout(o: Order, onFailed?: (reason: string) => void): P
       amount: o.amount * 100,
       currency: 'INR',
       name: 'I Get It',
-      description: `Month ${o.month + 1}`,
+      description: o.plan === 'year' ? 'One year, one-time payment' : 'One month, one-time payment',
       prefill: o.email ? { email: o.email } : undefined,
       theme: { color: '#d98b19' },
       handler: (reply: Paid) => resolve(reply),

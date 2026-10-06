@@ -64,13 +64,13 @@ const BODY: Record<PolicyPage, ReactNode> = {
       <h2>Fair use</h2>
       <p>Don't use I Get It to learn to hurt, threaten, deceive or stalk people, break into accounts or devices, or make weapons or drugs. It will decline those topics or offer a better version. Don't try to overload or break the service, or scrape it.</p>
       <h2>What you get, and what it costs</h2>
-      <p>Week 1 is free, with no card asked. After that it's ₹499 for your first month, and the price falls a little every month you pay, down to ₹250 a month from month 13. The full ladder is on the Pricing screen.</p>
-      <p>Each payment covers 30 days. Nothing renews by itself: you're only charged when you tap Pay and approve it in Razorpay's payment sheet. Prices include any taxes that apply.</p>
-      <p>While I Get It is this new, everything in it is open to everyone. Paying keeps it running and holds your place on the falling price. When parts become paid-only, this page will say so first.</p>
+      <p>Week 1 is free, with no card asked. After that the price depends on when you first pay: the first 50 paying readers pay ₹199 a month or ₹1,999 a year, the next 100 pay ₹299 or ₹2,999, the next 200 pay ₹399 or ₹3,999, and everyone after that pays ₹499 or ₹4,999. You keep the price you first paid as long as you pay again within 7 days of your time running out. The Pricing screen shows the tiers and how many spots are left.</p>
+      <p>Each payment is one-time: a month covers 30 days and a year covers 365 days. Nothing renews by itself: you're only charged when you tap Pay and approve it in Razorpay's payment sheet. Prices include any taxes that apply.</p>
+      <p>While I Get It is this new, everything in it is open to everyone. Paying keeps it running and holds your early price. When parts become paid-only, this page will say so first.</p>
       <h2>Handbooks you make</h2>
       <p>The handbooks are written by the model for you. We may share a handbook in the public library so others can read it too. It's shared only after an automatic check that it holds nothing personal, and it never carries your name or email. If you want one taken down, write to <Email />.</p>
       <h2>Changes and limits</h2>
-      <p>We may change or stop features; if a change affects what you paid for, you can ask for a refund for the unused part. The service is offered as it is; to the extent the law allows, our total responsibility to you is what you paid in the last 30 days. Indian law applies.</p>
+      <p>We may change or stop features. Payments are final, except when a payment goes wrong: see <a href="/refunds">Refunds</a>. The service is offered as it is; to the extent the law allows, our total responsibility to you is what you paid in the last 30 days. Indian law applies.</p>
       <p>See also <a href="/privacy">Privacy</a> and <a href="/refunds">Refunds</a>. Questions: <Email />.</p>
     </>
   ),
@@ -104,21 +104,22 @@ const BODY: Record<PolicyPage, ReactNode> = {
   ),
   refunds: (
     <>
-      <p className="lede">If it isn't worth it, you get your money back. Week 1 is free, so you can see what you're paying for first.</p>
+      <p className="lede">Week 1 is free, so you can see exactly what you're paying for before you pay.</p>
       <h2>Refunds</h2>
-      <p>Ask within 7 days of a payment and you get all of it back, no questions. After 7 days, we refund the unused part of the month if something on our side stopped you using it.</p>
-      <p>To ask, write to <Email /> from the email you signed in with, or with the Razorpay payment number from your receipt. We reply within 2 working days. Razorpay sends the money back to the same card, UPI or bank account, usually within 5 to 7 working days.</p>
+      <p>Payments are final: we don't give refunds, for a month or a year. That's why week 1 is free and nothing renews by itself, so you only ever pay for time you chose.</p>
+      <p>The one exception is a payment that went wrong; see below.</p>
       <h2>Cancelling</h2>
-      <p>There's nothing to cancel: nothing renews by itself. If you don't pay for a new month, you aren't charged. Your handbooks and progress stay yours either way.</p>
+      <p>There's nothing to cancel: nothing renews by itself. If you don't pay again, you aren't charged. Your handbooks and progress stay yours either way.</p>
       <h2>Delivery</h2>
-      <p>I Get It is a digital service. Nothing is shipped. Your paid month starts the moment Razorpay confirms the payment, and the Pricing screen shows the date it runs until.</p>
+      <p>I Get It is a digital service. Nothing is shipped. Your paid month or year starts the moment Razorpay confirms the payment, and the Pricing screen shows the date it runs until.</p>
       <h2>If a payment goes wrong</h2>
-      <p>If you were charged but the app doesn't show it, wait 10 minutes: Razorpay sometimes confirms late. Still missing? Write to <Email /> with the payment number and we'll fix it or refund it.</p>
+      <p>If you were charged twice, or you paid and your plan didn't start, write to <Email /> with the Razorpay payment number from your receipt, and we'll sort it out. We reply within 2 working days.</p>
+      <p>If you were charged but the app doesn't show it yet, wait 10 minutes first: Razorpay sometimes confirms late.</p>
     </>
   ),
   contact: (
     <>
-      <p className="lede">I Get It is made by one person, {CONTACT.name}. Write in about anything: a payment, a refund, your data, or a chapter that got something wrong.</p>
+      <p className="lede">I Get It is made by one person, {CONTACT.name}. Write in about anything: a payment, your data, or a chapter that got something wrong.</p>
       <ul className="policy-list">
         <li><strong>Email:</strong> {CONTACT.email ? <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> : '(to be added)'}</li>
         {CONTACT.phone && <li><strong>Phone:</strong> {CONTACT.phone}</li>}

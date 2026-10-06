@@ -3,17 +3,18 @@ import { RateLimiter, HOUR } from "@convex-dev/rate-limiter";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { action, httpAction, internalMutation, internalQuery, query, type QueryCtx } from "./_generated/server";
-import { priceForMonth } from "./pricing";
+import { DAYS, GRACE_DAYS, TIERS, tierFor, type Plan } from "./pricing";
 import { isOwner } from "./admin";
 
-// Razorpay, one month at a time (6 Oct). The reader taps Pay, we create an order here, Razorpay Checkout takes
-// the money (UPI, cards, netbanking), and the month counts only once Razorpay's signature checks out: either from
-// the checkout reply (confirm) or from the webhook, whichever lands first. Auto-renew (UPI AutoPay) comes later.
+// Razorpay, one payment at a time (6 Oct; a month or a year since 7 Oct). The reader taps Pay, we create an order
+// here, Razorpay Checkout takes the money (UPI, cards, netbanking), and the days count only once Razorpay's signature
+// checks out: either from the checkout reply (confirm) or from the webhook, whichever lands first. Nothing renews by
+// itself. The price comes from the early-bird tiers in pricing.ts.
 // Keys live in Convex env only: RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET.
 // A test key (rzp_test_...) moves no real money.
 
 const DAY = 24 * HOUR;
-export const PAID_DAYS = 30;
+const planV = v.union(v.literal("month"), v.literal("year"));
 
 const limiter = new RateLimiter(components.rateLimiter, {
   orderPerUser: { kind: "fixed window", rate: 10, period: HOUR },
@@ -23,31 +24,49 @@ const limiter = new RateLimiter(components.rateLimiter, {
 export const live = () => !!process.env.RAZORPAY_KEY_ID && !!process.env.RAZORPAY_KEY_SECRET;
 const modeOf = (): "test" | "live" => ((process.env.RAZORPAY_KEY_ID ?? "").startsWith("rzp_live_") ? "live" : "test");
 
-// What the Pricing screen needs: is paying switched on, how many months this person has paid, and until when.
+// Paying customers so far (people, not payments), in the mode the keys are in, so test payments never use up
+// real early-bird spots. This number sets the open tier.
+async function customers(ctx: QueryCtx) {
+  const mode = modeOf();
+  const paid = (await ctx.db.query("payments").collect()).filter((r) => r.status === "paid" && r.mode === mode);
+  return new Set(paid.map((r) => String(r.userId))).size;
+}
+
+// What the Pricing screen needs: is paying switched on, which tier is open, this person's tier and prices
+// (kept from their first payment while they keep paying), and until when they're paid.
 export async function standing(ctx: QueryCtx, userId: any) {
+  const count = await customers(ctx);
+  const open = tierFor(count);
   const rows = userId ? await ctx.db.query("payments").withIndex("by_user", (q) => q.eq("userId", userId)).collect() : [];
-  const paid = rows.filter((r) => r.status === "paid").sort((a, b) => (a.paidAt ?? 0) - (b.paidAt ?? 0));
+  const paid = rows.filter((r) => r.status === "paid" && r.mode === modeOf()).sort((a, b) => (a.paidAt ?? 0) - (b.paidAt ?? 0));
   const last = paid[paid.length - 1];
-  const paidUntil = last ? (last.paidAt ?? last.at) + PAID_DAYS * DAY : null;
+  const end = last ? (last.paidAt ?? last.at) + (last.days ?? DAYS.month) * DAY : null;
+  const kept = last && end! + GRACE_DAYS * DAY > Date.now() && last.tier !== undefined ? last.tier : null;
+  const tier = kept ?? open;
   return {
     live: live(),
     mode: live() ? modeOf() : null,
-    months: paid.length,
-    paidUntil: paidUntil && paidUntil > Date.now() ? paidUntil : null,
-    next: priceForMonth(paid.length),
+    customers: count,
+    openTier: open + 1,
+    tier: tier + 1,
+    kept: kept !== null && kept < open,   // paying less than newcomers because they came early
+    price: { month: TIERS[tier].month, year: TIERS[tier].year },
+    payments: paid.length,
+    plan: (last?.plan ?? null) as Plan | null,
+    paidUntil: end && end > Date.now() ? end : null,
   };
 }
 
 export const reserve = internalMutation({
-  args: { userId: v.id("users") },
-  handler: async (ctx, { userId }) => {
+  args: { userId: v.id("users"), plan: planV },
+  handler: async (ctx, { userId, plan }) => {
     if (!(await limiter.limit(ctx, "orderPerUser", { key: userId })).ok || !(await limiter.limit(ctx, "orderAll")).ok) throw new Error("busy");
     const s = await standing(ctx, userId);
     if (!s.live) throw new Error("Payments are off");
-    if (s.paidUntil) throw new Error("Already paid for this month");
-    const amount = priceForMonth(s.months);
-    const id = await ctx.db.insert("payments", { userId, amount, month: s.months, status: "created", mode: modeOf(), at: Date.now() });
-    return { id, amount, month: s.months };
+    if (s.paidUntil) throw new Error("Already paid");
+    const amount = s.price[plan];
+    const id = await ctx.db.insert("payments", { userId, amount, month: s.payments, plan, days: DAYS[plan], tier: s.tier - 1, status: "created", mode: modeOf(), at: Date.now() });
+    return { id, amount, month: s.payments };
   },
 });
 
@@ -58,19 +77,19 @@ export const setOrder = internalMutation({
   },
 });
 
-// Step 1, when Pay is tapped: create the Razorpay order at this person's price on the ladder.
+// Step 1, when Pay is tapped: create the Razorpay order at this person's tier price, for a month or a year.
 export const order = action({
-  args: {},
-  handler: async (ctx): Promise<{ keyId: string; orderId: string; amount: number; month: number; email?: string }> => {
+  args: { plan: planV },
+  handler: async (ctx, { plan }): Promise<{ keyId: string; orderId: string; amount: number; month: number; plan: Plan; email?: string }> => {
     const userId = await getAuthUserId(ctx);
     if (!userId) throw new Error("Sign in first");
     const keyId = process.env.RAZORPAY_KEY_ID, secret = process.env.RAZORPAY_KEY_SECRET;
     if (!keyId || !secret) throw new Error("Payments are off");
-    const r = await ctx.runMutation(internal.payments.reserve, { userId });
+    const r = await ctx.runMutation(internal.payments.reserve, { userId, plan });
     const res = await fetch("https://api.razorpay.com/v1/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: "Basic " + btoa(`${keyId}:${secret}`) },
-      body: JSON.stringify({ amount: r.amount * 100, currency: "INR", receipt: String(r.id).slice(0, 40), notes: { month: String(r.month + 1) } }),
+      body: JSON.stringify({ amount: r.amount * 100, currency: "INR", receipt: String(r.id).slice(0, 40), notes: { plan, payment: String(r.month + 1) } }),
     });
     const body: any = await res.json().catch(() => null);
     if (!res.ok || !body?.id) {
@@ -80,7 +99,7 @@ export const order = action({
     }
     await ctx.runMutation(internal.payments.setOrder, { id: r.id, orderId: body.id });
     const email = (await ctx.runQuery(internal.payments.emailOf, { userId })) ?? undefined;
-    return { keyId, orderId: body.id, amount: r.amount, month: r.month, email };
+    return { keyId, orderId: body.id, amount: r.amount, month: r.month, plan, email };
   },
 });
 
@@ -159,7 +178,7 @@ export const adminList = query({
       rupeesTest: sum("test"),
       started: rows.length,
       payers: new Set(paid.map((r) => r.userId)).size,
-      recent: rows.slice(0, 20).map((r) => ({ at: r.at, amount: r.amount, month: r.month + 1, status: r.status, mode: r.mode, via: r.via ?? null })),
+      recent: rows.slice(0, 20).map((r) => ({ at: r.at, amount: r.amount, month: r.month + 1, plan: r.plan ?? "month", tier: r.tier === undefined ? null : r.tier + 1, status: r.status, mode: r.mode, via: r.via ?? null })),
     };
   },
 });

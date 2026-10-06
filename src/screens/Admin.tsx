@@ -266,7 +266,7 @@ function PaymentsCard() {
         <li><span>People who paid</span><b>{d.payers}</b></li>
         <li><span>Pay sheets opened</span><b>{d.started}</b></li>
       </ul>
-      {d.recent.length > 0 && <ul className="adm-list">{d.recent.map((r, i) => <li key={i}><span>{when(r.at)} · month {r.month} · {r.mode}{r.via ? ` · ${r.via}` : ''}</span><b>{r.status} {inr(r.amount)}</b></li>)}</ul>}
+      {d.recent.length > 0 && <ul className="adm-list">{d.recent.map((r, i) => <li key={i}><span>{when(r.at)} · {r.plan === 'year' ? 'year' : 'month'}{r.tier ? ` · tier ${r.tier}` : ''} · {r.mode}{r.via ? ` · ${r.via}` : ''}</span><b>{r.status} {inr(r.amount)}</b></li>)}</ul>}
     </section>
   )
 }

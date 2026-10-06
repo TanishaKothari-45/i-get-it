@@ -244,7 +244,10 @@ export default defineSchema({
   payments: defineTable({
     userId: v.id("users"),
     amount: v.number(),                  // rupees
-    month: v.number(),                   // ladder index: 0 is month 1
+    month: v.number(),                   // how many payments this person made before this one
+    plan: v.optional(v.union(v.literal("month"), v.literal("year"))),   // since 7 Oct; older rows are months
+    days: v.optional(v.number()),        // days this payment covers: 30 or 365
+    tier: v.optional(v.number()),        // early-bird tier, 0-based (pricing.ts TIERS)
     status: v.union(v.literal("created"), v.literal("paid"), v.literal("failed")),
     mode: v.union(v.literal("test"), v.literal("live")),
     orderId: v.optional(v.string()),

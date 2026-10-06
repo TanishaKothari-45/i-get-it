@@ -133,7 +133,7 @@ export default function App() {
   if (view === 'pricing') {
     return (
       <Shell back={{ label: 'Back', onClick: () => setView(hb ? 'plan' : 'library') }}>
-        <Pricing plans={plansData as any} fromDone={doneN === 7} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={() => payOrder({})} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => setView(hb ? 'plan' : 'library')} onSignIn={() => signIn('pricing')} />
+        <Pricing plans={plansData as any} fromDone={doneN === 7} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={(plan) => payOrder({ plan })} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => setView(hb ? 'plan' : 'library')} onSignIn={() => signIn('pricing')} />
       </Shell>
     )
   }

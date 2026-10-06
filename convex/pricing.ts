@@ -3,37 +3,43 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { mutation, query } from "./_generated/server";
 import { standing } from "./payments";
 
-// The loyalty ladder. One place to change the numbers.
-// Price starts at START, falls by the same percentage every month you stay, and reaches half by month 13,
-// where it stays. A real cancel restarts you at month 1. A pause (up to MAX_PAUSE_MONTHS) keeps your rung.
-export const START = 499;            // rupees, month 1
-export const FLOOR_SHARE = 0.5;      // reached at month 13
-export const MONTHS_TO_FLOOR = 12;
-export const MAX_PAUSE_MONTHS = 2;
+// Early-bird tiers (Prateek, 7 Oct; replaces the falling monthly ladder). One place to change the numbers.
+// The tier is set by how many people have paid so far: the first 50 paying customers get tier 1, the next 100
+// tier 2, and so on. A person keeps the tier they first paid at for as long as they keep paying (a gap of up to
+// GRACE_DAYS after their paid days run out is fine); someone who stops for longer comes back at the current tier.
+// Every payment is one-time: a month covers 30 days, a year 365, and nothing renews by itself.
+export const TIERS: { size: number | null; month: number; year: number }[] = [
+  { size: 50, month: 199, year: 1999 },
+  { size: 100, month: 299, year: 2999 },
+  { size: 200, month: 399, year: 3999 },
+  { size: null, month: 499, year: 4999 },   // the last tier has no limit
+];
 export const FREE_DAYS = 7;          // week 1 is free; no payment details asked
+export const GRACE_DAYS = 7;
+export const DAYS = { month: 30, year: 365 } as const;
+export type Plan = keyof typeof DAYS;
 
-// Month 1 is index 0.
-export function priceForMonth(index: number): number {
-  const k = Math.max(0, Math.min(index, MONTHS_TO_FLOOR));
-  return Math.round(START * Math.pow(FLOOR_SHARE, k / MONTHS_TO_FLOOR));
+// Which tier (0-based) is open when `customers` people have already paid.
+export function tierFor(customers: number): number {
+  let start = 0;
+  for (let i = 0; i < TIERS.length; i++) {
+    const size = TIERS[i].size;
+    if (size === null || customers < start + size) return i;
+    start += size;
+  }
+  return TIERS.length - 1;
 }
 
-export function ladder(): { month: number; price: number }[] {
-  return Array.from({ length: MONTHS_TO_FLOOR + 1 }, (_, k) => ({ month: k + 1, price: priceForMonth(k) }));
+// The tiers as the pricing screens show them, with the true number of spots left in each.
+export function tierTable(customers: number) {
+  let start = 0;
+  return TIERS.map((t, i) => {
+    const taken = Math.max(0, Math.min(customers - start, t.size ?? Infinity));
+    const row = { tier: i + 1, month: t.month, year: t.year, size: t.size, left: t.size === null ? null : t.size - taken, open: tierFor(customers) === i };
+    start += t.size ?? 0;
+    return row;
+  });
 }
-
-// For when payments land: the state machine, written now so the rules are fixed in code, not in copy.
-export type SubState = { status: "none" | "active" | "paused" | "cancelled"; monthIndex: number; pausedMonths: number };
-export function onRenew(s: SubState): SubState { return s.status === "active" ? { ...s, monthIndex: s.monthIndex + 1 } : s; }
-export function onPause(s: SubState): SubState { return s.status === "active" ? { ...s, status: "paused", pausedMonths: 0 } : s; }
-export function onPauseMonthPassed(s: SubState): SubState {
-  if (s.status !== "paused") return s;
-  const pausedMonths = s.pausedMonths + 1;
-  return pausedMonths > MAX_PAUSE_MONTHS ? { status: "cancelled", monthIndex: 0, pausedMonths: 0 } : { ...s, pausedMonths };
-}
-export function onResume(s: SubState): SubState { return s.status === "paused" ? { ...s, status: "active" } : s; }
-export function onCancel(_s: SubState): SubState { return { status: "cancelled", monthIndex: 0, pausedMonths: 0 }; }
-export function onSubscribe(s: SubState): SubState { return { status: "active", monthIndex: s.status === "paused" ? s.monthIndex : 0, pausedMonths: 0 }; }
 
 export const plans = query({
   args: { deviceToken: v.optional(v.string()) },
@@ -42,22 +48,20 @@ export const plans = query({
     let intent = null;
     if (userId) intent = await ctx.db.query("priceIntents").withIndex("by_user", (q) => q.eq("userId", userId)).first();
     if (!intent && deviceToken) intent = await ctx.db.query("priceIntents").withIndex("by_device", (q) => q.eq("deviceToken", deviceToken)).first();
+    const pay = await standing(ctx, userId);
     return {
-      ladder: ladder(),
-      start: START,
-      floor: priceForMonth(MONTHS_TO_FLOOR),
+      tiers: tierTable(pay.customers),
       freeDays: FREE_DAYS,
-      maxPauseMonths: MAX_PAUSE_MONTHS,
-      yearOne: ladder().slice(0, 12).reduce((a, r) => a + r.price, 0),
+      days: DAYS,
       locked: intent ? { price: intent.price, at: intent.at } : null,
       signedIn: !!userId,
-      pay: await standing(ctx, userId),
+      pay,
     };
   },
 });
 
-// "Pay" tapped. No payment is taken and no card is asked: payments are not live. This records the tap
-// (shown on /stats as "Tapped Pay"). Once Razorpay keys are set, payments.ts takes over.
+// "Pay" tapped while payments are off (no Razorpay keys). No payment is taken and no card is asked: this records
+// the tap (shown on /stats as "Tapped Pay"). With Razorpay keys set, payments.ts takes over.
 export const lockPrice = mutation({
   args: { deviceToken: v.optional(v.string()), handbookId: v.optional(v.id("handbooks")) },
   handler: async (ctx, { deviceToken, handbookId }) => {
@@ -71,7 +75,8 @@ export const lockPrice = mutation({
     // Keep the handbook link only if it is the caller's own.
     const h = handbookId ? await ctx.db.get(handbookId) : null;
     const mine = h && ((userId && h.userId === userId) || (deviceToken && h.ownerToken === deviceToken));
-    await ctx.db.insert("priceIntents", { userId: userId ?? undefined, deviceToken, handbookId: mine ? handbookId : undefined, price: priceForMonth(0), at: Date.now() });
-    return { price: priceForMonth(0), already: false };
+    const price = TIERS[tierFor((await standing(ctx, userId)).customers)].month;
+    await ctx.db.insert("priceIntents", { userId: userId ?? undefined, deviceToken, handbookId: mine ? handbookId : undefined, price, at: Date.now() });
+    return { price, already: false };
   },
 });

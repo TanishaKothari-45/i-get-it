@@ -216,21 +216,30 @@ export default function Landing({ onCreate, onExplore }: Props) {
         </section>
       )}
 
-      {plans && (
-        <section className="lp-offer">
-          <div>
-            <h2>The longer you stay, the less you pay.</h2>
-            <p className="lp-body">Week 1 is free. Then {inr(plans.start)} a month, falling every month you stay until it's {inr(plans.floor)} from month 13, for good. Pause for up to {plans.maxPauseMonths} months and keep your price. Cancel any time.</p>
-          </div>
-          <div className="lp-ladder" role="img" aria-label={`Monthly price falls from ${inr(plans.start)} to ${inr(plans.floor)} over 12 months`}>
-            {plans.ladder.map((r: { month: number; price: number }) => (
-              <span key={r.month} style={{ height: `${Math.round((r.price / plans.start) * 100)}%` }} className={r.month === 13 ? 'floor' : ''}>
-                {(r.month === 1 || r.month === 13) && <em>{inr(r.price)}</em>}
-              </span>
-            ))}
-          </div>
-        </section>
-      )}
+      {plans && (() => {
+        // Early-bird tiers (7 Oct): real spots left, from convex/pricing.ts. Copy (agent).
+        const open = plans.tiers.find((t: any) => t.open) ?? plans.tiers[plans.tiers.length - 1]
+        const who = ['First 50', 'Next 100', 'Next 200', 'After that']
+        return (
+          <section className="lp-offer">
+            <div>
+              <h2>Come early, pay less.</h2>
+              <p className="lp-body">Week 1 is free. After that, the earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
+              <p className="lp-once">One-time payment · No auto-renew</p>
+            </div>
+            <ol className="lp-tiers">
+              {plans.tiers.map((t: any) => (
+                <li key={t.tier} className={t.open ? 'open' : t.left === 0 ? 'full' : ''}>
+                  <span>{who[t.tier - 1]}</span>
+                  <b>{inr(t.month)}<small> a month</small></b>
+                  <span>or {inr(t.year)} a year</span>
+                  <em>{t.left === 0 ? 'Full' : t.open ? (t.left === null ? 'Open now' : `${t.left} left`) : ''}</em>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      })()}
 
       <section className="lp-final">
         <img className="lp-final-art" src="/images/landing/summit.jpg" alt="" loading="lazy" />
