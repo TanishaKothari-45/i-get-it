@@ -168,7 +168,12 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
   const finish = async () => {
     setFinishing(true); setError(null)
     const tries = [...firstTries.current.values()]
-    try { await onFinish({ minutes: Math.max(1, Math.round((Date.now() - openedAt.current) / 60000)), right: tries.filter(Boolean).length, total: tries.length }) } catch (e: any) { setError(String(e?.message ?? e).includes('Finish') ? 'One check is still open. Go back and answer it.' : 'Could not save the chapter. Try again.') }
+    try { await onFinish({ minutes: Math.max(1, Math.round((Date.now() - openedAt.current) / 60000)), right: tries.filter(Boolean).length, total: tries.length }) } catch (e: any) {
+      // A quiz still open (7 Oct: one was skipped by the recall bug): go straight to it instead of a dead end.
+      const open = e?.data?.code === 'open-check' ? frames.findIndex((f) => !f.item.recall && f.item.cardIndex === e.data.card) : -1
+      if (open >= 0) { setI(open); reset(); setError('One quiz in this chapter is still open. Answer it, then finish from the last card.') }
+      else setError(String(e?.message ?? e).includes('Finish') ? 'One check is still open. Go back and answer it.' : 'Could not save the chapter. Try again.')
+    }
     finally { setFinishing(false) }
   }
 

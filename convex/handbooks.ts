@@ -303,7 +303,7 @@ export const create = mutation({
     // Live generation: the caps are checked here, in the kitchen.
     const all = await limiter.limit(ctx, "generateAll");
     const mine = await limiter.limit(ctx, "generateDevice", { key: userId ? String(userId) : deviceToken });
-    if (!all.ok || !mine.ok) throw new Error("busy");
+    if (!all.ok || !mine.ok) throw new ConvexError("busy");
 
     const handbookId = await ctx.db.insert("handbooks", {
       topic: clean, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "intent",
@@ -320,7 +320,7 @@ export const answerQuestion = mutation({
   handler: async (ctx, { handbookId, answer, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     if (h.status !== "question") throw new Error("No question open");
-    if (!(await takeGeneration(ctx, h))) throw new Error("busy");
+    if (!(await takeGeneration(ctx, h))) throw new ConvexError("busy");
     await ctx.db.patch(handbookId, { status: "planning", question: undefined });
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId, clarification: answer.trim().slice(0, 300) });
   },
@@ -332,7 +332,7 @@ export const retry = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     if (!h.plan) {
       if (h.status !== "failed") return;   // a plan is already being written
-      if (!(await takeGeneration(ctx, h))) throw new Error("busy");
+      if (!(await takeGeneration(ctx, h))) throw new ConvexError("busy");
       await ctx.db.patch(handbookId, { status: "planning", error: undefined });
       await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
       return;
@@ -695,7 +695,8 @@ export const recordAnswer = mutation({
       // The chapter is passed the moment its last quiz is, with every quiz in it passed (6 Oct, from /admin: 4 readers
       // reached the last cards and never tapped finish). The cards after it are a bonus; the reader's place moves on.
       const exerciseKeys = (ch!.cards as any[]).map((c, i) => (c?.type === "exercise" ? `${chapter}:${i}` : null)).filter(Boolean) as string[];
-      const passesNow = correct && cardIndex === lastQuiz && exerciseKeys.every((k) => passed.has(k)) && !p.chaptersPassed.includes(chapter);
+      // Any quiz can be the one that completes the set (7 Oct: a skipped early quiz answered after the last one).
+      const passesNow = correct && exerciseKeys.every((k) => passed.has(k)) && !p.chaptersPassed.includes(chapter);
       await ctx.db.patch(p._id, {
         passedExercises: [...passed], missedExercises: [...missed], updatedAt: Date.now(),
         ...(passesNow ? { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < CHAPTERS ? chapter + 1 : chapter, currentCard: 0, currentPart: 0 } : {}),
@@ -729,8 +730,9 @@ export const finishChapter = mutation({
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     if (!ch || ch.status !== "ready") throw new Error("Chapter not ready");
     const exerciseKeys: string[] = (ch?.cards ?? []).map((c: any, i: number) => (c.type === "exercise" ? `${n}:${i}` : null)).filter(Boolean);
-    const allPassed = exerciseKeys.every((k) => p.passedExercises.includes(k));
-    if (!allPassed) throw new Error("Finish the exercises first");
+    // Name the first quiz still open, so the screen can take the reader to it (a plain Error's text is hidden in production).
+    const open = exerciseKeys.find((k) => !p.passedExercises.includes(k));
+    if (open) throw new ConvexError({ code: "open-check", card: Number(open.split(":")[1]) });
     const chaptersPassed = p.chaptersPassed.includes(n) ? p.chaptersPassed : [...p.chaptersPassed, n];
     const next = Math.min(n + 1, CHAPTERS);
     await ctx.db.patch(p._id, { chaptersPassed, currentChapter: n < CHAPTERS ? next : n, currentCard: 0, updatedAt: Date.now() });
@@ -826,7 +828,7 @@ export const requestSimpler = mutation({
     // Free readers: 10 rewrites a day; members: no daily limit (the hourly caps below still apply).
     if (!(await ownerIsMember(ctx, h)) && !(await limiter.limit(ctx, "simplerFreeDay", { key: ownerKey(h) })).ok) throw new ConvexError("simpler-free");
     const mine = await limiter.limit(ctx, "simplerDevice", { key: ownerKey(h) });
-    if (!mine.ok || !(await limiter.limit(ctx, "simplerAll")).ok) throw new Error("busy");
+    if (!mine.ok || !(await limiter.limit(ctx, "simplerAll")).ok) throw new ConvexError("busy");
     await ctx.scheduler.runAfter(0, internal.handbooks.writeSimpler, { handbookId, chapter, cardIndex });
     return { ready: false as const };
   },
@@ -1025,7 +1027,7 @@ export const compareModels = mutation({
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     if (ch?.variants && ch.variants.length === 3) return { started: false };
     const cmp = await limiter.limit(ctx, "compareAll");
-    if (!cmp.ok || !(await takeGeneration(ctx, h))) throw new Error("busy");
+    if (!cmp.ok || !(await takeGeneration(ctx, h))) throw new ConvexError("busy");
     const order = ["sonnet", "opus", "fable"].sort(() => Math.random() - 0.5);
     const variants = order.map((k, i) => ({ key: ["A", "B", "C"][i], model: MODELS[k], status: "writing" }));
     if (ch) await ctx.db.patch(ch._id, { variants });
@@ -1108,7 +1110,7 @@ export const teachBack = mutation({
     const t = text.trim().slice(0, 600);
     if (t.length < 10) throw new Error("A sentence or two is enough.");
     const mine = await limiter.limit(ctx, "teachDevice", { key: ownerKey(h) });
-    if (!mine.ok || !(await limiter.limit(ctx, "teachAll")).ok) throw new Error("busy");
+    if (!mine.ok || !(await limiter.limit(ctx, "teachAll")).ok) throw new ConvexError("busy");
     const id = await ctx.db.insert("teachBacks", { handbookId, chapter, text: t, status: "thinking", at: Date.now() });
     await ctx.scheduler.runAfter(0, internal.handbooks.replyToTeachBack, { id });
   },
@@ -1162,7 +1164,7 @@ export const ask = mutation({
     const q = question.trim().slice(0, 300);
     if (q.length < 3) throw new Error("Ask in a few words.");
     const mine = await limiter.limit(ctx, "askDevice", { key: ownerKey(h) });
-    if (!mine.ok || !(await limiter.limit(ctx, "askAll")).ok) throw new Error("busy");
+    if (!mine.ok || !(await limiter.limit(ctx, "askAll")).ok) throw new ConvexError("busy");
     const id = await ctx.db.insert("cardQuestions", { handbookId, chapter, cardIndex, question: q, status: "thinking", at: Date.now() });
     await ctx.scheduler.runAfter(0, internal.handbooks.answerQuestionAboutCard, { questionId: id });
     return id;
