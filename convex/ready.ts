@@ -70,7 +70,9 @@ export const build = internalAction({
     // 3. All seven: store it on the shelf, then draw the pictures one chapter at a time.
     const keys: string[] = await ctx.runMutation(internal.handbooks.seedCache, { topic: plan.topic ?? topic, aliases: [topic, ...(aliases ?? [])], level: "new", plan, chapters, trendingWeek });
     const topicKey = topicKeyOf(plan.topic ?? topic);
-    await ctx.scheduler.runAfter(0, internal.images.backfill, { queue: Array.from({ length: CHAPTERS }, (_, i) => ({ topicKey, level: "new" as const, n: i + 1 })) });
+    // Chapter 1 gets the 'would they keep swiping?' polish before its pictures are drawn.
+    await ctx.scheduler.runAfter(0, internal.polish.queue, { topicKeys: [topicKey] });
+    await ctx.scheduler.runAfter(120000, internal.images.backfill, { queue: Array.from({ length: CHAPTERS }, (_, i) => ({ topicKey, level: "new" as const, n: i + 1 })) });
     console.log(`ready ${topic}: on the shelf as ${keys.join(", ")}; pictures queued`);
   },
 });
