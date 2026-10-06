@@ -3,6 +3,7 @@ import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
 import TeachBack from '../components/TeachBack'
+import { track } from '../lib/track'
 import type { Id } from '../../convex/_generated/dataModel'
 
 type Props = {
@@ -24,6 +25,8 @@ type Props = {
   onNext?: () => void
   handbookId?: Id<'handbooks'>
   deviceToken?: string
+  onRate?: (rating: 'too_easy' | 'just_right' | 'lost_me') => Promise<void>
+  adapts?: boolean   // typed topics rewrite the next chapter from the rating; ready topics only record it
 }
 
 const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
@@ -50,7 +53,8 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   return `You took your time, and it stuck. That's the whole point.`
 }
 
-export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken }: Props) {
+export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts }: Props) {
+  const [rated, setRated] = useState<string | null>(null)
   const line = cheer(n, stats)
   const [saving, setSaving] = useState<string | null>(null)
   const [stay, setStay] = useState(false)
@@ -62,6 +66,18 @@ export default function Done({ topic, n, passed, outcomeLine, nextTitle, nextHoo
       <p className="sub" style={{ marginTop: 10 }}>{topic}</p>
       <h1>Chapter {n} of 7: done.</h1>
       {line && <p className="cheer">{line}</p>}
+      {onRate && (
+        <div className="rate" role="group" aria-label={`How was chapter ${n}?`}>
+          <p className="rate-q">{rated ? (!adapts ? 'Thanks, noted.' : rated === 'just_right' ? 'Noted. Same pace next time.' : rated === 'lost_me' ? "Noted. The next chapter will slow down." : 'Noted. The next chapter will step up.') : `How was chapter ${n}? (optional)`}</p>
+          {!rated && (
+            <div className="rate-row">
+              {([['too_easy', 'Too easy'], ['just_right', 'Just right'], ['lost_me', 'Lost me']] as const).map(([k, label]) => (
+                <button key={k} type="button" className="chip" onClick={() => { setRated(k); track('feedback', { n, v: k }); onRate(k).catch(() => {}) }}>{label}</button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {handbookId && deviceToken && <TeachBack handbookId={handbookId} n={n} deviceToken={deviceToken} />}
       {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Next: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}

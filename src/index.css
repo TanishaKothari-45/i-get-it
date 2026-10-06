@@ -583,3 +583,23 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .adm-table th { text-align: left; color: var(--ink-2); font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--tint); white-space: nowrap; }
 .adm-table td { padding: 6px 8px; border-bottom: 1px solid var(--paper-2); white-space: nowrap; }
 @media (max-width: 600px) { .adm-frow { grid-template-columns: 1fr 70px 34px; } .adm-frow .adm-fbar { display: none; } .adm-frow.small { grid-template-columns: 1fr 60px; } }
+
+/* "How was chapter N?" on the Done screen (optional) */
+.rate { margin-top: var(--m); }
+.rate-q { font: 600 var(--small) var(--sans); color: var(--ink-2); margin: 0 0 8px; }
+.rate-row { display: flex; gap: 8px; }
+.rate-row .chip { flex: 1; min-height: 44px; }
+
+.adm-journeys { display: grid; gap: 6px; }
+.adm-j { border: 1px solid var(--paper-2); border-radius: 12px; }
+.adm-j summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 10px 12px; font-size: var(--small); }
+.adm-j summary::-webkit-details-marker { display: none; }
+.adm-j[open] summary { border-bottom: 1px solid var(--paper-2); }
+.adm-j-when { color: var(--ink-2); min-width: 110px; }
+.adm-j-tag { background: var(--paper-2); border-radius: 999px; padding: 2px 8px; }
+.adm-j-topic { font-weight: 600; }
+.adm-j-reason { margin-left: auto; color: var(--ink); }
+.adm-j-steps { margin: 0; padding: 10px 14px 12px 14px; list-style: none; font-size: var(--small); display: grid; gap: 4px; }
+.adm-j-steps li { display: grid; grid-template-columns: 70px 1fr; gap: 8px; }
+.adm-j-steps li span { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) { .adm-j-reason { margin-left: 0; width: 100%; } }

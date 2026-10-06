@@ -6,7 +6,7 @@ import './index.css'
 import App from './App.tsx'
 import Stats from './screens/Stats'
 import Admin from './screens/Admin'
-import { initTrack } from './lib/track'
+import { initTrack, startSession } from './lib/track'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
 
@@ -18,6 +18,7 @@ const path = window.location.pathname.replace(/\/+$/, '')
 const onStats = path === '/stats'
 const onAdmin = path === '/admin'
 if (!onStats && !onAdmin) {
+  startSession(path || '/')
   const utm = new URLSearchParams(window.location.search).get('utm_source')
   const ref = document.referrer && !document.referrer.startsWith(window.location.origin) ? document.referrer : undefined
   convex.mutation(api.stats.recordVisit, { visitor: deviceToken(), source: utm ?? ref }).catch(() => {})

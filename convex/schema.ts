@@ -66,6 +66,7 @@ export default defineSchema({
     passedExercises: v.array(v.string()),   // "chapter:cardIndex"
     missedExercises: v.array(v.string()),   // "chapter:cardIndex" that needed a second go or were shown the answer
     tomorrowAt: v.optional(v.string()),     // "21:00"
+    feedback: v.optional(v.record(v.string(), v.string())),   // chapter number -> "too_easy" | "just_right" | "lost_me" (optional, Done screen)
     lastOpenedAt: v.number(),
     updatedAt: v.number(),
   }).index("by_handbook", ["handbookId"]),
@@ -140,6 +141,13 @@ export default defineSchema({
   })
     .index("by_visitor_day", ["visitor", "day"])
     .index("by_day", ["day"]),
+
+  // Switches the owner flips on /admin (6 Oct): "provider" = "claude" | "inference" (The Inference Company, deepseek-v4-pro).
+  settings: defineTable({
+    key: v.string(),
+    value: v.string(),
+    at: v.number(),
+  }).index("by_key", ["key"]),
 
   // What people do on the page, for the owner-only /admin funnel (6 Oct): landing seen, sections scrolled into view,
   // box tapped and typed in, how a handbook was started, plan seen, chapter opened. A device token, never a name;

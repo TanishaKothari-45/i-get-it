@@ -108,6 +108,38 @@ async function callGLM(system: string, user: string, model: string, maxTokens: n
   return { text: String(choice?.message?.content ?? ""), tokensIn: body.usage?.prompt_tokens, tokensOut: body.usage?.completion_tokens, model: body.model ?? model };
 }
 
+// The Inference Company (Manthan's, 6 Oct): an OpenAI-style API serving deepseek-v4-pro. Key in the Convex env variable
+// INFERENCE_API_KEY. Used when the /admin switch says "inference", or when a call names a model starting "tic:" (tests).
+// Each call carries an x-task-id header naming the job, so the console shows cost per job.
+const INFERENCE_MODEL = "deepseek-v4-pro";
+async function callInference(kind: string, system: string, user: string, maxTokens: number): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+  const key = process.env.INFERENCE_API_KEY;
+  if (!key) throw new Error("No INFERENCE_API_KEY");
+  const res = await fetch("https://console.theinferencecompany.si/v1/chat/completions", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json", "x-task-id": `igetit-${kind}` },
+    body: JSON.stringify({
+      model: INFERENCE_MODEL, max_tokens: Math.min(maxTokens, 32000),
+      messages: [{ role: "system", content: system + "\n\nReturn only the JSON object. No prose, no code fences." }, { role: "user", content: user }],
+    }),
+  });
+  const body: any = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`Inference ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
+  const choice = body.choices?.[0];
+  if (choice?.finish_reason === "length") throw new Error("reply cut off at the token limit");
+  return { text: String(choice?.message?.content ?? ""), tokensIn: body.usage?.prompt_tokens, tokensOut: body.usage?.completion_tokens, model: `${body.model ?? INFERENCE_MODEL} (inference)` };
+}
+
+// One small request to check the key and the connection: npx convex run ai:pingInference
+export const pingInference = internalAction({
+  args: {},
+  handler: async (): Promise<any> => {
+    const t = Date.now();
+    try { const r = await callInference("ping", "Reply with a JSON object.", 'Return {"ok": true, "says": "<one short sentence about the Odyssey>"}', 400); return { ms: Date.now() - t, ...r }; }
+    catch (e: any) { return { ms: Date.now() - t, error: String(e?.message ?? e) }; }
+  },
+});
+
 function extractJson(text: string): any {
   const m = text.match(/\{[\s\S]*\}/);
   if (!m) throw new Error("no JSON in model output");
@@ -124,9 +156,11 @@ export const generate = internalAction({
       await ctx.runMutation(internal.handbooks.logAiCall, { kind, model: "none", input: user.slice(0, 2000), output: "", ms: 0, ok: false, error: "no provider key set" });
       return { ok: false, error: "no provider key set", model: "none" };
     }
+    // The /admin switch: The Inference Company instead of Claude, unless this call names its own model (comparisons, tests).
+    const viaInference = model?.startsWith("tic:") || (!model && !!process.env.INFERENCE_API_KEY && (await ctx.runQuery(internal.settings.provider, {})) === "inference");
     try {
       const viaGLM = !!model?.startsWith("glm-");
-      const call = () => viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
+      const call = () => viaInference ? callInference(kind, system, user, JOB[kind].maxTokens) : viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
       let r = await call();
       let json: any;
       // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure.

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useQuery } from 'convex/react'
+import { useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { api } from '../../convex/_generated/api'
 
@@ -27,6 +27,8 @@ export default function Admin() {
       {d === undefined ? <p className="note">Loading…</p> : d.denied ? <OwnerSignIn signedIn={d.signedIn} /> : (
         <>
           <p className="note">Updated live. Your own phones and accounts are left out. {d.trackingSince ? `Landing steps (marked •) are counted from ${time(d.trackingSince)}, when page tracking began.` : 'Landing steps (marked •) start counting from the next visit.'}</p>
+
+          <ProviderSwitch />
 
           <section className="adm-card adm-wide">
             <h2>Funnel</h2>
@@ -103,24 +105,37 @@ export default function Admin() {
             </table>
           </section>
 
+          <div className="adm-grid">
+            <section className="adm-card">
+              <h2>Why people stop</h2>
+              <p className="note">Each visitor's most likely reason, from what they did last.</p>
+              <ul className="adm-list">{d.reasons.map((r) => <li key={r.reason}><span>{r.reason}</span><b>{r.n}</b></li>)}</ul>
+            </section>
+            <section className="adm-card">
+              <h2>Devices</h2>
+              <ul className="adm-list">{d.devices.map((x) => <li key={x.device}><span>{x.device === 'unknown' ? 'Unknown (before tracking)' : x.device}</span><b>{x.n}</b></li>)}</ul>
+            </section>
+          </div>
+
           <section className="adm-card adm-wide">
-            <h2>Latest visitors</h2>
-            <div className="adm-scroll">
-              <table className="adm-table">
-                <thead><tr><th>When</th><th>Source</th><th>Landing</th><th>Box</th><th>Started</th><th>Topic</th><th>Plan</th><th>Chapter 1</th><th>Passed</th><th>Signed up</th></tr></thead>
-                <tbody>{d.recent.map((r) => (
-                  <tr key={r.visitor + r.first}>
-                    <td>{time(r.first)}</td><td>{r.source}</td>
-                    <td>{r.landed ? (r.deepest ? SECTION_NAMES[r.deepest] ?? r.deepest : 'top only') : '—'}</td>
-                    <td>{r.typed ? 'typed' : r.focused ? 'tapped' : r.landed ? 'no' : '—'}</td>
-                    <td>{r.started ? (r.via === 'box' ? 'typed' : r.via ?? 'yes') : 'no'}</td>
-                    <td>{r.topic ?? ''}</td>
-                    <td>{r.plan ? 'yes' : r.started ? 'waiting' : ''}</td>
-                    <td>{r.passed ? 'done' : r.openedCh1 ? (r.ch1Card ? `card ${r.ch1Card}${r.ch1Of ? `/${r.ch1Of}` : ''}` : 'opened') : r.started ? 'no' : ''}</td>
-                    <td>{r.passed || ''}</td><td>{r.signedUp ? 'yes' : ''}</td>
-                  </tr>
-                ))}</tbody>
-              </table>
+            <h2>Each person's path</h2>
+            <p className="note">Latest 50 visitors. Tap one to see everything they did, in order.</p>
+            <div className="adm-journeys">
+              {d.recent.map((r) => (
+                <details key={r.visitor + r.first} className="adm-j">
+                  <summary>
+                    <span className="adm-j-when">{time(r.first)}</span>
+                    <span className="adm-j-tag">{r.source}</span>
+                    <span className="adm-j-tag">{r.device ?? '?'}</span>
+                    <span className="adm-j-tag">{secs(r.spentS)}</span>
+                    <span className="adm-j-topic">{r.topic ?? ''}</span>
+                    <span className="adm-j-reason">{r.reason}</span>
+                  </summary>
+                  <ol className="adm-j-steps">
+                    {r.timeline.length === 0 ? <li><span>—</span>No page activity recorded.</li> : r.timeline.map((x, k) => <li key={k}><span>{x.t < 0 ? '' : `+${secs(x.t)}`}</span>{x.what}</li>)}
+                  </ol>
+                </details>
+              ))}
             </div>
           </section>
 
@@ -143,6 +158,7 @@ function OwnerSignIn({ signedIn }: { signedIn: boolean }) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
+  const [flow, setFlow] = useState<'signIn' | 'signUp'>('signIn')
   if (signedIn) return (
     <section className="adm-card"><h2>Owner only</h2><p className="note">This account isn't on the owner list.</p>
       <button type="button" className="quiet" onClick={() => signOut()}>Sign out and use another account</button></section>
@@ -150,13 +166,37 @@ function OwnerSignIn({ signedIn }: { signedIn: boolean }) {
   return (
     <section className="adm-card" style={{ maxWidth: 420 }}>
       <h2>Owner only</h2>
-      <p className="note">Sign in with the owner email.</p>
-      <form onSubmit={async (e) => { e.preventDefault(); setBusy(true); setError(null); try { await signIn('password', { email: email.trim(), password, flow: 'signIn' }) } catch { setError("That email and password don't match.") } finally { setBusy(false) } }}>
+      <p className="note">{flow === 'signIn' ? 'Sign in with the owner email.' : 'Create the account for the owner email. Use at least 8 characters for the password.'}</p>
+      <form onSubmit={async (e) => { e.preventDefault(); setBusy(true); setError(null); try { await signIn('password', { email: email.trim(), password, flow }) } catch { setError(flow === 'signIn' ? "That email and password don't match." : "Couldn't create it. The password needs at least 8 characters, or this email already has an account.") } finally { setBusy(false) } }}>
         <input className="input" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" style={{ marginTop: 12 }} />
         <input className="input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" style={{ marginTop: 10 }} />
         {error && <p className="error">{error}</p>}
-        <button className="btn" type="submit" disabled={busy} style={{ marginTop: 14 }}>{busy ? 'Signing in…' : 'Sign in'}</button>
+        <button className="btn" type="submit" disabled={busy} style={{ marginTop: 14 }}>{busy ? 'One moment…' : flow === 'signIn' ? 'Sign in' : 'Create the owner account'}</button>
       </form>
+      <button type="button" className="quiet" onClick={() => { setFlow(flow === 'signIn' ? 'signUp' : 'signIn'); setError(null) }}>{flow === 'signIn' ? 'No account yet? Create the owner account' : 'Already have one? Sign in'}</button>
+    </section>
+  )
+}
+
+// The AI provider switch (6 Oct, Manthan's offer). Claude is the default and always one tap away.
+function ProviderSwitch() {
+  const st = useQuery(api.settings.providerStatus, {})
+  const setProvider = useMutation(api.settings.setProvider)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  if (!st) return null
+  const flip = async (p: 'claude' | 'inference') => { setBusy(true); setError(null); try { await setProvider({ provider: p }) } catch (e: any) { setError(String(e?.message ?? e).includes('INFERENCE_API_KEY') ? 'Set INFERENCE_API_KEY on this server first.' : "Couldn't switch. Try again.") } finally { setBusy(false) } }
+  return (
+    <section className="adm-card adm-wide">
+      <h2>AI provider</h2>
+      <p className="note">Plans, chapters, fact checks, Say it simpler, teach-backs and picture scenes use this. Ask or object stays on Claude (its web search is Claude's).{st.since ? ` Switched ${time(st.since)}.` : ''}</p>
+      <div className="adm-tabs" role="group" aria-label="AI provider" style={{ marginTop: 10 }}>
+        <button type="button" aria-pressed={st.provider === 'claude'} disabled={busy} onClick={() => flip('claude')}>Claude (Anthropic)</button>
+        <button type="button" aria-pressed={st.provider === 'inference'} disabled={busy || !st.inferenceKeySet} onClick={() => flip('inference')}>DeepSeek v4 Pro (The Inference Company)</button>
+      </div>
+      {!st.inferenceKeySet && <p className="note">The Inference Company key isn't set on this server yet.</p>}
+      {st.provider === 'inference' && <p className="note">Readers' topics and chapters now go to The Inference Company. Switch back to Claude any time; chapters already written stay as they are.</p>}
+      {error && <p className="error">{error}</p>}
     </section>
   )
 }

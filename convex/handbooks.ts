@@ -460,7 +460,7 @@ export const readingReport = internalQuery({
       return { ch, rows, quizzes, right: quizzes.filter((q) => q.first.correct).length };
     };
     const last = await chapterStats(n - 1);
-    if (!last.quizzes.length) return null;
+    if (!last.quizzes.length && !(await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique())?.feedback?.[String(n - 1)]) return null;
     let streak = 0;
     for (let m = n - 1; m >= 1; m--) {
       const s = await chapterStats(m);
@@ -480,6 +480,10 @@ export const readingReport = internalQuery({
     } else if (streak > 0) {
       lines.push(`Step up: ${Math.min(3, streak)} of 3.`);
     }
+    const prog = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    const said = prog?.feedback?.[String(n - 1)];
+    if (said === "lost_me") lines.push(`The reader said chapter ${n - 1} lost them. Slow down: shorter cards, plainer words, one more worked example, and an easier first quiz. No step up.`);
+    if (said === "too_easy") lines.push(`The reader said chapter ${n - 1} was too easy. Step up: assume the basics, go one level deeper, and make the quizzes apply the idea to trickier cases.`);
     return lines.join("\n");
   },
 });
@@ -631,6 +635,24 @@ export const finishChapter = mutation({
     await ctx.db.patch(p._id, { chaptersPassed, currentChapter: n < CHAPTERS ? next : n, currentCard: 0, updatedAt: Date.now() });
     // Write the next chapter now if it isn't there yet (cached handbooks may already have it).
     if (n < CHAPTERS) await ensureChapter(ctx, h, next);
+  },
+});
+
+// "How was chapter N?" on the Done screen (optional; Prateek, 6 Oct): Too easy, Just right, Lost me.
+// On a typed topic, "Lost me" or "Too easy" marks the next chapter for a rewrite when it's opened, so it can adapt
+// (it was already being written when the last quiz passed). Ready topics are pre-written and only record the answer.
+export const rateChapter = mutation({
+  args: { handbookId: v.id("handbooks"), n: v.number(), rating: v.union(v.literal("too_easy"), v.literal("just_right"), v.literal("lost_me")), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, n, rating, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    if (!Number.isInteger(n) || n < 1 || n > CHAPTERS) throw new Error("No such chapter");
+    const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    if (!p || !p.chaptersPassed.includes(n)) return;
+    await ctx.db.patch(p._id, { feedback: { ...(p.feedback ?? {}), [String(n)]: rating }, updatedAt: Date.now() });
+    if (rating === "just_right" || h.source !== "live" || n >= CHAPTERS) return;
+    const next = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n + 1)).unique();
+    const unread = p.currentChapter <= n + 1 && !(p.currentChapter === n + 1 && p.currentCard > 0);
+    if (next && next.status === "ready" && unread && !next.stale) await ctx.db.patch(next._id, { stale: true });
   },
 });
 

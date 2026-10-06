@@ -36,6 +36,7 @@ export default function App() {
   const setPosition = useMutation(api.handbooks.setPosition)
   const recordAnswer = useMutation(api.handbooks.recordAnswer)
   const finishChapter = useMutation(api.handbooks.finishChapter)
+  const rateChapter = useMutation(api.handbooks.rateChapter)
   const setTomorrow = useMutation(api.handbooks.setTomorrow)
   const attachToMe = useMutation(api.handbooks.attachToMe)
   const requestSimpler = useMutation(api.handbooks.requestSimpler)
@@ -208,6 +209,8 @@ export default function App() {
           stats={doneStats}
           handbookId={hb._id}
           deviceToken={token}
+          adapts={hb.source === 'live'}
+          onRate={async (rating) => { await rateChapter({ handbookId: hb._id, n: doneN, rating, deviceToken: token }) }}
           nextReady={chapterReady && chapter?.n === doneN + 1}
           onNext={() => { setDoneN(null); setView(chapterReady ? 'chapter' : 'plan') }}
         />

@@ -23,6 +23,7 @@ import type * as prompts from "../prompts.js";
 import type * as ready from "../ready.js";
 import type * as repair from "../repair.js";
 import type * as repairData from "../repairData.js";
+import type * as settings from "../settings.js";
 import type * as stats from "../stats.js";
 
 import type {
@@ -47,6 +48,7 @@ declare const fullApi: ApiFromModules<{
   ready: typeof ready;
   repair: typeof repair;
   repairData: typeof repairData;
+  settings: typeof settings;
   stats: typeof stats;
 }>;
 
