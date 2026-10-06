@@ -13,9 +13,10 @@ import Compare from './screens/Compare'
 import Library from './screens/Library'
 import Pricing from './screens/Pricing'
 import Landing from './screens/Landing'
+import Explore from './screens/Explore'
 import SignupNudge from './components/SignupNudge'
 
-type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again' | 'tune' | 'compare' | 'library' | 'pricing'
+type View = 'auto' | 'plan' | 'chapter' | 'done' | 'signin' | 'start-again' | 'tune' | 'compare' | 'library' | 'pricing' | 'explore'
 
 export default function App() {
   const token = useMemo(() => deviceToken(), [])
@@ -38,6 +39,7 @@ export default function App() {
   const finishChapter = useMutation(api.handbooks.finishChapter)
   const rateChapter = useMutation(api.handbooks.rateChapter)
   const chooseIntent = useMutation(api.handbooks.chooseIntent)
+  const startFromLibrary = useMutation(api.library.start)
   const setTomorrow = useMutation(api.handbooks.setTomorrow)
   const attachToMe = useMutation(api.handbooks.attachToMe)
   const requestSimpler = useMutation(api.handbooks.requestSimpler)
@@ -105,9 +107,20 @@ export default function App() {
     )
   }
 
+  // Explore: ready topics and the ones other readers started (6 Oct).
+  if (view === 'explore') {
+    return (
+      <Shell>
+        <Explore onBack={() => setView('auto')}
+          onReady={async (topic) => { const r = await create({ topic, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setView('auto') }}
+          onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />
+      </Shell>
+    )
+  }
+
   // A first-time visitor (nothing on this phone): the landing page, which has its own box.
   if (!hb && view !== 'start-again' && libRows.length === 0 && lib !== undefined) {
-    return <Landing onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
+    return <Landing onExplore={() => setView('explore')} onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
   }
 
   // No handbook yet, or the person wants a different line: the first screen.
@@ -152,6 +165,7 @@ export default function App() {
         <button type="button" className="quiet" onClick={() => setView('tune')}>Make it yours</button>
         <button type="button" className="quiet" onClick={() => setView('pricing')}>Pricing</button>
         <button type="button" className="quiet" onClick={() => { setDraftTopic(hb.topic); setView('start-again') }}>Start another topic</button>
+        <button type="button" className="quiet" onClick={() => setView('explore')}>Explore what others are learning</button>
       </div>
     </>
   ) : undefined

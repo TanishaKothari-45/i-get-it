@@ -29,6 +29,7 @@ export default function Admin() {
           <p className="note">Updated live. Your own phones and accounts are left out. {d.trackingSince ? `Landing steps (marked •) are counted from ${time(d.trackingSince)}, when page tracking began.` : 'Landing steps (marked •) start counting from the next visit.'}</p>
 
           <ProviderSwitch />
+          <LibraryCard />
 
           <section className="adm-card adm-wide">
             <h2>Funnel</h2>
@@ -197,6 +198,35 @@ function ProviderSwitch() {
       {!st.inferenceKeySet && <p className="note">The Inference Company key isn't set on this server yet.</p>}
       {st.provider === 'inference' && <p className="note">Readers' topics and chapters now go to The Inference Company. Switch back to Claude any time; chapters already written stay as they are.</p>}
       {error && <p className="error">{error}</p>}
+    </section>
+  )
+}
+
+// The shared library (6 Oct): what other readers can start from Explore. Unpublish anything with one tap.
+function LibraryCard() {
+  const rows = useQuery(api.library.adminList, {})
+  const set = useMutation(api.library.setPublished)
+  if (!rows) return null
+  return (
+    <section className="adm-card adm-wide">
+      <h2>Shared library</h2>
+      <p className="note">Typed topics whose plan and chapter 1 passed the privacy check. Chapters 2 to 7 stay personal. {rows.filter((r) => r.published).length} shared of {rows.length}.</p>
+      {rows.length === 0 ? <p className="note">Nothing yet. The next typed topic that passes the check appears here.</p> : (
+        <div className="adm-scroll">
+          <table className="adm-table">
+            <thead><tr><th>Topic</th><th>Goal</th><th>Mode</th><th>Starts</th><th>Passed ch 1</th><th>Check</th><th></th></tr></thead>
+            <tbody>{rows.map((r) => (
+              <tr key={r.id}>
+                <td>{r.topic}</td><td>{r.goal ?? ''}</td><td>{r.mode ?? ''}</td><td>{r.starts}</td><td>{r.passes}</td><td><small>{r.why ?? ''}</small></td>
+                <td>
+                  <button type="button" className="quiet" onClick={() => set({ id: r.id, published: !r.published })}>{r.published ? 'Shared · hide' : 'Hidden · share'}</button>{' '}
+                  {r.published && <button type="button" className="quiet" onClick={() => set({ id: r.id, pick: !r.pick })}>{r.pick ? 'Pick ✓' : 'Make pick'}</button>}
+                </td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      )}
     </section>
   )
 }

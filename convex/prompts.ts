@@ -140,3 +140,9 @@ Then rewrite every card scoring 3 or less so it would score 5:
 - Exercises: keep the same option ids and the same correct answer; keep the three options the same length and detail; whyNot and reteach must explain without giving the answer away. Exercises of kind "poll" have no wrong answer: keep "answer", rewrite "whyRight" as a vivid reveal.
 - Keep the chapter's closing "Next:" line if the card has one.
 Return JSON only: {"scores": [{"card": <index>, "score": <1-5>, "why": "<few words>"}], "fixes": [{"card": <index>, "problem": "<what lost the reader>", "fixed": <the whole rewritten card>}]}`;
+
+// Can a reader's typed topic be shown to other readers in Explore? (6 Oct). Plan and chapter 1 only, never a name.
+export const LIBRARY_CHECK_PROMPT = `Decide whether a handbook can be shown publicly in a shared library that other readers browse. The handbook was made from one reader's typed line.
+Share it only if it is a general subject many people might want to learn (a skill, a subject, a story, a hobby, a public figure's work).
+Do not share if the line or the plan points to a private person (a name that isn't a public figure), the reader's own health, money, relationship, legal, school or workplace situation, anything that could identify them, sexual content, or anything unkind, harmful or embarrassing.
+Return JSON only: {"share": true or false, "why": "<a few words>"}`;

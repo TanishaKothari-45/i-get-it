@@ -11,7 +11,7 @@ import { track } from '../lib/track'
 
 type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
-type Props = { onCreate: (topic: string, level: Level, voice: Voice) => Promise<void> }
+type Props = { onCreate: (topic: string, level: Level, voice: Voice) => Promise<void>; onExplore?: () => void }
 
 type Frame =
   | { kind: 'picture' | 'teach' | 'example' | 'mistake' | 'try'; title?: string; text: string; picture: string | null }
@@ -19,7 +19,7 @@ type Frame =
 
 const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
-export default function Landing({ onCreate }: Props) {
+export default function Landing({ onCreate, onExplore }: Props) {
   const c = useQuery(api.landing.content, {})
   const plans = useQuery(api.pricing.plans, {})
   const [topic, setTopic] = useState('')
@@ -88,7 +88,7 @@ export default function Landing({ onCreate }: Props) {
         </details>
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
-      <p className="lp-fine">Week 1 is free. No card, and no sign-up to start.</p>
+      <p className="lp-fine">Week 1 is free. No card, and no sign-up to start. Topics you start can appear in Explore, never with your name.</p>
       {where === 'hero' && c && c.shelf.length > 0 && (
         <div className="lp-quick">
           <p>Or start one tonight. It opens instantly:</p>
@@ -102,6 +102,7 @@ export default function Landing({ onCreate }: Props) {
               </li>
             ))}
           </ul>
+          {onExplore && <button type="button" className="lp-explore" onClick={() => { track('submit', { via: 'explore_open' }); onExplore() }}>Explore what others are learning →</button>}
         </div>
       )}
     </form>

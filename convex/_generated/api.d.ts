@@ -18,6 +18,7 @@ import type * as handbooks from "../handbooks.js";
 import type * as http from "../http.js";
 import type * as images from "../images.js";
 import type * as landing from "../landing.js";
+import type * as library from "../library.js";
 import type * as polish from "../polish.js";
 import type * as pricing from "../pricing.js";
 import type * as prompts from "../prompts.js";
@@ -44,6 +45,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   images: typeof images;
   landing: typeof landing;
+  library: typeof library;
   polish: typeof polish;
   pricing: typeof pricing;
   prompts: typeof prompts;

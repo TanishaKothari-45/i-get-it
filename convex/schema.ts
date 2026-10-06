@@ -26,6 +26,7 @@ export default defineSchema({
     intents: v.optional(v.any()),               // { question, goals: [{ label, mode }] } offered before the plan
     goal: v.optional(v.string()),               // the goal the reader tapped or typed
     mode: v.optional(v.string()),               // "skill" | "story" | "subject" | "decision"
+    fromLibrary: v.optional(v.id("library")),   // started from another reader's shared plan and chapter 1
     pushback: v.optional(v.string()),          // one plain, kind sentence: what we won't teach, why, and what instead
     suggestions: v.optional(v.array(v.string())),
     plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }
@@ -145,6 +146,28 @@ export default defineSchema({
   })
     .index("by_visitor_day", ["visitor", "day"])
     .index("by_day", ["day"]),
+
+  // The shared library (6 Oct): a typed topic's plan and chapter 1, once a privacy check says it's a general subject.
+  // Chapters 2 to 7 stay personal (they adapt to each reader). Reused when someone types the same topic and picks
+  // the same kind of goal, or starts it from Explore. Never a reader's name. The owner can unpublish on /admin.
+  library: defineTable({
+    topicKey: v.string(),
+    topic: v.string(),
+    level: v.union(v.literal("new"), v.literal("some")),
+    goal: v.optional(v.string()),
+    mode: v.optional(v.string()),
+    plan: v.any(),
+    chapter1: v.any(),                 // { title, cards, outcomeLine, svg, pictures, recallCards }
+    sourceHandbookId: v.id("handbooks"),
+    published: v.boolean(),
+    pick: v.optional(v.boolean()),     // the owner's pick
+    starts: v.number(),
+    passes: v.number(),
+    why: v.optional(v.string()),       // the privacy check's reason
+    createdAt: v.number(),
+  })
+    .index("by_key", ["topicKey", "level"])
+    .index("by_source", ["sourceHandbookId"]),
 
   // Switches the owner flips on /admin (6 Oct): "provider" = "claude" | "inference" (The Inference Company, deepseek-v4-pro).
   settings: defineTable({

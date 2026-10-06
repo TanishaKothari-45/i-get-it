@@ -613,3 +613,22 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .intent-ghost { display: block; border-color: var(--tint); box-shadow: none; background: linear-gradient(90deg, var(--paper-2), #fff, var(--paper-2)); background-size: 200% 100%; animation: ghost 1.2s linear infinite; }
 @keyframes ghost { from { background-position: 100% 0; } to { background-position: -100% 0; } }
 .intent-own { margin-top: var(--m); }
+
+/* Explore (6 Oct) */
+.lp-explore { margin-top: 10px; background: none; border: 0; padding: 6px 0; font: 700 var(--small) var(--sans); color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.explore { padding-bottom: 80px; }
+.explore h1 { margin-top: 10px; }
+.explore-grid { list-style: none; margin: var(--l) 0 0; padding: 0; display: grid; gap: 18px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .explore-grid { grid-template-columns: 1fr 1fr; } }
+.explore-card { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 6px; width: 100%; }
+.explore-card:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; border-radius: 16px; }
+.explore-cover { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; border: 2.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); background: var(--accent); }
+.explore-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.explore-cover-blank { display: flex; align-items: center; justify-content: center; height: 100%; font: 800 3rem var(--sans); color: var(--ink); }
+.explore-badges { position: absolute; left: 8px; top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.explore-badge { background: var(--ink); color: var(--paper); font: 700 0.75rem var(--sans); padding: 4px 9px; border-radius: 999px; }
+.explore-badge.hot { background: #e0735a; color: var(--ink); } .explore-badge.loved { background: #8fe3c1; color: var(--ink); }
+.explore-card strong { font-size: 1.1rem; margin-top: 6px; }
+.explore-goal { font: 600 var(--small) var(--sans); color: var(--accent-deep); }
+.explore-outcome { font-family: var(--serif); font-size: 0.98rem; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.explore-mode { font: 700 0.72rem var(--sans); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }

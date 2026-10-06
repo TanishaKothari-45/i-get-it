@@ -6,6 +6,7 @@ import { internalAction, internalMutation, internalQuery, mutation, query, type 
 import type { Doc, Id } from "./_generated/dataModel";
 import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
+import { matchForIntent } from "./library";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
 
@@ -357,6 +358,8 @@ export const chooseIntent = mutation({
     if (h.status !== "intent") return;
     const m = mode && ["skill", "story", "subject", "decision"].includes(mode) ? mode : undefined;
     await ctx.db.patch(handbookId, { status: "planning", goal: goal?.trim().slice(0, 120) || undefined, mode: m });
+    // Someone already made this topic for the same kind of goal: reuse their plan and chapter 1 (instant, no tokens).
+    if (await matchForIntent(ctx, (await ctx.db.get(handbookId))!, m)) return;
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
   },
 });
@@ -442,6 +445,8 @@ export const generateChapter = internalAction({
     await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report });
     // Pictures come after the words: the chapter opens now, each picture fades in when it's drawn.
     await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
+    // A typed topic's chapter 1 may go into the shared library (plan and chapter 1 only, after a privacy check).
+    if (n === 1 && h.source === "live" && !h.fromLibrary) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId });
   },
 });
 
@@ -542,6 +547,7 @@ export const setPictures = internalMutation({
   handler: async (ctx, { handbookId, n, status, pictures }) => {
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     if (ch) await ctx.db.patch(ch._id, { picturesStatus: status, ...(pictures ? { pictures } : {}) });
+    if (n === 1 && pictures) await ctx.scheduler.runAfter(0, internal.library.syncPictures, { handbookId });
   },
 });
 
@@ -643,6 +649,7 @@ export const recordAnswer = mutation({
         ...(passesNow ? { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < CHAPTERS ? chapter + 1 : chapter, currentCard: 0, currentPart: 0 } : {}),
       });
       if (passesNow) {
+        if (chapter === 1) await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId });
         const right = card.options.find((o: any) => o.id === optionId);
         return { correct: true as const, text: right?.text ?? "", why: card.whyRight ?? null, chapterPassed: true as const };
       }
