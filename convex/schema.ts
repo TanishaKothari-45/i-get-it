@@ -234,11 +234,27 @@ export default defineSchema({
     handbookId: v.optional(v.id("handbooks")),
     price: v.number(),
     at: v.number(),
-    freeMonths: v.optional(v.number()),   // 3 for the first FREE_SPOTS people who tapped Pay and signed in
+    freeMonths: v.optional(v.number()),   // retired 6 Oct (first-25 offer removed); kept so old dev rows still load
     claimedAt: v.optional(v.number()),
   })
     .index("by_user", ["userId"])
     .index("by_device", ["deviceToken"]),
+
+  // Razorpay payments (6 Oct). One row per order; "paid" only after Razorpay's signature checks out.
+  payments: defineTable({
+    userId: v.id("users"),
+    amount: v.number(),                  // rupees
+    month: v.number(),                   // ladder index: 0 is month 1
+    status: v.union(v.literal("created"), v.literal("paid"), v.literal("failed")),
+    mode: v.union(v.literal("test"), v.literal("live")),
+    orderId: v.optional(v.string()),
+    paymentId: v.optional(v.string()),
+    via: v.optional(v.string()),         // "checkout" or "webhook": who confirmed it first
+    at: v.number(),
+    paidAt: v.optional(v.number()),
+  })
+    .index("by_user", ["userId"])
+    .index("by_order", ["orderId"]),
 
   modelVotes: defineTable({
     handbookId: v.id("handbooks"),

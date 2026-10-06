@@ -7,3 +7,6 @@ dist
 dist-dev
 docs/launch/
 brag-output*/
+
+# Razorpay setup note with test keys: never commit
+docs/Integrate Razorpay Standard Web Checkout into this codebase.md

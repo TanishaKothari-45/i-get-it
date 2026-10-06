@@ -32,6 +32,7 @@ export default function Admin() {
           <LibraryCard />
           <TrendingCard />
           <ExperimentsCard />
+          <PaymentsCard />
 
           <section className="adm-card adm-wide">
             <h2>Funnel</h2>
@@ -245,6 +246,27 @@ function TrendingCard() {
       <p className="note">Every Monday at 6:30am IST, Claude searches what's trending on social media in India and writes up to 3 new ready handbooks (about ₹280 a week plus pictures).</p>
       <ul className="adm-list">{rows.length ? rows.map((r) => <li key={r.topic}><span>{r.topic}</span><b>{r.week}</b></li>) : <li><span>None yet.</span></li>}</ul>
       <button type="button" className="quiet" disabled={started} onClick={async () => { await refresh({}); setStarted(true) }}>{started ? 'Started: new topics appear in about 15 minutes' : 'Refresh trending now'}</button>
+    </section>
+  )
+}
+
+// Razorpay (6 Oct): money in, by test and live. Amounts and times only.
+function PaymentsCard() {
+  const d = useQuery(api.payments.adminList, {})
+  if (!d) return null
+  const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
+  const when = (t: number) => new Date(t).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
+  return (
+    <section className="adm-card adm-wide">
+      <h2>Payments (Razorpay)</h2>
+      <p className="note">{d.live ? (d.mode === 'live' ? 'Live: real money.' : 'Test mode: no real money moves.') : 'Off: no Razorpay keys set, so Pay still only records the tap.'}</p>
+      <ul className="adm-list">
+        <li><span>Paid, live</span><b>{d.paidLive} · {inr(d.rupeesLive)}</b></li>
+        <li><span>Paid, test</span><b>{d.paidTest} · {inr(d.rupeesTest)}</b></li>
+        <li><span>People who paid</span><b>{d.payers}</b></li>
+        <li><span>Pay sheets opened</span><b>{d.started}</b></li>
+      </ul>
+      {d.recent.length > 0 && <ul className="adm-list">{d.recent.map((r, i) => <li key={i}><span>{when(r.at)} · month {r.month} · {r.mode}{r.via ? ` · ${r.via}` : ''}</span><b>{r.status} {inr(r.amount)}</b></li>)}</ul>}
     </section>
   )
 }

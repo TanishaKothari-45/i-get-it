@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useConvexAuth, useMutation, useQuery } from 'convex/react'
+import { useAction, useConvexAuth, useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
@@ -30,6 +30,8 @@ export default function App() {
   const lib = useQuery(api.handbooks.library, { deviceToken: token })
   const plansData = useQuery(api.pricing.plans, { deviceToken: token })
   const lockPrice = useMutation(api.pricing.lockPrice)
+  const payOrder = useAction(api.payments.order)
+  const payConfirm = useAction(api.payments.confirm)
   const [afterSignIn, setAfterSignIn] = useState<View>('done')
   const [flash, setFlash] = useState<string | null>(null)
   const readyTopics = useQuery(api.handbooks.cachedTopics, {})
@@ -130,7 +132,7 @@ export default function App() {
   if (view === 'pricing') {
     return (
       <Shell back={{ label: 'Back', onClick: () => setView(hb ? 'plan' : 'library') }}>
-        <Pricing plans={plansData as any} fromDone={doneN === 7} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onBack={() => setView(hb ? 'plan' : 'library')} onSignIn={() => signIn('pricing')} />
+        <Pricing plans={plansData as any} fromDone={doneN === 7} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={() => payOrder({})} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => setView(hb ? 'plan' : 'library')} onSignIn={() => signIn('pricing')} />
       </Shell>
     )
   }
