@@ -210,3 +210,15 @@ export const replaceCards = internalMutation({
     return { rows, copies };
   },
 });
+
+// Take a superseded ready topic off the shelf (6 Oct: the old Avengers handbook, replaced by the story-mode one).
+// Readers who started it keep their own copies; only the shelf entry goes.
+export const dropCacheRow = internalMutation({
+  args: { topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")) },
+  handler: async (ctx, { topicKey, level: lvl }) => {
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
+    if (!row) return { removed: 0 };
+    await ctx.db.delete(row._id);
+    return { removed: 1, topic: row.topic };
+  },
+});
