@@ -17,6 +17,48 @@ type Frame =
   | { kind: 'picture' | 'teach' | 'example' | 'mistake' | 'try'; title?: string; text: string; picture: string | null }
   | { kind: 'exercise'; prompt: string; options: { id: string; text: string }[]; answer: string; whyNot: Record<string, string> }
 
+type Shelf = { topic: string; outcome: string; cover: string | null; week: number; starts: number; passRate: number | null; trending: boolean; addedAt: number; mode: string | null }
+type Pill = 'trending' | 'started' | 'finished' | 'new'
+const PILLS: { key: Pill; label: string }[] = [{ key: 'trending', label: '🔥 Trending this week' }, { key: 'started', label: 'Most started' }, { key: 'finished', label: 'Most finished' }, { key: 'new', label: 'New' }]
+
+// "Or start one tonight" as a carousel (6 Oct): pills sort it by real numbers, Surprise me shuffles it. One tap starts.
+function Carousel({ items, busy, onPick, onExplore }: { items: Shelf[]; busy: boolean; onPick: (topic: string) => void; onExplore?: () => void }) {
+  const hasTrending = items.some((i) => i.trending)
+  const hasFinished = items.some((i) => i.passRate !== null)
+  const pills = PILLS.filter((p) => (p.key !== 'trending' || hasTrending) && (p.key !== 'finished' || hasFinished))
+  const [pill, setPill] = useState<Pill>(hasTrending ? 'trending' : 'started')
+  const [seed, setSeed] = useState(0)
+  const sorted = (() => {
+    const xs = items.slice()
+    if (seed) { for (let i = xs.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [xs[i], xs[j]] = [xs[j], xs[i]] } return xs }
+    if (pill === 'trending') return xs.sort((a, b) => Number(b.trending) - Number(a.trending) || b.week - a.week)
+    if (pill === 'started') return xs.sort((a, b) => b.week - a.week || b.starts - a.starts)
+    if (pill === 'finished') return xs.sort((a, b) => (b.passRate ?? -1) - (a.passRate ?? -1))
+    return xs.sort((a, b) => b.addedAt - a.addedAt)
+  })()
+  const tag = (it: Shelf) => it.trending ? '🔥 Trending' : pill === 'started' && it.week ? `${it.week} started this week` : pill === 'finished' && it.passRate !== null ? `${Math.round(it.passRate * 100)}% finish chapter 1` : pill === 'new' && Date.now() - it.addedAt < 7 * 864e5 ? 'New' : ''
+  return (
+    <div className="lp-quick">
+      <p>Or start one tonight. It opens instantly:</p>
+      <div className="lp-pills" role="group" aria-label="Sort">
+        {pills.map((p) => <button key={p.key} type="button" aria-pressed={!seed && pill === p.key} onClick={() => { setSeed(0); setPill(p.key) }}>{p.label}</button>)}
+        <button type="button" aria-pressed={!!seed} onClick={() => setSeed((x) => x + 1)}>🎲 Surprise me</button>
+      </div>
+      <ul className="lp-carousel">
+        {sorted.slice(0, 12).map((it) => (
+          <li key={it.topic}>
+            <button type="button" onClick={() => onPick(it.topic)} disabled={busy}>
+              <span className="lp-carousel-pic">{it.cover && <img src={it.cover} alt="" loading="lazy" />}{tag(it) && <em>{tag(it)}</em>}</span>
+              <strong>{it.topic}</strong>
+            </button>
+          </li>
+        ))}
+      </ul>
+      {onExplore && <button type="button" className="lp-explore" onClick={() => { track('submit', { via: 'explore_open' }); onExplore() }}>Explore everything →</button>}
+    </div>
+  )
+}
+
 const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
 export default function Landing({ onCreate, onExplore }: Props) {
@@ -89,22 +131,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
       <p className="lp-fine">Week 1 is free. No card, and no sign-up to start. Topics you start can appear in Explore, never with your name.</p>
-      {where === 'hero' && c && c.shelf.length > 0 && (
-        <div className="lp-quick">
-          <p>Or start one tonight. It opens instantly:</p>
-          <ul>
-            {c.shelf.slice(0, 9).map((s: { topic: string; cover: string | null }) => (
-              <li key={s.topic}>
-                <button type="button" onClick={() => pick(s.topic, 'row')} disabled={busy}>
-                  <span className="lp-quick-pic">{s.cover && <img src={s.cover} alt="" loading="lazy" />}</span>
-                  <span>{s.topic}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-          {onExplore && <button type="button" className="lp-explore" onClick={() => { track('submit', { via: 'explore_open' }); onExplore() }}>Explore what others are learning →</button>}
-        </div>
-      )}
+      {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
     </form>
   )
 

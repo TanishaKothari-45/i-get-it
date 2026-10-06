@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { internalQuery, mutation, query } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { isOwner } from "./admin";
 
 // The AI provider switch on /admin (6 Oct). "claude" is the default and the way back; "inference" sends plans, chapters,
@@ -33,5 +34,25 @@ export const setProvider = mutation({
     const row = await ctx.db.query("settings").withIndex("by_key", (q) => q.eq("key", "provider")).unique();
     if (row) await ctx.db.patch(row._id, { value: provider, at: Date.now() });
     else await ctx.db.insert("settings", { key: "provider", value: provider, at: Date.now() });
+  },
+});
+
+// "Refresh trending now" on /admin: the Monday job, on demand (about ₹10 of search, then up to 3 handbooks at ~₹90 each).
+export const refreshTrending = mutation({
+  args: {},
+  handler: async (ctx) => {
+    if (!(await isOwner(ctx)).ok) throw new Error("Owner only");
+    await ctx.scheduler.runAfter(0, internal.trending.refresh, {});
+  },
+});
+
+export const trendingNow = query({
+  args: {},
+  handler: async (ctx) => {
+    if (!(await isOwner(ctx)).ok) return null;
+    const rows = (await ctx.db.query("cache").collect()).filter((r) => r.trendingWeek);
+    const seen = new Map<string, { topic: string; week: string; chapters: number }>();
+    for (const r of rows) if (!seen.has(r.topic)) seen.set(r.topic, { topic: r.topic, week: r.trendingWeek!, chapters: r.chapters.length });
+    return [...seen.values()].sort((a, b) => b.week.localeCompare(a.week));
   },
 });

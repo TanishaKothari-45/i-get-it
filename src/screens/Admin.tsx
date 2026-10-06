@@ -30,6 +30,7 @@ export default function Admin() {
 
           <ProviderSwitch />
           <LibraryCard />
+          <TrendingCard />
 
           <section className="adm-card adm-wide">
             <h2>Funnel</h2>
@@ -227,6 +228,22 @@ function LibraryCard() {
           </table>
         </div>
       )}
+    </section>
+  )
+}
+
+// This week's trending handbooks (6 Oct): built every Monday 6:30am IST from what's trending on social media.
+function TrendingCard() {
+  const rows = useQuery(api.settings.trendingNow, {})
+  const refresh = useMutation(api.settings.refreshTrending)
+  const [started, setStarted] = useState(false)
+  if (!rows) return null
+  return (
+    <section className="adm-card adm-wide">
+      <h2>Trending handbooks</h2>
+      <p className="note">Every Monday at 6:30am IST, Claude searches what's trending on social media in India and writes up to 3 new ready handbooks (about ₹280 a week plus pictures).</p>
+      <ul className="adm-list">{rows.length ? rows.map((r) => <li key={r.topic}><span>{r.topic}</span><b>{r.week}</b></li>) : <li><span>None yet.</span></li>}</ul>
+      <button type="button" className="quiet" disabled={started} onClick={async () => { await refresh({}); setStarted(true) }}>{started ? 'Started: new topics appear in about 15 minutes' : 'Refresh trending now'}</button>
     </section>
   )
 }

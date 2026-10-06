@@ -840,14 +840,14 @@ export const syncFromCache = mutation({
 // ---------- the cache (pre-generated handbooks) ----------
 
 export const seedCache = internalMutation({
-  args: { topic: v.string(), aliases: v.optional(v.array(v.string())), level, plan: v.any(), chapters: v.array(v.any()) },
-  handler: async (ctx, { topic, aliases, level: lvl, plan, chapters }) => {
+  args: { topic: v.string(), aliases: v.optional(v.array(v.string())), level, plan: v.any(), chapters: v.array(v.any()), trendingWeek: v.optional(v.string()) },
+  handler: async (ctx, { topic, aliases, level: lvl, plan, chapters, trendingWeek }) => {
     const keys = new Set([topicKeyOf(topic), ...(aliases ?? []).map(topicKeyOf)]);
     chapters = chapters.map((ch: any) => ({ ...ch, cards: shuffleExercises(ch.cards ?? [], `${topic}:${ch.n}`) }));
     for (const topicKey of keys) {
       const existing = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
-      if (existing) await ctx.db.patch(existing._id, { topic, plan, chapters, version: Date.now() });
-      else await ctx.db.insert("cache", { topicKey, level: lvl, topic, plan, chapters, version: Date.now() });
+      if (existing) await ctx.db.patch(existing._id, { topic, plan, chapters, version: Date.now(), ...(trendingWeek ? { trendingWeek } : {}) });
+      else await ctx.db.insert("cache", { topicKey, level: lvl, topic, plan, chapters, version: Date.now(), addedAt: Date.now(), ...(trendingWeek ? { trendingWeek } : {}) });
     }
     return [...keys];
   },

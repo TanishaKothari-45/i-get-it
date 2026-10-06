@@ -30,6 +30,7 @@ import type * as repair from "../repair.js";
 import type * as repairData from "../repairData.js";
 import type * as settings from "../settings.js";
 import type * as stats from "../stats.js";
+import type * as trending from "../trending.js";
 
 import type {
   ApiFromModules,
@@ -60,6 +61,7 @@ declare const fullApi: ApiFromModules<{
   repairData: typeof repairData;
   settings: typeof settings;
   stats: typeof stats;
+  trending: typeof trending;
 }>;
 
 /**

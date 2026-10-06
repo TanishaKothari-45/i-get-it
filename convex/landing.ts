@@ -10,6 +10,11 @@ const FEATURED = ["odyssey", "iliad", "homer", "avengers", "marvel", "k-pop", "u
 const rank = (topic: string) => { const t = topic.toLowerCase(); const i = FEATURED.findIndex((f) => t.includes(f)); return i < 0 ? FEATURED.length : i; };
 
 const firstPara = (s: string) => s.split(/\n\n+/)[0]?.trim() ?? "";
+function weekStartIST(t = Date.now()): string {
+  const d = new Date(t + 5.5 * 3600000);
+  d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7));
+  return d.toISOString().slice(0, 10);
+}
 
 export const content = query({
   args: {},
@@ -21,10 +26,21 @@ export const content = query({
     // One shelf entry per real topic (several spellings share one row's content).
     const seen = new Map<string, any>();
     for (const r of rows) if (!seen.has(r.topic)) seen.set(r.topic, r);
+    // Real numbers for the carousel pills (6 Oct): started this week, share passing chapter 1, trending, new.
+    const excluded = await ctx.db.query("statsExcluded").collect();
+    const xTokens = new Set(excluded.map((e) => e.deviceToken).filter(Boolean) as string[]);
+    const books = (await ctx.db.query("handbooks").collect()).filter((h) => h.source === "cache" && !h.ownerToken?.startsWith("abuse-") && !(h.ownerToken && xTokens.has(h.ownerToken)));
+    const weekAgo = Date.now() - 7 * 24 * 3600000;
+    const thisWeek = weekStartIST();
     const shelf = [];
     for (const r of seen.values()) {
       const ch1 = r.chapters.find((c: any) => c.n === 1);
-      shelf.push({ topic: r.plan?.topic ?? r.topic, outcome: String(r.plan?.outcome7 ?? "").split(/(?<=\.)\s/)[0], cover: await pictureFor(ch1, 0) });
+      const mine = books.filter((h) => h.topic === r.topic);
+      let passed = 0;
+      for (const h of mine) { const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique(); if (p?.chaptersPassed.includes(1)) passed++; }
+      shelf.push({ topic: r.plan?.topic ?? r.topic, outcome: String(r.plan?.outcome7 ?? "").split(/(?<=\.)\s/)[0], cover: await pictureFor(ch1, 0),
+        week: mine.filter((h) => h.createdAt >= weekAgo).length, starts: mine.length, passRate: mine.length >= 3 ? passed / mine.length : null,
+        trending: r.trendingWeek === thisWeek, addedAt: r.addedAt ?? r._creationTime, mode: r.plan?.mode ?? null });
     }
 
     const demoRow = rows.find((r) => r.topicKey === DEMO_TOPIC);

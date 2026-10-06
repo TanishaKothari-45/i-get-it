@@ -19,10 +19,11 @@ export const build = internalAction({
     tries: v.optional(v.number()),
     goal: v.optional(v.string()),
     mode: v.optional(v.string()),
+    trendingWeek: v.optional(v.string()),
   },
-  handler: async (ctx, { topic, aliases, plan, chapters = [], tries = 0, goal, mode }): Promise<void> => {
+  handler: async (ctx, { topic, aliases, plan, chapters = [], tries = 0, goal, mode, trendingWeek }): Promise<void> => {
     const again = (next: { plan?: unknown; chapters?: unknown[]; tries?: number }) =>
-      ctx.scheduler.runAfter(0, internal.ready.build, { topic, aliases, goal, mode, plan: next.plan ?? plan, chapters: (next.chapters ?? chapters) as any[], tries: next.tries ?? 0 });
+      ctx.scheduler.runAfter(0, internal.ready.build, { topic, aliases, goal, mode, trendingWeek, plan: next.plan ?? plan, chapters: (next.chapters ?? chapters) as any[], tries: next.tries ?? 0 });
     const giveUp = (why: string) => console.log(`ready ${topic}: stopped, ${why}`);
 
     // 1. The plan.
@@ -32,7 +33,7 @@ export const build = internalAction({
       const fine = p && !p.declined && !p.needsClarification && Array.isArray(p.chapters) && p.chapters.length === CHAPTERS;
       if (!fine) {
         console.log(`ready ${topic}: plan not usable (${r.ok ? "shape" : r.error})`);
-        if (tries < 1) await ctx.scheduler.runAfter(0, internal.ready.build, { topic, aliases, goal, mode, tries: tries + 1 });
+        if (tries < 1) await ctx.scheduler.runAfter(0, internal.ready.build, { topic, aliases, goal, mode, trendingWeek, tries: tries + 1 });
         else giveUp("plan failed twice");
         return;
       }
@@ -67,7 +68,7 @@ export const build = internalAction({
     }
 
     // 3. All seven: store it on the shelf, then draw the pictures one chapter at a time.
-    const keys: string[] = await ctx.runMutation(internal.handbooks.seedCache, { topic: plan.topic ?? topic, aliases: [topic, ...(aliases ?? [])], level: "new", plan, chapters });
+    const keys: string[] = await ctx.runMutation(internal.handbooks.seedCache, { topic: plan.topic ?? topic, aliases: [topic, ...(aliases ?? [])], level: "new", plan, chapters, trendingWeek });
     const topicKey = topicKeyOf(plan.topic ?? topic);
     await ctx.scheduler.runAfter(0, internal.images.backfill, { queue: Array.from({ length: CHAPTERS }, (_, i) => ({ topicKey, level: "new" as const, n: i + 1 })) });
     console.log(`ready ${topic}: on the shelf as ${keys.join(", ")}; pictures queued`);

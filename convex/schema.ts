@@ -255,5 +255,7 @@ export default defineSchema({
     plan: v.any(),
     chapters: v.array(v.any()),   // chapter objects for n = 1..k
     version: v.optional(v.number()),
+    trendingWeek: v.optional(v.string()),   // "2026-10-05": built that week from what's trending on social media
+    addedAt: v.optional(v.number()),
   }).index("by_key", ["topicKey", "level"]),
 });
