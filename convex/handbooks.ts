@@ -4,7 +4,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
+import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
@@ -155,7 +155,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
   const chapters = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect();
   const progress = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
   return {
-    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, plan: h.plan, source: h.source, error: h.error, caution: cautionOf(h), pushback: h.pushback ?? (h.plan as any)?.pushback ?? null, suggestions: h.suggestions ?? [],
+    _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, intents: h.intents ?? null, plan: h.plan, source: h.source, error: h.error, caution: cautionOf(h), pushback: h.pushback ?? (h.plan as any)?.pushback ?? null, suggestions: h.suggestions ?? [],
     signedIn: !!h.userId,
     chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => publicChapter(ctx, ch))),
     progress: progress ? {
@@ -283,11 +283,11 @@ export const create = mutation({
     if (!all.ok || !mine.ok) throw new Error("busy");
 
     const handbookId = await ctx.db.insert("handbooks", {
-      topic: clean, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "planning",
+      topic: clean, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "intent",
       ownerToken: deviceToken, userId: userId ?? undefined, source: "live", createdAt: now,
     });
     await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
-    await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
+    await ctx.scheduler.runAfter(0, internal.handbooks.generateIntents, { handbookId });
     return { handbookId, fromCache: false, existing: false };
   },
 });
@@ -321,12 +321,52 @@ export const retry = mutation({
 
 // ---------- generation (internal) ----------
 
+// "What's it for?" (6 Oct): three goals in about a second. If the model can't offer them, go straight to the plan.
+export const generateIntents = internalAction({
+  args: { handbookId: v.id("handbooks") },
+  handler: async (ctx, { handbookId }) => {
+    const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
+    if (!h || h.status !== "intent") return;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "intent", system: INTENT_PROMPT, user: intentUserMessage(h.topic) });
+    const goals = r.ok && Array.isArray(r.json?.goals) ? r.json.goals.filter((g: any) => typeof g?.label === "string" && g.label.trim()).slice(0, 3).map((g: any) => ({ label: String(g.label).slice(0, 60), mode: ["skill", "story", "subject", "decision"].includes(g.mode) ? g.mode : "subject" })) : [];
+    if (goals.length >= 2) await ctx.runMutation(internal.handbooks.setIntents, { handbookId, intents: { question: String((r as any).json?.question ?? "What's it for?").slice(0, 80), goals } });
+    else await ctx.runMutation(internal.handbooks.skipIntent, { handbookId });
+  },
+});
+export const setIntents = internalMutation({
+  args: { handbookId: v.id("handbooks"), intents: v.any() },
+  handler: async (ctx, { handbookId, intents }) => {
+    const h = await ctx.db.get(handbookId);
+    if (h?.status === "intent") await ctx.db.patch(handbookId, { intents });
+  },
+});
+export const skipIntent = internalMutation({
+  args: { handbookId: v.id("handbooks") },
+  handler: async (ctx, { handbookId }) => {
+    const h = await ctx.db.get(handbookId);
+    if (h?.status !== "intent") return;
+    await ctx.db.patch(handbookId, { status: "planning" });
+    await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
+  },
+});
+// The reader taps a goal, types their own, or skips. Then the plan is written for that goal.
+export const chooseIntent = mutation({
+  args: { handbookId: v.id("handbooks"), goal: v.optional(v.string()), mode: v.optional(v.string()), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, goal, mode, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    if (h.status !== "intent") return;
+    const m = mode && ["skill", "story", "subject", "decision"].includes(mode) ? mode : undefined;
+    await ctx.db.patch(handbookId, { status: "planning", goal: goal?.trim().slice(0, 120) || undefined, mode: m });
+    await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
+  },
+});
+
 export const generatePlan = internalAction({
   args: { handbookId: v.id("handbooks"), clarification: v.optional(v.string()) },
   handler: async (ctx, { handbookId, clarification }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification) });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) });
     // Claude's own safety check said no: say so plainly, never "try again".
     if (!r.ok && /^declined/.test(r.error)) {
       const ready: any[] = await ctx.runQuery(internal.handbooks.listCache, {});
@@ -348,6 +388,8 @@ export const generatePlan = internalAction({
       await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `plan had ${plan.chapters?.length ?? 0} chapters` });
       return;
     }
+    if (!plan.mode && h.mode) plan.mode = h.mode;
+    if (h.goal) plan.goal = h.goal;
     await ctx.runMutation(internal.handbooks.setPlan, { handbookId, plan, topic: clarification ? `${h.topic} (${clarification})` : h.topic });
     await ctx.runMutation(internal.handbooks.startChapter, { handbookId, n: 1 });
     await ctx.runAction(internal.handbooks.generateChapter, { handbookId, n: 1 });
@@ -456,7 +498,7 @@ export const readingReport = internalQuery({
       const rows = answers.filter((a) => a.chapter === m).sort((a, b) => a.at - b.at);
       const byCard = new Map<number, typeof rows>();
       for (const r of rows) byCard.set(r.cardIndex, [...(byCard.get(r.cardIndex) ?? []), r]);
-      const quizzes = [...byCard.entries()].map(([cardIndex, rs]) => ({ cardIndex, first: rs[0], card: ch?.cards?.[cardIndex] }));
+      const quizzes = [...byCard.entries()].map(([cardIndex, rs]) => ({ cardIndex, first: rs[0], card: ch?.cards?.[cardIndex] })).filter((q) => q.card?.kind !== "poll");
       return { ch, rows, quizzes, right: quizzes.filter((q) => q.first.correct).length };
     };
     const last = await chapterStats(n - 1);
@@ -579,7 +621,7 @@ export const recordAnswer = mutation({
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
     const card = cardIndex >= RECALL_BASE ? ch?.recallCards?.[cardIndex - RECALL_BASE] : ch?.cards?.[cardIndex];
     if (!card || card.type !== "exercise") throw new Error("Not an exercise");
-    const correct = card.answer === optionId;
+    const correct = card.kind === "poll" ? true : card.answer === optionId;   // story mode polls have no wrong answer
     // Passing the chapter's last quiz starts writing the next chapter, so the closing card and the Done
     // screen hide most of the wait. Its writer reads how this chapter went (readingReport).
     const lastQuiz = Math.max(...(ch!.cards as any[]).map((c, i) => (c?.type === "exercise" ? i : -1)));

@@ -9,8 +9,10 @@ type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
 type Props = {
   initialTopic?: string
-  status: 'idle' | 'writing' | 'question' | 'failed' | 'declined'
+  status: 'idle' | 'intent' | 'writing' | 'question' | 'failed' | 'declined'
   question?: string
+  intents?: { question: string; goals: { label: string; mode: string }[] } | null
+  onChooseIntent?: (goal?: string, mode?: string) => Promise<void>
   error?: string
   onCreate: (topic: string, level: Level, voice: Voice) => Promise<void>
   onAnswer?: (answer: string) => Promise<void>
@@ -25,7 +27,7 @@ type Props = {
 }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [] }: Props) {
+export default function Start({ initialTopic = '', status, question, intents, onChooseIntent, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [] }: Props) {
   const declined = status === 'declined'
   const [topic, setTopic] = useState(status === 'declined' ? '' : initialTopic)
   // A declined line never stays in the box: the reader starts fresh.
@@ -84,6 +86,28 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
             </div>
           </section>
         )}
+      </div>
+    )
+  }
+
+  // "What's it for?" (6 Oct): a goal in one tap shapes the whole handbook. Skipping is fine.
+  if (status === 'intent') {
+    const choose = (goal?: string, mode?: string) => { track('submit', { via: goal ? 'goal' : 'skip' }); onChooseIntent?.(goal, mode).catch((e) => setLocalError(friendly(e))) }
+    return (
+      <div className="intent">
+        <p className="plan-wait-kicker">{topic.trim() || initialTopic}</p>
+        <h1>{intents?.question ?? "What's it for?"}</h1>
+        <p className="lede">Pick one and the handbook is built around it.</p>
+        <div className="intent-goals">
+          {intents ? intents.goals.map((g) => (
+            <button key={g.label} type="button" className="intent-goal" onClick={() => choose(g.label, g.mode)}>{g.label}</button>
+          )) : [0, 1, 2].map((k) => <span key={k} className="intent-goal intent-ghost" aria-hidden="true" />)}
+        </div>
+        <form className="intent-own" onSubmit={(e) => { e.preventDefault(); if (answer.trim()) choose(answer.trim()) }}>
+          <input className="input" placeholder="Or say it in your words" value={answer} onChange={(e) => setAnswer(e.target.value)} maxLength={120} enterKeyHint="go" />
+        </form>
+        {localError && <p className="error">{localError}</p>}
+        <button type="button" className="quiet" onClick={() => choose()}>Skip, just teach me</button>
       </div>
     )
   }

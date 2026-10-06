@@ -15,6 +15,7 @@ export default defineSchema({
     language: v.string(),
     voice: v.optional(v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"))),
     status: v.union(
+      v.literal("intent"),        // "What's it for?": waiting for the reader to pick a goal (6 Oct)
       v.literal("planning"),
       v.literal("question"),      // the model asked one clarifying question
       v.literal("ready"),
@@ -22,6 +23,9 @@ export default defineSchema({
       v.literal("declined"),      // we won't teach this (6 Oct, Prateek: be a good person, push back)
     ),
     question: v.optional(v.string()),
+    intents: v.optional(v.any()),               // { question, goals: [{ label, mode }] } offered before the plan
+    goal: v.optional(v.string()),               // the goal the reader tapped or typed
+    mode: v.optional(v.string()),               // "skill" | "story" | "subject" | "decision"
     pushback: v.optional(v.string()),          // one plain, kind sentence: what we won't teach, why, and what instead
     suggestions: v.optional(v.array(v.string())),
     plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }

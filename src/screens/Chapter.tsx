@@ -298,8 +298,17 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
         <Sheet onClose={closeSheet}>
           {result.correct ? (
             <>
-              <p className="verdict pass">{result.chapterPassed ? `That's it. Chapter ${n} passed.` : "That's it."}</p>
-              <p className="serif">{result.text}{result.why ? ` — ${result.why}` : ''}</p>
+              {(item.card as any).kind === 'poll' ? (
+                <>
+                  <p className="verdict pass">{result.chapterPassed ? `Here's what happened. Chapter ${n} done.` : "Here's what happened."}</p>
+                  {result.why && <p className="serif">{inline(result.why)}</p>}
+                </>
+              ) : (
+                <>
+                  <p className="verdict pass">{result.chapterPassed ? `That's it. Chapter ${n} passed.` : "That's it."}</p>
+                  <p className="serif">{result.text}{result.why ? ` — ${result.why}` : ''}</p>
+                </>
+              )}
               {result.chapterPassed && !isLast ? (
                 <>
                   <p className="serif" style={{ marginTop: 'var(--s)' }}>Your rung is lit. What's left is a bonus.</p>

@@ -37,6 +37,7 @@ export default function App() {
   const recordAnswer = useMutation(api.handbooks.recordAnswer)
   const finishChapter = useMutation(api.handbooks.finishChapter)
   const rateChapter = useMutation(api.handbooks.rateChapter)
+  const chooseIntent = useMutation(api.handbooks.chooseIntent)
   const setTomorrow = useMutation(api.handbooks.setTomorrow)
   const attachToMe = useMutation(api.handbooks.attachToMe)
   const requestSimpler = useMutation(api.handbooks.requestSimpler)
@@ -110,8 +111,8 @@ export default function App() {
   }
 
   // No handbook yet, or the person wants a different line: the first screen.
-  if (!hb || view === 'start-again' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed' || (hb.status as string) === 'declined') {
-    const status = !hb || view === 'start-again' ? 'idle' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : (hb.status as string) === 'declined' ? 'declined' : 'failed'
+  if (!hb || view === 'start-again' || (hb.status as string) === 'intent' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed' || (hb.status as string) === 'declined') {
+    const status = !hb || view === 'start-again' ? 'idle' : (hb.status as string) === 'intent' ? 'intent' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : (hb.status as string) === 'declined' ? 'declined' : 'failed'
     return (
       <Shell>
         {view === 'start-again' && libRows.length > 0 && !lib?.signedIn && <SignupNudge onSignIn={() => signIn('start-again')} context="second-topic" compact />}
@@ -120,6 +121,8 @@ export default function App() {
           initialTopic={view === 'start-again' ? (draftTopic || hb?.topic || '') : (hb?.topic ?? '')}
           status={status as any}
           question={hb?.question}
+          intents={(hb as any)?.intents ?? null}
+          onChooseIntent={async (goal, mode) => { if (hb) await chooseIntent({ handbookId: hb._id, goal, mode, deviceToken: token }) }}
           error={hb?.error}
           examples={examples}
           onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
