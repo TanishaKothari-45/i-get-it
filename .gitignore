@@ -6,3 +6,4 @@ dist
 .impeccable/build
 dist-dev
 docs/launch/
+brag-output*/
