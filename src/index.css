@@ -381,6 +381,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 
 /* hero: a marigold poster, the headline printed slightly off-register */
 .lp-hero { background: var(--accent); padding-top: 76px !important; display: grid; gap: 28px; }
+/* The grid column could grow to fit the "Or start one tonight" strip (544px on a 390px phone, the rest cut off):
+   its children may shrink, so the strip scrolls inside the screen instead. */
+.lp-hero > * { min-width: 0; }
 .lp-poster { margin: 0; font-weight: 800; font-variation-settings: 'wdth' 75, 'opsz' 96; font-size: clamp(3.3rem, 1.6rem + 9vw, 7.2rem); line-height: 0.88; letter-spacing: -0.018em; word-spacing: 0.12em; color: var(--ink);
   text-shadow: 0.045em 0.04em 0 rgba(58, 65, 112, 0.55); }
 .lp-poster span { display: block; animation: print 900ms var(--ease) both; }
