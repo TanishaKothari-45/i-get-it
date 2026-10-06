@@ -23,7 +23,7 @@ Parked (not now), in the order they'd come:
 - A second topic, with the three-slot rule and the forfeit.
 - "Don't remember" on recall, counted as a miss.
 - A reminder at the chosen time (needs an email or push provider: ask Prateek first).
-- Share-to-app from Instagram or YouTube; reading a reel or video.
+- (Built on Tanisha's fork, 6 Oct: learning from YouTube and Instagram links and photos, and Android share-to-app. iPhone share-to-app needs a native app.)
 - Days 8 to 28.
 - Voice (text to speech) for translated handbooks: Sarvam Bulbul for Indian languages (credits), Gemini for English.
 - The app's own words (buttons, menus, nudges) in the reader's language: fixed translations, no AI call.

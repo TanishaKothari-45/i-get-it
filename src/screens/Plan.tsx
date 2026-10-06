@@ -2,7 +2,7 @@ import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import { Link } from '../lib/router'
 
-type Chapter = { n: number; title: string; covers: string; outcome: string }
+type Chapter = { n: number; title: string; covers: string; outcome: string; from?: number[] }
 type Props = {
   topic: string
   plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[] }
@@ -18,10 +18,14 @@ type Props = {
   chapterLink?: (n: number) => string | null
   // The chapter's optional bonus ("go deeper" or "another way"), when they've unlocked one.
   bonusFor?: (n: number) => { href: string; label: string } | null
+  // Started from links or photos: what each source is called ("Reel 1", "Photo 2"), by source number - 1.
+  sourceLabels?: string[]
+  sourcesNote?: string           // "Built from what you shared: …" or "Based on @creator's reels: …"
+  sourceLinks?: (string | undefined)[]   // each source's original (a reel or video), by source number - 1; photos have none
 }
 
 // The handbook cover: the plan before the first lesson, so starting isn't skipping levels.
-export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, chapterLink, bonusFor }: Props) {
+export default function Plan({ topic, plan, passed, current, chapterReady, chapterFailed, onStart, onRetry, onChangeLine, voiceNote, chapterLink, bonusFor, sourceLabels, sourcesNote, sourceLinks }: Props) {
   const first = passed.length === 0
   return (
     <>
@@ -31,6 +35,7 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
       <p className="outcome">{plan.outcome7}</p>
       {plan.picture && <p className="picture">The one picture for the whole thing: {plan.picture.name.toLowerCase()}. {plan.picture.line}</p>}
       {voiceNote && <p className="note" style={{ marginBottom: 'var(--m)' }}>{voiceNote}</p>}
+      {sourcesNote && <p className="note">{sourcesNote}</p>}
 
       <ol className="chapters">
         {plan.chapters.map((c) => {
@@ -42,6 +47,15 @@ export default function Plan({ topic, plan, passed, current, chapterReady, chapt
               <span className="n">{passed.includes(c.n) ? '✓' : c.n}</span>
               <span className="t">{href ? <Link to={href}>{c.title}</Link> : c.title}{c.n === current && !passed.includes(c.n) && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}</span>
               <span className="c">{c.covers}</span>
+              {(() => {
+                // Each source it draws on, linking back to the original reel or video (credit to the creator).
+                const from = (c.from ?? []).filter((k) => sourceLabels?.[k - 1])
+                if (!from.length) return null
+                return <span className="c from">From {from.map((k, i) => {
+                  const href = sourceLinks?.[k - 1]
+                  return <span key={k}>{i > 0 && ' · '}{href ? <a href={href} target="_blank" rel="noopener noreferrer">{sourceLabels![k - 1]}</a> : sourceLabels![k - 1]}</span>
+                })}</span>
+              })()}
               {bonus && <span className="c"><Link to={bonus.href} className="bonus-link">{bonus.label}</Link></span>}
             </li>
           )

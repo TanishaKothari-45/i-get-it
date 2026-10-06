@@ -24,8 +24,8 @@ export function planUserMessage(topic: string, level: "new" | "some", language: 
     : base;
 }
 
-export function chapterUserMessage(plan: unknown, level: "new" | "some", language: string, voice: Voice, n: number) {
-  return `Plan: ${JSON.stringify(plan)}\nLevel: ${level}\nLanguage: ${language}\nVoice: ${voice}\nWrite chapter ${n}.`;
+export function chapterUserMessage(plan: unknown, level: "new" | "some", language: string, voice: Voice, n: number, sources?: string, research?: string) {
+  return `Plan: ${JSON.stringify(plan)}\nLevel: ${level}\nLanguage: ${language}\nVoice: ${voice}${sources ? sourcesBlock(sources, "chapter") : ""}${research ? researchBlock(research) : ""}\nWrite chapter ${n}.`;
 }
 
 // "Go deeper": a short bonus lesson for someone who got every exercise in a chapter right first time.
@@ -84,3 +84,163 @@ Rules:
 
 You get {"items":[{"id":"...","card":<number>,"text":"..."}]}. Return JSON only, the same items with the same ids, each with its translated text: {"items":[{"id":"...","text":"..."}]}`;
 }
+
+// ---------- learning from links and photos ----------
+
+// One source: a reel, a YouTube video, a transcript or a photo. Only what it actually teaches, nothing added.
+export const SOURCE_READ_PROMPT = `You read one thing a learner saved because they want to learn from it: a short video, a transcript of one, or a photo. Gather everything it offers, so a teacher who never saw it could build a full lesson from your notes alone.
+
+Rules:
+- Capture all of it: the main idea, every claim, step, example, tool, command, name, number, warning and tip, and any text, code, link or diagram on screen or in the photo. Missing a detail is worse than a long note.
+- Only what the source shows or says. Never add what it didn't say.
+- For a video, put the time (m:ss) before each point where you can tell it, and note what is shown on screen but not said aloud. It may be spoken in any language or a mix of languages; write the notes in English.
+- For a photo, read every word you can (print, handwriting, labels, axes, captions) and describe what a chart or diagram shows. If part is too blurry to read, say which part.
+- Keep commands, code, product names, links and numbers exactly as shown.
+- If it teaches nothing (a meme, an ad, music only, a selfie), set "learnable" to false and say why in "title".
+- "title": what it teaches, in 2-6 plain words.
+- "hook": one sentence on the payoff it opens with or its caption sells, the reason someone would save it, in plain words. null if there is none.
+- "notes": up to 400 words, in the order the source teaches.
+
+Return JSON only: {"learnable": true, "title": "...", "hook": "..." or null, "notes": "..."}`;
+
+export function sourceReadMessage(kind: string, extra?: { caption?: string; transcript?: string }) {
+  const what = kind === "image" ? "a photo" : kind === "youtube" ? "a YouTube video" : "an Instagram reel";
+  return `This is ${what} the learner shared.` +
+    (extra?.caption ? `\nIts caption: ${extra.caption.slice(0, 1500)}` : "") +
+    (extra?.transcript ? `\nWhat is said in it (transcript): ${extra.transcript.slice(0, 6000)}` : "") +
+    `\nWrite down what it teaches.`;
+}
+
+// Several sources (and maybe a typed line) into one handbook's title and brief, or one question if they don't fit together.
+export const COMBINE_PROMPT = `A learner saved a few things (reels, videos, photos), and maybe typed a line. Notes on each are given, with each one's hook: the payoff it opens with or sells. Work out what they want from these, and write the brief for ONE seven-chapter handbook that gives them more of exactly that.
+
+First, read what they saved the way they did:
+- "kind": what these are. "picks" = things recommended by name (tools, products, places, books, resources); "howto" = steps to do something; "explainer" = why or how something works; "story" = one person's or one company's case; "mixed" when no one kind leads.
+- "want": what someone who saves this kind wants next. picks: more good ones of the same kind, and how to choose between them. howto: to be able to do it themselves. explainer: to understand it well enough to explain it. story: the lessons, and how to use them.
+- "assumes": what the learner clearly already has or does, judging by what they saved (someone who saves add-ons for a tool already uses that tool). The handbook never teaches these.
+
+Then the brief:
+- "topic": the handbook's title, 3-8 plain words, in the learner's terms, naming the payoff. Short: everything else goes in the brief.
+- "intent": two sentences in plain words, close to what the sources promised. First, what they want, made specific to these sources. Second, the hook: the concrete payoff that made them save these. Stay at the sources' level; never turn it into a bigger ambition.
+- "core": 1-2 sentences: the simple idea that ties the sources together, at their own level, in words the learner would use. For picks: what these have in common and the problems they solve.
+- "examples": the concrete things from the sources to teach with, each with its source numbers. Only what the notes contain.
+- "beyond": 2-4 things that give more of the same payoff than the sources did. For picks, the first is always more of the same kind than the ones saved, for the same needs; then how to judge and choose, and what to try first. For the others: the next steps of the same skill or idea. Never prerequisites, setting up or configuring what they already use, basics, or a different subject.
+- "claims": numbers and promises in the sources to treat as the creator's claims until checked. Empty if none.
+- "fresh": how fast this goes out of date: "fast" (weeks: specific apps, AI tools, prices, trends), "medium" (months to years), "stable" (settled for years).
+- If they typed a line, it wins: the sources then shape it.
+- If the sources are about clearly different subjects and nothing typed decides it, set "question" to ONE short question offering the subjects as choices, and "topic" to null.
+- If no source teaches anything, set "question" to "What do you want to learn from these?" and "topic" to null.
+- "use": the source numbers that belong to the chosen topic (all of them when they fit).
+
+Return JSON only: {"topic": "..." or null, "kind": "...", "want": "...", "intent": "...", "core": "...", "examples": [{"what": "...", "from": [1]}], "beyond": ["..."], "assumes": ["..."], "claims": ["..."], "fresh": "...", "question": null or "...", "use": [1, 2]}`;
+
+export function combineMessage(typed: string, sources: { n: number; kind: string; title: string; hook?: string; notes: string }[]) {
+  return (typed ? `Line typed: "${typed}"\n` : "No line typed.\n") +
+    sources.map((x) => `Source ${x.n} (${x.kind}): ${x.title}\n${x.hook ? `Hook: ${x.hook}\n` : ""}${x.notes}`).join("\n\n");
+}
+
+export type Brief = {
+  kind: string; want?: string; intent?: string; core?: string; examples?: { what: string; from: number[] }[];
+  beyond?: string[]; assumes?: string[]; claims?: string[]; fresh?: string;
+};
+
+// How each kind of saved thing becomes seven chapters.
+const SHAPE_BY_KIND: Record<string, string> = {
+  picks: "They saved picks, so they want more good ones and to choose well. Group the chapters by the need or problem the items solve, not one chapter per item. For each item: what it does, who it suits, how to try it, how it compares. Use the items from the sources and add more of the same kind, and give one chapter to judging, choosing and combining them.",
+  howto: "They saved how-tos, so they want to be able to do it. Chapters follow the doing: the steps, the practice, the common mistakes and fixes, then the next level of the same skill.",
+  explainer: "They saved explainers, so they want to understand it well enough to explain it. Build the ideas up in order, each on the one before, with the sources' examples as the cases.",
+  story: "They saved stories, so they want the lessons. Draw out the pattern behind the case, show where else it holds and where it doesn't, then how to apply it.",
+};
+
+// The brief as the plan and chapter prompts read it.
+export function briefText(b: Brief): string {
+  const list = (xs?: string[]) => (xs ?? []).map((x) => `  - ${x}`).join("\n");
+  return [
+    `Kind of thing they saved: ${b.kind}`,
+    SHAPE_BY_KIND[b.kind] ? `How to shape the handbook: ${SHAPE_BY_KIND[b.kind]}` : "",
+    b.want ? `What they want: ${b.want}` : "",
+    b.intent ? `What the learner is after: ${b.intent}` : "",
+    b.core ? `The core idea: ${b.core}` : "",
+    b.examples?.length ? `Examples from the sources:\n${b.examples.map((e) => `  - ${e.what}${e.from.length ? ` (source ${e.from.join(", ")})` : ""}`).join("\n")}` : "",
+    b.beyond?.length ? `Go beyond the sources with:\n${list(b.beyond)}` : "",
+    b.assumes?.length ? `They already have or do (never teach these):\n${list(b.assumes)}` : "",
+    b.claims?.length ? `Creators' claims (not facts until checked):\n${list(b.claims)}` : "",
+  ].filter(Boolean).join("\n");
+}
+
+// What the plan and every chapter are written from, when the handbook started from the learner's own sources.
+export function sourcesBlock(sources: string, part: "plan" | "chapter") {
+  const rules = [
+    "Follow the brief above the sources: give the learner what they want, built on the core idea, taught with the examples, then going beyond the sources as it says. Never teach what they already have or do.",
+    "Shape the chapters as the brief says for this kind of thing; if it says none, around what the learner wants from these.",
+    "Keep the hook: open with the payoff that made them save these, and make every chapter deliver part of it.",
+    "Fill the gaps the sources leave with well-established knowledge, in a sensible order.",
+    "Treat numbers, rankings and promises in a source (\"saves half\", \"the best\", \"free forever\") as that creator's claims: say whose they are, and use them only where they are well established or the research findings confirm them. Where a source is out of date or wrong, teach the correct version and say plainly that it changed.",
+    "Never claim a source said something it didn't. Teach in your own words: never copy a source's script or caption word for word. Credit a creator by name where it's natural.",
+    part === "plan"
+      ? "Give each chapter a \"from\" list: the source numbers it draws on (empty for chapters that go beyond them)."
+      : "When a card draws on a source, you may say so in passing (\"the second reel showed...\"), never more than once a card.",
+  ];
+  return `\n\nSources the learner saved (build ${part === "plan" ? "the seven chapters" : "this chapter"} from them):\n${sources}\n\nUsing the sources:\n${rules.map((r) => `- ${r}`).join("\n")}`;
+}
+
+// ---------- research: one web search step before writing, for things that go out of date ----------
+
+// Saved picks (to find more of them) and anything that goes out of date within weeks.
+export function needsResearch(brief?: Brief, freshness?: string): boolean {
+  return brief ? brief.kind === "picks" || brief.fresh === "fast" : freshness === "fast";
+}
+
+export const RESEARCH_PROMPT = `You research for the author of a seven-chapter handbook, before it is written. Search the web (at most 3 searches) and report only what you found on real, current pages.
+
+What to find, in this order:
+1. If the brief says they saved picks: more good ones of the same kind as the examples, that are real, current and widely used or well reviewed. Prefer official pages, the maker's own site or repository, and respected reviews.
+2. The claims listed in the brief: is each one confirmed by a page you found, not confirmed, or wrong?
+3. Facts that change fast and the handbook needs: current names, versions, prices, availability, and anything renamed, merged or discontinued.
+
+Rules:
+- Every finding comes from a page you opened in a search result, with that page's link. Never from memory. Nothing found is a fine answer.
+- One plain line per finding: what it is and why it matters to this learner. No marketing words.
+- At most 12 findings and 6 checked claims.
+- Never include anything the learner already has or does (listed in the brief) as a finding.
+
+Return JSON only, nothing before or after it: {"findings": [{"what": "...", "url": "https://..."}], "checked": [{"claim": "...", "verdict": "confirmed" | "not confirmed" | "wrong", "note": "...", "url": "https://..." or null}]}`;
+
+// brief: from what the learner saved. chapters: a typed topic's planned chapter titles (nothing was saved).
+export function researchMessage(topic: string, { brief, chapters }: { brief?: string; chapters?: string[] }) {
+  const context = brief ? `Brief:\n${brief}`
+    : `The learner typed this line; nothing was saved. Its chapters:\n${(chapters ?? []).map((t, i) => `${i + 1}. ${t}`).join("\n")}\nFind the current facts these chapters need.`;
+  return `Handbook: ${topic}\n\n${context}\n\nSearch and report.`;
+}
+
+// The research findings as the plan and chapters read them.
+export function researchText(json: any): string | undefined {
+  const findings = (Array.isArray(json?.findings) ? json.findings : []).slice(0, 12)
+    .filter((f: any) => f?.what && /^https?:\/\//.test(String(f?.url ?? "")))
+    .map((f: any) => `- ${String(f.what).slice(0, 300)} (${String(f.url).slice(0, 300)})`);
+  const checked = (Array.isArray(json?.checked) ? json.checked : []).slice(0, 6)
+    .filter((c: any) => c?.claim && c?.verdict)
+    .map((c: any) => `- "${String(c.claim).slice(0, 200)}": ${String(c.verdict)}${c.note ? `. ${String(c.note).slice(0, 200)}` : ""}${c.url ? ` (${String(c.url).slice(0, 300)})` : ""}`);
+  if (!findings.length && !checked.length) return undefined;
+  return [findings.length ? `Found:\n${findings.join("\n")}` : "", checked.length ? `Claims checked:\n${checked.join("\n")}` : ""].filter(Boolean).join("\n\n");
+}
+
+export function researchBlock(research: string) {
+  return `\n\nResearch done today on the web, before writing (each line has its source):\n${research}\n\nUsing the research:\n- It is newer than what you know: where it differs from your memory, follow it.\n- Name a specific tool, product, place or resource only if it is in the sources, in this research, or long established; give its link from here when you name one.\n- A claim marked "not confirmed" or "wrong" is never taught as fact.`;
+}
+
+// A creator's latest reels into themes, so the learner can pick what they want a handbook on.
+export const THEMES_PROMPT = `You get a creator's latest reels, numbered, each with notes on what it teaches. Group them by what they teach, so a learner can pick one theme for a seven-chapter handbook.
+
+Rules:
+- 1 to 4 themes. Each theme is 2-6 plain words naming what it teaches, never the creator's slogan or a vague label like "tips".
+- Each reel goes in at most one theme. Reels that teach nothing (ads, memes, personal updates) go in no theme.
+- Order themes by how many reels they have, most first.
+
+Return JSON only: {"themes": [{"name": "...", "reels": [1, 4, 7]}]}`;
+
+
+export function themesMessage(handle: string, reels: { n: number; title: string; hook?: string; notes: string }[]) {
+  return `Creator: @${handle}\n\n` + reels.map((r) => `Reel ${r.n}: ${r.title}\n${r.hook ? `Hook: ${r.hook}\n` : ""}${r.notes.slice(0, 1200)}`).join("\n\n");
+}
+

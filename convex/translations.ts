@@ -40,10 +40,12 @@ export const saveTranslatedPlan = internalMutation({
       const bookId = await ctx.db.insert("books", {
         topic: String(plan.topic ?? english.topic), level: english.level, language: h.language, voice: english.voice, plan, source: "live",
         createdAt: Date.now(), freshness: english.freshness, expiresAt: english.expiresAt, sourceBookId: english._id,
+        ...(english.private ? { private: true } : {}),
       });
       book = (await ctx.db.get(bookId))!;
     }
-    await addKeys(ctx, book, [h.topicKey, topicKeyOf(String(english.plan?.topic ?? "")), topicKeyOf(String(plan.topic ?? ""))]);
+    // A translation of a private book stays private: no topic keys.
+    if (!book.private) await addKeys(ctx, book, [h.topicKey, topicKeyOf(String(english.plan?.topic ?? "")), topicKeyOf(String(plan.topic ?? ""))]);
     await ctx.db.patch(handbookId, { status: "ready", bookId: book._id, question: undefined, error: undefined });
     await ensureChapter(ctx, book, 1);
   },
