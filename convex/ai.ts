@@ -53,7 +53,7 @@ const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> =
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
   simpler: { model: SONNET, effort: "medium", maxTokens: 8000 },   // 6 Oct: "max" thought 49 s and was cut off at 8,000 with no answer
   chapter: { model: OPUS, effort: "medium", maxTokens: 16000 },
-  scenes: { model: HAIKU, maxTokens: 2000 },
+  scenes: { model: SONNET, effort: "low", maxTokens: 4000 },   // 6 Oct: Sonnet, not Haiku: deciding which cards get a real photo needs judgment
   audit: { model: OPUS, effort: "high", maxTokens: 16000 },
   repair: { model: OPUS, effort: "medium", maxTokens: 16000 },
   teach: { model: SONNET, effort: "low", maxTokens: 2000 },   // teach it back: a short reply to the reader's own 2 sentences   // one-off fixes to chapters already written (convex/repair.ts)   // measurement only (convex/audit.ts): what slipped past the fact check   // one scene line per teaching card, for the chapter pictures

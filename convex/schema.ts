@@ -50,7 +50,7 @@ export default defineSchema({
     vote: v.optional(v.string()),             // "A" | "B" | "C" once the person has chosen
     svg: v.optional(v.string()),
     // Runway pictures, one per teaching card (design/style-anchor.md). Drawn after the chapter is ready.
-    pictures: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")) }))),
+    pictures: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")), credit: v.optional(v.string()), source: v.optional(v.string()) }))),
     picturesStatus: v.optional(v.string()),   // "drawing" | "done" | "failed" | "skipped"
     factCheck: v.optional(v.object({ status: v.string(), fixes: v.number(), notes: v.array(v.string()), model: v.optional(v.string()), at: v.number() })),  // live chapters: "passed" | "fixed" | "unchecked"
     cacheVersion: v.optional(v.number()),

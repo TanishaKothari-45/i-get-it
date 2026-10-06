@@ -33,7 +33,8 @@ type Props = {
   onFinish: (stats: { minutes: number; right: number; total: number }) => Promise<void>
   onSimpler: (item: Item) => Promise<{ ready: boolean }>
   svg?: string
-  pictures: Record<number, string>   // card index -> Runway picture URL, arriving after the chapter
+  pictures: Record<number, string>   // card index -> picture URL (a drawing, or a real photo), arriving after the chapter
+  credits?: Record<number, { credit: string; source?: string }>   // real photos carry their licence credit
   caution?: string | null            // money / health / legal topics: the fixed study-aid line
   picturesPending?: boolean          // pictures are still being drawn: a quiet plate, never the rough drawing
   onExit: () => void
@@ -66,7 +67,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, pictures, caution, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
     [cards, recall, n],
@@ -272,7 +273,7 @@ export default function Chapter({ topic, n, title, cards, recall, passed: _passe
           ) : (
             <>
               {frame.cover && <h1 className="story-title">{title}</h1>}
-              {pic ? <div className="story-pic"><img src={pic} alt="" /></div>
+              {pic ? <div className={`story-pic${credits[item.cardIndex] ? ' real' : ''}`}><img src={pic} alt="" />{credits[item.cardIndex] && <a className="story-credit no-tap" href={credits[item.cardIndex].source || undefined} target="_blank" rel="noopener noreferrer">Photo: {credits[item.cardIndex].credit}</a>}</div>
                 : null /* no picture yet, or none: no box at all; the picture fades in when it lands */}
               {!frame.cover && frame.part === 0 && (KICKER[c.type] || c.title) && <p className="story-kicker">{KICKER[c.type] ?? c.title}</p>}
               <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover || pic ? (pic && !frame.cover && sizeOf(frame.text ?? '') === 'xl' ? 'lg' : 'md') : sizeOf(frame.text ?? '')}`} />

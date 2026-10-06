@@ -255,6 +255,7 @@ export default function App() {
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}
+          credits={(chapter as any).credits ?? {}}
           caution={(hb as any).caution ?? null}
           picturesPending={!!(chapter as any).picturesPending}
           onExit={() => setView('plan')}

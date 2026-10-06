@@ -59,28 +59,68 @@ async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RA
 }
 
 // Scenes for a chapter's teaching cards (one Haiku call), then one picture per scene, drawn in parallel.
-type Picture = { card: number; scene: string; storageId?: Id<"_storage"> };
+type Picture = { card: number; scene: string; storageId?: Id<"_storage">; credit?: string; source?: string };
+
+// A freely licensed photo from Wikimedia Commons for a real thing (6 Oct, Prateek: real Iron Man, real Odyssey, not
+// random drawings). Only public domain, CC0 and Creative Commons BY / BY-SA; stored with its credit line and source page.
+const OPEN = /^(cc0|public domain|pd\b|pd-|cc[ -]by(-sa)?[ -]?\d)/i;
+const strip = (html: string) => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId: Id<"_storage">; credit: string; source: string } | null> {
+  const url = `https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=10&gsrsearch=${encodeURIComponent(query + " filetype:bitmap")}&prop=imageinfo&iiprop=url|extmetadata|mime|size&iiurlwidth=1024`;
+  try {
+    const res = await fetch(url, { headers: { "User-Agent": "IGetIt/1.0 (https://sensible-mongoose-624.convex.site; learning handbooks)" } });
+    const pages: any[] = Object.values((await res.json())?.query?.pages ?? {}).sort((a: any, b: any) => (a.index ?? 0) - (b.index ?? 0));
+    for (const p of pages) {
+      const ii = p.imageinfo?.[0]; const md = ii?.extmetadata ?? {};
+      const license = strip(String(md.LicenseShortName?.value ?? ""));
+      if (!ii || !/image\/(jpeg|png)/.test(ii.mime) || (ii.width ?? 0) < 600 || !OPEN.test(license) || /nonfree|fair use/i.test(String(md.NonFree?.value ?? "") + license)) continue;
+      const img = await fetch(ii.thumburl ?? ii.url, { headers: { "User-Agent": "IGetIt/1.0 (https://sensible-mongoose-624.convex.site)" } });
+      if (!img.ok) continue;
+      const storageId = await ctx.storage.store(await img.blob());
+      const artist = strip(String(md.Artist?.value ?? "")).slice(0, 60) || "Unknown";
+      return { storageId, credit: `${/public domain|^pd/i.test(license) ? "Public domain" : `${artist}, ${license}`}, Wikimedia Commons`, source: String(ii.descriptionurl ?? "") };
+    }
+  } catch { /* fall back to drawing */ }
+  return null;
+}
 async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true): Promise<{ status: string; pictures: Picture[] }> {
   const teaching = cards.map((c: any, i: number) => ({ c, i })).filter(({ c }) => c && c.type !== "exercise" && c.type !== "watch" && typeof c.body === "string").slice(0, MAX_PICTURES);
   if (!teaching.length) return { status: "skipped", pictures: [] };
   const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))) });
   const wanted = new Set(teaching.map(({ i }) => i));
-  const scenes: { card: number; scene: string }[] = [];
+  const scenes: { card: number; scene: string; real?: string }[] = [];
   for (const x of (r.ok ? r.json?.scenes : null) ?? []) {
     const card = parseInt(String(x?.card ?? "").replace(/[^0-9]/g, ""), 10), scene = String(x?.scene ?? "").trim().slice(0, 400);
-    if (wanted.has(card) && scene && !scenes.some((y) => y.card === card)) scenes.push({ card, scene });
+    const real = typeof x?.real === "string" && x.real.trim() ? x.real.trim().slice(0, 80) : undefined;
+    if (wanted.has(card) && scene && !scenes.some((y) => y.card === card)) scenes.push({ card, scene, real });
   }
   if (!scenes.length) return { status: "failed", pictures: [] };
   // Readers' chapters count against the app-wide hourly cap; the hand-run ready-topic backfill does not.
   if (capped && !(await ctx.runMutation(internal.handbooks.takePictureBudget, { count: scenes.length }))) return { status: "failed", pictures: [] };
-  const drawn: Awaited<ReturnType<typeof drawOne>>[] = new Array(scenes.length);
+  // Real things: a real, freely licensed photo first; everything else (and any miss) is drawn.
+  const photos = await Promise.all(scenes.map((s) => (s.real ? commonsPhoto(ctx, s.real) : Promise.resolve(null))));
+  const drawn: (Awaited<ReturnType<typeof drawOne>> | null)[] = new Array(scenes.length).fill(null);
+  const toDraw = scenes.map((_, k) => k).filter((k) => !photos[k]);
   let next = 0;
-  await Promise.all(Array.from({ length: Math.min(AT_ONCE, scenes.length) }, async () => {
-    while (next < scenes.length) { const k = next++; drawn[k] = await drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${scenes[k].scene} ${PICTURE_NEVER}`); }
+  await Promise.all(Array.from({ length: Math.min(AT_ONCE, toDraw.length) }, async () => {
+    while (next < toDraw.length) { const k = toDraw[next++]; drawn[k] = await drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${scenes[k].scene} ${PICTURE_NEVER}`); }
   }));
-  const pictures: Picture[] = scenes.map((s, k) => ({ ...s, storageId: drawn[k].ok ? (drawn[k] as any).storageId : undefined }));
+  const pictures: Picture[] = scenes.map((s, k) => photos[k] ? { card: s.card, scene: s.scene, storageId: photos[k]!.storageId, credit: photos[k]!.credit, source: photos[k]!.source }
+    : { card: s.card, scene: s.scene, storageId: drawn[k]?.ok ? (drawn[k] as any).storageId : undefined });
   return { status: pictures.some((p) => p.storageId) ? "done" : "failed", pictures };
 }
+
+// Dry run: the scene plan only (which cards would get a real photo), no drawing. npx convex run images:scenesOnly '{...}'
+export const scenesOnly = internalAction({
+  args: { handbookId: v.id("handbooks"), n: v.number() },
+  handler: async (ctx, { handbookId, n }): Promise<any> => {
+    const h: any = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
+    const ch: any = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n });
+    const teaching = (ch?.cards ?? []).map((c: any, i: number) => ({ c, i })).filter(({ c }: any) => c && c.type !== "exercise" && c.type !== "watch" && typeof c.body === "string").slice(0, MAX_PICTURES);
+    const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(h.plan?.topic ?? h.topic, ch.title ?? "", h.plan?.picture?.line ?? "", teaching.map(({ c, i }: any) => ({ card: i, type: c.type, title: c.title, body: c.body }))) });
+    return r.ok ? r.json.scenes.map((x: any) => ({ card: x.card, real: x.real ?? null, scene: String(x.scene).slice(0, 60) })) : r.error;
+  },
+});
 
 // A chapter just written for one reader.
 export const forChapter = internalAction({
