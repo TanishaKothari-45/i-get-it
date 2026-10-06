@@ -15,7 +15,7 @@ const CONTACT = {
   name: 'Prateek Kurkanji',
   email: 'prateekksubs@gmail.com',
   phone: '',      // TODO(Prateek)
-  address: '',    // TODO(Prateek): operating address, city and PIN
+  address: 'Bengaluru, Karnataka, India',
 }
 
 const TITLES: Record<PolicyPage, string> = {
