@@ -74,7 +74,17 @@ export const start = internalMutation({
 });
 export const setBPictures = internalMutation({
   args: { id: v.id("experiments"), pictures: v.any() },
-  handler: async (ctx, { id, pictures }) => { const e = await ctx.db.get(id); if (e) await ctx.db.patch(id, { b: { ...e.b, pictures } }); },
+  handler: async (ctx, { id, pictures }) => {
+    const e = await ctx.db.get(id);
+    if (!e) return;
+    await ctx.db.patch(id, { b: { ...e.b, pictures } });
+    // Readers already on B started before the pictures were drawn: give them the pictures too.
+    for (const h of await ctx.db.query("handbooks").collect()) {
+      if (h.experimentId !== id || h.variant !== "b") continue;
+      const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", 1)).unique();
+      if (ch && !(ch.pictures ?? []).length) await ctx.db.patch(ch._id, { pictures });
+    }
+  },
 });
 
 // Called when a reader starts a ready topic: if it has a running test, pick a side (half and half by their phone).
