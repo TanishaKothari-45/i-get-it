@@ -17,23 +17,27 @@ export const build = internalAction({
     plan: v.optional(v.any()),
     chapters: v.optional(v.array(v.any())),
     tries: v.optional(v.number()),
+    goal: v.optional(v.string()),
+    mode: v.optional(v.string()),
   },
-  handler: async (ctx, { topic, aliases, plan, chapters = [], tries = 0 }): Promise<void> => {
+  handler: async (ctx, { topic, aliases, plan, chapters = [], tries = 0, goal, mode }): Promise<void> => {
     const again = (next: { plan?: unknown; chapters?: unknown[]; tries?: number }) =>
-      ctx.scheduler.runAfter(0, internal.ready.build, { topic, aliases, plan: next.plan ?? plan, chapters: (next.chapters ?? chapters) as any[], tries: next.tries ?? 0 });
+      ctx.scheduler.runAfter(0, internal.ready.build, { topic, aliases, goal, mode, plan: next.plan ?? plan, chapters: (next.chapters ?? chapters) as any[], tries: next.tries ?? 0 });
     const giveUp = (why: string) => console.log(`ready ${topic}: stopped, ${why}`);
 
     // 1. The plan.
     if (!plan) {
-      const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(topic, "new", "English", "friend") });
+      const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(topic, "new", "English", "friend", undefined, goal, mode) });
       const p = r.ok ? r.json : null;
       const fine = p && !p.declined && !p.needsClarification && Array.isArray(p.chapters) && p.chapters.length === CHAPTERS;
       if (!fine) {
         console.log(`ready ${topic}: plan not usable (${r.ok ? "shape" : r.error})`);
-        if (tries < 1) await ctx.scheduler.runAfter(0, internal.ready.build, { topic, aliases, tries: tries + 1 });
+        if (tries < 1) await ctx.scheduler.runAfter(0, internal.ready.build, { topic, aliases, goal, mode, tries: tries + 1 });
         else giveUp("plan failed twice");
         return;
       }
+      if (!p.mode && mode) p.mode = mode;
+      if (goal) p.goal = goal;
       console.log(`ready ${topic}: plan done, ${p.chapters.map((c: any) => c.title).join(" / ")}`);
       await again({ plan: p, chapters: [] });
       return;

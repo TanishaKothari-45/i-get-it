@@ -178,3 +178,35 @@ export const balanceTargets = internalQuery({
     return out;
   },
 });
+
+// Whole-card rewrites for a ready topic's chapter (the chapter 1 polish, 6 Oct): every spelling of the topic,
+// then only readers' copies they haven't started (a reader mid-chapter keeps the cards they're reading).
+export const replaceCards = internalMutation({
+  args: { topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")), n: v.number(), cards: v.any() },
+  handler: async (ctx, { topicKey, level: lvl, n, cards }) => {
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
+    const base = row?.chapters.find((c: any) => c.n === n);
+    if (!row || !base || !Array.isArray(cards) || cards.length < 5) return { rows: 0, copies: 0 };
+    const keys = new Set<string>();
+    let rows = 0;
+    for (const c of await ctx.db.query("cache").collect()) {
+      if (c.level !== lvl || c.topic !== row.topic) continue;
+      const m = c.chapters.find((x: any) => x.n === n);
+      if (!m || m.title !== base.title) continue;
+      await ctx.db.patch(c._id, { chapters: c.chapters.map((x: any) => (x.n === n ? { ...x, cards } : x)), version: Date.now() });
+      keys.add(c.topicKey); rows++;
+    }
+    let copies = 0;
+    for (const h of await ctx.db.query("handbooks").collect()) {
+      if (h.source !== "cache" || !keys.has(h.topicKey) || h.level !== lvl) continue;
+      const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
+      if (!ch || ch.title !== base.title || ch.model) continue;
+      const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
+      const unread = !p || p.currentChapter < n || (p.currentChapter === n && p.currentCard === 0 && !p.chaptersPassed.includes(n));
+      if (!unread) continue;
+      await ctx.db.patch(ch._id, { cards });
+      copies++;
+    }
+    return { rows, copies };
+  },
+});

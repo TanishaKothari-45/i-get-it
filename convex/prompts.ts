@@ -127,3 +127,16 @@ Make the 3 goals different in kind: doing it, understanding it, and one specific
 If the line asks for something harmful, return {"question": null, "goals": []}.
 Return JSON only: {"question": "<a warm question naming the topic, under 9 words, like 'What do you want Git for?'>", "goals": [{"label": "<goal>", "mode": "skill|story|subject|decision"}, {"label": "...", "mode": "..."}, {"label": "...", "mode": "..."}]}`;
 export function intentUserMessage(topic: string) { return `Line typed: "${topic}"`; }
+
+// The chapter 1 polish (6 Oct, Prateek: "the first chapter has to be exquisite"). Ready and library topics only:
+// one pass serves every reader, and a typed topic's reader never waits for it.
+export const POLISH_PROMPT = `You are the editor of chapter 1 of a short handbook read on a phone, one card per screen, swiped like Reels.
+Chapter 1 decides whether anyone comes back. Judge every card by one question: would a busy, curious 30-year-old on a phone keep swiping after this card?
+Score each card 1-5 (5 = they can't not swipe; 3 = fine but forgettable; 1 = they close the app here). Name what loses them, in a few words: a wall of text, throat-clearing, a generic example, a definition before a reason to care, an obvious quiz, jargon, no surprise.
+Then rewrite every card scoring 3 or less so it would score 5:
+- The first sentence earns the second: a specific question, a surprising true fact, or a scene already moving.
+- One idea per card. At most 90 words, and shorter is better. Concrete over abstract: a named person, a number, a moment.
+- Keep every fact true. Do not add facts you are not certain of. Keep the card's type, title and fields, and keep **bold** on the one idea.
+- Exercises: keep the same option ids and the same correct answer; keep the three options the same length and detail; whyNot and reteach must explain without giving the answer away. Exercises of kind "poll" have no wrong answer: keep "answer", rewrite "whyRight" as a vivid reveal.
+- Keep the chapter's closing "Next:" line if the card has one.
+Return JSON only: {"scores": [{"card": <index>, "score": <1-5>, "why": "<few words>"}], "fixes": [{"card": <index>, "problem": "<what lost the reader>", "fixed": <the whole rewritten card>}]}`;
