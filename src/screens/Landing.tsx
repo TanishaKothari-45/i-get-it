@@ -32,7 +32,12 @@ export default function Landing({ onCreate }: Props) {
     window.scrollTo({ top: 0, behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
     setTimeout(() => heroInput.current?.focus({ preventScroll: true }), 400)
   }
-  const pick = (t: string) => { setTopic(t); setError(null); toBox() }
+  // A ready topic starts straight away: no typing, and it opens instantly (it's already written).
+  const pick = async (t: string) => {
+    setTopic(t); setError(null); setBusy(true)
+    try { await onCreate(t, 'new', voice) }
+    catch { setError("Couldn't start it just now. Try once more in a minute."); setBusy(false); toBox() }
+  }
   const go = async () => {
     setError(null)
     if (topic.trim().length < 2) { setError('A few words is enough. What is it?'); toBox(); return }
@@ -65,6 +70,21 @@ export default function Landing({ onCreate }: Props) {
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
       <p className="lp-fine">Week 1 is free. No card, and no sign-up to start.</p>
+      {where === 'hero' && c && c.shelf.length > 0 && (
+        <div className="lp-quick">
+          <p>Or start one tonight. It opens instantly:</p>
+          <ul>
+            {c.shelf.slice(0, 9).map((s: { topic: string; cover: string | null }) => (
+              <li key={s.topic}>
+                <button type="button" onClick={() => pick(s.topic)} disabled={busy}>
+                  <span className="lp-quick-pic">{s.cover && <img src={s.cover} alt="" loading="lazy" />}</span>
+                  <span>{s.topic}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </form>
   )
 

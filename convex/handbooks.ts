@@ -362,7 +362,7 @@ function validFix(orig: any, fixed: any): boolean {
   if (orig.type !== "exercise") return typeof fixed.body === "string" || typeof fixed.prompt === "string";
   return Array.isArray(fixed.options) && fixed.options.length === 3 && fixed.options.some((o: any) => o.id === fixed.answer);
 }
-async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max" } = {}): Promise<{ cards: any[]; report: FactReport }> {
+export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max" } = {}): Promise<{ cards: any[]; report: FactReport }> {
   const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: CHECK_PROMPT, user: checkUserMessage(topic, level, { title, cards }), ...opts });
   if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() } };
   const out = cards.slice();
