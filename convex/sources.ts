@@ -80,7 +80,7 @@ export const finishReading = internalMutation({
     const keep = new Set(use ?? h.sources.map((_, i) => i + 1));
     const sources = h.sources.map((s, i) => (s.status === "read" && !keep.has(i + 1) ? { ...s, status: "failed" as const, error: "about something else" } : s));
     await ctx.db.patch(handbookId, { topic: topic.slice(0, 200), sources, ...(brief ? { sourcesBrief: brief } : {}) });
-    await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
+    await ctx.scheduler.runAfter(0, internal.generate.generatePlan, { handbookId });
   },
 });
 

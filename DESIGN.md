@@ -96,6 +96,8 @@ Loading: the button becomes "Writing your handbook…" with a thin indeterminate
 Error: "Couldn't write it just now. Your line is still here; try once more in a minute." Button: Try again. If the one clarifying question comes back: show it under the box as a single question with the box ready, button "That's it".
 Done: goes to Plan.
 
+Something went wrong (any screen, 6 Oct): if a screen fails to draw, the whole app is replaced by one card instead of a blank page: "Something went wrong on this page." / "Your handbooks are safe. Reloading usually fixes it." and the button Reload. Copy (agent).
+
 Landing (first-time visitors only; rebuilt 5 Oct evening after Prateek: "looks like a school project... where's the intrigue, the aesthetics, the marketing?")
 For: a stranger from a shared link wants it before being asked for anything. People with a handbook on this phone never see it; "start another topic" still uses the plain first screen.
 Look: a printed risograph poster, the same identity as the chapter pictures. Full-bleed colour spreads (marigold hero, ink, cream, indigo, sand, coral, cream), paper grain over every spread, headings in Bricolage at its heaviest and narrowest, the hero headline printed off-register with an indigo shadow that settles into place once on load. Hard black outlines and offset print shadows on the box, buttons, pictures and covers. Six illustrations drawn for it on Runway in the style anchor (public/images/landing/).

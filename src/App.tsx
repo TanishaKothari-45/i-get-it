@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useConvexAuth, useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import type { FunctionReturnType } from 'convex/server'
@@ -64,18 +64,41 @@ export default function App() {
   const answerQuestion = useMutation(api.handbooks.answerQuestion)
   const retry = useMutation(api.handbooks.retry)
   const setPosition = useMutation(api.handbooks.setPosition)
+  // Saving the reader's place waits until they stop on a card for a moment, so flicking through ten cards sends one
+  // save, not ten. Anything that moves their place on the server (finishing a chapter) sends the waiting save first;
+  // one phone's saves run in the order they were sent, so the finish always lands last.
+  const pendingPosition = useRef<Parameters<typeof setPosition>[0] | null>(null)
+  const positionTimer = useRef<number | undefined>(undefined)
+  const flushPosition = useCallback(() => {
+    window.clearTimeout(positionTimer.current)
+    const p = pendingPosition.current
+    pendingPosition.current = null
+    if (p) setPosition(p).catch(() => {})
+  }, [setPosition])
+  const savePosition = (p: Parameters<typeof setPosition>[0]) => {
+    pendingPosition.current = p
+    window.clearTimeout(positionTimer.current)
+    positionTimer.current = window.setTimeout(flushPosition, POSITION_SAVE_DELAY_MS)
+  }
+  // Leaving the page (or the app going to the background) saves straight away.
+  useEffect(() => {
+    const onHide = () => { if (document.visibilityState === 'hidden') flushPosition() }
+    document.addEventListener('visibilitychange', onHide)
+    window.addEventListener('pagehide', flushPosition)
+    return () => { document.removeEventListener('visibilitychange', onHide); window.removeEventListener('pagehide', flushPosition); flushPosition() }
+  }, [flushPosition])
   const recordAnswer = useMutation(api.handbooks.recordAnswer)
   const finishChapter = useMutation(api.handbooks.finishChapter)
   const setTomorrow = useMutation(api.handbooks.setTomorrow)
   const attachToMe = useMutation(api.handbooks.attachToMe)
   const requestSimpler = useMutation(api.handbooks.requestSimpler)
-  const saveProfile = useMutation(api.handbooks.saveProfile)
-  const refreshIfStale = useMutation(api.handbooks.refreshIfStale)
-  const compareModels = useMutation(api.handbooks.compareModels)
-  const voteModel = useMutation(api.handbooks.voteModel)
+  const saveProfile = useMutation(api.profile.saveProfile)
+  const refreshIfStale = useMutation(api.profile.refreshIfStale)
+  const compareModels = useMutation(api.profile.compareModels)
+  const voteModel = useMutation(api.profile.voteModel)
   const syncFromCache = useMutation(api.handbooks.syncFromCache)
   const goFurther = useMutation(api.handbooks.goFurther)
-  const profile = useQuery(api.handbooks.myProfile, { deviceToken: token })
+  const profile = useQuery(api.profile.myProfile, { deviceToken: token })
 
   const [view, setView] = useState<View>(() => (shared ? 'start-again' : 'auto'))
   const [doneN, setDoneN] = useState<number | null>(null)
@@ -90,7 +113,10 @@ export default function App() {
     } catch { return false }
   })
 
-  const hb = data?.handbook ?? null
+  const hbId = data?.handbook?._id
+  // Progress comes on its own (it changes on every card); the handbook's words come once.
+  const progressData = useQuery(api.handbooks.progressFor, hbId ? { handbookId: hbId, deviceToken: token } : 'skip')
+  const hb: HandbookData | null = useMemo(() => (data?.handbook ? { ...data.handbook, progress: progressData ?? null } : null), [data?.handbook, progressData])
   // The page's language follows the handbook's, so screen readers and fonts treat Hindi as Hindi.
   useEffect(() => { document.documentElement.lang = languageInfo(hb?.language ?? '')?.code ?? 'en' }, [hb?.language])
   const progress = hb?.progress ?? null
@@ -108,11 +134,12 @@ export default function App() {
       .catch(() => {})
   }, [isAuthenticated, attachToMe, token])
   useEffect(() => { window.scrollTo({ top: 0 }) }, [view, hb?._id])
+  useEffect(() => { flushPosition() }, [view, hb?._id, flushPosition])
   useEffect(() => { if (view !== 'auto' && view !== 'plan') setFlash(null) }, [view])
   // Pick up newer cached chapters for anything not started yet (the cache improves over the sprint).
   useEffect(() => { if (hb?._id && hb.status === 'ready') syncFromCache({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }, [hb?._id, hb?.status, syncFromCache, token])
 
-  if (data === undefined) return <Shell><div className="splash">Opening your handbook…</div></Shell>
+  if (data === undefined || (hbId && progressData === undefined)) return <Shell><div className="splash">Opening your handbook…</div></Shell>
 
   const signIn = (back: View) => { setAfterSignIn(back); setView('signin') }
   const libRows = lib?.handbooks ?? []
@@ -291,9 +318,9 @@ export default function App() {
           passedExercises={progress?.passedExercises ?? []}
           startAt={progress?.currentCard ?? 0}
           startPart={(progress as any)?.currentPart ?? 0}
-          onPosition={(cardIndex, part) => { setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, part, deviceToken: token }).catch(() => {}) }}
+          onPosition={(cardIndex, part) => savePosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, part, deviceToken: token })}
           onAnswer={async (item, optionId, attempt) => (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult}
-          onFinish={async (stats) => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneStats(stats); setDoneN(chapter.n); setView('done') }}
+          onFinish={async (stats) => { flushPosition(); await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneStats(stats); setDoneN(chapter.n); setView('done') }}
           onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}
@@ -386,7 +413,12 @@ const BONUS_TEXT: Record<BonusKind, { label: (n: number) => string; heading: str
   },
 }
 
-type HandbookData = NonNullable<NonNullable<FunctionReturnType<typeof api.handbooks.current>>['handbook']>
+type HandbookData = NonNullable<NonNullable<FunctionReturnType<typeof api.handbooks.current>>['handbook']> & {
+  progress: FunctionReturnType<typeof api.handbooks.progressFor>
+}
+
+// How long the reader stays on a card before their place is saved.
+const POSITION_SAVE_DELAY_MS = 1500
 
 // A bonus lesson for chapter n. Written the first time they ask, then played in the same Stories player.
 function BonusScreen({ hb, n, kind, token, onBack }: { hb: HandbookData; n: number; kind: BonusKind; token: string; onBack: () => void }) {

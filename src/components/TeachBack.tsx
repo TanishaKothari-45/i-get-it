@@ -9,8 +9,8 @@ export default function TeachBack({ handbookId, n, deviceToken }: { handbookId: 
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const reply = useQuery(api.handbooks.teachBackFor, open ? { handbookId, chapter: n, deviceToken } : 'skip')
-  const send = useMutation(api.handbooks.teachBack)
+  const reply = useQuery(api.ask.teachBackFor, open ? { handbookId, chapter: n, deviceToken } : 'skip')
+  const send = useMutation(api.ask.teachBack)
   const thinking = reply?.status === 'thinking'
 
   if (!open) return (

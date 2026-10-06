@@ -2,7 +2,8 @@ import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { internalAction } from "./_generated/server";
 import { CHAPTER_PROMPT, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
-import { factCheck, topicKeyOf } from "./handbooks";
+import { topicKeyOf } from "./handbooks";
+import { factCheck } from "./generate";
 
 // Writes a new ready topic for the shelf, the same way a reader's handbook is written (plan on the plan model,
 // each chapter on the chapter model, every chapter fact-checked), then stores it in the cache and queues its pictures.

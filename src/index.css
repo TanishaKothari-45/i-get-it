@@ -145,6 +145,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .done-line { font-family: var(--serif); font-size: var(--heading); line-height: 1.3; margin-top: var(--m); }
 .times { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s); margin-top: var(--m); }
 .splash { flex: 1; display: grid; place-items: center; color: var(--ink-2); font-size: var(--small); }
+.crash { min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; gap: var(--s); max-width: 480px; margin: 0 auto; padding: var(--l); background: var(--paper); box-sizing: border-box; }
+.crash-title { font-size: var(--ui); font-weight: 600; color: var(--ink); }
+.crash-line { font-size: var(--small); color: var(--ink-2); margin-bottom: var(--l); }
 
 @media (prefers-reduced-motion: reduce) { .card, .sheet, .scrim, .rung span.filling::after, .busybar::after, .opt.pass, .sheet .verdict.pass { animation: none !important; } }
 

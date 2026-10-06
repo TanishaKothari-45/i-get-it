@@ -36,10 +36,10 @@ export const planFromCache = internalAction({
   handler: async (ctx, { handbookId }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h) return;
-    const row = await ctx.runQuery(internal.handbooks.readCacheChapter, { topicKey: h.topicKey, level: h.level, n: 1 });
-    if (!row?.plan) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: "ready topic missing" }); return; }
+    const row = await ctx.runQuery(internal.pictures.readCacheChapter, { topicKey: h.topicKey, level: h.level, n: 1 });
+    if (!row?.plan) { await ctx.runMutation(internal.generate.setFailed, { handbookId, error: "ready topic missing" }); return; }
     const r = await translatePlanText(ctx, h.language, h.voice ?? "friend", row.plan);
-    if (!r.ok) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: r.error }); return; }
+    if (!r.ok) { await ctx.runMutation(internal.generate.setFailed, { handbookId, error: r.error }); return; }
     await ctx.runMutation(internal.translations.savePlanFromCache, { handbookId, plan: r.plan, sourcePlan: row.plan, topic: String(r.plan.topic ?? row.topic) });
   },
 });
@@ -60,11 +60,11 @@ export const chapterFromCache = internalAction({
   handler: async (ctx, { handbookId, n }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h) return;
-    const row = await ctx.runQuery(internal.handbooks.readCacheChapter, { topicKey: h.topicKey, level: h.level, n });
+    const row = await ctx.runQuery(internal.pictures.readCacheChapter, { topicKey: h.topicKey, level: h.level, n });
     const english = row?.chapter;
-    if (!english) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: "ready chapter missing" }); return; }
+    if (!english) { await ctx.runMutation(internal.generate.setChapterFailed, { handbookId, n, error: "ready chapter missing" }); return; }
     const r = await translateChapterText(ctx, h.language, h.voice ?? "friend", "chapter", english);
-    if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
+    if (!r.ok) { await ctx.runMutation(internal.generate.setChapterFailed, { handbookId, n, error: r.error }); return; }
     await ctx.runMutation(internal.translations.saveChapterFromCache, { handbookId, n, title: r.title, outcomeLine: r.outcomeLine, cards: r.cards, svg: english.svg, pictures: english.pictures });
   },
 });

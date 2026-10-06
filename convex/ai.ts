@@ -10,6 +10,10 @@ import { RESEARCH_PROMPT, researchMessage, researchText } from "./prompts";
 const PLAN_MAX_OUT = 3000;
 const CHAPTER_MAX_OUT = 6000;
 const SIMPLER_MAX_OUT = 600;
+// No single model call may use up the whole 10-minute action: a hung connection is cut off well before that.
+const CALL_TIMEOUT_MS = 8 * 60 * 1000;
+// A broken JSON reply gets one fresh try, but only when the first call was quick enough for two to fit.
+const JSON_RETRY_WITHIN_MS = 3 * 60 * 1000;
 
 type Result = { ok: true; json: any; model: string; tokensIn?: number; tokensOut?: number } | { ok: false; error: string; model: string };
 
@@ -28,6 +32,7 @@ async function callOpenAI(system: string, user: string, maxOut: number): Promise
       ],
       text: { format: { type: "json_object" } },
     }),
+    signal: AbortSignal.timeout(CALL_TIMEOUT_MS),
   });
   const data: any = await res.json();
   if (!res.ok) throw new Error(data?.error?.message ?? `OpenAI ${res.status}`);
@@ -63,7 +68,9 @@ const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> =
 };
 
 let anthropic: Anthropic | null = null;
-function client() { return (anthropic ??= new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })); }
+// The SDK retries a rate limit, an overloaded server or a timeout twice by itself; each try is cut off at
+// CALL_TIMEOUT_MS. A write that still runs out of time is marked failed by its watch (handbooks.ts).
+function client() { return (anthropic ??= new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, timeout: CALL_TIMEOUT_MS, maxRetries: 2 })); }
 
 async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string, effortOverride?: Effort): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const job = JOB[kind];
@@ -103,6 +110,7 @@ async function callGLM(system: string, user: string, model: string, maxTokens: n
       messages: [{ role: "system", content: system + "\n\nReturn only the JSON object. No prose, no code fences." }, { role: "user", content: user }],
       thinking: { type: effort && effort !== "low" ? "enabled" : "disabled" },
     }),
+    signal: AbortSignal.timeout(CALL_TIMEOUT_MS),
   });
   const body: any = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(`GLM ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
@@ -132,9 +140,11 @@ export const generate = internalAction({
       const call = () => viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
       let r = await call();
       let json: any;
-      // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure.
+      // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure,
+      // if there's time for it: a second long think would run past the action's limit and lose both.
       try { json = extractJson(r.text); }
-      catch {
+      catch (e) {
+        if (Date.now() - started > JSON_RETRY_WITHIN_MS) throw e;
         r = await call();
         json = extractJson(r.text);
       }
@@ -176,7 +186,7 @@ export const askWithSearch = internalAction({
 
       if (firstText === NEEDS_WEB || firstText.startsWith(NEEDS_WEB)) {
         step = 2;
-        const allowed = await ctx.runMutation(internal.handbooks.takeSearchToken, { key: searchKey });
+        const allowed = await ctx.runMutation(internal.ask.takeSearchToken, { key: searchKey });
         if (!allowed) {
           // Over today's search allowance: answer from the card, and say so.
           const fallback = await client().beta.messages.create({

@@ -286,10 +286,10 @@ export const gatherCreator = internalAction({
     if (!handle) return;
     let reels: Reel[] | null;
     try { reels = await apifyReels(handle, CREATOR_REELS); }
-    catch (e: any) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `couldn't reach @${handle}'s reels: ${String(e?.message ?? e).slice(0, 200)}` }); return; }
-    if (reels === null) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: "no reel service key set" }); return; }
+    catch (e: any) { await ctx.runMutation(internal.generate.setFailed, { handbookId, error: `couldn't reach @${handle}'s reels: ${String(e?.message ?? e).slice(0, 200)}` }); return; }
+    if (reels === null) { await ctx.runMutation(internal.generate.setFailed, { handbookId, error: "no reel service key set" }); return; }
     const found = reels.filter((r) => r.url);
-    if (!found.length) { await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `no public reels found for @${handle}` }); return; }
+    if (!found.length) { await ctx.runMutation(internal.generate.setFailed, { handbookId, error: `no public reels found for @${handle}` }); return; }
     await ctx.runMutation(internal.sources.setCreatorReels, { handbookId, reels: found.map((r) => ({ url: r.url!, caption: r.caption, videoUrl: r.videoUrl })) });
   },
 });

@@ -12,8 +12,8 @@ export default function AskCard({ handbookId, chapter, cardIndex, deviceToken }:
   const [text, setText] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const rows = useQuery(api.handbooks.questionsFor, open ? { handbookId, chapter, cardIndex, deviceToken } : 'skip') ?? []
-  const ask = useMutation(api.handbooks.ask)
+  const rows = useQuery(api.ask.questionsFor, open ? { handbookId, chapter, cardIndex, deviceToken } : 'skip') ?? []
+  const ask = useMutation(api.ask.ask)
 
   const send = async () => {
     const q = text.trim(); if (q.length < 3) return

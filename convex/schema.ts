@@ -34,6 +34,9 @@ export const briefV = v.object({
   fresh: v.optional(v.string()),    // fast | medium | stable: how fast this goes out of date
 });
 
+// One picture on a chapter's teaching card: the scene asked for, and the drawing once it's stored.
+export const pictureV = v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")), failed: v.optional(v.boolean()) });
+
 export default defineSchema({
   ...authTables,
 
@@ -71,6 +74,7 @@ export default defineSchema({
     choices: v.optional(v.array(v.string())),     // the question's tap-to-answer options (a creator's themes)
     sourcesBrief: v.optional(briefV),             // from the sources: what the learner is after, and what to build it from
     research: v.optional(v.string()),             // a web search's findings ("" when searched and nothing found)
+    startedAt: v.optional(v.number()),            // when the current plan write began, to spot one that died
     createdAt: v.number(),
   })
     .index("by_token", ["ownerToken"])
@@ -86,7 +90,7 @@ export default defineSchema({
     vote: v.optional(v.string()),             // "A" | "B" | "C" once the person has chosen
     svg: v.optional(v.string()),
     // Runway pictures, one per teaching card (design/style-anchor.md). Drawn after the chapter is ready.
-    pictures: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")) }))),
+    pictures: v.optional(v.array(pictureV)),
     picturesStatus: v.optional(v.string()),   // "drawing" | "done" | "failed" | "skipped"
     factCheck: v.optional(v.object({ status: v.string(), fixes: v.number(), notes: v.array(v.string()), model: v.optional(v.string()), at: v.number() })),  // live chapters: "passed" | "fixed" | "unchecked"
     cacheVersion: v.optional(v.number()),
@@ -95,6 +99,7 @@ export default defineSchema({
     cards: v.optional(v.any()),   // array of cards, exercises include answer/whyNot/reteach (never sent raw to the client)
     outcomeLine: v.optional(v.string()),
     error: v.optional(v.string()),
+    startedAt: v.optional(v.number()),   // when the current write began, to spot one that died
     createdAt: v.number(),
   }).index("by_handbook_n", ["handbookId", "n"]),
 
@@ -287,4 +292,13 @@ export default defineSchema({
     chapters: v.array(v.any()),   // chapter objects for n = 1..k
     version: v.optional(v.number()),
   }).index("by_key", ["topicKey", "level"]),
+
+  // Small documents built from bigger tables, so a page everyone opens reads one row instead of a whole table.
+  // "landing": the ready topics for the first screen (rebuilt when the cache changes, and every 15 minutes);
+  // "stats": the /stats numbers (rebuilt every 15 minutes). Never the source of truth: rebuilt from it.
+  summaries: defineTable({
+    name: v.string(),
+    data: v.any(),
+    at: v.number(),
+  }).index("by_name", ["name"]),
 });

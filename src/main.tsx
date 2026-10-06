@@ -10,6 +10,7 @@ import { initTrack } from './lib/track'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
 import { registerServiceWorker } from './lib/push'
+import ErrorBoundary from './components/ErrorBoundary'
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string)
 initTrack(convex)
@@ -30,7 +31,9 @@ if (!onStats && !onAdmin) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ConvexAuthProvider client={convex}>
-      {onAdmin ? <Admin /> : onStats ? <Stats /> : <App />}
+      <ErrorBoundary>
+        {onAdmin ? <Admin /> : onStats ? <Stats /> : <App />}
+      </ErrorBoundary>
     </ConvexAuthProvider>
   </StrictMode>,
 )

@@ -8,27 +8,36 @@ import type { Doc, Id } from "./_generated/dataModel";
 import { ANOTHER_PROMPT, DEEPER_PROMPT, bonusUserMessage } from "./prompts";
 import { ENGLISH } from "./languages";
 import { translateChapterText } from "./translations";
-import { type BonusKind, bonusChapter, bonusFinished, bonusKindV, bonusUnlocked, factCheck, ownedHandbook, shuffleExercises, takeGeneration } from "./handbooks";
+import { factCheck } from "./generate";
+import { type BonusKind, WRITE_TIMEOUT_MS, bonusChapter, bonusFinished, bonusKindV, bonusUnlocked, ownedHandbook, shuffleExercises, takeGeneration } from "./handbooks";
 
 const BONUS_PROMPT: Record<BonusKind, string> = { deeper: DEEPER_PROMPT, another: ANOTHER_PROMPT };
 const BONUS_FALLBACK_TITLE: Record<BonusKind, (n: number) => string> = {
   deeper: (n) => `Going deeper on chapter ${n}`,
   another: (n) => `Chapter ${n}, another way`,
 };
-// A bonus still "writing" after this long is treated as stuck, and asking again rewrites it.
-const STUCK_WRITING_MS = 5 * 60 * 1000;
-
+// A bonus still "writing" after this long is treated as stuck (it's fact checked and translated too, so it gets
+// the same time as a chapter): asking again rewrites it, and a watch marks it failed so the screen says so.
 function isWriting(row: Doc<"bonusChapters"> | null) {
-  return row?.status === "writing" && Date.now() - (row.startedAt ?? row.createdAt) < STUCK_WRITING_MS;
+  return row?.status === "writing" && Date.now() - (row.startedAt ?? row.createdAt) < WRITE_TIMEOUT_MS;
 }
 
 async function setStatus(ctx: MutationCtx, handbookId: Id<"handbooks">, kind: BonusKind, n: number, fields: { status: "writing" | "failed"; error?: string }) {
   const now = Date.now();
   const existing = await bonusChapter(ctx, handbookId, kind, n);
   const doc = { ...fields, error: fields.error, ...(fields.status === "writing" ? { startedAt: now } : {}) };
-  if (existing) await ctx.db.patch(existing._id, doc);
-  else await ctx.db.insert("bonusChapters", { handbookId, kind, n, createdAt: now, ...doc });
+  const id = existing ? existing._id : await ctx.db.insert("bonusChapters", { handbookId, kind, n, createdAt: now, ...doc });
+  if (existing) await ctx.db.patch(id, doc);
+  if (fields.status === "writing") await ctx.scheduler.runAfter(WRITE_TIMEOUT_MS, internal.bonus.expireBonus, { id, startedAt: now });
 }
+
+export const expireBonus = internalMutation({
+  args: { id: v.id("bonusChapters"), startedAt: v.number() },
+  handler: async (ctx, { id, startedAt }) => {
+    const row = await ctx.db.get(id);
+    if (row?.status === "writing" && row.startedAt === startedAt) await ctx.db.patch(id, { status: "failed", error: "took too long" });
+  },
+});
 
 // Every card has the words it needs to be shown: a body, or for an exercise a prompt and three options with
 // one marked answer. A card without them would break the chapter screen, so the lesson is refused instead.
@@ -67,7 +76,7 @@ export const generateBonus = internalAction({
       await ctx.runMutation(internal.bonus.setBonusFailed, { handbookId, kind, n, error: "chapter not ready" });
       return;
     }
-    const prof = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId });
+    const prof = await ctx.runQuery(internal.profile.readProfileLine, { handbookId });
     // Written in English from the English plan (the chapter's cards as the reader read them), then translated.
     const r = await ctx.runAction(internal.ai.generate, {
       kind, system: BONUS_PROMPT[kind],
