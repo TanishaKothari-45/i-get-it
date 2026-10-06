@@ -146,3 +146,10 @@ export const LIBRARY_CHECK_PROMPT = `Decide whether a handbook can be shown publ
 Share it only if it is a general subject many people might want to learn (a skill, a subject, a story, a hobby, a public figure's work).
 Do not share if the line or the plan points to a private person (a name that isn't a public figure), the reader's own health, money, relationship, legal, school or workplace situation, anything that could identify them, sexual content, or anything unkind, harmful or embarrassing.
 Return JSON only: {"share": true or false, "why": "<a few words>"}`;
+
+// The handbook doctor (6 Oct): readers keep quitting chapter 1 of a ready topic; find out why and write a better one.
+export const DOCTOR_PROMPT = `Readers keep quitting chapter 1 of a handbook read on a phone, one card per screen. You get the chapter's cards (numbered) and what each reader who quit did: the card they stopped on and any quiz they missed, with the option they picked.
+1. "diagnosis": 2 or 3 plain sentences on why they quit, pointing at specific cards (a wall of text at card 5, a quiz that tests a word not yet explained, a slow opening, a joke that didn't land).
+2. "lesson": one general sentence the writer of every handbook should follow from now on, learned from this.
+3. "cards": a rewritten chapter 1 that fixes it. Keep the chapter's title, topic, one idea and every fact true; never add facts you aren't certain of. The first card hooks in its first sentence. One idea per card, at most 90 words each, 8 to 10 cards. Same card JSON shapes as given. Exercises: exactly 3 options of the same length and detail, one right, whyNot and reteach that explain without giving the answer away; in story mode every exercise is a "poll" with a "whyRight" reveal.
+Return JSON only: {"diagnosis": "...", "lesson": "...", "cards": [ ... ]}`;

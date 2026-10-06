@@ -7,6 +7,7 @@ import type { Doc, Id } from "./_generated/dataModel";
 import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
 import { level } from "./schema";
 import { matchForIntent } from "./library";
+import { assignVariant } from "./doctor";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
 
@@ -268,12 +269,17 @@ export const create = mutation({
     if (already) return { handbookId: already._id, fromCache: already.source === "cache", existing: true };
 
     if (cached) {
+      // A running A/B test on this topic's chapter 1 puts half the new readers on the rewrite (doctor.ts).
+      const ab = lvl === "new" ? await assignVariant(ctx, cached.topic, deviceToken) : null;
       const handbookId = await ctx.db.insert("handbooks", {
         topic: cached.topic, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "ready", plan: cached.plan,
         ownerToken: deviceToken, userId: userId ?? undefined, source: "cache", createdAt: now,
+        ...(ab ? { experimentId: ab.experimentId, variant: ab.variant } : {}),
       });
       for (const ch of cached.chapters) {
-        await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: ch.svg, pictures: ch.pictures, recallCards: ch.recallCards, cacheVersion: cached.version ?? 0, createdAt: now });
+        const useB = ab?.variant === "b" && ch.n === 1;
+        await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: useB ? ab!.b.cards : ch.cards, outcomeLine: ch.outcomeLine, svg: ch.svg,
+          pictures: useB ? (ab!.b.pictures ?? []) : ch.pictures, recallCards: ch.recallCards, cacheVersion: useB ? Number.MAX_SAFE_INTEGER : cached.version ?? 0, createdAt: now });
       }
       await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
       return { handbookId, fromCache: true, existing: false };
@@ -650,7 +656,7 @@ export const recordAnswer = mutation({
         ...(passesNow ? { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < CHAPTERS ? chapter + 1 : chapter, currentCard: 0, currentPart: 0 } : {}),
       });
       if (passesNow) {
-        if (chapter === 1) await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId });
+        if (chapter === 1) { await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); }
         const right = card.options.find((o: any) => o.id === optionId);
         return { correct: true as const, text: right?.text ?? "", why: card.whyRight ?? null, chapterPassed: true as const };
       }

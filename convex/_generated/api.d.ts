@@ -13,6 +13,7 @@ import type * as ai from "../ai.js";
 import type * as audit from "../audit.js";
 import type * as auth from "../auth.js";
 import type * as crons from "../crons.js";
+import type * as doctor from "../doctor.js";
 import type * as evalModels from "../evalModels.js";
 import type * as events from "../events.js";
 import type * as handbooks from "../handbooks.js";
@@ -44,6 +45,7 @@ declare const fullApi: ApiFromModules<{
   audit: typeof audit;
   auth: typeof auth;
   crons: typeof crons;
+  doctor: typeof doctor;
   evalModels: typeof evalModels;
   events: typeof events;
   handbooks: typeof handbooks;

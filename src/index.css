@@ -643,3 +643,6 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .lp-carousel-pic em { position: absolute; left: 6px; bottom: 6px; font: 700 0.7rem var(--sans); font-style: normal; background: var(--ink); color: var(--paper); padding: 3px 7px; border-radius: 999px; }
 .lp-carousel strong { font: 800 0.95rem/1.2 var(--sans); color: var(--ink); }
 @media (min-width: 900px) { .lp-carousel li { width: 190px; } }
+
+.adm-exp { border-top: 1px solid var(--paper-2); padding: 12px 0; }
+.adm-exp p + p { margin-top: 6px; }

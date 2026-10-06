@@ -122,6 +122,18 @@ export const scenesOnly = internalAction({
   },
 });
 
+// Pictures for an A/B rewrite of chapter 1 (doctor.ts), drawn once for every B reader.
+export const forExperiment = internalAction({
+  args: { experimentId: v.id("experiments") },
+  handler: async (ctx, { experimentId }): Promise<void> => {
+    const e: any = await ctx.runQuery(internal.doctor.readExperiment, { id: experimentId });
+    const row: any = e && await ctx.runQuery(internal.doctor.readTopic, { topic: e.topic });
+    if (!e || !row) return;
+    const r = await picturesFor(ctx, row.plan?.topic ?? e.topic, row.plan, e.b.title ?? "", e.b.cards, false);
+    if (r.status === "done") await ctx.runMutation(internal.doctor.setBPictures, { id: experimentId, pictures: r.pictures });
+  },
+});
+
 // A chapter just written for one reader.
 export const forChapter = internalAction({
   args: { handbookId: v.id("handbooks"), n: v.number() },

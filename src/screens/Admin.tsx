@@ -31,6 +31,7 @@ export default function Admin() {
           <ProviderSwitch />
           <LibraryCard />
           <TrendingCard />
+          <ExperimentsCard />
 
           <section className="adm-card adm-wide">
             <h2>Funnel</h2>
@@ -244,6 +245,32 @@ function TrendingCard() {
       <p className="note">Every Monday at 6:30am IST, Claude searches what's trending on social media in India and writes up to 3 new ready handbooks (about ₹280 a week plus pictures).</p>
       <ul className="adm-list">{rows.length ? rows.map((r) => <li key={r.topic}><span>{r.topic}</span><b>{r.week}</b></li>) : <li><span>None yet.</span></li>}</ul>
       <button type="button" className="quiet" disabled={started} onClick={async () => { await refresh({}); setStarted(true) }}>{started ? 'Started: new topics appear in about 15 minutes' : 'Refresh trending now'}</button>
+    </section>
+  )
+}
+
+// Self-improving handbooks (6 Oct): diagnosis, the lesson for the writer, and A vs B on getting readers through chapter 1.
+function ExperimentsCard() {
+  const rows = useQuery(api.doctor.adminList, {})
+  const act = useMutation(api.doctor.ownerAction)
+  const scan = useMutation(api.doctor.scanNow)
+  const [scanned, setScanned] = useState(false)
+  if (!rows) return null
+  const rate = (p: number, s: number) => (s ? `${p}/${s} (${Math.round((p / s) * 100)}%)` : '0')
+  return (
+    <section className="adm-card adm-wide">
+      <h2>Handbook doctor (A/B tests)</h2>
+      <p className="note">Daily at 4am IST: ready topics where 2+ readers quit chapter 1 (40%+ of starts) get a diagnosis and a rewritten chapter 1 (B). New readers are split half and half. B replaces A only with 8+ readers a side and 10+ points more passing chapter 1.</p>
+      {rows.length === 0 ? <p className="note">No tests yet.</p> : rows.map((e) => (
+        <div key={e.id} className="adm-exp">
+          <p><strong>{e.topic}</strong> <span className="adm-j-tag">{e.status}</span> <small>{e.quit} of {e.starts} quit before the test</small></p>
+          <p className="serif">{e.diagnosis}</p>
+          <p className="note"><strong>Lesson for the writer:</strong> {e.lesson}</p>
+          <p className="note">A (current): {rate(e.aPasses, e.aStarts)} passed chapter 1 · B (rewrite): {rate(e.bPasses, e.bStarts)}</p>
+          {e.status === 'running' && <p><button type="button" className="quiet" onClick={() => act({ id: e.id, action: 'promote' })}>Make B the default now</button> · <button type="button" className="quiet" onClick={() => act({ id: e.id, action: 'stop' })}>Stop, keep A</button></p>}
+        </div>
+      ))}
+      <button type="button" className="quiet" disabled={scanned} onClick={async () => { await scan({}); setScanned(true) }}>{scanned ? 'Checking now: new tests appear in a few minutes' : 'Check for struggling topics now'}</button>
     </section>
   )
 }

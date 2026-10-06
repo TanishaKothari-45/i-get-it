@@ -40,7 +40,8 @@ export const content = query({
       for (const h of mine) { const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique(); if (p?.chaptersPassed.includes(1)) passed++; }
       shelf.push({ topic: r.plan?.topic ?? r.topic, outcome: String(r.plan?.outcome7 ?? "").split(/(?<=\.)\s/)[0], cover: await pictureFor(ch1, 0),
         week: mine.filter((h) => h.createdAt >= weekAgo).length, starts: mine.length, passRate: mine.length >= 3 ? passed / mine.length : null,
-        trending: r.trendingWeek === thisWeek, addedAt: r.addedAt ?? r._creationTime, mode: r.plan?.mode ?? null });
+        trending: r.trendingWeek === thisWeek, addedAt: r.addedAt ?? r._creationTime, mode: r.plan?.mode ?? null,
+        improved: !!r.improvedAt && Date.now() - r.improvedAt < 14 * 24 * 3600000 });
     }
 
     const demoRow = rows.find((r) => r.topicKey === DEMO_TOPIC);

@@ -27,6 +27,8 @@ export default defineSchema({
     goal: v.optional(v.string()),               // the goal the reader tapped or typed
     mode: v.optional(v.string()),               // "skill" | "story" | "subject" | "decision"
     fromLibrary: v.optional(v.id("library")),   // started from another reader's shared plan and chapter 1
+    experimentId: v.optional(v.id("experiments")),   // an A/B test on chapter 1 of this ready topic (6 Oct)
+    variant: v.optional(v.string()),            // "a" (current) or "b" (the rewrite)
     pushback: v.optional(v.string()),          // one plain, kind sentence: what we won't teach, why, and what instead
     suggestions: v.optional(v.array(v.string())),
     plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }
@@ -183,6 +185,22 @@ export default defineSchema({
     .index("by_endpoint", ["endpoint"])
     .index("by_device", ["deviceToken"]),
 
+  // Self-improving handbooks (6 Oct): when readers quit a ready topic's chapter 1, Claude diagnoses why and writes a new
+  // chapter 1 (B); new readers are split between A and B; B replaces A only if it gets clearly more readers through.
+  experiments: defineTable({
+    topic: v.string(),
+    topicKey: v.string(),
+    level: v.union(v.literal("new"), v.literal("some")),
+    status: v.union(v.literal("running"), v.literal("promoted"), v.literal("stopped")),
+    diagnosis: v.string(),
+    lesson: v.string(),
+    evidence: v.any(),
+    b: v.any(),                         // { title, cards, outcomeLine, pictures? }
+    aStarts: v.number(), aPasses: v.number(), bStarts: v.number(), bPasses: v.number(),
+    startedAt: v.number(),
+    endedAt: v.optional(v.number()),
+  }).index("by_topic", ["topic", "level"]),
+
   // Switches the owner flips on /admin (6 Oct): "provider" = "claude" | "inference" (The Inference Company, deepseek-v4-pro).
   settings: defineTable({
     key: v.string(),
@@ -256,6 +274,7 @@ export default defineSchema({
     chapters: v.array(v.any()),   // chapter objects for n = 1..k
     version: v.optional(v.number()),
     trendingWeek: v.optional(v.string()),   // "2026-10-05": built that week from what's trending on social media
+    improvedAt: v.optional(v.number()),     // chapter 1 replaced by an A/B winner (shows "Just improved")
     addedAt: v.optional(v.number()),
   }).index("by_key", ["topicKey", "level"]),
 });
