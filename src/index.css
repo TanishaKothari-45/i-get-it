@@ -750,3 +750,14 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .lock-card-head { margin: 0; font: 800 1.15rem/1.25 var(--sans); }
 .lock-card-text { margin: 0; font-family: var(--serif); line-height: 1.45; }
 .lock-card .btn { width: 100%; }
+
+/* /admin cost view (7 Oct) */
+.cost-day, .cost-model { border-top: 1px solid var(--tint); padding: 6px 0; }
+.cost-day > summary, .cost-model > summary { cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline; }
+.cost-day > summary .note, .cost-model > summary .note { grid-column: 1 / -1; margin: 0; }
+.cost-model { margin-left: 14px; }
+
+/* Explore chips (7 Oct) */
+.explore-pills { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px; margin: 6px 0 4px; scrollbar-width: none; }
+.explore-pills::-webkit-scrollbar { display: none; }
+.explore-pills .chip { flex: none; }

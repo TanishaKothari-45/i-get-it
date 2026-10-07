@@ -272,6 +272,19 @@ export default defineSchema({
   }),
 
   // Every model call, so the last 100 can be read.
+  // Estimated spend per IST day, model and job (costs.ts, 7 Oct): what /admin's cost view reads.
+  costDaily: defineTable({
+    day: v.string(),
+    provider: v.string(),
+    model: v.string(),
+    kind: v.string(),
+    calls: v.number(),
+    failed: v.number(),
+    tokensIn: v.number(),
+    tokensOut: v.number(),
+    inr: v.number(),
+  }).index("by_day_model_kind", ["day", "model", "kind"]),
+
   aiCalls: defineTable({
     kind: v.string(),
     model: v.string(),

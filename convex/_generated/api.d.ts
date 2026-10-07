@@ -12,6 +12,7 @@ import type * as admin from "../admin.js";
 import type * as ai from "../ai.js";
 import type * as audit from "../audit.js";
 import type * as auth from "../auth.js";
+import type * as costs from "../costs.js";
 import type * as crons from "../crons.js";
 import type * as doctor from "../doctor.js";
 import type * as evalModels from "../evalModels.js";
@@ -50,6 +51,7 @@ declare const fullApi: ApiFromModules<{
   ai: typeof ai;
   audit: typeof audit;
   auth: typeof auth;
+  costs: typeof costs;
   crons: typeof crons;
   doctor: typeof doctor;
   evalModels: typeof evalModels;

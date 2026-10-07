@@ -10,7 +10,7 @@ const FEATURED = ["odyssey", "iliad", "homer", "avengers", "marvel", "k-pop", "u
 const rank = (topic: string) => { const t = topic.toLowerCase(); const i = FEATURED.findIndex((f) => t.includes(f)); return i < 0 ? FEATURED.length : i; };
 
 const firstPara = (s: string) => s.split(/\n\n+/)[0]?.trim() ?? "";
-function weekStartIST(t = Date.now()): string {
+export function weekStartIST(t = Date.now()): string {
   const d = new Date(t + 5.5 * 3600000);
   d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7));
   return d.toISOString().slice(0, 10);

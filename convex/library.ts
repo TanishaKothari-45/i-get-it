@@ -5,6 +5,7 @@ import type { Doc, Id } from "./_generated/dataModel";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { LIBRARY_CHECK_PROMPT } from "./prompts";
 import { isOwner } from "./admin";
+import { weekStartIST } from "./landing";
 
 // The shared library (6 Oct, Prateek: "any handbook created by one user should immediately be available for all others").
 
@@ -120,16 +121,23 @@ export const explore = query({
       && !(h.ownerToken && xTokens.has(h.ownerToken)) && !(h.userId && xUsers.has(String(h.userId))));
     const items: any[] = [];
     const seen = new Set<string>();
+    // Finished chapter 1, for "Most finished" on ready topics too (7 Oct: chips on Explore).
+    const finished = new Set<string>();
+    for (const h of recent) { const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique(); if (p?.chaptersPassed.includes(1)) finished.add(h._id); }
+    const thisWeek = weekStartIST();
     for (const r of (await ctx.db.query("cache").collect()).filter((x) => x.level === "new")) {
       if (seen.has(r.topic)) continue; seen.add(r.topic);
       const ch1 = r.chapters.find((c: any) => c.n === 1);
       items.push({ kind: "ready", key: r.topicKey, topic: (r.plan as any)?.topic ?? r.topic, outcome: String((r.plan as any)?.outcome7 ?? "").split(/(?<=\.)\s/)[0], mode: (r.plan as any)?.mode ?? null,
-        cover: await cover(ch1), week: recent.filter((h) => h.source === "cache" && h.topic === r.topic).length, starts: null, passes: null });
+        cover: await cover(ch1), week: recent.filter((h) => h.source === "cache" && h.topic === r.topic).length, starts: null, passes: null,
+        finishedWeek: recent.filter((h) => h.source === "cache" && h.topic === r.topic && finished.has(h._id)).length,
+        trending: (r as any).trendingWeek === thisWeek, addedAt: (r as any).addedAt ?? r._creationTime });
     }
     for (const r of await ctx.db.query("library").collect()) {
       if (!r.published || seen.has(r.topic)) continue; seen.add(r.topic);
       items.push({ kind: "shared", id: r._id, key: r.topicKey, topic: r.topic, goal: r.goal ?? null, outcome: String(r.plan?.outcome7 ?? "").split(/(?<=\.)\s/)[0], mode: r.mode ?? null,
-        cover: await cover(r.chapter1), week: recent.filter((h) => h.fromLibrary === r._id || h._id === r.sourceHandbookId).length, starts: r.starts, passes: r.passes, pick: !!r.pick });
+        cover: await cover(r.chapter1), week: recent.filter((h) => h.fromLibrary === r._id || h._id === r.sourceHandbookId).length, starts: r.starts, passes: r.passes, pick: !!r.pick,
+        finishedWeek: recent.filter((h) => (h.fromLibrary === r._id || h._id === r.sourceHandbookId) && finished.has(h._id)).length, trending: false, addedAt: r.createdAt });
     }
     const hot = new Set(items.filter((i) => i.week >= 2).sort((a, b) => b.week - a.week).slice(0, 3).map((i) => i.key));
     const loved = new Set(items.filter((i) => i.starts !== null && i.starts >= 3 && i.passes / i.starts >= 0.5).sort((a, b) => b.passes / b.starts - a.passes / a.starts).slice(0, 3).map((i) => i.key));

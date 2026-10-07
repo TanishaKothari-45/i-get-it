@@ -78,7 +78,7 @@ export default function Plan({ total = 7, onOpenChapter, topic, plan, passed, cu
           const now = c.n === current && !done
           return (
             <li key={c.n} className={`stop ${done ? 'done' : now ? 'now' : 'ahead'} ${idx % 2 ? 'right' : 'left'}`}>
-              <span className="node" aria-hidden="true">{done ? '✓' : c.n}</span>
+              <span className="node" aria-hidden="true">{done ? '✓' : ''}</span>{/* the card says "Chapter N"; a number here too read as "1 1" (7 Oct) */}
               {(() => {
                 const inner = (<>
                   <span className="stop-n">Chapter {c.n}{now && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}{done && <span className="tag done">Done</span>}</span>

@@ -5,6 +5,7 @@ import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 import { briefForChapter, briefForPlan } from "./prompts";
+import { addCost } from "./costs";
 import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
 import { level } from "./schema";
 import { matchForIntent } from "./library";
@@ -652,7 +653,7 @@ export const setChapterFailed = internalMutation({
 });
 export const logAiCall = internalMutation({
   args: { kind: v.string(), model: v.string(), input: v.string(), output: v.string(), tokensIn: v.optional(v.number()), tokensOut: v.optional(v.number()), ms: v.number(), ok: v.boolean(), error: v.optional(v.string()) },
-  handler: async (ctx, args) => { await ctx.db.insert("aiCalls", { ...args, at: Date.now() }); },
+  handler: async (ctx, args) => { await ctx.db.insert("aiCalls", { ...args, at: Date.now() }); await addCost(ctx, args); },
 });
 
 // ---------- reading and answering ----------
