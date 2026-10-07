@@ -13,7 +13,8 @@ const PER_M: Record<string, [number, number]> = {   // ₹ per million tokens, i
   fable: [420, 2100],     // not public: priced like Opus until known
   sonnet: [252, 1260],
   haiku: [84, 420],
-  "deepseek-v4.1-flash": [25.2, 100.8],   // DeepSeek's list price at peak ($0.30 / $1.20); a reseller's bill may differ
+  "deepseek-v4.1-flash": [25.2, 100.8],
+  "gemini-3.8-flash": [63, 315],          // Google's list price ($0.75 / $3.75); Cheaper Inference sells it at about 35% off   // DeepSeek's list price at peak ($0.30 / $1.20); a reseller's bill may differ
 };
 const PER_CALL: Record<string, number> = {           // ₹ per successful call
   muse_image: 0.85,       // Runway, 1 credit

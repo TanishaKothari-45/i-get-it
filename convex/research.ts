@@ -64,6 +64,39 @@ async function transcript(url: string): Promise<string | null> {
   } catch { return null; }
 }
 
+// Gemini with Google Search grounding, direct from Google (key GEMINI_API_KEY; Gemini approved by Prateek 6 Oct).
+// Used when a handbook's writer is a Gemini model (8 Oct test). Google answers 503 at busy times: up to 3 tries.
+// Grounded links are Google redirects that expire, so each source is resolved to its real address first.
+async function realUrl(u: string): Promise<string> {
+  if (!/vertexaisearch\.cloud\.google\.com\/grounding-api-redirect/.test(u)) return u;
+  try { const r = await fetch(u, { redirect: "manual" }); return r.headers.get("location") ?? u; } catch { return u; }
+}
+export async function geminiResearch(model: string, ask: string) {
+  let body: any = null, error: string | undefined;
+  // The main key, then the backup key (GEMINI_API_KEY_BACKUP, 8 Oct), in turn.
+  const keys = [process.env.GEMINI_API_KEY, process.env.GEMINI_API_KEY_BACKUP].filter(Boolean) as string[];
+  for (let i = 0; i < 2 * keys.length; i++) {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": keys[i % keys.length] },
+      body: JSON.stringify({ systemInstruction: { parts: [{ text: PROMPT }] }, contents: [{ role: "user", parts: [{ text: ask }] }], tools: [{ google_search: {} }], generationConfig: { maxOutputTokens: 8000 } }),
+    });
+    body = await res.json().catch(() => ({}));
+    if (res.ok) { error = undefined; break; }
+    error = `Gemini ${res.status} (${i % keys.length ? "backup key" : "main key"}): ${JSON.stringify(body).slice(0, 200)}`;
+    if (res.status !== 503 && res.status !== 429) break;
+    if (i % keys.length === keys.length - 1) await new Promise((x) => setTimeout(x, 15000));   // both keys tried: wait, then again
+  }
+  if (error) return { decided: null, searches: 0, tokensIn: 0, tokensOut: 0, error };
+  const cand = body.candidates?.[0];
+  const text = (cand?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
+  const m = text.match(/\{[\s\S]*\}/);
+  let decided: any = null;
+  try { decided = m ? JSON.parse(m[0]) : null; } catch { decided = null; }
+  if (decided && Array.isArray(decided.sources)) decided.sources = await Promise.all(decided.sources.slice(0, 6).map(async (s: any) => ({ ...s, url: await realUrl(String(s?.url ?? "")) })));
+  const u = body.usageMetadata ?? {};
+  return { decided, searches: (cand?.groundingMetadata?.webSearchQueries ?? []).length, tokensIn: u.promptTokenCount ?? 0, tokensOut: (u.candidatesTokenCount ?? 0) + (u.thoughtsTokenCount ?? 0), error: decided ? undefined : "no JSON" };
+}
+
 export const run = internalAction({
   args: { handbookId: v.id("handbooks") },
   handler: async (ctx, { handbookId }): Promise<void> => {
@@ -72,7 +105,10 @@ export const run = internalAction({
     const started = Date.now();
     const ask = `Typed: "${h.topic}"${h.goal ? `\nTheir goal: "${h.goal}"` : ""}${h.mode ? `\nMode they picked: ${h.mode}` : ""}\nLevel: ${h.level}\nToday: ${new Date().toISOString().slice(0, 10)}`;
     let decided: any = null, searches = 0, error: string | undefined, tokensIn = 0, tokensOut = 0;
-    try {
+    // A handbook pinned to a Gemini writer researches with Gemini and Google Search (8 Oct test); everyone else with Claude.
+    const geminiModel: string | null = typeof h.writer === "string" && h.writer.includes("gemini") ? h.writer.replace(/^ci:/, "") : null;
+    if (geminiModel) ({ decided, searches, tokensIn, tokensOut, error } = await geminiResearch(geminiModel, ask));
+    else try {
       const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
       const messages: any[] = [{ role: "user", content: ask }];
       let res: any;
@@ -113,6 +149,6 @@ export const run = internalAction({
       nism, searches, error: error ?? null, at: Date.now(),
     };
     await ctx.runMutation(internal.handbooks.setBrief, { handbookId, brief });
-    await ctx.runMutation(internal.handbooks.logAiCall, { kind: "research", model: "claude-sonnet-5-5", input: ask, output: JSON.stringify({ ...brief, wiki: wiki ? { title: wiki.title, chars: wiki.text.length } : null, recap: recap ? { url: recapUrl, chars: recap.length } : null, nism: nism ? `${nism.length} chars` : null }).slice(0, 4000), tokensIn, tokensOut, ms: Date.now() - started, ok: !error, error });
+    await ctx.runMutation(internal.handbooks.logAiCall, { kind: "research", model: geminiModel ?? "claude-sonnet-5-5", input: ask, output: JSON.stringify({ ...brief, wiki: wiki ? { title: wiki.title, chars: wiki.text.length } : null, recap: recap ? { url: recapUrl, chars: recap.length } : null, nism: nism ? `${nism.length} chars` : null }).slice(0, 4000), tokensIn, tokensOut, ms: Date.now() - started, ok: !error, error });
   },
 });

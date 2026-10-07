@@ -3,6 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 // The AI call. Runs only here, in a Convex action. The key is read from the
 // Convex environment, never from the interface.
 import { v } from "convex/values";
+import { jsonSchema, problems } from "./schemas";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 
@@ -91,17 +92,19 @@ async function callAnthropic(kind: Kind, system: string, user: string, modelOver
 
 // GLM (Zhipu / Z.ai), OpenAI-style chat API. Key in the Convex env variable CHEAPER_INFERENCE_API_KEY (Prateek's credits).
 // Only used when a model id starts with "glm-" (6 Oct: under test in the model comparison, not on the reader's path).
-async function callGLM(system: string, user: string, model: string, maxTokens: number, effort?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+async function callGLM(system: string, user: string, model: string, maxTokens: number, effort?: string, kind?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const key = process.env.CHEAPER_INFERENCE_API_KEY;
   if (!key) throw new Error("No GLM key");
   const base = process.env.GLM_BASE_URL ?? "https://api.z.ai/api/paas/v4";
   const res = await fetch(`${base}/chat/completions`, {
-    method: "POST",
+    method: "POST", signal: AbortSignal.timeout(150000),   // 8 Oct: a check hung 5 minutes on the marketplace, then failed
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       model, max_tokens: Math.min(maxTokens, 32000),
       messages: [{ role: "system", content: system + "\n\nReturn only the JSON object. No prose, no code fences." }, { role: "user", content: user }],
       thinking: { type: effort && effort !== "low" ? "enabled" : "disabled" },
+      // 8 Oct: the job's JSON schema goes with the request, so the reply is held to it at the source (schemas.ts).
+      ...(kind && jsonSchema(kind) ? { response_format: { type: "json_schema", json_schema: { name: kind, schema: jsonSchema(kind), strict: false } } } : {}),
     }),
   });
   const body: any = await res.json().catch(() => ({}));
@@ -165,14 +168,28 @@ export const generate = internalAction({
       const viaGLM = !!model?.startsWith("glm-");
       // "ci:<model>" (8 Oct): any model on the Cheaper Inference marketplace (Prateek's credits), thinking on where Claude thinks.
       const viaCheaper = !!model?.startsWith("ci:");
-      const call = () => viaInference ? callInference(kind, system, user, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, user, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort) : viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
-      let r = await call();
+      const call = () => viaInference ? callInference(kind, system, user, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, user, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
+      // A marketplace call that times out or drops gets one more try (8 Oct); provider errors on Claude are left as before.
+      let r = await call().catch(async (e: any) => {
+        if ((viaCheaper || viaGLM) && /fetch failed|aborted|timeout|GLM 5\d\d/i.test(String(e?.message ?? e))) return call();
+        throw e;
+      });
       let json: any;
       // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure.
       try { json = extractJson(r.text); }
       catch {
         r = await call();
         json = extractJson(r.text);
+      }
+      // 8 Oct: every reply is checked against its job's schema (schemas.ts). A mismatch gets one more try that names
+      // the problems; a second mismatch is a failure, never a half-valid reply.
+      const wrong = problems(kind, json);
+      if (wrong) {
+        const fix = `${user}\n\nYour previous reply did not match the required JSON shape:\n${wrong}\nReturn the whole JSON object again, with these fixed.`;
+        r = await (viaInference ? callInference(kind, system, fix, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, fix, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, fix, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, fix, model, effort) : callOpenAI(system, fix, maxOut));
+        json = extractJson(r.text);
+        const still = problems(kind, json);
+        if (still) throw new Error(`reply did not match the ${kind} schema: ${still.replace(/\n/g, " ").slice(0, 300)}`);
       }
       await ctx.runMutation(internal.handbooks.logAiCall, {
         kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),

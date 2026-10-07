@@ -92,10 +92,10 @@ async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId:
   } catch { /* fall back to drawing */ }
   return null;
 }
-async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true, cover = false): Promise<{ status: string; pictures: Picture[] }> {
+async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true, cover = false, model?: string): Promise<{ status: string; pictures: Picture[] }> {
   const teaching = pictureCards(cards);
   if (!teaching.length) return { status: "skipped", pictures: [] };
-  const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))) });
+  const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))), model });
   const wanted = new Set(teaching.map(({ i }) => i));
   const scenes: { card: number; scene: string; real?: string }[] = [];
   for (const x of (r.ok ? r.json?.scenes : null) ?? []) {
@@ -163,7 +163,7 @@ export const forChapter = internalAction({
     const ch: any = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n });
     if (!h || !ch || ch.status !== "ready" || !ch.cards) return;
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: "drawing" });
-    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards, true, n === 1);
+    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards, true, n === 1, h.writer);
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: r.status, pictures: r.pictures });
   },
 });

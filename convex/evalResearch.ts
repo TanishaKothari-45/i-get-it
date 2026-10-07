@@ -34,11 +34,11 @@ async function claude(topic: string, level: string) {
 // Google's list prices per million tokens (in, out); grounded prompts carry a separate Google Search fee, not counted here.
 const GEMINI_PRICE: Record<string, [number, number]> = { "gemini-3.1-pro": [2, 12], "gemini-3.8-flash": [0.75, 3.75] };
 
-async function gemini(model: string, topic: string, level: string) {
+async function gemini(model: string, topic: string, level: string, key = process.env.GEMINI_API_KEY ?? "") {
   const started = Date.now();
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY ?? "" },
+    headers: { "Content-Type": "application/json", "x-goog-api-key": key },
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: PROMPT }] },
       contents: [{ role: "user", parts: [{ text: ask(topic, level) }] }],
@@ -53,8 +53,8 @@ async function gemini(model: string, topic: string, level: string) {
   const meta = cand?.groundingMetadata ?? {};
   const u = body.usageMetadata ?? {};
   const tokensIn = u.promptTokenCount ?? 0, tokensOut = (u.candidatesTokenCount ?? 0) + (u.thoughtsTokenCount ?? 0);
-  const key = Object.keys(GEMINI_PRICE).find((k) => model.startsWith(k));
-  const [a, b] = key ? GEMINI_PRICE[key] : [0, 0];
+  const priceKey = Object.keys(GEMINI_PRICE).find((k) => model.startsWith(k));
+  const [a, b] = priceKey ? GEMINI_PRICE[priceKey] : [0, 0];
   return {
     model: `${model} (Google Search)`, ms: Date.now() - started, tokensIn, tokensOut,
     searches: (meta.webSearchQueries ?? []).length, queries: meta.webSearchQueries ?? [],
@@ -79,7 +79,12 @@ export const compare = internalAction({
     // Gemini answers 503 ("high demand") at busy times: try a model up to 3 times, 20 s apart.
     const retry = async (m: string) => {
       let r: any;
-      for (let i = 0; i < 3; i++) { r = await gemini(m, topic, level); if (!String(r.error ?? "").startsWith("503")) break; await new Promise((x) => setTimeout(x, 20000)); }
+      const keys = [process.env.GEMINI_API_KEY, process.env.GEMINI_API_KEY_BACKUP].filter(Boolean) as string[];
+      for (let i = 0; i < 2 * keys.length; i++) {
+        r = { ...(await gemini(m, topic, level, keys[i % keys.length])), key: i % keys.length ? "backup" : "main", tries: i + 1 };
+        if (!/^(503|429)/.test(String(r.error ?? ""))) break;
+        if (i % keys.length === keys.length - 1) await new Promise((x) => setTimeout(x, 15000));
+      }
       return r;
     };
     const runs = await Promise.all([
