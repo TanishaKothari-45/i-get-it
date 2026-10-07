@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
-import { POLISH_PROMPT } from "./prompts";
+import { CHAPTER_PROMPT, POLISH_PROMPT, chapterUserMessage } from "./prompts";
 import { factCheck } from "./handbooks";
 
 // Chapter 1 polish for ready topics (6 Oct): Claude scores each card on "would they keep swiping?", rewrites the weak ones,
@@ -39,5 +39,45 @@ export const queue = internalAction({
     try { const r = await ctx.runAction(internal.polish.one, { topicKey: head }); console.log("polish", head, JSON.stringify(r)); }
     catch (e: any) { console.log("polish error", head, String(e?.message ?? e).slice(0, 200)); }
     await ctx.scheduler.runAfter(0, internal.polish.queue, { topicKeys: rest });
+  },
+});
+
+// The 6-card chapter 1 (Prateek, 7 Oct): rewrite a ready topic's chapter 1 from its plan with today's chapter prompt,
+// fact-check it, keep the title, then swap it into every spelling of the topic and every unread copy, with fresh
+// recall questions for chapter 2 and the pictures redrawn. Run: npx convex run --prod polish:sixQueue '{"topicKeys":[...]}'
+export const six = internalAction({
+  args: { topicKey: v.string() },
+  handler: async (ctx, { topicKey }): Promise<any> => {
+    const row: any = await ctx.runQuery(internal.handbooks.readCacheChapter, { topicKey, level: "new", n: 1 });
+    const old = row?.chapter;
+    if (!old?.cards || !row.plan) return { ok: false, error: "no chapter 1" };
+    if (old.cards.length <= 6) return { ok: true, skipped: "already short" };
+    let ch: any = null, error = "";
+    for (let t = 0; t < 2 && !ch; t++) {
+      const r: any = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(row.plan, "new", "English", "friend", 1) });
+      const c = r.ok ? r.json : null;
+      if (c && Array.isArray(c.cards) && c.cards.length >= 5 && c.cards.length <= 7 && !c.cards.some((k: any) => k?.type === "exercise")) ch = c;
+      else error = r.ok ? `shape: ${c?.cards?.length ?? 0} cards` : r.error;
+    }
+    if (!ch) return { ok: false, error };
+    const recall = (Array.isArray(ch.recallQuizzes) ? ch.recallQuizzes : []).filter((e: any) => e?.type === "exercise" && Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer)).slice(0, 2);
+    const story = row.plan?.mode === "story";
+    const checked = await factCheck(ctx, row.plan.topic ?? row.topic, "new", old.title ?? "", [...ch.cards, ...(story ? [] : recall)]);
+    const cards = checked.cards.slice(0, ch.cards.length);
+    const recallCards = story ? [] : checked.cards.slice(ch.cards.length);
+    const res: any = await ctx.runMutation(internal.repairData.replaceCards, { topicKey, level: "new", n: 1, cards, recallCards, resetPictures: true });
+    await ctx.scheduler.runAfter(0, internal.images.backfill, { queue: [{ topicKey, level: "new" as const, n: 1 }] });
+    return { ok: true, before: old.cards.length, after: cards.length, rows: res.rows, copies: res.copies, check: checked.report.status, fixes: checked.report.fixes };
+  },
+});
+
+export const sixQueue = internalAction({
+  args: { topicKeys: v.array(v.string()) },
+  handler: async (ctx, { topicKeys }): Promise<void> => {
+    const [head, ...rest] = topicKeys;
+    if (!head) { console.log("six finished"); return; }
+    try { const r = await ctx.runAction(internal.polish.six, { topicKey: head }); console.log("six", head, JSON.stringify(r)); }
+    catch (e: any) { console.log("six error", head, String(e?.message ?? e).slice(0, 200)); }
+    await ctx.scheduler.runAfter(0, internal.polish.sixQueue, { topicKeys: rest });
   },
 });

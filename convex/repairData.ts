@@ -182,8 +182,11 @@ export const balanceTargets = internalQuery({
 // Whole-card rewrites for a ready topic's chapter (the chapter 1 polish, 6 Oct): every spelling of the topic,
 // then only readers' copies they haven't started (a reader mid-chapter keeps the cards they're reading).
 export const replaceCards = internalMutation({
-  args: { topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")), n: v.number(), cards: v.any() },
-  handler: async (ctx, { topicKey, level: lvl, n, cards }) => {
+  // recallCards and resetPictures (7 Oct, the 6-card chapter 1): a whole new chapter brings its own recall questions,
+  // and the old pictures point at card numbers that no longer match, so they are cleared for a redraw.
+  args: { topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")), n: v.number(), cards: v.any(), recallCards: v.optional(v.any()), resetPictures: v.optional(v.boolean()) },
+  handler: async (ctx, { topicKey, level: lvl, n, cards, recallCards, resetPictures }) => {
+    const extra: any = { ...(recallCards ? { recallCards } : {}), ...(resetPictures ? { pictures: [] } : {}) };
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
     const base = row?.chapters.find((c: any) => c.n === n);
     if (!row || !base || !Array.isArray(cards) || cards.length < 5) return { rows: 0, copies: 0 };
@@ -193,7 +196,7 @@ export const replaceCards = internalMutation({
       if (c.level !== lvl || c.topic !== row.topic) continue;
       const m = c.chapters.find((x: any) => x.n === n);
       if (!m || m.title !== base.title) continue;
-      await ctx.db.patch(c._id, { chapters: c.chapters.map((x: any) => (x.n === n ? { ...x, cards } : x)), version: Date.now() });
+      await ctx.db.patch(c._id, { chapters: c.chapters.map((x: any) => (x.n === n ? { ...x, cards, ...extra } : x)), version: Date.now() });
       keys.add(c.topicKey); rows++;
     }
     let copies = 0;
@@ -204,7 +207,7 @@ export const replaceCards = internalMutation({
       const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
       const unread = !p || p.currentChapter < n || (p.currentChapter === n && p.currentCard === 0 && !p.chaptersPassed.includes(n));
       if (!unread) continue;
-      await ctx.db.patch(ch._id, { cards });
+      await ctx.db.patch(ch._id, { cards, ...extra, ...(resetPictures ? { picturesStatus: undefined } : {}) });
       copies++;
     }
     return { rows, copies };

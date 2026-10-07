@@ -97,6 +97,18 @@ export default function App() {
       .catch((e) => setLock({ key: lockKey, note: limitMessage(e) ?? "Couldn't open this chapter just now. Try again in a minute." }))
   }, [wantsChapter, chapterLocked, lockKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // First time in a handbook (7 Oct: 11 of 30 readers saw their plan and never opened chapter 1): go straight into
+  // chapter 1 when it's ready; the plan is one tap away (the chapter's close button). Once per handbook per visit, and
+  // only on the way in: a typed topic whose chapter 1 is still being written shows the plan, as before.
+  const autoEntered = useRef<string | null>(null)
+  const ch1Status = hb?.chapters.find((c) => c.n === 1)?.status
+  useEffect(() => {
+    if (!hb || hb.status !== 'ready' || autoEntered.current === hb._id || view !== 'auto') return
+    autoEntered.current = hb._id
+    const fresh = passed.length === 0 && currentN === 1 && (progress?.currentCard ?? 0) === 0
+    if (fresh && ch1Status === 'ready') { setReadingN(1); setView('chapter') }
+  }, [hb?._id, hb?.status, ch1Status, view]) // eslint-disable-line react-hooks/exhaustive-deps
+
   // A link from a post (?t=public-speaking&ch=2, 7 Oct) opens that ready topic straight away, at that chapter,
   // so a reader who just read chapter 1 on Instagram doesn't land on the landing page. Ready topics only: a link
   // never starts a paid generation. A topic already on this phone opens where they left off.
