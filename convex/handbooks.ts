@@ -542,7 +542,8 @@ export const generatePlan = internalAction({
     // Research usually started while the reader picked a goal (matchOrIntents): wait for it, up to a minute, rather
     // than run it twice. If it never started or never lands, run it here.
     const started = (h as any).researchStartedAt;
-    for (let i = 0; i < 60 && !(h as any).brief && started && Date.now() - started < 90000; i++) {
+    // 8 Oct: research is Gemini first (28 to 66 s measured), then Claude if Gemini fails, so wait up to 150 s.
+    for (let i = 0; i < 150 && !(h as any).brief && started && Date.now() - started < 150000; i++) {
       await new Promise((r) => setTimeout(r, 1000));
       h = (await ctx.runQuery(internal.handbooks.readHandbook, { handbookId })) ?? h;
     }

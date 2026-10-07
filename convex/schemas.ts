@@ -79,14 +79,14 @@ export const match = z.looseObject({ match: z.union([z.number(), z.null()]) });
 export const teach = z.looseObject({ verdict: str, got: str, missed: z.string().optional(), tip: str });
 
 export const research = z.looseObject({
-  kind: str,
+  kind: z.enum(["film", "series", "book", "game", "franchise", "event", "person", "recipe", "howto", "skill", "subject", "money", "health", "legal", "other"]),
   format: z.enum(["quick", "course"]),
   chapters: z.number().int().min(1).max(7),
   framing: nullableStr,
   wikipediaTitle: nullableStr,
   recapVideo: nullableStr,
-  facts: z.array(str),
-  sources: z.array(z.looseObject({ title: str.optional(), url: str })),
+  facts: z.array(str).min(3).max(25),
+  sources: z.array(z.looseObject({ title: str.optional(), url: str })).max(10),
 });
 
 export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research };

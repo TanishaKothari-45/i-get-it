@@ -4,6 +4,7 @@ import { v } from "convex/values";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { nismBrief } from "./nism";
+import { jsonSchema, problems } from "./schemas";
 
 // Research before writing (Prateek, 7 Oct: "be more agentic"; a film recap needs no quizzes and no weeks; stock topics
 // should draw on the NISM syllabus). For a typed topic, before the plan:
@@ -28,6 +29,8 @@ Decide:
 - "recapVideo": null, unless a YouTube video in your results is genuinely the best account of a story's events (then its https://www.youtube.com/watch?v=... URL). Don't search for one specially. Only a URL you actually saw.
 - "facts": 8 to 20 one-line facts the handbook must get right: names and who they are, the order of events, numbers, dates, rules. Specific, checkable, from the searches.
 - "sources": up to 6 {"title","url"} you actually saw in the results. Never invent a URL.
+
+Writing (facts and framing): write about 80% of the way to ASD-STE100 Simplified Technical English. One statement per sentence, at most 20 words. Active voice. Present tense where it fits. Common words, each with one meaning. Keep "a" and "the". No idioms, no slang, no filler. Keep names, numbers, dates and terms of art exactly as the sources give them. Stop short of stiff or awkward wording: the text must still read naturally.
 
 Return JSON only: {"kind":"...","format":"quick|course","chapters":1,"framing":null,"wikipediaTitle":null,"recapVideo":null,"facts":[],"sources":[]}`;
 
@@ -64,37 +67,105 @@ async function transcript(url: string): Promise<string | null> {
   } catch { return null; }
 }
 
-// Gemini with Google Search grounding, direct from Google (key GEMINI_API_KEY; Gemini approved by Prateek 6 Oct).
-// Used when a handbook's writer is a Gemini model (8 Oct test). Google answers 503 at busy times: up to 3 tries.
-// Grounded links are Google redirects that expire, so each source is resolved to its real address first.
+// Research runs on Gemini 3.8 Flash with Google Search, direct from Google (Prateek, 8 Oct night: "move the research to
+// Gemini Flash; as a backup, Claude"). Keys: GEMINI_API_KEY, then GEMINI_API_KEY_BACKUP (the main key got 503 "high
+// demand" 3 of 3 on 8 Oct; the backup worked 3 of 3). Gemini gets the research JSON schema with the request (search
+// and a fixed schema work in one call, tested 8 Oct), and every reply is checked against schemas.ts "research" with
+// one corrective retry. If Gemini still fails, Claude Sonnet 5.5 with Anthropic web search (the researcher until 8 Oct)
+// does it, under the same schema check. Grounded links are Google redirects that expire, so each is resolved first.
+export const GEMINI_RESEARCHER = "gemini-3.8-flash";
+export const CLAUDE_RESEARCHER = "claude-sonnet-5-5";
+type Attempt = { decided: any; searches: number; tokensIn: number; tokensOut: number; error?: string; model: string; ms: number };
+
+const REDIRECT = /vertexaisearch\.cloud\.google\.com\/grounding-api-redirect/;
 async function realUrl(u: string): Promise<string> {
-  if (!/vertexaisearch\.cloud\.google\.com\/grounding-api-redirect/.test(u)) return u;
-  try { const r = await fetch(u, { redirect: "manual" }); return r.headers.get("location") ?? u; } catch { return u; }
+  if (!REDIRECT.test(u)) return u;
+  try { const r = await fetch(u, { redirect: "manual", signal: AbortSignal.timeout(8000) }); const loc = r.headers.get("location"); if (loc) return loc; } catch { /* next way */ }
+  try { const r = await fetch(u, { method: "GET", redirect: "follow", signal: AbortSignal.timeout(8000) }); return r.url || u; } catch { return u; }
 }
-export async function geminiResearch(model: string, ask: string) {
-  let body: any = null, error: string | undefined;
-  // The main key, then the backup key (GEMINI_API_KEY_BACKUP, 8 Oct), in turn.
+const parse = (text: string) => { const m = text.match(/\{[\s\S]*\}/); try { return m ? JSON.parse(m[0]) : null; } catch { return null; } };
+
+async function geminiOnce(model: string, ask: string) {
   const keys = [process.env.GEMINI_API_KEY, process.env.GEMINI_API_KEY_BACKUP].filter(Boolean) as string[];
+  if (!keys.length) return { body: null, error: "no Gemini key set" };
+  let body: any = null, error: string | undefined;
   for (let i = 0; i < 2 * keys.length; i++) {
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": keys[i % keys.length] },
-      body: JSON.stringify({ systemInstruction: { parts: [{ text: PROMPT }] }, contents: [{ role: "user", parts: [{ text: ask }] }], tools: [{ google_search: {} }], generationConfig: { maxOutputTokens: 8000 } }),
-    });
+      method: "POST", signal: AbortSignal.timeout(90000),
+      headers: { "Content-Type": "application/json", "x-goog-api-key": keys[i % keys.length] },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: PROMPT }] }, contents: [{ role: "user", parts: [{ text: ask }] }],
+        tools: [{ google_search: {} }],
+        generationConfig: { maxOutputTokens: 8000, responseMimeType: "application/json", ...(jsonSchema("research") ? { responseJsonSchema: jsonSchema("research") } : {}) },
+      }),
+    }).catch((e: any) => ({ ok: false, status: 0, json: async () => ({ error: String(e?.message ?? e) }) }) as any);
     body = await res.json().catch(() => ({}));
     if (res.ok) { error = undefined; break; }
     error = `Gemini ${res.status} (${i % keys.length ? "backup key" : "main key"}): ${JSON.stringify(body).slice(0, 200)}`;
-    if (res.status !== 503 && res.status !== 429) break;
-    if (i % keys.length === keys.length - 1) await new Promise((x) => setTimeout(x, 15000));   // both keys tried: wait, then again
+    if (res.status !== 503 && res.status !== 429 && res.status !== 0) break;
+    if (i % keys.length === keys.length - 1) await new Promise((x) => setTimeout(x, 10000));   // both keys tried: wait, then again
   }
-  if (error) return { decided: null, searches: 0, tokensIn: 0, tokensOut: 0, error };
-  const cand = body.candidates?.[0];
-  const text = (cand?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
-  const m = text.match(/\{[\s\S]*\}/);
-  let decided: any = null;
-  try { decided = m ? JSON.parse(m[0]) : null; } catch { decided = null; }
-  if (decided && Array.isArray(decided.sources)) decided.sources = await Promise.all(decided.sources.slice(0, 6).map(async (s: any) => ({ ...s, url: await realUrl(String(s?.url ?? "")) })));
-  const u = body.usageMetadata ?? {};
-  return { decided, searches: (cand?.groundingMetadata?.webSearchQueries ?? []).length, tokensIn: u.promptTokenCount ?? 0, tokensOut: (u.candidatesTokenCount ?? 0) + (u.thoughtsTokenCount ?? 0), error: decided ? undefined : "no JSON" };
+  return { body, error };
+}
+
+export async function geminiResearch(model: string, ask: string): Promise<Attempt> {
+  const started = Date.now();
+  let tokensIn = 0, tokensOut = 0, searches = 0, decided: any = null, error: string | undefined;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const wrongBefore = attempt ? problems("research", decided) : null;
+    const { body, error: e } = await geminiOnce(model, wrongBefore ? `${ask}\n\nYour previous reply did not match the required JSON shape:\n${wrongBefore}\nReturn the whole JSON object again, with these fixed.` : ask);
+    if (e || !body) { error = e ?? "no reply"; break; }
+    const cand = body.candidates?.[0];
+    const u = body.usageMetadata ?? {};
+    tokensIn += u.promptTokenCount ?? 0; tokensOut += (u.candidatesTokenCount ?? 0) + (u.thoughtsTokenCount ?? 0);
+    searches += (cand?.groundingMetadata?.webSearchQueries ?? []).length;
+    decided = parse((cand?.content?.parts ?? []).map((p: any) => p.text ?? "").join(""));
+    const wrong = problems("research", decided);
+    error = decided ? (wrong ? `schema: ${wrong.replace(/\n/g, " ").slice(0, 200)}` : undefined) : "no JSON";
+    if (!error) break;
+  }
+  // A redirect that can't be resolved is dropped: a reader never gets a Google redirect link (8 Oct).
+  if (!error && Array.isArray(decided.sources)) decided.sources = (await Promise.all(decided.sources.slice(0, 8).map(async (s: any) => ({ ...s, url: await realUrl(String(s?.url ?? "")) })))).filter((s: any) => !REDIRECT.test(s.url)).slice(0, 6);
+  return { decided: error ? null : decided, searches, tokensIn, tokensOut, error, model, ms: Date.now() - started };
+}
+
+export async function claudeResearch(ask: string): Promise<Attempt> {
+  const started = Date.now();
+  let decided: any = null, searches = 0, error: string | undefined, tokensIn = 0, tokensOut = 0;
+  try {
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    const messages: any[] = [{ role: "user", content: ask }];
+    let res: any;
+    for (let i = 0; i < 4; i++) {
+      res = await client.beta.messages.create({ model: CLAUDE_RESEARCHER, max_tokens: 4000, system: PROMPT, messages,
+        tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 4 } as any], output_config: { effort: "low" } as any } as any);
+      searches += res.usage?.server_tool_use?.web_search_requests ?? 0;
+      tokensIn += res.usage?.input_tokens ?? 0; tokensOut += res.usage?.output_tokens ?? 0;
+      if (res.stop_reason === "pause_turn") { messages.push({ role: "assistant", content: res.content }); continue; }
+      decided = parse((res?.content ?? []).filter((b: any) => b.type === "text").map((b: any) => b.text).join(""));
+      const wrong = decided ? problems("research", decided) : "no JSON object in the reply";
+      if (!wrong) { error = undefined; break; }
+      error = `schema: ${wrong.replace(/\n/g, " ").slice(0, 200)}`;
+      if (i >= 2) break;
+      // One corrective turn: the same conversation, told exactly what to fix.
+      messages.push({ role: "assistant", content: res.content }, { role: "user", content: `Your reply did not match the required JSON shape:\n${wrong}\nReturn only the whole JSON object again, with these fixed.` });
+    }
+  } catch (e: any) { error = String(e?.message ?? e).slice(0, 300); }
+  return { decided: error ? null : decided, searches, tokensIn, tokensOut, error, model: CLAUDE_RESEARCHER, ms: Date.now() - started };
+}
+
+// Gemini first, Claude when Gemini fails. Every attempt is logged with its own model, so costs stay true.
+export async function researchFor(ctx: any, ask: string, opts: { claudeOnly?: boolean } = {}): Promise<{ used: Attempt | null; attempts: Attempt[] }> {
+  const attempts: Attempt[] = [];
+  if (!opts.claudeOnly) attempts.push(await geminiResearch(GEMINI_RESEARCHER, ask));
+  if (!attempts.length || attempts[attempts.length - 1].error) attempts.push(await claudeResearch(ask));
+  for (const a of attempts) await ctx.runMutation(internal.handbooks.logAiCall, { kind: "research", model: a.model, input: ask, output: a.decided ? JSON.stringify(a.decided).slice(0, 4000) : "", tokensIn: a.tokensIn, tokensOut: a.tokensOut, ms: a.ms, ok: !a.error, error: a.error });
+  const used = attempts.find((a) => !a.error) ?? null;
+  return { used, attempts };
+}
+
+export function askFor(h: { topic: string; goal?: string; mode?: string; level: string }) {
+  return `Typed: "${h.topic}"${h.goal ? `\nTheir goal: "${h.goal}"` : ""}${h.mode ? `\nMode they picked: ${h.mode}` : ""}\nLevel: ${h.level}\nToday: ${new Date().toISOString().slice(0, 10)}`;
 }
 
 export const run = internalAction({
@@ -102,30 +173,11 @@ export const run = internalAction({
   handler: async (ctx, { handbookId }): Promise<void> => {
     const h: any = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h || h.brief) return;
-    const started = Date.now();
-    const ask = `Typed: "${h.topic}"${h.goal ? `\nTheir goal: "${h.goal}"` : ""}${h.mode ? `\nMode they picked: ${h.mode}` : ""}\nLevel: ${h.level}\nToday: ${new Date().toISOString().slice(0, 10)}`;
-    let decided: any = null, searches = 0, error: string | undefined, tokensIn = 0, tokensOut = 0;
-    // A handbook pinned to a Gemini writer researches with Gemini and Google Search (8 Oct test); everyone else with Claude.
-    const geminiModel: string | null = typeof h.writer === "string" && h.writer.includes("gemini") ? h.writer.replace(/^ci:/, "") : null;
-    if (geminiModel) ({ decided, searches, tokensIn, tokensOut, error } = await geminiResearch(geminiModel, ask));
-    else try {
-      const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-      const messages: any[] = [{ role: "user", content: ask }];
-      let res: any;
-      for (let i = 0; i < 3; i++) {
-        res = await client.beta.messages.create({ model: "claude-sonnet-5-5", max_tokens: 4000, system: PROMPT, messages,
-          tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 4 } as any], output_config: { effort: "low" } as any } as any);
-        searches += res.usage?.server_tool_use?.web_search_requests ?? 0;
-        tokensIn += res.usage?.input_tokens ?? 0; tokensOut += res.usage?.output_tokens ?? 0;
-        if (res.stop_reason !== "pause_turn") break;
-        messages.push({ role: "assistant", content: res.content });
-      }
-      const text = (res?.content ?? []).filter((b: any) => b.type === "text").map((b: any) => b.text).join("");
-      const m = text.match(/\{[\s\S]*\}/);
-      decided = m ? JSON.parse(m[0]) : null;
-      if (!decided) error = "no JSON";
-    } catch (e: any) { error = String(e?.message ?? e).slice(0, 300); }
-
+    const ask = askFor(h);
+    const { used, attempts } = await researchFor(ctx, ask);
+    const decided: any = used?.decided ?? null;
+    const searches = used?.searches ?? 0;
+    const error = used ? undefined : attempts.map((a) => `${a.model}: ${a.error}`).join(" | ").slice(0, 400);
     const kind = String(decided?.kind ?? "");
     const format = decided?.format === "quick" ? "quick" : "course";
     const chapters = format === "quick" ? Math.max(1, Math.min(3, Number(decided?.chapters) || 2)) : 7;
@@ -147,8 +199,23 @@ export const run = internalAction({
       wiki: wiki ? { title: wiki.title, url: wiki.url, text: wiki.text } : null,
       recap: recapUrl && recap ? { url: recapUrl, text: recap } : null,
       nism, searches, error: error ?? null, at: Date.now(),
+      researcher: used?.model ?? null, fellBack: attempts.length > 1 ? String(attempts[0].error ?? "").slice(0, 200) : null,
     };
     await ctx.runMutation(internal.handbooks.setBrief, { handbookId, brief });
-    await ctx.runMutation(internal.handbooks.logAiCall, { kind: "research", model: geminiModel ?? "claude-sonnet-5-5", input: ask, output: JSON.stringify({ ...brief, wiki: wiki ? { title: wiki.title, chars: wiki.text.length } : null, recap: recap ? { url: recapUrl, chars: recap.length } : null, nism: nism ? `${nism.length} chars` : null }).slice(0, 4000), tokensIn, tokensOut, ms: Date.now() - started, ok: !error, error });
+    // (each research attempt was logged in researchFor)
+  },
+});
+
+// Test the research step on a topic without a handbook (8 Oct). Nothing is stored except the call log.
+// npx convex run --prod research:preview '{"topic":"...","claudeOnly":false}'
+export const preview = internalAction({
+  args: { topic: v.string(), goal: v.optional(v.string()), mode: v.optional(v.string()), level: v.optional(v.string()), claudeOnly: v.optional(v.boolean()) },
+  handler: async (ctx, { topic, goal, mode, level = "new", claudeOnly }) => {
+    const { used, attempts } = await researchFor(ctx, askFor({ topic, goal, mode, level }), { claudeOnly });
+    return {
+      used: used?.model ?? null,
+      attempts: attempts.map((a) => ({ model: a.model, ms: a.ms, searches: a.searches, tokensIn: a.tokensIn, tokensOut: a.tokensOut, error: a.error ?? null })),
+      brief: used?.decided ?? null,
+    };
   },
 });

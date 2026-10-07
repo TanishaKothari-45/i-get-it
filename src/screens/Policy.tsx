@@ -8,7 +8,7 @@ import type { ReactNode } from 'react'
 export const POLICY_PAGES = ['terms', 'privacy', 'refunds', 'contact'] as const
 export type PolicyPage = (typeof POLICY_PAGES)[number]
 
-const UPDATED = '7 October 2026'
+const UPDATED = '8 October 2026'
 
 // Prateek fills these. Shown on every page that needs them.
 const CONTACT = {
@@ -91,9 +91,10 @@ const BODY: Record<PolicyPage, ReactNode> = {
       <ul className="policy-list">
         <li><strong>Convex</strong> (United States) stores everything above and hosts the site.</li>
         <li><strong>Anthropic</strong> (United States) receives your topic, level, profile line and questions so Claude can write and check your chapters. Anthropic doesn't train its models on this data. Some questions are answered with a web search run through Anthropic; the search sees the question, not who asked it.</li>
+        <li><strong>Google</strong> (United States) receives the words of a topic you type, the level you picked and the goal you chose for it, through the Gemini API, and runs Google Search on them to research the topic. It gets nothing else about you. Google may keep and use these words under its Gemini API terms.</li>
         <li><strong>Razorpay</strong> (India) handles payments and sees what you enter in its payment sheet.</li>
-        <li><strong>Research before writing:</strong> when you type a topic, its words (never anything about you) are used in web searches run through Anthropic, to look it up on Wikipedia, and, for films, series, books and games, to fetch the transcript of a public YouTube recap through <strong>Supadata</strong>.</li>
-        <li><strong>Runway</strong> may draw a chapter's pictures from the chapter's own text. Photos come from Wikimedia Commons. Neither gets anything about you.</li>
+        <li><strong>Research before writing:</strong> when you type a topic, Google's Gemini looks it up with Google Search. If Google is busy, the same words go to Anthropic for a web search instead. The topic's words (never anything about you) are also used to look it up on Wikipedia and, for films, series, books and games, to fetch the transcript of a public YouTube recap through <strong>Supadata</strong>.</li>
+        <li><strong>Runway</strong> may draw a handbook's cover from its first chapter's text. Other pictures are photos from Wikimedia Commons. Neither gets anything about you.</li>
         <li><strong>Google Fonts</strong> serves the typefaces, so your browser contacts Google when the page loads.</li>
         <li><strong>Your browser's push service</strong> (Google, Apple or Mozilla) delivers reminders, if you turned them on.</li>
       </ul>
