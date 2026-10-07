@@ -45,6 +45,8 @@ export const queue = internalAction({
 // The 6-card chapter 1 (Prateek, 7 Oct): rewrite a ready topic's chapter 1 from its plan with today's chapter prompt,
 // fact-check it, keep the title, then swap it into every spelling of the topic and every unread copy, with fresh
 // recall questions for chapter 2 and the pictures redrawn. Run: npx convex run --prod polish:sixQueue '{"topicKeys":[...]}'
+const KEEP = new Set(["Public speaking"]);
+
 export const six = internalAction({
   args: { topicKey: v.string() },
   handler: async (ctx, { topicKey }): Promise<any> => {
@@ -52,6 +54,9 @@ export const six = internalAction({
     const old = row?.chapter;
     if (!old?.cards || !row.plan) return { ok: false, error: "no chapter 1" };
     if (old.cards.length <= 6) return { ok: true, skipped: "already short" };
+    // A chapter 1 that a live post shows card by card stays as it is, so the post and chapter 2's recall still match
+    // (7 Oct: Public speaking is the Instagram carousel instagram.com/p/DeKVxKJEsHL).
+    if (KEEP.has(String(row.topic))) return { ok: true, skipped: "shown in a live post" };
     let ch: any = null, error = "";
     for (let t = 0; t < 2 && !ch; t++) {
       const r: any = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(row.plan, "new", "English", "friend", 1) });
