@@ -39,6 +39,8 @@ export default defineSchema({
     source: v.union(v.literal("live"), v.literal("cache")),
     error: v.optional(v.string()),
     hiddenAt: v.optional(v.number()),   // a duplicate topic found when two devices merged at sign-in; kept, not deleted
+    writer: v.optional(v.string()),     // a model pinned for this handbook's plan, chapters, versions and check (abtest.ts)
+    test: v.optional(v.any()),          // a blind-test handbook (abtest.ts): { label, startedAt, ch1At, ch2At }; never shared
     createdAt: v.number(),
   })
     .index("by_token", ["ownerToken"])

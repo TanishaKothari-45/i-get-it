@@ -280,17 +280,17 @@ export function parseVersions(raw: any, count: number): { easier: any[]; harder:
   return easier.some(Boolean) || harder.some(Boolean) ? { easier, harder } : undefined;
 }
 // The easier and harder versions of a finished chapter's quizzes, from a cheaper model (Sonnet), right after writing.
-export async function writeVersions(ctx: any, plan: any, topic: string, title: string, cards: any[], recall: any[]) {
+export async function writeVersions(ctx: any, plan: any, topic: string, title: string, cards: any[], recall: any[], model?: string) {
   const quizzes = cards.filter((c) => c?.type === "exercise");
   if (noQuizzes(plan) || (!quizzes.length && !recall.length)) return { qv: undefined, rv: undefined };
-  const r = await ctx.runAction(internal.ai.generate, { kind: "versions", system: VERSIONS_PROMPT, user: versionsUserMessage(topic, title, cards, quizzes, recall) });
+  const r = await ctx.runAction(internal.ai.generate, { kind: "versions", system: VERSIONS_PROMPT, user: versionsUserMessage(topic, title, cards, quizzes, recall), model });
   return { qv: r.ok ? parseVersions(r.json?.quiz, quizzes.length) : undefined, rv: r.ok ? parseVersions(r.json?.recall, recall.length) : undefined };
 }
 // One fact check for the chapter, its recall quizzes and every quiz version; then each goes back in its place.
-export async function checkWithVersions(ctx: any, topic: string, level: string, title: string, cards: any[], recall: any[], qv?: { easier: any[]; harder: any[] }, rv?: { easier: any[]; harder: any[] }) {
+export async function checkWithVersions(ctx: any, topic: string, level: string, title: string, cards: any[], recall: any[], qv?: { easier: any[]; harder: any[] }, rv?: { easier: any[]; harder: any[] }, model?: string) {
   const lists = [qv?.easier ?? [], qv?.harder ?? [], rv?.easier ?? [], rv?.harder ?? []];
   const extra = lists.flatMap((l) => l.filter(Boolean));
-  const checked = await factCheck(ctx, topic, level as any, title, [...cards, ...recall, ...extra]);
+  const checked = await factCheck(ctx, topic, level as any, title, [...cards, ...recall, ...extra], model ? { model } : {});
   let at = cards.length + recall.length;
   const refill = (l: any[]) => l.map((x) => (x ? checked.cards[at++] : null));
   const [qe, qh, re, rh] = lists.map(refill);
@@ -551,7 +551,7 @@ export const generatePlan = internalAction({
       h = (await ctx.runQuery(internal.handbooks.readHandbook, { handbookId })) ?? h;
     }
     const brief = (h as any).brief ?? null;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief) });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief), model: h.writer });
     // Claude's own safety check said no: say so plainly, never "try again".
     if (!r.ok && /^declined/.test(r.error)) {
       const ready: any[] = await ctx.runQuery(internal.handbooks.listCache, {});
@@ -621,7 +621,7 @@ export const generateChapter = internalAction({
     // written for them, as before, and it stays theirs.
     const shareable = !prof.line;
     const howTheyDid: string | null = shareable ? null : await ctx.runQuery(internal.handbooks.readingReport, { handbookId, n });
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, shareable ? undefined : prof.line, howTheyDid ?? undefined) + briefForChapter((h as any).brief), model: prof.model });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, shareable ? undefined : prof.line, howTheyDid ?? undefined) + briefForChapter((h as any).brief), model: prof.model ?? h.writer });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");
@@ -633,16 +633,16 @@ export const generateChapter = internalAction({
     // Fresh recall quizzes (new examples) are checked in the same pass, then split off.
     const recall = (Array.isArray(ch.recallQuizzes) ? ch.recallQuizzes : []).filter((e: any) => e?.type === "exercise" && Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer)).slice(0, 2);
     // The easier and harder quiz versions are checked in the same pass as the chapter, then split off.
-    const { qv, rv } = await writeVersions(ctx, h.plan, h.plan?.topic ?? h.topic, title, ch.cards, recall);
-    const { cards, recallCards, quizTiers, recallTiers, report } = await checkWithVersions(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards, recall, qv, rv);
+    const { qv, rv } = await writeVersions(ctx, h.plan, h.plan?.topic ?? h.topic, title, ch.cards, recall, h.writer);
+    const { cards, recallCards, quizTiers, recallTiers, report } = await checkWithVersions(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards, recall, qv, rv, h.writer);
     const checked = { report };
     await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report, quizTiers, recallTiers });
-    if (shareable && n > 1) await ctx.runMutation(internal.library.saveChapter, { handbookId, n });
+    if (shareable && n > 1 && !h.test) await ctx.runMutation(internal.library.saveChapter, { handbookId, n });
     // Pictures come after the words. Chapter 1 is drawn now (it opens at once and gives the cover); later chapters are
     // drawn when the reader first opens them (openChapter), so a chapter written but never opened costs no pictures (7 Oct).
     if (n === 1) await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
     // A typed topic's chapter 1 may go into the shared library (plan and chapter 1 only, after a privacy check).
-    if (n === 1 && h.source === "live" && !h.fromLibrary) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId });
+    if (n === 1 && h.source === "live" && !h.fromLibrary && !h.test) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId });
   },
 });
 

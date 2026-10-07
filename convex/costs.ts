@@ -13,6 +13,7 @@ const PER_M: Record<string, [number, number]> = {   // ₹ per million tokens, i
   fable: [420, 2100],     // not public: priced like Opus until known
   sonnet: [252, 1260],
   haiku: [84, 420],
+  "deepseek-v4.1-flash": [25.2, 100.8],   // DeepSeek's list price at peak ($0.30 / $1.20); a reseller's bill may differ
 };
 const PER_CALL: Record<string, number> = {           // ₹ per successful call
   muse_image: 0.85,       // Runway, 1 credit
@@ -26,7 +27,7 @@ export function providerOf(model: string) {
   if (m.startsWith("claude") || m === "anthropic") return "Anthropic";
   if (m.startsWith("gpt") || m.startsWith("o1") || m.startsWith("o3")) return "OpenAI";
   if (m.includes("gemini")) return "Google";
-  if (m.startsWith("glm")) return "Cheaper Inference";
+  if (m.startsWith("glm") || m.startsWith("ci:")) return "Cheaper Inference";
   if (m.startsWith("tic:") || m.includes("deepseek")) return "The Inference Company";
   if (m.includes("image") || m.startsWith("gen4") || m.startsWith("muse")) return "Runway";
   if (m.includes("supadata")) return "Supadata";

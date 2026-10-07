@@ -92,7 +92,7 @@ async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId:
   } catch { /* fall back to drawing */ }
   return null;
 }
-async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true): Promise<{ status: string; pictures: Picture[] }> {
+async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true, cover = false): Promise<{ status: string; pictures: Picture[] }> {
   const teaching = pictureCards(cards);
   if (!teaching.length) return { status: "skipped", pictures: [] };
   const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))) });
@@ -106,19 +106,21 @@ async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: stri
   if (!scenes.length) return { status: "failed", pictures: [] };
   // Readers' chapters count against the app-wide hourly cap; the hand-run ready-topic backfill does not.
   if (capped && !(await ctx.runMutation(internal.handbooks.takePictureBudget, { count: scenes.length }))) return { status: "failed", pictures: [] };
-  // Real things: a real, freely licensed photo first; everything else (and any miss) is drawn.
+  // Real things: a real, freely licensed photo first. Runway draws only the cover (8 Oct, Prateek: no Runway credits
+  // inside chapters): the first picture of chapter 1, which is also the handbook's cover. Every other card gets a photo.
   const photos = await Promise.all(scenes.map((s) => (s.real ? commonsPhoto(ctx, s.real) : Promise.resolve(null))));
   const drawn: (Awaited<ReturnType<typeof drawOne>> | null)[] = new Array(scenes.length).fill(null);
-  const toDraw = scenes.map((_, k) => k).filter((k) => !photos[k]);
+  const first = Math.min(...scenes.map((s) => s.card));
+  const toDraw = scenes.map((_, k) => k).filter((k) => !photos[k] && cover && scenes[k].card === first);
   let next = 0;
   await Promise.all(Array.from({ length: Math.min(AT_ONCE, toDraw.length) }, async () => {
     while (next < toDraw.length) { const k = toDraw[next++]; drawn[k] = await drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${scenes[k].scene} ${PICTURE_NEVER}`); }
   }));
-  // Backup (7 Oct, Prateek): when Runway refuses a drawing (its daily limit, an outage), use a free, openly licensed
-  // Wikimedia photo found from the card's title and the topic. No photo is used twice in one chapter.
+  // Every card without a photo or a drawing (and a cover Runway refused) gets a free, openly licensed Wikimedia photo
+  // found from the card's title and the topic. No photo is used twice in one chapter.
   const usedSources = new Set(photos.filter(Boolean).map((p) => p!.source));
-  for (const k of toDraw) {
-    if (drawn[k]?.ok) continue;
+  for (let k = 0; k < scenes.length; k++) {
+    if (photos[k] || drawn[k]?.ok) continue;
     const card = cards[scenes[k].card] ?? {};
     const query = scenes[k].real ?? `${String(card.title ?? "").replace(/^in one breath$/i, "")} ${topic}`.trim();
     const photo = query ? await commonsPhoto(ctx, query) : null;
@@ -148,7 +150,7 @@ export const forExperiment = internalAction({
     const e: any = await ctx.runQuery(internal.doctor.readExperiment, { id: experimentId });
     const row: any = e && await ctx.runQuery(internal.doctor.readTopic, { topic: e.topic });
     if (!e || !row) return;
-    const r = await picturesFor(ctx, row.plan?.topic ?? e.topic, row.plan, e.b.title ?? "", e.b.cards, false);
+    const r = await picturesFor(ctx, row.plan?.topic ?? e.topic, row.plan, e.b.title ?? "", e.b.cards, false, true);
     if (r.status === "done") await ctx.runMutation(internal.doctor.setBPictures, { id: experimentId, pictures: r.pictures });
   },
 });
@@ -161,7 +163,7 @@ export const forChapter = internalAction({
     const ch: any = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n });
     if (!h || !ch || ch.status !== "ready" || !ch.cards) return;
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: "drawing" });
-    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards);
+    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards, true, n === 1);
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: r.status, pictures: r.pictures });
   },
 });
@@ -172,7 +174,7 @@ export const forCache = internalAction({
   handler: async (ctx, { topicKey, level, n }): Promise<{ ok: boolean; error?: string; pictures?: number; of?: number; rows?: number; copies?: number }> => {
     const row: any = await ctx.runQuery(internal.handbooks.readCacheChapter, { topicKey, level, n });
     if (!row?.chapter) return { ok: false, error: "no such cached chapter" };
-    const r = await picturesFor(ctx, row.plan?.topic ?? row.topic, row.plan, row.chapter.title ?? "", row.chapter.cards ?? [], false);
+    const r = await picturesFor(ctx, row.plan?.topic ?? row.topic, row.plan, row.chapter.title ?? "", row.chapter.cards ?? [], false, n === 1);
     if (r.status !== "done") { await ctx.runMutation(internal.handbooks.cachePicturesFailed, { topicKey, level, n }); return { ok: false, error: r.status }; }
     const shared: { rows: number; copies: number } = await ctx.runMutation(internal.handbooks.setCachePictures, { topicKey, level, n, pictures: r.pictures });
     return { ok: true, pictures: r.pictures.filter((p) => p.storageId).length, of: r.pictures.length, ...shared };

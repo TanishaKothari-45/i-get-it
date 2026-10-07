@@ -115,14 +115,14 @@ async function callGLM(system: string, user: string, model: string, maxTokens: n
 // INFERENCE_API_KEY. Used when the /admin switch says "inference", or when a call names a model starting "tic:" (tests).
 // Each call carries an x-task-id header naming the job, so the console shows cost per job.
 const INFERENCE_MODEL = "deepseek-v4-pro";
-async function callInference(kind: string, system: string, user: string, maxTokens: number): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+async function callInference(kind: string, system: string, user: string, maxTokens: number, model = INFERENCE_MODEL): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const key = process.env.INFERENCE_API_KEY;
   if (!key) throw new Error("No INFERENCE_API_KEY");
   const res = await fetch("https://console.theinferencecompany.si/v1/chat/completions", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json", "x-task-id": `igetit-${kind}` },
     body: JSON.stringify({
-      model: INFERENCE_MODEL, max_tokens: Math.min(maxTokens, 32000),
+      model, max_tokens: Math.min(maxTokens, 32000),
       messages: [{ role: "system", content: system + "\n\nReturn only the JSON object. No prose, no code fences." }, { role: "user", content: user }],
     }),
   });
@@ -130,7 +130,7 @@ async function callInference(kind: string, system: string, user: string, maxToke
   if (!res.ok) throw new Error(`Inference ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
   const choice = body.choices?.[0];
   if (choice?.finish_reason === "length") throw new Error("reply cut off at the token limit");
-  return { text: String(choice?.message?.content ?? ""), tokensIn: body.usage?.prompt_tokens, tokensOut: body.usage?.completion_tokens, model: `${body.model ?? INFERENCE_MODEL} (inference)` };
+  return { text: String(choice?.message?.content ?? ""), tokensIn: body.usage?.prompt_tokens, tokensOut: body.usage?.completion_tokens, model: `${body.model ?? model} (inference)` };
 }
 
 // One small request to check the key and the connection: npx convex run ai:pingInference
@@ -163,7 +163,9 @@ export const generate = internalAction({
     const viaInference = model?.startsWith("tic:") || (!model && !!process.env.INFERENCE_API_KEY && (await ctx.runQuery(internal.settings.provider, {})) === "inference");
     try {
       const viaGLM = !!model?.startsWith("glm-");
-      const call = () => viaInference ? callInference(kind, system, user, JOB[kind].maxTokens) : viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
+      // "ci:<model>" (8 Oct): any model on the Cheaper Inference marketplace (Prateek's credits), thinking on where Claude thinks.
+      const viaCheaper = !!model?.startsWith("ci:");
+      const call = () => viaInference ? callInference(kind, system, user, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, user, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort) : viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
       let r = await call();
       let json: any;
       // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure.
