@@ -761,3 +761,12 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .explore-pills { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px; margin: 6px 0 4px; scrollbar-width: none; }
 .explore-pills::-webkit-scrollbar { display: none; }
 .explore-pills .chip { flex: none; }
+
+/* Jump to next (7 Oct) */
+.next-topics .topic-link { all: unset; cursor: pointer; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; text-decoration-color: var(--accent-deep); font-weight: 600; color: var(--ink); }
+.next-topics .topic-link:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 2px; border-radius: 4px; }
+
+/* Early-bird price, struck at the real next tier (7 Oct) */
+.early-bird { margin: var(--m) 0 6px; padding: 12px 14px; border-radius: 14px; background: var(--accent); font-family: var(--sans); line-height: 1.45; }
+.early-bird s, .chip s.was { opacity: 0.6; font-weight: 400; }
+.early-bird strong { font-weight: 800; }

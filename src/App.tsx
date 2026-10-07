@@ -13,7 +13,8 @@ import Tune from './screens/Tune'
 import Compare from './screens/Compare'
 import Library from './screens/Library'
 import { PolicyLinks } from './screens/Policy'
-import { limitCode, limitMessage } from './lib/limits'
+import { isMemberLimit, limitCode, limitMessage } from './lib/limits'
+import NextTopics from './components/NextTopics'
 import Sheet from './components/Sheet'
 import Pricing from './screens/Pricing'
 import Landing from './screens/Landing'
@@ -163,6 +164,12 @@ export default function App() {
   if (data === undefined || deepLink) return <Shell><div className="splash">Opening your handbook…</div></Shell>
 
   const signIn = (back: View) => { setAfterSignIn(back); setView('signin') }
+  // Open a topic by name: a ready one opens at once; a typed one is written. Past the free typed-topic limit, the
+  // payment page opens with the reason (7 Oct, Prateek: a signed-up reader's next step is membership).
+  const openTopic = async (t: string) => {
+    try { const r = await create({ topic: t, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setDoneN(null); setView('auto') }
+    catch (e) { if (isMemberLimit(e)) { setPricingNotice(limitMessage(e)); setView('pricing') } else throw e }
+  }
   const libRows = lib?.handbooks ?? []
   // Home is your shelf when you have handbooks; a first-time visitor's home is the landing page.
   goHome = () => { setDoneN(null); if (libRows.length) setView('library'); else { setView('auto'); window.scrollTo({ top: 0 }) } }
@@ -216,7 +223,7 @@ export default function App() {
           onChooseIntent={async (goal, mode) => { if (hb) await chooseIntent({ handbookId: hb._id, goal, mode, deviceToken: token }) }}
           error={hb?.error}
           examples={examples}
-          onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
+          onCreate={async (topic, level, voice) => { setDraftTopic(topic); let r; try { r = await create({ topic, level, voice, deviceToken: token }) } catch (e) { if (isMemberLimit(e)) { setPricingNotice(limitMessage(e)); setView('pricing'); return } throw e } pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
           onAddOther={async (topic) => { await create({ topic, level: 'new', voice: 'friend', deviceToken: token }) }}
@@ -354,6 +361,7 @@ export default function App() {
     <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
       <Plan
         total={total}
+        nextTopics={<NextTopics topic={plan?.topic ?? hb.topic} deviceToken={token} extra={(plan as any)?.next ?? []} onReady={(t) => { openTopic(t).catch(() => {}) }} onTyped={(t) => { openTopic(t).catch(() => {}) }} onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />}
         onOpenChapter={(n) => { setReadingN(n); setDoneN(null); setView('chapter') }}
         topic={plan?.topic ?? hb.topic}
         plan={plan}

@@ -68,7 +68,7 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   return `You took your time, and it stuck. That's the whole point.`
 }
 
-export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, nextPicture, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext }: Props) {
+export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, nextPicture, sources: _sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext }: Props) {
   const [rated, setRated] = useState<string | null>(null)
   const line = cheer(n, stats)
   const [stay, setStay] = useState(false)
@@ -108,7 +108,6 @@ export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTit
       )}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>{total === 7 ? "That's the whole handbook. Days 14 and 28 come later." : "That's all of it. Quick and done."}</p>}
       {last && whatsNext}
-      {last && sources && sources.length > 0 && <p className="sources"><span className="label">Read next</span> {sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em>{x.why ? ` (${x.why})` : ''}</span>)}</p>}
 
       {last && (
         <div className="nudge" style={{ marginTop: 'var(--l)' }}>

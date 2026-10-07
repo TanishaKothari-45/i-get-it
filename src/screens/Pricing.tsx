@@ -64,6 +64,8 @@ export default function Pricing({ notice, plans, onLock, onOrder, onConfirm, onB
         : "Couldn't open the payment just now. Nothing was charged; try again in a minute.")
     } finally { setBusy(false) }
   }
+  // The next tier up, if there is one and it costs more: what this price becomes once these spots are gone.
+  const later = (() => { const t = plans.tiers.find((x) => x.tier === p.tier + 1); return t && t.month > p.price.month ? t : null })()
   const until = (t: number) => new Date(t).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
   return (
     <>
@@ -116,10 +118,12 @@ export default function Pricing({ notice, plans, onLock, onOrder, onConfirm, onB
           {p.mode === 'test' && <p className="note" style={{ textAlign: 'center' }}>Test mode: no real money moves.</p>}
           {p.paidUntil ? <p className="locked">Paid. You're covered until {until(p.paidUntil)}.</p>
             : p.kept ? <p className="locked">Your early price is kept: {inr(p.price.month)} a month or {inr(p.price.year)} a year.</p> : null}
+          {/* The struck price is always the real next tier, never a made-up "was" price (7 Oct). */}
+          {!p.paidUntil && later && <p className="early-bird">Early-bird price while the {WHO[p.tier - 1]?.toLowerCase() ?? 'first'} spots last: <s>{inr(later.month)}</s> <strong>{inr(p.price.month)}</strong> a month, or <s>{inr(later.year)}</s> <strong>{inr(p.price.year)}</strong> a year. Then it goes up to {inr(later.month)}.</p>}
           {!p.paidUntil && (
             <div className="chips" role="group" aria-label="Pay for">
-              <button type="button" className="chip" aria-pressed={plan === 'month'} onClick={() => setPlan('month')}>A month · {inr(p.price.month)}</button>
-              <button type="button" className="chip" aria-pressed={plan === 'year'} onClick={() => setPlan('year')}>A year · {inr(p.price.year)}</button>
+              <button type="button" className="chip" aria-pressed={plan === 'month'} onClick={() => setPlan('month')}>A month · {later && <s className="was">{inr(later.month)}</s>} {inr(p.price.month)}</button>
+              <button type="button" className="chip" aria-pressed={plan === 'year'} onClick={() => setPlan('year')}>A year · {later && <s className="was">{inr(later.year)}</s>} {inr(p.price.year)}</button>
             </div>
           )}
           {payError && <p className="error">{payError}</p>}

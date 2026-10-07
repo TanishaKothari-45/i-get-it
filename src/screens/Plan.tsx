@@ -5,7 +5,8 @@ import { track } from '../lib/track'
 type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string }
 type Props = {
   total?: number   // chapters in this handbook: 7, or 1 to 3 for a quick one (7 Oct)
-  onOpenChapter?: (n: number) => void   // a finished chapter opens again on tap (7 Oct, Prateek); never uses the daily allowance
+  onOpenChapter?: (n: number) => void
+  nextTopics?: React.ReactNode   // "Jump to next" topics in place of further reading (7 Oct)   // a finished chapter opens again on tap (7 Oct, Prateek); never uses the daily allowance
   topic: string
   plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[]; pushback?: string | null; framing?: string | null; format?: string }
   passed: number[]
@@ -35,7 +36,7 @@ type Props = {
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ total = 7, onOpenChapter, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onSignUp, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
+export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onSignUp, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
   useEffect(() => { track('plan_view', undefined, 'plan_view:' + topic) }, [topic])
   const first = passed.length === 0 && current === 1   // a reader who came in at chapter 2 from a post is on 2
   const upTitle = nextUp ? plan.chapters[nextUp.n - 1]?.title : null
@@ -66,9 +67,7 @@ export default function Plan({ total = 7, onOpenChapter, topic, plan, passed, cu
         {plan.picture && <p className="roadmap-picture"><strong>The picture for the whole journey:</strong> {plan.picture.line}</p>}
       </section>
 
-      {plan.sources && plan.sources.length > 0 && (
-        <p className="sources"><span className="label">Further reading</span> {plan.sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em></span>)}</p>
-      )}
+      {nextTopics ?? null}
       {voiceNote && <p className="note" style={{ marginBottom: 'var(--m)' }}>{voiceNote}</p>}
 
       <h2 className="path-title">The path</h2>
