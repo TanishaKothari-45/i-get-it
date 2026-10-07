@@ -132,7 +132,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
         </details>
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
-      <p className="lp-fine">Your first handbook is free. No card, and no sign-up to start. Topics you start can appear in Explore, never with your name.</p>
+      <p className="lp-fine">The first 3 chapters are free, no sign-up. A free account opens the rest; no card. Topics you start can appear in Explore, never with your name.</p>
       {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
     </form>
   )
