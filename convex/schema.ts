@@ -45,6 +45,7 @@ export default defineSchema({
     language: v.string(),
     voice: v.optional(v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"))),
     status: v.union(
+      v.literal("intent"),        // "What's it for?": waiting for the reader to pick a goal (6 Oct)
       v.literal("planning"),
       v.literal("question"),      // the model asked one clarifying question
       v.literal("ready"),
@@ -52,12 +53,19 @@ export default defineSchema({
       v.literal("declined"),      // we won't teach this (6 Oct, Prateek: be a good person, push back)
     ),
     question: v.optional(v.string()),
+    intents: v.optional(v.any()),               // { question, goals: [{ label, mode }] } offered before the plan
+    goal: v.optional(v.string()),               // the goal the reader tapped or typed
+    mode: v.optional(v.string()),               // "skill" | "story" | "subject" | "decision"
+    fromLibrary: v.optional(v.id("library")),   // started from another reader's shared plan and chapter 1
+    experimentId: v.optional(v.id("experiments")),   // an A/B test on chapter 1 of this ready topic (6 Oct)
+    variant: v.optional(v.string()),            // "a" (current) or "b" (the rewrite)
     pushback: v.optional(v.string()),          // one plain, kind sentence: what we won't teach, why, and what instead
     suggestions: v.optional(v.array(v.string())),
     plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }, in the handbook's language
     sourcePlan: v.optional(v.any()),   // the English plan, when the handbook is in another language: chapters are written from it
     ownerToken: v.optional(v.string()),
     userId: v.optional(v.id("users")),
+    brief: v.optional(v.any()),   // research before writing (research.ts, 7 Oct): format, chapter count, facts, sources, plot, recap, NISM
     source: v.union(v.literal("live"), v.literal("cache")),
     error: v.optional(v.string()),
     hiddenAt: v.optional(v.number()),   // a duplicate topic found when two devices merged at sign-in; kept, not deleted
@@ -86,7 +94,7 @@ export default defineSchema({
     vote: v.optional(v.string()),             // "A" | "B" | "C" once the person has chosen
     svg: v.optional(v.string()),
     // Runway pictures, one per teaching card (design/style-anchor.md). Drawn after the chapter is ready.
-    pictures: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")) }))),
+    pictures: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")), credit: v.optional(v.string()), source: v.optional(v.string()) }))),
     picturesStatus: v.optional(v.string()),   // "drawing" | "done" | "failed" | "skipped"
     factCheck: v.optional(v.object({ status: v.string(), fixes: v.number(), notes: v.array(v.string()), model: v.optional(v.string()), at: v.number() })),  // live chapters: "passed" | "fixed" | "unchecked"
     cacheVersion: v.optional(v.number()),
@@ -126,6 +134,8 @@ export default defineSchema({
     bonusPassed: v.optional(v.array(v.number())),     // chapters whose "go deeper" bonus they finished
     anotherUnlocked: v.optional(v.array(v.number())), // chapters passed with at least one exercise missed
     anotherPassed: v.optional(v.array(v.number())),   // chapters whose "another way" lesson they finished
+    feedback: v.optional(v.record(v.string(), v.string())),   // chapter number -> "too_easy" | "just_right" | "lost_me" (optional, Done screen)
+    opened: v.optional(v.array(v.object({ n: v.number(), day: v.string() }))),   // chapters opened and the IST day, for the daily reading limits (membership.ts, 7 Oct)
     lastOpenedAt: v.number(),
     updatedAt: v.number(),
   }).index("by_handbook", ["handbookId"]),
@@ -203,6 +213,65 @@ export default defineSchema({
     .index("by_visitor_day", ["visitor", "day"])
     .index("by_day", ["day"]),
 
+  // The shared library (6 Oct): a typed topic's plan and chapter 1, once a privacy check says it's a general subject.
+  // Chapters 2 to 7 stay personal (they adapt to each reader). Reused when someone types the same topic and picks
+  // the same kind of goal, or starts it from Explore. Never a reader's name. The owner can unpublish on /admin.
+  library: defineTable({
+    topicKey: v.string(),
+    topic: v.string(),
+    level: v.union(v.literal("new"), v.literal("some")),
+    goal: v.optional(v.string()),
+    mode: v.optional(v.string()),
+    plan: v.any(),
+    chapter1: v.any(),                 // { title, cards, outcomeLine, svg, pictures, recallCards }
+    sourceHandbookId: v.id("handbooks"),
+    published: v.boolean(),
+    pick: v.optional(v.boolean()),     // the owner's pick
+    starts: v.number(),
+    passes: v.number(),
+    why: v.optional(v.string()),       // the privacy check's reason
+    createdAt: v.number(),
+  })
+    .index("by_key", ["topicKey", "level"])
+    .index("by_source", ["sourceHandbookId"]),
+
+  // Reminders by web push (6 Oct): one row per phone that said "remind me at 9pm". The reader's local time comes from tzOffsetMin.
+  pushSubs: defineTable({
+    deviceToken: v.string(),
+    endpoint: v.string(),
+    keys: v.object({ p256dh: v.string(), auth: v.string() }),
+    at: v.string(),                     // "21:00", the reader's local time
+    tzOffsetMin: v.number(),            // Date.getTimezoneOffset() on their phone (India: -330)
+    handbookId: v.optional(v.id("handbooks")),
+    lastSentDay: v.optional(v.string()),
+    createdAt: v.number(),
+  })
+    .index("by_endpoint", ["endpoint"])
+    .index("by_device", ["deviceToken"]),
+
+  // Self-improving handbooks (6 Oct): when readers quit a ready topic's chapter 1, Claude diagnoses why and writes a new
+  // chapter 1 (B); new readers are split between A and B; B replaces A only if it gets clearly more readers through.
+  experiments: defineTable({
+    topic: v.string(),
+    topicKey: v.string(),
+    level: v.union(v.literal("new"), v.literal("some")),
+    status: v.union(v.literal("running"), v.literal("promoted"), v.literal("stopped")),
+    diagnosis: v.string(),
+    lesson: v.string(),
+    evidence: v.any(),
+    b: v.any(),                         // { title, cards, outcomeLine, pictures? }
+    aStarts: v.number(), aPasses: v.number(), bStarts: v.number(), bPasses: v.number(),
+    startedAt: v.number(),
+    endedAt: v.optional(v.number()),
+  }).index("by_topic", ["topic", "level"]),
+
+  // Switches the owner flips on /admin (6 Oct): "provider" = "claude" | "inference" (The Inference Company, deepseek-v4-pro).
+  settings: defineTable({
+    key: v.string(),
+    value: v.string(),
+    at: v.number(),
+  }).index("by_key", ["key"]),
+
   // What people do on the page, for the owner-only /admin funnel (6 Oct): landing seen, sections scrolled into view,
   // box tapped and typed in, how a handbook was started, plan seen, chapter opened. A device token, never a name;
   // typed topics stay in handbooks, never copied here.
@@ -229,11 +298,30 @@ export default defineSchema({
     handbookId: v.optional(v.id("handbooks")),
     price: v.number(),
     at: v.number(),
-    freeMonths: v.optional(v.number()),   // 3 for the first FREE_SPOTS people who tapped Pay and signed in
+    freeMonths: v.optional(v.number()),   // retired 6 Oct (first-25 offer removed); kept so old dev rows still load
     claimedAt: v.optional(v.number()),
   })
     .index("by_user", ["userId"])
     .index("by_device", ["deviceToken"]),
+
+  // Razorpay payments (6 Oct). One row per order; "paid" only after Razorpay's signature checks out.
+  payments: defineTable({
+    userId: v.id("users"),
+    amount: v.number(),                  // rupees
+    month: v.number(),                   // how many payments this person made before this one
+    plan: v.optional(v.union(v.literal("month"), v.literal("year"))),   // since 7 Oct; older rows are months
+    days: v.optional(v.number()),        // days this payment covers: 30 or 365
+    tier: v.optional(v.number()),        // early-bird tier, 0-based (pricing.ts TIERS)
+    status: v.union(v.literal("created"), v.literal("paid"), v.literal("failed")),
+    mode: v.union(v.literal("test"), v.literal("live")),
+    orderId: v.optional(v.string()),
+    paymentId: v.optional(v.string()),
+    via: v.optional(v.string()),         // "checkout" or "webhook": who confirmed it first
+    at: v.number(),
+    paidAt: v.optional(v.number()),
+  })
+    .index("by_user", ["userId"])
+    .index("by_order", ["orderId"]),
 
   modelVotes: defineTable({
     handbookId: v.id("handbooks"),
@@ -286,5 +374,8 @@ export default defineSchema({
     plan: v.any(),
     chapters: v.array(v.any()),   // chapter objects for n = 1..k
     version: v.optional(v.number()),
+    trendingWeek: v.optional(v.string()),   // "2026-10-05": built that week from what's trending on social media
+    improvedAt: v.optional(v.number()),     // chapter 1 replaced by an A/B winner (shows "Just improved")
+    addedAt: v.optional(v.number()),
   }).index("by_key", ["topicKey", "level"]),
 });

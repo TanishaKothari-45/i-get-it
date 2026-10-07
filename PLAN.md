@@ -30,6 +30,18 @@ Next builds, decided by Prateek 5 Oct evening (in this order unless he reorders)
 
 Acceptance test (not a milestone): a stranger, logged out, on their own phone, gets through night 1 without Prateek saying a word.
 
+Order from 6 Oct evening (Prateek, from /admin data: 27 started, 5 passed chapter 1; Shaktimaan: fix the leak inside chapter 1 first):
+1. DONE 6 Oct. Per-person journeys on /admin: device, time spent, every step, probable reason they stopped. Optional "How was chapter N?" on Done.
+2. Understand intent: after a typed topic, 3 tappable goals ("What's it for?") set the handbook's mode: skill (a real win in the first 5 cards, practice early), story (Avengers, Odyssey, K-pop: no exam quizzes, playful guesses, who's-who, watch order), subject (as now), money/health/legal (caution line).
+3. An exquisite chapter 1: a card-by-card "would a busy 30-year-old keep swiping?" pass that rewrites weak cards; then every ready topic's chapter 1 (Avengers, Git first).
+4. Shared library: every safe new handbook (plan + chapter 1) goes on the shelf for others; Explore on the homepage; honest badges (🔥 most started this week, ✨ most finished, Pick), never random.
+5. Learn from what you saved: paste a reel, link or photo; the handbook is built around it.
+6. Installable app and reminders (web push).
+7. Real images for real things: Wikimedia Commons with licences shown; official YouTube embeds for films.
+8. Self-improving handbooks: when 2+ readers quit a topic early, diagnose and write a better version; A/B on chapter 1 completion in /admin.
+9. Indian-language translations.
+Days 8 to 28 wait until 20 or more readers have passed chapter 1 (Shaktimaan, 6 Oct).
+
 Parked (not now), in the order they'd come:
 - Ideas from Tanisha Kothari's PR #2 (a coursemate; merged on GitHub 5 Oct by mistake, none of its code is in the product). The sprint is solo only, so never copy her code: if one of these ideas is wanted after the coursemate test, rebuild it ourselves. Chapter recap; "go deeper" bonus lessons; an "another way" lesson after a missed exercise; in-app navigation, cache expiry and AI retry.
 - Memes, AI-generated reels or clips inside a chapter (first user test, 4 Oct). Parked on purpose: the feed is the habit we're firing; the chapter earns attention with prose, examples and the checks instead.

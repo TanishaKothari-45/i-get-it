@@ -15,13 +15,13 @@ export default function SignupNudge({ onSignIn, context = 'library', compact }: 
       {!compact && (
         <ul className="nudge-list">
           <li><strong>Every device.</strong> Start on your phone, carry on at your laptop.</li>
-          <li><strong>Several topics at once.</strong> Each keeps its own place; nothing resets.</li>
+          <li><strong>All your handbooks in one place.</strong> Each keeps its place; nothing resets.</li>
           <li><strong>Your settings everywhere.</strong> Who teaches you, and how, follows you.</li>
           <li><strong>Nothing lost</strong> if you clear your browser or change phones.</li>
         </ul>
       )}
       <button type="button" className="btn btn-ghost nudge-btn" onClick={onSignIn}>Sign in to keep it all, free</button>
-      {!compact && <p className="note">Email and a password. No card. Week 1 is free whatever you choose.</p>}
+      {!compact && <p className="note">Email and a password. No card. Signing in is free.</p>}
     </div>
   )
 }

@@ -178,3 +178,123 @@ export const balanceTargets = internalQuery({
     return out;
   },
 });
+
+// Whole-card rewrites for a ready topic's chapter (the chapter 1 polish, 6 Oct): every spelling of the topic,
+// then only readers' copies they haven't started (a reader mid-chapter keeps the cards they're reading).
+export const replaceCards = internalMutation({
+  args: { topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")), n: v.number(), cards: v.any() },
+  handler: async (ctx, { topicKey, level: lvl, n, cards }) => {
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
+    const base = row?.chapters.find((c: any) => c.n === n);
+    if (!row || !base || !Array.isArray(cards) || cards.length < 5) return { rows: 0, copies: 0 };
+    const keys = new Set<string>();
+    let rows = 0;
+    for (const c of await ctx.db.query("cache").collect()) {
+      if (c.level !== lvl || c.topic !== row.topic) continue;
+      const m = c.chapters.find((x: any) => x.n === n);
+      if (!m || m.title !== base.title) continue;
+      await ctx.db.patch(c._id, { chapters: c.chapters.map((x: any) => (x.n === n ? { ...x, cards } : x)), version: Date.now() });
+      keys.add(c.topicKey); rows++;
+    }
+    let copies = 0;
+    for (const h of await ctx.db.query("handbooks").collect()) {
+      if (h.source !== "cache" || !keys.has(h.topicKey) || h.level !== lvl) continue;
+      const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
+      if (!ch || ch.title !== base.title || ch.model) continue;
+      const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
+      const unread = !p || p.currentChapter < n || (p.currentChapter === n && p.currentCard === 0 && !p.chaptersPassed.includes(n));
+      if (!unread) continue;
+      await ctx.db.patch(ch._id, { cards });
+      copies++;
+    }
+    return { rows, copies };
+  },
+});
+
+// Take a superseded ready topic off the shelf (6 Oct: the old Avengers handbook, replaced by the story-mode one).
+// Readers who started it keep their own copies; only the shelf entry goes.
+export const dropCacheRow = internalMutation({
+  args: { topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")) },
+  handler: async (ctx, { topicKey, level: lvl }) => {
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
+    if (!row) return { removed: 0 };
+    await ctx.db.delete(row._id);
+    return { removed: 1, topic: row.topic };
+  },
+});
+
+// Chapter 1 becomes reading only (Prateek, 6 Oct: "stop quizzes in chapter 1"). Removes quiz cards (story polls stay)
+// from chapter 1 of ready topics, shared library entries and readers' copies they haven't started; each picture moves
+// with its card. Stops running A/B tests (they compared quiz orders). Run once: npx convex run repairData:stripChapter1Quizzes
+function strip(ch: any) {
+  if (!ch?.cards) return null;
+  const keep: number[] = [];
+  ch.cards.forEach((c: any, i: number) => { if (!(c?.type === "exercise" && c.kind !== "poll")) keep.push(i); });
+  if (keep.length === ch.cards.length) return null;
+  const map = new Map(keep.map((old, k) => [old, k]));
+  return { cards: keep.map((i) => ch.cards[i]), pictures: (ch.pictures ?? []).filter((p: any) => map.has(p.card)).map((p: any) => ({ ...p, card: map.get(p.card) })) };
+}
+export const stripChapter1Quizzes = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    let rows = 0, library = 0, copies = 0, tests = 0;
+    for (const c of await ctx.db.query("cache").collect()) {
+      const ch1 = c.chapters.find((x: any) => x.n === 1); const s = strip(ch1);
+      if (!s) continue;
+      await ctx.db.patch(c._id, { chapters: c.chapters.map((x: any) => (x.n === 1 ? { ...x, ...s } : x)), version: Date.now() }); rows++;
+    }
+    for (const l of await ctx.db.query("library").collect()) {
+      const s = strip(l.chapter1); if (!s) continue;
+      await ctx.db.patch(l._id, { chapter1: { ...l.chapter1, ...s } }); library++;
+    }
+    for (const ch of await ctx.db.query("chapters").collect()) {
+      if (ch.n !== 1) continue;
+      const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", ch.handbookId)).unique();
+      if (p && (p.currentCard > 0 || p.chaptersPassed.includes(1) || p.currentChapter > 1)) continue;   // they've started: leave it
+      const s = strip(ch); if (!s) continue;
+      await ctx.db.patch(ch._id, { cards: s.cards, pictures: s.pictures }); copies++;
+    }
+    for (const e of await ctx.db.query("experiments").collect()) {
+      if (e.status !== "running") continue;
+      await ctx.db.patch(e._id, { status: "stopped", endedAt: Date.now(), diagnosis: e.diagnosis + " (Stopped 6 Oct: chapter 1 became reading only.)" }); tests++;
+    }
+    return { rows, library, copies, tests };
+  },
+});
+
+// Story topics take no quizzes at all (Prateek, 7 Oct: "we don't need to quiz them like for avengers").
+// Strips every exercise (polls too) and the recall cards from story-mode ready topics, and from readers' copies of
+// chapters they haven't started. Chapters someone is partway through are left alone. dryRun only counts.
+function stripAll(ch: any) {
+  if (!ch?.cards) return null;
+  const keep: number[] = [];
+  ch.cards.forEach((c: any, i: number) => { if (c?.type !== "exercise") keep.push(i); });
+  if (keep.length === ch.cards.length && !(ch.recallCards?.length)) return null;
+  const map = new Map(keep.map((old, k) => [old, k]));
+  return { cards: keep.map((i) => ch.cards[i]), pictures: (ch.pictures ?? []).filter((p: any) => map.has(p.card)).map((p: any) => ({ ...p, card: map.get(p.card) })), recallCards: [] };
+}
+export const stripStoryQuizzes = internalMutation({
+  args: { dryRun: v.optional(v.boolean()) },
+  handler: async (ctx, { dryRun = true }) => {
+    const topics = new Set<string>(); let rows = 0, copies = 0, skippedStarted = 0;
+    for (const c of await ctx.db.query("cache").collect()) {
+      if ((c.plan as any)?.mode !== "story") continue;
+      topics.add(c.topic);
+      const chapters = c.chapters.map((x: any) => { const s = stripAll(x); return s ? { ...x, ...s } : x; });
+      if (JSON.stringify(chapters) === JSON.stringify(c.chapters)) continue;
+      if (!dryRun) await ctx.db.patch(c._id, { chapters, version: Date.now() });
+      rows++;
+    }
+    for (const h of await ctx.db.query("handbooks").collect()) {
+      if (h.source !== "cache" || !topics.has(h.topic)) continue;
+      const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
+      for (const ch of await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect()) {
+        if (p && (p.chaptersPassed.includes(ch.n) || (p.currentChapter === ch.n && p.currentCard > 0))) { skippedStarted++; continue; }
+        const s = stripAll(ch); if (!s) continue;
+        if (!dryRun) await ctx.db.patch(ch._id, s as any);
+        copies++;
+      }
+    }
+    return { dryRun, topics: [...topics], rows, copies, skippedStarted };
+  },
+});

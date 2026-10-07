@@ -8,13 +8,16 @@ import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import SourcesInput, { SourcesProgress, absorb, type Gathered } from '../components/SourcesInput'
 import { MAX_LINKS, classifyLink } from '../../convex/links'
+import { isMemberLimit, limitMessage } from '../lib/limits'
 
 type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
 type Props = {
   initialTopic?: string
-  status: 'idle' | 'writing' | 'question' | 'failed' | 'declined'
+  status: 'idle' | 'intent' | 'writing' | 'question' | 'failed' | 'declined'
   question?: string
+  intents?: { question: string; goals: { label: string; mode: string }[] } | null
+  onChooseIntent?: (goal?: string, mode?: string) => Promise<void>
   error?: string
   onCreate: (topic: string, level: Level, voice: Voice, language: string, sources?: NewSources) => Promise<void>
   onAnswer?: (answer: string) => Promise<void>
@@ -30,12 +33,13 @@ type Props = {
   sources?: { kind: 'youtube' | 'instagram' | 'image'; url?: string; status: 'waiting' | 'reading' | 'read' | 'failed'; title?: string; error?: string }[]
   creator?: string | null        // the handbook was started from this creator's reels
   choices?: string[] | null      // the question's answers to tap (a creator's themes)
+  onPricing?: () => void
 }
 
 export type NewSources = { links: string[]; photos: File[]; creator?: string }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [], initialLinks = '', sources = [], creator: startedFrom = null, choices = null }: Props) {
+export default function Start({ initialTopic = '', status, question, intents, onChooseIntent, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [], onPricing, initialLinks = '', sources = [], creator: startedFrom = null, choices = null }: Props) {
   const declined = status === 'declined'
   const [topic, setTopic] = useState(status === 'declined' ? '' : initialTopic)
   // A declined line never stays in the box: the reader starts fresh.
@@ -47,6 +51,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
   const [answer, setAnswer] = useState('')
   const [slow, setSlow] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
+  const [memberLimit, setMemberLimit] = useState(false)
   const writing = status === 'writing'
   // From what they saved: reel and Short links, photos, or a creator, gathered from the one box.
   const [links, setLinks] = useState<string[]>(() => absorb(initialLinks, [], null, true).links)
@@ -79,30 +84,31 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
     const line = g.text.replace(/(^|\s)@\s*$/, '').trim()
     if (g.creator) {
       if (g.links.length || photos.length) { setLocalError("One at a time: a creator's reels, or your own reels and photos."); return }
-      try { await onCreate(line, level, voice, language, { links: [], photos: [], creator: g.creator }) } catch (e: any) { setLocalError(friendly(e)) }
+      try { await onCreate(line, level, voice, language, { links: [], photos: [], creator: g.creator }) } catch (e: any) { setLocalError(friendly(e)); setMemberLimit(isMemberLimit(e)) }
       return
     }
     const hasSources = g.links.length > 0 || photos.length > 0
     if (g.links.some((l) => !classifyLink(l))) { setLocalError('Only Instagram reels and YouTube videos for now. Take out the others.'); return }
     if (g.links.length > MAX_LINKS) { setLocalError(`Up to ${MAX_LINKS} links for one handbook.`); return }
     if (!hasSources && line.length < 2) { setLocalError('A few words is enough. What is it?'); backToBox(); return }
-    try { await onCreate(line, level, voice, language, hasSources ? { links: g.links, photos } : undefined) } catch (e: any) { setLocalError(friendly(e)) }
+    setMemberLimit(false)
+    try { await onCreate(line, level, voice, language, hasSources ? { links: g.links, photos } : undefined) } catch (e: any) { setLocalError(friendly(e)); setMemberLimit(isMemberLimit(e)) }
   }
 
   // While the plan is written: the topic and what's happening, not the form again (Shaktimaan, 6 Oct).
   if (writing) {
     return (
       <div className="plan-wait" role="status" aria-live="polite">
-        <p className="plan-wait-kicker">Writing your seven nights</p>
+        <p className="plan-wait-kicker">Writing your handbook</p>
         <h1 className="plan-wait-topic">{topic.trim() || initialTopic || (startedFrom ? `@${startedFrom}'s reels` : 'What you saved')}</h1>
         {gathering && <p className="note">Finding @{startedFrom}'s latest reels and sorting them into themes…</p>}
         {fromSaved && sources.length > 0 && <SourcesProgress sources={sources.filter((x) => x.error !== 'about something else')} />}
         <ol className="plan-wait-steps">
-          <li className="on">{fromSaved ? 'Watching and reading what you saved' : 'Reading what you typed'}</li>
-          <li className={slow ? 'on' : ''}>Choosing the seven nights and the one picture that carries them</li>
+          <li className="on">{fromSaved ? 'Watching and reading what you saved' : 'Looking it up: Wikipedia, reviews, recaps, the official syllabus where there is one'}</li>
+          <li className={slow ? 'on' : ''}>Deciding how much it needs: a quick run-through, or seven nights</li>
           <li>Writing chapter 1 while you read the plan</li>
         </ol>
-        <p className="note">Your plan in about 40 seconds. Chapter 1 is written while you read it.</p>
+        <p className="note">Your plan in about a minute. Chapter 1 is written while you read it.</p>
         <div className="busybar" aria-hidden="true" />
         {story && (
           <section className="wait-story" aria-label="A story while you wait">
@@ -118,6 +124,28 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
             </div>
           </section>
         )}
+      </div>
+    )
+  }
+
+  // "What's it for?" (6 Oct): a goal in one tap shapes the whole handbook. Skipping is fine.
+  if (status === 'intent') {
+    const choose = (goal?: string, mode?: string) => { track('submit', { via: goal ? 'goal' : 'skip' }); onChooseIntent?.(goal, mode).catch((e) => setLocalError(friendly(e))) }
+    return (
+      <div className="intent">
+        <p className="plan-wait-kicker">{topic.trim() || initialTopic}</p>
+        <h1>{intents?.question ?? "What's it for?"}</h1>
+        <p className="lede">Pick one and the handbook is built around it.</p>
+        <div className="intent-goals">
+          {intents ? intents.goals.map((g) => (
+            <button key={g.label} type="button" className="intent-goal" onClick={() => choose(g.label, g.mode)}>{g.label}</button>
+          )) : [0, 1, 2].map((k) => <span key={k} className="intent-goal intent-ghost" aria-hidden="true" />)}
+        </div>
+        <form className="intent-own" onSubmit={(e) => { e.preventDefault(); if (answer.trim()) choose(answer.trim()) }}>
+          <input className="input" placeholder="Or say it in your words" value={answer} onChange={(e) => setAnswer(e.target.value)} maxLength={120} enterKeyHint="go" />
+        </form>
+        {localError && <p className="error">{localError}</p>}
+        <button type="button" className="quiet" onClick={() => choose()}>Skip, just teach me</button>
       </div>
     )
   }
@@ -200,6 +228,7 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
       {(localError || failedHere) && (
         <p className="error">{localError ?? "Couldn't write it just now. Your line is still here; try once more in a minute, or pick one of tonight's ready handbooks."}</p>
       )}
+      {memberLimit && onPricing && <button type="button" className="btn btn-ghost" style={{ marginTop: 8 }} onClick={onPricing}>See what members get</button>}
 
       {below && !writing && below(pick)}
 
@@ -215,6 +244,8 @@ export default function Start({ initialTopic = '', status, question, onCreate, o
 }
 
 function friendly(e: any): string {
+  const limit = limitMessage(e)
+  if (limit) return limit
   const m = String(e?.message ?? e)
   if (m.includes('busy')) return "Busy right now. Try again in a few minutes."
   if (m.includes('few words')) return 'A few words is enough. What is it?'

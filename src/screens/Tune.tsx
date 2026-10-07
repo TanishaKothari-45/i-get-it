@@ -31,7 +31,7 @@ export default function Tune({ initial, onSave, onBack, signedIn, onSignIn }: Pr
   return (
     <>
       <h1>Make it yours.</h1>
-      <p className="lede">Say how you like to be taught. We keep it to one line and send it with every chapter, so it costs almost nothing and applies everywhere.</p>
+      <p className="lede">Say how you like to be taught. It's one line, and every chapter from here on is written with it.</p>
 
       <h2>Who should teach you?</h2>
       <div className="chips wrap">

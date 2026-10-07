@@ -4,8 +4,8 @@ import { components } from "./_generated/api";
 import { mutation } from "./_generated/server";
 
 // Page events for the owner-only /admin funnel. Only these names and these prop keys are kept; anything else is dropped.
-const NAMES = new Set(["land", "section", "box_focus", "box_type", "submit", "demo_tap", "plan_view", "ch_open", "wait_view"]);
-const KEYS = new Set(["section", "via", "topic", "n", "source", "len"]);
+const NAMES = new Set(["open", "beat", "land", "section", "box_focus", "box_type", "submit", "demo_tap", "plan_view", "ch_open", "card", "wait_view", "feedback"]);
+const KEYS = new Set(["section", "via", "topic", "n", "i", "source", "len", "device", "w", "path", "v"]);
 
 const limiter = new RateLimiter(components.rateLimiter, {
   eventsDevice: { kind: "fixed window", rate: 300, period: HOUR },

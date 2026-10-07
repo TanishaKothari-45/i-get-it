@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useQuery } from 'convex/react'
+import { useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { api } from '../../convex/_generated/api'
 
@@ -27,6 +27,12 @@ export default function Admin() {
       {d === undefined ? <p className="note">Loading…</p> : d.denied ? <OwnerSignIn signedIn={d.signedIn} /> : (
         <>
           <p className="note">Updated live. Your own phones and accounts are left out. {d.trackingSince ? `Landing steps (marked •) are counted from ${time(d.trackingSince)}, when page tracking began.` : 'Landing steps (marked •) start counting from the next visit.'}</p>
+
+          <ProviderSwitch />
+          <LibraryCard />
+          <TrendingCard />
+          <ExperimentsCard />
+          <PaymentsCard />
 
           <section className="adm-card adm-wide">
             <h2>Funnel</h2>
@@ -103,24 +109,37 @@ export default function Admin() {
             </table>
           </section>
 
+          <div className="adm-grid">
+            <section className="adm-card">
+              <h2>Why people stop</h2>
+              <p className="note">Each visitor's most likely reason, from what they did last.</p>
+              <ul className="adm-list">{d.reasons.map((r) => <li key={r.reason}><span>{r.reason}</span><b>{r.n}</b></li>)}</ul>
+            </section>
+            <section className="adm-card">
+              <h2>Devices</h2>
+              <ul className="adm-list">{d.devices.map((x) => <li key={x.device}><span>{x.device === 'unknown' ? 'Unknown (before tracking)' : x.device}</span><b>{x.n}</b></li>)}</ul>
+            </section>
+          </div>
+
           <section className="adm-card adm-wide">
-            <h2>Latest visitors</h2>
-            <div className="adm-scroll">
-              <table className="adm-table">
-                <thead><tr><th>When</th><th>Source</th><th>Landing</th><th>Box</th><th>Started</th><th>Topic</th><th>Plan</th><th>Chapter 1</th><th>Passed</th><th>Signed up</th></tr></thead>
-                <tbody>{d.recent.map((r) => (
-                  <tr key={r.visitor + r.first}>
-                    <td>{time(r.first)}</td><td>{r.source}</td>
-                    <td>{r.landed ? (r.deepest ? SECTION_NAMES[r.deepest] ?? r.deepest : 'top only') : '—'}</td>
-                    <td>{r.typed ? 'typed' : r.focused ? 'tapped' : r.landed ? 'no' : '—'}</td>
-                    <td>{r.started ? (r.via === 'box' ? 'typed' : r.via ?? 'yes') : 'no'}</td>
-                    <td>{r.topic ?? ''}</td>
-                    <td>{r.plan ? 'yes' : r.started ? 'waiting' : ''}</td>
-                    <td>{r.passed ? 'done' : r.openedCh1 ? (r.ch1Card ? `card ${r.ch1Card}${r.ch1Of ? `/${r.ch1Of}` : ''}` : 'opened') : r.started ? 'no' : ''}</td>
-                    <td>{r.passed || ''}</td><td>{r.signedUp ? 'yes' : ''}</td>
-                  </tr>
-                ))}</tbody>
-              </table>
+            <h2>Each person's path</h2>
+            <p className="note">Latest 50 visitors. Tap one to see everything they did, in order.</p>
+            <div className="adm-journeys">
+              {d.recent.map((r) => (
+                <details key={r.visitor + r.first} className="adm-j">
+                  <summary>
+                    <span className="adm-j-when">{time(r.first)}</span>
+                    <span className="adm-j-tag">{r.source}</span>
+                    <span className="adm-j-tag">{r.device ?? '?'}</span>
+                    <span className="adm-j-tag">{secs(r.spentS)}</span>
+                    <span className="adm-j-topic">{r.topic ?? ''}</span>
+                    <span className="adm-j-reason">{r.reason}</span>
+                  </summary>
+                  <ol className="adm-j-steps">
+                    {r.timeline.length === 0 ? <li><span>—</span>No page activity recorded.</li> : r.timeline.map((x, k) => <li key={k}><span>{x.t < 0 ? '' : `+${secs(x.t)}`}</span>{x.what}</li>)}
+                  </ol>
+                </details>
+              ))}
             </div>
           </section>
 
@@ -143,6 +162,7 @@ function OwnerSignIn({ signedIn }: { signedIn: boolean }) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
+  const [flow, setFlow] = useState<'signIn' | 'signUp'>('signIn')
   if (signedIn) return (
     <section className="adm-card"><h2>Owner only</h2><p className="note">This account isn't on the owner list.</p>
       <button type="button" className="quiet" onClick={() => signOut()}>Sign out and use another account</button></section>
@@ -150,13 +170,131 @@ function OwnerSignIn({ signedIn }: { signedIn: boolean }) {
   return (
     <section className="adm-card" style={{ maxWidth: 420 }}>
       <h2>Owner only</h2>
-      <p className="note">Sign in with the owner email.</p>
-      <form onSubmit={async (e) => { e.preventDefault(); setBusy(true); setError(null); try { await signIn('password', { email: email.trim(), password, flow: 'signIn' }) } catch { setError("That email and password don't match.") } finally { setBusy(false) } }}>
+      <p className="note">{flow === 'signIn' ? 'Sign in with the owner email.' : 'Create the account for the owner email. Use at least 8 characters for the password.'}</p>
+      <form onSubmit={async (e) => { e.preventDefault(); setBusy(true); setError(null); try { await signIn('password', { email: email.trim(), password, flow }) } catch { setError(flow === 'signIn' ? "That email and password don't match." : "Couldn't create it. The password needs at least 8 characters, or this email already has an account.") } finally { setBusy(false) } }}>
         <input className="input" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" style={{ marginTop: 12 }} />
         <input className="input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" style={{ marginTop: 10 }} />
         {error && <p className="error">{error}</p>}
-        <button className="btn" type="submit" disabled={busy} style={{ marginTop: 14 }}>{busy ? 'Signing in…' : 'Sign in'}</button>
+        <button className="btn" type="submit" disabled={busy} style={{ marginTop: 14 }}>{busy ? 'One moment…' : flow === 'signIn' ? 'Sign in' : 'Create the owner account'}</button>
       </form>
+      <button type="button" className="quiet" onClick={() => { setFlow(flow === 'signIn' ? 'signUp' : 'signIn'); setError(null) }}>{flow === 'signIn' ? 'No account yet? Create the owner account' : 'Already have one? Sign in'}</button>
+    </section>
+  )
+}
+
+// The AI provider switch (6 Oct, Manthan's offer). Claude is the default and always one tap away.
+function ProviderSwitch() {
+  const st = useQuery(api.settings.providerStatus, {})
+  const setProvider = useMutation(api.settings.setProvider)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  if (!st) return null
+  const flip = async (p: 'claude' | 'inference') => { setBusy(true); setError(null); try { await setProvider({ provider: p }) } catch (e: any) { setError(String(e?.message ?? e).includes('INFERENCE_API_KEY') ? 'Set INFERENCE_API_KEY on this server first.' : "Couldn't switch. Try again.") } finally { setBusy(false) } }
+  return (
+    <section className="adm-card adm-wide">
+      <h2>AI provider</h2>
+      <p className="note">Plans, chapters, fact checks, Say it simpler, teach-backs and picture scenes use this. Ask or object stays on Claude (its web search is Claude's).{st.since ? ` Switched ${time(st.since)}.` : ''}</p>
+      <div className="adm-tabs" role="group" aria-label="AI provider" style={{ marginTop: 10 }}>
+        <button type="button" aria-pressed={st.provider === 'claude'} disabled={busy} onClick={() => flip('claude')}>Claude (Anthropic)</button>
+        <button type="button" aria-pressed={st.provider === 'inference'} disabled={busy || !st.inferenceKeySet} onClick={() => flip('inference')}>DeepSeek v4 Pro (The Inference Company)</button>
+      </div>
+      {!st.inferenceKeySet && <p className="note">The Inference Company key isn't set on this server yet.</p>}
+      {st.provider === 'inference' && <p className="note">Readers' topics and chapters now go to The Inference Company. Switch back to Claude any time; chapters already written stay as they are.</p>}
+      {error && <p className="error">{error}</p>}
+    </section>
+  )
+}
+
+// The shared library (6 Oct): what other readers can start from Explore. Unpublish anything with one tap.
+function LibraryCard() {
+  const rows = useQuery(api.library.adminList, {})
+  const set = useMutation(api.library.setPublished)
+  if (!rows) return null
+  return (
+    <section className="adm-card adm-wide">
+      <h2>Shared library</h2>
+      <p className="note">Typed topics whose plan and chapter 1 passed the privacy check. Chapters 2 to 7 stay personal. {rows.filter((r) => r.published).length} shared of {rows.length}.</p>
+      {rows.length === 0 ? <p className="note">Nothing yet. The next typed topic that passes the check appears here.</p> : (
+        <div className="adm-scroll">
+          <table className="adm-table">
+            <thead><tr><th>Topic</th><th>Goal</th><th>Mode</th><th>Starts</th><th>Passed ch 1</th><th>Check</th><th></th></tr></thead>
+            <tbody>{rows.map((r) => (
+              <tr key={r.id}>
+                <td>{r.topic}</td><td>{r.goal ?? ''}</td><td>{r.mode ?? ''}</td><td>{r.starts}</td><td>{r.passes}</td><td><small>{r.why ?? ''}</small></td>
+                <td>
+                  <button type="button" className="quiet" onClick={() => set({ id: r.id, published: !r.published })}>{r.published ? 'Shared · hide' : 'Hidden · share'}</button>{' '}
+                  {r.published && <button type="button" className="quiet" onClick={() => set({ id: r.id, pick: !r.pick })}>{r.pick ? 'Pick ✓' : 'Make pick'}</button>}
+                </td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  )
+}
+
+// This week's trending handbooks (6 Oct): built every Monday 6:30am IST from what's trending on social media.
+function TrendingCard() {
+  const rows = useQuery(api.settings.trendingNow, {})
+  const refresh = useMutation(api.settings.refreshTrending)
+  const [started, setStarted] = useState(false)
+  if (!rows) return null
+  return (
+    <section className="adm-card adm-wide">
+      <h2>Trending handbooks</h2>
+      <p className="note">Every Monday at 6:30am IST, Claude searches what's trending on social media in India and writes up to 3 new ready handbooks (about ₹280 a week plus pictures).</p>
+      <ul className="adm-list">{rows.length ? rows.map((r) => <li key={r.topic}><span>{r.topic}</span><b>{r.week}</b></li>) : <li><span>None yet.</span></li>}</ul>
+      <button type="button" className="quiet" disabled={started} onClick={async () => { await refresh({}); setStarted(true) }}>{started ? 'Started: new topics appear in about 15 minutes' : 'Refresh trending now'}</button>
+    </section>
+  )
+}
+
+// Razorpay (6 Oct): money in, by test and live. Amounts and times only.
+function PaymentsCard() {
+  const d = useQuery(api.payments.adminList, {})
+  const budget = useQuery(api.membership.budgetToday, {})
+  if (!d) return null
+  const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
+  const when = (t: number) => new Date(t).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
+  return (
+    <section className="adm-card adm-wide">
+      <h2>Payments (Razorpay)</h2>
+      <p className="note">{d.live ? (d.mode === 'live' ? 'Live: real money.' : 'Test mode: no real money moves.') : 'Off: no Razorpay keys set, so Pay still only records the tap.'}</p>
+      {budget && <p className="note">Free readers' spend today: about ₹{budget.spent} of ₹{budget.budget}. Past that, new typed topics and web-checked answers pause for free readers until midnight IST; members aren't paused.</p>}
+      <ul className="adm-list">
+        <li><span>Paid, live</span><b>{d.paidLive} · {inr(d.rupeesLive)}</b></li>
+        <li><span>Paid, test</span><b>{d.paidTest} · {inr(d.rupeesTest)}</b></li>
+        <li><span>People who paid</span><b>{d.payers}</b></li>
+        <li><span>Pay sheets opened</span><b>{d.started}</b></li>
+      </ul>
+      {d.recent.length > 0 && <ul className="adm-list">{d.recent.map((r, i) => <li key={i}><span>{when(r.at)} · {r.plan === 'year' ? 'year' : 'month'}{r.tier ? ` · tier ${r.tier}` : ''} · {r.mode}{r.via ? ` · ${r.via}` : ''}</span><b>{r.status} {inr(r.amount)}</b></li>)}</ul>}
+    </section>
+  )
+}
+
+// Self-improving handbooks (6 Oct): diagnosis, the lesson for the writer, and A vs B on getting readers through chapter 1.
+function ExperimentsCard() {
+  const rows = useQuery(api.doctor.adminList, {})
+  const act = useMutation(api.doctor.ownerAction)
+  const scan = useMutation(api.doctor.scanNow)
+  const [scanned, setScanned] = useState(false)
+  if (!rows) return null
+  const rate = (p: number, s: number) => (s ? `${p}/${s} (${Math.round((p / s) * 100)}%)` : '0')
+  return (
+    <section className="adm-card adm-wide">
+      <h2>Handbook doctor (A/B tests)</h2>
+      <p className="note">Daily at 4am IST: ready topics where 2+ readers quit chapter 1 (40%+ of starts) get a diagnosis and a rewritten chapter 1 (B). New readers are split half and half. B replaces A only with 8+ readers a side and 10+ points more passing chapter 1.</p>
+      {rows.length === 0 ? <p className="note">No tests yet.</p> : rows.map((e) => (
+        <div key={e.id} className="adm-exp">
+          <p><strong>{e.topic}</strong> <span className="adm-j-tag">{e.status}</span> <small>{e.quit} of {e.starts} quit before the test</small></p>
+          <p className="serif">{e.diagnosis}</p>
+          <p className="note"><strong>Lesson for the writer:</strong> {e.lesson}</p>
+          <p className="note">A (current): {rate(e.aPasses, e.aStarts)} passed chapter 1 · B (rewrite): {rate(e.bPasses, e.bStarts)}</p>
+          {e.status === 'running' && <p><button type="button" className="quiet" onClick={() => act({ id: e.id, action: 'promote' })}>Make B the default now</button> · <button type="button" className="quiet" onClick={() => act({ id: e.id, action: 'stop' })}>Stop, keep A</button></p>}
+        </div>
+      ))}
+      <button type="button" className="quiet" disabled={scanned} onClick={async () => { await scan({}); setScanned(true) }}>{scanned ? 'Checking now: new tests appear in a few minutes' : 'Check for struggling topics now'}</button>
     </section>
   )
 }

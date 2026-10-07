@@ -3,6 +3,8 @@ import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import Rich, { inline } from '../components/Rich'
 import { track } from '../lib/track'
+import { PolicyLinks } from './Policy'
+import { limitMessage } from '../lib/limits'
 
 // The landing page, for first-time visitors (DESIGN.md, Landing). A printed risograph poster that sells
 // before it asks: the promise, the itch, how tonight works, a real chapter to tap, the seven nights,
@@ -11,15 +13,57 @@ import { track } from '../lib/track'
 
 type Level = 'new' | 'some'
 type Voice = 'friend' | 'straight' | 'stories'
-type Props = { onCreate: (topic: string, level: Level, voice: Voice) => Promise<void> }
+type Props = { onCreate: (topic: string, level: Level, voice: Voice) => Promise<void>; onExplore?: () => void }
 
 type Frame =
   | { kind: 'picture' | 'teach' | 'example' | 'mistake' | 'try'; title?: string; text: string; picture: string | null }
   | { kind: 'exercise'; prompt: string; options: { id: string; text: string }[]; answer: string; whyNot: Record<string, string> }
 
+type Shelf = { topic: string; outcome: string; cover: string | null; week: number; starts: number; passRate: number | null; trending: boolean; addedAt: number; mode: string | null; improved?: boolean }
+type Pill = 'trending' | 'started' | 'finished' | 'new'
+const PILLS: { key: Pill; label: string }[] = [{ key: 'trending', label: '🔥 Trending this week' }, { key: 'started', label: 'Most started' }, { key: 'finished', label: 'Most finished' }, { key: 'new', label: 'New' }]
+
+// "Or start one tonight" as a carousel (6 Oct): pills sort it by real numbers, Surprise me shuffles it. One tap starts.
+function Carousel({ items, busy, onPick, onExplore }: { items: Shelf[]; busy: boolean; onPick: (topic: string) => void; onExplore?: () => void }) {
+  const hasTrending = items.some((i) => i.trending)
+  const hasFinished = items.some((i) => i.passRate !== null)
+  const pills = PILLS.filter((p) => (p.key !== 'trending' || hasTrending) && (p.key !== 'finished' || hasFinished))
+  const [pill, setPill] = useState<Pill>(hasTrending ? 'trending' : 'started')
+  const [seed, setSeed] = useState(0)
+  const sorted = (() => {
+    const xs = items.slice()
+    if (seed) { for (let i = xs.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [xs[i], xs[j]] = [xs[j], xs[i]] } return xs }
+    if (pill === 'trending') return xs.sort((a, b) => Number(b.trending) - Number(a.trending) || b.week - a.week)
+    if (pill === 'started') return xs.sort((a, b) => b.week - a.week || b.starts - a.starts)
+    if (pill === 'finished') return xs.sort((a, b) => (b.passRate ?? -1) - (a.passRate ?? -1))
+    return xs.sort((a, b) => b.addedAt - a.addedAt)
+  })()
+  const tag = (it: Shelf) => it.trending ? '🔥 Trending' : it.improved ? '✨ Just improved' : pill === 'started' && it.week ? `${it.week} started this week` : pill === 'finished' && it.passRate !== null ? `${Math.round(it.passRate * 100)}% finish chapter 1` : pill === 'new' && Date.now() - it.addedAt < 7 * 864e5 ? 'New' : ''
+  return (
+    <div className="lp-quick">
+      <p>Or start one tonight. It opens instantly:</p>
+      <div className="lp-pills" role="group" aria-label="Sort">
+        {pills.map((p) => <button key={p.key} type="button" aria-pressed={!seed && pill === p.key} onClick={() => { setSeed(0); setPill(p.key) }}>{p.label}</button>)}
+        <button type="button" aria-pressed={!!seed} onClick={() => setSeed((x) => x + 1)}>🎲 Surprise me</button>
+      </div>
+      <ul className="lp-carousel">
+        {sorted.slice(0, 12).map((it) => (
+          <li key={it.topic}>
+            <button type="button" onClick={() => onPick(it.topic)} disabled={busy}>
+              <span className="lp-carousel-pic">{it.cover && <img src={it.cover} alt="" loading="lazy" />}{tag(it) && <em>{tag(it)}</em>}</span>
+              <strong>{it.topic}</strong>
+            </button>
+          </li>
+        ))}
+      </ul>
+      {onExplore && <button type="button" className="lp-explore" onClick={() => { track('submit', { via: 'explore_open' }); onExplore() }}>Explore everything →</button>}
+    </div>
+  )
+}
+
 const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
 
-export default function Landing({ onCreate }: Props) {
+export default function Landing({ onCreate, onExplore }: Props) {
   const c = useQuery(api.landing.content, {})
   const plans = useQuery(api.pricing.plans, {})
   const [topic, setTopic] = useState('')
@@ -62,7 +106,7 @@ export default function Landing({ onCreate }: Props) {
     track('submit', { via: 'box', len: topic.trim().length })
     setBusy(true)
     try { await onCreate(topic.trim(), level, voice) }
-    catch (e: any) { setError(String(e?.message ?? e).includes('busy') ? 'Busy right now. Try again in a few minutes.' : "Couldn't start it just now. Your line is still here; try once more in a minute."); setBusy(false) }
+    catch (e: any) { setError(limitMessage(e) ?? (String(e?.message ?? e).includes('busy') ? 'Busy right now. Try again in a few minutes.' : "Couldn't start it just now. Your line is still here; try once more in a minute.")); setBusy(false) }
   }
 
   const form = (where: 'hero' | 'final') => (
@@ -88,22 +132,8 @@ export default function Landing({ onCreate }: Props) {
         </details>
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
-      <p className="lp-fine">Week 1 is free. No card, and no sign-up to start.</p>
-      {where === 'hero' && c && c.shelf.length > 0 && (
-        <div className="lp-quick">
-          <p>Or start one tonight. It opens instantly:</p>
-          <ul>
-            {c.shelf.slice(0, 9).map((s: { topic: string; cover: string | null }) => (
-              <li key={s.topic}>
-                <button type="button" onClick={() => pick(s.topic, 'row')} disabled={busy}>
-                  <span className="lp-quick-pic">{s.cover && <img src={s.cover} alt="" loading="lazy" />}</span>
-                  <span>{s.topic}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <p className="lp-fine">Your first handbook is free. No card, and no sign-up to start. Topics you start can appear in Explore, never with your name.</p>
+      {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
     </form>
   )
 
@@ -139,7 +169,7 @@ export default function Landing({ onCreate }: Props) {
         <ol>
           <li><img src="/images/landing/step1.jpg" alt="" loading="lazy" /><span className="lp-n">1</span><h3>Type it.</h3><p>Whatever you keep meaning to learn, in your own words. You get a seven-chapter plan for it in about 40 seconds.</p></li>
           <li><img src="/images/landing/step2.jpg" alt="" loading="lazy" /><span className="lp-n">2</span><h3>Tap through chapter 1.</h3><p>Full-screen frames, one idea each, with pictures. Stuck? Ask it, or have it said simpler.</p></li>
-          <li><img src="/images/landing/step3.jpg" alt="" loading="lazy" /><span className="lp-n">3</span><h3>Pass the checks.</h3><p>Three quick questions. Get them right and the first rung lights up. Tomorrow, chapter 2 starts by checking what stuck.</p></li>
+          <li><img src="/images/landing/step3.jpg" alt="" loading="lazy" /><span className="lp-n">3</span><h3>Light the first rung.</h3><p>Read to the end of chapter 1 and the first rung lights up. No quizzes tonight: chapter 2 opens with two quick questions on what stuck.</p></li>
         </ol>
       </section>
 
@@ -147,7 +177,7 @@ export default function Landing({ onCreate }: Props) {
         <section className="lp-demo">
           <div className="lp-demo-copy">
             <h2>Don't take our word for it.</h2>
-            <p className="lp-body">This is the real chapter 1 of {c.demo.topic}. Tap the right side to go on, the left to go back. Try the question.</p>
+            <p className="lp-body">This is the real chapter 1 of {c.demo.topic}. Tap the right side to go on, the left to go back.</p>
           </div>
           <Demo topic={c.demo.topic} title={c.demo.title ?? ''} frames={c.demo.frames as Frame[]} total={c.demo.total} onTry={toBox} />
         </section>
@@ -187,21 +217,30 @@ export default function Landing({ onCreate }: Props) {
         </section>
       )}
 
-      {plans && (
-        <section className="lp-offer">
-          <div>
-            <h2>The longer you stay, the less you pay.</h2>
-            <p className="lp-body">Week 1 is free. Then {inr(plans.start)} a month, falling every month you stay until it's {inr(plans.floor)} from month 13, for good. Pause for up to {plans.maxPauseMonths} months and keep your price. Cancel any time.</p>
-          </div>
-          <div className="lp-ladder" role="img" aria-label={`Monthly price falls from ${inr(plans.start)} to ${inr(plans.floor)} over 12 months`}>
-            {plans.ladder.map((r: { month: number; price: number }) => (
-              <span key={r.month} style={{ height: `${Math.round((r.price / plans.start) * 100)}%` }} className={r.month === 13 ? 'floor' : ''}>
-                {(r.month === 1 || r.month === 13) && <em>{inr(r.price)}</em>}
-              </span>
-            ))}
-          </div>
-        </section>
-      )}
+      {plans && (() => {
+        // Early-bird tiers (7 Oct): real spots left, from convex/pricing.ts. Copy (agent).
+        const open = plans.tiers.find((t: any) => t.open) ?? plans.tiers[plans.tiers.length - 1]
+        const who = ['First 50', 'Next 100', 'Next 200', 'After that']
+        return (
+          <section className="lp-offer">
+            <div>
+              <h2>Come early, pay less.</h2>
+              <p className="lp-body">Free: one handbook of your own, a chapter a night, plus a daily taste of the ready ones. Members keep 3 topics on the go, read up to 7 chapters a day and can save any handbook as a PDF. The earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
+              <p className="lp-once">One-time payment · No auto-renew</p>
+            </div>
+            <ol className="lp-tiers">
+              {plans.tiers.map((t: any) => (
+                <li key={t.tier} className={t.open ? 'open' : t.left === 0 ? 'full' : ''}>
+                  <span>{who[t.tier - 1]}</span>
+                  <b>{inr(t.month)}<small> a month</small></b>
+                  <span>or {inr(t.year)} a year</span>
+                  <em>{t.left === 0 ? 'Full' : t.open ? (t.left === null ? 'Open now' : `${t.left} left`) : ''}</em>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      })()}
 
       <section className="lp-final">
         <img className="lp-final-art" src="/images/landing/summit.jpg" alt="" loading="lazy" />
@@ -211,6 +250,7 @@ export default function Landing({ onCreate }: Props) {
 
       <footer className="lp-foot">
         <p>I Get It is built in public for the GrowthX Build Sprint, October 2026. <a href="/stats">See the live numbers</a>. <a href="https://github.com/prateekk26/igetit" target="_blank" rel="noopener noreferrer">Read the code</a>.</p>
+        <p><PolicyLinks /></p>
       </footer>
     </div>
   )

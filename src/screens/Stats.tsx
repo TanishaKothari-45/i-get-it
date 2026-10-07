@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import { deviceToken } from '../lib/device'
+import { PolicyLinks } from './Policy'
 
 // The public numbers page at /stats (counts only). Copy is (agent) until Prateek rewrites it.
 export default function Stats() {
@@ -24,10 +25,9 @@ export default function Stats() {
               <Stat n={s.visitorsToday} label="Visitors today" />
               <Stat n={s.visitorsAll} label="Visitors, all time" />
               <Stat n={s.started} label="Started a handbook" />
-              <Stat n={s.passedChapter1} label="Passed chapter 1" />
+              <Stat n={s.passedChapter1} label="Finished chapter 1" />
               <Stat n={s.signups} label={`Signed up${s.signupsToday ? ` (${s.signupsToday} today)` : ''}`} />
               {s.pay && <Stat n={s.pay.tapped} label="Tapped Pay (only you see this)" />}
-              {s.pay && <Stat n={s.pay.freeSpotsClaimed} label="Free spots claimed, of 25 (only you)" />}
             </div>
 
             <h2 className="stats-h">Visitors, last 14 days</h2>
@@ -61,7 +61,7 @@ export default function Stats() {
           </>
         )}
       </main>
-      <footer className="foot"><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
+      <footer className="foot"><p><PolicyLinks /></p><p>Built in public for the GrowthX Build Sprint, October 2026.</p></footer>
     </div>
   )
 }
