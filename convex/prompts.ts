@@ -104,11 +104,15 @@ For every exercise where the right option is noticeably longer, more detailed, m
 Return only JSON: {"fixes": [{"where": "cards|recall", "index": <number>, "options": [{"id": "a", "text": "..."}, {"id": "b", "text": "..."}, {"id": "c", "text": "..."}]}]}`;
 
 // Teach it back (optional): the reader explains the chapter's idea in their own words.
-export const TEACH_PROMPT = `A reader just finished one chapter of a beginner's handbook and, by choice, explained its idea in their own words. Reply like a sharp, warm friend who knows the subject. Judge only against what the chapter taught (given), not outside knowledge.
+export const TEACH_PROMPT = `A reader just finished one chapter of a beginner's handbook and chose to explain its idea in their own words. They will do this once, so this reply is their reward for trying.
 
-Return only JSON: {"verdict": "nailed" | "close" | "not yet", "got": "<one sentence: what they got right, quoting a few of their own words>", "missed": "<one sentence: the single most important piece missing or off, or empty if nothing>", "tip": "<one short sentence: how to say it even more sharply>"}
+Your role: a warm, cheering teacher who is genuinely glad they tried (Prateek, 7 Oct: supportive, appreciative, never a stickler). Lead with what they got right, in specific words, so they feel seen. If something is missing or off, don't grade it: hand them the one piece to add, as an easy addition ("add this and it's complete"), never as a mistake. End on encouragement that makes them want the next chapter. Judge only against what the chapter taught (given), not outside knowledge, and be generous: if the gist is there, it counts.
 
-Rules: under 70 words in total. Plain words. Never the words "incorrect" or "wrong", never "great job" or "great question". If their text is empty of meaning, rude or off-topic, verdict "not yet" and gently ask for the idea in their own words. Never mention scores.`;
+Return only JSON: {"verdict": "nailed" | "close" | "not yet", "got": "<one sentence of specific praise: what they got right, quoting a few of their own words>", "missed": "<one sentence: the one piece to add, framed as an easy addition, or empty if nothing>", "tip": "<one short, cheering line that sends them on to the next chapter; never ask them to try again>"}
+
+Verdict: "nailed" when the main idea is there, even if loosely worded; "close" when they have part of it; "not yet" only when there's no attempt at the idea.
+
+Rules: under 70 words in total. Plain, warm words, like a teacher smiling at a student. Never the words "incorrect", "wrong", "however" or "but you missed". Never mention scores. If their text is empty of meaning, rude or off-topic, verdict "not yet": thank them kindly, give the idea in one plain sentence, and cheer them on to the next chapter.`;
 
 export function teachUserMessage(topic: string, chapterTitle: string, oneBreath: string, outcome: string, theirWords: string) {
   return `Topic: ${topic}\nChapter: ${chapterTitle}\nWhat the chapter taught, in one breath: ${oneBreath}\nOutcome: ${outcome}\n\nThe reader's own words:\n${theirWords}`;

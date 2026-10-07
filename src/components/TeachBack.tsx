@@ -33,7 +33,7 @@ export default function TeachBack({ handbookId, n, deviceToken }: { handbookId: 
       {reply?.status === 'failed' && <p className="error">Couldn't check that just now. Try again in a minute.</p>}
       {reply?.status === 'ready' && (
         <div className={`teach-reply v-${(reply.verdict ?? '').replace(/\s+/g, '-')}`}>
-          <p className="teach-verdict">{reply.verdict === 'nailed' ? 'You nailed it.' : reply.verdict === 'close' ? 'Close.' : 'Not quite yet.'}</p>
+          <p className="teach-verdict">{reply.verdict === 'nailed' ? 'You nailed it!' : reply.verdict === 'close' ? 'Almost there!' : 'Good start!'}</p>
           {reply.got && <p>{reply.got}</p>}
           {reply.missed && <p><strong>Missing:</strong> {reply.missed}</p>}
           {reply.tip && <p className="note">{reply.tip}</p>}
