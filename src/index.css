@@ -182,15 +182,15 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
   h1 { font-size: 2.5rem; }
   .chips.wrap .chip { min-height: 42px; }
 }
-.rail .rail-topic { font-weight: 700; font-size: var(--ui); letter-spacing: -0.01em; margin: 6px 0 2px; }
-.rail .rail-sub { color: var(--ink-2); font-size: var(--small); margin-bottom: var(--s); }
-.rail ol { list-style: none; margin: var(--m) 0; padding: 0; border-top: 1px solid var(--tint); }
-.rail li { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--tint); font-size: var(--small); color: var(--ink-2); }
-.rail li.now { color: var(--ink); font-weight: 600; }
-.rail li.done { color: var(--pass); }
-.rail li .n { width: 1.2rem; font-variant-numeric: tabular-nums; }
-.rail .rail-links { display: flex; flex-direction: column; gap: 6px; margin-top: var(--m); }
-.rail .rail-links .quiet, .rail .rail-links .back-link { text-align: left; padding: 4px 0; }
+.rail .rail-topic, .menu-sheet .rail-topic { font-weight: 700; font-size: var(--ui); letter-spacing: -0.01em; margin: 6px 0 2px; }
+.rail .rail-sub, .menu-sheet .rail-sub { color: var(--ink-2); font-size: var(--small); margin-bottom: var(--s); }
+.rail ol, .menu-sheet ol { list-style: none; margin: var(--m) 0; padding: 0; border-top: 1px solid var(--tint); }
+.rail li, .menu-sheet li { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--tint); font-size: var(--small); color: var(--ink-2); }
+.rail li.now, .menu-sheet li.now { color: var(--ink); font-weight: 600; }
+.rail li.done, .menu-sheet li.done { color: var(--pass); }
+.rail li .n, .menu-sheet li .n { width: 1.2rem; font-variant-numeric: tabular-nums; }
+.rail .rail-links, .menu-sheet .rail-links { display: flex; flex-direction: column; gap: 6px; margin-top: var(--m); }
+.rail .rail-links .quiet, .rail .rail-links .back-link, .menu-sheet .rail-links .quiet, .menu-sheet .rail-links .back-link { text-align: left; padding: 4px 0; }
 .kbd-hint { color: var(--ink-2); font-size: var(--small); margin-top: var(--s); display: none; }
 @media (min-width: 900px) { .kbd-hint { display: block; } }
 .watch { display: flex; flex-direction: column; gap: 4px; border: 1.5px solid var(--ink); border-radius: var(--radius); padding: var(--m); text-decoration: none; color: var(--ink); margin-top: var(--m); }
