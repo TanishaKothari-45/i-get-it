@@ -3,6 +3,7 @@ import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { CHAPTER_PROMPT, POLISH_PROMPT, chapterUserMessage } from "./prompts";
 import { factCheck } from "./handbooks";
+import { FROZEN as KEEP } from "./frozen";   // chapter 1 shown in a live post or ad
 
 // Chapter 1 polish for ready topics (6 Oct): Claude scores each card on "would they keep swiping?", rewrites the weak ones,
 // then the fact check re-reads the whole chapter. Every spelling of the topic and every reader's unread copy get it.
@@ -45,7 +46,6 @@ export const queue = internalAction({
 // The 6-card chapter 1 (Prateek, 7 Oct): rewrite a ready topic's chapter 1 from its plan with today's chapter prompt,
 // fact-check it, keep the title, then swap it into every spelling of the topic and every unread copy, with fresh
 // recall questions for chapter 2 and the pictures redrawn. Run: npx convex run --prod polish:sixQueue '{"topicKeys":[...]}'
-const KEEP = new Set(["Public speaking"]);
 
 export const six = internalAction({
   args: { topicKey: v.string() },

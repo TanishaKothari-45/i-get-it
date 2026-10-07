@@ -5,6 +5,7 @@ import type { Doc, Id } from "./_generated/dataModel";
 import { DOCTOR_PROMPT } from "./prompts";
 import { factCheck } from "./handbooks";
 import { isOwner } from "./admin";
+import { FROZEN } from "./frozen";
 
 // Self-improving handbooks (6 Oct, Prateek: "if multiple people start and quit a handbook, generate a much better
 // output... and see the A/B test results"). Ready topics only: their chapter 1 is shared, so one fix serves everyone.
@@ -27,7 +28,7 @@ export const candidates = internalQuery({
     for (const h of books) { if (!byTopic.has(h.topic)) byTopic.set(h.topic, []); byTopic.get(h.topic)!.push(h); }
     const out: any[] = [];
     for (const [topic, hs] of byTopic) {
-      if (running.has(topic) || !shelf.has(topic)) continue;
+      if (running.has(topic) || !shelf.has(topic) || FROZEN.has(topic)) continue;   // frozen: shown in a live post or ad
       const quitters: any[] = [];
       for (const h of hs) {
         const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
