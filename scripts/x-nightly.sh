@@ -44,13 +44,15 @@ Drafted at $(date +%H:%M) from live numbers. Add your line, then post it yoursel
 
 ## The post
 
-Day $DAY of building I Get It in public.
+Day $DAY of building 𝙄 𝙂𝙚𝙩 𝙄𝙩 in public.
 
 $VIS visitors · $STARTED handbooks started · $PASSED passed chapter 1 · $READY ready topics
 
 [your line: answer the question below]
 
 https://sensible-mongoose-624.convex.site/?utm_source=x
+
+#IGetIt #buildinpublic #learnsomethingnew #microlearning #AIlearning #growthx
 
 ## Your question for today
 
