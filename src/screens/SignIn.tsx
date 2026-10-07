@@ -4,12 +4,12 @@ import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import ActionBar from '../components/ActionBar'
 
-type Props = { onDone: () => Promise<void>; onBack: () => void }
+type Props = { onDone: () => Promise<void>; onBack: () => void; reason?: string | null }
 
 // Sign in or sign up with a 6-digit code by email (7 Oct, Prateek: less friction than a password; no spam, ever).
 // The same code works for a new account and an existing one. Email + password stays as a fallback for accounts made
 // before 7 Oct. Copy is (agent) until Prateek rewrites it.
-export default function SignIn({ onDone, onBack }: Props) {
+export default function SignIn({ onDone, onBack, reason }: Props) {
   const { signIn } = useAuthActions()
   const [mode, setMode] = useState<'code' | 'password'>('code')
   const [step, setStep] = useState<'email' | 'code'>('email')
@@ -50,7 +50,9 @@ export default function SignIn({ onDone, onBack }: Props) {
   if (mode === 'password') {
     return (
       <>
+        {reason && <p className="why-here">{reason}</p>}
         <h1>{codesReady === false ? 'Keep reading, free.' : 'Sign in with a password.'}</h1>
+        {codesReady === false && <p className="free-banner"><strong>Free.</strong> Just an email and a password. No card, no spam, ever.</p>}
         <p className="lede">{codesReady === false ? 'An email and a password, and every chapter of every ready handbook opens. Your place is kept on any phone or laptop.' : 'For accounts made with a password. New here? A code by email is quicker.'}</p>
         <div className="field">
           <label htmlFor="email">Email</label>
@@ -77,7 +79,9 @@ export default function SignIn({ onDone, onBack }: Props) {
 
   return (
     <>
+      {reason && <p className="why-here">{reason}</p>}
       <h1>Keep reading, free.</h1>
+      <p className="free-banner"><strong>Free.</strong> Just your email. No card, no spam, ever.</p>
       <p className="lede">Your email, then a 6-digit code. Every chapter of every ready handbook opens, and your place is kept on any phone or laptop.</p>
       {step === 'email' ? (
         <div className="field">

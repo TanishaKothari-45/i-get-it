@@ -741,3 +741,12 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .moment:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 2px; }
 .moment-label { font: 600 var(--ui) var(--sans); }
 .moment-time { font-size: var(--small); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* Why you're here, and "free" said loudly (7 Oct, Prateek) */
+.why-here { margin: 10px 0 0; padding: 12px 14px; border-radius: 14px; background: var(--accent); color: var(--ink); font-weight: 600; line-height: 1.4; }
+.free-banner { margin: 10px 0; padding: 10px 14px; border-radius: 12px; border: 2px dashed var(--pass, #1f7a4d); color: var(--ink); background: color-mix(in srgb, var(--pass, #1f7a4d) 10%, transparent); font-size: var(--ui); }
+.free-banner strong { color: var(--pass, #1f7a4d); }
+.lock-card { width: 100%; padding: 16px; border-radius: 18px; border: 3px solid var(--ink); background: #fff; box-shadow: 5px 5px 0 var(--ink); display: grid; gap: 8px; text-align: left; }
+.lock-card-head { margin: 0; font: 800 1.15rem/1.25 var(--sans); }
+.lock-card-text { margin: 0; font-family: var(--serif); line-height: 1.45; }
+.lock-card .btn { width: 100%; }

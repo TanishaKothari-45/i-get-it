@@ -114,9 +114,13 @@ export default function Plan({ total = 7, onOpenChapter, topic, plan, passed, cu
       <ActionBar busy={!chapterReady && !chapterFailed} note={!chapterReady && !chapterFailed ? `Writing chapter ${current} and checking its facts… about a minute.` : undefined}>
         {lockNote ? (
           <>
-            <p className="note" style={{ marginTop: 0 }}>{lockNote}</p>
-            {onSignUp ? <button className="btn" onClick={onSignUp}>Sign up free</button>
-              : onPricing && <button className="btn btn-ghost" onClick={onPricing}>See what members get</button>}
+            <div className="lock-card">
+              <p className="lock-card-head">{onSignUp ? `Chapter ${current} is free with an account` : `Chapter ${current} opens tomorrow`}</p>
+              <p className="lock-card-text">{lockNote}</p>
+              {onSignUp && <p className="free-banner"><strong>Free.</strong> Just your email. No card, no spam, ever.</p>}
+              {onSignUp ? <button className="btn" onClick={onSignUp}>Sign up free and keep reading</button>
+                : onPricing && <button className="btn btn-ghost" onClick={onPricing}>See what members get</button>}
+            </div>
           </>
         ) : chapterFailed ? (
           <>

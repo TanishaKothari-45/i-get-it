@@ -11,7 +11,7 @@ type Tier = { tier: number; month: number; year: number; size: number | null; le
 type Pay = { live: boolean; mode: 'test' | 'live' | null; customers: number; openTier: number; tier: number; kept: boolean; price: { month: number; year: number }; payments: number; plan: PlanKind | null; paidUntil: number | null }
 type Plans = { tiers: Tier[]; freeDays: number; days: { month: number; year: number }; locked: { price: number; at: number } | null; signedIn: boolean; pay: Pay }
 type Order = { keyId: string; orderId: string; amount: number; month: number; plan: PlanKind; email?: string }
-type Props = { plans: Plans | undefined; onLock: () => Promise<{ price: number; already: boolean }>; onOrder: (plan: PlanKind) => Promise<Order>; onConfirm: (p: Paid) => Promise<{ ok: boolean }>; onBack: () => void; onSignIn: () => void; fromDone?: boolean }
+type Props = { notice?: string | null; plans: Plans | undefined; onLock: () => Promise<{ price: number; already: boolean }>; onOrder: (plan: PlanKind) => Promise<Order>; onConfirm: (p: Paid) => Promise<{ ok: boolean }>; onBack: () => void; onSignIn: () => void; fromDone?: boolean }
 
 const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
 const WHO = ['First 50', 'Next 100', 'Next 200', 'After that']
@@ -29,7 +29,7 @@ const COMPARE: { what: string; free: string; member: string }[] = [
 // Early-bird pricing (7 Oct): the first 50 paying readers pay least, and keep that price while they keep paying.
 // Every payment is one-time (a month or a year) and nothing renews by itself. Numbers come from convex/pricing.ts;
 // the spots left are the real count. Copy is (agent) until Prateek rewrites it.
-export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onSignIn, fromDone }: Props) {
+export default function Pricing({ notice, plans, onLock, onOrder, onConfirm, onBack, onSignIn, fromDone }: Props) {
   const ms = useQuery(api.membership.status, { deviceToken: deviceToken() })
   const [busy, setBusy] = useState(false)
   const [plan, setPlan] = useState<PlanKind>('month')
@@ -67,6 +67,7 @@ export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onS
   const until = (t: number) => new Date(t).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
   return (
     <>
+      {notice && <p className="why-here">{notice}</p>}
       {ms?.member && ms.until ? (
         <>
           <p className="sub" style={{ marginTop: 10 }}><span className="member-mark" style={{ marginLeft: 0 }}>Member</span></p>

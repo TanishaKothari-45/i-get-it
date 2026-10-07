@@ -88,6 +88,16 @@ export default function App() {
   // it, which uses today's reading allowance; if there's none left, the handbook screen says when it opens.
   const openChapter = useMutation(api.handbooks.openChapter)
   const [lock, setLock] = useState<{ key: string; note: string; code: string | null } | null>(null)
+  // When a chapter won't open, go straight to what unblocks it (7 Oct, Prateek): the 3 free chapters are used, so the
+  // free account; today's chapters are used, so membership (a free account has the same 3 a day). A member at 7 a day
+  // just sees the note.
+  const [signinReason, setSigninReason] = useState<string | null>(null)
+  const [pricingNotice, setPricingNotice] = useState<string | null>(null)
+  const routeLock = (code: string | null, note: string) => {
+    if (code === 'signup-more') { setSigninReason(note); setAfterSignIn('chapter'); setView('signin'); return true }
+    if (code === 'daily-free') { setPricingNotice(note); setView('pricing'); return true }
+    return false
+  }
   const chapterLocked = chapter?.status === 'ready' && !!(chapter as any).locked
   // Signing up opens what a visitor couldn't, once the handbook is attached to the account (signedIn), so the key
   // includes it and the open is tried again then.
@@ -96,7 +106,7 @@ export default function App() {
   useEffect(() => {
     if (!wantsChapter || !chapterLocked || !hb || !chapter || lock?.key === lockKey) return
     openChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token })
-      .catch((e) => setLock({ key: lockKey, code: limitCode(e), note: limitMessage(e) ?? "Couldn't open this chapter just now. Try again in a minute." }))
+      .catch((e) => { const code = limitCode(e), note = limitMessage(e) ?? "Couldn't open this chapter just now. Try again in a minute."; setLock({ key: lockKey, code, note }); routeLock(code, note) })
   }, [wantsChapter, chapterLocked, lockKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // First time in a handbook (7 Oct: 11 of 30 readers saw their plan and never opened chapter 1): go straight into
@@ -169,7 +179,7 @@ export default function App() {
   if (view === 'pricing') {
     return (
       <Shell back={{ label: 'Back', onClick: () => setView(hb ? 'plan' : 'library') }}>
-        <Pricing plans={plansData as any} fromDone={doneN === total} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={(plan) => payOrder({ plan })} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => setView(hb ? 'plan' : 'library')} onSignIn={() => signIn('pricing')} />
+        <Pricing notice={pricingNotice} plans={plansData as any} fromDone={doneN === total} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={(plan) => payOrder({ plan })} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => { setPricingNotice(null); setView(hb ? 'plan' : 'library') }} onSignIn={() => signIn('pricing')} />
       </Shell>
     )
   }
@@ -270,7 +280,7 @@ export default function App() {
   if (resolved === 'signin') {
     return (
       <Shell rail={rail} back={{ label: 'Back', onClick: () => setView(afterSignIn) }}>
-        <SignIn onDone={async () => { setView(afterSignIn === 'done' && !doneN ? 'plan' : afterSignIn) }} onBack={() => setView(afterSignIn)} />
+        <SignIn reason={signinReason} onDone={async () => { setSigninReason(null); setView(afterSignIn === 'done' && !doneN ? 'plan' : afterSignIn) }} onBack={() => { setSigninReason(null); setView(afterSignIn) }} />
       </Shell>
     )
   }
@@ -302,7 +312,7 @@ export default function App() {
           whatsNext={<WhatsNext topic={plan?.topic ?? hb.topic} deviceToken={token} onReady={async (t) => { const r = await create({ topic: t, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setDoneN(null); setView('auto') }} onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setDoneN(null); setView('auto') }} />}
           onRate={async (rating) => { await rateChapter({ handbookId: hb._id, n: doneN, rating, deviceToken: token }) }}
           nextReady={chapterReady && chapter?.n === doneN + 1}
-          onNext={() => { setDoneN(null); setView(chapterReady ? 'chapter' : 'plan') }}
+          onNext={() => { setDoneN(null); if (lockNote && lock && routeLock(lock.code, lock.note)) return; setView(chapterReady ? 'chapter' : 'plan') }}
         />
       </Shell>
     )
@@ -353,7 +363,7 @@ export default function App() {
         chapterFailed={!!chapterFailed} chapterError={(hb.chapters.find((c) => c.n === currentN) as any)?.error}
         lockNote={lockNote} onPricing={() => setView('pricing')} onSignUp={lock?.code === 'signup-more' ? () => signIn('chapter') : undefined}
         voiceNote={flash ? flash : (chapter as any)?.stale ? 'You changed how you want to be taught after this chapter was written. Tap start and it gets rewritten and fact-checked for you first, about a minute.' : hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
-        onStart={() => { if ((chapter as any)?.stale) { refreshIfStale({ handbookId: hb._id, n: currentN, deviceToken: token }).catch(() => {}) ; return } setView('chapter') }}
+        onStart={() => { if (lockNote && lock && routeLock(lock.code, lock.note)) return; if ((chapter as any)?.stale) { refreshIfStale({ handbookId: hb._id, n: currentN, deviceToken: token }).catch(() => {}) ; return } setView('chapter') }}
         onTune={() => setView('tune')}
         onCompare={!tester ? undefined : () => { if (chapter?.variants?.length) { setView('compare'); return } compareModels({ handbookId: hb._id, n: currentN, deviceToken: token }).then(() => setView('compare')).catch(() => {}) }}
         comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
