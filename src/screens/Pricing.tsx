@@ -22,7 +22,6 @@ const COMPARE: { what: string; free: string; member: string }[] = [
   { what: 'Ready and shared handbooks', free: 'Every chapter of every one', member: 'Every chapter of every one' },
   { what: 'New chapters a day', free: '3', member: '7' },
   { what: 'Web-checked answers', free: '3 a week', member: '30 a month' },
-  { what: 'Say it simpler', free: '10 a day', member: 'As many as you like' },
   { what: 'Print or save as PDF', free: '–', member: 'Any of your handbooks' },
   { what: 'Coming next', free: '–', member: 'Your learning dashboard with streaks, Indian languages, days 8 to 28: members first' },
 ]

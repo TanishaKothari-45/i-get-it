@@ -4,10 +4,9 @@ import { track } from '../lib/track'
 import Rich, { inline } from '../components/Rich'
 import AskCard from '../components/AskCard'
 import type { Id } from '../../convex/_generated/dataModel'
-import { limitCode, limitMessage } from '../lib/limits'
 
 export type Card =
-  | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string; simpler?: string; simplerFailedAt?: number }
+  | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string }
   | { type: 'watch'; who: string; what: string; url: string; from?: string; minutes?: number; watchFor: string }
   | { type: 'exercise'; kind: 'guess' | 'apply' | 'recall'; prompt: string; options: { id: string; text: string }[] }
 
@@ -33,7 +32,9 @@ type Props = {
   onPosition: (cardIndex: number, part: number) => void
   onAnswer: (item: Item, optionId: string, attempt: number) => Promise<AnswerResult>
   onFinish: (stats: { minutes: number; right: number; total: number }) => Promise<void>
-  onSimpler: (item: Item) => Promise<{ ready: boolean }>
+  // The previous chapter's "In one breath" card, shown first as "Last time" (7 Oct, Prateek): a recap that opens the
+  // chapter instead of a summary that ends it.
+  lastTime?: Card | null
   svg?: string
   pictures: Record<number, string>   // card index -> picture URL (a drawing, or a real photo), arriving after the chapter
   credits?: Record<number, { credit: string; source?: string }>   // real photos carry their licence credit
@@ -69,18 +70,19 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onSimpler, pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, lastTime, pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
-    () => [...recall.map((r) => ({ ...r, recall: true })), ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card }))],
-    [cards, recall, n],
+    () => [
+      ...(lastTime && lastTime.type !== 'exercise' && lastTime.type !== 'watch' ? [{ chapter: n - 1, cardIndex: -1, recall: true, card: { ...lastTime, title: 'Last time', body: dropNextLine(lastTime.body) } as Card }] : []),
+      ...recall.map((r) => ({ ...r, recall: true })),
+      ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card })).filter((x) => !isBreath(x.card)),
+    ],
+    [cards, recall, n, lastTime],
   )
 
   // For the Done screen's line: minutes since this chapter was opened, and quizzes right on the first try.
   const openedAt = useRef(Date.now())
   const firstTries = useRef<Map<string, boolean>>(new Map())
-  const [simplePref, setSimplePref] = useState<boolean>(() => { try { return localStorage.getItem('igetit.simple') === '1' } catch { return false } })
-  const [simplified, setSimplified] = useState<Set<number>>(() => new Set())
-  const [original, setOriginal] = useState<Set<number>>(() => new Set())
 
   const frames: Frame[] = useMemo(() => {
     const out: Frame[] = []
@@ -89,15 +91,14 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
       const c = item.card
       if (c.type === 'exercise') { out.push({ item, part: 0, parts: 1, tone: 'ink' }); continue }
       if (c.type === 'watch') { out.push({ item, part: 0, parts: 1, tone: 'indigo' }); continue }
-      const useSimple = !!c.simpler && !original.has(item.cardIndex) && (simplePref || simplified.has(item.cardIndex))
-      const ps = paragraphs(useSimple ? c.simpler! : c.body)
+      const ps = paragraphs(c.body)
       ps.forEach((text, part) => {
         const tone: Tone = c.type === 'picture' ? (part === 0 ? 'ink' : 'indigo') : c.type === 'example' ? 'cream' : c.type === 'mistake' ? 'coral' : c.type === 'try' ? 'green' : TEACH_TONES[t++ % TEACH_TONES.length]
         out.push({ item, text, part, parts: ps.length, tone, cover: c.type === 'picture' && part === 0 && !item.recall })
       })
     }
     return out
-  }, [items, simplePref, simplified, original])
+  }, [items])
 
   const firstChapterFrame = frames.findIndex((f) => !f.item.recall)
   const [i, setI] = useState(() => {
@@ -123,8 +124,6 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   const [finishing, setFinishing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [askOpen, setAskOpen] = useState(false)
-  const [rewriting, setRewriting] = useState<number | null>(null)
-  const [jumpTo, setJumpTo] = useState<number | null>(null)
 
   const exercisePassed = item.card.type === 'exercise' && (item.recall ? result?.correct === true : passedHere.has(key))
   const canAdvance = item.card.type !== 'exercise' || exercisePassed
@@ -133,22 +132,6 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   useEffect(() => { track('ch_open', { n }, `ch_open:${handbookId}:${n}`) }, [n, handbookId])
   useEffect(() => { if (!item.recall) track('card', { n, i: item.cardIndex }, `card:${handbookId}:${n}:${item.cardIndex}`) }, [n, handbookId, item.cardIndex, item.recall])
   useEffect(() => { if (!item.recall) onPosition(item.cardIndex, frame.part) }, [item.cardIndex, item.recall, frame.part]) // eslint-disable-line react-hooks/exhaustive-deps
-  // after a card's frames change (simpler/original), land on that card's first frame
-  useEffect(() => {
-    if (jumpTo === null) return
-    const at = frames.findIndex((f) => !f.item.recall && f.item.cardIndex === jumpTo)
-    if (at >= 0) setI(at)
-    setJumpTo(null)
-  }, [frames, jumpTo])
-  // a live rewrite arriving
-  const teaching = item.card.type !== 'exercise' && item.card.type !== 'watch' ? item.card : null
-  useEffect(() => {
-    if (rewriting === null) return
-    const c = cards[rewriting]
-    if (c && c.type !== 'exercise' && c.type !== 'watch' && c.simpler) { setSimplified((s) => new Set(s).add(rewriting)); setJumpTo(rewriting); setRewriting(null) }
-    if (c && c.type !== 'exercise' && c.type !== 'watch' && c.simplerFailedAt) { setRewriting(null); setError("Can't rewrite this one right now. Try again in a minute.") }
-  }, [cards, rewriting])
-
   const next = () => { if (!canAdvance) return; if (isLast) { finish(); return } setI(i + 1); reset() }
   const back = () => { if (i > 0) { setI(i - 1); reset() } else onExit() }
 
@@ -177,21 +160,6 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
     }
     finally { setFinishing(false) }
   }
-
-  const saySimpler = async () => {
-    if (!teaching) return
-    const idx = item.cardIndex
-    if (teaching.simpler) {
-      setOriginal((s) => { const x = new Set(s); x.delete(idx); return x })
-      setSimplified((s) => new Set(s).add(idx)); setSimplePref(true); try { localStorage.setItem('igetit.simple', '1') } catch {}
-      setJumpTo(idx); return
-    }
-    setRewriting(idx); setError(null)
-    try { const r = await onSimpler(item); if (r.ready) { setSimplified((s) => new Set(s).add(idx)); setJumpTo(idx); setRewriting(null) } }
-    catch (e: any) { setRewriting(null); setError(limitCode(e) === 'simpler-free' ? limitMessage(e)! : String(e?.message ?? e).includes('busy') || limitCode(e) === 'busy' ? 'A few too many rewrites in a row. Try again in a bit.' : "Couldn't rewrite this one just now. Try again in a minute.") }
-  }
-  const showOriginal = () => { const idx = item.cardIndex; setOriginal((s) => new Set(s).add(idx)); setSimplePref(false); try { localStorage.setItem('igetit.simple', '0') } catch {}; setJumpTo(idx) }
-  const showingSimpler = !!teaching?.simpler && !original.has(item.cardIndex) && (simplePref || simplified.has(item.cardIndex))
 
   // keyboard: → / Enter / Space next, ← back, 1 2 3 answer, Esc closes
   useEffect(() => {
@@ -293,10 +261,6 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
         </div>
 
         <div className="story-tools no-tap">
-          {teaching && c.type !== 'try' && (showingSimpler
-            ? <button type="button" onClick={showOriginal}>Show the original</button>
-            : rewriting === item.cardIndex ? <span>Rewriting…</span>
-            : <button type="button" onClick={saySimpler}>Say it simpler</button>)}
           {!item.recall && c.type !== 'try' && <button type="button" onClick={() => setAskOpen(true)}>Ask or object</button>}
           <span className="story-tapnote">{canAdvance ? (isLast ? 'Last one' : 'Tap →') : 'Pick one'}</span>
         </div>
@@ -344,4 +308,13 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
       )}
     </div>
   )
+}
+
+// The closing "In one breath" card moves to the start of the next chapter as "Last time" (7 Oct).
+function isBreath(c: Card) {
+  return c.type !== 'exercise' && c.type !== 'watch' && /^in one breath$/i.test((c.title ?? '').trim())
+}
+// Its last line teased this chapter ("Next: ..."); as a recap it isn't needed.
+function dropNextLine(body: string) {
+  return body.replace(/\n*\s*Next:[^\n]*$/i, '').trim()
 }

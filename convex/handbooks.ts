@@ -5,11 +5,11 @@ import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 import { briefForChapter, briefForPlan } from "./prompts";
-import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, SIMPLER_PROMPT, chapterUserMessage, planUserMessage, simplerUserMessage } from "./prompts";
+import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
 import { level } from "./schema";
 import { matchForIntent } from "./library";
 import { assignVariant } from "./doctor";
-import { COST_INR, LIMITS, isOpen, memberUntil, ownerIsMember, spendFits, tryOpen, typedAllowance } from "./membership";
+import { COST_INR, LIMITS, isOpen, memberUntil, spendFits, tryOpen, typedAllowance } from "./membership";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
 
@@ -29,17 +29,14 @@ const LANGUAGE = "English";
 const limiter = new RateLimiter(components.rateLimiter, {
   generateAll: { kind: "fixed window", rate: 60, period: HOUR },
   generateDevice: { kind: "token bucket", rate: 6, period: HOUR, capacity: 3 },
-  simplerDevice: { kind: "token bucket", rate: 30, period: HOUR, capacity: 10 },
   askDevice: { kind: "token bucket", rate: 40, period: HOUR, capacity: 8 },
-  // Free vs member (membership.ts LIMITS, 7 Oct): web-checked answers (~₹9.4 each) and simpler rewrites.
+  // Free vs member (membership.ts LIMITS, 7 Oct): web-checked answers (~₹9.4 each).
   searchFreeWeek: { kind: "fixed window", rate: LIMITS.freeSearchPerWeek, period: 7 * 24 * HOUR },
   searchMemberMonth: { kind: "fixed window", rate: LIMITS.memberSearchPerMonth, period: 30 * 24 * HOUR },
-  simplerFreeDay: { kind: "fixed window", rate: LIMITS.freeSimplerPerDay, period: 24 * HOUR },
   compareAll: { kind: "fixed window", rate: 10, period: HOUR },   // three expensive-model calls each: hard cap across the app
   // App-wide backstops for the cheaper paid calls: a made-up device token gets a fresh per-device bucket, never a fresh app bucket.
   askAll: { kind: "fixed window", rate: 200, period: HOUR },      // ~₹0.5 each
   searchAll: { kind: "fixed window", rate: 20, period: HOUR },    // ~₹9.4 each
-  simplerAll: { kind: "fixed window", rate: 300, period: HOUR },  // ~₹0.06 each
   picturesAll: { kind: "fixed window", rate: 400, period: HOUR }, // Runway pictures, 1 credit (~₹0.85) each
   teachDevice: { kind: "token bucket", rate: 20, period: HOUR, capacity: 6 },
   teachAll: { kind: "fixed window", rate: 300, period: HOUR },     // ~₹0.2 each
@@ -672,7 +669,11 @@ export const setPosition = mutation({
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
     const cards = (ch?.cards ?? []) as any[];
     const quizFree = cards.length > 0 && !cards.some((c) => c?.type === "exercise");
-    if (quizFree && cardIndex >= cards.length - 1 && !p.chaptersPassed.includes(chapter)) {
+    // The closing "In one breath" card isn't shown any more (it opens the next chapter as "Last time", 7 Oct), so the
+    // chapter passes at the last card the reader actually sees.
+    const breathLast = /^in one breath$/i.test(String(cards[cards.length - 1]?.title ?? "").trim());
+    const lastShown = cards.length - 1 - (breathLast ? 1 : 0);
+    if (quizFree && cardIndex >= lastShown && !p.chaptersPassed.includes(chapter)) {
       await ctx.db.patch(p._id, { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < totalOf(h) ? chapter + 1 : chapter, currentCard: 0, currentPart: 0, lastOpenedAt: Date.now(), updatedAt: Date.now() });
       if (chapter < totalOf(h)) await ensureChapter(ctx, h, chapter + 1);
       if (chapter === 1) { await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); }
@@ -846,54 +847,7 @@ export const attachToMe = mutation({
 });
 
 
-// ---------- "Say it simpler" ----------
 
-// Rewrites one teaching card in plainer words. Pre-generated for cached topics; live otherwise.
-export const requestSimpler = mutation({
-  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), deviceToken: v.optional(v.string()) },
-  handler: async (ctx, { handbookId, chapter, cardIndex, deviceToken }) => {
-    const h = await ownedHandbook(ctx, handbookId, deviceToken);
-    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
-    const card = ch?.cards?.[cardIndex];
-    if (!ch || !card || card.type === "exercise") throw new Error("Not a teaching card");
-    if (card.simpler) return { ready: true as const };
-    // Free readers: 10 rewrites a day; members: no daily limit (the hourly caps below still apply).
-    if (!(await ownerIsMember(ctx, h)) && !(await limiter.limit(ctx, "simplerFreeDay", { key: ownerKey(h) })).ok) throw new ConvexError("simpler-free");
-    const mine = await limiter.limit(ctx, "simplerDevice", { key: ownerKey(h) });
-    if (!mine.ok || !(await limiter.limit(ctx, "simplerAll")).ok) throw new ConvexError("busy");
-    await ctx.scheduler.runAfter(0, internal.handbooks.writeSimpler, { handbookId, chapter, cardIndex });
-    return { ready: false as const };
-  },
-});
-
-export const writeSimpler = internalAction({
-  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number() },
-  handler: async (ctx, { handbookId, chapter, cardIndex }) => {
-    const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
-    const ch = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n: chapter });
-    const card = ch?.cards?.[cardIndex];
-    if (!h || !ch || !card) return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "simpler", system: SIMPLER_PROMPT, user: simplerUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${chapter}`, card) });
-    const text = r.ok && typeof r.json?.simpler === "string" ? r.json.simpler.trim() : null;
-    await ctx.runMutation(internal.handbooks.setSimpler, { handbookId, chapter, cardIndex, simpler: text ?? "", failed: !text });
-  },
-});
-
-export const readChapter = internalQuery({
-  args: { handbookId: v.id("handbooks"), n: v.number() },
-  handler: async (ctx, { handbookId, n }) => ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique(),
-});
-
-export const setSimpler = internalMutation({
-  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), simpler: v.string(), failed: v.boolean() },
-  handler: async (ctx, { handbookId, chapter, cardIndex, simpler, failed }) => {
-    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
-    if (!ch?.cards?.[cardIndex]) return;
-    const cards = [...ch.cards];
-    cards[cardIndex] = failed ? { ...cards[cardIndex], simplerFailedAt: Date.now() } : { ...cards[cardIndex], simpler };
-    await ctx.db.patch(ch._id, { cards });
-  },
-});
 
 
 // When the cache has a newer version of a chapter this person hasn't started, swap it in.
@@ -1270,6 +1224,11 @@ export const checkCardsDry = internalAction({
     const r = await factCheck(ctx, topic, level, title, cards, { model, effort });
     return { report: r.report, ms: Date.now() - started, cards: r.cards };
   },
+});
+
+export const readChapter = internalQuery({
+  args: { handbookId: v.id("handbooks"), n: v.number() },
+  handler: async (ctx, { handbookId, n }) => ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique(),
 });
 
 // ---------- printable handbook (members, 7 Oct) ----------

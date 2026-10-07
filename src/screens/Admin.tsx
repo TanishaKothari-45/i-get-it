@@ -193,7 +193,7 @@ function ProviderSwitch() {
   return (
     <section className="adm-card adm-wide">
       <h2>AI provider</h2>
-      <p className="note">Plans, chapters, fact checks, Say it simpler, teach-backs and picture scenes use this. Ask or object stays on Claude (its web search is Claude's).{st.since ? ` Switched ${time(st.since)}.` : ''}</p>
+      <p className="note">Plans, chapters, fact checks, teach-backs and picture scenes use this. Ask or object stays on Claude (its web search is Claude's).{st.since ? ` Switched ${time(st.since)}.` : ''}</p>
       <div className="adm-tabs" role="group" aria-label="AI provider" style={{ marginTop: 10 }}>
         <button type="button" aria-pressed={st.provider === 'claude'} disabled={busy} onClick={() => flip('claude')}>Claude (Anthropic)</button>
         <button type="button" aria-pressed={st.provider === 'inference'} disabled={busy || !st.inferenceKeySet} onClick={() => flip('inference')}>DeepSeek v4 Pro (The Inference Company)</button>

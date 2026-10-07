@@ -168,7 +168,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
         <h2>Tonight, in twenty minutes.</h2>
         <ol>
           <li><img src="/images/landing/step1.jpg" alt="" loading="lazy" /><span className="lp-n">1</span><h3>Type it.</h3><p>Whatever you keep meaning to learn, in your own words. You get a seven-chapter plan for it in about 40 seconds.</p></li>
-          <li><img src="/images/landing/step2.jpg" alt="" loading="lazy" /><span className="lp-n">2</span><h3>Tap through chapter 1.</h3><p>Full-screen frames, one idea each, with pictures. Stuck? Ask it, or have it said simpler.</p></li>
+          <li><img src="/images/landing/step2.jpg" alt="" loading="lazy" /><span className="lp-n">2</span><h3>Tap through chapter 1.</h3><p>Full-screen frames, one idea each, with pictures. Stuck? Ask it.</p></li>
           <li><img src="/images/landing/step3.jpg" alt="" loading="lazy" /><span className="lp-n">3</span><h3>Light the first rung.</h3><p>Read to the end of chapter 1 and the first rung lights up. No quizzes tonight: chapter 2 opens with two quick questions on what stuck.</p></li>
         </ol>
       </section>

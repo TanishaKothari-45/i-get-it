@@ -110,8 +110,6 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .card.picture-card .serif { font-style: italic; }
 .card .kicker { font-size: var(--small); color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-top: var(--l); }
 .mistake { border-left: 3px solid var(--accent); padding-left: var(--m); }
-.simpler-row { margin-top: var(--l); color: var(--ink-2); font-size: var(--small); }
-.simpler-row .quiet { font-size: var(--small); padding: 0; }
 .try { border: 1.5px dashed var(--tint); border-radius: var(--radius); padding: var(--m); }
 
 /* exercise */
@@ -725,3 +723,21 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
    the button and the cover picture off a 390 px phone). */
 .lp-hero > * { min-width: 0; }
 .lp-hero-art { max-width: 100%; }
+
+/* Up next card on the Done screen (7 Oct) */
+.upnext { margin: var(--l) 0 0; border: 3px solid var(--ink); border-radius: 22px; overflow: hidden; background: var(--paper, #fff); box-shadow: 6px 6px 0 var(--ink); }
+.upnext-pic { aspect-ratio: 16 / 9; overflow: hidden; background: var(--paper-2, #f1ece1); }
+.upnext-pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.upnext-body { padding: 16px 18px 18px; display: grid; gap: 6px; }
+.upnext-kicker { margin: 0; font: 700 var(--small) var(--sans); letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-deep); }
+.upnext-title { margin: 0; font-size: 1.35rem; line-height: 1.2; }
+.upnext-hook { margin: 0; font-family: var(--serif); font-style: italic; font-size: 1.05rem; line-height: 1.45; }
+.upnext-btn { margin-top: 10px; width: 100%; }
+/* Reminder moments */
+.moments { display: grid; gap: 8px; margin-top: var(--s); }
+.moment { all: unset; box-sizing: border-box; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 12px 14px; min-height: 48px; border-radius: 14px; border: 1.5px solid var(--tint); background: #fff; }
+.moment[aria-pressed="true"] { border-color: var(--ink); background: var(--accent); }
+.moment:disabled { opacity: 0.6; }
+.moment:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 2px; }
+.moment-label { font: 600 var(--ui) var(--sans); }
+.moment-time { font-size: var(--small); color: var(--ink-2); font-variant-numeric: tabular-nums; }

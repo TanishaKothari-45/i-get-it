@@ -12,8 +12,8 @@ import { isOwner } from "./admin";
 //   Signed up (free): every chapter of every ready and shared handbook and of their 1 typed handbook, up to 3 new
 //         chapters a day. A second typed handbook asks them to become a member.
 //   Member: 3 typed handbooks on the go (at most 6 new a month, a cost guard), 7 new chapters a day, 30 web-checked
-//         answers a month, unlimited "Say it simpler", a printable handbook, first access to what's coming.
-//   Everyone not paying: 3 web-checked answers a week, 10 "Say it simpler" a day.
+//         answers a month, a printable handbook, first access to what's coming.
+//   Everyone not paying: 3 web-checked answers a week.
 // Accounts can be made up (no email check yet), so free readers' new typed topics and web answers also stop once
 // readers have cost DAILY_BUDGET_INR today. Members never hit it: paying is the one thing that can't be faked cheaply.
 export const LIMITS = {
@@ -25,7 +25,6 @@ export const LIMITS = {
   memberChaptersPerDay: 7,
   freeSearchPerWeek: 3,
   memberSearchPerMonth: 30,
-  freeSimplerPerDay: 10,
   dailyBudgetInr: 1000,
 } as const;
 

@@ -18,12 +18,6 @@ export function chapterUserMessage(plan: unknown, level: "new" | "some", languag
   return `Plan: ${JSON.stringify(plan)}\nLevel: ${level}\nLanguage: ${language}\nVoice: ${voice}${reader ? `\nReader: ${reader}` : ""}${howTheyDid ? `\nHow the reader did so far:\n${howTheyDid}` : ""}\nWrite chapter ${n}.`;
 }
 
-export const SIMPLER_PROMPT = "Rewrite one card from a short handbook for someone meeting the idea for the very first time. Same idea, same facts, nothing new. Plain everyday words, short sentences, one everyday comparison if it helps. 40 to 80 words. Keep **bold** on the one idea (one bolded phrase). No headings, no lists, no emoji. Never say 'in simple terms' or 'basically'. Return JSON only: {\"simpler\": \"...\"}";
-
-export function simplerUserMessage(topic: string, chapterTitle: string, card: { type: string; title?: string; body: string }) {
-  return `Topic: ${topic}\nChapter: ${chapterTitle}\nCard type: ${card.type}${card.title ? `\nCard title: ${card.title}` : ""}\nCard text:\n${card.body}`;
-}
-
 export const ASK_PROMPT = "You are the voice of a short teaching handbook, answering one reader's question about one card they just read. Answer only from the card text and the chapter title given; if the answer isn't there, say so in one line and point to what the card does say. Match the reader's profile if given. Plain words, at most 90 words, one everyday comparison if it helps, no headings, no lists, no emoji, never 'great question'. If the reader objects or disagrees, take the objection seriously: concede what is true, then say what the card would answer. Return JSON only: {\"answer\": \"...\"}";
 
 export function askUserMessage(topic: string, chapterTitle: string, card: { type: string; title?: string; body: string }, question: string, reader?: string) {

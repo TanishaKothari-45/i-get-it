@@ -50,7 +50,6 @@ export default function App() {
   const startFromLibrary = useMutation(api.library.start)
   const setTomorrow = useMutation(api.handbooks.setTomorrow)
   const attachToMe = useMutation(api.handbooks.attachToMe)
-  const requestSimpler = useMutation(api.handbooks.requestSimpler)
   const saveProfile = useMutation(api.handbooks.saveProfile)
   const refreshIfStale = useMutation(api.handbooks.refreshIfStale)
   const compareModels = useMutation(api.handbooks.compareModels)
@@ -282,6 +281,7 @@ export default function App() {
       <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail} back={toPlan}>
         <Done
           total={total}
+          nextPicture={firstPicture((hb.chapters.find((c) => c.n === (doneN ?? 0) + 1) as any)?.pictures)}
           topic={plan?.topic ?? hb.topic}
           n={doneN}
           passed={passed}
@@ -313,6 +313,7 @@ export default function App() {
       <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
         <Chapter
           total={total}
+          lastTime={((hb.chapters.find((c) => c.n === chapter.n - 1)?.cards ?? []) as any[]).find((c) => c.type !== 'exercise' && /^in one breath$/i.test((c.title ?? '').trim())) ?? null}
           key={`${hb._id}-${chapter.n}`}
           topic={plan?.topic ?? hb.topic}
           n={chapter.n}
@@ -326,7 +327,6 @@ export default function App() {
           onPosition={(cardIndex, part) => { setReadingN(chapter.n); setView('chapter'); setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, part, deviceToken: token }).catch(() => {}) }}
           onAnswer={async (item, optionId, attempt) => { setReadingN(chapter.n); setView('chapter'); return (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult }}
           onFinish={async (stats) => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneStats(stats); setDoneN(chapter.n); setView('done') }}
-          onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}
           credits={(chapter as any).credits ?? {}}

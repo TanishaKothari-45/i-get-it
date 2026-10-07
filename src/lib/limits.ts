@@ -13,7 +13,6 @@ export function limitMessage(e: any): string | null {
     case 'daily-free': return "That's 3 new chapters today. More open tomorrow; members read up to 7 a day."
     case 'signup-more': return "That's the 3 free chapters. Sign up free to keep reading: every chapter of this handbook, and of every ready one, opens with an account. One email with a code, no spam."
     case 'daily-member': return "That's 7 new chapters today, well over two hours. The next one opens tomorrow."
-    case 'simpler-free': return "That's 10 simpler rewrites today. Members get as many as they like."
     case 'busy': return 'Busy right now. Try again in a few minutes.'
     default: return null
   }
