@@ -38,7 +38,7 @@ type Props = {
 // Reminder moments (7 Oct, Prateek: "more casual and witty"): a moment in the day, the clock underneath. Copy (agent).
 const TIMES: { at: string; label: string }[] = [
   { at: '07:30', label: 'With the morning chai' },
-  { at: '13:00', label: 'Lunch break, one hand free' },
+  { at: '13:00', label: 'At lunch, one hand free' },
   { at: '19:00', label: 'On the ride home' },
   { at: '21:00', label: 'After dinner, before the scroll' },
   { at: '22:30', label: 'In bed, instead of reels' },
@@ -166,8 +166,8 @@ function Reminder({ n, tomorrowAt, onPickTime, handbookId, deviceToken }: { n: n
   }
   return (
     <section className="remind">
-      <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `Deal. See you ${momentOf(tomorrowAt) ?? `at ${pretty(tomorrowAt)}`}.` : `Chapter ${n + 1} is 20 minutes. When do you have 20 minutes?`}</h2>
-      {!tomorrowAt && <p className="note" style={{ marginTop: 0 }}>Pick one and we'll nudge you once, then leave you alone.</p>}
+      <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `Deal. See you ${momentOf(tomorrowAt) ?? `at ${pretty(tomorrowAt)}`}.` : `Chapter ${n + 1} takes twenty minutes. When do you have them?`}</h2>
+      {!tomorrowAt && <p className="note" style={{ marginTop: 0 }}>Pick one. One nudge a day at that time, and none on days you've already read.</p>}
       <div className="moments">
         {TIMES.map((t) => (
           <button key={t.at} type="button" className="moment" aria-pressed={tomorrowAt === t.at} disabled={!!saving} onClick={() => pick(t.at)}>
@@ -179,7 +179,7 @@ function Reminder({ n, tomorrowAt, onPickTime, handbookId, deviceToken }: { n: n
       {installable && !isStandalone() && (
         <button type="button" className="quiet" onClick={async () => { await install(); setInstallable(false) }}>Add I Get It to your home screen</button>
       )}
-      {!installable && isIOS() && !isStandalone() && !note && <p className="note">Tip: on iPhone, Share, then Add to Home Screen, puts I Get It next to your apps.</p>}
+      {!installable && isIOS() && !isStandalone() && !note && <p className="note">Tip: on iPhone, tap Share, then Add to Home Screen, to keep I Get It next to your apps.</p>}
     </section>
   )
 }
