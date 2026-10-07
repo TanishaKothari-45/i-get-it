@@ -17,7 +17,7 @@ import { nismBrief } from "./nism";
 // never fatal: the plan is written without it.
 const PROMPT = `You are the researcher for I Get It, which writes a short handbook for one person who typed what they want to learn. Before anything is written, decide what kind of handbook this request needs and gather the facts it must rest on.
 
-Run 1 to 4 web searches (Wikipedia, IMDb, official sites, reputable explainers, YouTube recaps for stories). Use only what the searches show plus facts you are certain of.
+Run 1 to 4 web searches. Choose sources on their merits for this topic and this reader: whatever is most accurate, clear and current. No kind of source is preferred or required. Use only what the searches show plus facts you are certain of.
 
 Decide:
 - "kind": film | series | book | game | franchise | event | person | recipe | howto | skill | subject | money | health | legal | other.
@@ -25,7 +25,7 @@ Decide:
 - "chapters": quick = 1 to 3 (one film is usually 1 or 2; a whole franchise or a long series 3); course = 7.
 - "framing": for quick, one friendly line in your own words telling them this doesn't need weeks, e.g. "This doesn't need weeks of study. Let's run through it quickly and get you going." For course, null.
 - "wikipediaTitle": the exact English Wikipedia article title of the main work or subject, if one clearly exists, else null.
-- "recapVideo": for film, series, book, game or franchise, the URL of one YouTube recap or explainer you saw in the results (https://www.youtube.com/watch?v=...), else null. Only a URL you actually saw.
+- "recapVideo": null, unless a YouTube video in your results is genuinely the best account of a story's events (then its https://www.youtube.com/watch?v=... URL). Don't search for one specially. Only a URL you actually saw.
 - "facts": 8 to 20 one-line facts the handbook must get right: names and who they are, the order of events, numbers, dates, rules. Specific, checkable, from the searches.
 - "sources": up to 6 {"title","url"} you actually saw in the results. Never invent a URL.
 

@@ -35,6 +35,8 @@ type Props = {
   // The previous chapter's "In one breath" card, shown first as "Last time" (7 Oct, Prateek): a recap that opens the
   // chapter instead of a summary that ends it.
   lastTime?: Card | null
+  // Readers on the easier level (missed something last chapter): the re-teach for what they missed, after "Last time".
+  recapReteach?: string[]
   svg?: string
   pictures: Record<number, string>   // card index -> picture URL (a drawing, or a real photo), arriving after the chapter
   credits?: Record<number, { credit: string; source?: string }>   // real photos carry their licence credit
@@ -70,14 +72,15 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, lastTime, pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, lastTime, recapReteach = [], pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [
       ...(lastTime && lastTime.type !== 'exercise' && lastTime.type !== 'watch' ? [{ chapter: n - 1, cardIndex: -1, recall: true, card: { ...lastTime, title: 'Last time', body: dropNextLine(lastTime.body) } as Card }] : []),
+      ...(recapReteach.length ? [{ chapter: n - 1, cardIndex: -2, recall: true, card: { type: 'teach', title: 'Before we go on', body: recapReteach.join('\n\n') } as Card }] : []),
       ...recall.map((r) => ({ ...r, recall: true })),
       ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card })).filter((x) => !isBreath(x.card)),
     ],
-    [cards, recall, n, lastTime],
+    [cards, recall, n, lastTime, recapReteach],
   )
 
   // For the Done screen's line: minutes since this chapter was opened, and quizzes right on the first try.

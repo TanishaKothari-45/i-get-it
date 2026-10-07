@@ -330,6 +330,7 @@ export default function App() {
       <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
         <Chapter
           total={total}
+          recapReteach={(chapter as any).recapReteach ?? []}
           lastTime={((hb.chapters.find((c) => c.n === chapter.n - 1)?.cards ?? []) as any[]).find((c) => c.type !== 'exercise' && /^in one breath$/i.test((c.title ?? '').trim())) ?? null}
           key={`${hb._id}-${chapter.n}`}
           topic={plan?.topic ?? hb.topic}

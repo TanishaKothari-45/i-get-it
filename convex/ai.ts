@@ -44,15 +44,17 @@ const HAIKU = "claude-haiku-4-5-20251001";
 const OPUS = "claude-opus-5-5";
 const SONNET = "claude-sonnet-5-5";
 type Effort = "low" | "medium" | "high" | "xhigh" | "max";
-type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach" | "intent";
+type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach" | "intent" | "versions" | "match";
 // Per-job table, set by Prateek 6 Oct: quality first, cost and latency to be handled with prices or limits later.
 // Thinking counts against max_tokens, so max-effort jobs get large caps (and stream; see callAnthropic).
 const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> = {
   plan: { model: OPUS, effort: "high", maxTokens: 32000 },
+  versions: { model: SONNET, effort: "low", maxTokens: 12000 },   // 7 Oct: easier and harder quiz versions from a finished chapter (Opus writing them doubled a chapter's cost)
+  match: { model: HAIKU, maxTokens: 300 },   // 7 Oct: does a typed topic match a handbook we already have (by meaning)?
   intent: { model: HAIKU, maxTokens: 600 },   // "What's it for?": three goals in about a second, before the plan   // 6 Oct: "max" thought >5 min, hit 32k and was cut off (2 of 2)
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
   simpler: { model: SONNET, effort: "medium", maxTokens: 8000 },   // 6 Oct: "max" thought 49 s and was cut off at 8,000 with no answer
-  chapter: { model: OPUS, effort: "medium", maxTokens: 16000 },
+  chapter: { model: OPUS, effort: "medium", maxTokens: 32000 },   // 7 Oct: three quiz versions plus thinking passed 16,000
   scenes: { model: SONNET, effort: "low", maxTokens: 4000 },   // 6 Oct: Sonnet, not Haiku: deciding which cards get a real photo needs judgment
   audit: { model: OPUS, effort: "high", maxTokens: 16000 },
   repair: { model: OPUS, effort: "medium", maxTokens: 16000 },
@@ -148,7 +150,7 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))) },
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent"), v.literal("versions"), v.literal("match")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))) },
   handler: async (ctx, { kind, system, user, model, effort }): Promise<Result> => {
     const started = Date.now();
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;

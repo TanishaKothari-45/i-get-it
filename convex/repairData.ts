@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { internal } from "./_generated/api";
 import { internalMutation, internalQuery } from "./_generated/server";
 import { level } from "./schema";
 
@@ -210,6 +211,7 @@ export const replaceCards = internalMutation({
       await ctx.db.patch(ch._id, { cards, ...extra, ...(resetPictures ? { picturesStatus: undefined } : {}) });
       copies++;
     }
+    await ctx.scheduler.runAfter(0, internal.shelf.syncReadyTopic, { topic: row.topic });
     return { rows, copies };
   },
 });
@@ -222,6 +224,7 @@ export const dropCacheRow = internalMutation({
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
     if (!row) return { removed: 0 };
     await ctx.db.delete(row._id);
+    await ctx.scheduler.runAfter(0, internal.shelf.syncReadyTopic, { topic: row.topic });
     return { removed: 1, topic: row.topic };
   },
 });

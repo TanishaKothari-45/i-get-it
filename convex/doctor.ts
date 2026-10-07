@@ -111,6 +111,7 @@ export const countPass = internalMutation({
 
 async function promote(ctx: MutationCtx, e: Doc<"experiments">) {
   await ctx.runMutation(internal.repairData.replaceCards, { topicKey: e.topicKey, level: e.level, n: 1, cards: e.b.cards });
+  await ctx.scheduler.runAfter(0, internal.shelf.syncReadyTopic, { topic: e.topic });
   for (const c of await ctx.db.query("cache").collect()) {
     if (c.topic !== e.topic || c.level !== e.level) continue;
     await ctx.db.patch(c._id, { improvedAt: Date.now(), chapters: c.chapters.map((x: any) => (x.n === 1 ? { ...x, cards: e.b.cards, ...(e.b.pictures ? { pictures: e.b.pictures } : {}) } : x)) });

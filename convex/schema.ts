@@ -34,14 +34,16 @@ export default defineSchema({
     plan: v.optional(v.any()),    // { topic, outcome7, horizon14, horizon28, picture, chapters[7] }
     ownerToken: v.optional(v.string()),
     userId: v.optional(v.id("users")),
-    brief: v.optional(v.any()),   // research before writing (research.ts, 7 Oct): format, chapter count, facts, sources, plot, recap, NISM
+    brief: v.optional(v.any()),
+    researchStartedAt: v.optional(v.number()),   // research runs while the reader picks a goal (7 Oct)   // research before writing (research.ts, 7 Oct): format, chapter count, facts, sources, plot, recap, NISM
     source: v.union(v.literal("live"), v.literal("cache")),
     error: v.optional(v.string()),
     hiddenAt: v.optional(v.number()),   // a duplicate topic found when two devices merged at sign-in; kept, not deleted
     createdAt: v.number(),
   })
     .index("by_token", ["ownerToken"])
-    .index("by_user", ["userId"]),
+    .index("by_user", ["userId"])
+    .index("by_created", ["createdAt"]),
 
   chapters: defineTable({
     handbookId: v.id("handbooks"),
@@ -55,6 +57,8 @@ export default defineSchema({
     // Runway pictures, one per teaching card (design/style-anchor.md). Drawn after the chapter is ready.
     pictures: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")), credit: v.optional(v.string()), source: v.optional(v.string()) }))),
     picturesStatus: v.optional(v.string()),   // "drawing" | "done" | "failed" | "skipped"
+    quizTiers: v.optional(v.any()),     // { easier: [...], harder: [...] }: one per exercise card, in order (7 Oct)
+    recallTiers: v.optional(v.any()),   // the same for recallCards
     factCheck: v.optional(v.object({ status: v.string(), fixes: v.number(), notes: v.array(v.string()), model: v.optional(v.string()), at: v.number() })),  // live chapters: "passed" | "fixed" | "unchecked"
     cacheVersion: v.optional(v.number()),
     title: v.optional(v.string()),
@@ -162,6 +166,7 @@ export default defineSchema({
     mode: v.optional(v.string()),
     plan: v.any(),
     chapter1: v.any(),                 // { title, cards, outcomeLine, svg, pictures, recallCards }
+    chapters: v.optional(v.any()),     // { "2": {...}, "3": {...} }: later chapters as readers first unlock them (7 Oct)
     sourceHandbookId: v.id("handbooks"),
     published: v.boolean(),
     pick: v.optional(v.boolean()),     // the owner's pick
@@ -272,6 +277,18 @@ export default defineSchema({
   }),
 
   // Every model call, so the last 100 can be read.
+  // The shelf (7 Oct): one light row per ready topic and shared handbook, for the pages every visitor loads (shelf.ts).
+  shelf: defineTable({
+    kind: v.union(v.literal("ready"), v.literal("shared")),
+    topic: v.string(), key: v.string(), title: v.string(), level: v.string(),
+    mode: v.optional(v.string()), goal: v.optional(v.string()), outcome: v.string(),
+    cover: v.optional(v.id("_storage")),
+    trendingWeek: v.optional(v.string()), addedAt: v.number(), improvedAt: v.optional(v.number()),
+    stories: v.optional(v.any()),
+    libraryId: v.optional(v.id("library")), pick: v.optional(v.boolean()), published: v.boolean(),
+    starts: v.number(), passes: v.number(),
+  }).index("by_topic_kind", ["topic", "kind"]).index("by_library", ["libraryId"]).index("by_kind", ["kind"]),
+
   // Estimated spend per IST day, model and job (costs.ts, 7 Oct): what /admin's cost view reads.
   costDaily: defineTable({
     day: v.string(),
@@ -310,5 +327,5 @@ export default defineSchema({
     trendingWeek: v.optional(v.string()),   // "2026-10-05": built that week from what's trending on social media
     improvedAt: v.optional(v.number()),     // chapter 1 replaced by an A/B winner (shows "Just improved")
     addedAt: v.optional(v.number()),
-  }).index("by_key", ["topicKey", "level"]),
+  }).index("by_key", ["topicKey", "level"]).index("by_topic", ["topic"]),
 });

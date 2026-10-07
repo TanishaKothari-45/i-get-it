@@ -37,6 +37,7 @@ import type * as repair from "../repair.js";
 import type * as repairData from "../repairData.js";
 import type * as research from "../research.js";
 import type * as settings from "../settings.js";
+import type * as shelf from "../shelf.js";
 import type * as stats from "../stats.js";
 import type * as trending from "../trending.js";
 
@@ -76,6 +77,7 @@ declare const fullApi: ApiFromModules<{
   repairData: typeof repairData;
   research: typeof research;
   settings: typeof settings;
+  shelf: typeof shelf;
   stats: typeof stats;
   trending: typeof trending;
 }>;

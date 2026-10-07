@@ -114,6 +114,16 @@ async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: stri
   await Promise.all(Array.from({ length: Math.min(AT_ONCE, toDraw.length) }, async () => {
     while (next < toDraw.length) { const k = toDraw[next++]; drawn[k] = await drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${scenes[k].scene} ${PICTURE_NEVER}`); }
   }));
+  // Backup (7 Oct, Prateek): when Runway refuses a drawing (its daily limit, an outage), use a free, openly licensed
+  // Wikimedia photo found from the card's title and the topic. No photo is used twice in one chapter.
+  const usedSources = new Set(photos.filter(Boolean).map((p) => p!.source));
+  for (const k of toDraw) {
+    if (drawn[k]?.ok) continue;
+    const card = cards[scenes[k].card] ?? {};
+    const query = scenes[k].real ?? `${String(card.title ?? "").replace(/^in one breath$/i, "")} ${topic}`.trim();
+    const photo = query ? await commonsPhoto(ctx, query) : null;
+    if (photo && !usedSources.has(photo.source)) { photos[k] = photo; usedSources.add(photo.source); }
+  }
   const pictures: Picture[] = scenes.map((s, k) => photos[k] ? { card: s.card, scene: s.scene, storageId: photos[k]!.storageId, credit: photos[k]!.credit, source: photos[k]!.source }
     : { card: s.card, scene: s.scene, storageId: drawn[k]?.ok ? (drawn[k] as any).storageId : undefined });
   return { status: pictures.some((p) => p.storageId) ? "done" : "failed", pictures };

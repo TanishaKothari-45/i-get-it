@@ -19,32 +19,26 @@ export function weekStartIST(t = Date.now()): string {
 export const content = query({
   args: {},
   handler: async (ctx) => {
-    const rows = (await ctx.db.query("cache").collect()).filter((r) => r.level === "new");
     const url = async (id?: any) => (id ? await ctx.storage.getUrl(id) : null);
     const pictureFor = async (ch: any, card: number) => url(ch?.pictures?.find((p: any) => p.card === card)?.storageId);
-
-    // One shelf entry per real topic (several spellings share one row's content).
-    const seen = new Map<string, any>();
-    for (const r of rows) if (!seen.has(r.topic)) seen.set(r.topic, r);
+    // The shelf (shelf.ts) holds one light row per ready topic, so this page never loads every full handbook (7 Oct).
+    const rows = (await ctx.db.query("shelf").withIndex("by_kind", (q) => q.eq("kind", "ready")).collect()).filter((r) => r.level === "new");
     // Real numbers for the carousel pills (6 Oct): started this week, share passing chapter 1, trending, new.
     const excluded = await ctx.db.query("statsExcluded").collect();
     const xTokens = new Set(excluded.map((e) => e.deviceToken).filter(Boolean) as string[]);
-    const books = (await ctx.db.query("handbooks").collect()).filter((h) => h.source === "cache" && !h.ownerToken?.startsWith("abuse-") && !(h.ownerToken && xTokens.has(h.ownerToken)));
     const weekAgo = Date.now() - 7 * 24 * 3600000;
+    const recent = (await ctx.db.query("handbooks").withIndex("by_created", (q) => q.gte("createdAt", weekAgo)).collect())
+      .filter((h) => h.source === "cache" && !h.ownerToken?.startsWith("abuse-") && !(h.ownerToken && xTokens.has(h.ownerToken)));
     const thisWeek = weekStartIST();
     const shelf = [];
-    for (const r of seen.values()) {
-      const ch1 = r.chapters.find((c: any) => c.n === 1);
-      const mine = books.filter((h) => h.topic === r.topic);
-      let passed = 0;
-      for (const h of mine) { const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique(); if (p?.chaptersPassed.includes(1)) passed++; }
-      shelf.push({ topic: r.plan?.topic ?? r.topic, outcome: String(r.plan?.outcome7 ?? "").split(/(?<=\.)\s/)[0], cover: await pictureFor(ch1, 0),
-        week: mine.filter((h) => h.createdAt >= weekAgo).length, starts: mine.length, passRate: mine.length >= 3 ? passed / mine.length : null,
-        trending: r.trendingWeek === thisWeek, addedAt: r.addedAt ?? r._creationTime, mode: r.plan?.mode ?? null,
+    for (const r of rows) {
+      shelf.push({ topic: r.title, outcome: r.outcome, cover: await url(r.cover),
+        week: recent.filter((h) => h.topic === r.topic).length, starts: r.starts, passRate: r.starts >= 3 ? r.passes / r.starts : null,
+        trending: r.trendingWeek === thisWeek, addedAt: r.addedAt, mode: r.mode ?? null,
         improved: !!r.improvedAt && Date.now() - r.improvedAt < 14 * 24 * 3600000 });
     }
 
-    const demoRow = rows.find((r) => r.topicKey === DEMO_TOPIC);
+    const demoRow = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", DEMO_TOPIC).eq("level", "new")).unique();
     const ch = demoRow?.chapters.find((c: any) => c.n === 1);
     const frames: any[] = [];
     if (ch) {
@@ -71,16 +65,12 @@ export const content = query({
 export const waitStory = query({
   args: { seed: v.number() },
   handler: async (ctx, { seed }) => {
-    const rows = (await ctx.db.query("cache").collect()).filter((r) => r.level === "new");
-    const seen = new Map<string, any>();
-    for (const r of rows) if (!seen.has(r.topic)) seen.set(r.topic, r);
+    const rows = await ctx.db.query("shelf").withIndex("by_kind", (q) => q.eq("kind", "ready")).collect();
     const stories: { topic: string; chapter: string; title?: string; text: string; storageId: any }[] = [];
-    for (const r of seen.values()) for (const ch of r.chapters) (ch.cards ?? []).forEach((c: any, i: number) => {
-      const pic = ch.pictures?.find((p: any) => p.card === i && p.storageId);
-      if (c?.type === "example" && typeof c.body === "string" && pic) stories.push({ topic: r.plan?.topic ?? r.topic, chapter: ch.title ?? `Chapter ${ch.n}`, title: c.title, text: c.body, storageId: pic.storageId });
-    });
+    for (const r of rows) for (const st of (r.stories ?? []) as any[]) stories.push({ topic: r.title, chapter: st.chapter, title: st.title ?? undefined, text: st.text, storageId: st.storageId });
     if (!stories.length) return null;
     const s = stories[Math.abs(Math.floor(seed)) % stories.length];
     return { topic: s.topic, chapter: s.chapter, title: s.title ?? null, text: s.text, picture: await ctx.storage.getUrl(s.storageId), count: stories.length };
   },
 });
+
