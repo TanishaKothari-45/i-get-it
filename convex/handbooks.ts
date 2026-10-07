@@ -145,12 +145,13 @@ function publicCards(cards: any[] | undefined) {
 }
 
 async function publicChapter(ctx: QueryCtx, ch: Doc<"chapters">, open = true) {
-  // A chapter not opened yet (daily reading limits, membership.ts) goes out without its cards: "locked" until openChapter.
-  if (ch.status === "ready" && !open) return { n: ch.n, status: ch.status, title: ch.title, outcomeLine: ch.outcomeLine, cards: undefined, error: ch.error, svg: (ch as any).svg, stale: ch.stale ?? false, variants: undefined, vote: ch.vote, pictures: {}, credits: {}, picturesPending: false, locked: true };
-  const variants = ch.variants?.map((vnt: any) => ({ key: vnt.key, status: vnt.status, title: vnt.title, outcomeLine: vnt.outcomeLine, svg: vnt.svg, cards: publicCards(vnt.cards) }));
   const pictures: Record<number, string> = {};
   const credits: Record<number, { credit: string; source?: string }> = {};
   for (const p of ch.pictures ?? []) if (p.storageId) { const url = await ctx.storage.getUrl(p.storageId); if (url) pictures[p.card] = url; if (p.credit) credits[p.card] = { credit: p.credit, source: p.source }; }
+  // A chapter not opened yet (daily reading limits, membership.ts) goes out without its cards: "locked" until openChapter.
+  // Its pictures still go out: the handbook's cover is chapter 1's first picture (7 Oct: covers went blank).
+  if (ch.status === "ready" && !open) return { n: ch.n, status: ch.status, title: ch.title, outcomeLine: ch.outcomeLine, cards: undefined, error: ch.error, svg: (ch as any).svg, stale: ch.stale ?? false, variants: undefined, vote: ch.vote, pictures, credits, picturesPending: false, locked: true };
+  const variants = ch.variants?.map((vnt: any) => ({ key: vnt.key, status: vnt.status, title: vnt.title, outcomeLine: vnt.outcomeLine, svg: vnt.svg, cards: publicCards(vnt.cards) }));
   return { n: ch.n, status: ch.status, title: ch.title, outcomeLine: ch.outcomeLine, cards: publicCards(ch.cards), error: ch.error, svg: (ch as any).svg, stale: ch.stale ?? false, variants, vote: ch.vote, pictures, credits, picturesPending: ch.status === "ready" && !Object.keys(pictures).length && ch.picturesStatus !== "failed" && ch.picturesStatus !== "skipped" && !!ch.cards };
 }
 
@@ -626,7 +627,9 @@ export const setCachePictures = internalMutation({
     for (const r of await ctx.db.query("cache").collect()) {
       if (r.level !== lvl || r.topic !== row.topic) continue;
       const c = r.chapters.find((x: any) => x.n === n);
-      if (!c || c.title !== title || (r.topicKey !== topicKey && c.pictures?.length)) continue;
+      // Fill a copy when the new set is more complete than what it has (7 Oct: Western philosophy had 1 of 7).
+      const stored = (x: any[] | undefined) => (x ?? []).filter((q: any) => q.storageId).length;
+      if (!c || c.title !== title || (r.topicKey !== topicKey && stored(c.pictures) >= stored(pictures))) continue;
       await ctx.db.patch(r._id, { chapters: r.chapters.map((x: any) => (x.n === n ? { ...x, pictures } : x)) });
       keys.add(r.topicKey);
     }
@@ -634,7 +637,7 @@ export const setCachePictures = internalMutation({
     for (const h of await ctx.db.query("handbooks").collect()) {
       if (h.source !== "cache" || !keys.has(h.topicKey) || h.level !== lvl) continue;
       const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
-      if (!ch || ch.pictures?.length || ch.title !== title) continue;
+      if (!ch || ch.title !== title || (ch.pictures ?? []).filter((q: any) => q.storageId).length >= pictures.filter((q) => q.storageId).length) continue;
       await ctx.db.patch(ch._id, { pictures, picturesStatus: "done" });
       copies++;
     }
