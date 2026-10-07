@@ -2,5 +2,5 @@
 // 6-card rewrite (polish:six), not the nightly doctor's A/B tests. Add the topic's exact stored name.
 export const FROZEN = new Set<string>([
   "Public speaking",                              // Instagram carousel instagram.com/p/DeKVxKJEsHL
-  "Stocks, bonds and mutual funds, explained",    // the international finance ad (7 Oct)
+  "Stocks, bonds and mutual funds",               // the international finance ad (7 Oct)
 ]);

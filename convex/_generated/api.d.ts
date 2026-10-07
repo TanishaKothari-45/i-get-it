@@ -17,6 +17,7 @@ import type * as crons from "../crons.js";
 import type * as doctor from "../doctor.js";
 import type * as evalModels from "../evalModels.js";
 import type * as events from "../events.js";
+import type * as frozen from "../frozen.js";
 import type * as handbooks from "../handbooks.js";
 import type * as http from "../http.js";
 import type * as images from "../images.js";
@@ -57,6 +58,7 @@ declare const fullApi: ApiFromModules<{
   doctor: typeof doctor;
   evalModels: typeof evalModels;
   events: typeof events;
+  frozen: typeof frozen;
   handbooks: typeof handbooks;
   http: typeof http;
   images: typeof images;

@@ -304,3 +304,27 @@ export const stripStoryQuizzes = internalMutation({
     return { dryRun, topics: [...topics], rows, copies, skippedStarted };
   },
 });
+
+// Swap one name for another across a ready topic (every spelling's stored copy and readers' copies), in cards, recall
+// quizzes and quiz levels. 7 Oct: an Indian name in the international finance ad topic. Whole words only.
+export const renameInTopic = internalMutation({
+  args: { topic: v.string(), from: v.string(), to: v.string() },
+  handler: async (ctx, { topic, from, to }) => {
+    const re = new RegExp(`\\b${from.replace(/[^A-Za-z]/g, "")}\\b`, "g");
+    const swap = (x: any) => JSON.parse(JSON.stringify(x).replace(re, to));
+    let rows = 0, copies = 0;
+    for (const c of await ctx.db.query("cache").withIndex("by_topic", (q) => q.eq("topic", topic)).collect()) {
+      await ctx.db.patch(c._id, { chapters: swap(c.chapters), version: Date.now() }); rows++;
+    }
+    for (const h of await ctx.db.query("handbooks").withIndex("by_token").collect()) {
+      if (h.source !== "cache" || h.topic !== topic) continue;
+      for (const ch of await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect()) {
+        const c: any = ch;
+        await ctx.db.patch(ch._id, { cards: swap(c.cards ?? []), recallCards: c.recallCards ? swap(c.recallCards) : undefined, quizTiers: c.quizTiers ? swap(c.quizTiers) : undefined, recallTiers: c.recallTiers ? swap(c.recallTiers) : undefined } as any);
+        copies++;
+      }
+    }
+    await ctx.scheduler.runAfter(0, internal.shelf.syncReadyTopic, { topic });
+    return { rows, copies };
+  },
+});
