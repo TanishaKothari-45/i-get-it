@@ -21,6 +21,8 @@ import type * as http from "../http.js";
 import type * as images from "../images.js";
 import type * as landing from "../landing.js";
 import type * as library from "../library.js";
+import type * as mail from "../mail.js";
+import type * as mailLimits from "../mailLimits.js";
 import type * as membership from "../membership.js";
 import type * as nism from "../nism.js";
 import type * as payments from "../payments.js";
@@ -57,6 +59,8 @@ declare const fullApi: ApiFromModules<{
   images: typeof images;
   landing: typeof landing;
   library: typeof library;
+  mail: typeof mail;
+  mailLimits: typeof mailLimits;
   membership: typeof membership;
   nism: typeof nism;
   payments: typeof payments;

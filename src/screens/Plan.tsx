@@ -15,6 +15,7 @@ type Props = {
   // Today's reading allowance is used (membership.ts): what to tell the reader, and the way to membership.
   lockNote?: string | null
   onPricing?: () => void
+  onSignUp?: () => void   // a visitor at chapter 4: the free account is the next step, not money
   onStart: () => void
   onRetry: () => void
   onChangeLine: () => void
@@ -33,7 +34,7 @@ type Props = {
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ total = 7, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
+export default function Plan({ total = 7, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onSignUp, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
   useEffect(() => { track('plan_view', undefined, 'plan_view:' + topic) }, [topic])
   const first = passed.length === 0 && current === 1   // a reader who came in at chapter 2 from a post is on 2
   const upTitle = nextUp ? plan.chapters[nextUp.n - 1]?.title : null
@@ -106,7 +107,8 @@ export default function Plan({ total = 7, topic, plan, passed, current, chapterR
         {lockNote ? (
           <>
             <p className="note" style={{ marginTop: 0 }}>{lockNote}</p>
-            {onPricing && <button className="btn btn-ghost" onClick={onPricing}>See what members get</button>}
+            {onSignUp ? <button className="btn" onClick={onSignUp}>Sign up free</button>
+              : onPricing && <button className="btn btn-ghost" onClick={onPricing}>See what members get</button>}
           </>
         ) : chapterFailed ? (
           <>

@@ -19,8 +19,8 @@ const WHO = ['First 50', 'Next 100', 'Next 200', 'After that']
 // Free vs member, side by side (membership.ts LIMITS are the numbers that are enforced; keep these in step).
 const COMPARE: { what: string; free: string; member: string }[] = [
   { what: 'Handbooks you type', free: '1', member: '3 on the go at a time (up to 6 new a month)' },
-  { what: 'New chapters of your own', free: '1 a day', member: 'Up to 7 a day, across everything' },
-  { what: 'Ready and shared handbooks', free: '1 new chapter a day from each of up to 3', member: 'As many as you like' },
+  { what: 'Ready and shared handbooks', free: 'Every chapter of every one', member: 'Every chapter of every one' },
+  { what: 'New chapters a day', free: '3', member: '7' },
   { what: 'Web-checked answers', free: '3 a week', member: '30 a month' },
   { what: 'Say it simpler', free: '10 a day', member: 'As many as you like' },
   { what: 'Print or save as PDF', free: '–', member: 'Any of your handbooks' },
@@ -82,7 +82,7 @@ export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onS
         <>
           <p className="sub" style={{ marginTop: 10 }}>{fromDone ? 'You reached the summit' : 'Pricing'}</p>
           <h1>Come early, pay less, for as long as you stay.</h1>
-          <p className="lede">Free: one handbook of your own, a chapter a night, plus a taste of the ready ones every day. No card asked. Members read more, and the first 50 pay the least.</p>
+          <p className="lede">Start without an account: the first 3 chapters of any handbook. Sign up free for every chapter of every ready one, plus one of your own. Members get more of their own, and the first 50 pay the least.</p>
           <table className="compare">
             <thead><tr><th></th><th>Free</th><th>Member</th></tr></thead>
             <tbody>{COMPARE.map((r) => <tr key={r.what}><th scope="row">{r.what}</th><td>{r.free}</td><td>{r.member}</td></tr>)}</tbody>
@@ -105,7 +105,7 @@ export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onS
       <p className="once"><strong>One-time payment. No auto-renew.</strong> You pay for a month or a year, once. Nothing is charged again unless you tap Pay again.</p>
 
       <ul className="rules">
-        <li><strong>Free stays free.</strong> Your own handbook, a chapter a night, and everything you've already opened stay yours whether you pay or not.</li>
+        <li><strong>Free stays free.</strong> Every ready and shared handbook, your own one, and everything you've already opened stay yours whether you pay or not.</li>
         <li><strong>A year saves {inr(saving)}.</strong> {inr(p.price.year)} once, instead of {inr(p.price.month)} twelve times.</li>
         <li><strong>Your price stays yours.</strong> Pay again within 7 days of your time running out and you keep it, even after it goes up for newcomers.</li>
         <li><strong>Nothing to cancel.</strong> If you don't pay again, you aren't charged. Your handbooks and progress stay yours.</li>

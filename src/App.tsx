@@ -13,7 +13,7 @@ import Tune from './screens/Tune'
 import Compare from './screens/Compare'
 import Library from './screens/Library'
 import { PolicyLinks } from './screens/Policy'
-import { limitMessage } from './lib/limits'
+import { limitCode, limitMessage } from './lib/limits'
 import Pricing from './screens/Pricing'
 import Landing from './screens/Landing'
 import Explore from './screens/Explore'
@@ -87,14 +87,16 @@ export default function App() {
   // A chapter not opened yet comes without its cards ("locked", membership.ts). Entering it asks the server to open
   // it, which uses today's reading allowance; if there's none left, the handbook screen says when it opens.
   const openChapter = useMutation(api.handbooks.openChapter)
-  const [lock, setLock] = useState<{ key: string; note: string } | null>(null)
+  const [lock, setLock] = useState<{ key: string; note: string; code: string | null } | null>(null)
   const chapterLocked = chapter?.status === 'ready' && !!(chapter as any).locked
-  const lockKey = hb && chapter ? `${hb._id}:${chapter.n}` : ''
+  // Signing up opens what a visitor couldn't, once the handbook is attached to the account (signedIn), so the key
+  // includes it and the open is tried again then.
+  const lockKey = hb && chapter ? `${hb._id}:${chapter.n}:${(hb as any).signedIn ? 'in' : 'out'}` : ''
   const wantsChapter = view === 'chapter' || (view === 'auto' && (progress?.currentCard ?? 0) > 0)
   useEffect(() => {
     if (!wantsChapter || !chapterLocked || !hb || !chapter || lock?.key === lockKey) return
     openChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token })
-      .catch((e) => setLock({ key: lockKey, note: limitMessage(e) ?? "Couldn't open this chapter just now. Try again in a minute." }))
+      .catch((e) => setLock({ key: lockKey, code: limitCode(e), note: limitMessage(e) ?? "Couldn't open this chapter just now. Try again in a minute." }))
   }, [wantsChapter, chapterLocked, lockKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // First time in a handbook (7 Oct: 11 of 30 readers saw their plan and never opened chapter 1): go straight into
@@ -345,7 +347,7 @@ export default function App() {
         current={currentN}
         chapterReady={!!chapterReady}
         chapterFailed={!!chapterFailed} chapterError={(hb.chapters.find((c) => c.n === currentN) as any)?.error}
-        lockNote={lockNote} onPricing={() => setView('pricing')}
+        lockNote={lockNote} onPricing={() => setView('pricing')} onSignUp={lock?.code === 'signup-more' ? () => signIn('chapter') : undefined}
         voiceNote={flash ? flash : (chapter as any)?.stale ? 'You changed how you want to be taught after this chapter was written. Tap start and it gets rewritten and fact-checked for you first, about a minute.' : hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
         onStart={() => { if ((chapter as any)?.stale) { refreshIfStale({ handbookId: hb._id, n: currentN, deviceToken: token }).catch(() => {}) ; return } setView('chapter') }}
         onTune={() => setView('tune')}

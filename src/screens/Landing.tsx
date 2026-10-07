@@ -225,7 +225,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
           <section className="lp-offer">
             <div>
               <h2>Come early, pay less.</h2>
-              <p className="lp-body">Free: one handbook of your own, a chapter a night, plus a daily taste of the ready ones. Members keep 3 topics on the go, read up to 7 chapters a day and can save any handbook as a PDF. The earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
+              <p className="lp-body">The first 3 chapters of anything, free, no sign-up. A free account opens every ready handbook and one of your own. Members keep 3 of their own on the go, read up to 7 chapters a day and can save any handbook as a PDF. The earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
               <p className="lp-once">One-time payment · No auto-renew</p>
             </div>
             <ol className="lp-tiers">

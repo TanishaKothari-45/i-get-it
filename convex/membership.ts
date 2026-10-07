@@ -5,22 +5,23 @@ import type { Doc, Id } from "./_generated/dataModel";
 import { DAYS } from "./pricing";
 import { isOwner } from "./admin";
 
-// Free vs member (Prateek, 7 Oct). One place for every number. Each limit is checked in a Convex function;
-// the screens only explain it. "New chapter" means one opened for the first time; going back is always free.
-//   Free: 1 handbook you type, 1 new chapter of it a day; plus 1 new chapter a day from each of up to 3 ready or
-//         shared handbooks; 3 web-checked answers a week; 10 "Say it simpler" a day.
-//   Member: 3 typed handbooks on the go at a time (and at most 6 new a month, a cost guard), 7 new chapters a day,
-//         ready and shared handbooks without limit, 30 web-checked answers a month, unlimited "Say it simpler",
-//         a printable handbook, first access to what's coming.
-// Free readers can be made up (a new phone token, an unverified email), so their new typed topics and web answers
-// also stop once readers have cost DAILY_BUDGET_INR today. Members never hit it: paying is the one thing that
-// can't be faked cheaply.
+// Visitor, signed up, member (Prateek, 7 Oct, afternoon). One place for every number. Each limit is checked in a Convex
+// function; the screens only explain it. "New chapter" means one opened for the first time; going back is always free.
+//   Visitor (no account): chapters 1 to 3 of any handbook, up to 3 new chapters a day (all on day 1 is fine), 1 typed
+//         handbook. Chapter 4 asks them to sign up, free.
+//   Signed up (free): every chapter of every ready and shared handbook and of their 1 typed handbook, up to 3 new
+//         chapters a day. A second typed handbook asks them to become a member.
+//   Member: 3 typed handbooks on the go (at most 6 new a month, a cost guard), 7 new chapters a day, 30 web-checked
+//         answers a month, unlimited "Say it simpler", a printable handbook, first access to what's coming.
+//   Everyone not paying: 3 web-checked answers a week, 10 "Say it simpler" a day.
+// Accounts can be made up (no email check yet), so free readers' new typed topics and web answers also stop once
+// readers have cost DAILY_BUDGET_INR today. Members never hit it: paying is the one thing that can't be faked cheaply.
 export const LIMITS = {
   freeTyped: 1,
   memberActiveTyped: 3,
   memberTypedPerMonth: 6,
-  freeOwnChaptersPerDay: 1,
-  freeReadyHandbooksPerDay: 3,
+  visitorChapters: 3,          // per handbook, before signing up
+  freeChaptersPerDay: 3,       // visitors and signed-up readers
   memberChaptersPerDay: 7,
   freeSearchPerWeek: 3,
   memberSearchPerMonth: 30,
@@ -112,12 +113,9 @@ export async function tryOpen(ctx: MutationCtx, h: Doc<"handbooks">, n: number):
   }
   if (member) {
     if (today.length >= LIMITS.memberChaptersPerDay) return { ok: false, code: "daily-member" };
-  } else if (isTyped(h)) {
-    if (today.filter((t) => t.typed).length >= LIMITS.freeOwnChaptersPerDay) return { ok: false, code: "daily-free" };
   } else {
-    const readyToday = new Set(today.filter((t) => !t.typed).map((t) => t.id));
-    if (readyToday.has(h._id)) return { ok: false, code: "daily-free" };
-    if (readyToday.size >= LIMITS.freeReadyHandbooksPerDay) return { ok: false, code: "daily-free-ready" };
+    if (!h.userId && n > LIMITS.visitorChapters) return { ok: false, code: "signup-more" };
+    if (today.length >= LIMITS.freeChaptersPerDay) return { ok: false, code: "daily-free" };
   }
   // The first record on older progress keeps whatever was open under the old rule, so nothing locks again.
   const before = p.opened ?? Array.from({ length: p.currentChapter }, (_, i) => i + 1).filter((k) => isOpen(p, k)).map((k) => ({ n: k, day: "before" }));
