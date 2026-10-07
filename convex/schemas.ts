@@ -20,16 +20,13 @@ export const exercise = z.looseObject({
   reteach: str.optional(),
 }).refine((e) => e.options.some((o) => o.id === e.answer), { message: "answer must be the id of one of the 3 options" });
 
-// The card types the app renders (prompts.ts CHAPTER_PROMPT). As an enum it also stops a model filling "type" with prose.
+// The card types the app renders (prompts.ts CHAPTER_PROMPT). Two shapes: a quiz card with all its fields, and a text
+// card with a body. As a union, the JSON schema sent to a provider carries the quiz fields too (8 Oct: with only
+// type/title/body in the schema, Gemini wrote quiz cards with no question and no options).
 const CARD_TYPES = ["picture", "teach", "example", "exercise", "mistake", "try", "watch"] as const;
-const card = z.looseObject({ type: z.enum(CARD_TYPES), title: z.string().optional(), body: z.string().optional() }).superRefine((c: any, ctx) => {
-  if (c.type === "exercise") {
-    const r = exercise.safeParse(c);
-    if (!r.success) for (const i of r.error.issues) ctx.addIssue({ code: "custom", message: `exercise card: ${i.path.join(".")} ${i.message}` });
-  } else if (c.type !== "watch" && typeof c.body !== "string" && typeof c.prompt !== "string") {
-    ctx.addIssue({ code: "custom", message: `a "${c.type}" card needs a text "body"` });
-  }
-});
+const textCard = z.looseObject({ type: z.enum(["picture", "teach", "example", "mistake", "try"]), title: z.string().optional(), body: str });
+const watchCard = z.looseObject({ type: z.literal("watch"), who: z.string().optional(), what: z.string().optional(), url: str, watchFor: z.string().optional() });
+const card = z.union([exercise, textCard, watchCard]);
 
 export const plan = z.looseObject({
   needsClarification: z.boolean().optional(),

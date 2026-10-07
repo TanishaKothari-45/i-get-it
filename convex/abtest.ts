@@ -3,6 +3,7 @@ import { internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery } from "./_generated/server";
 import { inrOf } from "./costs";
 import { checkWithVersions, topicKeyOf } from "./handbooks";
+import { JUDGE, JUDGE_MODEL } from "./evalModels";
 
 // Blind writer test (8 Oct, Prateek): two new handbooks in his account, each pinned to one writer (Claude as today, or a
 // model at The Inference Company), assigned at random and not shown. Each runs research, plan, chapter 1 (with quiz
@@ -72,26 +73,26 @@ export const runTwo = internalAction({
 });
 // End to end (8 Oct): every chapter in the plan after chapter 1, one action each, timed per chapter in test.chNAt.
 export const runRest = internalAction({
-  args: { handbookId: v.id("handbooks"), n: v.number() },
-  handler: async (ctx, { handbookId, n }) => {
+  args: { handbookId: v.id("handbooks"), n: v.number(), upTo: v.optional(v.number()) },
+  handler: async (ctx, { handbookId, n, upTo }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
-    const total = h?.plan?.chapters?.length ?? 0;
-    if (!h?.plan || n > total) return;
+    const total = Math.min(h?.plan?.chapters?.length ?? 0, upTo ?? 7);
+    if (!h?.plan || n > total) { await ctx.scheduler.runAfter(0, internal.abtest.judgeAll, { handbookId, upTo: total }); return; }
     await ctx.runMutation(internal.abtest.mark, { handbookId, field: `ch${n}StartedAt` });
     await ctx.runMutation(internal.handbooks.startChapter, { handbookId, n });
     await ctx.runAction(internal.handbooks.generateChapter, { handbookId, n });
     await ctx.runMutation(internal.abtest.mark, { handbookId, field: `ch${n}At` });
     await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
-    await ctx.scheduler.runAfter(0, internal.abtest.runRest, { handbookId, n: n + 1 });
+    await ctx.scheduler.runAfter(0, internal.abtest.runRest, { handbookId, n: n + 1, upTo });
   },
 });
 export const runAll = internalAction({
-  args: { handbookId: v.id("handbooks") },
-  handler: async (ctx, { handbookId }) => {
+  args: { handbookId: v.id("handbooks"), upTo: v.optional(v.number()) },
+  handler: async (ctx, { handbookId, upTo }) => {
     await ctx.runMutation(internal.abtest.mark, { handbookId, field: "startedAt" });
     await ctx.runAction(internal.handbooks.generatePlan, { handbookId });
     await ctx.runMutation(internal.abtest.mark, { handbookId, field: "ch1At" });
-    await ctx.scheduler.runAfter(0, internal.abtest.runRest, { handbookId, n: 2 });
+    await ctx.scheduler.runAfter(0, internal.abtest.runRest, { handbookId, n: 2, upTo });
   },
 });
 
@@ -203,5 +204,29 @@ export const finish = internalAction({
       await ctx.runMutation(internal.abtest.note, { handbookId, line: `ch${n}: pictures ${after?.picturesStatus}, ${(after?.pictures ?? []).filter((p: any) => p.storageId).length}` });
     }
     await next();
+  },
+});
+
+// The 6 Oct judge (evalModels.ts: Claude Opus 5.5, high effort, 12 true/false checks) on stored chapters, so tonight's
+// handbooks compare with the 6 Oct table (chapter 1 averages: Opus 9.0, Sonnet 9.0, Haiku 5.2 of 12). Results go
+// into test.judge; the judge's own cost is logged as "audit" and is not part of the handbook's cost.
+export const saveJudge = internalMutation({
+  args: { handbookId: v.id("handbooks"), n: v.number(), result: v.any() },
+  handler: async (ctx, { handbookId, n, result }) => {
+    const h = await ctx.db.get(handbookId);
+    if (h) await ctx.db.patch(handbookId, { test: { ...(h.test ?? {}), judge: { ...((h.test as any)?.judge ?? {}), [n]: result } } });
+  },
+});
+export const judgeAll = internalAction({
+  args: { handbookId: v.id("handbooks"), upTo: v.optional(v.number()) },
+  handler: async (ctx, { handbookId, upTo = 7 }) => {
+    for (let n = 1; n <= upTo; n++) {
+      const ch: any = await ctx.runQuery(internal.handbooks.readChapterRow, { handbookId, n });
+      if (ch?.status !== "ready") { await ctx.runMutation(internal.abtest.saveJudge, { handbookId, n, result: { error: `chapter ${ch?.status ?? "missing"}` } }); continue; }
+      const slim = { title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine };
+      const r: any = await ctx.runAction(internal.ai.generate, { kind: "audit", system: JUDGE, user: "Chapter JSON:\n" + JSON.stringify(slim), model: JUDGE_MODEL, effort: "high" });
+      await ctx.runMutation(internal.abtest.saveJudge, { handbookId, n, result: r.ok ? { score: r.json?.score, checks: r.json?.checks, why: r.json?.why, fix: r.json?.fix, dubious: r.json?.dubious_claims ?? [] } : { error: r.error } });
+    }
+    await ctx.runMutation(internal.abtest.note, { handbookId, line: "judge: done" });
   },
 });
