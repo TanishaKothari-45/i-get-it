@@ -15,7 +15,7 @@ import { nismBrief } from "./nism";
 //   3. For Indian money topics: the matching NISM certification syllabus (nism.ts, chapter titles only).
 // The brief is stored on the handbook; the plan and every chapter are written from it. A failed step is skipped,
 // never fatal: the plan is written without it.
-const PROMPT = `You are the researcher for I Get It, which writes a short handbook for one person who typed what they want to learn. Before anything is written, decide what kind of handbook this request needs and gather the facts it must rest on.
+export const PROMPT = `You are the researcher for I Get It, which writes a short handbook for one person who typed what they want to learn. Before anything is written, decide what kind of handbook this request needs and gather the facts it must rest on.
 
 Run 1 to 4 web searches. Choose sources on their merits for this topic and this reader: whatever is most accurate, clear and current. No kind of source is preferred or required. Use only what the searches show plus facts you are certain of.
 
