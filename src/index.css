@@ -706,3 +706,22 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .unlocks { list-style: none; padding: 0; margin: var(--m) 0; display: grid; gap: 10px; font-family: var(--serif); font-size: 1.04rem; line-height: 1.45; }
 .unlocks strong { font-family: var(--sans); }
 .unlock-on { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 8px; border-radius: 50%; background: var(--pass, #1f7a4d); color: #fff; font-size: 0.8rem; font-weight: 700; }
+
+/* Navigation (7 Oct, Prateek): the wordmark goes home, a menu button on phones, chapters you can reopen */
+.wordmark-btn { all: unset; cursor: pointer; display: block; font-weight: 700; font-size: var(--ui); letter-spacing: -0.01em; color: inherit; }
+.wordmark-btn:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 3px; border-radius: 6px; }
+.menu-btn { all: unset; cursor: pointer; font-size: 1.4rem; line-height: 1; padding: 8px 10px; min-width: 24px; text-align: center; border-radius: 10px; }
+.menu-btn:focus-visible { outline: 3px solid var(--accent-deep); }
+.menu-sheet { display: grid; gap: 4px; max-height: 70vh; overflow-y: auto; }
+.menu-sheet .rail-links, .menu-sheet > div { display: grid; gap: 4px; }
+.menu-sheet button.quiet, .menu-sheet a.quiet { text-align: left; padding: 10px 0; min-height: 44px; }
+@media (min-width: 900px) { .menu-btn { display: none; } }
+@media (max-width: 899px) { .hide-phone { display: none; } }
+button.stop-tap { font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; -webkit-appearance: none; appearance: none; }
+button.stop-tap:active { transform: translateY(1px); }
+button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 3px; }
+.stop-again { margin-top: 6px; font: 700 var(--small) var(--sans); color: var(--pass, #1f7a4d); }
+/* A grid column never grows past the screen because of a wide child (7 Oct: the topic carousel pushed the box,
+   the button and the cover picture off a 390 px phone). */
+.lp-hero > * { min-width: 0; }
+.lp-hero-art { max-width: 100%; }

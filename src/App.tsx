@@ -14,6 +14,7 @@ import Compare from './screens/Compare'
 import Library from './screens/Library'
 import { PolicyLinks } from './screens/Policy'
 import { limitCode, limitMessage } from './lib/limits'
+import Sheet from './components/Sheet'
 import Pricing from './screens/Pricing'
 import Landing from './screens/Landing'
 import Explore from './screens/Explore'
@@ -154,6 +155,8 @@ export default function App() {
 
   const signIn = (back: View) => { setAfterSignIn(back); setView('signin') }
   const libRows = lib?.handbooks ?? []
+  // Home is your shelf when you have handbooks; a first-time visitor's home is the landing page.
+  goHome = () => { setDoneN(null); if (libRows.length) setView('library'); else { setView('auto'); window.scrollTo({ top: 0 }) } }
 
   // Library and pricing can be reached from anywhere, with or without a current handbook.
   if (view === 'library') {
@@ -341,6 +344,7 @@ export default function App() {
     <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
       <Plan
         total={total}
+        onOpenChapter={(n) => { setReadingN(n); setDoneN(null); setView('chapter') }}
         topic={plan?.topic ?? hb.topic}
         plan={plan}
         passed={passed}
@@ -370,18 +374,32 @@ export default function App() {
   )
 }
 
+// The wordmark takes you home (7 Oct, Prateek): App sets this on every render; there is one App.
+let goHome: (() => void) | null = null
+
 function Shell({ children, onSignOut, rail, back }: { children: React.ReactNode; onSignOut?: () => Promise<void> | void; rail?: React.ReactNode; back?: { label: string; onClick: () => void } }) {
   // The member mark (7 Oct): paying should show, on every screen.
   const member = useQuery(api.membership.status, { deviceToken: deviceToken() })?.member
+  // On a phone the side menu is hidden, so ☰ opens the same menu as a sheet (7 Oct, Prateek).
+  const [menu, setMenu] = useState(false)
   return (
     <div className="shell">
       <header className="top">
-        <p className="wordmark">I Get It{member && <span className="member-mark">Member</span>}<small>Seven chapters. Twenty minutes a night.</small></p>
+        <button type="button" className="wordmark wordmark-btn" onClick={() => goHome?.()} aria-label="I Get It, home">I Get It{member && <span className="member-mark">Member</span>}<small>Seven chapters. Twenty minutes a night.</small></button>
         <span style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
           {back && <button type="button" className="back-link" onClick={back.onClick}>← {back.label}</button>}
-          {onSignOut && <button type="button" className="quiet" onClick={() => onSignOut()}>Sign out</button>}
+          {onSignOut && <button type="button" className="quiet hide-phone" onClick={() => onSignOut()}>Sign out</button>}
+          {rail && <button type="button" className="menu-btn" aria-label="Menu" aria-expanded={menu} onClick={() => setMenu(true)}>☰</button>}
         </span>
       </header>
+      {menu && rail && (
+        <Sheet onClose={() => setMenu(false)}>
+          <nav className="menu-sheet" onClick={(e) => { if ((e.target as HTMLElement).closest('button, a')) setMenu(false) }}>
+            {rail}
+            {onSignOut && <button type="button" className="quiet" onClick={() => onSignOut()}>Sign out</button>}
+          </nav>
+        </Sheet>
+      )}
       {rail && <aside className="rail">{rail}</aside>}
       <main>{children}</main>
       <footer className="foot"><p><PolicyLinks /></p><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>

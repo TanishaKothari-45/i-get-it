@@ -5,6 +5,7 @@ import { track } from '../lib/track'
 type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string }
 type Props = {
   total?: number   // chapters in this handbook: 7, or 1 to 3 for a quick one (7 Oct)
+  onOpenChapter?: (n: number) => void   // a finished chapter opens again on tap (7 Oct, Prateek); never uses the daily allowance
   topic: string
   plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[]; pushback?: string | null; framing?: string | null; format?: string }
   passed: number[]
@@ -34,7 +35,7 @@ type Props = {
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ total = 7, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onSignUp, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
+export default function Plan({ total = 7, onOpenChapter, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onSignUp, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
   useEffect(() => { track('plan_view', undefined, 'plan_view:' + topic) }, [topic])
   const first = passed.length === 0 && current === 1   // a reader who came in at chapter 2 from a post is on 2
   const upTitle = nextUp ? plan.chapters[nextUp.n - 1]?.title : null
@@ -78,11 +79,18 @@ export default function Plan({ total = 7, topic, plan, passed, current, chapterR
           return (
             <li key={c.n} className={`stop ${done ? 'done' : now ? 'now' : 'ahead'} ${idx % 2 ? 'right' : 'left'}`}>
               <span className="node" aria-hidden="true">{done ? '✓' : c.n}</span>
-              <div className="stop-card">
-                <span className="stop-n">Chapter {c.n}{now && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}{done && <span className="tag done">Done</span>}</span>
-                <span className="stop-t">{c.title}</span>
-                <span className="stop-hook">{c.hook || c.covers}</span>
-              </div>
+              {(() => {
+                const inner = (<>
+                  <span className="stop-n">Chapter {c.n}{now && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}{done && <span className="tag done">Done</span>}</span>
+                  <span className="stop-t">{c.title}</span>
+                  <span className="stop-hook">{c.hook || c.covers}</span>
+                  {done && onOpenChapter && <span className="stop-again">Read it again ›</span>}
+                </>)
+                // Finished chapters and the one you're on open on tap; chapters ahead stay a preview.
+                if (done && onOpenChapter) return <button type="button" className="stop-card stop-tap" onClick={() => onOpenChapter(c.n)}>{inner}</button>
+                if (now && chapterReady) return <button type="button" className="stop-card stop-tap" onClick={onStart}>{inner}</button>
+                return <div className="stop-card">{inner}</div>
+              })()}
             </li>
           )
         })}
