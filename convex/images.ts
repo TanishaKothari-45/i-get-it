@@ -33,7 +33,16 @@ async function runway(path: string, init?: RequestInit, tries = 3): Promise<any>
 
 const MODEL = "muse_image";      // design/style-anchor.md: 1 credit a picture; Gen-4 wrote text into pictures
 const RATIO = "1792:1344";        // 4:3
-const MAX_PICTURES = 8;
+const MAX_PICTURES = 5;           // 7 Oct, Prateek: 4 to 5 a chapter (was up to 8)
+
+// Which cards get a picture: the opening picture card, then examples and mistakes (the scenes people remember), then
+// the try card and teaching cards, in reading order, at most MAX_PICTURES. The closing "In one breath" card isn't shown.
+const PRIORITY: Record<string, number> = { picture: 0, example: 1, mistake: 2, try: 3, teach: 4 };
+export function pictureCards(cards: any[]) {
+  const all = cards.map((c: any, i: number) => ({ c, i })).filter(({ c }) => c && c.type !== "exercise" && c.type !== "watch" && typeof c.body === "string" && !/^in one breath$/i.test(String(c.title ?? "").trim()));
+  const keep = new Set([...all].sort((a, b) => (PRIORITY[a.c.type] ?? 5) - (PRIORITY[b.c.type] ?? 5) || a.i - b.i).slice(0, MAX_PICTURES).map((x) => x.i));
+  return all.filter((x) => keep.has(x.i));
+}
 const AT_ONCE = 3;                // Runway queues ("THROTTLED") past its concurrency limit; more at once just waits longer
 
 async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RATIO, seed?: number, extra: Record<string, unknown> = {}): Promise<{ ok: true; storageId: Id<"_storage">; ms: number } | { ok: false; error: string; ms: number }> {
@@ -84,7 +93,7 @@ async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId:
   return null;
 }
 async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true): Promise<{ status: string; pictures: Picture[] }> {
-  const teaching = cards.map((c: any, i: number) => ({ c, i })).filter(({ c }) => c && c.type !== "exercise" && c.type !== "watch" && typeof c.body === "string").slice(0, MAX_PICTURES);
+  const teaching = pictureCards(cards);
   if (!teaching.length) return { status: "skipped", pictures: [] };
   const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))) });
   const wanted = new Set(teaching.map(({ i }) => i));
@@ -116,7 +125,7 @@ export const scenesOnly = internalAction({
   handler: async (ctx, { handbookId, n }): Promise<any> => {
     const h: any = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     const ch: any = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n });
-    const teaching = (ch?.cards ?? []).map((c: any, i: number) => ({ c, i })).filter(({ c }: any) => c && c.type !== "exercise" && c.type !== "watch" && typeof c.body === "string").slice(0, MAX_PICTURES);
+    const teaching = pictureCards(ch?.cards ?? []);
     const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(h.plan?.topic ?? h.topic, ch.title ?? "", h.plan?.picture?.line ?? "", teaching.map(({ c, i }: any) => ({ card: i, type: c.type, title: c.title, body: c.body }))) });
     return r.ok ? r.json.scenes.map((x: any) => ({ card: x.card, real: x.real ?? null, scene: String(x.scene).slice(0, 60) })) : r.error;
   },
@@ -154,7 +163,7 @@ export const forCache = internalAction({
     const row: any = await ctx.runQuery(internal.handbooks.readCacheChapter, { topicKey, level, n });
     if (!row?.chapter) return { ok: false, error: "no such cached chapter" };
     const r = await picturesFor(ctx, row.plan?.topic ?? row.topic, row.plan, row.chapter.title ?? "", row.chapter.cards ?? [], false);
-    if (r.status !== "done") return { ok: false, error: r.status };
+    if (r.status !== "done") { await ctx.runMutation(internal.handbooks.cachePicturesFailed, { topicKey, level, n }); return { ok: false, error: r.status }; }
     const shared: { rows: number; copies: number } = await ctx.runMutation(internal.handbooks.setCachePictures, { topicKey, level, n, pictures: r.pictures });
     return { ok: true, pictures: r.pictures.filter((p) => p.storageId).length, of: r.pictures.length, ...shared };
   },

@@ -487,8 +487,9 @@ export const generateChapter = internalAction({
     const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, [...ch.cards, ...recall]);
     const cards = checked.cards.slice(0, ch.cards.length), recallCards = checked.cards.slice(ch.cards.length);
     await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report });
-    // Pictures come after the words: the chapter opens now, each picture fades in when it's drawn.
-    await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
+    // Pictures come after the words. Chapter 1 is drawn now (it opens at once and gives the cover); later chapters are
+    // drawn when the reader first opens them (openChapter), so a chapter written but never opened costs no pictures (7 Oct).
+    if (n === 1) await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
     // A typed topic's chapter 1 may go into the shared library (plan and chapter 1 only, after a privacy check).
     if (n === 1 && h.source === "live" && !h.fromLibrary) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId });
   },
@@ -615,6 +616,22 @@ export const listCache = internalQuery({
 // Store a ready topic's pictures on the cache row and on every other spelling of the same topic
 // ("ww2", "wwii"... are separate rows with the same chapters), then give them to every reader's copy
 // of that chapter that has none yet (same title only: a copy rewritten for a reader keeps its own).
+// A shelf chapter's drawing failed: readers waiting on it stop showing the picture placeholder, and the next reader
+// to open it starts a new drawing.
+export const cachePicturesFailed = internalMutation({
+  args: { topicKey: v.string(), level, n: v.number() },
+  handler: async (ctx, { topicKey, level: lvl, n }) => {
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
+    if (!row) return;
+    await ctx.db.patch(row._id, { chapters: row.chapters.map((c: any) => (c.n === n ? { ...c, picturesDrawingAt: undefined } : c)) });
+    for (const h of await ctx.db.query("handbooks").withIndex("by_token").collect()) {
+      if (h.source !== "cache" || h.topic !== row.topic || h.level !== lvl) continue;
+      const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
+      if (ch && ch.picturesStatus === "drawing" && !(ch.pictures ?? []).some((p: any) => p.storageId)) await ctx.db.patch(ch._id, { picturesStatus: "failed" });   // "failed" stops the placeholder
+    }
+  },
+});
+
 export const setCachePictures = internalMutation({
   args: { topicKey: v.string(), level, n: v.number(), pictures: v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")), credit: v.optional(v.string()), source: v.optional(v.string()) })) },
   handler: async (ctx, { topicKey, level: lvl, n, pictures }) => {
@@ -684,6 +701,32 @@ export const setPosition = mutation({
   },
 });
 
+// Pictures on first open (7 Oct, Prateek: images were drawn upfront for chapters nobody read). A ready topic's chapter is
+// drawn once for the shelf and every reader shares it; a typed handbook's chapter is drawn for its reader. Opening a
+// chapter that already has pictures, or is being drawn, does nothing.
+async function ensurePictures(ctx: MutationCtx, h: Doc<"handbooks">, n: number) {
+  const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", n)).unique();
+  if (!ch || ch.status !== "ready" || !ch.cards) return;
+  if ((ch.pictures ?? []).some((p: any) => p.storageId) || ch.picturesStatus === "drawing" || ch.picturesStatus === "skipped") return;
+  if (h.source === "cache") {
+    const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).unique();
+    const cached: any = row?.chapters.find((c: any) => c.n === n);
+    if (cached && cached.title === ch.title && (cached.pictures ?? []).some((p: any) => p.storageId)) {
+      await ctx.db.patch(ch._id, { pictures: cached.pictures, picturesStatus: "done" });   // already drawn for the shelf: copy, free
+      return;
+    }
+    if (!row || !cached) return;
+    // Another reader may have started this drawing a moment ago; one drawing per shelf chapter per 10 minutes.
+    if (cached.picturesDrawingAt && Date.now() - cached.picturesDrawingAt < 10 * 60 * 1000) { await ctx.db.patch(ch._id, { picturesStatus: "drawing" }); return; }
+    await ctx.db.patch(row._id, { chapters: row.chapters.map((c: any) => (c.n === n ? { ...c, picturesDrawingAt: Date.now() } : c)) });
+    await ctx.db.patch(ch._id, { picturesStatus: "drawing" });
+    await ctx.scheduler.runAfter(0, internal.images.forCache, { topicKey: h.topicKey, level: h.level, n });
+    return;
+  }
+  await ctx.db.patch(ch._id, { picturesStatus: "drawing" });
+  await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId: h._id, n });
+}
+
 // Opening a chapter for the first time uses today's reading allowance (membership.ts). Going back never does.
 export const openChapter = mutation({
   args: { handbookId: v.id("handbooks"), n: v.number(), deviceToken: v.optional(v.string()) },
@@ -694,6 +737,7 @@ export const openChapter = mutation({
     if (ch?.status !== "ready") throw new ConvexError("not-ready");   // nothing to open yet; no allowance used
     const r = await tryOpen(ctx, h, n);
     if (!r.ok) throw new ConvexError(r.code);
+    await ensurePictures(ctx, h, n);
     // A post link can open a ready topic at chapter 2 (?t=…&ch=2): the bookmark moves there, so the recall cards show.
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     if (p && p.currentChapter < n && !p.chaptersPassed.includes(n)) await ctx.db.patch(p._id, { currentChapter: n, currentCard: 0, currentPart: 0, updatedAt: Date.now() });
