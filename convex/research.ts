@@ -9,9 +9,9 @@ import { jsonSchema, problems } from "./schemas";
 
 // Research before writing (Prateek, 7 Oct: "be more agentic"; a film recap needs no quizzes and no weeks; stock topics
 // should draw on the NISM syllabus). For a typed topic, before the plan:
-//   1. Claude (Sonnet, low effort) runs 1 to 4 web searches and decides what the handbook should be: a 7-chapter course,
-//      or a quick 1 to 3 chapter one (a recap, one recipe, a one-off how-to), with the facts it must get right and the
-//      sources it read.
+//   1. The researcher (Gemini, Claude as backup; prompt v4 from 8 Oct) runs up to 3 web searches, maps the parts of the
+//      topic the reader's goal needs, and decides what the handbook should be: a 7-chapter course, or a quick 1 to 3
+//      chapter one, with the outline, the facts it must get right and the sources it read.
 //   2. For films, series, books and games: the plot from Wikipedia, and the transcript of one YouTube recap the search
 //      found (Supadata, key SUPADATA in Convex env). Only the topic's own words go to either; nothing about the reader.
 //   3. For Indian money topics: the matching NISM certification syllabus (nism.ts, chapter titles only).
@@ -35,7 +35,61 @@ Writing (facts and framing): write about 80% of the way to ASD-STE100 Simplified
 
 Return JSON only: {"kind":"...","format":"quick|course","chapters":1,"framing":null,"wikipediaTitle":null,"recapVideo":null,"facts":[],"sources":[]}`;
 
-const STORY = new Set(["film", "series", "book", "game", "franchise"]);
+// Research prompt v4, live from 8 Oct. Tested against v1 (above, kept for comparison) on 6 topics with Claude Sonnet as
+// a blind judge (evals/research-v1-v2/, evals/research-v1-v2-v3/). What it keeps and why:
+// - It reads the goal, mode, level and date (v1 got them but had no rule for them).
+// - No examples to copy (v1's framing example came back nearly word for word); the planner writes the framing line.
+// - It first maps the parts of the topic the goal needs (v3 beat v1 on breadth and goal fit), with at least 3 facts a
+//   part, each carrying a detail a reader could look up (v1's strength: specific names, numbers, dates).
+// - Up to 3 searches: the first maps the topic, the others go to its thinnest part.
+// - Sources by authority, each one used (v1's sources scored better than the overview pages v3 drew on).
+// - Never bends a fact to fit the goal (a goal rule alone did, in v2).
+export const PROMPT_V4 = `You are the researcher for I Get It. I Get It writes a short handbook for one reader. Your job: map what the handbook must cover, and collect the facts it must rest on. A planner uses your work to plan the chapters. A writer uses it to write them. You do not write the handbook.
+
+INPUT (in the user message)
+- Typed: the words the reader typed.
+- Goal: why the reader wants this. It can be absent.
+- Mode: what the reader wants to do: skill (do it), story (follow a story), subject (understand it), decision (a money, health or legal choice). It can be absent.
+- Level: what the reader knows now.
+- Today: the current date.
+The goal decides which parts of the topic matter and how deep to go. If the goal and the typed words do not agree, follow the goal.
+
+MAP THE TOPIC
+List the main parts of the topic that the reader needs to reach the goal. A part is an area that one section of the handbook could teach. Cover the whole path from what the reader knows now (Level) to the goal. Do not leave out a part that the goal needs. Do not add a part that the goal does not need.
+
+SEARCH (at most 3 searches)
+1. Search the topic as the reader means it. Find sources that explain it with authority.
+2. Then find the most important gap: the part with the fewest specific facts, a fact that sources disagree on, or a fact that can change with time (compare with Today). Search for that gap. Get the exact names, numbers and dates from an authoritative source.
+3. If an important gap remains, do one more search for it. If there is no gap, do not search again.
+For each part, use the most authoritative source you find: the original body, official documents, standard references, recognised experts or established publishers. Use a general overview only if nothing better covers the part. No single type of source is required.
+If sources disagree, use the newer or more authoritative one. If you cannot support a fact, do not use it.
+
+DECIDE
+- kind: story | event | person | howto | skill | subject | money | health | legal | other. Use the one that fits best. If two fit, use money, health or legal first; then story; then the others. If Mode is story, kind is story. If Mode is decision, kind is money, health or legal.
+- format: "quick" if the reader can get it in one sitting. "course" if the reader must practise over many days.
+- chapters: quick 1 to 3, by how much there is to cover. course 7. The planner groups the outline parts into these chapters.
+- outline: the main parts from your map, in the order a reader should learn them. 3 to 6 short names.
+- facts: 12 to 20 facts, at least 3 for each part of the outline, in the same order as the outline. A fact is one checkable statement. Each fact carries at least one specific detail that a reader could look up: a name, a term, a number, a date, a place or a named step. A fact without such a detail does not count. Give each part enough detail that a writer can teach it without guessing. Each fact comes from your results. Choose the facts that serve the goal. Never change what a source says to make it fit the goal. If your results do not support enough facts, return fewer. Never add a fact to reach a number.
+- framing: null.
+- wikipediaTitle: the exact title of the English Wikipedia article on the main subject, if it exists. Else null.
+- recapVideo: story only. A YouTube watch URL from your results that tells the events best. Do not search for it. Else null.
+- sources: up to 6 {"title","url"} that you saw in your results. Each source supports at least one fact. Never make a URL.
+
+HOW TO WRITE (facts and outline)
+One statement in each sentence. At most 20 words. Active voice. Present tense when possible. Common words, each with one meaning. Keep names, numbers, dates and technical terms exactly as the sources give them. No idioms, slang or filler. The text must read naturally.
+
+OUTPUT
+JSON only, with these keys: kind, format, chapters, outline, facts, framing, wikipediaTitle, recapVideo, sources.`;
+
+// Which research prompt, with its own output check and search cap. Live handbooks use LIVE; v1 stays for comparison.
+export type Version = "v1" | "v4";
+export const LIVE: Version = "v4";
+const SETUP: Record<Version, { prompt: () => string; schema: string; maxSearches: number }> = {
+  v1: { prompt: () => PROMPT, schema: "research", maxSearches: 4 },
+  v4: { prompt: () => PROMPT_V4, schema: "researchV4", maxSearches: 3 },
+};
+
+const STORY = new Set(["film", "series", "book", "game", "franchise", "story"]);   // v1's story kinds, and v4's one
 const UA = "IGetIt/1.0 (https://sensible-mongoose-624.convex.site; prateekksubs@gmail.com)";
 
 async function wikipedia(title: string, plot: boolean): Promise<{ title: string; url: string; text: string } | null> {
@@ -76,7 +130,7 @@ async function transcript(url: string): Promise<string | null> {
 // does it, under the same schema check. Grounded links are Google redirects that expire, so each is resolved first.
 export const GEMINI_RESEARCHER = "gemini-3.8-flash";
 export const CLAUDE_RESEARCHER = "claude-sonnet-5-5";
-type Attempt = { decided: any; searches: number; tokensIn: number; tokensOut: number; error?: string; model: string; ms: number };
+type Attempt = { decided: any; searches: number; grounded?: number; queries?: string[]; tokensIn: number; tokensOut: number; error?: string; model: string; ms: number };
 
 const REDIRECT = /vertexaisearch\.cloud\.google\.com\/grounding-api-redirect/;
 async function realUrl(u: string): Promise<string> {
@@ -86,7 +140,8 @@ async function realUrl(u: string): Promise<string> {
 }
 const parse = (text: string) => { const m = text.match(/\{[\s\S]*\}/); try { return m ? JSON.parse(m[0]) : null; } catch { return null; } };
 
-async function geminiOnce(model: string, ask: string) {
+async function geminiOnce(model: string, ask: string, version: Version = LIVE, structured = true) {
+  const { prompt, schema } = SETUP[version];
   const keys = [process.env.GEMINI_API_KEY, process.env.GEMINI_API_KEY_BACKUP].filter(Boolean) as string[];
   if (!keys.length) return { body: null, error: "no Gemini key set" };
   let body: any = null, error: string | undefined;
@@ -95,9 +150,9 @@ async function geminiOnce(model: string, ask: string) {
       method: "POST", signal: AbortSignal.timeout(90000),
       headers: { "Content-Type": "application/json", "x-goog-api-key": keys[i % keys.length] },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: PROMPT }] }, contents: [{ role: "user", parts: [{ text: ask }] }],
+        systemInstruction: { parts: [{ text: prompt() }] }, contents: [{ role: "user", parts: [{ text: ask }] }],
         tools: [{ google_search: {} }],
-        generationConfig: { maxOutputTokens: 8000, responseMimeType: "application/json", ...(jsonSchema("research") ? { responseJsonSchema: jsonSchema("research") } : {}) },
+        generationConfig: { maxOutputTokens: 8000, ...(structured ? { responseMimeType: "application/json", ...(jsonSchema(schema) ? { responseJsonSchema: jsonSchema(schema) } : {}) } : {}) },
       }),
     }).catch((e: any) => ({ ok: false, status: 0, json: async () => ({ error: String(e?.message ?? e) }) }) as any);
     body = await res.json().catch(() => ({}));
@@ -109,42 +164,47 @@ async function geminiOnce(model: string, ask: string) {
   return { body, error };
 }
 
-export async function geminiResearch(model: string, ask: string): Promise<Attempt> {
+export async function geminiResearch(model: string, ask: string, version: Version = LIVE, structured = true): Promise<Attempt> {
   const started = Date.now();
-  let tokensIn = 0, tokensOut = 0, searches = 0, decided: any = null, error: string | undefined;
+  const { schema } = SETUP[version];
+  let tokensIn = 0, tokensOut = 0, searches = 0, grounded = 0, decided: any = null, error: string | undefined;
+  const queries: string[] = [];
   for (let attempt = 0; attempt < 2; attempt++) {
-    const wrongBefore = attempt ? problems("research", decided) : null;
-    const { body, error: e } = await geminiOnce(model, wrongBefore ? `${ask}\n\nYour previous reply did not match the required JSON shape:\n${wrongBefore}\nReturn the whole JSON object again, with these fixed.` : ask);
+    const wrongBefore = attempt ? problems(schema, decided) : null;
+    const { body, error: e } = await geminiOnce(model, wrongBefore ? `${ask}\n\nYour previous reply did not match the required JSON shape:\n${wrongBefore}\nReturn the whole JSON object again, with these fixed.` : ask, version, structured);
     if (e || !body) { error = e ?? "no reply"; break; }
     const cand = body.candidates?.[0];
     const u = body.usageMetadata ?? {};
     tokensIn += u.promptTokenCount ?? 0; tokensOut += (u.candidatesTokenCount ?? 0) + (u.thoughtsTokenCount ?? 0);
     searches += (cand?.groundingMetadata?.webSearchQueries ?? []).length;
+    grounded += (cand?.groundingMetadata?.groundingChunks ?? []).length;   // web results the reply actually rests on
+    queries.push(...(cand?.groundingMetadata?.webSearchQueries ?? []).map(String));
     decided = parse((cand?.content?.parts ?? []).map((p: any) => p.text ?? "").join(""));
-    const wrong = problems("research", decided);
+    const wrong = problems(schema, decided);
     error = decided ? (wrong ? `schema: ${wrong.replace(/\n/g, " ").slice(0, 200)}` : undefined) : "no JSON";
     if (!error) break;
   }
   // A redirect that can't be resolved is dropped: a reader never gets a Google redirect link (8 Oct).
   if (!error && Array.isArray(decided.sources)) decided.sources = (await Promise.all(decided.sources.slice(0, 8).map(async (s: any) => ({ ...s, url: await realUrl(String(s?.url ?? "")) })))).filter((s: any) => !REDIRECT.test(s.url)).slice(0, 6);
-  return { decided: error ? null : decided, searches, tokensIn, tokensOut, error, model, ms: Date.now() - started };
+  return { decided: error ? null : decided, searches, grounded, queries, tokensIn, tokensOut, error, model, ms: Date.now() - started };
 }
 
-export async function claudeResearch(ask: string): Promise<Attempt> {
+export async function claudeResearch(ask: string, version: Version = LIVE): Promise<Attempt> {
   const started = Date.now();
+  const { prompt, schema, maxSearches } = SETUP[version];
   let decided: any = null, searches = 0, error: string | undefined, tokensIn = 0, tokensOut = 0;
   try {
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const messages: any[] = [{ role: "user", content: ask }];
     let res: any;
     for (let i = 0; i < 4; i++) {
-      res = await client.beta.messages.create({ model: CLAUDE_RESEARCHER, max_tokens: 4000, system: PROMPT, messages,
-        tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 4 } as any], output_config: { effort: "low" } as any } as any);
+      res = await client.beta.messages.create({ model: CLAUDE_RESEARCHER, max_tokens: 4000, system: prompt(), messages,
+        tools: [{ type: "web_search_20260209", name: "web_search", max_uses: maxSearches } as any], output_config: { effort: "low" } as any } as any);
       searches += res.usage?.server_tool_use?.web_search_requests ?? 0;
       tokensIn += res.usage?.input_tokens ?? 0; tokensOut += res.usage?.output_tokens ?? 0;
       if (res.stop_reason === "pause_turn") { messages.push({ role: "assistant", content: res.content }); continue; }
       decided = parse((res?.content ?? []).filter((b: any) => b.type === "text").map((b: any) => b.text).join(""));
-      const wrong = decided ? problems("research", decided) : "no JSON object in the reply";
+      const wrong = decided ? problems(schema, decided) : "no JSON object in the reply";
       if (!wrong) { error = undefined; break; }
       error = `schema: ${wrong.replace(/\n/g, " ").slice(0, 200)}`;
       if (i >= 2) break;
@@ -194,6 +254,7 @@ export const run = internalAction({
 
     const brief = {
       kind, format, chapters,
+      outline: (Array.isArray(decided?.outline) ? decided.outline : []).map((p: any) => String(p).slice(0, 80)).slice(0, 6),
       framing: format === "quick" && decided?.framing ? String(decided.framing).slice(0, 200) : null,
       facts: (Array.isArray(decided?.facts) ? decided.facts : []).map((f: any) => String(f).slice(0, 240)).slice(0, 20),
       sources,

@@ -159,6 +159,7 @@ Return JSON only: {"diagnosis": "...", "lesson": "...", "cards": [ ... ]}`;
 export function briefForPlan(b: any): string {
   if (!b) return "";
   return `\n\nResearch brief (from web searches; build on it):\nKind: ${b.kind || "unknown"}\nSuggested format: ${b.format}, ${b.chapters} chapter${b.chapters === 1 ? "" : "s"}${b.framing ? `\nSuggested framing line: ${b.framing}` : ""}` +
+    (b.outline?.length ? `\nParts the goal needs, in teaching order (group them into the chapters; cover every one):\n- ${b.outline.join("\n- ")}` : "") +
     (b.facts?.length ? `\nFacts to get right:\n- ${b.facts.join("\n- ")}` : "") +
     (b.sources?.length ? `\nSources read:\n${b.sources.map((s: any) => `- ${s.title}: ${s.url}`).join("\n")}` : "") +
     (b.wiki?.text ? `\nWikipedia (${b.wiki.title}), opening:\n${b.wiki.text.slice(0, 1500)}` : "") +
