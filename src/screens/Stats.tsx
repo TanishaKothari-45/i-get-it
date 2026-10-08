@@ -22,8 +22,8 @@ const fmt = (n: number) => n.toLocaleString('en-IN')
 
 type Social = { day: string; platform: 'instagram' | 'x'; via: string; posts?: number; views?: number; reach?: number; likes?: number; comments?: number; shares?: number; saves?: number; follows?: number; profileVisits?: number; linkClicks?: number }
 const SOCIAL_SHOWN: Record<'instagram' | 'x', [keyof Social, string][]> = {
-  instagram: [['views', 'Views'], ['reach', 'Reach'], ['shares', 'Shares'], ['saves', 'Saves'], ['follows', 'Follows'], ['profileVisits', 'Profile visits']],
-  x: [['views', 'Impressions'], ['likes', 'Likes'], ['shares', 'Reposts'], ['linkClicks', 'Link clicks'], ['profileVisits', 'Profile visits'], ['follows', 'Follows']],
+  instagram: [['views', 'Views'], ['likes', 'Likes'], ['comments', 'Comments'], ['shares', 'Shares'], ['saves', 'Saves'], ['reach', 'Reach'], ['follows', 'Follows'], ['profileVisits', 'Profile visits']],
+  x: [['views', 'Impressions'], ['likes', 'Likes'], ['comments', 'Replies'], ['shares', 'Reposts'], ['linkClicks', 'Link clicks'], ['profileVisits', 'Profile visits'], ['follows', 'Follows']],
 }
 
 export default function Stats() {
@@ -137,7 +137,7 @@ function SocialCard({ platform, rows }: { platform: 'instagram' | 'x'; rows: Soc
   return (
     <div className="sd-card">
       <div className="sd-card-head"><strong>{name}</strong>{last && <span>{dayLabel(last.day)}{last.posts ? `, ${last.posts} post${last.posts > 1 ? 's' : ''}` : ''}</span>}</div>
-      {!last ? <p className="note">Numbers start soon, typed in each morning from {name}'s own insights.</p> : (
+      {!last ? <p className="note">Numbers start soon, read each morning from {name}.</p> : (
         <>
           <dl className="sd-metrics">
             {SOCIAL_SHOWN[platform].filter(([k]) => last[k] !== undefined).slice(0, 4).map(([k, label]) => (
@@ -150,7 +150,7 @@ function SocialCard({ platform, rows }: { platform: 'instagram' | 'x'; rows: Soc
               {week.map((r) => <span key={r.day} style={{ height: `${((r.views ?? 0) / wmax) * 100}%` }} title={`${dayLabel(r.day)}: ${r.views ?? 0}`} />)}
             </div>
           )}
-          <p className="sd-via">{last.via === 'api' ? `From ${name}'s API.` : `Typed in from ${name}'s insights.`}</p>
+          <p className="sd-via">Totals so far for posts made that day{last.via === 'api' ? `, from ${name}'s API.` : `, read from ${name}.`}</p>
         </>
       )}
     </div>
