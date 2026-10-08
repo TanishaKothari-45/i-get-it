@@ -26,6 +26,7 @@ When I report a bug, I'll name the part. Look there first, and tell me if you th
 - Never put a key or password in code, in a VITE_ variable (those are sent to every visitor) or in a committed file. Never ask me to paste a key into chat; tell me the `npx convex env set` command instead.
 - Copy that a user reads is a placeholder until Prateek rewrites it. Mark it (agent) in DESIGN.md until then.
 - Never use or suggest any host, database or auth service other than Convex, or any other service, without asking first. (Prateek's standing rule.)
+- Every build day ends with lessons in docs/lessons.md, under that day's heading, in two halves: Product/Tech and GTM (Prateek, 8 Oct: "every single day we build"). Each session adds what its own work taught (thought / learned / now, with numbers) before it ends, and folds any "learned:" notes from the bottom of the file into the day. Lessons, not a list of what shipped; that's PROGRESS.md.
 
 ## 3. Shipping
 Live link: the .convex.site address of this project (see PROGRESS.md for the current one).

@@ -82,6 +82,11 @@ Attach the dashboard screenshot: $SHOT
 - All time: $VIS visitors · $STARTED handbooks started · $PASSED passed chapter 1 · $READY ready topics.
 - The loop: keep what brought readers yesterday, change one thing that didn't (docs/content-plan.md section 7).
 
+## Yesterday's lessons (docs/lessons.md: pick one Product/Tech or GTM lesson for "What we decided or struggled with")
+
+$(LH="## $(date -v-1d '+%a %-d %b')"; [ -f docs/lessons.md ] && awk -v h="$LH" 'index($0, h) == 1 { on = 1; next } /^## / { on = 0 } on' docs/lessons.md | sed '/^$/d' | cut -c1-300 || true)
+$( [ -f docs/lessons.md ] && grep -q "$(date -v-1d '+%a %-d %b')" docs/lessons.md || echo "- No lessons written for yesterday. Write them in docs/lessons.md (Product/Tech and GTM) before posting.")
+
 ## Your question for today
 
 $Q
