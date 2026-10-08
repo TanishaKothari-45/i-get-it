@@ -512,8 +512,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .lp-field input { width: 100%; min-height: 58px; border: 3px solid var(--ink); border-radius: 14px; background: var(--paper); padding: 0 16px; font: 500 1.08rem var(--serif); color: var(--ink); }
 .lp-field input:focus { outline: none; box-shadow: 0 0 0 4px rgba(58, 65, 112, 0.35); }
 .lp-field input::placeholder { color: var(--ink-2); opacity: 1; }   /* the browser's grey read 4.3:1 on paper (8 Oct night audit) */
-.lp-field button { min-height: 58px; border: 3px solid var(--ink); border-radius: 14px; background: var(--ink); color: var(--paper); font: 800 1.1rem var(--sans); font-variation-settings: 'wdth' 90; letter-spacing: 0.005em; cursor: pointer; transition: transform 120ms var(--ease), box-shadow 120ms var(--ease); box-shadow: 4px 4px 0 var(--riso-indigo); }
-.lp-field button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--riso-indigo); }
+/* the same main button as inside the app (8 Oct night, critique: two button systems met on one path): marigold, ink outline, pressed */
+.lp-field button { min-height: 58px; border: 3px solid var(--ink); border-radius: 14px; background: var(--accent); color: var(--ink); font: 800 1.1rem var(--sans); font-variation-settings: 'wdth' 90; letter-spacing: 0.005em; cursor: pointer; transition: transform 120ms var(--ease), box-shadow 120ms var(--ease); box-shadow: 4px 4px 0 var(--ink); }
+.lp-field button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
 .lp-field button:disabled { opacity: 0.7; }
 .lp-options { margin-top: 12px; font-size: var(--small); }
 .lp-options summary { cursor: pointer; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; list-style: none; min-height: 32px; display: flex; align-items: center; }
@@ -981,6 +982,7 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 
 /* Accessibility (8 Oct, review #48-50): exits are 44 px tall; sheets have a close button; dialogs show focus quietly. */
 .actionbar .quiet, .nudge .quiet, .doit-later, .sheet .quiet { min-height: 44px; }
+.note .quiet, .roadmap-links .quiet { min-height: 44px; display: inline-flex; align-items: center; }   /* text links are 44 px rows too (8 Oct night audit) */
 .sheet-close { position: absolute; top: 6px; right: 10px; background: none; border: 0; font-size: 26px; line-height: 1; min-width: 44px; min-height: 44px; color: var(--ink-2); }
 .sheet { position: fixed; }
 .sheet > div { position: relative; }

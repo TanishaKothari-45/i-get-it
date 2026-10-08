@@ -149,7 +149,7 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
       <ActionBar>
         {wall ? (
           <>
-            <button className="btn" onClick={onKeep}>Make a free account</button>
+            <button className="btn" onClick={() => { track('wall_tap', { n }); onKeep() }}>Make a free account</button>
             <button type="button" className="quiet" onClick={onContinue}>Back to the handbook</button>
           </>
         ) : !signedIn && !stay && !last && n < freeChapters && onNext && nextTitle ? (

@@ -21,7 +21,7 @@ type Frame =
 
 type Shelf = { topic: string; outcome: string; cover: string | null; week: number; starts: number; passRate: number | null; trending: boolean; addedAt: number; mode: string | null; improved?: boolean }
 type Pill = 'trending' | 'started' | 'finished' | 'new'
-const PILLS: { key: Pill; label: string }[] = [{ key: 'trending', label: '🔥 Trending this week' }, { key: 'started', label: 'Most started' }, { key: 'finished', label: 'Most finished' }, { key: 'new', label: 'New' }]
+const PILLS: { key: Pill; label: string }[] = [{ key: 'trending', label: 'Trending this week' }, { key: 'started', label: 'Most started' }, { key: 'finished', label: 'Most finished' }, { key: 'new', label: 'New' }]
 
 // "Or start one tonight" as a carousel (6 Oct): pills sort it by real numbers, Surprise me shuffles it. One tap starts.
 function Carousel({ items, busy, picked, onPick, onExplore }: { items: Shelf[]; busy: boolean; picked: string | null; onPick: (topic: string) => void; onExplore?: () => void }) {
@@ -38,13 +38,13 @@ function Carousel({ items, busy, picked, onPick, onExplore }: { items: Shelf[]; 
     if (pill === 'finished') return xs.sort((a, b) => (b.passRate ?? -1) - (a.passRate ?? -1))
     return xs.sort((a, b) => b.addedAt - a.addedAt)
   })()
-  const tag = (it: Shelf) => it.trending ? '🔥 Trending' : it.improved ? '✨ Just improved' : pill === 'started' && it.week ? `${it.week} started this week` : pill === 'finished' && it.passRate !== null ? `${Math.round(it.passRate * 100)}% finish chapter 1` : pill === 'new' && Date.now() - it.addedAt < 7 * 864e5 ? 'New' : ''
+  const tag = (it: Shelf) => it.trending ? 'Trending' : it.improved ? 'Just improved' : pill === 'started' && it.week ? `${it.week} started this week` : pill === 'finished' && it.passRate !== null ? `${Math.round(it.passRate * 100)}% finish chapter 1` : pill === 'new' && Date.now() - it.addedAt < 7 * 864e5 ? 'New' : ''
   return (
     <div className="lp-quick">
       <p>Or start one tonight. It opens instantly:</p>
       <div className="lp-pills" role="group" aria-label="Sort">
         {pills.map((p) => <button key={p.key} type="button" aria-pressed={!seed && pill === p.key} onClick={() => { setSeed(0); setPill(p.key) }}>{p.label}</button>)}
-        <button type="button" aria-pressed={!!seed} onClick={() => setSeed((x) => x + 1)}>🎲 Surprise me</button>
+        <button type="button" aria-pressed={!!seed} onClick={() => setSeed((x) => x + 1)}>Surprise me</button>
       </div>
       <ul className="lp-carousel">
         {sorted.slice(0, 12).map((it) => (

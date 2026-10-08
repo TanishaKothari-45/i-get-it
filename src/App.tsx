@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useAction, useConvexAuth, useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { api } from '../convex/_generated/api'
-import { deviceToken } from './lib/device'
+import { deviceToken, freshDevice } from './lib/device'
 import { track } from './lib/track'
 import Start from './screens/Start'
 import Plan from './screens/Plan'
@@ -103,7 +103,7 @@ export default function App() {
   const [exploreFrom, setExploreFrom] = useState<View>('auto')
   // A book tapped on the Shelf stays lifted on the Shelf while its handbook loads (8 Oct night, Prateek's animation):
   // the splash would tear the Shelf down, so the Shelf keeps rendering until the handbook query answers.
-  const [hold, setHold] = useState<'explore' | 'landing' | null>(null)
+  const [hold, setHold] = useState<'explore' | 'landing' | 'library' | null>(null)
   const goExplore = () => { setExploreFrom(view === 'auto' || view === 'explore' ? (hb ? 'plan' : 'auto') : view); setView('explore') }
   const routeLock = (code: string | null, note: string) => {
     if (code === 'signup-more') { setSigninReason(note); setAfterSignIn('chapter'); setView('signin'); return true }
@@ -130,7 +130,7 @@ export default function App() {
   // lifted book, through the load and this one render, so the reader never sees the splash or a flash of the plan.
   // (view 'chapter' with no cards yet is the half-second while chapter 1's cards are fetched; the plan would flash there.)
   const holdable = hb?.status === 'ready' && ch1Status === 'ready' && passed.length === 0 && (progress?.currentCard ?? 0) === 0 && (view === 'auto' || (view === 'chapter' && !(chapter?.status === 'ready' && Array.isArray(chapter.cards))))
-  useEffect(() => { if (hold && hb && view !== 'explore' && !holdable) setHold(null) }, [hold, hb, view, holdable])
+  useEffect(() => { if (hold && hb && view !== 'explore' && view !== 'library' && !holdable) setHold(null) }, [hold, hb, view, holdable])
   useEffect(() => {
     if (!hb || hb.status !== 'ready' || autoEntered.current === hb._id || view !== 'auto') return
     autoEntered.current = hb._id
@@ -198,7 +198,17 @@ export default function App() {
   }
 
   // A first-time visitor's pick stays on the landing page, with the card lifted, until its handbook is ready (8 Oct night).
-  if (hold === 'landing' && !deepLink && (data === undefined || holdable))    return <Landing onExplore={() => setView('explore')} onCreate={async (topic, level, voice) => { setHold('landing'); setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
+  if ((hold === 'landing' || (freshDevice && !pinned && view === 'auto')) && !deepLink && (data === undefined || holdable))    return <Landing onExplore={() => setView('explore')} onCreate={async (topic, level, voice) => { setHold('landing'); setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
+  const libRows = lib?.handbooks ?? []
+  // Your handbooks stays up while a tapped handbook loads (no splash), like the Shelf.
+  if (view === 'library' || (hold === 'library' && data === undefined)) {
+    return (
+      <Shell back={hb ? { label: 'Handbook', onClick: () => setView('plan') } : undefined}>
+        <Library rows={libRows as any} signedIn={!!lib?.signedIn} activeId={hb?._id} onOpen={(id) => { setHold('library'); pin(id); setDoneN(null); setView('plan') }}
+          onNew={() => { setDraftTopic(''); setView('start-again') }} onSignIn={() => signIn('library')} onPlans={() => setView('pricing')} onExplore={goExplore} />
+      </Shell>
+    )
+  }
   if (data === undefined || deepLink) return <Shell><div className="splash">Opening your handbook…</div></Shell>
 
   const signIn = (back: View) => { setAfterSignIn(back); setView('signin') }
@@ -208,20 +218,11 @@ export default function App() {
     try { const r = await create({ topic: t, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setDoneN(null); setView('auto') }
     catch (e) { if (isMemberLimit(e)) { setPricingNotice(limitMessage(e)); setView('pricing') } else throw e }
   }
-  const libRows = lib?.handbooks ?? []
   // Home is your shelf when you have handbooks; a first-time visitor's home is the landing page.
   goHome = () => { setDoneN(null); if (libRows.length) setView('library'); else { setView('auto'); window.scrollTo({ top: 0 }) } }
   goShelf = () => { setDoneN(null); goExplore() }
 
   // Library and pricing can be reached from anywhere, with or without a current handbook.
-  if (view === 'library') {
-    return (
-      <Shell back={hb ? { label: 'Handbook', onClick: () => setView('plan') } : undefined}>
-        <Library rows={libRows as any} signedIn={!!lib?.signedIn} activeId={hb?._id} onOpen={(id) => { pin(id); setDoneN(null); setView('plan') }}
-          onNew={() => { setDraftTopic(''); setView('start-again') }} onSignIn={() => signIn('library')} onPlans={() => setView('pricing')} onExplore={goExplore} />
-      </Shell>
-    )
-  }
   if (view === 'pricing') {
     return (
       <Shell back={{ label: 'Back', onClick: () => setView(hb ? 'plan' : 'library') }}>
