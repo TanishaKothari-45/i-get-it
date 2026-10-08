@@ -5,6 +5,8 @@ import Rich, { inline } from '../components/Rich'
 import AskCard from '../components/AskCard'
 import DoIt, { type DoItCard } from '../components/DoIt'
 import MoveFrame, { type MoveCard } from '../components/MoveFrame'
+import StepsFrame, { type StepsCard } from '../components/StepsFrame'
+import TryItFrame, { type TryItCard } from '../components/TryItFrame'
 import type { Id } from '../../convex/_generated/dataModel'
 
 export type Card =
@@ -13,6 +15,8 @@ export type Card =
   | { type: 'exercise'; kind: 'guess' | 'apply' | 'recall'; prompt: string; options: { id: string; text: string }[] }
   | MoveCard
   | DoItCard
+  | StepsCard
+  | TryItCard
 
 export type AnswerResult =
   | { correct: true; text: string; why: string | null; chapterPassed?: true }
@@ -83,7 +87,7 @@ function sizeOf(text: string) {
 export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onLog, loggedSets = [], lastTime, recapReteach = [], pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [
-      ...(lastTime && lastTime.type !== 'exercise' && lastTime.type !== 'watch' && lastTime.type !== 'move' && lastTime.type !== 'doit' ? [{ chapter: n - 1, cardIndex: -1, recall: true, card: { ...lastTime, title: 'Last time', body: dropNextLine(lastTime.body) } as Card }] : []),
+      ...(lastTime && !['exercise', 'watch', 'move', 'doit', 'steps', 'tryit'].includes(lastTime.type) ? [{ chapter: n - 1, cardIndex: -1, recall: true, card: { ...lastTime, title: 'Last time', body: dropNextLine((lastTime as any).body ?? '') } as Card }] : []),
       ...(recapReteach.length ? [{ chapter: n - 1, cardIndex: -2, recall: true, card: { type: 'teach', title: 'Before we go on', body: recapReteach.join('\n\n') } as Card }] : []),
       ...recall.map((r) => ({ ...r, recall: true })),
       ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card })).filter((x) => !isBreath(x.card)),
@@ -104,6 +108,8 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
       if (c.type === 'watch') { out.push({ item, part: 0, parts: 1, tone: 'indigo' }); continue }
       if (c.type === 'move') { out.push({ item, part: 0, parts: 1, tone: 'cream' }); continue }
       if (c.type === 'doit') { out.push({ item, part: 0, parts: 1, tone: 'green' }); continue }
+      if (c.type === 'steps') { out.push({ item, part: 0, parts: 1, tone: 'indigo' }); continue }
+      if (c.type === 'tryit') { out.push({ item, part: 0, parts: 1, tone: 'cream' }); continue }
       // A card the screen can't show (8 Oct: a "poll" card from an old rewrite blanked the whole chapter) is skipped, never fatal.
       if (typeof (c as any).body !== 'string') continue
       const ps = paragraphs(c.body)
@@ -218,7 +224,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
 
   const c = item.card
   // A card's picture sits on its first frame only, so the words keep the screen on the frames after it.
-  const pic = !item.recall && frame.part === 0 && c.type !== 'exercise' && c.type !== 'watch' && c.type !== 'move' && c.type !== 'doit' ? pictures[item.cardIndex] : undefined
+  const pic = !item.recall && frame.part === 0 && !['exercise', 'watch', 'move', 'doit', 'steps', 'tryit'].includes(c.type) ? pictures[item.cardIndex] : undefined
   const revealId = result && !result.correct && result.reveal ? result.reveal.id : null
   const label = item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of ${total}`
 
@@ -257,6 +263,10 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
             </>
           ) : c.type === 'move' ? (
             <MoveFrame card={c} />
+          ) : c.type === 'steps' ? (
+            <StepsFrame card={c} />
+          ) : c.type === 'tryit' ? (
+            <TryItFrame card={c} done={logged.has(item.cardIndex)} onDone={async () => { if (!onLog) return; const r = await onLog(item, 1, 'right'); setLogged((s) => new Set(s).add(item.cardIndex)); if (r.chapterPassed) track('set_passed', { n }) }} />
           ) : c.type === 'doit' ? (
             <DoIt card={c} logged={logged.has(item.cardIndex)} onLater={() => { setLater((s) => new Set(s).add(item.cardIndex)); setI(i + 1); reset() }}
               onLog={async (count, feel) => { if (!onLog) return; const r = await onLog(item, count, feel); setLogged((s) => new Set(s).add(item.cardIndex)); if (r.chapterPassed) track('set_passed', { n }) }} />
@@ -338,7 +348,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
 
 // The closing "In one breath" card moves to the start of the next chapter as "Last time" (7 Oct).
 function isBreath(c: Card) {
-  return c.type !== 'exercise' && c.type !== 'watch' && c.type !== 'move' && c.type !== 'doit' && /^in one breath$/i.test((c.title ?? '').trim())
+  return !['exercise', 'watch', 'move', 'doit', 'steps', 'tryit'].includes(c.type) && /^in one breath$/i.test(((c as any).title ?? '').trim())
 }
 // Its last line teased this chapter ("Next: ..."); as a recap it isn't needed.
 function dropNextLine(body: string) {

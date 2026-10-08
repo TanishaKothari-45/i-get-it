@@ -874,3 +874,16 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .book-goal { font: 500 0.62rem/1.2 var(--sans); color: var(--fg2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .book-ribbon { position: absolute; top: -6px; right: 8px; background: #e0735a; color: var(--ink); font: 700 0.62rem var(--sans); padding: 3px 7px; border-radius: 3px; box-shadow: 0 1px 0 rgba(0,0,0,0.3); }
 .shelf-plank { height: 16px; margin: -2px -6px 0; border-radius: 3px; background: linear-gradient(180deg, #b98652, #9a6a3b 55%, #7b5230); box-shadow: 0 6px 10px rgba(27,26,23,0.22), inset 0 1px 0 rgba(255,255,255,0.25); }
+
+/* Tool skills and ideas (8 Oct, block 2): steps and try-it frames. */
+.steps, .tryit { display: flex; flex-direction: column; gap: 12px; }
+.steps-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.steps-list button { all: unset; box-sizing: border-box; cursor: pointer; display: flex; gap: 12px; align-items: flex-start; width: 100%; background: #faf7f0; color: #1b1a17; padding: 12px 14px; border-radius: 16px; min-height: 52px; }
+.steps-list li.done button { opacity: 0.55; }
+.steps-list li.done .steps-do { text-decoration: line-through; }
+.steps-n { width: 26px; height: 26px; border-radius: 50%; background: #1b1a17; color: #faf7f0; display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex: none; margin-top: 1px; }
+.steps-text { display: grid; gap: 2px; }
+.steps-do { font-weight: 700; line-height: 1.3; }
+.steps-see { font-size: 0.88rem; opacity: 0.8; line-height: 1.3; }
+.tryit-box { width: 100%; max-width: 390px; aspect-ratio: 390 / 520; border-radius: 18px; overflow: hidden; background: #faf7f0; }
+.tryit-box iframe { display: block; border: 0; width: 100%; height: 100%; }

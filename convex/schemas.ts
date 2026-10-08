@@ -23,13 +23,16 @@ export const exercise = z.looseObject({
 // The card types the app renders (prompts.ts CHAPTER_PROMPT). Two shapes: a quiz card with all its fields, and a text
 // card with a body. As a union, the JSON schema sent to a provider carries the quiz fields too (8 Oct: with only
 // type/title/body in the schema, Gemini wrote quiz cards with no question and no options).
-const CARD_TYPES = ["picture", "teach", "example", "exercise", "mistake", "try", "watch", "move", "doit"] as const;
+const CARD_TYPES = ["picture", "teach", "example", "exercise", "mistake", "try", "watch", "move", "doit", "steps", "tryit"] as const;
 const textCard = z.looseObject({ type: z.enum(["picture", "teach", "example", "mistake", "try"]), title: z.string().optional(), body: str });
 const watchCard = z.looseObject({ type: z.literal("watch"), who: z.string().optional(), what: z.string().optional(), url: str, watchFor: z.string().optional() });
 // Body skills (8 Oct): the move shown moving, with cues; and "do it", a counter, a timer or a checklist that logs a set.
 const moveCard = z.looseObject({ type: z.literal("move"), title: z.string().optional(), body: z.string().optional(), cues: z.array(str).min(1).max(4), html: z.string().optional() });
 const doitCard = z.looseObject({ type: z.literal("doit"), title: z.string().optional(), instruction: str, kind: z.enum(["reps", "timer", "checklist"]), target: z.number().optional(), items: z.array(str).optional() });
-const card = z.union([exercise, textCard, watchCard, moveCard, doitCard]);
+// Tool skills and ideas (8 Oct, block 2): numbered steps in a real tool; a small interactive page for the chapter's idea.
+const stepsCard = z.looseObject({ type: z.literal("steps"), title: z.string().optional(), steps: z.array(z.looseObject({ do: str, see: z.string().optional() })).min(2).max(8) });
+const tryitCard = z.looseObject({ type: z.literal("tryit"), title: z.string().optional(), idea: str, html: z.string().optional() });
+const card = z.union([exercise, textCard, watchCard, moveCard, doitCard, stepsCard, tryitCard]);
 
 export const plan = z.looseObject({
   needsClarification: z.boolean().optional(),
@@ -39,7 +42,7 @@ export const plan = z.looseObject({
   outcome7: nullableStr,
   format: z.enum(["course", "quick"]).optional(),
   framing: nullableStr,
-  chapters: z.array(z.looseObject({ title: str, covers: str.optional(), outcome: str.optional(), hook: str.optional() })).max(7),
+  chapters: z.array(z.looseObject({ title: str, covers: str.optional(), outcome: str.optional(), hook: str.optional(), blocks: z.array(str).max(12).optional(), proof: z.string().optional() })).max(7),
   sources: z.array(z.looseObject({ who: str.optional(), what: str.optional(), why: str.optional() })).optional(),
   next: z.array(str).optional(),
   caution: z.enum(["money", "health", "legal", "none"]).optional(),

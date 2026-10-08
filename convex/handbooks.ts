@@ -6,7 +6,7 @@ import { internalAction, internalMutation, internalQuery, mutation, query, type 
 import type { Doc, Id } from "./_generated/dataModel";
 import { briefForChapter, briefForPlan, MATCH_PROMPT, matchUserMessage, VERSIONS_PROMPT, versionsUserMessage } from "./prompts";
 import { addCost } from "./costs";
-import { MOVE_PROMPT, moveUserMessage, INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
+import { MOVE_PROMPT, moveUserMessage, TRYIT_PROMPT, tryItUserMessage, INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
 import { level } from "./schema";
 import { copyInto, matchForIntent, sharedRow } from "./library";
 import { assignVariant } from "./doctor";
@@ -614,11 +614,18 @@ export async function factCheck(ctx: any, topic: string, level: string, title: s
 
 // Body skills (8 Oct): each "move" card gets its moving figure, drawn by Sonnet from the cues. A failed drawing
 // leaves the cues alone on the card; the chapter is never held up by it.
+const UNSAFE_HTML = /(src|href)\s*=\s*["']https?:|\bfetch\(|XMLHttpRequest|localStorage|document\.cookie|import\(/i;
 export async function drawMoves(ctx: any, topic: string, title: string, cards: any[]) {
   for (const c of cards) {
-    if (c?.type !== "move" || c.html) continue;
-    const m = await ctx.runAction(internal.ai.generate, { kind: "move", system: MOVE_PROMPT, user: moveUserMessage(topic, title, c) });
-    if (m.ok && typeof m.json?.html === "string" && !/(src|href)\s*=\s*["']https?:|\bfetch\(|localStorage/i.test(m.json.html)) c.html = String(m.json.html).slice(0, 40000);
+    if (c?.type === "move" && !c.html) {
+      const m = await ctx.runAction(internal.ai.generate, { kind: "move", system: MOVE_PROMPT, user: moveUserMessage(topic, title, c) });
+      if (m.ok && typeof m.json?.html === "string" && !UNSAFE_HTML.test(m.json.html)) c.html = String(m.json.html).slice(0, 40000);
+    }
+    // "Try it" (8 Oct, block 2): the interactive page for the chapter's idea, from the idea line the writer gave.
+    if (c?.type === "tryit" && !c.html) {
+      const m = await ctx.runAction(internal.ai.generate, { kind: "artifact", system: TRYIT_PROMPT, user: tryItUserMessage(topic, title, String(c.idea ?? ""), cards) });
+      if (m.ok && typeof m.json?.html === "string" && !UNSAFE_HTML.test(m.json.html)) c.html = String(m.json.html).slice(0, 60000);
+    }
   }
 }
 
@@ -877,7 +884,7 @@ export const setPosition = mutation({
     // A chapter with no quizzes (chapter 1 since 6 Oct) is passed when the reader reaches its last card.
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
     const cards = (ch?.cards ?? []) as any[];
-    const quizFree = cards.length > 0 && !cards.some((c) => c?.type === "exercise") && !cards.some((c) => c?.type === "doit");   // doit chapters pass by a logged set (logSet)
+    const quizFree = cards.length > 0 && !cards.some((c) => c?.type === "exercise") && !cards.some((c) => c?.type === "doit");   // doit chapters pass by a logged set (logSet); a tryit is a bonus, never a wall
     // The closing "In one breath" card isn't shown any more (it opens the next chapter as "Last time", 7 Oct), so the
     // chapter passes at the last card the reader actually sees.
     const breathLast = /^in one breath$/i.test(String(cards[cards.length - 1]?.title ?? "").trim());
@@ -1000,7 +1007,7 @@ export const logSet = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
     const card: any = (ch?.cards as any[] | undefined)?.[cardIndex];
-    if (!card || card.type !== "doit") throw new Error("Not a do-it card");
+    if (!card || (card.type !== "doit" && card.type !== "tryit")) throw new Error("Not a do-it card");
     const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
     if (!isOpen(p, chapter)) throw new Error("Chapter not open");
     await ctx.db.insert("sets", { handbookId, chapter, cardIndex, count: Math.max(0, Math.min(10000, Math.round(count))), feel, at: Date.now() });
