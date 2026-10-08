@@ -70,12 +70,17 @@ if (await step('chapter 1 opens as full-screen frames', `!!document.querySelecto
   }
 }
 
-// ── Scenario 2: a post link to chapter 2 of a ready topic (Instagram), fresh phone ───────────────────────────
+// ── Scenario 2: a post link to chapter 2 of a ready topic, fresh phone ───────────────────────────────────────
+// Decided 8 Oct night (Prateek, via session 55): the wall is by chapter number, so a ?ch=2 arrival on a fresh phone
+// meets the sign-in screen with the reason card, and can step back. (A ch=1 link, and the link in bio, open content.)
 console.log(`\nScenario 2: post link ?t=public-speaking&ch=2`)
 await send('Storage.clearDataForOrigin', { origin: BASE, storageTypes: 'all' }).catch(() => {})
 await goto(`${BASE}/?t=public-speaking&ch=2&utm_source=internal`)
-await step('the link opens the topic, not the landing page', `!document.querySelector('.lp') && (!!document.querySelector('.story') || !!document.querySelector('.roadmap-hero'))`, 25000)
-await step('chapter 2 is what opens (the first chapter opened is the free one)', `/Chapter 2 of/.test(document.querySelector('.story-label')?.textContent ?? '') || /Chapter 2/.test(document.querySelector('.nextup-title, .stop.now .stop-n')?.textContent ?? '')`, 15000)
+await step('the link opens the topic, not the landing page', `!document.querySelector('.lp') && (!!document.querySelector('.story') || !!document.querySelector('.roadmap-hero') || !!document.querySelector('#email'))`, 25000)
+await step('a fresh phone meets the sign-in wall with its reason card (decided rule)', `!!document.querySelector('#email') && !!document.querySelector('.why-here')`, 15000)
+await step('the wall has a way back ("Not now")', `[...document.querySelectorAll('button')].some((b) => b.textContent.trim() === 'Not now')`, 3000)
+await tap('Not now')
+await step('"Not now" lands in chapter 1 (a fresh handbook opens there), or on the handbook with chapter 1 openable', `/Chapter 1 of/.test(document.querySelector('.story-label')?.textContent ?? '') || (!!document.querySelector('.roadmap-hero') && [...document.querySelectorAll('button')].some((b) => /Start chapter 1|Pick up where you left off/.test(b.textContent)))`, 10000)
 console.log(`     screenshot: ${await shot('post-link')}`)
 
 console.log(failed ? '\nRESULT: FAIL (see the lines above)' : '\nRESULT: PASS, the path holds end to end')
