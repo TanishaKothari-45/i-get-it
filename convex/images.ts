@@ -314,3 +314,31 @@ export const deleteShrunkOriginals = internalAction({
     return { deleted, kept };
   },
 });
+
+// D29b (9 Oct, 05's slow-line measurement): a small variant (about 640 px wide, ~40 to 60 KB) for the pictures a phone
+// sees first: the wait-story pictures and the Shelf covers. Stored once per original and remembered in settings under
+// "small:<id>"; the queries serve the small one as "picture" and keep the full one as "pictureFull".
+// Run: npx convex run --prod images:smallVariants '{}'   (safe to re-run; skips what it has)
+export const smallVariants = internalAction({
+  args: { redo: v.optional(v.boolean()), maxW: v.optional(v.number()), quality: v.optional(v.number()) },
+  handler: async (ctx, { redo, maxW = 560, quality = 62 }): Promise<{ made: number; skipped: number; bytes: number }> => {
+    let bytes = 0;
+    const ids: string[] = await ctx.runQuery(internal.repairData.firstSeenPictureIds, {});
+    let made = 0, skipped = 0;
+    for (const id of ids) {
+      const have: string | null = await ctx.runQuery(internal.repairData.shrunkFor, { from: `small:${id}` });
+      if (have && !redo) { skipped++; continue; }
+      try {
+        const blob = await ctx.storage.get(id as Id<"_storage">);
+        if (!blob) { skipped++; continue; }
+        // 560 px wide at quality 62: the grainy print style compresses poorly, so this is what it takes to land near 50 KB.
+        const small = await shrink(new Uint8Array(await blob.arrayBuffer()), blob.type || "image/jpeg", maxW, quality);
+        bytes += small.bytes.length;
+        const to = await ctx.storage.store(new Blob([small.bytes as BlobPart], { type: "image/jpeg" }));
+        await ctx.runMutation(internal.repairData.rememberShrunk, { from: `small:${id}`, to: String(to) });
+        made++;
+      } catch (e: any) { console.log("small variant failed", id, String(e?.message ?? e).slice(0, 100)); skipped++; }
+    }
+    return { made, skipped, bytes };
+  },
+});

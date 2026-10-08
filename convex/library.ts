@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { smallUrl } from "./pictures";
 import { typedName } from "./names";
 import { internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
@@ -156,7 +157,7 @@ export const explore = query({
   args: {},
   handler: async (ctx) => {
     // Reads the shelf (shelf.ts) and this week's handbooks only, never every full handbook (7 Oct, before launch).
-    const url = async (id?: any) => (id ? await ctx.storage.getUrl(id) : null);
+    const url = async (id?: any) => (id ? await smallUrl(ctx, id) : null);   // D29b: the small variant when one exists
     const weekAgo = Date.now() - 7 * DAY;
     const excluded = await ctx.db.query("statsExcluded").collect();
     const xTokens = new Set(excluded.map((e) => e.deviceToken).filter(Boolean) as string[]);
@@ -216,7 +217,7 @@ export const related = query({
     const userId = await getAuthUserId(ctx);
     const mine = userId ? await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).collect() : await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).collect();
     const have = new Set(mine.map((h) => h.topic.toLowerCase()).concat(mine.map((h) => String((h.plan as any)?.topic ?? "").toLowerCase())));
-    const url = async (id?: any) => (id ? await ctx.storage.getUrl(id) : null);
+    const url = async (id?: any) => (id ? await smallUrl(ctx, id) : null);   // D29b: the small variant when one exists
     const weekAgo = Date.now() - 7 * DAY;
     const recent = await ctx.db.query("handbooks").withIndex("by_created", (q) => q.gte("createdAt", weekAgo)).collect();
     const shelf = await ctx.db.query("shelf").collect();

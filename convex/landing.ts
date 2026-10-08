@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { smallUrl } from "./pictures";
 import { query } from "./_generated/server";
 
 // Public content for the landing page, all from the ready topics: a tappable demo of
@@ -19,7 +20,7 @@ export function weekStartIST(t = Date.now()): string {
 export const content = query({
   args: {},
   handler: async (ctx) => {
-    const url = async (id?: any) => (id ? await ctx.storage.getUrl(id) : null);
+    const url = async (id?: any) => (id ? await smallUrl(ctx, id) : null);   // D29b: the small variant when one exists
     const pictureFor = async (ch: any, card: number) => url(ch?.pictures?.find((p: any) => p.card === card)?.storageId);
     // The shelf (shelf.ts) holds one light row per ready topic, so this page never loads every full handbook (7 Oct).
     const rows = (await ctx.db.query("shelf").withIndex("by_kind", (q) => q.eq("kind", "ready")).collect()).filter((r) => r.level === "new");
@@ -84,7 +85,7 @@ export const waitStory = query({
     const frames: string[] = Array.isArray(st.frames) && st.frames.length ? st.frames : String(st.text ?? "").split(/\n\s*\n/).filter(Boolean);
     return {
       topic: r.title, key: r.key, kind: r.kind, title: st.title ?? null, frames, text: frames.join("\n\n"), source: st.source ?? null,
-      chapter: st.chapter ?? "", picture: st.storageId ? await ctx.storage.getUrl(st.storageId) : null,
+      chapter: st.chapter ?? "", picture: st.storageId ? await smallUrl(ctx, st.storageId) : null, pictureFull: st.storageId ? await ctx.storage.getUrl(st.storageId) : null,
       count: rows.reduce((t, x) => t + (x.stories ?? []).length, 0), handbooks: rows.length,
     };
   },

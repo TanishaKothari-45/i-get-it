@@ -511,3 +511,16 @@ export const allPictureIds = internalQuery({
     return [...ids];
   },
 });
+
+// The pictures a phone sees first: every shelf row's cover and its stories' pictures (D29b).
+export const firstSeenPictureIds = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const ids = new Set<string>();
+    for await (const r of ctx.db.query("shelf")) {
+      if (r.cover) ids.add(String(r.cover));
+      for (const st of (Array.isArray(r.stories) ? r.stories : []) as any[]) if (st?.storageId) ids.add(String(st.storageId));
+    }
+    return [...ids];
+  },
+});
