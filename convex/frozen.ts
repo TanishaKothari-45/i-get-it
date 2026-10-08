@@ -3,4 +3,5 @@
 export const FROZEN = new Set<string>([
   "Public speaking",                              // Instagram carousel instagram.com/p/DeKVxKJEsHL
   "Stocks, bonds and mutual funds",               // the international finance ad (7 Oct)
+  "Vibe coding with Claude Code",                 // ad 2, "84 days left in 2026" (8 Oct, 7 PM)
 ]);
