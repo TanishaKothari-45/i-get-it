@@ -126,7 +126,7 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
       {/* Up next (7 Oct, Prateek): the next chapter as a card worth tapping, with its own button. Behind the wall the card above says it instead. */}
       {!last && nextTitle && !wall && (
         <section className="upnext" aria-label={`Up next: chapter ${n + 1}`}>
-          {nextPicture && <div className="upnext-pic"><img src={nextPicture} alt="" /></div>}
+          {nextPicture && <div className="upnext-pic"><img src={nextPicture} alt="" onLoad={(e) => e.currentTarget.parentElement?.classList.add('loaded')} ref={(el) => { if (el && el.complete && el.naturalWidth > 0) el.parentElement?.classList.add('loaded') }} /></div>}
           <div className="upnext-body">
             <p className="upnext-kicker">Up next · Chapter {n + 1} of {total}</p>
             <h2 className="upnext-title">{nextTitle}</h2>

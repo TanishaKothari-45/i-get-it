@@ -1014,3 +1014,9 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .link-opening { min-height: 100dvh; display: grid; align-content: end; padding: 0 16px 28vh; }
 .link-opening .shelf-books { justify-content: center; }
 .link-opening .book { cursor: default; }
+
+/* The Up next picture arrives like a chapter plate (critique 2): printed stripes until it lands, then a fade, never a flat grey box. */
+.upnext-pic:not(.loaded) { background: repeating-linear-gradient(-45deg, var(--paper) 0 8px, var(--rule) 8px 10px); }
+.upnext-pic img { opacity: 0; transition: opacity 240ms var(--ease); }
+.upnext-pic.loaded img { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .upnext-pic img { transition: none; } }
