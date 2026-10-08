@@ -742,7 +742,8 @@ export const generateChapter = internalAction({
     // try with the counts stated, then the Opus backup; the counts are written to the call log for /admin. A one-sitting
     // handbook (quick) has no floor: it is as long as the task.
     const quick = h.plan?.format === "quick";
-    const floor = quick ? null : n === 1 ? { paragraphs: 12, words: 350, want: "15 to 18 paragraphs and about 450 words" } : { paragraphs: 24, words: 700, want: "at least 30 paragraphs and about 1,000 words" };
+    // Floors (dc for Prateek, 9 Oct 02:5x: "at the very least 30 slides"; quality over cost, a chapter is written once and shared).
+    const floor = quick ? null : n === 1 ? { paragraphs: 12, words: 350, want: "15 to 18 paragraphs and about 450 words" } : { paragraphs: 30, words: 800, want: "at least 30 paragraphs and about 1,000 words" };
     let size = chapterSize(r.json);
     let tries = 1;
     if (floor && (size.paragraphs < floor.paragraphs || size.words < floor.words)) {
@@ -752,11 +753,11 @@ export const generateChapter = internalAction({
       if (!pinned && (!r2.ok || s2.paragraphs < floor.paragraphs || s2.words < floor.words)) { r2 = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: more, ...CHAPTER_BACKUP, trace }); tries++; s2 = r2.ok ? chapterSize(r2.json) : size; }
       if (r2.ok && s2.words >= size.words) { r = r2; size = s2; }
     }
-    await ctx.runMutation(internal.handbooks.noteChapterSize, { handbookId, n, paragraphs: size.paragraphs, words: size.words });
+    await ctx.runMutation(internal.handbooks.noteChapterSize, { handbookId, n, paragraphs: size.paragraphs, words: size.words, floorTries: tries, bounced: tries >= 3 || (tries >= 2 && !!r.model && /opus/.test(String(r.model))) });
     const ch = r.json;
     // A one-sitting handbook opens with its "What you need" checklist (D23); a writer that put a picture first is corrected here.
     if (quick && Array.isArray(ch.cards)) { const k = ch.cards.findIndex((c: any) => c?.type === "doit" && c.kind === "checklist"); if (k > 0) { const [c] = ch.cards.splice(k, 1); ch.cards.unshift(c); } }
-    void tries;
+
     // The chapter comes first (8 Oct, Tanisha: "the quiz is an addition, it cannot be a holdup"). A quiz is kept only when
     // it is sound (goodQuiz); a bad one is dropped, never failing the chapter. Chapter 1, quick and story chapters keep none.
     const quizzesWanted = n !== 1 && !noQuizzes(h.plan);
@@ -790,11 +791,12 @@ export const generateChapter = internalAction({
 // chapter as context, so they test only what it taught) and added to the chapter; for a shared handbook, to its saved copy too.
 // D27: the chapter's size on its call-log row, so /admin can see short chapters next to their cost.
 export const noteChapterSize = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), paragraphs: v.number(), words: v.number() },
-  handler: async (ctx, { handbookId, n, paragraphs, words }) => {
+  args: { handbookId: v.id("handbooks"), n: v.number(), paragraphs: v.number(), words: v.number(), floorTries: v.optional(v.number()), bounced: v.optional(v.boolean()) },
+  handler: async (ctx, { handbookId, n, paragraphs, words, floorTries, bounced }) => {
     const row = await ctx.db.query("callStats").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).order("desc").filter((q) => q.eq(q.field("chapter"), n)).first();
-    if (row && row.kind === "chapter") await ctx.db.patch(row._id, { paragraphs, words });
-    else if (row) { const c = await ctx.db.query("callStats").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).order("desc").filter((q) => q.and(q.eq(q.field("chapter"), n), q.eq(q.field("kind"), "chapter"))).first(); if (c) await ctx.db.patch(c._id, { paragraphs, words }); }
+    const c = row && row.kind === "chapter" ? row : await ctx.db.query("callStats").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).order("desc").filter((q) => q.and(q.eq(q.field("chapter"), n), q.eq(q.field("kind"), "chapter"))).first();
+    // floorTries: chapter calls it took to clear the length floor; bounced: it ended on the Opus backup (the morning's rate: over 1 in 3 means chapters go back to Opus outright, D27 revisit).
+    if (c) await ctx.db.patch(c._id, { paragraphs, words, ...(floorTries ? { floorTries } : {}), ...(bounced !== undefined ? { bounced } : {}) });
   },
 });
 export const addQuizVersions = internalAction({
