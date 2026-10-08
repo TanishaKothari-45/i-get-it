@@ -66,6 +66,11 @@ Lessons for 8 Oct are in docs/lessons.md (five under Product/Tech, session 05).
 5. A quick handbook (the dal one, or the lasagna one on dev: after-quick-done.jpg, after-quick-plan.jpg): no reminder on Done, "Keep going", no Tonight/Next tags on its plan.
 6. Type a new topic and, on the wait screen, swipe the story and tap "Next story →"; when the handbook is ready the button appears above the story.
 
+**Three checks asked by dc (03:0x)**
+1. D24 on a real do-it card: 55's "Making Maggi noodles" on dev, fresh phone, 390 px. Card 1 is the "Do it now" checklist (3 boxes). With nothing ticked the arrow is offered and advances (bars 0 → 1); the chapter walks to its last card and "Finish chapter" lands on Done ("Done.", one chapter). Shot: after-maggi-checklist.jpg.
+2. The story picture on a slow line: headless Chrome at 400 kbps with 400 ms latency, fresh typed topic ("How kites fly") on dev. The story card appeared 3.4 s after load; its picture (JPEG, 136,883 bytes from Convex storage) was on the first page 8.0 s after the card. That misses the 5 s mark: at 400 kbps the picture shares the line with the app's own chunks and fonts, and it only starts once the story query answers. To hit 5 s on that line the story picture needs to be about 60 KB (a 640 px wide variant), which is 55's pipeline, not Start.tsx. Shot: after-wait-slow4g.jpg.
+3. The rename on prod: opened ?l=n170tmec1sym3h20t28jsp80a18fxx24 as a fresh phone. Chapter header says "Public speaking advanced level", the plan h1 says "Public speaking advanced level", the Shelf's book plate says "Public speaking advanced level"; no book on the Shelf says "Rhetoric". Shot: after-rename-shelf.jpg. (The cover frame's big title is chapter 1's own title, "The Four Classical Proofs", as designed.)
+
 **Open**
 - The landing is 9.95 screens tall at 390 (parked to Sunday, D14).
 - Our headless visits (about 60 tonight, all tagged ?utm_source=internal) are counted on /admin and not on /stats.
