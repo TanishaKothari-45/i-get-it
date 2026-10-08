@@ -53,7 +53,7 @@ export const content = query({
       }
     }
     return {
-      demo: ch ? { topic: demoRow!.plan?.topic ?? demoRow!.topic, title: ch.title, frames, total: (ch.cards ?? []).length } : null,
+      demo: ch ? { topic: demoRow!.topic, title: ch.title, frames, total: (ch.cards ?? []).length } : null,
       path: demoRow?.plan ? { topic: demoRow.plan.topic, outcome: demoRow.plan.outcome7, chapters: (demoRow.plan.chapters ?? []).map((c: any) => ({ n: c.n, title: c.title, hook: c.hook })) } : null,
       shelf: shelf.sort((x, y) => rank(x.topic) - rank(y.topic) || Number(!x.cover) - Number(!y.cover)),
     };
@@ -62,15 +62,26 @@ export const content = query({
 
 // A story to read while a new plan is written (Prateek, 6 Oct): one "Story time" card with its picture from a
 // ready handbook, so the wait is worth something and the reader can add that handbook too. The seed picks which.
+// D29 (Prateek, 9 Oct 02:1x): a proper story while the handbook is written. A handbook is picked first, then one of its
+// stories, so no topic dominates; never the topic the reader is waiting for. Returns every frame, the typed name, and
+// what the UI needs to start that handbook with one tap (kind "ready" + topic; the UI calls the same start as the Shelf).
 export const waitStory = query({
-  args: { seed: v.number() },
-  handler: async (ctx, { seed }) => {
-    const rows = await ctx.db.query("shelf").withIndex("by_kind", (q) => q.eq("kind", "ready")).collect();
-    const stories: { topic: string; chapter: string; title?: string; text: string; storageId: any }[] = [];
-    for (const r of rows) for (const st of (r.stories ?? []) as any[]) stories.push({ topic: r.title, chapter: st.chapter, title: st.title ?? undefined, text: st.text, storageId: st.storageId });
-    if (!stories.length) return null;
-    const s = stories[Math.abs(Math.floor(seed)) % stories.length];
-    return { topic: s.topic, chapter: s.chapter, title: s.title ?? null, text: s.text, picture: await ctx.storage.getUrl(s.storageId), count: stories.length };
+  args: { seed: v.number(), exclude: v.optional(v.string()) },
+  handler: async (ctx, { seed, exclude }) => {
+    const ex = (exclude ?? "").trim().toLowerCase();
+    const rows = (await ctx.db.query("shelf").withIndex("by_kind", (q) => q.eq("kind", "ready")).collect())
+      .filter((r) => (r.stories ?? []).length && r.title.toLowerCase() !== ex && r.topic.toLowerCase() !== ex);
+    if (!rows.length) return null;
+    const n = Math.abs(Math.floor(seed));
+    const r = rows[n % rows.length];
+    const list = r.stories as any[];
+    const st = list[Math.floor(n / rows.length) % list.length];
+    const frames: string[] = Array.isArray(st.frames) && st.frames.length ? st.frames : String(st.text ?? "").split(/\n\s*\n/).filter(Boolean);
+    return {
+      topic: r.title, key: r.key, kind: r.kind, title: st.title ?? null, frames, text: frames.join("\n\n"), source: st.source ?? null,
+      chapter: st.chapter ?? "", picture: st.storageId ? await ctx.storage.getUrl(st.storageId) : null,
+      count: rows.reduce((t, x) => t + (x.stories ?? []).length, 0), handbooks: rows.length,
+    };
   },
 });
 

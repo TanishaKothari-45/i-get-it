@@ -283,19 +283,25 @@ export const shrinkAll = internalAction({
   },
 });
 
-// After shrinkAll: delete the big originals that were replaced. Only files recorded as "from" in the shrunk map, and only
-// when no table still points at them. Run: npx convex run --prod images:deleteShrunkOriginals '{}'
+// After shrinkAll: delete the big originals that were replaced. One scan collects every storage id any table still
+// points at; then each "from" in the shrunk map that nobody references is deleted. Run: npx convex run --prod images:deleteShrunkOriginals '{}'
 export const deleteShrunkOriginals = internalAction({
-  args: { cursor: v.optional(v.union(v.string(), v.null())), deleted: v.optional(v.number()), kept: v.optional(v.number()) },
-  handler: async (ctx, { cursor = null, deleted = 0, kept = 0 }): Promise<void> => {
-    const page: { rows: { from: string }[]; cursor: string | null; done: boolean } = await ctx.runQuery(internal.repairData.shrunkPage, { cursor });
-    for (const r of page.rows) {
-      if (!/^[a-z0-9]{20,}$/.test(r.from)) continue;
-      const still: boolean = await ctx.runQuery(internal.repairData.stillReferenced, { id: r.from });
-      if (still) { kept++; continue; }
-      try { await ctx.storage.delete(r.from as Id<"_storage">); deleted++; } catch { kept++; }
+  args: {},
+  handler: async (ctx): Promise<{ deleted: number; kept: number }> => {
+    const referenced: string[] = await ctx.runQuery(internal.repairData.allPictureIds, {});
+    const keep = new Set(referenced);
+    let cursor: string | null = null, deleted = 0, kept = 0;
+    for (;;) {
+      const page: { rows: { from: string }[]; cursor: string | null; done: boolean } = await ctx.runQuery(internal.repairData.shrunkPage, { cursor });
+      for (const r of page.rows) {
+        if (!/^[a-z0-9]{20,}$/.test(r.from)) continue;
+        if (keep.has(r.from)) { kept++; continue; }
+        try { await ctx.storage.delete(r.from as Id<"_storage">); deleted++; } catch { kept++; }
+      }
+      cursor = page.cursor;
+      if (page.done) break;
     }
-    if (!page.done) { await ctx.scheduler.runAfter(0, internal.images.deleteShrunkOriginals, { cursor: page.cursor, deleted, kept }); return; }
     console.log(`deleteShrunkOriginals finished: ${deleted} deleted, ${kept} kept`);
+    return { deleted, kept };
   },
 });

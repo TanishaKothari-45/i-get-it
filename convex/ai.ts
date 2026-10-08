@@ -46,14 +46,15 @@ const HAIKU = "claude-haiku-4-5-20251001";
 const OPUS = "claude-opus-5-5";
 const SONNET = "claude-sonnet-5-5";
 type Effort = "low" | "medium" | "high" | "xhigh" | "max";
-type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach" | "intent" | "versions" | "match" | "artifact" | "move" | "library";
+type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach" | "intent" | "versions" | "match" | "artifact" | "move" | "library" | "stories";
 // Per-job table, set by Prateek 6 Oct: quality first, cost and latency to be handled with prices or limits later.
 // Thinking counts against max_tokens, so max-effort jobs get large caps (and stream; see callAnthropic).
 const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> = {
   plan: { model: OPUS, effort: "high", maxTokens: 32000 },
   versions: { model: SONNET, effort: "low", maxTokens: 12000 },   // 7 Oct: easier and harder quiz versions from a finished chapter (Opus writing them doubled a chapter's cost)
   match: { model: HAIKU, maxTokens: 300 },
-  library: { model: HAIKU, maxTokens: 300 },   // 8 Oct (Tanisha): the shared-library privacy check, with its own schema (it ran under "intent" and failed every time)   // 7 Oct: does a typed topic match a handbook we already have (by meaning)?
+  library: { model: HAIKU, maxTokens: 300 },
+  stories: { model: OPUS, effort: "medium", maxTokens: 8000 },   // D29 (9 Oct): three true wait stories per ready handbook, written once   // 8 Oct (Tanisha): the shared-library privacy check, with its own schema (it ran under "intent" and failed every time)   // 7 Oct: does a typed topic match a handbook we already have (by meaning)?
   intent: { model: HAIKU, maxTokens: 600 },   // "What's it for?": three goals in about a second, before the plan   // 6 Oct: "max" thought >5 min, hit 32k and was cut off (2 of 2)
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
   simpler: { model: SONNET, effort: "medium", maxTokens: 8000 },   // 6 Oct: "max" thought 49 s and was cut off at 8,000 with no answer
@@ -208,7 +209,7 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent"), v.literal("versions"), v.literal("match"), v.literal("artifact"), v.literal("move"), v.literal("library")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))), trace: traceV, logAs: v.optional(v.string()) },
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent"), v.literal("versions"), v.literal("match"), v.literal("artifact"), v.literal("move"), v.literal("library"), v.literal("stories")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))), trace: traceV, logAs: v.optional(v.string()) },
   // trace (8 Oct, Tanisha): the handbook and chapter the call belongs to, for the call log. logAs: the step name in the
   // log when it differs from the job (e.g. "eval plan" for a prompt test), so tests never count as readers' handbooks.
   handler: async (ctx, { kind, system, user, model, effort, trace, logAs }): Promise<Result> => {

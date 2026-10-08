@@ -243,7 +243,7 @@ export const library = query({
       // started (9 Oct, returning-reader review): a handbook only glanced at (opened from a link, never read) should not
       // look like one in progress, and never be the one "Continue" picks.
       const started = (p?.currentCard ?? 0) > 0 || (p?.chaptersPassed.length ?? 0) > 0 || (p?.opened?.length ?? 0) > 0;
-      rows.push({ _id: h._id, topic: (h.plan as any)?.topic ?? h.topic, status: h.status, passed: p?.chaptersPassed.length ?? 0, total: totalOf(h), current: p?.currentChapter ?? 1, card: p?.currentCard ?? 0, started, lastAt: p?.updatedAt ?? h.createdAt, outcome: (h.plan as any)?.outcome7 ?? null });
+      rows.push({ _id: h._id, topic: h.topic, status: h.status, passed: p?.chaptersPassed.length ?? 0, total: totalOf(h), current: p?.currentChapter ?? 1, card: p?.currentCard ?? 0, started, lastAt: p?.updatedAt ?? h.createdAt, outcome: (h.plan as any)?.outcome7 ?? null });
     }
     return { signedIn: !!userId, handbooks: rows.sort((a, b) => b.lastAt - a.lastAt) };
   },
@@ -601,6 +601,15 @@ export const generatePlan = internalAction({
       await ctx.runMutation(internal.handbooks.setQuestion, { handbookId, question: String(plan.question) });
       return;
     }
+    // D27 (9 Oct): a skill, a subject or a money/health/legal brief is a course of 7, whatever the model returned; one
+    // more try with that said, then the Opus backup, then whatever came back (a short plan beats no plan).
+    const mustBeCourse = ["skill", "subject", "money", "health", "legal"].includes(String(brief?.kind ?? ""));
+    if (mustBeCourse && Array.isArray(plan.chapters) && plan.chapters.length < CHAPTERS) {
+      const forced = planUser + `\n\nThis is a course (${brief.kind}): "format" is "course" and "chapters" has exactly 7 items. You returned ${plan.chapters.length}.`;
+      let r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: forced, model: h.writer ?? PLAN_MODEL, trace: { handbookId }, logAs: "plan" });
+      if ((!r2.ok || !Array.isArray(r2.json?.chapters) || r2.json.chapters.length < CHAPTERS) && !h.writer) r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: forced, ...PLAN_BACKUP, trace: { handbookId } });
+      if (r2.ok && Array.isArray(r2.json?.chapters) && r2.json.chapters.length === CHAPTERS) Object.assign(plan, r2.json);
+    }
     // 7 for a course; 1 to 3 for a quick one (a recap, one recipe; 7 Oct).
     if (!Array.isArray(plan.chapters) || plan.chapters.length < 1 || plan.chapters.length > CHAPTERS) {
       await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `plan had ${plan.chapters?.length ?? 0} chapters` });
@@ -703,6 +712,13 @@ export const markRewrite = internalMutation({
 // CHAPTER_MODEL = undefined (Opus medium, the 6 Oct setting).
 const CHAPTER_MODEL: string | undefined = "gemini-3.8-flash";
 const CHAPTER_BACKUP = { model: "claude-opus-5-5", effort: "medium" as const };
+// Paragraphs (one swipe each) and words across the body-bearing cards of a chapter reply (D27).
+export function chapterSize(json: any) {
+  const bodies: string[] = (Array.isArray(json?.cards) ? json.cards : []).map((c: any) => (typeof c?.body === "string" ? c.body : "")).filter(Boolean);
+  const paragraphs = bodies.reduce((t, b) => t + b.split(/\n\s*\n/).map((x) => x.trim()).filter(Boolean).length, 0);
+  const words = bodies.reduce((t, b) => t + b.split(/\s+/).filter(Boolean).length, 0);
+  return { paragraphs, words };
+}
 const goodQuiz = (e: any) => e?.type === "exercise" && typeof e.prompt === "string" && Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o?.id === e.answer);
 
 export const generateChapter = internalAction({
@@ -722,7 +738,25 @@ export const generateChapter = internalAction({
     let r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user, model: pinned ?? CHAPTER_MODEL, trace });
     if (!r.ok && !pinned && CHAPTER_MODEL) r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user, ...CHAPTER_BACKUP, trace });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
+    // D27 (Prateek, 9 Oct: "for 20 minutes we should have at least 30 slides"): a chapter under the floor gets one more
+    // try with the counts stated, then the Opus backup; the counts are written to the call log for /admin. A one-sitting
+    // handbook (quick) has no floor: it is as long as the task.
+    const quick = h.plan?.format === "quick";
+    const floor = quick ? null : n === 1 ? { paragraphs: 12, words: 350, want: "15 to 18 paragraphs and about 450 words" } : { paragraphs: 24, words: 700, want: "at least 30 paragraphs and about 1,000 words" };
+    let size = chapterSize(r.json);
+    let tries = 1;
+    if (floor && (size.paragraphs < floor.paragraphs || size.words < floor.words)) {
+      const more = user + `\n\nYour previous chapter was too short: you wrote ${size.paragraphs} paragraphs and ${size.words} words; chapter ${n} needs ${floor.want}. Write it again, in full, with 2 to 3 paragraphs on every picture, teach, example and mistake card.`;
+      let r2 = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: more, model: pinned ?? CHAPTER_MODEL, trace }); tries++;
+      let s2 = r2.ok ? chapterSize(r2.json) : size;
+      if (!pinned && (!r2.ok || s2.paragraphs < floor.paragraphs || s2.words < floor.words)) { r2 = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: more, ...CHAPTER_BACKUP, trace }); tries++; s2 = r2.ok ? chapterSize(r2.json) : size; }
+      if (r2.ok && s2.words >= size.words) { r = r2; size = s2; }
+    }
+    await ctx.runMutation(internal.handbooks.noteChapterSize, { handbookId, n, paragraphs: size.paragraphs, words: size.words });
     const ch = r.json;
+    // A one-sitting handbook opens with its "What you need" checklist (D23); a writer that put a picture first is corrected here.
+    if (quick && Array.isArray(ch.cards)) { const k = ch.cards.findIndex((c: any) => c?.type === "doit" && c.kind === "checklist"); if (k > 0) { const [c] = ch.cards.splice(k, 1); ch.cards.unshift(c); } }
+    void tries;
     // The chapter comes first (8 Oct, Tanisha: "the quiz is an addition, it cannot be a holdup"). A quiz is kept only when
     // it is sound (goodQuiz); a bad one is dropped, never failing the chapter. Chapter 1, quick and story chapters keep none.
     const quizzesWanted = n !== 1 && !noQuizzes(h.plan);
@@ -754,6 +788,15 @@ export const generateChapter = internalAction({
 
 // The easier and harder quiz versions, after the chapter is saved (8 Oct, Tanisha). Written, fact checked (with the
 // chapter as context, so they test only what it taught) and added to the chapter; for a shared handbook, to its saved copy too.
+// D27: the chapter's size on its call-log row, so /admin can see short chapters next to their cost.
+export const noteChapterSize = internalMutation({
+  args: { handbookId: v.id("handbooks"), n: v.number(), paragraphs: v.number(), words: v.number() },
+  handler: async (ctx, { handbookId, n, paragraphs, words }) => {
+    const row = await ctx.db.query("callStats").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).order("desc").filter((q) => q.eq(q.field("chapter"), n)).first();
+    if (row && row.kind === "chapter") await ctx.db.patch(row._id, { paragraphs, words });
+    else if (row) { const c = await ctx.db.query("callStats").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).order("desc").filter((q) => q.and(q.eq(q.field("chapter"), n), q.eq(q.field("kind"), "chapter"))).first(); if (c) await ctx.db.patch(c._id, { paragraphs, words }); }
+  },
+});
 export const addQuizVersions = internalAction({
   args: { handbookId: v.id("handbooks"), n: v.number(), shareable: v.boolean() },
   handler: async (ctx, { handbookId, n, shareable }) => {
@@ -1490,7 +1533,7 @@ export const readTeachBack = internalQuery({
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", row.handbookId).eq("n", row.chapter)).unique();
     const teach = (ch?.cards ?? []).filter((c: any) => c?.type === "teach");
     const oneBreath = String((teach.find((c: any) => /one breath/i.test(c.title ?? "")) ?? teach[teach.length - 1])?.body ?? "").slice(0, 900);
-    return { row, topic: (h?.plan as any)?.topic ?? h?.topic ?? "", title: ch?.title ?? `Chapter ${row.chapter}`, oneBreath, outcome: ch?.outcomeLine ?? "" };
+    return { row, topic: h?.topic ?? "", title: ch?.title ?? `Chapter ${row.chapter}`, oneBreath, outcome: ch?.outcomeLine ?? "" };
   },
 });
 
@@ -1632,6 +1675,6 @@ export const printable = query({
           answer: passed.has(c.n) ? (card.options.find((o: any) => o.id === card.answer)?.text ?? null) : null,
         }),
       }));
-    return { member: true as const, topic: (h.plan as any)?.topic ?? h.topic, chapters, total: totalOf(h) };
+    return { member: true as const, topic: h.topic, chapters, total: totalOf(h) };
   },
 });

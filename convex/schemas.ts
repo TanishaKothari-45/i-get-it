@@ -116,7 +116,10 @@ export const researchV4 = z.looseObject({
 // The shared-library privacy check (8 Oct): its own schema, so a reply is judged on its own keys.
 export const library = z.looseObject({ share: z.boolean(), why: z.string().optional() });
 
-export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact, move, researchV4, library };
+// D29 (9 Oct): three true, little-known stories for the writing-wait screen, 4 to 6 frames each.
+export const stories = z.looseObject({ stories: z.array(z.looseObject({ title: str, frames: z.array(str).min(3).max(7), source: str })).min(1).max(4) });
+
+export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact, move, researchV4, library, stories };
 
 // The problems with a reply, in a few short lines the model can act on; null when it fits.
 export function problems(kind: string, json: unknown): string | null {

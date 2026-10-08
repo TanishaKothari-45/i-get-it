@@ -4,6 +4,7 @@ import { internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery } from "./_generated/server";
 import { level } from "./schema";
 import { syncShared } from "./shelf";
+import { typedName } from "./names";
 
 const target = v.union(
   v.object({ kind: v.literal("cache"), topicKey: v.string(), level, n: v.number() }),
@@ -476,5 +477,37 @@ export const rebuildHandbook = internalAction({
     await ctx.runAction(internal.handbooks.generatePlan, { handbookId });
     const h: any = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     return { status: h?.status, format: h?.plan?.format, chapters: h?.plan?.chapters?.map((c: any) => ({ title: c.title, blocks: c.blocks, proof: c.proof })) };
+  },
+});
+
+// D28 (9 Oct): every shared and ready row is renamed from its handbook's typed line. Returns the before/after pairs for
+// the night report. Run: npx convex run --prod repairData:renameFromTyped '{}' then shelf:rebuildAll.
+export const renameFromTyped = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const changed: { kind: string; before: string; after: string }[] = [];
+    for await (const row of ctx.db.query("library")) {
+      const src = row.sourceHandbookId ? await ctx.db.get(row.sourceHandbookId) : null;
+      if (!src) continue;
+      const after = typedName(src.topic);
+      if (after !== row.topic) { await ctx.db.patch(row._id, { topic: after }); changed.push({ kind: "shared", before: row.topic, after }); }
+    }
+    for await (const row of ctx.db.query("shelf")) {
+      const after = typedName(row.topic);
+      if (row.title !== after && row.kind === "ready") { await ctx.db.patch(row._id, { title: after }); changed.push({ kind: "ready", before: row.title, after }); }
+    }
+    return { changed };
+  },
+});
+
+// Every picture file id any table points at (one scan; for the originals cleanup).
+export const allPictureIds = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const ids = new Set<string>();
+    for (const table of ["chapters", "library", "cache", "shelf", "experiments"]) {
+      for await (const r of (ctx.db.query(table as any) as any)) for (const id of idsOf(table, r)) ids.add(id);
+    }
+    return [...ids];
   },
 });

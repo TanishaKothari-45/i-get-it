@@ -369,6 +369,8 @@ export default defineSchema({
     handbookId: v.optional(v.id("handbooks")),
     chapter: v.optional(v.number()),
     inr: v.number(),
+    paragraphs: v.optional(v.number()),   // D27 (9 Oct): a chapter write's size, so /admin can see short chapters
+    words: v.optional(v.number()),
   }).index("by_at", ["at"]).index("by_handbook", ["handbookId", "at"]),
 
   // Pre-generated handbooks (same prompts, run offline) so the link works
@@ -383,5 +385,6 @@ export default defineSchema({
     trendingWeek: v.optional(v.string()),   // "2026-10-05": built that week from what's trending on social media
     improvedAt: v.optional(v.number()),     // chapter 1 replaced by an A/B winner (shows "Just improved")
     addedAt: v.optional(v.number()),
+    waitStories: v.optional(v.any()),   // D29 (9 Oct): [{ title, frames[], source, storageId? }], written once per ready topic
   }).index("by_key", ["topicKey", "level"]).index("by_topic", ["topic"]),
 });

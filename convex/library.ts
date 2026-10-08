@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { typedName } from "./names";
 import { internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
@@ -51,7 +52,7 @@ export const publish = internalMutation({
     const twins = await ctx.db.query("library").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).collect();
     const twin = twins.some((x) => x.published && (x.mode ?? "") === (h.mode ?? ""));
     const libraryId = await ctx.db.insert("library", {
-      topicKey: h.topicKey, topic: String((h.plan as any)?.topic ?? h.topic), level: h.level, goal: h.goal, mode: h.mode ?? (h.plan as any)?.mode,
+      topicKey: h.topicKey, topic: typedName(h.topic), level: h.level, goal: h.goal, mode: h.mode ?? (h.plan as any)?.mode,   // D28 (9 Oct): named by what the person typed, never the model's rewrite
       plan: h.plan, chapter1: { title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: (ch as any).svg, pictures: ch.pictures, recallCards: ch.recallCards, recallTiers: (ch as any).recallTiers },
       sourceHandbookId: handbookId, published: share && !twin, starts: 1, passes: 0, why: twin ? "a copy for this topic and goal is already shared" : why, createdAt: Date.now(),
     });

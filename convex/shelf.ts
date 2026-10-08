@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { typedName } from "./names";
 import { internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, type MutationCtx } from "./_generated/server";
 import type { Doc } from "./_generated/dataModel";
@@ -27,12 +28,14 @@ export async function syncReady(ctx: MutationCtx, topic: string) {
   if (!r) { if (existing) await ctx.db.delete(existing._id); return; }
   const ch1: any = r.chapters.find((c: any) => c.n === 1);
   const stories: any[] = [];
-  for (const ch of r.chapters as any[]) (ch.cards ?? []).forEach((c: any, i: number) => {
+  // D29 (9 Oct): the three true wait stories written for this topic come first; example cards are the old fallback.
+  for (const w of (Array.isArray((r as any).waitStories) ? (r as any).waitStories : []) as any[]) stories.push({ kind: "wait", chapter: "", title: w.title, text: (w.frames ?? []).join("\n\n"), frames: w.frames, source: w.source, storageId: w.storageId });
+  if (!stories.length) for (const ch of r.chapters as any[]) (ch.cards ?? []).forEach((c: any, i: number) => {
     const pic = ch.pictures?.find((p: any) => p.card === i && p.storageId);
     if (stories.length < 12 && c?.type === "example" && typeof c.body === "string" && pic) stories.push({ chapter: ch.title ?? `Chapter ${ch.n}`, title: c.title ?? null, text: c.body, storageId: pic.storageId });
   });
   const row = {
-    kind: "ready" as const, topic, key: r.topicKey, title: String((r.plan as any)?.topic ?? r.topic), level: r.level, mode: (r.plan as any)?.mode ?? undefined,
+    kind: "ready" as const, topic, key: r.topicKey, title: typedName(r.topic), level: r.level, mode: (r.plan as any)?.mode ?? undefined,
     outcome: firstSentence((r.plan as any)?.outcome7), cover: coverOf(ch1?.pictures),
     trendingWeek: (r as any).trendingWeek, addedAt: (r as any).addedAt ?? r._creationTime, improvedAt: (r as any).improvedAt, stories, published: true,
   };
