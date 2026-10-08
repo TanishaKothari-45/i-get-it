@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
@@ -34,6 +34,8 @@ type Props = {
   onRate?: (rating: 'too_easy' | 'just_right' | 'lost_me') => Promise<void>
   whatsNext?: React.ReactNode
   adapts?: boolean   // typed topics rewrite the next chapter from the rating; ready topics only record it
+  freeChapters?: number   // chapters a visitor reads without an account (membership.ts LIMITS.visitorChapters; 1 since 8 Oct night)
+  priceLine?: string | null   // the early-bird price, as information on the wall, never a gate (Shaktimaan, 8 Oct)
 }
 
 // Reminder moments (7 Oct, Prateek: "more casual and witty"): a moment in the day, the clock underneath. Copy (agent).
@@ -69,11 +71,15 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   return `You took your time, and it stuck. That's the whole point.`
 }
 
-export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, nextPicture, sources: _sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext }: Props) {
+export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, nextPicture, sources: _sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext, freeChapters = 1, priceLine }: Props) {
   const [rated, setRated] = useState<string | null>(null)
   const line = cheer(n, stats)
   const [stay, setStay] = useState(false)
   const last = n >= total
+  // The wall (Prateek, 8 Oct night, Shaktimaan's advice): a visitor's free chapters are read, so the next chapter opens
+  // with a free account. The server refuses the chapter without one (membership.ts tryOpen); this screen only says so.
+  const wall = !signedIn && !last && n >= freeChapters
+  useEffect(() => { if (wall) track('wall', { n }, `wall:${handbookId ?? ''}:${n}`) }, [wall, n, handbookId])
   return (
     <>
       <Confetti fire />
@@ -103,9 +109,17 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
             <p className="upnext-kicker">Up next · Chapter {n + 1} of {total}</p>
             <h2 className="upnext-title">{nextTitle}</h2>
             {nextHook && <p className="upnext-hook">{nextHook}</p>}
-            {onNext && <button type="button" className="btn upnext-btn" onClick={onNext}>{nextFailed ? `Chapter ${n + 1} didn't write. Try again` : nextReady ? `Start chapter ${n + 1} →` : `Start chapter ${n + 1} → (writing it, about two minutes)`}</button>}
+            {wall ? <button type="button" className="btn upnext-btn" onClick={onKeep}>{`Make a free account to start chapter ${n + 1} →`}</button>
+              : onNext && <button type="button" className="btn upnext-btn" onClick={onNext}>{nextFailed ? `Chapter ${n + 1} didn't write. Try again` : nextReady ? `Start chapter ${n + 1} →` : `Start chapter ${n + 1} → (writing it, about two minutes)`}</button>}
           </div>
         </section>
+      )}
+      {wall && (
+        <div className="nudge" role="region" aria-label="Free account">
+          <p className="nudge-lead">Chapter {n + 1} is free with an account.</p>
+          <p className="serif">Your email and a 6-digit code. No card. Every chapter of every ready handbook opens, and your place is kept on any phone or laptop.</p>
+          {priceLine && <p className="note">{priceLine} <button type="button" className="quiet" style={{ padding: 0 }} onClick={onPricing}>See pricing</button></p>}
+        </div>
       )}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>{total === 7 ? "That's the whole handbook. Seven chapters, done." : "That's all of it. Quick and done."}</p>}
       {last && whatsNext}
@@ -120,10 +134,15 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
 
       {!last && <Reminder n={n} tomorrowAt={tomorrowAt} onPickTime={onPickTime} handbookId={handbookId} deviceToken={deviceToken} />}
 
-      {/* 8 Oct (UX review #15): a visitor's main action after chapters 1 and 2 is the next chapter (the Up next card
-          above); sign-in is a quiet line until chapter 3, the last free one. Copy (agent). */}
+      {/* 8 Oct night: after the free chapters a visitor's one main action is the free account (the wall above); before
+          them (UX review #15) it is the next chapter, with sign-in as a quiet line. Copy (agent). */}
       <ActionBar>
-        {!signedIn && !stay && !last && n < 3 && onNext && nextTitle ? (
+        {wall ? (
+          <>
+            <button className="btn" onClick={onKeep}>Make a free account</button>
+            <button type="button" className="quiet" onClick={onContinue}>Back to the handbook</button>
+          </>
+        ) : !signedIn && !stay && !last && n < freeChapters && onNext && nextTitle ? (
           <>
             <button type="button" className="quiet" onClick={onKeep}>Want it on every device? Make a free account</button>
             <button type="button" className="quiet" onClick={onContinue}>Back to the handbook</button>

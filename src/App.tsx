@@ -37,6 +37,10 @@ export default function App() {
   const payOrder = useAction(api.payments.order)
   const payConfirm = useAction(api.payments.confirm)
   const [afterSignIn, setAfterSignIn] = useState<View>('done')
+  // The early-bird price, said once on the wall after chapter 1 as information (Shaktimaan, 8 Oct); true for our model:
+  // a free account opens every chapter of every ready handbook, and paying buys more handbooks of your own.
+  const openTier = (plansData as any)?.tiers?.find((t: any) => t.open) ?? (plansData as any)?.tiers?.slice(-1)[0]
+  const priceLine = openTier ? `Paying is only for more handbooks of your own: from ₹${Number(openTier.month).toLocaleString('en-IN')} a month early-bird, paid once, nothing auto-renews.` : null
   const [flash, setFlash] = useState<string | null>(null)
   const readyTopics = useQuery(api.handbooks.cachedTopics, {})
   const examples = readyTopics ?? []
@@ -313,7 +317,12 @@ export default function App() {
   if (resolved === 'signin') {
     return (
       <Shell rail={rail} back={{ label: 'Back', onClick: () => setView(afterSignIn) }}>
-        <SignIn reason={signinReason} onDone={async () => { setSigninReason(null); setView(afterSignIn === 'done' && !doneN ? 'plan' : afterSignIn) }} onBack={() => { setSigninReason(null); setView(afterSignIn) }} />
+        <SignIn reason={signinReason} onDone={async () => {
+          setSigninReason(null)
+          // From the wall after a chapter (8 Oct night): straight on to the next chapter, which the account now opens.
+          if (afterSignIn === 'done' && doneN && doneN < total) { const next = chapterReady && chapter?.n === doneN + 1; setDoneN(null); setView(next ? 'chapter' : 'plan'); return }
+          setView(afterSignIn === 'done' && !doneN ? 'plan' : afterSignIn)
+        }} onBack={() => { setSigninReason(null); setView(afterSignIn) }} />
       </Shell>
     )
   }
@@ -335,6 +344,8 @@ export default function App() {
           signedIn={isAuthenticated}
           tomorrowAt={progress?.tomorrowAt}
           onKeep={() => signIn('done')}
+          freeChapters={1}
+          priceLine={priceLine}
           onPricing={() => setView('pricing')}
           onPickTime={async (at) => { await setTomorrow({ handbookId: hb._id, at, deviceToken: token }) }}
           onContinue={() => { setDoneN(null); setView('plan') }}

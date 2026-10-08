@@ -1,11 +1,11 @@
 // The reason to sign up, said plainly. Shown where it pays off; never blocks anything.
 type Props = { onSignIn: () => void; context?: 'second-topic' | 'library' | 'tune' | 'done'; compact?: boolean }
 
-// 8 Oct (UX review #24, #25): sign-in is optional for the first 3 chapters, and a free account does not add a second
-// typed topic, so the nudge says what is true. Copy (agent).
+// 8 Oct (UX review #24, #25): sign-in is optional for chapter 1 (the wall is after it since 8 Oct night), and a free
+// account does not add a second typed topic, so the nudge says what is true. Copy (agent).
 const LEAD: Record<string, string> = {
   'second-topic': 'No sign-in needed here. Ready topics are free for everyone. Typed topics: one per person, three for members.',
-  library: 'No sign-in needed for your first 3 chapters. Sign in only to keep them on every device.',
+  library: 'Chapter 1 of anything needs no sign-in. A free account opens the rest and keeps your place on every device.',
   tune: 'Your settings are saved on this phone.',
   done: 'Keep this handbook, and the next ones.',
 }

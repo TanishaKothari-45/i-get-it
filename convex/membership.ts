@@ -7,8 +7,9 @@ import { isOwner } from "./admin";
 
 // Visitor, signed up, member (Prateek, 7 Oct, afternoon). One place for every number. Each limit is checked in a Convex
 // function; the screens only explain it. "New chapter" means one opened for the first time; going back is always free.
-//   Visitor (no account): chapters 1 to 3 of any handbook, up to 3 new chapters a day (all on day 1 is fine), 1 typed
-//         handbook. Chapter 4 asks them to sign up, free.
+//   Visitor (no account): chapter 1 of any handbook, 1 typed handbook. Chapter 2 asks them to sign up, free (Prateek,
+//         8 Oct night, on Shaktimaan's advice: the wall moved from after chapter 3 to after chapter 1, because nobody had
+//         reached chapter 4 and the sign-up had never been tested). Chapters opened under the old rule stay open.
 //   Signed up (free): every chapter of every ready and shared handbook and of their 1 typed handbook, up to 3 new
 //         chapters a day. A second typed handbook asks them to become a member.
 //   Member: 3 typed handbooks on the go (at most 6 new a month, a cost guard), 7 new chapters a day, 30 web-checked
@@ -20,7 +21,7 @@ export const LIMITS = {
   freeTyped: 1,
   memberActiveTyped: 3,
   memberTypedPerMonth: 6,
-  visitorChapters: 3,          // per handbook, before signing up
+  visitorChapters: 1,          // per handbook, before signing up (was 3 until 8 Oct night)
   freeChaptersPerDay: 3,       // visitors and signed-up readers
   memberChaptersPerDay: 7,
   freeSearchPerWeek: 3,

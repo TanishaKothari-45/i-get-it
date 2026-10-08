@@ -84,9 +84,9 @@ export default function Pricing({ notice, plans, onLock, onOrder, onConfirm, onB
         <>
           <p className="sub" style={{ marginTop: 10 }}>{fromDone ? 'You reached the summit' : 'Pricing'}</p>
           <h1>Come early, pay less, for as long as you stay.</h1>
-          <p className="lede">Start without an account: the first 3 chapters of any handbook. Sign up free for every chapter of every ready one, plus one of your own. Members get more of their own, and the first 50 pay the least.</p>
+          <p className="lede">Chapter 1 of any handbook needs no account. A free account opens every chapter of every ready one, plus one of your own. Members get more of their own, and the first 50 pay the least.</p>
           <table className="compare">
-            <thead><tr><th></th><th>Free</th><th>Member</th></tr></thead>
+            <thead><tr><th></th><th>Free account</th><th>Member</th></tr></thead>
             <tbody>{COMPARE.map((r) => <tr key={r.what}><th scope="row">{r.what}</th><td>{r.free}</td><td>{r.member}</td></tr>)}</tbody>
           </table>
           <p className="note">A "new chapter" is one you open for the first time. Going back to chapters you've opened is always free.</p>
@@ -119,7 +119,6 @@ export default function Pricing({ notice, plans, onLock, onOrder, onConfirm, onB
           {p.paidUntil ? <p className="locked">Paid. You're covered until {until(p.paidUntil)}.</p>
             : p.kept ? <p className="locked">Your early price is kept: {inr(p.price.month)} a month or {inr(p.price.year)} a year.</p> : null}
           {/* The struck price is always the real next tier, never a made-up "was" price (7 Oct). */}
-          {!p.paidUntil && later && <p className="early-bird">Early-bird price while the {WHO[p.tier - 1]?.toLowerCase() ?? 'first'} spots last: <s>{inr(later.month)}</s> <strong>{inr(p.price.month)}</strong> a month, or <s>{inr(later.year)}</s> <strong>{inr(p.price.year)}</strong> a year. Then it goes up to {inr(later.month)}.</p>}
           {!p.paidUntil && (
             <div className="chips" role="group" aria-label="Pay for">
               <button type="button" className="chip" aria-pressed={plan === 'month'} onClick={() => setPlan('month')}>A month · {later && <s className="was">{inr(later.month)}</s>} {inr(p.price.month)}</button>

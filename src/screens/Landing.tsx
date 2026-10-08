@@ -132,7 +132,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
         </details>
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
-      <p className="lp-fine">The first 3 chapters are free, no sign-up. A free account opens the rest; no card. Topics you start can appear in Explore, never with your name.</p>
+      <p className="lp-fine">Chapter 1 is free, no sign-up. A free account opens the rest; no card. Topics you start can appear in Explore, never with your name.</p>
       {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
     </form>
   )
@@ -226,7 +226,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
           <section className="lp-offer">
             <div>
               <h2>Come early, pay less.</h2>
-              <p className="lp-body">The first 3 chapters of anything, free, no sign-up. A free account opens every ready handbook and one of your own. Members keep 3 of their own on the go, read up to 7 chapters a day and can save any handbook as a PDF. The earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
+              <p className="lp-body">Chapter 1 of anything, free, no sign-up. A free account opens every ready handbook and one of your own. Members keep 3 of their own on the go, read up to 7 chapters a day and can save any handbook as a PDF. The earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
               <p className="lp-once">One-time payment · No auto-renew</p>
             </div>
             <ol className="lp-tiers">
