@@ -9,15 +9,13 @@ type Props = { topic: string; deviceToken: string; extra?: string[]; onReady: (t
 export default function NextTopics({ topic, deviceToken, extra = [], onReady, onShared, onTyped }: Props) {
   const related = useQuery(api.library.related, { topic, deviceToken }) ?? []
   const seen = new Set(related.map((r) => r.topic.toLowerCase()))
-  const typed = extra.filter((t) => t && !seen.has(t.toLowerCase())).slice(0, Math.max(0, 4 - related.length))
-  if (!related.length && !typed.length) return null
-  const links = [
-    ...related.map((r) => ({ key: r.topic, label: r.topic, go: () => (r.kind === 'shared' && r.id ? onShared(r.id) : onReady(r.topic)) })),
-    // A typed suggestion writes a new handbook and uses the reader's typed allowance, so it says so (review #40, 8 Oct).
-    ...typed.map((t) => ({ key: t, label: `${t} (writes a new one)`, go: () => onTyped(t) })),
-  ]
+  // 9 Oct (returning-reader review): a typed suggestion looked like navigation but wrote a new handbook and spent the
+  // reader's one free typed topic; only ready and shared handbooks are listed here now. Typed ideas stay on the Done screen.
+  void extra; void onTyped; void seen
+  if (!related.length) return null
+  const links = related.map((r) => ({ key: r.topic, label: r.topic, go: () => (r.kind === 'shared' && r.id ? onShared(r.id) : onReady(r.topic)) }))
   return (
-    <p className="sources next-topics"><span className="label">Jump to next</span>{' '}
+    <p className="sources next-topics"><span className="label">Other handbooks you might like</span>{' '}
       {links.map((l, i) => <span key={l.key}>{i > 0 && ' · '}<button type="button" className="topic-link" onClick={l.go}>{l.label}</button></span>)}
     </p>
   )

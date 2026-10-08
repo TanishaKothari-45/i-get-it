@@ -84,7 +84,7 @@ export default function Start({ initialTopic = '', status, question, intents, on
         {story && (
           <section className="wait-story" aria-label="A story while you wait">
             <p className="wait-story-kicker">While you wait, a story from another handbook</p>
-            {story.picture && <div className="story-pic"><img src={story.picture} alt="" /></div>}
+            {story.picture && <WaitPicture src={story.picture} />}
             {story.title && <p className="wait-story-title">{story.title}</p>}
             <Rich text={story.text} className="serif wait-story-text" />
             <p className="note">From <strong>{story.topic}</strong>, {story.chapter}.</p>
@@ -110,7 +110,7 @@ export default function Start({ initialTopic = '', status, question, intents, on
         <div className="intent-goals">
           {intents ? intents.goals.map((g) => (
             <button key={g.label} type="button" className="intent-goal" onClick={() => choose(g.label, g.mode)}>{g.label}</button>
-          )) : [0, 1, 2].map((k) => <span key={k} className="intent-goal intent-ghost" aria-hidden="true" />)}
+          )) : <p className="note intent-thinking" role="status">Thinking of three reasons people learn this… a few seconds. Or say it in your words below.</p>}
         </div>
         <form className="intent-own" onSubmit={(e) => { e.preventDefault(); if (answer.trim()) choose(answer.trim()) }}>
           <input className="input" placeholder="Or say it in your words" value={answer} onChange={(e) => setAnswer(e.target.value)} maxLength={120} enterKeyHint="go" />
@@ -163,10 +163,11 @@ export default function Start({ initialTopic = '', status, question, intents, on
 
       <div className="field">
         <label htmlFor="topic">What do you keep meaning to learn?</label>
-        <input id="topic" ref={inputRef} className="input" type="text" autoComplete="off" enterKeyHint="done" placeholder={examples[0] ?? 'Swimming'} value={topic}
+        <input id="topic" ref={inputRef} className="input" type="text" autoComplete="off" enterKeyHint="done" maxLength={200} placeholder={examples.length ? `${examples.slice(0, 2).join(', ')}…` : 'Swimming'} value={topic}
           onChange={(e) => setTopic(e.target.value)} disabled={writing}
           // Enter only closes the keyboard and shows the level and voice; the button starts the writing.
           onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); levelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) } }} />
+        {topic.length >= 150 && <p className="note" aria-live="polite">{200 - topic.length} characters left. A few words is enough.</p>}
         {examples.length > 1 && !below && (
           <p className="note">{onPickReady ? 'Ready now, opens instantly: ' : "Tonight's ready handbooks: "}{examples.slice(0, 6).map((x, i) => (
             <span key={x}>{i > 0 && ' · '}<button type="button" className="quiet" style={{ padding: 0 }} onClick={() => { if (onPickReady) onPickReady(x).catch((e) => setLocalError(friendly(e))); else setTopic(x) }} disabled={writing}>{x}</button></span>
@@ -174,6 +175,7 @@ export default function Start({ initialTopic = '', status, question, intents, on
         )}
       </div>
 
+      <p className="sub" style={{ marginTop: 'var(--l)', marginBottom: 6 }}>How much do you know already?</p>
       <div className="chips" role="group" aria-label="Level" ref={levelRef}>
         <button type="button" className="chip" aria-pressed={level === 'new'} onClick={() => setLevel('new')} disabled={writing}>New to this</button>
         <button type="button" className="chip" aria-pressed={level === 'some'} onClick={() => setLevel('some')} disabled={writing}>Know some</button>
@@ -202,6 +204,12 @@ export default function Start({ initialTopic = '', status, question, intents, on
       </ActionBar>
     </>
   )
+}
+
+// The story's picture shows only once it has loaded (9 Oct: a grey striped box sat there for the whole wait on a slow line).
+function WaitPicture({ src }: { src: string }) {
+  const [ready, setReady] = useState(false)
+  return <div className="story-pic" style={ready ? undefined : { display: 'none' }}><img src={src} alt="" onLoad={() => setReady(true)} /></div>
 }
 
 function friendly(e: any): string {

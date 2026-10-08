@@ -2,3 +2,10 @@
    Admin, Compare. index.css belongs to the design pass; nothing here overrides it, only adds. */
 .library-quiet { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .price-chip { white-space: nowrap; }
+/* 9 Oct, accessibility review: grey on amber failed contrast (3.38:1) on the open tier and the first stat card */
+.tiers li.open .tier-price span, .stat:first-child .stat-label { color: var(--ink); }
+/* the handbook page's Done/Tonight tag was 11.5 px; the jump links were 24 px tall */
+.stop .tag { font-size: 12px; }
+.next-topics .topic-link { padding: 10px 0; }
+.intent-thinking { grid-column: 1 / -1; }
+.quiet-link { color: inherit; }

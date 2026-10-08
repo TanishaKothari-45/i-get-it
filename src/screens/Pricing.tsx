@@ -22,7 +22,7 @@ const COMPARE: { what: string; free: string; member: string }[] = [
   { what: 'Ready and shared handbooks', free: 'Every chapter, 3 new a day', member: 'Every chapter, 7 new a day' },
   { what: 'Web-checked answers', free: '3 a week', member: '30 a month' },
   { what: 'Print or save as PDF', free: '–', member: 'Any of your handbooks' },
-  { what: 'Coming next', free: '–', member: 'Your learning dashboard with streaks, and Indian languages: members first' },
+  { what: 'Coming next', free: '–', member: 'More coming. Members hear first.' },   // D20 (9 Oct): never promise what isn't built
 ]
 
 // Early-bird pricing (7 Oct): the first 50 paying readers pay least, and keep that price while they keep paying.

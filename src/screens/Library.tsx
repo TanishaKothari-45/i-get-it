@@ -1,7 +1,7 @@
 import ActionBar from '../components/ActionBar'
 import SignupNudge from '../components/SignupNudge'
 
-type Row = { total?: number; _id: string; topic: string; status: string; passed: number; current: number; lastAt: number; outcome: string | null }
+type Row = { total?: number; _id: string; topic: string; status: string; passed: number; current: number; card?: number; started?: boolean; lastAt: number; outcome: string | null }
 type Props = { rows: Row[]; signedIn: boolean; activeId?: string; onOpen: (id: string) => void; onNew: () => void; onSignIn: () => void; onPlans: () => void; onExplore: () => void }
 
 function ago(t: number) {
@@ -15,8 +15,9 @@ function ago(t: number) {
 export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSignIn, onPlans, onExplore }: Props) {
   // Newest first, and the one to continue is the one opened last (8 Oct night: a returning reader's one job is to carry
   // on; the main button says so, by name and chapter, instead of "The Shelf").
-  const sorted = [...rows].sort((a, b) => b.lastAt - a.lastAt)
-  const latest = sorted.find((r) => r.status === 'ready' && r.passed < (r.total ?? 7)) ?? sorted[0]
+  const sorted = [...rows].sort((a, b) => Number(!!b.started) - Number(!!a.started) || b.lastAt - a.lastAt)
+  const latest = sorted.find((r) => r.started && r.status === 'ready' && r.passed < (r.total ?? 7)) ?? sorted.find((r) => r.status === 'ready') ?? sorted[0]
+  const where = (r: Row) => r.status !== 'ready' ? 'Being written…' : r.passed >= (r.total ?? 7) ? `All ${r.total ?? 7} chapters done` : (r.card ?? 0) > 0 ? `Chapter ${r.current}, card ${(r.card ?? 0) + 1}: pick up here` : r.started ? `Next: chapter ${r.current}` : 'Not opened yet'
   return (
     <>
       <h1>Your handbooks.</h1>
@@ -30,7 +31,7 @@ export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSig
               <span className="shelf-body">
                 <span className="shelf-top"><span className="shelf-topic">{r.topic}</span><span className="shelf-when">{ago(r.lastAt)}</span></span>
                 <span className="shelf-bar" aria-label={`${r.passed} of ${r.total ?? 7} chapters done`}>{Array.from({ length: r.total ?? 7 }, (_, k) => <span key={k} className={k < r.passed ? 'on' : ''} />)}</span>
-                <span className="shelf-next">{r.status !== 'ready' ? 'Being written…' : r.passed >= (r.total ?? 7) ? `All ${r.total ?? 7} chapters done` : `Next: chapter ${r.current}`}</span>
+                <span className="shelf-next">{where(r)}</span>
               </span>
             </button>
           </li>

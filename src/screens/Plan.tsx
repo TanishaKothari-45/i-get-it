@@ -20,6 +20,9 @@ type Props = {
   onPricing?: () => void
   onSignUp?: () => void   // a visitor past the free chapter: the free account is the next step, not money
   needsAccount?: boolean   // signed out and the current chapter is past the free one (8 Oct night): the button says so before the tap
+  declined?: boolean   // they tapped Not now on the wall this session (9 Oct, 05's critique): one quiet line, not the same ask twice
+  onShelf?: () => void   // The Shelf, shown under the quiet line when declined
+  shelfStrip?: React.ReactNode   // the printed Shelf strip with the live count (9 Oct, D21), under the summit
   onStart: () => void
   onRetry: () => void
   onChangeLine: () => void
@@ -38,7 +41,7 @@ type Props = {
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, lockHead, onPricing, onSignUp, needsAccount, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
+export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, lockHead, onPricing, onSignUp, needsAccount, declined, onShelf, shelfStrip, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
   useEffect(() => { track('plan_view', undefined, 'plan_view:' + topic) }, [topic])
   const first = passed.length === 0 && current === 1   // a reader who came in at chapter 2 from a post is on 2
   const upTitle = nextUp ? plan.chapters[nextUp.n - 1]?.title : null
@@ -51,7 +54,12 @@ export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan
           <p className="nextup-title">{nextUp.kind === 'resume' ? `${nextUp.left} card${nextUp.left === 1 ? '' : 's'} left, about ${Math.max(2, nextUp.left * 2)} minutes.` : `Chapter ${nextUp.n}: ${upTitle ?? ''}`}</p>
           {nextUp.kind === 'next' && upHook && <p className="nextup-hook">{upHook}</p>}
           {/* One main button per screen (review #20): the action bar holds it; this one is the quiet twin. */}
-          <button type="button" className="btn btn-ghost" onClick={onStart}>{nextUp.kind === 'resume' ? 'Pick up where you left off' : needsAccount ? `Start chapter ${nextUp.n} (free account)` : `Start chapter ${nextUp.n}`}</button>
+          {declined && nextUp.kind === 'next' ? (
+            <>
+              <button type="button" className="quiet" onClick={onSignUp ?? onStart}>Chapter {nextUp.n} opens with a free account. When you're ready.</button>
+              {onShelf && <button type="button" className="quiet" onClick={onShelf}>The Shelf: every ready handbook</button>}
+            </>
+          ) : <button type="button" className="btn btn-ghost" onClick={onStart}>{nextUp.kind === 'resume' ? 'Pick up where you left off' : needsAccount ? `Start chapter ${nextUp.n} (free account)` : `Start chapter ${nextUp.n}`}</button>}
         </section>
       )}
       {passed.length >= total && whatsNext}
@@ -105,6 +113,7 @@ export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan
           </div>
         </li>
       </ol>
+      {shelfStrip}
 
       <div className="roadmap-links">
         <button type="button" className="quiet" onClick={onTune}>Who teaches you, and how</button>
@@ -131,7 +140,8 @@ export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan
             <button className="btn" onClick={onRetry}>Try again</button>
           </>
         ) : (
-          <button className="btn" onClick={onStart} disabled={!chapterReady}>{passed.length >= total ? `Read chapter ${current} again ▸` : needsAccount ? `Start chapter ${current} (free account) ▸` : `Start chapter ${current} ▸`}</button>
+          declined && passed.length > 0 && onOpenChapter ? <button className="btn" onClick={() => onOpenChapter(passed[passed.length - 1])}>{`Read chapter ${passed[passed.length - 1]} again ▸`}</button>
+          : <button className="btn" onClick={onStart} disabled={!chapterReady}>{passed.length >= total ? `Read chapter ${current} again ▸` : needsAccount ? `Start chapter ${current} (free account) ▸` : `Start chapter ${current} ▸`}</button>
         )}
       </ActionBar>
     </>

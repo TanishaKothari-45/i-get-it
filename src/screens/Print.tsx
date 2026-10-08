@@ -21,7 +21,7 @@ export default function Print() {
         <a className="wordmark" href="/" style={{ color: 'inherit', textDecoration: 'none' }}>I Get It<small>Twenty minutes at a time.</small></a>
       </header>
       <main className="policy">
-        {!id ? <p className="lede">No handbook chosen. Open one and tap "Print or save as PDF".</p>
+        {!id ? <p className="lede">No handbook chosen. Open one and tap "Print or save as PDF". <a href="/">Back to your handbooks</a></p>
           : data === undefined ? <p className="note">Loading…</p>
           : !data.member ? (
             <>

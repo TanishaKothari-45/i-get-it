@@ -43,7 +43,7 @@ export default function Policy({ page }: { page: PolicyPage }) {
         <a className="wordmark" href="/" style={{ color: 'inherit', textDecoration: 'none' }}>I Get It<small>Twenty minutes at a time.</small></a>
       </header>
       <main className="policy">
-        <p className="sub" style={{ marginTop: 10 }}>Last updated {UPDATED}</p>
+        <p className="sub" style={{ marginTop: 10 }}><a href="/" className="quiet-link">← Back to I Get It</a> · Last updated {UPDATED}</p>
         <h1>{TITLES[page]}</h1>
         {BODY[page]}
       </main>
