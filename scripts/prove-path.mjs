@@ -66,7 +66,7 @@ if (await step('chapter 1 opens as full-screen frames', `!!document.querySelecto
     console.log(`     Done screenshot: ${await shot('done')}`)
     await tap('Make a free account')
     await step('the sign-in screen opens with an email field', `!!document.querySelector('#email') && (document.querySelector('h1')?.textContent ?? '').length > 0`, 10000)
-    await step('sign-in has a way back ("Not now")', `[...document.querySelectorAll('button')].some((b) => b.textContent.trim() === 'Not now')`, 3000)
+    await step('sign-in has a way back ("Not now, back to the handbook")', `[...document.querySelectorAll('button')].some((b) => b.textContent.trim().startsWith('Not now'))`, 3000)
   }
 }
 
@@ -78,7 +78,7 @@ await send('Storage.clearDataForOrigin', { origin: BASE, storageTypes: 'all' }).
 await goto(`${BASE}/?t=public-speaking&ch=2&utm_source=internal`)
 await step('the link opens the topic, not the landing page', `!document.querySelector('.lp') && (!!document.querySelector('.story') || !!document.querySelector('.roadmap-hero') || !!document.querySelector('#email'))`, 25000)
 await step('a fresh phone meets the sign-in wall with its reason card (decided rule)', `!!document.querySelector('#email') && !!document.querySelector('.why-here')`, 15000)
-await step('the wall has a way back ("Not now")', `[...document.querySelectorAll('button')].some((b) => b.textContent.trim() === 'Not now')`, 3000)
+await step('the wall has a way back ("Not now")', `[...document.querySelectorAll('button')].some((b) => b.textContent.trim().startsWith('Not now'))`, 3000)
 await tap('Not now')
 await step('"Not now" lands in chapter 1 (a fresh handbook opens there), or on the handbook with chapter 1 openable', `/Chapter 1 of/.test(document.querySelector('.story-label')?.textContent ?? '') || (!!document.querySelector('.roadmap-hero') && [...document.querySelectorAll('button')].some((b) => /Start chapter 1|Pick up where you left off/.test(b.textContent)))`, 10000)
 console.log(`     screenshot: ${await shot('post-link')}`)
