@@ -65,6 +65,12 @@ Feeds the 9:30 X draft (scripts/x-nightly.sh reads yesterday's day) and the end-
 **Small build traps**
 - Learned: a raw line break inside a JavaScript string in prompts.ts broke the build twice today; prompt edits need `\n`. A Convex query cannot live in a "use node" file.
 
+**The design pass (print shop)**
+- Thought: "vastly improve the UI" meant a new look. Learned: the identity was already there (the poster, the books, the frames); the inside just didn't use it. Bringing one language inside took about 90 minutes of CSS and three JSX lines, not a redesign. Now: when a screen looks generic, ask which existing world it should belong to before inventing one.
+- Learned: a highlight colour has to be chosen per background. The same 55% marigold wash read fine on ink and turned brown on indigo; a solid second ink with its own text colour per frame fixed all six at once.
+- Learned: show the direction as the same screen drawn three ways and ask once; Prateek answered in under a minute. A written list of options would have taken longer to read than the pass took to build.
+- Learned: three sessions on one working tree means a deploy ships whatever is on disk. Say which files you hold, commit only yours, and hand the deploy to whoever has the riskier change (today the wall), with a "go".
+
 ### GTM
 
 **One permanent link**
