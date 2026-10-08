@@ -44,11 +44,18 @@ export default function Shelf({ onReady, onShared, onBack }: Props) {
     }).filter((s) => s.books.length > 0)
   }, [items])
   const [note, setNote] = useState<string | null>(null)
-  const open = (it: Item) => { setNote(null); return (it.kind === 'shared' && it.id ? onShared(it.id) : onReady(it.topic)).catch((e) => setNote(limitMessage(e) ?? "Couldn't open that one. Check your connection and tap again.")) }
+  // The tapped book lifts off the shelf and turns to face the reader while its handbook opens (8 Oct night, Prateek):
+  // a CSS transform only, so it costs nothing on a slow connection; it holds "lifted" until the chapter arrives, and
+  // settles back if the open fails.
+  const [lifting, setLifting] = useState<string | null>(null)
+  const open = (it: Item) => {
+    setNote(null); setLifting(it.key)
+    return (it.kind === 'shared' && it.id ? onShared(it.id) : onReady(it.topic)).catch((e) => { setLifting(null); setNote(limitMessage(e) ?? "Couldn't open that one. Check your connection and tap again.") })
+  }
   const surprise = () => { const pool = items ?? []; if (pool.length) open(pool[Math.floor(Math.random() * pool.length)]) }
 
   return (
-    <div className="shelf-page">
+    <div className={`shelf-page${lifting ? ' lifting' : ''}`}>
       <button type="button" className="quiet" onClick={onBack}>← Back</button>
       <h1>The Shelf.</h1>
       <p className="lede">Every handbook here opens at once, no sign-in. Pick one up.</p>
@@ -64,8 +71,8 @@ export default function Shelf({ onReady, onShared, onBack }: Props) {
             <div key={r} className="shelf-row">
               <ul className="shelf-books">
                 {row.map((it) => (
-                  <li key={it.key} style={{ ['--lean' as any]: `${lean(it.key)}deg` }}>
-                    <button type="button" className={`book cloth-${cloth(it.key)}`} onClick={() => open(it)} aria-label={`${it.topic}. ${it.outcome}`}>
+                  <li key={it.key} className={lifting === it.key ? 'lifting' : lifting ? 'resting' : undefined} style={{ ['--lean' as any]: `${lean(it.key)}deg` }}>
+                    <button type="button" className={`book cloth-${cloth(it.key)}`} onClick={() => { if (!lifting) open(it) }} aria-label={`${it.topic}. ${it.outcome}`} aria-busy={lifting === it.key || undefined}>
                       <span className="book-spine" aria-hidden="true" />
                       <span className="book-cover">
                         {it.cover ? <img src={it.cover} alt="" loading="lazy" /> : <span className="book-cover-blank">{it.topic.slice(0, 1)}</span>}

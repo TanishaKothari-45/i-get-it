@@ -169,9 +169,12 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   useEffect(() => { track('ch_open', { n }, `ch_open:${handbookId}:${n}`) }, [n, handbookId])
   useEffect(() => { if (!item.recall) track('card', { n, i: item.cardIndex }, `card:${handbookId}:${n}:${item.cardIndex}`) }, [n, handbookId, item.cardIndex, item.recall])
   useEffect(() => { if (!item.recall) onPosition(item.cardIndex, frame.part) }, [item.cardIndex, item.recall, frame.part]) // eslint-disable-line react-hooks/exhaustive-deps
-  const next = () => { if (!canAdvance) return; if (isLast) { finish(); return } setI(i + 1); reset() }
+  // Each frame is a page (8 Oct night, Prateek): it turns in from the right going forward and from the left going back.
+  // A transform and an opacity only, about a third of a second, nothing that waits on the network.
+  const dir = useRef<'fwd' | 'back'>('fwd')
+  const next = () => { if (!canAdvance) return; if (isLast) { finish(); return } dir.current = 'fwd'; setI(i + 1); reset() }
   // Only × and Escape leave the chapter (review #18, 8 Oct): a tap on the left edge of the first frame used to exit silently.
-  const back = () => { if (i > 0) { setI(i - 1); reset() } }
+  const back = () => { if (i > 0) { dir.current = 'back'; setI(i - 1); reset() } }
 
   const choose = async (optionId: string) => {
     if (item.card.type !== 'exercise' || sending || exercisePassed) return
@@ -254,7 +257,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
           <button type="button" className="story-close" onClick={onExit} aria-label="Back to the handbook">×</button>
         </div>
 
-        <div className="story-body" key={i} aria-live="polite">
+        <div className={`story-body turn-${dir.current}`} key={i} aria-live="polite">
           {caution && i === 0 && <p className="story-caution">Study aid, verify before you act.</p>}
           {c.type === 'exercise' ? (
             <>
@@ -311,7 +314,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
           {!item.recall && c.type !== 'try' && <button type="button" onClick={() => setAskOpen(true)}>Ask or object</button>}
           {/* A real button (UX review #17, 8 Oct): the move and do-it frames are full of things to tap, so "next" needs a target of its own; keyboard and screen readers get one too. */}
           {canAdvance
-            ? <button type="button" className="story-next" onClick={next} aria-label={isLast ? 'Finish' : 'Next'}>{isLast ? 'Last one' : 'Tap →'}</button>
+            ? <button type="button" className="story-next" onClick={next} aria-label={isLast ? 'Finish' : 'Next'}>{isLast ? 'Finish' : 'Tap →'}</button>
             : <span className="story-tapnote">{item.card.type === 'doit' ? 'Log it' : 'Pick one'}</span>}
         </div>
       </div>

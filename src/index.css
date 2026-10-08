@@ -95,7 +95,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .field label { display: block; font-size: var(--small); color: var(--ink-2); margin-bottom: 6px; }
 .input { width: 100%; min-height: 56px; border: var(--stroke) solid var(--ink); border-radius: var(--radius); background: var(--paper); padding: 14px var(--m); font-size: var(--body); font-family: var(--serif); }
 .input::placeholder { color: var(--ink-2); opacity: 1; }
-.input:focus { outline: none; background: #fff; box-shadow: var(--press-sm); }
+.input:focus { outline: none; background: var(--paper); box-shadow: var(--press-sm); }   /* paper, never white (the print language) */
 .chips { display: flex; gap: var(--s); margin-top: var(--m); }
 .chip { flex: 1; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid var(--rule); border-radius: 999px; background: transparent; font-size: var(--ui); font-weight: 600; color: var(--ink); padding: 0 14px; line-height: 1.2; text-decoration: none; }
 .chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
@@ -254,6 +254,28 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .story-close { background: none; border: 0; color: var(--fg); font-size: 28px; line-height: 1; padding: 0 4px; min-width: 44px; min-height: 44px; margin: -8px -12px -8px 0; }
 .story-body { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 18px 2px; animation: frin 300ms var(--ease) both; min-height: 0; overflow-y: auto; }
 @keyframes frin { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: none; } }   /* arrives from below, like Reels */
+/* Pages (8 Oct night, Prateek): a frame turns in like a page, hinged on the spine side, 320 ms, transform and opacity
+   only so a slow phone or a slow connection never waits on it. Forward turns from the right, back from the left. */
+.story-frame { perspective: 1400px; }
+.story-body.turn-fwd { transform-origin: left center; animation: pagefwd 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.story-body.turn-back { transform-origin: right center; animation: pageback 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes pagefwd { from { opacity: 0; transform: rotateY(-38deg) translateX(6%); } 55% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes pageback { from { opacity: 0; transform: rotateY(38deg) translateX(-6%); } 55% { opacity: 1; } to { opacity: 1; transform: none; } }
+/* The book opens (8 Oct night): the chapter's first paint swings in like a cover being opened, 420 ms, once. */
+.story-frame { transform-origin: left center; animation: bookopen 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes bookopen { from { opacity: 0; transform: perspective(1400px) rotateY(-24deg) scale(0.94); } to { opacity: 1; transform: none; } }
+/* The tapped book lifts off the shelf and turns to face the reader while its handbook opens; the others sit still. */
+/* The book flies out of its row to the front of the screen (it leaves the row's scroll box by going fixed; its slot on
+   the shelf stays empty), grows, tilts toward the reader and breathes until the chapter opens over it. The shelf dims. */
+.shelf-books li.lifting { transform: none; width: 132px; height: 184px; }
+.shelf-books li.lifting .book { position: fixed; left: 50%; top: 44%; z-index: 20; margin: -92px 0 0 -66px; transform: scale(1.7) rotateY(-10deg);
+  box-shadow: 0 30px 50px rgba(27, 26, 23, 0.45), inset 0 0 0 1px rgba(255,255,255,0.08); animation: bookfly 480ms cubic-bezier(0.2, 0.8, 0.2, 1) both, bookbreathe 1.4s ease-in-out 480ms infinite alternate; }
+.shelf-books li.lifting .book::after { content: 'Opening…'; position: absolute; left: 50%; top: -14px; transform: translateX(-50%) rotate(-2deg); background: var(--accent); color: var(--ink); border: 2px solid var(--ink); border-radius: 4px; padding: 2px 8px; font: 800 0.7rem var(--sans); white-space: nowrap; }
+.shelf-page.lifting::after { content: ''; position: fixed; inset: 0; z-index: 10; background: rgba(27, 26, 23, 0.42); animation: fadein 300ms both; pointer-events: none; }
+.shelf-books li.lifting .book-ribbon { display: none; }   /* the Hot ribbon would sit on the Opening… label */
+@keyframes bookfly { from { opacity: 0.4; transform: translateY(36vh) scale(0.8) rotateY(0deg); } to { opacity: 1; transform: scale(1.7) rotateY(-10deg); } }
+@keyframes bookbreathe { from { transform: scale(1.7) rotateY(-10deg) translateY(0); } to { transform: scale(1.7) rotateY(-10deg) translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { .story-body.turn-fwd, .story-body.turn-back, .story-frame, .shelf-books li.lifting .book, .shelf-page.lifting::after { animation: none !important; } }
 /* the card's name, printed as a small label in the marker ink, never tracked capitals */
 .story-kicker { align-self: flex-start; font-size: var(--small); font-weight: 800; letter-spacing: 0; color: var(--mark-fg); background: var(--mark); padding: 4px 10px; border-radius: 4px; margin: 0 0 14px; transform: rotate(-1deg); }
 .story-title { font-size: clamp(2rem, 1.4rem + 3vw, 2.6rem); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 18px; color: var(--fg); font-variation-settings: 'wdth' 88, 'opsz' 96; text-wrap: balance; }

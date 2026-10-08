@@ -101,6 +101,10 @@ export default function App() {
   const [pricingNotice, setPricingNotice] = useState<string | null>(null)
   // 8 Oct (UX review #9): Explore goes back to the screen it was opened from, never into the middle of a chapter.
   const [exploreFrom, setExploreFrom] = useState<View>('auto')
+  // A book tapped on the Shelf stays lifted on the Shelf while its handbook loads (8 Oct night, Prateek's animation):
+  // the splash would tear the Shelf down, so the Shelf keeps rendering until the handbook query answers.
+  const [fromShelf, setFromShelf] = useState(false)
+  useEffect(() => { if (fromShelf && data !== undefined && view !== 'explore') setFromShelf(false) }, [fromShelf, data, view])
   const goExplore = () => { setExploreFrom(view === 'auto' || view === 'explore' ? (hb ? 'plan' : 'auto') : view); setView('explore') }
   const routeLock = (code: string | null, note: string) => {
     if (code === 'signup-more') { setSigninReason(note); setAfterSignIn('chapter'); setView('signin'); return true }
@@ -178,6 +182,17 @@ export default function App() {
   // Pick up newer cached chapters for anything not started yet (the cache improves over the sprint).
   useEffect(() => { if (hb?._id && hb.status === 'ready') syncFromCache({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }, [hb?._id, hb?.status, syncFromCache, token])
 
+  // Explore: ready topics and the ones other readers started (6 Oct).
+  if (view === 'explore' || (fromShelf && data === undefined)) {
+    return (
+      <Shell>
+        <Shelf onBack={() => setView(exploreFrom)}
+          onReady={async (topic) => { setFromShelf(true); const r = await create({ topic, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setView('auto') }}
+          onShared={async (id) => { setFromShelf(true); const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />
+      </Shell>
+    )
+  }
+
   if (data === undefined || deepLink) return <Shell><div className="splash">Opening your handbook…</div></Shell>
 
   const signIn = (back: View) => { setAfterSignIn(back); setView('signin') }
@@ -209,16 +224,6 @@ export default function App() {
     )
   }
 
-  // Explore: ready topics and the ones other readers started (6 Oct).
-  if (view === 'explore') {
-    return (
-      <Shell>
-        <Shelf onBack={() => setView(exploreFrom)}
-          onReady={async (topic) => { const r = await create({ topic, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setView('auto') }}
-          onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />
-      </Shell>
-    )
-  }
 
   // A first-time visitor (nothing on this phone): the landing page, which has its own box.
   // Sign-in with no handbook yet (UX review #46, 8 Oct): "Sign in to pay" from Pricing used to fall into the Start screen.
