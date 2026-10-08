@@ -216,7 +216,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .ask { margin-top: var(--l); border-top: 1px solid var(--tint); padding-top: var(--m); }
 .ask-row { display: flex; gap: var(--s); margin-top: var(--s); }
 .ask-row .input { min-height: 48px; padding: 10px 14px; font-size: var(--ui); }
-.ask-send { width: auto; min-height: 48px; padding: 0 18px; }
+.ask-send { width: auto; min-height: 48px; padding: 0 18px; box-shadow: none; }
+/* the 6-digit code: big spaced numerals, like a printed ticket */
+#code.input { font-family: var(--sans); font-weight: 800; font-size: 1.6rem; letter-spacing: 0.32em; text-align: center; }
 .ask-qa { margin-bottom: var(--m); }
 .ask-q { font-weight: 600; font-size: var(--ui); }
 .ask-a { margin-top: 6px; }
@@ -374,8 +376,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .ask-src a { color: var(--ink-2); }
 
 /* ---------- /stats ---------- */
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s); margin: var(--l) 0 var(--xl); }
-.stat { background: var(--paper-2); border-radius: var(--radius); padding: var(--m); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: var(--l) 4px var(--xl) 0; }
+.stat { background: var(--paper); border: var(--stroke) solid var(--ink); border-radius: var(--radius-card); padding: var(--m); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.stat:first-child { background: var(--accent); box-shadow: var(--press-sm); }
 .stat-n { font-family: var(--sans); font-size: var(--display); font-weight: 700; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
 .stat-label { font-family: var(--sans); font-size: var(--small); color: var(--ink-2); line-height: 1.3; }
 .stats-h { font-family: var(--sans); font-size: var(--ui); font-weight: 700; margin: var(--l) 0 var(--s); }
@@ -410,7 +413,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .sd-meter > span { display: block; height: 100%; border-radius: 3px; }
 .sd-good { color: var(--pass); font-weight: 700; }
 .sd-social { display: grid; grid-template-columns: 1fr; gap: var(--s); }
-.sd-card { background: var(--paper-2); border-radius: var(--radius); padding: var(--m); font-family: var(--sans); }
+.sd-card { background: var(--paper); border: var(--stroke) solid var(--ink); border-radius: var(--radius-card); padding: var(--m); font-family: var(--sans); }
 .sd-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s); }
 .sd-card-head span { font-size: var(--small); color: var(--ink-2); }
 .sd-card .note { margin: var(--s) 0 0; }
@@ -584,14 +587,15 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .plan-wait-topic { font-size: var(--display); line-height: 1.05; margin: 0 0 var(--l); }
 .plan-wait-steps { list-style: none; padding: 0; margin: 0 0 var(--l); display: grid; gap: 12px; }
 .plan-wait-steps li { position: relative; padding-left: 28px; font: 500 var(--ui) var(--sans); color: var(--ink-2); }
-.plan-wait-steps li::before { content: ''; position: absolute; left: 0; top: 4px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--tint); }
+.plan-wait-steps li::before { content: ''; position: absolute; left: 0; top: 4px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ink); opacity: 0.35; }
+.plan-wait-steps li.on::before { opacity: 1; }
 .plan-wait-steps li.on { color: var(--ink); }
 .plan-wait-steps li.on::before { background: var(--accent); border-color: var(--accent); }
 
 /* the story while a plan is written (Prateek, 6 Oct): reuse a ready handbook's Story time card */
 .wait-story { margin-top: var(--xl); padding-top: var(--l); border-top: 1px solid var(--tint); }
 .wait-story-kicker { font: 700 var(--small) var(--sans); color: var(--ink-2); margin: 0 0 12px; }
-.wait-story .story-pic { box-shadow: none; border: 1px solid var(--tint); }
+.wait-story .story-pic { box-shadow: var(--press-sm); border: var(--stroke) solid var(--ink); margin-right: 4px; }
 .wait-story-title { font: 700 var(--heading) var(--sans); margin: 0 0 8px; }
 .wait-story-text p { font-size: var(--body); line-height: 1.55; margin: 0 0 10px; }
 .wait-story-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: var(--m); }
@@ -770,7 +774,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 
 
 /* Member mark next to the wordmark (7 Oct) */
-.member-mark { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--accent); color: var(--ink); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; vertical-align: 2px; }
+.member-mark { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 4px; background: var(--accent); border: 2px solid var(--ink); color: var(--ink); font-size: 0.72rem; font-weight: 800; letter-spacing: 0; vertical-align: 2px; transform: rotate(-2deg); }
 
 /* Printable handbook (7 Oct) */
 .print-chapter { margin-top: var(--l); }
@@ -784,10 +788,12 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 }
 
 /* Free vs member on Pricing (7 Oct) */
-.compare { width: 100%; border-collapse: collapse; margin: var(--m) 0 6px; font-size: var(--small); }
-.compare th, .compare td { text-align: left; vertical-align: top; padding: 9px 6px; border-bottom: 1px solid var(--line, rgba(0,0,0,0.08)); }
-.compare thead th { font-family: var(--sans); font-weight: 700; color: var(--ink-2); }
-.compare thead th:last-child, .compare td:last-child { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+/* a printed table: ink rules, the member column in marigold */
+.compare { width: 100%; border-collapse: separate; border-spacing: 0; margin: var(--m) 0 6px; font-size: var(--small); border: var(--stroke) solid var(--ink); border-radius: var(--radius-card); overflow: hidden; }
+.compare th, .compare td { text-align: left; vertical-align: top; padding: 9px 8px; border-bottom: 1.5px solid var(--rule); }
+.compare tbody tr:last-child th, .compare tbody tr:last-child td { border-bottom: 0; }
+.compare thead th { font-family: var(--sans); font-weight: 800; color: var(--ink); border-bottom: var(--stroke) solid var(--ink); }
+.compare thead th:last-child, .compare td:last-child { background: var(--accent); }
 .compare tbody th { font-family: var(--sans); font-weight: 600; width: 34%; }
 .unlocks { list-style: none; padding: 0; margin: var(--m) 0; display: grid; gap: 10px; font-family: var(--serif); font-size: 1.04rem; line-height: 1.45; }
 .unlocks strong { font-family: var(--sans); }
@@ -832,8 +838,8 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .moment-time { font-size: var(--small); color: var(--ink-2); font-variant-numeric: tabular-nums; }
 
 /* Why you're here, and "free" said loudly (7 Oct, Prateek) */
-.why-here { margin: 10px 0 0; padding: 12px 14px; border-radius: 14px; background: var(--accent); color: var(--ink); font-weight: 600; line-height: 1.4; }
-.free-banner { margin: 10px 0; padding: 10px 14px; border-radius: 12px; border: 2px dashed var(--pass, #1f7a4d); color: var(--ink); background: color-mix(in srgb, var(--pass, #1f7a4d) 10%, transparent); font-size: var(--ui); }
+.why-here { margin: 10px 4px 0 0; padding: 12px 14px; border-radius: var(--radius-card); background: var(--accent); border: var(--stroke) solid var(--ink); box-shadow: var(--press-sm); color: var(--ink); font-weight: 600; line-height: 1.4; }
+.free-banner { margin: 10px 0; padding: 10px 14px; border-radius: var(--radius-card); border: var(--stroke) solid var(--pass, #1f7a4d); color: var(--ink); background: var(--pass-tint); font-size: var(--ui); }
 .free-banner strong { color: var(--pass, #1f7a4d); }
 .lock-card { width: 100%; padding: 16px; border-radius: var(--radius-card); border: var(--stroke) solid var(--ink); background: var(--paper); box-shadow: var(--press); display: grid; gap: 8px; text-align: left; margin-right: 4px; }
 .lock-card .btn { box-shadow: none; }
