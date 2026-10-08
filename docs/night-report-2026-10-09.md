@@ -14,7 +14,7 @@ Read this first. Session dc coordinated the night (D19). Every decision taken in
 | 8 Oct | 88 (78 direct, 5 ig, 2 growthx) | 54 | 15 | 4 | 0 | 0 |
 | 9 Oct, first 20 min | 5 | 5 | 1 | | 0 | 0 |
 
-Caution: 78 "direct" visitors on a day with no post out likely includes our own review agents (asked 05 and 55 to confirm whether their runs carried utm_source=internal). Read the sign-up count, not the visitor count. The wall moved to after chapter 1 at 20:37; nobody has signed up since. The wall_tap event (00:15) will show taps against sign-ups from its deploy on.
+Caution: /admin's 88 visitors include our own review agents (05 alone ran about 45 tagged headless runs, roughly 60 "visitors"; 55's agents on top). /stats excludes tagged tokens; /admin's visitor count does not. Read /stats for visitors. Read the sign-up count, not the visitor count. The wall moved to after chapter 1 at 20:37; nobody has signed up since. The wall_tap event (00:15) will show taps against sign-ups from its deploy on.
 
 ## Waits on you (in order)
 
@@ -25,6 +25,7 @@ Caution: 78 "direct" visitors on a day with no post out likely includes our own 
 ## Session dc (coordinator)
 
 - Admin access restored (D18). Deploy queue and git rule for a shared tree (D19): no pull, no stash, stage own files by name.
+- D21: the Shelf gets a real button and a count strip (your 00:4x ask; 05 builds). D22: your test payment no longer counts toward the early-bird tiers, so the counter reads 50 of 50 (55 builds).
 - D20: Pricing "Coming next" row becomes "More coming. Members hear first." (55 implements).
 
 ## Session 05
