@@ -114,6 +114,8 @@ export async function tryOpen(ctx: MutationCtx, h: Doc<"handbooks">, n: number):
   if (member) {
     if (today.length >= LIMITS.memberChaptersPerDay) return { ok: false, code: "daily-member" };
   } else {
+    // By chapter number, on purpose (Prateek, 8 Oct night: "Instagram can't direct anyone to chapter 2 straight away"):
+    // a post link to chapter 2 meets the same wall as everyone else.
     if (!h.userId && n > LIMITS.visitorChapters) return { ok: false, code: "signup-more" };
     if (today.length >= LIMITS.freeChaptersPerDay) return { ok: false, code: "daily-free" };
   }
