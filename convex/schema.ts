@@ -36,6 +36,7 @@ export default defineSchema({
     userId: v.optional(v.id("users")),
     brief: v.optional(v.any()),
     researchStartedAt: v.optional(v.number()),   // research runs while the reader picks a goal (7 Oct)   // research before writing (research.ts, 7 Oct): format, chapter count, facts, sources, plot, recap, NISM
+    goalChosenAt: v.optional(v.number()),       // when they picked, typed or skipped a goal (8 Oct, Tanisha): research starts after it
     source: v.union(v.literal("live"), v.literal("cache")),
     error: v.optional(v.string()),
     hiddenAt: v.optional(v.number()),   // a duplicate topic found when two devices merged at sign-in; kept, not deleted
@@ -56,6 +57,7 @@ export default defineSchema({
     variants: v.optional(v.any()),            // masked model comparison: [{ key: "A", model, title, cards, outcomeLine }]
     vote: v.optional(v.string()),             // "A" | "B" | "C" once the person has chosen
     svg: v.optional(v.string()),
+    scenes: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), real: v.optional(v.string()) }))),   // picture scenes, written by the fact check (8 Oct, Tanisha); images.ts draws from them
     // Runway pictures, one per teaching card (design/style-anchor.md). Drawn after the chapter is ready.
     pictures: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")), credit: v.optional(v.string()), source: v.optional(v.string()) }))),
     picturesStatus: v.optional(v.string()),   // "drawing" | "done" | "failed" | "skipped"
@@ -344,7 +346,30 @@ export default defineSchema({
     ok: v.boolean(),
     error: v.optional(v.string()),
     at: v.number(),
-  }),
+    // Observability (8 Oct, Tanisha): which handbook and chapter the call was for, and how many tries it took (a broken or
+    // off-schema reply is asked again inside the same call). All optional: older rows and one-off tools have none.
+    handbookId: v.optional(v.id("handbooks")),
+    chapter: v.optional(v.number()),
+    attempts: v.optional(v.number()),
+    cachedIn: v.optional(v.number()),   // Anthropic prompt-cache hits, when caching is on
+  }).index("by_at", ["at"]),
+
+  // One small row per AI call (8 Oct, Tanisha): numbers only, no text, so /admin can compute latency and cost live
+  // (the full aiCalls row carries prompt and reply text and is too big to scan).
+  callStats: defineTable({
+    at: v.number(),
+    kind: v.string(),
+    model: v.string(),
+    ms: v.number(),
+    ok: v.boolean(),
+    tokensIn: v.number(),
+    tokensOut: v.number(),
+    cachedIn: v.optional(v.number()),
+    attempts: v.optional(v.number()),
+    handbookId: v.optional(v.id("handbooks")),
+    chapter: v.optional(v.number()),
+    inr: v.number(),
+  }).index("by_at", ["at"]).index("by_handbook", ["handbookId", "at"]),
 
   // Pre-generated handbooks (same prompts, run offline) so the link works
   // for these topics even when the live provider is unavailable.

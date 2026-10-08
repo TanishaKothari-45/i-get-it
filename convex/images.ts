@@ -100,10 +100,13 @@ async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId:
   } catch { /* fall back to drawing */ }
   return null;
 }
-async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true, cover = false, model?: string): Promise<{ status: string; pictures: Picture[] }> {
+// stored: scenes the fact check already wrote for this chapter (8 Oct, Tanisha: one Sonnet call fewer). With them, no
+// scenes call is made; without them (older chapters, ready topics built before), the picture editor writes them here.
+async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true, cover = false, model?: string, stored?: { card: number; scene: string; real?: string }[], trace?: { handbookId?: any; chapter?: number }): Promise<{ status: string; pictures: Picture[] }> {
   const teaching = pictureCards(cards);
   if (!teaching.length) return { status: "skipped", pictures: [] };
-  const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))), model });
+  const r: any = stored?.length ? { ok: true, json: { scenes: stored } }
+    : await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))), model, trace });
   const wanted = new Set(teaching.map(({ i }) => i));
   const scenes: { card: number; scene: string; real?: string }[] = [];
   for (const x of (r.ok ? r.json?.scenes : null) ?? []) {
@@ -171,7 +174,7 @@ export const forChapter = internalAction({
     const ch: any = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n });
     if (!h || !ch || ch.status !== "ready" || !ch.cards) return;
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: "drawing" });
-    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards, true, n === 1, h.writer);
+    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards, true, n === 1, h.writer, ch.scenes, { handbookId, chapter: n });
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: r.status, pictures: r.pictures });
   },
 });

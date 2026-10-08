@@ -99,7 +99,24 @@ export const research = z.looseObject({
 export const artifact = z.looseObject({ idea: str, html: str.min(300) });
 export const move = z.looseObject({ html: str.min(300) });
 
-export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact, move };
+// Research prompt v4/v5 (8 Oct, Tanisha; live from 8 Oct night): ten non-overlapping kinds, an outline of the topic's parts,
+// and fewer facts allowed rather than invented ones. Framing is left to the planner. ("research" above is v1's.)
+export const researchV4 = z.looseObject({
+  kind: z.enum(["story", "event", "person", "howto", "skill", "subject", "money", "health", "legal", "other"]),
+  format: z.enum(["quick", "course"]),
+  chapters: z.number().int().min(1).max(7),
+  outline: z.array(str).min(1).max(8),
+  framing: nullableStr,
+  wikipediaTitle: nullableStr,
+  recapVideo: nullableStr,
+  facts: z.array(str).min(1).max(25),
+  sources: z.array(z.looseObject({ title: str.optional(), url: str })).max(10),
+});
+
+// The shared-library privacy check (8 Oct): its own schema, so a reply is judged on its own keys.
+export const library = z.looseObject({ share: z.boolean(), why: z.string().optional() });
+
+export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact, move, researchV4, library };
 
 // The problems with a reply, in a few short lines the model can act on; null when it fits.
 export function problems(kind: string, json: unknown): string | null {

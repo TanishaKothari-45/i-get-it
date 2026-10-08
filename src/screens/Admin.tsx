@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import AdminPipeline from '../components/AdminPipeline'
 import { useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { api } from '../../convex/_generated/api'
@@ -33,6 +34,8 @@ export default function Admin() {
           <TrendingCard />
           <ExperimentsCard />
           <PaymentsCard />
+          {/* AI and cost together (8 Oct, Tanisha): what every step takes and costs, by handbook, then spend by day. */}
+          <AdminPipeline />
           <CostsCard />
 
           <section className="adm-card adm-wide">
@@ -276,7 +279,7 @@ function PaymentsCard() {
 
 // What the app spends (7 Oct, Prateek): per day, then per model, then per job inside a model. Estimates from list
 // prices (costs.ts); each provider's bill is the truth.
-const JOB: Record<string, string> = { plan: 'Plans', chapter: 'Chapters', check: 'Fact checks', repair: 'Rewrites and polish', scenes: 'Picture scenes', picture: 'Pictures', intent: 'Goal question', research: 'Research', transcript: 'YouTube transcripts', ask: 'Ask or object', teach: 'Teach it back', simpler: 'Say it simpler (removed)', audit: 'Audits' }
+const JOB: Record<string, string> = { plan: 'Plans', chapter: 'Chapters', check: 'Fact checks and picture scenes', versions: 'Quiz versions', match: 'Match with a ready book', library: 'Library check', photo: 'Wikimedia photos (free)', move: 'Moving figures', artifact: 'Try-it pages', repair: 'Rewrites and polish', scenes: 'Picture scenes', picture: 'Pictures', intent: 'Goal question', research: 'Research', transcript: 'YouTube transcripts', ask: 'Ask or object', teach: 'Teach it back', simpler: 'Say it simpler (removed)', audit: 'Audits' }
 function CostsCard() {
   const [days, setDays] = useState(14)
   const rows = useQuery(api.costs.byDay, { days })

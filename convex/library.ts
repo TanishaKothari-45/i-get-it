@@ -18,8 +18,9 @@ export const consider = internalAction({
   handler: async (ctx, { handbookId }) => {
     const d: any = await ctx.runQuery(internal.library.readSource, { handbookId });
     if (!d) return;
-    const r: any = await ctx.runAction(internal.ai.generate, { kind: "intent", system: LIBRARY_CHECK_PROMPT,
-      user: `Typed line: "${d.h.topic}"\nPlan topic: ${d.h.plan?.topic ?? ""}\nGoal: ${d.h.goal ?? ""}\nOutcome: ${d.h.plan?.outcome7 ?? ""}` });
+    // Its own job and schema (8 Oct, Tanisha's catch): under "intent" every reply failed the schema, so nothing was ever published.
+    const r: any = await ctx.runAction(internal.ai.generate, { kind: "library", system: LIBRARY_CHECK_PROMPT,
+      user: `Typed line: "${d.h.topic}"\nPlan topic: ${d.h.plan?.topic ?? ""}\nGoal: ${d.h.goal ?? ""}\nOutcome: ${d.h.plan?.outcome7 ?? ""}`, trace: { handbookId } });
     const share = r.ok && r.json?.share === true;
     await ctx.runMutation(internal.library.publish, { handbookId, share, why: String(r.ok ? r.json?.why ?? "" : r.error).slice(0, 120) });
   },
@@ -65,11 +66,20 @@ export async function sharedRow(ctx: QueryCtx | MutationCtx, h: Doc<"handbooks">
 // A later chapter, the first time any reader of a shared handbook unlocks it: saved for everyone after (7 Oct).
 // Only neutral chapters (written with no reader's profile or quiz history) are saved; a level's row is its own.
 export const saveChapter = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number() },
-  handler: async (ctx, { handbookId, n }) => {
+  args: { handbookId: v.id("handbooks"), n: v.number(), tiersOnly: v.optional(v.boolean()) },
+  handler: async (ctx, { handbookId, n, tiersOnly }) => {
     const h = await ctx.db.get(handbookId);
     const row = h && await sharedRow(ctx, h);
-    if (!row || (row.chapters ?? {})[String(n)]) return;
+    if (!row) return;
+    // 8 Oct: quiz versions are written after the chapter, in the background; they are added to the saved copy here.
+    const saved = (row.chapters ?? {})[String(n)];
+    if (tiersOnly) {
+      if (!saved) return;
+      const c: any = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+      if (c) await ctx.db.patch(row._id, { chapters: { ...(row.chapters ?? {}), [String(n)]: { ...saved, quizTiers: c.quizTiers, recallTiers: c.recallTiers } } });
+      return;
+    }
+    if (saved) return;
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     if (!ch?.cards || ch.status !== "ready") return;
     const c: any = ch;
