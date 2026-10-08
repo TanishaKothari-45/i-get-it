@@ -17,7 +17,10 @@ export async function isOwner(ctx: QueryCtx) {
   const id = await getAuthUserId(ctx);
   const user = id ? await ctx.db.get(id) : null;
   const owners = (process.env.STATS_OWNER_EMAILS ?? "").toLowerCase().split(",").map((e) => e.trim()).filter(Boolean);
-  return { ok: !!user?.email && owners.includes(user.email.toLowerCase()), signedIn: !!user };
+  // Only a verified email counts (8 Oct night, security audit): a password sign-up stores the address as typed and never
+  // verifies it, so "Owner@gmail.com" with any password used to pass this lowercase comparison and open /admin.
+  // The owner signs in by email code (which sets emailVerificationTime); a password-only owner account signs in by code once.
+  return { ok: !!user?.email && !!user.emailVerificationTime && owners.includes(user.email.toLowerCase()), signedIn: !!user };
 }
 
 export const dashboard = query({
