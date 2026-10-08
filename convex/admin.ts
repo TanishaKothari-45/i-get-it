@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { HOUR } from "@convex-dev/rate-limiter";
 import { getAuthUserId } from "@convex-dev/auth/server";
-import { internalQuery, query, type QueryCtx } from "./_generated/server";
+import { internalMutation, internalQuery, query, type QueryCtx } from "./_generated/server";
 import type { Doc } from "./_generated/dataModel";
 
 // The owner's /admin dashboard (6 Oct): the funnel from visit to sign-up with drop-off at each step, landing scroll
@@ -29,6 +29,22 @@ export const dashboard = query({
     const who = await isOwner(ctx);
     if (!who.ok) return { denied: true as const, signedIn: who.signedIn };
     return await build(ctx, days);
+  },
+});
+
+// Stamp an owner's own account as verified (9 Oct, agent, authorised, decisions D18): the verified-email rule above locked
+// the owner's pre-7-Oct password account out of /admin. Internal only (never callable from a phone), and it refuses any
+// user whose stored email is not exactly one in STATS_OWNER_EMAILS, so it cannot promote a look-alike account.
+//   npx convex run --prod admin:verifyOwner '{"userId":"<id from the users table>"}'
+export const verifyOwner = internalMutation({
+  args: { userId: v.id("users") },
+  handler: async (ctx, { userId }) => {
+    const owners = (process.env.STATS_OWNER_EMAILS ?? "").toLowerCase().split(",").map((e) => e.trim()).filter(Boolean);
+    const user = await ctx.db.get(userId);
+    if (!user?.email || !owners.includes(user.email)) throw new Error("Not an owner account");
+    if (user.emailVerificationTime) return { already: true, email: user.email };
+    await ctx.db.patch(userId, { emailVerificationTime: Date.now() });
+    return { already: false, email: user.email };
   },
 });
 
