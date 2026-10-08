@@ -3,6 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { v } from "convex/values";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
+import type { Trace } from "./trace";
 import { nismBrief } from "./nism";
 import { jsonSchema, problems } from "./schemas";
 
@@ -155,11 +156,11 @@ export async function claudeResearch(ask: string): Promise<Attempt> {
 }
 
 // Gemini first, Claude when Gemini fails. Every attempt is logged with its own model, so costs stay true.
-export async function researchFor(ctx: any, ask: string, opts: { claudeOnly?: boolean } = {}): Promise<{ used: Attempt | null; attempts: Attempt[] }> {
+export async function researchFor(ctx: any, ask: string, opts: { claudeOnly?: boolean; trace?: Trace } = {}): Promise<{ used: Attempt | null; attempts: Attempt[] }> {
   const attempts: Attempt[] = [];
   if (!opts.claudeOnly) attempts.push(await geminiResearch(GEMINI_RESEARCHER, ask));
   if (!attempts.length || attempts[attempts.length - 1].error) attempts.push(await claudeResearch(ask));
-  for (const a of attempts) await ctx.runMutation(internal.handbooks.logAiCall, { kind: "research", model: a.model, input: ask, output: a.decided ? JSON.stringify(a.decided).slice(0, 4000) : "", tokensIn: a.tokensIn, tokensOut: a.tokensOut, ms: a.ms, ok: !a.error, error: a.error });
+  for (const a of attempts) await ctx.runMutation(internal.handbooks.logAiCall, { ...opts.trace, kind: "research", model: a.model, input: ask, output: a.decided ? JSON.stringify(a.decided).slice(0, 4000) : "", tokensIn: a.tokensIn, tokensOut: a.tokensOut, ms: a.ms, ok: !a.error, error: a.error });
   const used = attempts.find((a) => !a.error) ?? null;
   return { used, attempts };
 }
@@ -174,7 +175,7 @@ export const run = internalAction({
     const h: any = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h || h.brief) return;
     const ask = askFor(h);
-    const { used, attempts } = await researchFor(ctx, ask);
+    const { used, attempts } = await researchFor(ctx, ask, { trace: { handbookId } });
     const decided: any = used?.decided ?? null;
     const searches = used?.searches ?? 0;
     const error = used ? undefined : attempts.map((a) => `${a.model}: ${a.error}`).join(" | ").slice(0, 400);
@@ -184,7 +185,7 @@ export const run = internalAction({
     const wiki = decided?.wikipediaTitle ? await wikipedia(String(decided.wikipediaTitle), STORY.has(kind)) : null;
     const recapUrl = STORY.has(kind) && typeof decided?.recapVideo === "string" ? decided.recapVideo : null;
     const recap = recapUrl ? await transcript(recapUrl) : null;
-    if (recapUrl) await ctx.runMutation(internal.handbooks.logAiCall, { kind: "transcript", model: "supadata", input: recapUrl, output: recap ? `${recap.length} chars` : "", ms: 0, ok: !!recap });
+    if (recapUrl) await ctx.runMutation(internal.handbooks.logAiCall, { handbookId, kind: "transcript", model: "supadata", input: recapUrl, output: recap ? `${recap.length} chars` : "", ms: 0, ok: !!recap });
     const nism = nismBrief(`${h.topic} ${h.goal ?? ""} ${kind === "money" ? "investing" : ""}`);
     const sources = (Array.isArray(decided?.sources) ? decided.sources : []).filter((s: any) => /^https?:\/\//.test(String(s?.url ?? ""))).slice(0, 6)
       .map((s: any) => ({ title: String(s.title ?? s.url).slice(0, 120), url: String(s.url).slice(0, 300) }));

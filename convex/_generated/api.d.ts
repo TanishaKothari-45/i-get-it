@@ -25,11 +25,14 @@ import type * as http from "../http.js";
 import type * as images from "../images.js";
 import type * as inkwash from "../inkwash.js";
 import type * as landing from "../landing.js";
+import type * as langfuse from "../langfuse.js";
+import type * as langfuseData from "../langfuseData.js";
 import type * as library from "../library.js";
 import type * as mail from "../mail.js";
 import type * as mailLimits from "../mailLimits.js";
 import type * as membership from "../membership.js";
 import type * as nism from "../nism.js";
+import type * as observability from "../observability.js";
 import type * as payments from "../payments.js";
 import type * as polish from "../polish.js";
 import type * as pricing from "../pricing.js";
@@ -45,6 +48,7 @@ import type * as settings from "../settings.js";
 import type * as shelf from "../shelf.js";
 import type * as social from "../social.js";
 import type * as stats from "../stats.js";
+import type * as trace from "../trace.js";
 import type * as trending from "../trending.js";
 
 import type {
@@ -71,11 +75,14 @@ declare const fullApi: ApiFromModules<{
   images: typeof images;
   inkwash: typeof inkwash;
   landing: typeof landing;
+  langfuse: typeof langfuse;
+  langfuseData: typeof langfuseData;
   library: typeof library;
   mail: typeof mail;
   mailLimits: typeof mailLimits;
   membership: typeof membership;
   nism: typeof nism;
+  observability: typeof observability;
   payments: typeof payments;
   polish: typeof polish;
   pricing: typeof pricing;
@@ -91,6 +98,7 @@ declare const fullApi: ApiFromModules<{
   shelf: typeof shelf;
   social: typeof social;
   stats: typeof stats;
+  trace: typeof trace;
   trending: typeof trending;
 }>;
 

@@ -8,6 +8,7 @@ import { briefForChapter, briefForPlan, MATCH_PROMPT, matchUserMessage, VERSIONS
 import { addCost } from "./costs";
 import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
 import { level } from "./schema";
+import type { Trace } from "./trace";
 import { copyInto, matchForIntent, sharedRow } from "./library";
 import { assignVariant } from "./doctor";
 import { COST_INR, LIMITS, isOpen, memberUntil, spendFits, tryOpen, typedAllowance } from "./membership";
@@ -280,17 +281,17 @@ export function parseVersions(raw: any, count: number): { easier: any[]; harder:
   return easier.some(Boolean) || harder.some(Boolean) ? { easier, harder } : undefined;
 }
 // The easier and harder versions of a finished chapter's quizzes, from a cheaper model (Sonnet), right after writing.
-export async function writeVersions(ctx: any, plan: any, topic: string, title: string, cards: any[], recall: any[], model?: string) {
+export async function writeVersions(ctx: any, plan: any, topic: string, title: string, cards: any[], recall: any[], model?: string, trace?: Trace) {
   const quizzes = cards.filter((c) => c?.type === "exercise");
   if (noQuizzes(plan) || (!quizzes.length && !recall.length)) return { qv: undefined, rv: undefined };
-  const r = await ctx.runAction(internal.ai.generate, { kind: "versions", system: VERSIONS_PROMPT, user: versionsUserMessage(topic, title, cards, quizzes, recall), model });
+  const r = await ctx.runAction(internal.ai.generate, { kind: "versions", system: VERSIONS_PROMPT, user: versionsUserMessage(topic, title, cards, quizzes, recall), model, trace });
   return { qv: r.ok ? parseVersions(r.json?.quiz, quizzes.length) : undefined, rv: r.ok ? parseVersions(r.json?.recall, recall.length) : undefined };
 }
 // One fact check for the chapter, its recall quizzes and every quiz version; then each goes back in its place.
-export async function checkWithVersions(ctx: any, topic: string, level: string, title: string, cards: any[], recall: any[], qv?: { easier: any[]; harder: any[] }, rv?: { easier: any[]; harder: any[] }, model?: string) {
+export async function checkWithVersions(ctx: any, topic: string, level: string, title: string, cards: any[], recall: any[], qv?: { easier: any[]; harder: any[] }, rv?: { easier: any[]; harder: any[] }, model?: string, trace?: Trace) {
   const lists = [qv?.easier ?? [], qv?.harder ?? [], rv?.easier ?? [], rv?.harder ?? []];
   const extra = lists.flatMap((l) => l.filter(Boolean));
-  const checked = await factCheck(ctx, topic, level as any, title, [...cards, ...recall, ...extra], model ? { model } : {});
+  const checked = await factCheck(ctx, topic, level as any, title, [...cards, ...recall, ...extra], { ...(model ? { model } : {}), trace });
   let at = cards.length + recall.length;
   const refill = (l: any[]) => l.map((x) => (x ? checked.cards[at++] : null));
   const [qe, qh, re, rh] = lists.map(refill);
@@ -448,7 +449,7 @@ export const matchOrIntents = internalAction({
     if (!h || h.status !== "intent") return;
     const options: { kind: string; title: string; topic: string; libraryId?: any }[] = await ctx.runQuery(internal.handbooks.shelfOptions, { level: h.level });
     if (options.length) {
-      const r = await ctx.runAction(internal.ai.generate, { kind: "match", system: MATCH_PROMPT, user: matchUserMessage(h.topic, options.map((o) => o.title)) });
+      const r = await ctx.runAction(internal.ai.generate, { kind: "match", system: MATCH_PROMPT, user: matchUserMessage(h.topic, options.map((o) => o.title)), trace: { handbookId } });
       const k = r.ok ? Number(r.json?.match) : NaN;
       const pick = Number.isInteger(k) && k >= 1 && k <= options.length ? options[k - 1] : null;
       if (pick && (await ctx.runMutation(internal.handbooks.adoptExisting, { handbookId, kind: pick.kind, topic: pick.topic, libraryId: pick.libraryId }))) return;
@@ -497,7 +498,7 @@ export const generateIntents = internalAction({
   handler: async (ctx, { handbookId }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h || h.status !== "intent") return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "intent", system: INTENT_PROMPT, user: intentUserMessage(h.topic) });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "intent", system: INTENT_PROMPT, user: intentUserMessage(h.topic), trace: { handbookId } });
     const goals = r.ok && Array.isArray(r.json?.goals) ? r.json.goals.filter((g: any) => typeof g?.label === "string" && g.label.trim()).slice(0, 3).map((g: any) => ({ label: String(g.label).slice(0, 60), mode: ["skill", "story", "subject", "decision"].includes(g.mode) ? g.mode : "subject" })) : [];
     if (goals.length >= 2) await ctx.runMutation(internal.handbooks.setIntents, { handbookId, intents: { question: String((r as any).json?.question ?? "What's it for?").slice(0, 80), goals } });
     else await ctx.runMutation(internal.handbooks.skipIntent, { handbookId });
@@ -552,7 +553,7 @@ export const generatePlan = internalAction({
       h = (await ctx.runQuery(internal.handbooks.readHandbook, { handbookId })) ?? h;
     }
     const brief = (h as any).brief ?? null;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief), model: h.writer });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief), model: h.writer, trace: { handbookId } });
     // Claude's own safety check said no: say so plainly, never "try again".
     if (!r.ok && /^declined/.test(r.error)) {
       const ready: any[] = await ctx.runQuery(internal.handbooks.listCache, {});
@@ -595,7 +596,7 @@ function validFix(orig: any, fixed: any): boolean {
   if (orig.type !== "exercise") return typeof fixed.body === "string" || typeof fixed.prompt === "string";
   return Array.isArray(fixed.options) && fixed.options.length === 3 && fixed.options.some((o: any) => o.id === fixed.answer);
 }
-export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max" } = {}): Promise<{ cards: any[]; report: FactReport }> {
+export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max"; trace?: Trace } = {}): Promise<{ cards: any[]; report: FactReport }> {
   const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: CHECK_PROMPT, user: checkUserMessage(topic, level, { title, cards }), ...opts });
   if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() } };
   const out = cards.slice();
@@ -622,7 +623,7 @@ export const generateChapter = internalAction({
     // written for them, as before, and it stays theirs.
     const shareable = !prof.line;
     const howTheyDid: string | null = shareable ? null : await ctx.runQuery(internal.handbooks.readingReport, { handbookId, n });
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, shareable ? undefined : prof.line, howTheyDid ?? undefined) + briefForChapter((h as any).brief), model: prof.model ?? h.writer });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, shareable ? undefined : prof.line, howTheyDid ?? undefined) + briefForChapter((h as any).brief), model: prof.model ?? h.writer, trace: { handbookId, chapter: n } });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
     const ch = r.json;
     const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");
@@ -634,8 +635,8 @@ export const generateChapter = internalAction({
     // Fresh recall quizzes (new examples) are checked in the same pass, then split off.
     const recall = (Array.isArray(ch.recallQuizzes) ? ch.recallQuizzes : []).filter((e: any) => e?.type === "exercise" && Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer)).slice(0, 2);
     // The easier and harder quiz versions are checked in the same pass as the chapter, then split off.
-    const { qv, rv } = await writeVersions(ctx, h.plan, h.plan?.topic ?? h.topic, title, ch.cards, recall, h.writer);
-    const { cards, recallCards, quizTiers, recallTiers, report } = await checkWithVersions(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards, recall, qv, rv, h.writer);
+    const { qv, rv } = await writeVersions(ctx, h.plan, h.plan?.topic ?? h.topic, title, ch.cards, recall, h.writer, { handbookId, chapter: n });
+    const { cards, recallCards, quizTiers, recallTiers, report } = await checkWithVersions(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards, recall, qv, rv, h.writer, { handbookId, chapter: n });
     const checked = { report };
     await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report, quizTiers, recallTiers });
     if (shareable && n > 1 && !h.test) await ctx.runMutation(internal.library.saveChapter, { handbookId, n });
@@ -824,7 +825,7 @@ export const setChapterFailed = internalMutation({
   },
 });
 export const logAiCall = internalMutation({
-  args: { kind: v.string(), model: v.string(), input: v.string(), output: v.string(), tokensIn: v.optional(v.number()), tokensOut: v.optional(v.number()), ms: v.number(), ok: v.boolean(), error: v.optional(v.string()) },
+  args: { handbookId: v.optional(v.id("handbooks")), chapter: v.optional(v.number()), attempts: v.optional(v.number()), kind: v.string(), model: v.string(), input: v.string(), output: v.string(), tokensIn: v.optional(v.number()), tokensOut: v.optional(v.number()), ms: v.number(), ok: v.boolean(), error: v.optional(v.string()) },
   handler: async (ctx, args) => { await ctx.db.insert("aiCalls", { ...args, at: Date.now() }); await addCost(ctx, args); },
 });
 
@@ -1332,7 +1333,7 @@ export const replyToTeachBack = internalAction({
   handler: async (ctx, { id }) => {
     const d: any = await ctx.runQuery(internal.handbooks.readTeachBack, { id });
     if (!d) return;
-    const r: any = await ctx.runAction(internal.ai.generate, { kind: "teach", system: TEACH_PROMPT, user: teachUserMessage(d.topic, d.title, d.oneBreath, d.outcome, d.row.text) });
+    const r: any = await ctx.runAction(internal.ai.generate, { kind: "teach", system: TEACH_PROMPT, user: teachUserMessage(d.topic, d.title, d.oneBreath, d.outcome, d.row.text), trace: { handbookId: d.row.handbookId, chapter: d.row.chapter } });
     const j = r.ok ? r.json : null;
     const clean = (x: any) => (typeof x === "string" && x.trim() ? x.trim().slice(0, 300) : undefined);
     await ctx.runMutation(internal.handbooks.setTeachBack, { id, ok: !!j, verdict: clean(j?.verdict), got: clean(j?.got), missed: clean(j?.missed), tip: clean(j?.tip) });
@@ -1373,7 +1374,7 @@ export const answerQuestionAboutCard = internalAction({
     if (!h || !ch || !card) { await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: "", failed: true }); return; }
     const prof = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId: row.handbookId });
     const body = card.type === "exercise" ? `${card.prompt}\n${(card.options ?? []).map((o: any) => `${o.id}) ${o.text}`).join("\n")}` : card.type === "watch" ? `${card.who}, ${card.what}. ${card.watchFor}` : card.body;
-    const r = await ctx.runAction(internal.ai.askWithSearch, { system: ASK_SEARCH_PROMPT, user: askSearchUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${row.chapter}`, body, row.question, prof.line), searchKey: String(h.userId ?? h.ownerToken ?? h._id) });
+    const r = await ctx.runAction(internal.ai.askWithSearch, { system: ASK_SEARCH_PROMPT, user: askSearchUserMessage(h.plan?.topic ?? h.topic, ch.title ?? `Chapter ${row.chapter}`, body, row.question, prof.line), searchKey: String(h.userId ?? h.ownerToken ?? h._id), trace: { handbookId: row.handbookId, chapter: row.chapter } });
     if (r.ok && r.answer) await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: r.answer, sources: r.sources, failed: false });
     else await ctx.runMutation(internal.handbooks.setAnswer, { questionId, answer: "", failed: true });
   },

@@ -6,6 +6,7 @@ import { v } from "convex/values";
 import { jsonSchema, problems } from "./schemas";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
+import { traceV } from "./trace";
 
 const PLAN_MAX_OUT = 3000;
 const CHAPTER_MAX_OUT = 6000;
@@ -153,13 +154,14 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent"), v.literal("versions"), v.literal("match")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))) },
-  handler: async (ctx, { kind, system, user, model, effort }): Promise<Result> => {
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent"), v.literal("versions"), v.literal("match")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))), trace: traceV },
+  handler: async (ctx, { kind, system, user, model, effort, trace }): Promise<Result> => {
     const started = Date.now();
+    let attempts = 1;   // a broken, cut-off or off-schema reply is asked again inside this call
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
     const provider = process.env.ANTHROPIC_API_KEY ? "anthropic" : process.env.OPENAI_API_KEY ? "openai" : null;
     if (!provider) {
-      await ctx.runMutation(internal.handbooks.logAiCall, { kind, model: "none", input: user.slice(0, 2000), output: "", ms: 0, ok: false, error: "no provider key set" });
+      await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, kind, model: "none", input: user.slice(0, 2000), output: "", ms: 0, ok: false, error: "no provider key set" });
       return { ok: false, error: "no provider key set", model: "none" };
     }
     // The /admin switch: The Inference Company instead of Claude, unless this call names its own model (comparisons, tests).
@@ -171,13 +173,14 @@ export const generate = internalAction({
       const call = () => viaInference ? callInference(kind, system, user, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, user, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
       // A marketplace call that times out or drops gets one more try (8 Oct); provider errors on Claude are left as before.
       let r = await call().catch(async (e: any) => {
-        if ((viaCheaper || viaGLM) && /fetch failed|aborted|timeout|GLM 5\d\d/i.test(String(e?.message ?? e))) return call();
+        if ((viaCheaper || viaGLM) && /fetch failed|aborted|timeout|GLM 5\d\d/i.test(String(e?.message ?? e))) { attempts++; return call(); }
         throw e;
       });
       let json: any;
       // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure.
       try { json = extractJson(r.text); }
       catch {
+        attempts++;
         r = await call();
         json = extractJson(r.text);
       }
@@ -186,19 +189,20 @@ export const generate = internalAction({
       const wrong = problems(kind, json);
       if (wrong) {
         const fix = `${user}\n\nYour previous reply did not match the required JSON shape:\n${wrong}\nReturn the whole JSON object again, with these fixed.`;
+        attempts++;
         r = await (viaInference ? callInference(kind, system, fix, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, fix, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, fix, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, fix, model, effort) : callOpenAI(system, fix, maxOut));
         json = extractJson(r.text);
         const still = problems(kind, json);
         if (still) throw new Error(`reply did not match the ${kind} schema: ${still.replace(/\n/g, " ").slice(0, 300)}`);
       }
       await ctx.runMutation(internal.handbooks.logAiCall, {
-        kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
+        ...trace, attempts, kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
         tokensIn: r.tokensIn, tokensOut: r.tokensOut, ms: Date.now() - started, ok: true,
       });
       return { ok: true, json, model: r.model, tokensIn: r.tokensIn, tokensOut: r.tokensOut };
     } catch (e: any) {
       const error = String(e?.message ?? e).slice(0, 500);
-      await ctx.runMutation(internal.handbooks.logAiCall, { kind, model: provider, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });
+      await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, attempts, kind, model: provider, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });
       return { ok: false, error, model: provider };
     }
   },
@@ -209,8 +213,8 @@ export const generate = internalAction({
 // capped per person per day). Returns plain text plus the links it cited or checked.
 const NEEDS_WEB = "NEEDS_WEB";
 export const askWithSearch = internalAction({
-  args: { system: v.string(), user: v.string(), searchKey: v.string() },
-  handler: async (ctx, { system, user, searchKey }): Promise<{ ok: true; answer: string; sources: { url: string; title: string }[] } | { ok: false; error: string }> => {
+  args: { system: v.string(), user: v.string(), searchKey: v.string(), trace: traceV },
+  handler: async (ctx, { system, user, searchKey, trace }): Promise<{ ok: true; answer: string; sources: { url: string; title: string }[] } | { ok: false; error: string }> => {
     const started = Date.now();
     if (!process.env.ANTHROPIC_API_KEY) return { ok: false, error: "no provider key set" };
     let tokensIn = 0, tokensOut = 0, searches = 0, step = 1;
@@ -275,11 +279,11 @@ export const askWithSearch = internalAction({
           sources = [...seen.entries()].slice(0, 3).map(([url, title]) => ({ url, title }));
         }
       }
-      await ctx.runMutation(internal.handbooks.logAiCall, { kind: "ask", model, input: user.slice(0, 2000), output: `${answer}\n[step ${step}; searches: ${searches}; sources: ${sources.map((x) => x.url).join(" ")}]`.slice(0, 20000), tokensIn, tokensOut, ms: Date.now() - started, ok: true });
+      await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, kind: "ask", model, input: user.slice(0, 2000), output: `${answer}\n[step ${step}; searches: ${searches}; sources: ${sources.map((x) => x.url).join(" ")}]`.slice(0, 20000), tokensIn, tokensOut, ms: Date.now() - started, ok: true });
       return { ok: true, answer, sources };
     } catch (e: any) {
       const error = String(e?.message ?? e).slice(0, 500);
-      await ctx.runMutation(internal.handbooks.logAiCall, { kind: "ask", model: OPUS, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });
+      await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, kind: "ask", model: OPUS, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });
       return { ok: false, error };
     }
   },

@@ -334,7 +334,14 @@ export default defineSchema({
     ok: v.boolean(),
     error: v.optional(v.string()),
     at: v.number(),
-  }),
+    // Observability (8 Oct): which handbook and chapter the call was for, and how many tries it took (a broken or
+    // off-schema reply is asked again inside the same call). All optional: older rows and one-off tools have none.
+    handbookId: v.optional(v.id("handbooks")),
+    chapter: v.optional(v.number()),
+    attempts: v.optional(v.number()),
+  })
+    .index("by_at", ["at"])
+    .index("by_handbook", ["handbookId", "at"]),
 
   // Pre-generated handbooks (same prompts, run offline) so the link works
   // for these topics even when the live provider is unavailable.

@@ -2,6 +2,7 @@
 import { v } from "convex/values";
 import { internalAction, type ActionCtx } from "./_generated/server";
 import { internal } from "./_generated/api";
+import type { Trace } from "./trace";
 import type { Id } from "./_generated/dataModel";
 import { PICTURE_ANCHOR, PICTURE_NEVER, SCENES_PROMPT, scenesUserMessage } from "./prompts";
 import { inkAndWash } from "./inkwash";
@@ -46,7 +47,7 @@ export function pictureCards(cards: any[]) {
 }
 const AT_ONCE = 3;                // Runway queues ("THROTTLED") past its concurrency limit; more at once just waits longer
 
-async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RATIO, seed?: number, extra: Record<string, unknown> = {}): Promise<{ ok: true; storageId: Id<"_storage">; ms: number } | { ok: false; error: string; ms: number }> {
+async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RATIO, seed?: number, extra: Record<string, unknown> = {}, trace?: Trace): Promise<{ ok: true; storageId: Id<"_storage">; ms: number } | { ok: false; error: string; ms: number }> {
   const t0 = Date.now();
   try {
     const task = await runway("/text_to_image", { method: "POST", body: JSON.stringify({ model, promptText: prompt, ratio, ...(seed !== undefined ? { seed } : {}), ...extra }) });
@@ -59,11 +60,11 @@ async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RA
     if (t.status !== "SUCCEEDED" || !t.output?.[0]) throw new Error(`${t.status}: ${t.failure ?? t.failureCode ?? ""}`);
     const img = await fetch(t.output[0]);
     const storageId = await ctx.storage.store(await img.blob());
-    await ctx.runMutation(internal.handbooks.logAiCall, { kind: "picture", model, input: prompt.slice(0, 2000), output: String(storageId), ms: Date.now() - t0, ok: true });
+    await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, kind: "picture", model, input: prompt.slice(0, 2000), output: String(storageId), ms: Date.now() - t0, ok: true });
     return { ok: true, storageId, ms: Date.now() - t0 };
   } catch (e: any) {
     const error = String(e?.message ?? e).slice(0, 300);
-    await ctx.runMutation(internal.handbooks.logAiCall, { kind: "picture", model, input: prompt.slice(0, 2000), output: "", ms: Date.now() - t0, ok: false, error });
+    await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, kind: "picture", model, input: prompt.slice(0, 2000), output: "", ms: Date.now() - t0, ok: false, error });
     return { ok: false, error, ms: Date.now() - t0 };
   }
 }
@@ -100,10 +101,10 @@ async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId:
   } catch { /* fall back to drawing */ }
   return null;
 }
-async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true, cover = false, model?: string): Promise<{ status: string; pictures: Picture[] }> {
+async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true, cover = false, model?: string, trace?: Trace): Promise<{ status: string; pictures: Picture[] }> {
   const teaching = pictureCards(cards);
   if (!teaching.length) return { status: "skipped", pictures: [] };
-  const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))), model });
+  const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))), model, trace });
   const wanted = new Set(teaching.map(({ i }) => i));
   const scenes: { card: number; scene: string; real?: string }[] = [];
   for (const x of (r.ok ? r.json?.scenes : null) ?? []) {
@@ -122,7 +123,7 @@ async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: stri
   const toDraw = scenes.map((_, k) => k).filter((k) => !photos[k] && cover && scenes[k].card === first);
   let next = 0;
   await Promise.all(Array.from({ length: Math.min(AT_ONCE, toDraw.length) }, async () => {
-    while (next < toDraw.length) { const k = toDraw[next++]; drawn[k] = await drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${scenes[k].scene} ${PICTURE_NEVER}`); }
+    while (next < toDraw.length) { const k = toDraw[next++]; drawn[k] = await drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${scenes[k].scene} ${PICTURE_NEVER}`, undefined, undefined, undefined, {}, trace); }
   }));
   // Every card without a photo or a drawing (and a cover Runway refused) gets a free, openly licensed Wikimedia photo
   // found from the card's title and the topic. No photo is used twice in one chapter.
@@ -171,7 +172,7 @@ export const forChapter = internalAction({
     const ch: any = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n });
     if (!h || !ch || ch.status !== "ready" || !ch.cards) return;
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: "drawing" });
-    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards, true, n === 1, h.writer);
+    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards, true, n === 1, h.writer, { handbookId, chapter: n });
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: r.status, pictures: r.pictures });
   },
 });
