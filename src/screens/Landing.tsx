@@ -50,6 +50,7 @@ function Carousel({ items, busy, picked, onPick, onExplore }: { items: Shelf[]; 
         {sorted.slice(0, 12).map((it) => (
           <li key={it.topic} className={picked === it.topic ? 'lifting' : picked ? 'resting' : undefined}>
             <button type="button" onClick={() => onPick(it.topic)} disabled={busy} aria-busy={picked === it.topic || undefined}>
+              {picked === it.topic && <span className="lp-visually-hidden" role="status">Opening…</span>}
               <span className="lp-carousel-pic">{it.cover && <img src={it.cover} alt="" loading="lazy" />}{tag(it) && <em>{tag(it)}</em>}</span>
               <strong>{it.topic}</strong>
             </button>

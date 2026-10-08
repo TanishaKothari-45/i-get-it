@@ -77,6 +77,7 @@ export default function Shelf({ onReady, onShared, onBack }: Props) {
                 {row.map((it) => (
                   <li key={it.key} className={lifting === it.key ? 'lifting' : lifting ? 'resting' : undefined} style={{ ['--lean' as any]: `${lean(it.key)}deg` }}>
                     <button type="button" className={`book cloth-${cloth(it.key)}`} onClick={() => { if (!lifting) open(it) }} aria-label={`${it.topic}. ${it.outcome}`} aria-busy={lifting === it.key || undefined}>
+                      {lifting === it.key && <span className="lp-visually-hidden" role="status">Opening…</span>}
                       <span className="book-spine" aria-hidden="true" />
                       <span className="book-cover">
                         {it.cover ? <img src={it.cover} alt="" loading="lazy" /> : <span className="book-cover-blank">{it.topic.slice(0, 1)}</span>}
