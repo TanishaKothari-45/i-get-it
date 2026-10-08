@@ -1020,3 +1020,22 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .upnext-pic img { opacity: 0; transition: opacity 240ms var(--ease); }
 .upnext-pic.loaded img { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .upnext-pic img { transition: none; } }
+
+/* The wait-screen story as pages (D29): a scroll-snap track, one page per frame, arrows and dots under it. */
+.wait-carousel { margin-right: 4px; }
+.wait-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; border: var(--stroke) solid var(--ink); border-radius: var(--radius-card); background: var(--paper); box-shadow: var(--press-sm); }
+.wait-track::-webkit-scrollbar { display: none; }
+.wait-track:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.wait-frame { flex: 0 0 100%; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; padding: 14px 16px 12px; box-sizing: border-box; }
+.wait-frame .story-pic { margin: 0 0 12px; border: none; box-shadow: none; border-radius: 10px; overflow: hidden; }
+.wait-frame .wait-story-text p:last-child { margin-bottom: 0; }
+.wait-story-source { margin: 10px 0 0; font-style: italic; }
+.wait-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+.wait-arrow { width: 44px; height: 44px; border: var(--stroke) solid var(--ink); border-radius: 50%; background: var(--paper); color: var(--ink); font: 800 1.4rem/1 var(--sans); display: grid; place-items: center; }
+.wait-arrow:disabled { opacity: 0.3; }
+.wait-dots { display: flex; gap: 8px; }
+.wait-dots button { width: 12px; height: 12px; padding: 0; border: 2px solid var(--ink); border-radius: 50%; background: transparent; min-height: 0; }
+.wait-dots button.on { background: var(--ink); }
+.wait-story-from { margin-top: 10px; }
+.wait-open { margin: var(--m) 0 var(--s); width: 100%; }
+@media (prefers-reduced-motion: reduce) { .wait-track { scroll-behavior: auto; } }

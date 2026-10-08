@@ -131,6 +131,9 @@ export default function App() {
   // A book tapped on the Shelf stays lifted on the Shelf while its handbook loads (8 Oct night, Prateek's animation):
   // the splash would tear the Shelf down, so the Shelf keeps rendering until the handbook query answers.
   const [hold, setHold] = useState<'explore' | 'landing' | 'library' | null>(null)
+  // D29 (9 Oct): a reader mid-story on the wait screen is not pulled away when the handbook is ready; a button appears above
+  // the story instead. Set when they swipe or ask for the next story; cleared when they tap through or the handbook changes.
+  const [waitHold, setWaitHold] = useState(false)
   // Declined the wall tonight (second critique): the plan then offers chapter 1 again and the Shelf, not the same ask twice.
   const [wallDeclined, setWallDeclined] = useState(() => { try { return sessionStorage.getItem('igetit.wall-declined') === '1' } catch { return false } })
   const declineWall = () => { setWallDeclined(true); try { sessionStorage.setItem('igetit.wall-declined', '1') } catch {} }
@@ -163,6 +166,7 @@ export default function App() {
   const lockedN = doneN && doneN < total ? doneN + 1 : afterSignIn === 'chapter' ? (chapter?.n ?? currentN) : null
   const holdable = hb?.status === 'ready' && ch1Status === 'ready' && passed.length === 0 && (progress?.currentCard ?? 0) === 0 && (view === 'auto' || (view === 'chapter' && !(chapter?.status === 'ready' && Array.isArray(chapter.cards))))
   useEffect(() => { if (hold && hb && view !== 'explore' && view !== 'library' && !holdable) setHold(null) }, [hold, hb, view, holdable])
+  useEffect(() => { setWaitHold(false) }, [hb?._id])
   useEffect(() => {
     if (!hb || hb.status !== 'ready' || autoEntered.current === hb._id || view !== 'auto') return
     const fresh = passed.length === 0 && currentN === 1 && (progress?.currentCard ?? 0) === 0
@@ -316,8 +320,9 @@ export default function App() {
   }
 
   // No handbook yet, or the person wants a different line: the first screen.
-  if (!hb || view === 'start-again' || (hb.status as string) === 'intent' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed' || (hb.status as string) === 'declined') {
-    const status = !hb || view === 'start-again' ? 'idle' : (hb.status as string) === 'intent' ? 'intent' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : (hb.status as string) === 'declined' ? 'declined' : 'failed'
+  const waitHeld = waitHold && !!hb && hb.status === 'ready' && passed.length === 0 && (view === 'auto' || view === 'chapter')
+  if (!hb || view === 'start-again' || (hb.status as string) === 'intent' || hb.status === 'planning' || waitHeld || hb.status === 'question' || hb.status === 'failed' || (hb.status as string) === 'declined') {
+    const status = !hb || view === 'start-again' ? 'idle' : (hb.status as string) === 'intent' ? 'intent' : hb.status === 'planning' || waitHeld ? 'writing' : hb.status === 'question' ? 'question' : (hb.status as string) === 'declined' ? 'declined' : 'failed'
     // 8 Oct (UX review #5, #7): the box starts empty, and a reader with handbooks can always go back to them.
     const backToBooks = libRows.length > 0 && (view === 'start-again' || ['failed', 'declined', 'writing', 'question', 'intent'].includes(status)) ? { label: 'Your handbooks', onClick: () => setView('library') } : undefined
     return (
@@ -339,6 +344,9 @@ export default function App() {
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}   /* Start shows its own error */
           onAddOther={async (topic) => { await create({ topic, level: 'new', voice: 'friend', deviceToken: token }) }}
+          readyToOpen={waitHeld}
+          onOpenReady={() => setWaitHold(false)}
+          onEngaged={() => setWaitHold(true)}
           pushback={(hb as any)?.pushback ?? undefined}
           suggestions={(hb as any)?.suggestions ?? []}
         />

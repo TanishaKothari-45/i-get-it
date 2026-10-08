@@ -28,11 +28,15 @@ type Props = {
   onPricing?: () => void
   // 8 Oct (UX review #4): on "Start another topic", ready topics open at once and Explore is one tap away.
   onPickReady?: (topic: string) => Promise<void>
+  // D29 (9 Oct): the handbook got ready while a story was being read: say so above the story, never pull the story away.
+  readyToOpen?: boolean
+  onOpenReady?: () => void
+  onEngaged?: () => void   // the reader swiped or asked for the next story: App then holds this screen until they tap
   onExplore?: () => void
 }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, intents, onChooseIntent, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [], onPricing, onPickReady, onExplore }: Props) {
+export default function Start({ initialTopic = '', status, question, intents, onChooseIntent, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [], onPricing, onPickReady, onExplore, readyToOpen, onOpenReady, onEngaged }: Props) {
   const declined = status === 'declined'
   const [topic, setTopic] = useState(status === 'declined' ? '' : initialTopic)
   // A declined line never stays in the box: the reader starts fresh.
@@ -48,7 +52,7 @@ export default function Start({ initialTopic = '', status, question, intents, on
   const writing = status === 'writing'
   const levelRef = useRef<HTMLDivElement>(null)
   const [storySeed, setStorySeed] = useState(() => Math.floor(Math.random() * 1000))
-  const story = useQuery(api.landing.waitStory, writing ? { seed: storySeed } : 'skip')
+  const story = useQuery(api.landing.waitStory, writing ? { seed: storySeed, exclude: (topic.trim() || initialTopic) || undefined } : 'skip') as WaitStory | null | undefined
   const [added, setAdded] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const backToBox = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 350) }
@@ -72,26 +76,35 @@ export default function Start({ initialTopic = '', status, question, intents, on
   if (writing) {
     return (
       <div className="plan-wait" role="status" aria-live="polite">
-        <p className="plan-wait-kicker">Writing your handbook</p>
-        <h1 className="plan-wait-topic">{topic.trim() || initialTopic}</h1>
-        <ol className="plan-wait-steps">
-          <li className="on">Looking it up on the web, with the goal you picked in mind</li>
-          <li className={slow ? 'on' : ''}>Planning the chapters: a quick run-through, or up to seven nights</li>
-          <li className={verySlow ? 'on' : ''}>Taking longer than usual. Still on it.</li>
-        </ol>
-        <p className="note">{verySlow ? "Still writing. You can leave; it will be waiting in Your handbooks." : "About a minute and a half. Chapter 1 is written while you read the plan."}</p>
-        <div className="busybar" aria-hidden="true" />
+        {readyToOpen ? (
+          <>
+            <p className="plan-wait-kicker">Ready</p>
+            <h1 className="plan-wait-topic">{topic.trim() || initialTopic}</h1>
+            <p className="note">Your handbook is written. Finish the story or go now; it waits.</p>
+            <button type="button" className="btn wait-open" onClick={onOpenReady}>Open your handbook →</button>
+          </>
+        ) : (
+          <>
+            <p className="plan-wait-kicker">Writing your handbook</p>
+            <h1 className="plan-wait-topic">{topic.trim() || initialTopic}</h1>
+            <ol className="plan-wait-steps">
+              <li className="on">Looking it up on the web, with the goal you picked in mind</li>
+              <li className={slow ? 'on' : ''}>Planning the chapters: a quick run-through, or up to seven nights</li>
+              <li className={verySlow ? 'on' : ''}>Taking longer than usual. Still on it.</li>
+            </ol>
+            <p className="note">{verySlow ? "Still writing. You can leave; it will be waiting in Your handbooks." : "About a minute and a half. Chapter 1 is written while you read the plan."}</p>
+            <div className="busybar" aria-hidden="true" />
+          </>
+        )}
         {story && (
           <section className="wait-story" aria-label="A story while you wait">
             <p className="wait-story-kicker">While you wait, a story from another handbook</p>
-            {story.picture && <WaitPicture src={story.picture} />}
-            {story.title && <p className="wait-story-title">{story.title}</p>}
-            <Rich text={story.text} className="serif wait-story-text" />
-            <p className="note">From <strong>{story.topic}</strong>, {story.chapter}.</p>
+            <StoryCarousel key={`${story.key}:${story.title ?? ''}:${storySeed}`} story={story} onEngaged={onEngaged} />
+            <p className="note wait-story-from">From <strong>{story.topic}</strong>{story.chapter ? `, ${story.chapter}` : ''}.</p>
             <div className="wait-story-actions">
-              {added === story.topic ? <span className="wait-story-added">Added. It's in Your handbooks.</span>
-                : onAddOther && <button type="button" className="btn btn-ghost" onClick={async () => { try { await onAddOther(story.topic); setAdded(story.topic) } catch { /* the plan still comes; adding can wait */ } }}>Add {story.topic} to my handbooks</button>}
-              {story.count > 1 && <button type="button" className="quiet" onClick={() => setStorySeed((x) => x + 7)}>Another story</button>}
+              {added === story.topic ? <span className="wait-story-added">Added. It's on your shelf.</span>
+                : onAddOther && <button type="button" className="btn btn-ghost" onClick={async () => { try { await onAddOther(story.topic); setAdded(story.topic) } catch { /* the plan still comes; adding can wait */ } }}>Add this handbook</button>}
+              <button type="button" className="quiet" onClick={() => { onEngaged?.(); setStorySeed((x) => x + 7) }}>Next story →</button>
             </div>
           </section>
         )}
@@ -206,10 +219,48 @@ export default function Start({ initialTopic = '', status, question, intents, on
   )
 }
 
-// The story's picture shows only once it has loaded (9 Oct: a grey striped box sat there for the whole wait on a slow line).
-function WaitPicture({ src }: { src: string }) {
-  const [ready, setReady] = useState(false)
-  return <div className="story-pic" style={ready ? undefined : { display: 'none' }}><img src={src} alt="" onLoad={() => setReady(true)} /></div>
+type WaitStory = { topic: string; key: string; title: string | null; frames: string[]; text: string; source: string | null; chapter: string; picture: string | null; count: number }
+
+// The story as pages (D29, 9 Oct, Prateek): one frame at a time, swiped or stepped with the arrows, dots underneath. The
+// picture sits on the first frame and the source line on the last. Native scroll-snap does the swiping, so a slow phone
+// has nothing to animate; under reduced motion the arrows jump instead of sliding. A one-frame story (today's) is one page.
+function StoryCarousel({ story, onEngaged }: { story: WaitStory; onEngaged?: () => void }) {
+  const frames = story.frames.length ? story.frames : [story.text]
+  const [i, setI] = useState(0)
+  const [picReady, setPicReady] = useState(false)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  const go = (n: number) => {
+    const k = Math.max(0, Math.min(frames.length - 1, n))
+    const el = trackRef.current; if (!el) return
+    el.scrollTo({ left: k * el.clientWidth, behavior: reduced ? 'auto' : 'smooth' })
+    setI(k); if (k > 0) onEngaged?.()
+  }
+  const onScroll = () => { const el = trackRef.current; if (!el) return; const k = Math.round(el.scrollLeft / Math.max(1, el.clientWidth)); if (k !== i) { setI(k); if (k > 0) onEngaged?.() } }
+  return (
+    <div className="wait-carousel">
+      <div className="wait-track" ref={trackRef} onScroll={onScroll} tabIndex={0} aria-roledescription="carousel" aria-label={`${story.title ?? story.topic}: ${frames.length} page${frames.length === 1 ? '' : 's'}`}
+        onKeyDown={(e) => { if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1) } if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1) } }}>
+        {frames.map((f, k) => (
+          <article className="wait-frame" key={k} aria-label={`Page ${k + 1} of ${frames.length}`} aria-hidden={k !== i}>
+            {k === 0 && story.picture && <div className={`story-pic${picReady ? ' loaded' : ''}`} style={picReady ? undefined : { display: 'none' }}><img src={story.picture} alt="" onLoad={() => setPicReady(true)} ref={(el) => { if (el && el.complete && el.naturalWidth > 0) setPicReady(true) }} /></div>}
+            {k === 0 && story.title && <p className="wait-story-title">{story.title}</p>}
+            <Rich text={f} className="serif wait-story-text" />
+            {k === frames.length - 1 && story.source && <p className="note wait-story-source">{story.source}</p>}
+          </article>
+        ))}
+      </div>
+      {frames.length > 1 && (
+        <div className="wait-nav">
+          <button type="button" className="wait-arrow" onClick={() => go(i - 1)} disabled={i === 0} aria-label="Previous page">‹</button>
+          <div className="wait-dots" role="tablist" aria-label="Pages">
+            {frames.map((_, k) => <button key={k} type="button" role="tab" aria-selected={k === i} aria-label={`Page ${k + 1}`} className={k === i ? 'on' : ''} onClick={() => go(k)} />)}
+          </div>
+          <button type="button" className="wait-arrow" onClick={() => go(i + 1)} disabled={i === frames.length - 1} aria-label="Next page">›</button>
+        </div>
+      )}
+    </div>
+  )
 }
 
 function friendly(e: any): string {
