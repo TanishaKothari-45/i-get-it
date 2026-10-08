@@ -1,3 +1,10 @@
+---
+date: 2026-10-08
+type: decision-log
+tags: [igetit, decisions, learnings]
+ai-first: true
+---
+
 # Decisions and learnings
 
 One entry per decision: what, why, what it replaced, and when to look at it again. Learnings are things we would not have guessed. Newest day first. PROGRESS.md says what was built; this file says why.
