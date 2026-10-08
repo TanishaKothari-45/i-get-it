@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import type { Id } from '../../convex/_generated/dataModel'
+import { limitMessage } from '../lib/limits'
 
 // Teach it back (optional): explain the chapter's idea in your own words, get a short reply.
 // Never required; the rung never waits on it. Copy is (agent) until Prateek rewrites it.
@@ -24,7 +25,7 @@ export default function TeachBack({ handbookId, n, deviceToken }: { handbookId: 
       <textarea id="teach-text" className="input teach-input" rows={4} maxLength={600} value={text} onChange={(e) => setText(e.target.value)} disabled={thinking} placeholder="In my own words…" />
       <div className="teach-actions">
         <button type="button" className="btn btn-ghost" disabled={thinking || text.trim().length < 10}
-          onClick={async () => { setError(null); try { await send({ handbookId, chapter: n, text, deviceToken }) } catch (e: any) { setError(String(e?.message ?? e).includes('busy') ? 'A few too many in a row. Try again in a bit.' : "Couldn't check that just now. Try again in a minute.") } }}>
+          onClick={async () => { setError(null); try { await send({ handbookId, chapter: n, text, deviceToken }) } catch (e: any) { setError(limitMessage(e) ?? (String(e?.message ?? e).includes('busy') ? 'A few too many in a row. Try again in a bit.' : "Couldn't check that just now. Try again in a minute.")) } }}>
           {thinking ? 'Reading it…' : reply?.status === 'ready' ? 'Try again' : 'Check my explanation'}
         </button>
         <button type="button" className="quiet" onClick={() => setOpen(false)}>Skip</button>

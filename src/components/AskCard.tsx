@@ -3,6 +3,7 @@ import { useMutation, useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import type { Id } from '../../convex/_generated/dataModel'
 import { inline } from './Rich'
+import { limitMessage } from '../lib/limits'
 
 type Props = { handbookId: Id<'handbooks'>; chapter: number; cardIndex: number; deviceToken: string }
 
@@ -19,7 +20,7 @@ export default function AskCard({ handbookId, chapter, cardIndex, deviceToken }:
     const q = text.trim(); if (q.length < 3) return
     setBusy(true); setError(null)
     try { await ask({ handbookId, chapter, cardIndex, question: q, deviceToken }); setText('') }
-    catch (e: any) { setError(String(e?.message ?? e).includes('busy') ? 'A few too many questions in a row. Give it a minute.' : "Couldn't send that. Try again.") }
+    catch (e: any) { setError(limitMessage(e) ?? (String(e?.message ?? e).includes('busy') ? 'A few too many questions in a row. Give it a minute.' : "Couldn't send that. Try again.")) }
     finally { setBusy(false) }
   }
 
