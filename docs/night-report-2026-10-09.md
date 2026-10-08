@@ -32,6 +32,7 @@ Caution: /admin's 88 visitors include our own review agents (05 alone ran about 
 
 - Admin access restored (D18). Deploy queue and git rule for a shared tree (D19): no pull, no stash, stage own files by name.
 - D21: the Shelf gets a real button and a count strip (your 00:4x ask; 05 builds). D22: your test payment no longer counts toward the early-bird tiers, so the counter reads 50 of 50 (55 builds).
+- D30: Flash vs Opus side by side on dev, three topics, chapters 1 and 2; numbers below when the run ends (started 03:0x).
 - D20: Pricing "Coming next" row becomes "More coming. Members hear first." (55 implements).
 
 ## Session 05
