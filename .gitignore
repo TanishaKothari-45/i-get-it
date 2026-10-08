@@ -10,3 +10,6 @@ brag-output*/
 
 # Razorpay setup note with test keys: never commit
 docs/Integrate Razorpay Standard Web Checkout into this codebase.md
+
+# brand reel renders (large video files)
+reel/

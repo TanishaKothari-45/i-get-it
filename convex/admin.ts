@@ -146,6 +146,18 @@ async function build(ctx: QueryCtx, days: number) {
       daysList.push({ day: d, visitors: rows.filter((r) => dayOf(r.first) === d).length, started: books.filter((h) => dayOf(h.createdAt) === d).length,
         passed: rows.filter((r) => r.passed >= 1 && dayOf(r.first) === d).length });
     }
+    // the same days split by where each visitor first came from (for the daily X chart, 8 Oct)
+    const daySources: { day: string; source: string; visitors: number; started: number; opened: number; passed: number }[] = [];
+    for (const { day } of daysList) {
+      const m = new Map<string, (typeof daySources)[number]>();
+      for (const r of rows) {
+        if (dayOf(r.first) !== day) continue;
+        const s = m.get(r.source) ?? { day, source: r.source, visitors: 0, started: 0, opened: 0, passed: 0 };
+        s.visitors++; if (r.started) s.started++; if (r.openedCh1) s.opened++; if (r.passed >= 1) s.passed++;
+        m.set(r.source, s);
+      }
+      daySources.push(...m.values());
+    }
 
     return {
       denied: false as const,
@@ -165,6 +177,7 @@ async function build(ctx: QueryCtx, days: number) {
         leftWhileWriting: rows.filter((r) => r.started && r.ready === false && !r.openedCh1).length,
       },
       days: daysList,
+      daySources,
       reasons: Object.entries(rows.reduce((m, r) => { const k = r.reason.replace(/\d+/g, "N").replace(/"[^"]*"/g, "…"); m[k] = (m[k] ?? 0) + 1; return m; }, {} as Record<string, number>)).map(([reason, n]) => ({ reason, n })).sort((a, b) => b.n - a.n),
       devices: Object.entries(rows.reduce((m, r) => { const k = r.device ?? "unknown"; m[k] = (m[k] ?? 0) + 1; return m; }, {} as Record<string, number>)).map(([device, n]) => ({ device, n })),
       recent: rows.sort((a, b) => b.first - a.first).slice(0, 50),

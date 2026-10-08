@@ -18,6 +18,17 @@ DAY=$(( ( $(date -j -f %Y-%m-%d "$TODAY" +%s) - $(date -j -f %Y-%m-%d 2026-10-01
 ALL=$(npx convex run --prod admin:numbers '{"days":0}' 2>/dev/null)
 DAYJ=$(npx convex run --prod admin:numbers '{"days":2}' 2>/dev/null)   # yesterday and this morning
 READY=$(npx convex run --prod handbooks:cachedTopics '{}' 2>/dev/null | jq 'length')
+
+# The chart (8 Oct, Prateek: "the X post needs to be a graph"): each day's visitors by channel and chapter 1
+# finishes, yesterday vs the day before, each channel since launch. Saved next to the draft; attach it to the post.
+npx convex run --prod admin:numbers '{"days":14}' > "$OUT_DIR/$TODAY-numbers.json" 2>/dev/null
+CHART="$OUT_DIR/$TODAY-chart.png"
+CJ=$(node scripts/x-chart.mjs "$OUT_DIR/$TODAY-numbers.json" "$CHART" "$DAY" 2>/dev/null || echo '{}')
+cj() { echo "$CJ" | jq -r "$1 // \"?\""; }
+Y_TOTAL=$(cj .yesterday.total); Y_PASSED=$(cj .yesterday.passed); Y_OPENED=$(cj .yesterday.opened); YB_TOTAL=$(cj .dayBefore.total)
+Y_TOP=$(echo "$CJ" | jq -r '.yesterday.by // {} | to_entries | sort_by(-.value) | .[0].key // "?"' | sed 's/growthx/the GrowthX community/; s/^ig$/Instagram/; s/^x$/X/; s/^dm$/DMs/; s/other/direct visits/')
+Y_CH=$(echo "$CJ" | jq -r '.yesterday.by // {} | "GrowthX \(.growthx // 0) · Instagram \(.ig // 0) · X \(.x // 0) · DMs \(.dm // 0) · direct and other \(.other // 0)"')
+SOCIAL=$( [ -f docs/launch/social-metrics.json ] && jq -r --arg d "$(date -v-1d +%Y-%m-%d)" '.[$d] // empty | tostring' docs/launch/social-metrics.json || true )
 step() { echo "$1" | jq -r --arg s "$2" '.funnel[] | select(.step == $s) | .n'; }
 
 # Shaktimaan's 3 test runs on 6 Oct (tides, sourdough, public speaking; one passed chapter 1) aren't real readers.
@@ -46,13 +57,25 @@ Drafted at $(date +%H:%M) from live numbers. Add your line, then post it yoursel
 
 Day $DAY of building 𝙄 𝙂𝙚𝙩 𝙄𝙩 in public.
 
-$VIS visitors · $STARTED handbooks started · $PASSED passed chapter 1 · $READY ready topics
+Yesterday: $Y_TOTAL visitors (the day before: $YB_TOTAL), $Y_PASSED finished chapter 1 of $Y_OPENED who opened it. Most came from $Y_TOP.
+
+What we decided or struggled with: [one thing, from "Stories from the last day" below]
+What we try today: [one thing, and the number that will tell us if it worked]
 
 [your line: answer the question below]
 
 https://sensible-mongoose-624.convex.site/?utm_source=x
 
 #IGetIt #buildinpublic #learnsomethingnew #microlearning #AIlearning #growthx
+
+Attach the chart: $CHART
+
+## Yesterday's response, by channel (for you, not the post)
+
+- Visitors yesterday by first source: $Y_CH.
+- Instagram and X post numbers: ${SOCIAL:-not connected yet (docs/launch/social-metrics.json has no line for yesterday)}.
+- All time: $VIS visitors · $STARTED handbooks started · $PASSED passed chapter 1 · $READY ready topics.
+- The loop: keep what brought readers yesterday, change one thing that didn't (docs/content-plan.md section 7).
 
 ## Your question for today
 
