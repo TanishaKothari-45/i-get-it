@@ -134,7 +134,7 @@ For: seeing the night's result and the next step.
 Top to bottom: the rung bar with segment 1 filling, "Chapter 1 of 7 on [topic]: done.", "You can now [outcome line]" in serif, "Tomorrow: Chapter 2, [title]" in one line, the main button, a quiet second line under it.
 Since 6 Oct: under the title, one line of love comparing their time and first-try score with our own 20-minute budget, cheesy on purpose ("6 minutes, 3 of 3 first try. We budgeted 20. Show-off."), never with an average we don't have (agent copy). "Next: Chapter N, [title]" replaces "Tomorrow": bingeing is fine (Prateek).
 Teach it back (optional, 6 Oct; Prateek, from Karpathy's "teach/summarize everything you learn in your own words"): under the outcome line, a quiet dashed line "Teach it back (optional): explain today's idea in your own words." Tapping opens a box ("Explain today's idea in 2 sentences, as if to a friend."), "Check my explanation" and "Skip". The reply: "You nailed it." / "Close." / "Not quite yet.", what they got (in their own words), what's missing, one tip. Never required; the rung and the next chapter never wait on it. Copy (agent).
-Main action (not signed in): Keep this handbook → Sign in. Quiet line: "Not now, start chapter N" → straight into the next chapter.
+Main action (not signed in), since 8 Oct (UX review): after chapters 1 and 2 the Up next card's "Start chapter N →" is the one main action, with a quiet "Want it on every device? Make a free account" and "Back to the handbook"; from chapter 3 (the last free one): Keep this handbook → Sign in, quiet "Not now, start chapter N". Copy (agent).
 Main action (signed in): Start chapter N now (or "writing it, about a minute" while it's written); quiet "Back to the handbook"; the time picker stays for people who want a set time.
 Main action (signed in): Pick when tomorrow is → Time. Then: See you at [time].
 Empty/Loading: none.
@@ -153,10 +153,10 @@ Top to bottom: topic and chapter, "Which one reads best?", tabs A B C (with "wri
 States: writing "Writing version A… about a minute", failed "Version A didn't come through. Pick from the others.", done back to Plan with the chosen text as the chapter.
 
 Your handbooks (library)
-For: every topic in one place. Cards with the topic, a seven-segment progress bar, "Next: chapter N", and when it was last opened. Main action: Start another topic. Anonymous visitors see the sign-up nudge under the shelf.
+For: every topic in one place. Cards with the topic, a seven-segment progress bar, "Next: chapter N", and when it was last opened. Main action since 8 Oct: Explore topics; Start another topic is the ghost button under it (the only way to other topics used to be the handbook menu, and visitors looped). Anonymous visitors see the sign-up nudge under the shelf.
 
 Sign-up nudge
-A white card: one lead line for the moment ("Starting another topic? Sign in so both stay safe and follow you."), four reasons with bold openers, a ghost button "Sign in to keep it all, free", and "Email and a password. No card." Compact version is the lead line and the button. Never blocks the screen it sits on.
+A white card: one lead line for the moment, since 8 Oct one that says sign-in is optional and what is true ("No sign-in needed for your first 3 chapters. Sign in only to keep them on every device." / "No sign-in needed here. Ready topics are free for everyone. Typed topics: one per person, three for members."), four reasons with bold openers, a ghost button "Make a free account (optional)", and "Just your email. No card, no spam." Compact version is the lead line and the button. Never blocks the screen it sits on. Copy (agent).
 
 Pricing
 Since 7 Oct (Prateek): early-bird tiers. Headline "Come early, pay less, for as long as you stay." Four tier rows (First 50, Next 100, Next 200, After that), each with the month and year price; the open tier outlined in marigold with the real spots left ("49 of 50 left"), full tiers faded. A boxed line "One-time payment. No auto-renew." Four rules: no surprise on day 8, a year saves, your price stays yours, nothing to cancel. Month / Year chips, then one main button "Pay ₹199 for one month" (or "Sign in to pay"). "I'll decide later" is always there. Copy (agent). Reached from the rail, the library, and the Done screen after chapter 7.

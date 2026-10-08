@@ -2,7 +2,7 @@ import { v } from "convex/values";
 import { RateLimiter, HOUR } from "@convex-dev/rate-limiter";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { components } from "./_generated/api";
-import { mutation, query } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 import { recentSocial } from "./social";
 
 // The public /stats page: counts only, never an email, a topic or a name.
@@ -129,5 +129,22 @@ export const summary = query({
       thisPhoneExcluded: !!deviceToken && xTokens.has(deviceToken),
       at: Date.now(),
     };
+  },
+});
+
+// Leave out a list of phones (8 Oct: the agent's headless replays made 17 handbooks and about 20 visitors in one day).
+// Their handbooks are hidden too. Run: npx convex run --prod stats:excludeTokens '{"tokens":[...]}'
+export const excludeTokens = internalMutation({
+  args: { tokens: v.array(v.string()) },
+  handler: async (ctx, { tokens }) => {
+    const known = new Set((await ctx.db.query("statsExcluded").collect()).map((e) => e.deviceToken));
+    let added = 0, hidden = 0;
+    for (const t of tokens) {
+      if (!known.has(t)) { await ctx.db.insert("statsExcluded", { deviceToken: t, at: Date.now() }); added++; }
+      for (const h of await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", t)).collect()) {
+        if (!h.hiddenAt) { await ctx.db.patch(h._id, { hiddenAt: Date.now() }); hidden++; }
+      }
+    }
+    return { added, hidden };
   },
 });

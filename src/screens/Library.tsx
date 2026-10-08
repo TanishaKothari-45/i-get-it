@@ -2,7 +2,7 @@ import ActionBar from '../components/ActionBar'
 import SignupNudge from '../components/SignupNudge'
 
 type Row = { total?: number; _id: string; topic: string; status: string; passed: number; current: number; lastAt: number; outcome: string | null }
-type Props = { rows: Row[]; signedIn: boolean; activeId?: string; onOpen: (id: string) => void; onNew: () => void; onSignIn: () => void; onPlans: () => void }
+type Props = { rows: Row[]; signedIn: boolean; activeId?: string; onOpen: (id: string) => void; onNew: () => void; onSignIn: () => void; onPlans: () => void; onExplore: () => void }
 
 function ago(t: number) {
   const m = Math.round((Date.now() - t) / 60000)
@@ -12,7 +12,7 @@ function ago(t: number) {
 }
 
 // Every handbook in one place. Each keeps its own place; starting a new one never resets another.
-export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSignIn, onPlans }: Props) {
+export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSignIn, onPlans, onExplore }: Props) {
   return (
     <>
       <h1>Your handbooks.</h1>
@@ -30,8 +30,10 @@ export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSig
       </ul>
       {!signedIn && rows.length > 0 && <SignupNudge onSignIn={onSignIn} context="library" />}
       <p style={{ marginTop: 'var(--l)' }}><button type="button" className="quiet" onClick={onPlans}>Free and member, side by side</button></p>
+      {/* 8 Oct (UX review #4): the way to other topics was only in the handbook menu, so readers looped here. */}
       <ActionBar>
-        <button className="btn" onClick={onNew}>Start another topic</button>
+        <button className="btn" onClick={onExplore}>Explore topics</button>
+        <button type="button" className="btn btn-ghost" style={{ marginTop: 8 }} onClick={onNew}>Start another topic</button>
       </ActionBar>
     </>
   )

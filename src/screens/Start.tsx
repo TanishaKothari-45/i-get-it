@@ -26,10 +26,13 @@ type Props = {
   pushback?: string
   suggestions?: string[]
   onPricing?: () => void
+  // 8 Oct (UX review #4): on "Start another topic", ready topics open at once and Explore is one tap away.
+  onPickReady?: (topic: string) => Promise<void>
+  onExplore?: () => void
 }
 
 // The first screen, and the empty state of the whole product (DESIGN.md section 4, Start).
-export default function Start({ initialTopic = '', status, question, intents, onChooseIntent, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [], onPricing }: Props) {
+export default function Start({ initialTopic = '', status, question, intents, onChooseIntent, onCreate, onAnswer, onRetry, examples, below, onAddOther, pushback, suggestions = [], onPricing, onPickReady, onExplore }: Props) {
   const declined = status === 'declined'
   const [topic, setTopic] = useState(status === 'declined' ? '' : initialTopic)
   // A declined line never stays in the box: the reader starts fresh.
@@ -163,9 +166,9 @@ export default function Start({ initialTopic = '', status, question, intents, on
           // Enter only closes the keyboard and shows the level and voice; the button starts the writing.
           onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); levelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) } }} />
         {examples.length > 1 && !below && (
-          <p className="note">Tonight's ready handbooks: {examples.slice(0, 6).map((x, i) => (
-            <span key={x}>{i > 0 && ' · '}<button type="button" className="quiet" style={{ padding: 0 }} onClick={() => setTopic(x)} disabled={writing}>{x}</button></span>
-          ))}</p>
+          <p className="note">{onPickReady ? 'Ready now, opens instantly: ' : "Tonight's ready handbooks: "}{examples.slice(0, 6).map((x, i) => (
+            <span key={x}>{i > 0 && ' · '}<button type="button" className="quiet" style={{ padding: 0 }} onClick={() => { if (onPickReady) onPickReady(x).catch((e) => setLocalError(friendly(e))); else setTopic(x) }} disabled={writing}>{x}</button></span>
+          ))}{onExplore && <> · <button type="button" className="quiet" style={{ padding: 0 }} onClick={onExplore}>Explore everything →</button></>}</p>
         )}
       </div>
 

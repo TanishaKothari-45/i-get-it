@@ -65,9 +65,10 @@ export const countPage = internalQuery({
   args: { cursor: v.union(v.string(), v.null()) },
   handler: async (ctx, { cursor }) => {
     const r = await ctx.db.query("handbooks").paginate({ cursor, numItems: 100 });
+    const excluded = new Set((await ctx.db.query("statsExcluded").collect()).map((e) => e.deviceToken));   // our own phones and test replays
     const out: { topic: string; passed: boolean }[] = [];
     for (const h of r.page) {
-      if (h.source !== "cache" || h.ownerToken?.startsWith("abuse-")) continue;
+      if (h.source !== "cache" || h.ownerToken?.startsWith("abuse-") || (h.ownerToken && excluded.has(h.ownerToken)) || h.hiddenAt) continue;
       const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
       out.push({ topic: h.topic, passed: !!p?.chaptersPassed.includes(1) });
     }

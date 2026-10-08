@@ -116,16 +116,18 @@ export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTit
           <button type="button" className="btn btn-ghost nudge-btn" onClick={onPricing}>See what members get</button>
         </div>
       )}
-      {!signedIn && !last && (
-        <div className="nudge compact" style={{ marginTop: 'var(--l)' }}>
-          <p className="nudge-lead">Signing in keeps your handbooks on every device and carries your settings with you. Free.</p>
-        </div>
-      )}
 
       {!last && <Reminder n={n} tomorrowAt={tomorrowAt} onPickTime={onPickTime} handbookId={handbookId} deviceToken={deviceToken} />}
 
+      {/* 8 Oct (UX review #15): a visitor's main action after chapters 1 and 2 is the next chapter (the Up next card
+          above); sign-in is a quiet line until chapter 3, the last free one. Copy (agent). */}
       <ActionBar>
-        {!signedIn && !stay ? (
+        {!signedIn && !stay && !last && n < 3 && onNext && nextTitle ? (
+          <>
+            <button type="button" className="quiet" onClick={onKeep}>Want it on every device? Make a free account</button>
+            <button type="button" className="quiet" onClick={onContinue}>Back to the handbook</button>
+          </>
+        ) : !signedIn && !stay ? (
           <>
             <button className="btn" onClick={onKeep}>Keep this handbook</button>
             <button type="button" className="quiet" onClick={() => { setStay(true); if (!last) onNext?.() }}>{last ? 'Not now. It stays on this phone.' : `Not now, start chapter ${n + 1}`}</button>

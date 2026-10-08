@@ -94,6 +94,9 @@ export default function App() {
   // just sees the note.
   const [signinReason, setSigninReason] = useState<string | null>(null)
   const [pricingNotice, setPricingNotice] = useState<string | null>(null)
+  // 8 Oct (UX review #9): Explore goes back to the screen it was opened from, never into the middle of a chapter.
+  const [exploreFrom, setExploreFrom] = useState<View>('auto')
+  const goExplore = () => { setExploreFrom(view === 'auto' || view === 'explore' ? (hb ? 'plan' : 'auto') : view); setView('explore') }
   const routeLock = (code: string | null, note: string) => {
     if (code === 'signup-more') { setSigninReason(note); setAfterSignIn('chapter'); setView('signin'); return true }
     if (code === 'daily-free') { setPricingNotice(note); setView('pricing'); return true }
@@ -179,7 +182,7 @@ export default function App() {
     return (
       <Shell back={hb ? { label: 'Handbook', onClick: () => setView('plan') } : undefined}>
         <Library rows={libRows as any} signedIn={!!lib?.signedIn} activeId={hb?._id} onOpen={(id) => { pin(id); setDoneN(null); setView('plan') }}
-          onNew={() => { setDraftTopic(''); setView('start-again') }} onSignIn={() => signIn('library')} onPlans={() => setView('pricing')} />
+          onNew={() => { setDraftTopic(''); setView('start-again') }} onSignIn={() => signIn('library')} onPlans={() => setView('pricing')} onExplore={goExplore} />
       </Shell>
     )
   }
@@ -195,7 +198,7 @@ export default function App() {
   if (view === 'explore') {
     return (
       <Shell>
-        <Explore onBack={() => setView('auto')}
+        <Explore onBack={() => setView(exploreFrom)}
           onReady={async (topic) => { const r = await create({ topic, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setView('auto') }}
           onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />
       </Shell>
@@ -210,13 +213,17 @@ export default function App() {
   // No handbook yet, or the person wants a different line: the first screen.
   if (!hb || view === 'start-again' || (hb.status as string) === 'intent' || hb.status === 'planning' || hb.status === 'question' || hb.status === 'failed' || (hb.status as string) === 'declined') {
     const status = !hb || view === 'start-again' ? 'idle' : (hb.status as string) === 'intent' ? 'intent' : hb.status === 'planning' ? 'writing' : hb.status === 'question' ? 'question' : (hb.status as string) === 'declined' ? 'declined' : 'failed'
+    // 8 Oct (UX review #5, #7): the box starts empty, and a reader with handbooks can always go back to them.
+    const backToBooks = libRows.length > 0 && (view === 'start-again' || status === 'failed' || status === 'declined') ? { label: 'Your handbooks', onClick: () => setView('library') } : undefined
     return (
-      <Shell>
+      <Shell back={backToBooks}>
         {view === 'start-again' && libRows.length > 0 && !lib?.signedIn && <SignupNudge onSignIn={() => signIn('start-again')} context="second-topic" compact />}
         <Start
           onPricing={() => setView('pricing')}
+          onPickReady={view === 'start-again' ? openTopic : undefined}
+          onExplore={goExplore}
           key={hb?._id ?? 'new'}
-          initialTopic={view === 'start-again' ? (draftTopic || hb?.topic || '') : (hb?.topic ?? '')}
+          initialTopic={view === 'start-again' ? draftTopic : (hb?.topic ?? '')}
           status={status as any}
           question={hb?.question}
           intents={(hb as any)?.intents ?? null}
@@ -250,8 +257,8 @@ export default function App() {
         <button type="button" className="quiet" onClick={() => setView('tune')}>Make it yours</button>
         <button type="button" className="quiet" onClick={() => setView('pricing')}>Pricing</button>
         <a className="quiet" href={`/print?h=${hb._id}`} target="_blank" rel="noopener">Print or save as PDF</a>
-        <button type="button" className="quiet" onClick={() => { setDraftTopic(hb.topic); setView('start-again') }}>Start another topic</button>
-        <button type="button" className="quiet" onClick={() => setView('explore')}>Explore what others are learning</button>
+        <button type="button" className="quiet" onClick={() => { setDraftTopic(''); setView('start-again') }}>Start another topic</button>
+        <button type="button" className="quiet" onClick={goExplore}>Explore what others are learning</button>
       </div>
     </>
   ) : undefined
