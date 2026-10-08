@@ -56,7 +56,8 @@ export default function Start({ initialTopic = '', status, question, intents, on
 
   useEffect(() => {
     if (!writing) { setSlow(false); setVerySlow(false); return }
-    const t = setTimeout(() => setSlow(true), 30000), t2 = setTimeout(() => setVerySlow(true), 90000)   // research about 30 s, then the plan, then chapter 1
+    // 8 Oct night, measured on the Gemini pipeline: research about 33 s, then the plan about 50 s; the plan shows at about 85 s.
+    const t = setTimeout(() => setSlow(true), 30000), t2 = setTimeout(() => setVerySlow(true), 100000)
     return () => { clearTimeout(t); clearTimeout(t2) }
   }, [writing])
 
@@ -74,11 +75,11 @@ export default function Start({ initialTopic = '', status, question, intents, on
         <p className="plan-wait-kicker">Writing your handbook</p>
         <h1 className="plan-wait-topic">{topic.trim() || initialTopic}</h1>
         <ol className="plan-wait-steps">
-          <li className="on">Looking it up: Wikipedia, reviews, recaps, the official syllabus where there is one</li>
-          <li className={slow ? 'on' : ''}>Deciding how much it needs: a quick run-through, or seven nights</li>
-          <li className={verySlow ? 'on' : ''}>Writing chapter 1 while you read the plan</li>
+          <li className="on">Looking it up on the web, with the goal you picked in mind</li>
+          <li className={slow ? 'on' : ''}>Planning the chapters: a quick run-through, or up to seven nights</li>
+          <li className={verySlow ? 'on' : ''}>Taking longer than usual. Still on it.</li>
         </ol>
-        <p className="note">{verySlow ? "Still writing. It takes two to four minutes; you can leave and it will be in Your handbooks." : "Your plan in two to four minutes. Chapter 1 is written while you read it."}</p>
+        <p className="note">{verySlow ? "Still writing. You can leave; it will be waiting in Your handbooks." : "About a minute and a half. Chapter 1 is written while you read the plan."}</p>
         <div className="busybar" aria-hidden="true" />
         {story && (
           <section className="wait-story" aria-label="A story while you wait">
@@ -193,7 +194,7 @@ export default function Start({ initialTopic = '', status, question, intents, on
 
       {below && !writing && below(pick)}
 
-      <ActionBar busy={writing} note={writing && slow ? 'Two to four minutes: research first, then the plan, then chapter 1.' : undefined}>
+      <ActionBar busy={writing} note={writing && slow ? 'About a minute and a half: a look on the web first, then the plan, then chapter 1.' : undefined}>
         {status === 'failed' && onRetry && topic.trim() === initialTopic.trim() ? (
           <button className="btn" onClick={() => onRetry().catch((e) => setLocalError(friendly(e)))}>Try again</button>
         ) : (
