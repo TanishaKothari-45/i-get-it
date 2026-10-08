@@ -31,7 +31,7 @@ export const calls = internalQuery({
     const rows = await ctx.db.query("aiCalls").withIndex("by_at", (q) => q.gt("at", after)).take(limit);
     return rows.map((c) => ({
       id: c._id as string, kind: c.kind, model: c.model, ms: c.ms, ok: c.ok, at: c.at, tokensIn: c.tokensIn ?? 0, tokensOut: c.tokensOut ?? 0,
-      attempts: c.attempts ?? 1, error: c.error, handbookId: c.handbookId as string | undefined, chapter: c.chapter,
+      attempts: c.attempts ?? 1, error: c.error, handbookId: c.handbookId as string | undefined, chapter: c.chapter, cachedIn: c.cachedIn,
       ...(withText ? { input: c.input, output: c.output } : {}),
     }));
   },

@@ -46,13 +46,14 @@ const HAIKU = "claude-haiku-4-5-20251001";
 const OPUS = "claude-opus-5-5";
 const SONNET = "claude-sonnet-5-5";
 type Effort = "low" | "medium" | "high" | "xhigh" | "max";
-type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach" | "intent" | "versions" | "match";
+type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach" | "intent" | "versions" | "match" | "library";
 // Per-job table, set by Prateek 6 Oct: quality first, cost and latency to be handled with prices or limits later.
 // Thinking counts against max_tokens, so max-effort jobs get large caps (and stream; see callAnthropic).
 const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> = {
   plan: { model: OPUS, effort: "high", maxTokens: 32000 },
   versions: { model: SONNET, effort: "low", maxTokens: 12000 },   // 7 Oct: easier and harder quiz versions from a finished chapter (Opus writing them doubled a chapter's cost)
-  match: { model: HAIKU, maxTokens: 300 },   // 7 Oct: does a typed topic match a handbook we already have (by meaning)?
+  match: { model: HAIKU, maxTokens: 300 },
+  library: { model: HAIKU, maxTokens: 300 },   // 8 Oct: the shared-library privacy check, with its own schema (was "intent")   // 7 Oct: does a typed topic match a handbook we already have (by meaning)?
   intent: { model: HAIKU, maxTokens: 600 },   // "What's it for?": three goals in about a second, before the plan   // 6 Oct: "max" thought >5 min, hit 32k and was cut off (2 of 2)
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
   simpler: { model: SONNET, effort: "medium", maxTokens: 8000 },   // 6 Oct: "max" thought 49 s and was cut off at 8,000 with no answer
@@ -64,10 +65,17 @@ const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> =
   check: { model: SONNET, effort: "low", maxTokens: 16000 },   // Prateek, 6 Oct, from evals/model-choice.md: 10 of 10 planted mistakes, no stray changes, ~14 s (Opus high: 10 of 10, 38 s, ~3.5x the cost). Watch: on 4 Oct Sonnet once wrote new mistakes while fixing
 };
 
+// Claude prompt caching (8 Oct): off for now. A cache write costs 1.25x normal input and a hit 0.1x, and the cache lives
+// 5 minutes, so it saves money only when the same system prompt is sent again within 5 minutes in more than about 1 call
+// in 5. At today's traffic most calls would pay the write and never hit. Turn on when traffic is steady; Anthropic
+// reports cache_read_input_tokens in every reply, so the hit rate can be checked first. (Gemini caches repeated prompt
+// openings by itself, at no extra cost.)
+const CACHE_PROMPTS = false;
+
 let anthropic: Anthropic | null = null;
 function client() { return (anthropic ??= new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })); }
 
-async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string, effortOverride?: Effort): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+async function callAnthropic(kind: Kind, system: string, user: string, modelOverride?: string, effortOverride?: Effort): Promise<{ text: string; tokensIn?: number; tokensOut?: number; cachedIn?: number; model: string }> {
   const job = JOB[kind];
   const model = modelOverride ?? process.env.ANTHROPIC_MODEL ?? job.model;
   const isHaiku = model.startsWith("claude-haiku");
@@ -77,7 +85,9 @@ async function callAnthropic(kind: Kind, system: string, user: string, modelOver
   const params = {
     model,
     max_tokens: maxTokens,
-    system: system + "\n\nReturn only the JSON object. No prose, no code fences.",
+    system: CACHE_PROMPTS
+      ? [{ type: "text", text: system + "\n\nReturn only the JSON object. No prose, no code fences.", cache_control: { type: "ephemeral" } }] as any
+      : system + "\n\nReturn only the JSON object. No prose, no code fences.",
     messages: [{ role: "user" as const, content: user }],
     ...(effort ? { output_config: { effort } } : {}),
     // If a current-generation model declines, Anthropic re-runs the request on a suitable model inside the same call.
@@ -88,7 +98,7 @@ async function callAnthropic(kind: Kind, system: string, user: string, modelOver
   if (res.stop_reason === "refusal") throw new Error(`declined (${res.stop_details?.category ?? "no category"})`);
   if (res.stop_reason === "max_tokens") throw new Error("reply cut off at the token limit");
   const text = res.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("");
-  return { text, tokensIn: res.usage.input_tokens, tokensOut: res.usage.output_tokens, model: res.model };
+  return { text, tokensIn: res.usage.input_tokens, tokensOut: res.usage.output_tokens, cachedIn: (res.usage as any).cache_read_input_tokens || undefined, model: res.model };
 }
 
 // GLM (Zhipu / Z.ai), OpenAI-style chat API. Key in the Convex env variable CHEAPER_INFERENCE_API_KEY (Prateek's credits).
@@ -153,15 +163,60 @@ function extractJson(text: string): any {
   return JSON.parse(m[0]);
 }
 
+// Gemini, direct from Google (8 Oct: the plan step's first choice). Any model id starting "gemini-". Keys in the Convex
+// env: GEMINI_API_KEY, then GEMINI_API_KEY_BACKUP on 503 or 429 (as research does). The job's JSON schema goes with the
+// request; Flash thinks at "medium" (bounded cost and time, measured on research). A safety block comes back as
+// "declined (...)", like Claude's refusals.
+const GEMINI_THINKING: Record<string, string> = { "gemini-3.8-flash": "medium" };
+// Time budget (8 Oct): all Gemini tries for one step (keys, waits, the JSON and schema retries) share one budget. Past it
+// the step fails here and the caller's backup (Opus, for plans and chapters) writes it instead. Measured on Flash: plans
+// 17 to 34 s, so 90 s (typical plus 60 s, room for one schema retry); chapters 27 to 70 s, so 150 s.
+export const GEMINI_STEP_BUDGET = 150000;
+const GEMINI_BUDGET: Partial<Record<Kind, number>> = { plan: 90000, chapter: 150000 };
+async function callGemini(kind: Kind, system: string, user: string, model: string, maxTokens: number, deadline = Date.now() + GEMINI_STEP_BUDGET): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+  const keys = [process.env.GEMINI_API_KEY, process.env.GEMINI_API_KEY_BACKUP].filter(Boolean) as string[];
+  if (!keys.length) throw new Error("No Gemini key");
+  const schema = jsonSchema(kind);
+  let res: any, body: any;
+  for (let i = 0; i < 2 * keys.length; i++) {
+    const left = deadline - Date.now();
+    if (left < 5000) throw new Error("Gemini time budget used up");
+    res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      method: "POST", signal: AbortSignal.timeout(left),
+      headers: { "Content-Type": "application/json", "x-goog-api-key": keys[i % keys.length] },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: system }] }, contents: [{ role: "user", parts: [{ text: user }] }],
+        generationConfig: {
+          maxOutputTokens: Math.min(maxTokens, 32000), responseMimeType: "application/json",
+          ...(schema ? { responseJsonSchema: schema } : {}),
+          ...(GEMINI_THINKING[model] ? { thinkingConfig: { thinkingLevel: GEMINI_THINKING[model] } } : {}),
+        },
+      }),
+    }).catch((e: any) => ({ ok: false, status: 0, json: async () => ({ error: String(e?.message ?? e) }) }) as any);
+    body = await res.json().catch(() => ({}));
+    if (res.ok || ![503, 429, 0].includes(res.status)) break;
+    if (i % keys.length === keys.length - 1 && deadline - Date.now() > 15000) await new Promise((x) => setTimeout(x, 5000));
+  }
+  if (!res.ok) throw new Error(`Gemini ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
+  const cand = body.candidates?.[0];
+  if (body.promptFeedback?.blockReason || /SAFETY|PROHIBITED|BLOCKLIST/.test(String(cand?.finishReason ?? ""))) throw new Error(`declined (${body.promptFeedback?.blockReason ?? cand?.finishReason})`);
+  if (cand?.finishReason === "MAX_TOKENS") throw new Error("reply cut off at the token limit");
+  const text = (cand?.content?.parts ?? []).filter((x: any) => !x.thought).map((x: any) => x.text ?? "").join("");
+  const u = body.usageMetadata ?? {};
+  return { text, tokensIn: u.promptTokenCount, tokensOut: (u.candidatesTokenCount ?? 0) + (u.thoughtsTokenCount ?? 0), model };
+}
+
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent"), v.literal("versions"), v.literal("match")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))), trace: traceV },
-  handler: async (ctx, { kind, system, user, model, effort, trace }): Promise<Result> => {
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent"), v.literal("versions"), v.literal("match"), v.literal("library")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))), trace: traceV, logAs: v.optional(v.string()) },
+  // logAs (8 Oct): the step name in the call log when it differs from the job, e.g. "eval plan" for a prompt test, so
+  // tests are never counted as readers' handbooks or background jobs on the admin dashboard.
+  handler: async (ctx, { kind, system, user, model, effort, trace, logAs }): Promise<Result> => {
     const started = Date.now();
     let attempts = 1;   // a broken, cut-off or off-schema reply is asked again inside this call
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
     const provider = process.env.ANTHROPIC_API_KEY ? "anthropic" : process.env.OPENAI_API_KEY ? "openai" : null;
     if (!provider) {
-      await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, kind, model: "none", input: user.slice(0, 2000), output: "", ms: 0, ok: false, error: "no provider key set" });
+      await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, kind: logAs ?? kind, model: "none", input: user.slice(0, 2000), output: "", ms: 0, ok: false, error: "no provider key set" });
       return { ok: false, error: "no provider key set", model: "none" };
     }
     // The /admin switch: The Inference Company instead of Claude, unless this call names its own model (comparisons, tests).
@@ -170,7 +225,10 @@ export const generate = internalAction({
       const viaGLM = !!model?.startsWith("glm-");
       // "ci:<model>" (8 Oct): any model on the Cheaper Inference marketplace (Prateek's credits), thinking on where Claude thinks.
       const viaCheaper = !!model?.startsWith("ci:");
-      const call = () => viaInference ? callInference(kind, system, user, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, user, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
+      const viaGemini = !!model?.startsWith("gemini-");
+      const geminiDeadline = started + (GEMINI_BUDGET[kind] ?? GEMINI_STEP_BUDGET);
+      const callWith = (u: string) => viaGemini ? callGemini(kind, system, u, model!, JOB[kind].maxTokens, geminiDeadline) : viaInference ? callInference(kind, system, u, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, u, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, u, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, u, model, effort) : callOpenAI(system, u, maxOut);
+      const call = () => callWith(user);
       // A marketplace call that times out or drops gets one more try (8 Oct); provider errors on Claude are left as before.
       let r = await call().catch(async (e: any) => {
         if ((viaCheaper || viaGLM) && /fetch failed|aborted|timeout|GLM 5\d\d/i.test(String(e?.message ?? e))) { attempts++; return call(); }
@@ -190,20 +248,23 @@ export const generate = internalAction({
       if (wrong) {
         const fix = `${user}\n\nYour previous reply did not match the required JSON shape:\n${wrong}\nReturn the whole JSON object again, with these fixed.`;
         attempts++;
-        r = await (viaInference ? callInference(kind, system, fix, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, fix, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, fix, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, fix, model, effort) : callOpenAI(system, fix, maxOut));
+        r = await callWith(fix);
         json = extractJson(r.text);
         const still = problems(kind, json);
         if (still) throw new Error(`reply did not match the ${kind} schema: ${still.replace(/\n/g, " ").slice(0, 300)}`);
       }
       await ctx.runMutation(internal.handbooks.logAiCall, {
-        ...trace, attempts, kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
-        tokensIn: r.tokensIn, tokensOut: r.tokensOut, ms: Date.now() - started, ok: true,
+        ...trace, attempts, kind: logAs ?? kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
+        tokensIn: r.tokensIn, tokensOut: r.tokensOut, cachedIn: (r as any).cachedIn, ms: Date.now() - started, ok: true,
       });
       return { ok: true, json, model: r.model, tokensIn: r.tokensIn, tokensOut: r.tokensOut };
     } catch (e: any) {
       const error = String(e?.message ?? e).slice(0, 500);
-      await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, attempts, kind, model: provider, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });
-      return { ok: false, error, model: provider };
+      // A failed call is logged under the model it asked for when it named one (8 Oct: so a failed Gemini plan shows
+      // as Gemini in the cost and latency reports, not as "anthropic").
+      const failedModel = model && !model.startsWith("tic:") ? model.replace(/^ci:/, "") : provider;
+      await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, attempts, kind: logAs ?? kind, model: failedModel, input: user.slice(0, 2000), output: "", ms: Date.now() - started, ok: false, error });
+      return { ok: false, error, model: failedModel };
     }
   },
 });

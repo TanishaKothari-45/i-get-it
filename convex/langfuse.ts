@@ -21,7 +21,7 @@ const int = (key: string, value: number) => ({ key, value: { intValue: String(Ma
 
 export type Row = {
   id: string; kind: string; model: string; ms: number; ok: boolean; at: number; tokensIn: number; tokensOut: number;
-  attempts: number; error?: string; handbookId?: string; chapter?: number; input?: string; output?: string;
+  attempts: number; error?: string; handbookId?: string; chapter?: number; cachedIn?: number; input?: string; output?: string;
 };
 export type Info = { id: string; createdAt: number; kind: string; researchStartedAt?: number };
 
@@ -29,9 +29,9 @@ export type Info = { id: string; createdAt: number; kind: string; researchStarte
 function callSpan(c: Row, traceId: string, parentSpanId: string | undefined, withText: boolean) {
   const usd = inrOf(c.model, c.ok, c.tokensIn, c.tokensOut) / INR_PER_USD;
   const attributes = [
-    str("langfuse.observation.type", c.kind === "transcript" ? "span" : "generation"),
+    str("langfuse.observation.type", c.kind === "transcript" || c.kind === "photo" ? "span" : "generation"),
     str("langfuse.observation.model.name", c.model),
-    str("langfuse.observation.usage_details", JSON.stringify({ input: c.tokensIn, output: c.tokensOut, total: c.tokensIn + c.tokensOut })),
+    str("langfuse.observation.usage_details", JSON.stringify({ input: c.tokensIn, output: c.tokensOut, total: c.tokensIn + c.tokensOut, ...(c.cachedIn ? { cache_read_input_tokens: c.cachedIn } : {}) })),
     str("langfuse.observation.cost_details", JSON.stringify({ total: usd })),
     int("langfuse.observation.metadata.attempts", c.attempts),
     ...(c.chapter ? [int("langfuse.observation.metadata.chapter", c.chapter)] : []),

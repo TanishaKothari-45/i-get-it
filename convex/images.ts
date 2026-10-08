@@ -6,6 +6,7 @@ import type { Trace } from "./trace";
 import type { Id } from "./_generated/dataModel";
 import { PICTURE_ANCHOR, PICTURE_NEVER, SCENES_PROMPT, scenesUserMessage } from "./prompts";
 import { inkAndWash } from "./inkwash";
+import { pictureCards } from "./pictureCards";
 
 // Pictures come from Runway's API (key in the Convex env variable "Runway"). One call = one picture,
 // stored in Convex file storage so readers never hit Runway. Prices: docs.dev.runwayml.com/guides/pricing.
@@ -35,16 +36,6 @@ async function runway(path: string, init?: RequestInit, tries = 3): Promise<any>
 
 const MODEL = "muse_image";      // design/style-anchor.md: 1 credit a picture; Gen-4 wrote text into pictures
 const RATIO = "1792:1344";        // 4:3
-const MAX_PICTURES = 5;           // 7 Oct, Prateek: 4 to 5 a chapter (was up to 8)
-
-// Which cards get a picture: the opening picture card, then examples and mistakes (the scenes people remember), then
-// the try card and teaching cards, in reading order, at most MAX_PICTURES. The closing "In one breath" card isn't shown.
-const PRIORITY: Record<string, number> = { picture: 0, example: 1, mistake: 2, try: 3, teach: 4 };
-export function pictureCards(cards: any[]) {
-  const all = cards.map((c: any, i: number) => ({ c, i })).filter(({ c }) => c && c.type !== "exercise" && c.type !== "watch" && typeof c.body === "string" && !/^in one breath$/i.test(String(c.title ?? "").trim()));
-  const keep = new Set([...all].sort((a, b) => (PRIORITY[a.c.type] ?? 5) - (PRIORITY[b.c.type] ?? 5) || a.i - b.i).slice(0, MAX_PICTURES).map((x) => x.i));
-  return all.filter((x) => keep.has(x.i));
-}
 const AT_ONCE = 3;                // Runway queues ("THROTTLED") past its concurrency limit; more at once just waits longer
 
 async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RATIO, seed?: number, extra: Record<string, unknown> = {}, trace?: Trace): Promise<{ ok: true; storageId: Id<"_storage">; ms: number } | { ok: false; error: string; ms: number }> {
@@ -76,7 +67,15 @@ type Picture = { card: number; scene: string; storageId?: Id<"_storage">; credit
 // random drawings). Only public domain, CC0 and Creative Commons BY / BY-SA; stored with its credit line and source page.
 const OPEN = /^(cc0|public domain|pd\b|pd-|cc[ -]by(-sa)?[ -]?\d)/i;
 const strip = (html: string) => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
-async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId: Id<"_storage">; credit: string; source: string } | null> {
+// A Wikimedia Commons photo lookup, logged like a model call (8 Oct): free, but it takes time, and the picture step's
+// wait should show in the call log, Langfuse and the admin dashboard.
+async function commonsPhoto(ctx: ActionCtx, query: string, trace?: Trace): Promise<{ storageId: Id<"_storage">; credit: string; source: string } | null> {
+  const started = Date.now();
+  const photo = await commonsPhotoUnlogged(ctx, query);
+  await ctx.runMutation(internal.handbooks.logAiCall, { ...trace, kind: "photo", model: "wikimedia", input: query.slice(0, 200), output: photo ? photo.source.slice(0, 300) : "", ms: Date.now() - started, ok: !!photo, error: photo ? undefined : "no free photo found" });
+  return photo;
+}
+async function commonsPhotoUnlogged(ctx: ActionCtx, query: string): Promise<{ storageId: Id<"_storage">; credit: string; source: string } | null> {
   const url = `https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=10&gsrsearch=${encodeURIComponent(query + " filetype:bitmap")}&prop=imageinfo&iiprop=url|extmetadata|mime|size&iiurlwidth=1024`;
   try {
     const res = await fetch(url, { headers: { "User-Agent": "IGetIt/1.0 (https://sensible-mongoose-624.convex.site; learning handbooks)" } });
@@ -101,10 +100,13 @@ async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId:
   } catch { /* fall back to drawing */ }
   return null;
 }
-async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true, cover = false, model?: string, trace?: Trace): Promise<{ status: string; pictures: Picture[] }> {
+async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: string, cards: any[], capped = true, cover = false, model?: string, trace?: Trace, preset?: { card: number; scene: string; real?: string }[]): Promise<{ status: string; pictures: Picture[] }> {
   const teaching = pictureCards(cards);
   if (!teaching.length) return { status: "skipped", pictures: [] };
-  const r: any = await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))), model, trace });
+  // 8 Oct: the fact check writes the scenes in the same call (handbooks.ts factCheck); the scenes call runs only when a
+  // chapter has none (written before that, or the check failed).
+  const r: any = preset?.length ? { ok: true, json: { scenes: preset } }
+    : await ctx.runAction(internal.ai.generate, { kind: "scenes", system: SCENES_PROMPT, user: scenesUserMessage(topic, title, plan?.picture?.line ?? plan?.picture?.name ?? "", teaching.map(({ c, i }) => ({ card: i, type: c.type, title: c.title, body: c.body }))), model, trace });
   const wanted = new Set(teaching.map(({ i }) => i));
   const scenes: { card: number; scene: string; real?: string }[] = [];
   for (const x of (r.ok ? r.json?.scenes : null) ?? []) {
@@ -117,7 +119,7 @@ async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: stri
   if (capped && !(await ctx.runMutation(internal.handbooks.takePictureBudget, { count: scenes.length }))) return { status: "failed", pictures: [] };
   // Real things: a real, freely licensed photo first. Runway draws only the cover (8 Oct, Prateek: no Runway credits
   // inside chapters): the first picture of chapter 1, which is also the handbook's cover. Every other card gets a photo.
-  const photos = await Promise.all(scenes.map((s) => (s.real ? commonsPhoto(ctx, s.real) : Promise.resolve(null))));
+  const photos = await Promise.all(scenes.map((s) => (s.real ? commonsPhoto(ctx, s.real, trace) : Promise.resolve(null))));
   const drawn: (Awaited<ReturnType<typeof drawOne>> | null)[] = new Array(scenes.length).fill(null);
   const first = Math.min(...scenes.map((s) => s.card));
   const toDraw = scenes.map((_, k) => k).filter((k) => !photos[k] && cover && scenes[k].card === first);
@@ -132,7 +134,7 @@ async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: stri
     if (photos[k] || drawn[k]?.ok) continue;
     const card = cards[scenes[k].card] ?? {};
     const query = scenes[k].real ?? `${String(card.title ?? "").replace(/^in one breath$/i, "")} ${topic}`.trim();
-    const photo = query ? await commonsPhoto(ctx, query) : null;
+    const photo = query ? await commonsPhoto(ctx, query, trace) : null;
     if (photo && !usedSources.has(photo.source)) { photos[k] = photo; usedSources.add(photo.source); }
   }
   const pictures: Picture[] = scenes.map((s, k) => photos[k] ? { card: s.card, scene: s.scene, storageId: photos[k]!.storageId, credit: photos[k]!.credit, source: photos[k]!.source }
@@ -172,7 +174,7 @@ export const forChapter = internalAction({
     const ch: any = await ctx.runQuery(internal.handbooks.readChapter, { handbookId, n });
     if (!h || !ch || ch.status !== "ready" || !ch.cards) return;
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: "drawing" });
-    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards, true, n === 1, h.writer, { handbookId, chapter: n });
+    const r = await picturesFor(ctx, h.plan?.topic ?? h.topic, h.plan, ch.title ?? "", ch.cards, true, n === 1, h.writer, { handbookId, chapter: n }, ch.scenes);
     await ctx.runMutation(internal.handbooks.setPictures, { handbookId, n, status: r.status, pictures: r.pictures });
   },
 });

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { api } from '../../convex/_generated/api'
+import AdminPipeline from '../components/AdminPipeline'
 
 // The owner's dashboard at /admin: where visitors drop off, from landing to sign-up. The server checks the owner
 // (STATS_OWNER_EMAILS); anyone else gets the sign-in box and nothing else.
@@ -28,12 +29,14 @@ export default function Admin() {
         <>
           <p className="note">Updated live. Your own phones and accounts are left out. {d.trackingSince ? `Landing steps (marked •) are counted from ${time(d.trackingSince)}, when page tracking began.` : 'Landing steps (marked •) start counting from the next visit.'}</p>
 
+          {/* AI and cost together (8 Oct): which provider, what every step takes and costs, spend by day, the doctor. */}
           <ProviderSwitch />
+          <AdminPipeline />
+          <CostsCard />
+          <ExperimentsCard />
           <LibraryCard />
           <TrendingCard />
-          <ExperimentsCard />
           <PaymentsCard />
-          <CostsCard />
 
           <section className="adm-card adm-wide">
             <h2>Funnel</h2>
@@ -276,7 +279,7 @@ function PaymentsCard() {
 
 // What the app spends (7 Oct, Prateek): per day, then per model, then per job inside a model. Estimates from list
 // prices (costs.ts); each provider's bill is the truth.
-const JOB: Record<string, string> = { plan: 'Plans', chapter: 'Chapters', check: 'Fact checks', repair: 'Rewrites and polish', scenes: 'Picture scenes', picture: 'Pictures', intent: 'Goal question', research: 'Research', transcript: 'YouTube transcripts', ask: 'Ask or object', teach: 'Teach it back', simpler: 'Say it simpler (removed)', audit: 'Audits' }
+const JOB: Record<string, string> = { plan: 'Plans', chapter: 'Chapters', check: 'Fact checks and picture scenes', versions: 'Quiz versions', match: 'Match with a ready book', library: 'Library check', photo: 'Wikimedia photos (free)', repair: 'Rewrites and polish', scenes: 'Picture scenes', picture: 'Pictures', intent: 'Goal question', research: 'Research', transcript: 'YouTube transcripts', ask: 'Ask or object', teach: 'Teach it back', simpler: 'Say it simpler (removed)', audit: 'Audits' }
 function CostsCard() {
   const [days, setDays] = useState(14)
   const rows = useQuery(api.costs.byDay, { days })

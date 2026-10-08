@@ -5,9 +5,11 @@ import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 import { briefForChapter, briefForPlan, MATCH_PROMPT, matchUserMessage, VERSIONS_PROMPT, versionsUserMessage } from "./prompts";
-import { addCost } from "./costs";
-import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
+import { addCost, inrOf } from "./costs";
+import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHAPTER_PROMPT_V4, CHECK_PROMPT, CHECK_SCENES_PROMPT, checkUserMessage, PLAN_PROMPT_V7, chapterUserMessage, planUserMessage } from "./prompts";
 import { level } from "./schema";
+import { goodQuiz } from "./schemas";
+import { pictureCards } from "./pictureCards";
 import type { Trace } from "./trace";
 import { copyInto, matchForIntent, sharedRow } from "./library";
 import { assignVariant } from "./doctor";
@@ -441,22 +443,25 @@ export const retry = mutation({
 
 // "What's it for?" (6 Oct): three goals in about a second. If the model can't offer them, go straight to the plan.
 // A typed topic, first (7 Oct): if a ready or shared handbook at this level already teaches it, the reader gets that
-// copy at once, for nothing. Otherwise research starts now, while the reader picks a goal, and the goal question runs.
+// copy at once, for nothing. Otherwise the goal question runs. Research waits for the goal (8 Oct): it starts in
+// generatePlan, once the reader has picked, typed or skipped a goal, so the facts follow the reader's direction (a
+// typed goal included) and nothing is spent on a reader who leaves at the question or gets a shared copy.
 export const matchOrIntents = internalAction({
   args: { handbookId: v.id("handbooks") },
   handler: async (ctx, { handbookId }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h || h.status !== "intent") return;
+    // 8 Oct: the goal question is written at the same time as the match, not after it (about a second sooner). If the
+    // match finds a ready or shared handbook, the reader gets it and the goals are simply never shown.
+    const intents = ctx.runAction(internal.handbooks.generateIntents, { handbookId });
     const options: { kind: string; title: string; topic: string; libraryId?: any }[] = await ctx.runQuery(internal.handbooks.shelfOptions, { level: h.level });
     if (options.length) {
       const r = await ctx.runAction(internal.ai.generate, { kind: "match", system: MATCH_PROMPT, user: matchUserMessage(h.topic, options.map((o) => o.title)), trace: { handbookId } });
       const k = r.ok ? Number(r.json?.match) : NaN;
       const pick = Number.isInteger(k) && k >= 1 && k <= options.length ? options[k - 1] : null;
-      if (pick && (await ctx.runMutation(internal.handbooks.adoptExisting, { handbookId, kind: pick.kind, topic: pick.topic, libraryId: pick.libraryId }))) return;
+      if (pick && (await ctx.runMutation(internal.handbooks.adoptExisting, { handbookId, kind: pick.kind, topic: pick.topic, libraryId: pick.libraryId }))) { await intents; return; }
     }
-    await ctx.runMutation(internal.handbooks.markResearch, { handbookId });
-    await ctx.scheduler.runAfter(0, internal.research.run, { handbookId });
-    await ctx.runAction(internal.handbooks.generateIntents, { handbookId });
+    await intents;
   },
 });
 export const shelfOptions = internalQuery({
@@ -527,37 +532,43 @@ export const chooseIntent = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     if (h.status !== "intent") return;
     const m = mode && ["skill", "story", "subject", "decision"].includes(mode) ? mode : undefined;
-    await ctx.db.patch(handbookId, { status: "planning", goal: goal?.trim().slice(0, 120) || undefined, mode: m });
+    await ctx.db.patch(handbookId, { status: "planning", goal: goal?.trim().slice(0, 120) || undefined, mode: m, goalChosenAt: Date.now() });
     // Someone already made this topic for the same kind of goal: reuse their plan and chapter 1 (instant, no tokens).
     if (await matchForIntent(ctx, (await ctx.db.get(handbookId))!, m)) return;
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId });
   },
 });
 
+// The plan step (8 Oct, Tanisha; Prateek to confirm before main): prompt v7 on Gemini 3.8 Flash, thinking medium, with
+// Opus 5.5 at medium effort as the backup when Gemini fails for any reason. Measured on frozen briefs (evals/plan-*):
+// v7's line of edits keeps v1's quality, stops the copied framing line, and lifts Flash's analogy from about 2 to 4 of 5;
+// a plan costs about ₹1 on Flash against about ₹7 on Opus at high effort. A writer pinned by an A/B test keeps its own
+// model. To switch back: PLAN_LIVE = PLAN_PROMPT (v1, still in prompts.ts) and PLAN_MODEL = undefined (Opus high).
+const PLAN_LIVE = PLAN_PROMPT_V7;
+const PLAN_MODEL: string | undefined = "gemini-3.8-flash";
+const PLAN_BACKUP = { model: "claude-opus-5-5", effort: "medium" as const };
+
 export const generatePlan = internalAction({
   args: { handbookId: v.id("handbooks"), clarification: v.optional(v.string()) },
   handler: async (ctx, { handbookId, clarification }) => {
     let h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h) return;
-    // Research first (research.ts): what kind of handbook this needs, and the facts and sources it rests on.
-    // Research usually started while the reader picked a goal (matchOrIntents): wait for it, up to a minute, rather
-    // than run it twice. If it never started or never lands, run it here.
-    const started = (h as any).researchStartedAt;
-    // 8 Oct: research is Gemini first (28 to 66 s measured), then Claude if Gemini fails, so wait up to 150 s.
-    for (let i = 0; i < 150 && !(h as any).brief && started && Date.now() - started < 150000; i++) {
-      await new Promise((r) => setTimeout(r, 1000));
-      h = (await ctx.runQuery(internal.handbooks.readHandbook, { handbookId })) ?? h;
-    }
+    // Research first (research.ts): what kind of handbook this needs, and the facts and sources it rests on. It runs
+    // here, after the goal (8 Oct), so there is nothing to wait for; a brief already present (a clarifying answer
+    // brings the reader back here) is reused.
     if (!(h as any).brief) {
+      await ctx.runMutation(internal.handbooks.markResearch, { handbookId });
       await ctx.runAction(internal.research.run, { handbookId }).catch((e: any) => console.log("research failed", String(e).slice(0, 200)));
       h = (await ctx.runQuery(internal.handbooks.readHandbook, { handbookId })) ?? h;
     }
     const brief = (h as any).brief ?? null;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief), model: h.writer, trace: { handbookId } });
+    const planUser = planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief);
+    let r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_LIVE, user: planUser, model: h.writer ?? PLAN_MODEL, trace: { handbookId } });
+    if (!r.ok && !h.writer && PLAN_MODEL) r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_LIVE, user: planUser, ...PLAN_BACKUP, trace: { handbookId } });
     // Claude's own safety check said no: say so plainly, never "try again".
     if (!r.ok && /^declined/.test(r.error)) {
-      const ready: any[] = await ctx.runQuery(internal.handbooks.listCache, {});
-      const picks = [...new Set(ready.map((x) => String(x.topic)))].sort(() => Math.random() - 0.5).slice(0, 3);
+      const ready: string[] = await ctx.runQuery(internal.handbooks.readyTitles, {});
+      const picks = [...new Set(ready)].sort(() => Math.random() - 0.5).slice(0, 3);
       await ctx.runMutation(internal.handbooks.setDeclined, { handbookId, pushback: "That's not something I Get It will teach. Pick something that helps you or the people around you, and we'll go all in.", suggestions: picks });
       return;
     }
@@ -584,7 +595,9 @@ export const generatePlan = internalAction({
     if (plan.format === "course") plan.framing = null;
     await ctx.runMutation(internal.handbooks.setPlan, { handbookId, plan, topic: clarification ? `${h.topic} (${clarification})` : h.topic });
     await ctx.runMutation(internal.handbooks.startChapter, { handbookId, n: 1 });
-    await ctx.runAction(internal.handbooks.generateChapter, { handbookId, n: 1 });
+    // Chapter 1 runs as its own action (8 Oct): the plan is saved and shown now, and a slow or failed chapter never
+    // takes the plan step down with it (each step has its own time limit and its own failure).
+    await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n: 1 });
   },
 });
 
@@ -596,9 +609,19 @@ function validFix(orig: any, fixed: any): boolean {
   if (orig.type !== "exercise") return typeof fixed.body === "string" || typeof fixed.prompt === "string";
   return Array.isArray(fixed.options) && fixed.options.length === 3 && fixed.options.some((o: any) => o.id === fixed.answer);
 }
-export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max"; trace?: Trace } = {}): Promise<{ cards: any[]; report: FactReport }> {
-  const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: CHECK_PROMPT, user: checkUserMessage(topic, level, { title, cards }), ...opts });
-  if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() } };
+type Scene = { card: number; scene: string; real?: string };
+// With opts.pictures, the same call also writes the picture scenes for the listed cards (8 Oct: one call, not two).
+export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max"; trace?: Trace; pictures?: { cards: number[]; analogy: string } } = {}): Promise<{ cards: any[]; report: FactReport; scenes: Scene[] }> {
+  const { pictures, ...callOpts } = opts;
+  const withScenes = !!pictures?.cards.length;
+  const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: withScenes ? CHECK_SCENES_PROMPT : CHECK_PROMPT, user: checkUserMessage(topic, level, { title, cards }, withScenes ? pictures : undefined), ...callOpts });
+  if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() }, scenes: [] };
+  const scenes: Scene[] = [];
+  for (const x of withScenes && Array.isArray(r.json?.scenes) ? r.json.scenes : []) {
+    const card = parseInt(String(x?.card ?? "").replace(/[^0-9]/g, ""), 10), scene = String(x?.scene ?? "").trim().slice(0, 400);
+    const real = typeof x?.real === "string" && x.real.trim() ? x.real.trim().slice(0, 80) : undefined;
+    if (pictures!.cards.includes(card) && scene && !scenes.some((y) => y.card === card)) scenes.push({ card, scene, ...(real ? { real } : {}) });
+  }
   const out = cards.slice();
   const notes: string[] = [];
   for (const f of Array.isArray(r.json?.fixes) ? r.json.fixes : []) {
@@ -609,8 +632,18 @@ export async function factCheck(ctx: any, topic: string, level: string, title: s
     notes.push(`card ${i}: ${String(f.problem ?? "").slice(0, 300)}`);
   }
   const applied = notes.filter((x) => !x.includes("fix skipped")).length;
-  return { cards: out, report: { status: applied > 0 ? "fixed" : "passed", fixes: applied, notes, model: r.model, at: Date.now() } };
+  return { cards: out, report: { status: applied > 0 ? "fixed" : "passed", fixes: applied, notes, model: r.model, at: Date.now() }, scenes };
 }
+
+// The writer (8 Oct, Tanisha): writer prompt v3 on Gemini 3.8 Flash, with Opus 5.5 at medium effort (the writer until
+// now) as the backup when Gemini fails. A model pinned for a reader's profile or by an A/B test keeps its own model.
+// v3 is v1 edited in place (prompts.ts); on Flash it kept every shape check and cost about ₹1.2 a chapter, without the
+// svg (readers never saw it; card pictures come from images.ts). To switch back: CHAPTER_LIVE = CHAPTER_PROMPT (v1,
+// still in prompts.ts) and CHAPTER_MODEL = undefined (Opus medium).
+// 8 Oct: writer v4 (v3 plus the VOICE AND TENSION section) is live. v1 (CHAPTER_PROMPT) and v3 stay in prompts.ts.
+const CHAPTER_LIVE = CHAPTER_PROMPT_V4;
+const CHAPTER_MODEL: string | undefined = "gemini-3.8-flash";
+const CHAPTER_BACKUP = { model: "claude-opus-5-5", effort: "medium" as const };
 
 export const generateChapter = internalAction({
   args: { handbookId: v.id("handbooks"), n: v.number() },
@@ -623,28 +656,69 @@ export const generateChapter = internalAction({
     // written for them, as before, and it stays theirs.
     const shareable = !prof.line;
     const howTheyDid: string | null = shareable ? null : await ctx.runQuery(internal.handbooks.readingReport, { handbookId, n });
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, shareable ? undefined : prof.line, howTheyDid ?? undefined) + briefForChapter((h as any).brief), model: prof.model ?? h.writer, trace: { handbookId, chapter: n } });
+    const trace = { handbookId, chapter: n };
+    const pinned = prof.model ?? h.writer;
+    const user = chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, shareable ? undefined : prof.line, howTheyDid ?? undefined) + briefForChapter((h as any).brief);
+    let r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_LIVE, user, model: pinned ?? CHAPTER_MODEL, trace });
+    if (!r.ok && !pinned && CHAPTER_MODEL) r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_LIVE, user, ...CHAPTER_BACKUP, trace });
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
     const ch = r.json;
-    const exercises = (ch.cards ?? []).filter((c: any) => c.type === "exercise");
-    // Chapter 1 is reading only (6 Oct): no quizzes required there; later chapters need at least 2.
-    const sane = Array.isArray(ch.cards) && ch.cards.length >= 5 && exercises.length >= (n === 1 || noQuizzes(h.plan) ? 0 : 2) &&
-      exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer));
-    if (!sane) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: "chapter failed the shape check" }); return; }
+    // The chapter comes first (8 Oct, Tanisha: "the quiz is an addition, it cannot be a holdup"). A quiz is kept only when
+    // it is sound (goodQuiz); a bad one is dropped, never failing the chapter. Chapter 1, quick and story chapters keep none.
+    const quizzesWanted = n !== 1 && !noQuizzes(h.plan);
+    const raw: any[] = Array.isArray(ch.cards) ? ch.cards : [];
+    const kept = raw.filter((c) => c?.type !== "exercise" || (quizzesWanted && goodQuiz(c)));
+    const dropped = raw.length - kept.length;
+    if (kept.filter((c) => c?.type !== "exercise").length < 4) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: "chapter failed the shape check" }); return; }
     const title = String(ch.title ?? h.plan.chapters[n - 1]?.title ?? `Chapter ${n}`);
-    // Fresh recall quizzes (new examples) are checked in the same pass, then split off.
-    const recall = (Array.isArray(ch.recallQuizzes) ? ch.recallQuizzes : []).filter((e: any) => e?.type === "exercise" && Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer)).slice(0, 2);
-    // The easier and harder quiz versions are checked in the same pass as the chapter, then split off.
-    const { qv, rv } = await writeVersions(ctx, h.plan, h.plan?.topic ?? h.topic, title, ch.cards, recall, h.writer, { handbookId, chapter: n });
-    const { cards, recallCards, quizTiers, recallTiers, report } = await checkWithVersions(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards, recall, qv, rv, h.writer, { handbookId, chapter: n });
-    const checked = { report };
-    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report, quizTiers, recallTiers });
+    const recall = quizzesWanted || n === 1 ? (Array.isArray(ch.recallQuizzes) ? ch.recallQuizzes : []).filter((e: any) => goodQuiz(e)).slice(0, 2) : [];
+    // One call checks the facts of the cards and the recall quizzes, and writes the picture scenes for this chapter.
+    const pictures = { cards: pictureCards(kept).map((x) => x.i), analogy: noQuizzes(h.plan) ? "" : String(h.plan?.picture?.line ?? h.plan?.picture?.name ?? "") };
+    const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, [...kept, ...recall], { ...(h.writer ? { model: h.writer } : {}), trace, pictures });
+    const cards = checked.cards.slice(0, kept.length), recallCards = checked.cards.slice(kept.length);
+    const report = dropped ? { ...checked.report, notes: [...checked.report.notes, `${dropped} quiz${dropped === 1 ? "" : "zes"} dropped (malformed, or not wanted in this chapter)`] } : checked.report;
+    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), model: r.model, factCheck: report, scenes: checked.scenes.length ? checked.scenes : undefined });
+    // The easier and harder quiz versions come after, in the background: the reader can open the chapter meanwhile, and
+    // gets the standard quizzes until they land (or if they never do).
+    if (cards.some((c: any) => c?.type === "exercise") || recallCards.length) await ctx.scheduler.runAfter(0, internal.handbooks.addQuizVersions, { handbookId, n, shareable });
     if (shareable && n > 1 && !h.test) await ctx.runMutation(internal.library.saveChapter, { handbookId, n });
     // Pictures come after the words. Chapter 1 is drawn now (it opens at once and gives the cover); later chapters are
     // drawn when the reader first opens them (openChapter), so a chapter written but never opened costs no pictures (7 Oct).
     if (n === 1) await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
     // A typed topic's chapter 1 may go into the shared library (plan and chapter 1 only, after a privacy check).
     if (n === 1 && h.source === "live" && !h.fromLibrary && !h.test) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId });
+  },
+});
+
+// The easier and harder quiz versions, after the chapter is saved (8 Oct). Written, fact checked (with the chapter as
+// context, so they test only what it taught) and added to the chapter; for a shared handbook, to its saved copy too.
+export const addQuizVersions = internalAction({
+  args: { handbookId: v.id("handbooks"), n: v.number(), shareable: v.boolean() },
+  handler: async (ctx, { handbookId, n, shareable }) => {
+    const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
+    const ch: any = await ctx.runQuery(internal.handbooks.readChapterRow, { handbookId, n });
+    if (!h?.plan || !ch?.cards || ch.status !== "ready") return;
+    const topic = h.plan?.topic ?? h.topic, title = ch.title ?? "", recall = ch.recallCards ?? [];
+    const trace = { handbookId, chapter: n };
+    const { qv, rv } = await writeVersions(ctx, h.plan, topic, title, ch.cards, recall, h.writer, trace);
+    const lists = [qv?.easier ?? [], qv?.harder ?? [], rv?.easier ?? [], rv?.harder ?? []];
+    const extra = lists.flatMap((l) => l.filter(Boolean));
+    if (!extra.length) return;
+    const checked = await factCheck(ctx, topic, h.level, title, [...ch.cards, ...recall, ...extra], { ...(h.writer ? { model: h.writer } : {}), trace });
+    let at = ch.cards.length + recall.length;
+    const [qe, qh, re, rh] = lists.map((l) => l.map((x: any) => (x ? checked.cards[at++] : null)));
+    await ctx.runMutation(internal.handbooks.setQuizTiers, { handbookId, n, cardsCount: ch.cards.length, quizTiers: qv ? { easier: qe, harder: qh } : undefined, recallTiers: rv ? { easier: re, harder: rh } : undefined });
+    if (shareable && n > 1 && !h.test) await ctx.runMutation(internal.library.saveChapter, { handbookId, n, tiersOnly: true });
+  },
+});
+export const setQuizTiers = internalMutation({
+  args: { handbookId: v.id("handbooks"), n: v.number(), cardsCount: v.number(), quizTiers: v.optional(v.any()), recallTiers: v.optional(v.any()) },
+  handler: async (ctx, { handbookId, n, cardsCount, quizTiers, recallTiers }) => {
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+    // Rewritten in the meantime (a new profile, a refresh): these versions belong to the old cards, so drop them.
+    if (!ch || ch.status !== "ready" || (ch.cards as any[] | undefined)?.length !== cardsCount) return;
+    const tiers = shuffleTiers(quizTiers, `${handbookId}:${n}`), rTiers = shuffleTiers(recallTiers, `${handbookId}:${n}:recall`);
+    await ctx.db.patch(ch._id, { ...(tiers ? { quizTiers: tiers } : {}), ...(rTiers ? { recallTiers: rTiers } : {}) });
   },
 });
 
@@ -682,15 +756,16 @@ export const startChapter = internalMutation({
   },
 });
 export const setChapter = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), title: v.string(), cards: v.any(), recallCards: v.optional(v.any()), outcomeLine: v.string(), svg: v.optional(v.string()), model: v.optional(v.string()), factCheck: v.optional(v.any()), quizTiers: v.optional(v.any()), recallTiers: v.optional(v.any()) },
-  handler: async (ctx, { handbookId, n, title, cards, recallCards, outcomeLine, svg, model, factCheck, quizTiers, recallTiers }) => {
+  args: { handbookId: v.id("handbooks"), n: v.number(), title: v.string(), cards: v.any(), recallCards: v.optional(v.any()), outcomeLine: v.string(), svg: v.optional(v.string()), model: v.optional(v.string()), factCheck: v.optional(v.any()), quizTiers: v.optional(v.any()), recallTiers: v.optional(v.any()), scenes: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), real: v.optional(v.string()) }))) },
+  handler: async (ctx, { handbookId, n, title, cards, recallCards, outcomeLine, svg, model, factCheck, quizTiers, recallTiers, scenes }) => {
     const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     const shuffled = shuffleExercises(cards, `${handbookId}:${n}`);
     const recall = recallCards?.length ? shuffleExercises(recallCards, `${handbookId}:${n}:recall`) : undefined;
     const tiers = shuffleTiers(quizTiers, `${handbookId}:${n}`), rTiers = shuffleTiers(recallTiers, `${handbookId}:${n}:recall`);
-    const versions = { ...(tiers ? { quizTiers: tiers } : {}), ...(rTiers ? { recallTiers: rTiers } : {}) };
-    if (existing) await ctx.db.patch(existing._id, { status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, stale: false, error: undefined, ...versions });
-    else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, createdAt: Date.now(), ...versions });
+    // 8 Oct: versions usually come later (addQuizVersions); a rewrite clears the old ones so they never sit beside new cards.
+    const versions = { quizTiers: tiers ?? undefined, recallTiers: rTiers ?? undefined };
+    if (existing) await ctx.db.patch(existing._id, { status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, scenes, stale: false, error: undefined, ...versions });
+    else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, scenes, createdAt: Date.now(), ...(tiers ? { quizTiers: tiers } : {}), ...(rTiers ? { recallTiers: rTiers } : {}) });
   },
 });
 // ---------- adapting to the reader ----------
@@ -763,6 +838,11 @@ export const readCacheChapter = internalQuery({
   },
 });
 
+// Ready topics to suggest after a decline: the small shelf rows, not the cache table with every chapter in it (8 Oct).
+export const readyTitles = internalQuery({
+  args: {},
+  handler: async (ctx) => (await ctx.db.query("shelf").withIndex("by_kind", (q) => q.eq("kind", "ready")).take(60)).filter((r) => r.published).map((r) => r.topic),
+});
 export const listCache = internalQuery({
   args: {},
   handler: async (ctx) => (await ctx.db.query("cache").collect()).map((r) => ({ topicKey: r.topicKey, level: r.level, topic: r.topic, chapters: r.chapters.map((c: any) => ({ n: c.n, pictures: (c.pictures ?? []).length })) })),
@@ -825,8 +905,18 @@ export const setChapterFailed = internalMutation({
   },
 });
 export const logAiCall = internalMutation({
-  args: { handbookId: v.optional(v.id("handbooks")), chapter: v.optional(v.number()), attempts: v.optional(v.number()), kind: v.string(), model: v.string(), input: v.string(), output: v.string(), tokensIn: v.optional(v.number()), tokensOut: v.optional(v.number()), ms: v.number(), ok: v.boolean(), error: v.optional(v.string()) },
-  handler: async (ctx, args) => { await ctx.db.insert("aiCalls", { ...args, at: Date.now() }); await addCost(ctx, args); },
+  args: { handbookId: v.optional(v.id("handbooks")), chapter: v.optional(v.number()), attempts: v.optional(v.number()), kind: v.string(), model: v.string(), input: v.string(), output: v.string(), tokensIn: v.optional(v.number()), tokensOut: v.optional(v.number()), cachedIn: v.optional(v.number()), ms: v.number(), ok: v.boolean(), error: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    const at = Date.now();
+    await ctx.db.insert("aiCalls", { ...args, at });
+    await addCost(ctx, args);
+    // The small row the admin dashboard reads (8 Oct).
+    await ctx.db.insert("callStats", {
+      at, kind: args.kind, model: args.model, ms: args.ms, ok: args.ok, tokensIn: args.tokensIn ?? 0, tokensOut: args.tokensOut ?? 0,
+      cachedIn: args.cachedIn, attempts: args.attempts, handbookId: args.handbookId, chapter: args.chapter,
+      inr: inrOf(args.model, args.ok, args.tokensIn ?? 0, args.tokensOut ?? 0),
+    });
+  },
 });
 
 // ---------- reading and answering ----------

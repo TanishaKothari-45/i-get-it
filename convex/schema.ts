@@ -25,6 +25,7 @@ export default defineSchema({
     question: v.optional(v.string()),
     intents: v.optional(v.any()),               // { question, goals: [{ label, mode }] } offered before the plan
     goal: v.optional(v.string()),               // the goal the reader tapped or typed
+    goalChosenAt: v.optional(v.number()),       // when they picked, typed or skipped it (8 Oct): research starts after it
     mode: v.optional(v.string()),               // "skill" | "story" | "subject" | "decision"
     fromLibrary: v.optional(v.id("library")),   // started from another reader's shared plan and chapter 1
     experimentId: v.optional(v.id("experiments")),   // an A/B test on chapter 1 of this ready topic (6 Oct)
@@ -59,6 +60,7 @@ export default defineSchema({
     // Runway pictures, one per teaching card (design/style-anchor.md). Drawn after the chapter is ready.
     pictures: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), storageId: v.optional(v.id("_storage")), credit: v.optional(v.string()), source: v.optional(v.string()) }))),
     picturesStatus: v.optional(v.string()),   // "drawing" | "done" | "failed" | "skipped"
+    scenes: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), real: v.optional(v.string()) }))),   // 8 Oct: written by the fact check; pictures are fetched from them when the chapter opens
     quizTiers: v.optional(v.any()),     // { easier: [...], harder: [...] }: one per exercise card, in order (7 Oct)
     recallTiers: v.optional(v.any()),   // the same for recallCards
     factCheck: v.optional(v.object({ status: v.string(), fixes: v.number(), notes: v.array(v.string()), model: v.optional(v.string()), at: v.number() })),  // live chapters: "passed" | "fixed" | "unchecked"
@@ -323,6 +325,23 @@ export default defineSchema({
     inr: v.number(),
   }).index("by_day_model_kind", ["day", "model", "kind"]),
 
+  // One small row per AI or media call (8 Oct): what the admin dashboard reads for latency, retries, failures, tokens
+  // and cost. Written with every aiCalls row; aiCalls keeps the prompt and reply text, too big to scan live.
+  callStats: defineTable({
+    at: v.number(),
+    kind: v.string(),
+    model: v.string(),
+    ms: v.number(),
+    ok: v.boolean(),
+    tokensIn: v.number(),
+    tokensOut: v.number(),
+    cachedIn: v.optional(v.number()),
+    attempts: v.optional(v.number()),
+    handbookId: v.optional(v.id("handbooks")),
+    chapter: v.optional(v.number()),
+    inr: v.number(),
+  }).index("by_at", ["at"]).index("by_handbook", ["handbookId", "at"]),
+
   aiCalls: defineTable({
     kind: v.string(),
     model: v.string(),
@@ -339,6 +358,7 @@ export default defineSchema({
     handbookId: v.optional(v.id("handbooks")),
     chapter: v.optional(v.number()),
     attempts: v.optional(v.number()),
+    cachedIn: v.optional(v.number()),   // input tokens read from Claude's prompt cache (8 Oct; caching is off for now)
   })
     .index("by_at", ["at"])
     .index("by_handbook", ["handbookId", "at"]),

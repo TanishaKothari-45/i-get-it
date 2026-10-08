@@ -21,7 +21,7 @@ const request = v.object({ topic: v.string(), goal: v.optional(v.string()), mode
 // One research call, Gemini only (the live path), so v1 and v2 differ in the prompt alone. No Claude fallback here:
 // a failure is a result.
 export const runOne = internalAction({
-  args: { request, version: v.union(v.literal("v1"), v.literal("v4")), structured: v.optional(v.boolean()), thinking: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("default"))) },
+  args: { request, version: v.union(v.literal("v1"), v.literal("v4"), v.literal("v5")), structured: v.optional(v.boolean()), thinking: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("default"))) },
   handler: async (ctx, { request: r, version, structured = true, thinking }) => {
     const ask = askFor(r);
     const a = await geminiResearch(GEMINI_RESEARCHER, ask, version as Version, structured, thinking ?? GEMINI_THINKING);

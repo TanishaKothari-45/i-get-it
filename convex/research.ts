@@ -81,12 +81,23 @@ One statement in each sentence. At most 20 words. Active voice. Present tense wh
 OUTPUT
 JSON only, with these keys: kind, format, chapters, outline, facts, framing, wikipediaTitle, recapVideo, sources.`;
 
+// Research prompt v5 (8 Oct, under review; LIVE is still v4): v4 plus one sentence in the facts rule. The writer must
+// never invent, so the human material that makes a chapter worth reading (a surprise, a real mistake, an irony) has to
+// come from research. Stated for any topic; when the results have none, none are added.
+export const PROMPT_V5 = PROMPT_V4.replace(
+  `Choose the facts that serve the goal. Never change what a source says to make it fit the goal.`,
+  `Choose the facts that serve the goal. Never change what a source says to make it fit the goal. Among them, include up to 3 true details a curious reader would retell to a friend: a common surprise, a well-known mistake, a real person's moment, or an irony. Put each with its part. If your results have none, add none.`,
+);
+if (PROMPT_V5 === PROMPT_V4) throw new Error("research v5 edit no longer matches v4");
+
 // Which research prompt, with its own output check and search cap. Live handbooks use LIVE; v1 stays for comparison.
-export type Version = "v1" | "v4";
-export const LIVE: Version = "v4";
+export type Version = "v1" | "v4" | "v5";
+// 8 Oct: research v5 (v4 plus up to 3 true details a reader would retell) is live. v1 (PROMPT) and v4 stay here.
+export const LIVE: Version = "v5";
 const SETUP: Record<Version, { prompt: () => string; schema: string; maxSearches: number }> = {
   v1: { prompt: () => PROMPT, schema: "research", maxSearches: 4 },
   v4: { prompt: () => PROMPT_V4, schema: "researchV4", maxSearches: 3 },
+  v5: { prompt: () => PROMPT_V5, schema: "researchV4", maxSearches: 3 },
 };
 
 const STORY = new Set(["film", "series", "book", "game", "franchise", "story"]);   // v1's story kinds, and v4's one
@@ -134,6 +145,9 @@ export const CLAUDE_RESEARCHER = "claude-sonnet-5-5";
 // and latency. "low" and the uncapped default were measured against it: evals/research-thinking/.
 export type Thinking = "low" | "medium" | "high" | "default";
 export const GEMINI_THINKING: Thinking = "medium";
+// Time budget (8 Oct): every Gemini try for one research step (both keys, the wait between rounds, the schema retry)
+// shares 120 s. Past it, Claude takes over, so a busy Gemini never keeps a reader waiting minutes for a plan.
+const GEMINI_RESEARCH_BUDGET = 120000;
 type Attempt = { decided: any; searches: number; grounded?: number; queries?: string[]; tokensIn: number; tokensOut: number; error?: string; model: string; ms: number };
 
 const REDIRECT = /vertexaisearch\.cloud\.google\.com\/grounding-api-redirect/;
@@ -144,14 +158,16 @@ async function realUrl(u: string): Promise<string> {
 }
 const parse = (text: string) => { const m = text.match(/\{[\s\S]*\}/); try { return m ? JSON.parse(m[0]) : null; } catch { return null; } };
 
-async function geminiOnce(model: string, ask: string, version: Version = LIVE, structured = true, thinking: Thinking = GEMINI_THINKING) {
+async function geminiOnce(model: string, ask: string, version: Version = LIVE, structured = true, thinking: Thinking = GEMINI_THINKING, deadline = Date.now() + GEMINI_RESEARCH_BUDGET) {
   const { prompt, schema } = SETUP[version];
   const keys = [process.env.GEMINI_API_KEY, process.env.GEMINI_API_KEY_BACKUP].filter(Boolean) as string[];
   if (!keys.length) return { body: null, error: "no Gemini key set" };
   let body: any = null, error: string | undefined;
   for (let i = 0; i < 2 * keys.length; i++) {
+    const left = deadline - Date.now();
+    if (left < 5000) { error = `Gemini time budget used up (${GEMINI_RESEARCH_BUDGET / 1000} s)`; break; }
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: "POST", signal: AbortSignal.timeout(90000),
+      method: "POST", signal: AbortSignal.timeout(Math.min(90000, left)),
       headers: { "Content-Type": "application/json", "x-goog-api-key": keys[i % keys.length] },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: prompt() }] }, contents: [{ role: "user", parts: [{ text: ask }] }],
@@ -163,19 +179,21 @@ async function geminiOnce(model: string, ask: string, version: Version = LIVE, s
     if (res.ok) { error = undefined; break; }
     error = `Gemini ${res.status} (${i % keys.length ? "backup key" : "main key"}): ${JSON.stringify(body).slice(0, 200)}`;
     if (res.status !== 503 && res.status !== 429 && res.status !== 0) break;
-    if (i % keys.length === keys.length - 1) await new Promise((x) => setTimeout(x, 10000));   // both keys tried: wait, then again
+    if (i % keys.length === keys.length - 1 && deadline - Date.now() > 20000) await new Promise((x) => setTimeout(x, 10000));   // both keys tried: wait, then again
   }
   return { body, error };
 }
 
 export async function geminiResearch(model: string, ask: string, version: Version = LIVE, structured = true, thinking: Thinking = GEMINI_THINKING): Promise<Attempt> {
   const started = Date.now();
+  const deadline = started + GEMINI_RESEARCH_BUDGET;
   const { schema } = SETUP[version];
   let tokensIn = 0, tokensOut = 0, searches = 0, grounded = 0, decided: any = null, error: string | undefined;
   const queries: string[] = [];
   for (let attempt = 0; attempt < 2; attempt++) {
+    if (attempt && deadline - Date.now() < 10000) break;   // no time left for the schema retry: Claude takes over
     const wrongBefore = attempt ? problems(schema, decided) : null;
-    const { body, error: e } = await geminiOnce(model, wrongBefore ? `${ask}\n\nYour previous reply did not match the required JSON shape:\n${wrongBefore}\nReturn the whole JSON object again, with these fixed.` : ask, version, structured, thinking);
+    const { body, error: e } = await geminiOnce(model, wrongBefore ? `${ask}\n\nYour previous reply did not match the required JSON shape:\n${wrongBefore}\nReturn the whole JSON object again, with these fixed.` : ask, version, structured, thinking, deadline);
     if (e || !body) { error = e ?? "no reply"; break; }
     const cand = body.candidates?.[0];
     const u = body.usageMetadata ?? {};

@@ -21,6 +21,7 @@ const PER_CALL: Record<string, number> = {           // ₹ per successful call
   gen4_image: 4.2,        // Runway, 5 credits
   gen4_image_turbo: 1.7,  // Runway, 2 credits
   supadata: 0,            // YouTube transcripts, free tier
+  wikimedia: 0,           // Commons photos, free (logged for their time, 8 Oct)
 };
 
 export function providerOf(model: string) {
@@ -32,6 +33,7 @@ export function providerOf(model: string) {
   if (m.startsWith("tic:") || m.includes("deepseek")) return "The Inference Company";
   if (m.includes("image") || m.startsWith("gen4") || m.startsWith("muse")) return "Runway";
   if (m.includes("supadata")) return "Supadata";
+  if (m.includes("wikimedia")) return "Wikimedia";
   return "Other";
 }
 
