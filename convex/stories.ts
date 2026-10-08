@@ -8,15 +8,17 @@ import { factCheck } from "./handbooks";
 // check as a chapter, and kept on its cache row (waitStories) so the Shelf's syncReady carries them to the wait screen.
 // Picture: the handbook's own chapter pictures (one per story), never a new draw. About ₹3 a story on Opus medium.
 // Build all: npx convex run --prod stories:buildAll '{}'   One: npx convex run --prod stories:buildFor '{"topic":"Chess"}'
-export const STORY_PROMPT = `You write three short true stories for people waiting a minute while their own handbook is written. Each is a TEASER STORY, never a summary: the kind of thing a friend tells you and you say "wait, what?"
+export const STORY_PROMPT = `You write up to four short true stories for people waiting a minute while their own handbook is written (the best three are kept after a fact check). Each is a TEASER STORY, never a summary: the kind of thing a friend tells you and you say "wait, what?"
 
-Shape, in this order, one frame each unless noted: (1) The contradiction, one sentence: a thing the reader thinks they know, stated as false or backwards ('The Malabar parota is not from Malabar'). (2) The stakes, one sentence: why it matters or what it cost, with a number ('…a forgotten famine that killed 90,000 people'). (3) The anchor: something the reader already knows, named ('If you've seen Bridge on the River Kwai, you know that in 1942 Japan took Burma'), then 'What you might not know is…'. (4 to 6) The chain of consequences: each frame one link, joined by because and so, with a date, a place and a number in each ('Burma was their rice bowl… so when Burma fell the rice vanished overnight… so the British pushed wheat…'). (7) One named expert or source with one specific claim, in your own words, never a quote. (8) The widening: where it went next, or what it became, in one frame. (9) Return to the contradiction and answer it in one plain sentence, then one warm last line that gives the reader back the thing they love ('And it's delicious anyway'). Every frame pushes the chain forward; no frame restates a previous one. Second person where it helps ('every time you…'). 6 to 9 frames, 40 to 60 words each. The story's subject is a hidden cause behind a familiar thing from this handbook's world: a name, a habit, a rule, a dish, a number everyone uses; never a biography and never a list of facts. The last frame also names the handbook chapter it points at.
+Shape, in this order, one frame each unless noted: (1) The contradiction, one sentence: a thing the reader thinks they know, stated as false or backwards ('The Malabar parota is not from Malabar'). (2) The stakes, one sentence: why it matters or what it cost, with a number ('…a forgotten famine that killed 90,000 people'). (3) The anchor: something the reader already knows, named ('If you've seen Bridge on the River Kwai, you know that in 1942 Japan took Burma'), then 'What you might not know is…'. (4 to 6) The chain of consequences: each frame one link, joined by because and so, with a date, a place and a number in each ('Burma was their rice bowl… so when Burma fell the rice vanished overnight… so the British pushed wheat…'). (7) One named expert or source with one specific claim, in your own words, never a quote. (8) The widening: where it went next, or what it became, in one frame. (9) Return to the contradiction and answer it in one plain sentence, then one warm last line that gives the reader back the thing they love ('And it's delicious anyway'). Every frame pushes the chain forward; no frame restates a previous one. Second person where it helps ('every time you…'). 6 to 9 frames, 40 to 60 words each. The story's subject is a hidden cause behind a familiar thing from this handbook's world: a name, a habit, a rule, a dish, a number everyone uses; never a biography and never a list of facts. The last frame also names the handbook chapter it points at, as a sentence, never a label: "That's chapter 2, The fire spreads." never "Chapter: The fire spreads."
+
+Numbers: an invented person may want, do and decide, but never carries a number. Every number in the story comes from the handbook's facts, its chapter cards or the named source.
 
 Truth: only events, names, numbers and dates that the handbook's chapters, its research facts or a source you can name support. You may use well-established history you can cite by name (a standard reference, an official body, a well-known book), and you name it. If you are not sure of a detail, leave it out. Never invent a person, a quote, a number or a date.
 
 Variety: the three stories come from three DIFFERENT chapters of the handbook, not three retellings of the cover fact. Pick the three most surprising true moments the material holds. If the material has fewer, write fewer, or none.
 
-Return JSON only: {"stories":[{"title":"<the contradiction, under 10 words>","chapter":"<the chapter it points at>","frames":["...","...","...","...","...","..."],"source":"<the named expert or source>"}]}`;
+Return JSON only (up to four stories): {"stories":[{"title":"<the contradiction, under 10 words>","chapter":"<the chapter it points at>","frames":["...","...","...","...","...","..."],"source":"<the named expert or source>"}]}`;
 
 export const readReady = internalQuery({
   args: { topic: v.string() },
@@ -44,11 +46,12 @@ export const buildFor = internalAction({
     const user = `Handbook: ${r.topic}\nOutcome: ${r.plan?.outcome7 ?? ""}\nListed sources:\n${sources || "(none)"}\n\nChapters:\n${r.text}\n\nWrite the three stories.`;
     const g: any = await ctx.runAction(internal.ai.generate, { kind: "stories", system: STORY_PROMPT, user, logAs: "stories" });
     if (!g.ok) return { ok: false, error: g.error };
-    const raw: any[] = (g.json?.stories ?? []).filter((s: any) => Array.isArray(s?.frames) && s.frames.length >= 3).slice(0, 3);
+    const raw: any[] = (g.json?.stories ?? []).filter((s: any) => Array.isArray(s?.frames) && s.frames.length >= 3).slice(0, 4);
     // The same fact check as a chapter, frame by frame (each frame as a teach card); a corrected frame replaces its original.
     const cards = raw.flatMap((s: any) => s.frames.map((f: string) => ({ type: "teach", title: s.title, body: f })));
     // Level "some": the check's beginner-term rule (explain every term of art) is not a truth test; only false claims count.
-    const checked = await factCheck(ctx, r.topic, "some", "Wait stories", cards, { effort: "low" });
+    // The check sees the handbook's own chapters, so a name or a number in a story can be matched to the cards it came from.
+    const checked = await factCheck(ctx, r.topic, "some", "Wait stories", cards, { effort: "low", reference: r.text.slice(0, 12000) });
     let k = 0;
     // D29a: a story with a claim the check could not stand behind is dropped, never softened. The check's own notes say
     // when a claim is false or unsupported ("not true", "no evidence", "not established", "invented"…); a note that only
@@ -63,6 +66,7 @@ export const buildFor = internalAction({
       if (bad || frames.length < 4) return;
       stories.push({ title: String(s.title).slice(0, 80), chapter: String(s.chapter ?? "").slice(0, 120), frames, source: String(s.source ?? "").slice(0, 120), storageId: r.pictures[i % Math.max(1, r.pictures.length)] ?? undefined });
     });
+    stories.splice(3);   // the best three stay (the writer gave up to four)
     await ctx.runMutation(internal.stories.save, { id: r.id, topic: r.topic, stories });
     return { ok: true, stories: stories.map((s: any) => ({ title: s.title, chapter: s.chapter, frames: s.frames, source: s.source })), dropped: raw.length - stories.length, fixes: checked.report.fixes, notes: checked.report.notes, candidates: raw.map((s: any) => ({ title: s.title, chapter: s.chapter, frames: s.frames, source: s.source })) };
   },

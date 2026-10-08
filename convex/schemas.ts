@@ -117,7 +117,7 @@ export const researchV4 = z.looseObject({
 export const library = z.looseObject({ share: z.boolean(), why: z.string().optional() });
 
 // D29 (9 Oct): three true, little-known stories for the writing-wait screen, 4 to 6 frames each.
-export const stories = z.looseObject({ stories: z.array(z.looseObject({ title: str, chapter: z.string().optional(), frames: z.array(str).min(4).max(10), source: str })).min(1).max(4) });
+export const stories = z.looseObject({ stories: z.array(z.looseObject({ title: str, chapter: z.string().optional(), frames: z.array(str).min(4).max(10), source: str })).min(1).max(5) });
 
 export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact, move, researchV4, library, stories };
 

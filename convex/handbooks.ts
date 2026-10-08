@@ -687,10 +687,12 @@ function validFix(orig: any, fixed: any): boolean {
 }
 type Scene = { card: number; scene: string; real?: string };
 // With opts.pictures, the same call also writes the picture scenes for the listed cards (8 Oct, Tanisha: one call, not two).
-export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max"; trace?: Trace; pictures?: { cards: number[]; analogy: string } } = {}): Promise<{ cards: any[]; report: FactReport; scenes: Scene[] }> {
-  const { pictures, ...callOpts } = opts;
+export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max"; trace?: Trace; pictures?: { cards: number[]; analogy: string }; reference?: string } = {}): Promise<{ cards: any[]; report: FactReport; scenes: Scene[] }> {
+  const { pictures, reference, ...callOpts } = opts;
   const withScenes = !!pictures?.cards.length;
-  const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: withScenes ? CHECK_SCENES_PROMPT : CHECK_PROMPT, user: checkUserMessage(topic, level, { title, cards }, withScenes ? pictures : undefined), ...callOpts });
+  // reference (D29c): material the cards must agree with (a handbook's own chapters, for its wait stories).
+  const user = checkUserMessage(topic, level, { title, cards }, withScenes ? pictures : undefined) + (reference ? `\n\nReference material these cards must agree with (names and numbers in the cards should trace to it or to a named source):\n${reference}` : "");
+  const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: withScenes ? CHECK_SCENES_PROMPT : CHECK_PROMPT, user, ...callOpts });
   if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() }, scenes: [] };
   const scenes: Scene[] = [];
   for (const x of withScenes && Array.isArray(r.json?.scenes) ? r.json.scenes : []) {
