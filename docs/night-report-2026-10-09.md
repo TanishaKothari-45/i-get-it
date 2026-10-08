@@ -7,6 +7,15 @@ Read this first. Session dc coordinated the night (D19). Every decision taken in
 1. /admin opens for you again after signing in with your usual password (D18). If it still says denied, sign in once by email code and tell dc.
 2. The path: landing → chapter 1 → Done wall → sign-in. scripts/prove-path.mjs passed on prod at 00:05.
 
+## Numbers (admin:numbers, pulled 00:20 IST)
+
+| Day | Visitors | Started | Passed chapter 1 | Started chapter 2 | Signed up | Tapped Pay |
+|---|---|---|---|---|---|---|
+| 8 Oct | 88 (78 direct, 5 ig, 2 growthx) | 54 | 15 | 4 | 0 | 0 |
+| 9 Oct, first 20 min | 5 | 5 | 1 | | 0 | 0 |
+
+Caution: 78 "direct" visitors on a day with no post out likely includes our own review agents (asked 05 and 55 to confirm whether their runs carried utm_source=internal). Read the sign-up count, not the visitor count. The wall moved to after chapter 1 at 20:37; nobody has signed up since. The wall_tap event (00:15) will show taps against sign-ups from its deploy on.
+
 ## Waits on you (in order)
 
 1. Live posts and the X ad still say "First 3 free, no sign-up"; false since 20:37 (D14). a2 lists every place below.
