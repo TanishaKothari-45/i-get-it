@@ -30,6 +30,9 @@ Caution: /admin's 88 visitors include our own review agents (05 alone ran about 
 
 ## Session dc (coordinator)
 
+Final state at 05:2x: every deploy of the night is out and prove-path passes on prod. Spend taken in your stead tonight: stories about ₹570 (71 stories, 24 topics, the new shape), the Flash-versus-Opus run about ₹410 on dev including judging, the dal rebuilds and test handbooks under ₹60. Decisions D18 to D33 in docs/decisions.md, each with its reasoning; lessons for the night in docs/lessons.md.
+
+
 - Admin access restored (D18). Deploy queue and git rule for a shared tree (D19): no pull, no stash, stage own files by name.
 - D21: the Shelf gets a real button and a count strip (your 00:4x ask; 05 builds). D22: your test payment no longer counts toward the early-bird tiers, so the counter reads 50 of 50 (55 builds).
 - D30 result, D31 and D33: the Flash-versus-Opus walk is written up at https://claude.ai/artifact/Qp3SdSnsgPux5NRmAYh9NT (private to you). Judge: Opus medium about 8 a chapter, Flash with floors about 5.8 with one failure; plans and chapters are back on Opus medium, Flash keeps research; seven topic-neutral prompt rules edited (convex/prompts.ts), four pipeline rules built by 55.
