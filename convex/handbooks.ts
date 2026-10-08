@@ -580,8 +580,12 @@ export const generatePlan = internalAction({
       await ctx.runAction(internal.research.run, { handbookId }).catch((e: any) => console.log("research failed", String(e).slice(0, 200)));
       h = (await ctx.runQuery(internal.handbooks.readHandbook, { handbookId })) ?? h;
     }
-    const brief = (h as any).brief ?? null;
-    const planUser = planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief);
+    let brief = (h as any).brief ?? null;
+    // D23 guard on the typed line (9 Oct): "how to make/cook/bake X", "X recipe" is one sitting whatever the research
+    // labelled it (Flash called "how to make dal" a skill and planned 7 chapters). The brief is overridden for the plan.
+    const oneOff = /^(how (do i|to) (make|cook|bake|prepare|fry|boil|roast|grill|fix|repair|install|set ?up|tie|fold|clean|wash|change|replace|assemble)\b|.*\brecipe\b)/i.test(h.topic.trim());
+    if (oneOff && brief && (brief.format !== "quick" || Number(brief.chapters) !== 1 || !["howto", "recipe", "event", "person"].includes(String(brief.kind)))) brief = { ...brief, kind: "howto", format: "quick", chapters: 1 };
+    const planUser = planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief) + (oneOff ? `\n\nThis is a one-sitting handbook: "format" is "quick" and "chapters" has exactly ONE item holding every step, starting with a doit checklist titled "What you need".` : "");
     let r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUser, model: h.writer ?? PLAN_MODEL, trace: { handbookId } });
     if (!r.ok && !h.writer && PLAN_MODEL) r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUser, ...PLAN_BACKUP, trace: { handbookId } });
     // Claude's own safety check said no: say so plainly, never "try again".
@@ -604,6 +608,14 @@ export const generatePlan = internalAction({
     // D27 (9 Oct): a skill, a subject or a money/health/legal brief is a course of 7, whatever the model returned; one
     // more try with that said, then the Opus backup, then whatever came back (a short plan beats no plan).
     const mustBeCourse = ["skill", "subject", "money", "health", "legal"].includes(String(brief?.kind ?? ""));
+    // D23 guard (9 Oct): a recipe, a how-to or any one-off task is ONE chapter with every step; a plan that split it
+    // (the rebuilt dal came back as 4) is asked again, once, with that said.
+    const mustBeOne = ["howto", "recipe", "event", "person"].includes(String(brief?.kind ?? "")) && brief?.format === "quick";
+    if (mustBeOne && Array.isArray(plan.chapters) && plan.chapters.length > 1) {
+      const forced = planUser + `\n\nThis is a one-sitting handbook (${brief.kind}): "format" is "quick" and "chapters" has exactly ONE item that holds every step, with blocks starting with a doit checklist titled "What you need". You returned ${plan.chapters.length} chapters.`;
+      const r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: forced, model: h.writer ?? PLAN_MODEL, trace: { handbookId }, logAs: "plan" });
+      if (r2.ok && Array.isArray(r2.json?.chapters) && r2.json.chapters.length === 1) Object.assign(plan, r2.json);
+    }
     if (mustBeCourse && Array.isArray(plan.chapters) && plan.chapters.length < CHAPTERS) {
       const forced = planUser + `\n\nThis is a course (${brief.kind}): "format" is "course" and "chapters" has exactly 7 items. You returned ${plan.chapters.length}.`;
       let r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: forced, model: h.writer ?? PLAN_MODEL, trace: { handbookId }, logAs: "plan" });

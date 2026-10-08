@@ -8,11 +8,20 @@ import { factCheck } from "./handbooks";
 // check as a chapter, and kept on its cache row (waitStories) so the Shelf's syncReady carries them to the wait screen.
 // Picture: the handbook's own chapter pictures (one per story), never a new draw. About ₹3 a story on Opus medium.
 // Build all: npx convex run --prod stories:buildAll '{}'   One: npx convex run --prod stories:buildFor '{"topic":"Chess"}'
-export const STORY_PROMPT = `You write three short true stories for people waiting a minute while their own handbook is written. Each story is something most people have not heard: a real moment, a real person's decision, a surprising fact with its consequence, drawn ONLY from the handbook material you are given (its chapters and its listed sources). Never invent a person, a number, a date or a quote. If the material has no such story, write fewer, or none.
+export const STORY_PROMPT = `You write three short true stories for people waiting a minute while their own handbook is written. Each is a TEASER STORY, never a summary: the kind of thing a friend tells you and you say "wait, what?"
 
-Each story: a title (under 8 words), 4 to 6 frames of 40 to 60 words each (a frame is one phone screen), opening on the surprising fact itself, told plainly like a friend who knows the subject, ending with one frame that names where it comes from (the chapter or the listed source). Plain words, short sentences, no emoji, no headings.
+Shape, every story:
+- Frame 1 opens INSIDE a moment: a person, a place and a date, where something is about to go wrong or is already strange. Never "In 1944, X happened"; start where the reader can see and hear it.
+- Frames 2 to 4 raise ONE question and hold it, one turn per frame, with concrete details: a number, a name, an object, a time of day.
+- Frame 5 pays it off with the surprising true thing.
+- The last frame is one line that points at the handbook ("That's chapter 3 of World War II: the bet Hitler lost in a week") and names the source.
+- 40 to 60 words a frame; 5 or 6 frames. Short sentences. Present tense allowed. No "fascinatingly", no "incredible"; no adjective does the work a fact should do. No emoji, no headings.
 
-Return JSON only: {"stories":[{"title":"...","frames":["...","...","...","..."],"source":"<the chapter title or the listed source it comes from>"}]}`;
+Truth: only events, names, numbers and dates that the handbook's chapters, its research facts or a source you can name support. You may use well-established history you can cite by name (a standard reference, an official body, a well-known book), and you name it. If you are not sure of a detail, leave it out. Never invent a person, a quote, a number or a date.
+
+Variety: the three stories come from three DIFFERENT chapters of the handbook, not three retellings of the cover fact. Pick the three most surprising true moments the material holds. If the material has fewer, write fewer, or none.
+
+Return JSON only: {"stories":[{"title":"<under 8 words>","chapter":"<the chapter it points at>","frames":["...","...","...","...","..."],"source":"<the named source>"}]}`;
 
 export const readReady = internalQuery({
   args: { topic: v.string() },
@@ -45,15 +54,26 @@ export const buildFor = internalAction({
     const cards = raw.flatMap((s: any) => s.frames.map((f: string) => ({ type: "teach", title: s.title, body: f })));
     const checked = await factCheck(ctx, r.topic, "new", "Wait stories", cards, { effort: "low" });
     let k = 0;
-    const stories = raw.map((s: any, i: number) => ({ title: String(s.title).slice(0, 80), frames: s.frames.map(() => String(checked.cards[k++]?.body ?? "")).filter(Boolean), source: String(s.source ?? "").slice(0, 120), storageId: r.pictures[i % Math.max(1, r.pictures.length)] ?? undefined }));
+    // D29a: a story with any claim the check could not stand behind is dropped, never softened (a fix on a frame = unverified).
+    const fixedIdx = new Set((checked.report.notes ?? []).map((x: string) => Number(String(x).match(/card (\d+)/)?.[1])).filter((x: number) => Number.isInteger(x)));
+    const stories: any[] = [];
+    raw.forEach((s: any, i: number) => {
+      const start = k; const frames = s.frames.map(() => String(checked.cards[k++]?.body ?? "")).filter(Boolean);
+      const touched = Array.from({ length: s.frames.length }, (_, j) => start + j).some((idx) => fixedIdx.has(idx));
+      if (touched || frames.length < 4) return;
+      stories.push({ title: String(s.title).slice(0, 80), chapter: String(s.chapter ?? "").slice(0, 120), frames, source: String(s.source ?? "").slice(0, 120), storageId: r.pictures[i % Math.max(1, r.pictures.length)] ?? undefined });
+    });
     await ctx.runMutation(internal.stories.save, { id: r.id, topic: r.topic, stories });
-    return { ok: true, stories: stories.map((s: any) => ({ title: s.title, frames: s.frames.length, source: s.source })), fixes: checked.report.fixes };
+    return { ok: true, stories: stories.map((s: any) => ({ title: s.title, chapter: s.chapter, frames: s.frames, source: s.source })), dropped: raw.length - stories.length, fixes: checked.report.fixes };
   },
 });
 export const readyTopics = internalQuery({ args: {}, handler: async (ctx) => [...new Set((await ctx.db.query("cache").collect()).filter((r) => r.level === "new").map((r) => r.topic))] });
 export const buildAll = internalAction({
   args: { topics: v.optional(v.array(v.string())), done: v.optional(v.number()) },
   handler: async (ctx, { topics, done = 0 }): Promise<void> => {
+    // Hold switch (dc, 9 Oct): a settings row "stories:hold" stops the chain between topics.
+    const hold: string | null = await ctx.runQuery(internal.repairData.shrunkFor, { from: "stories:hold" });
+    if (hold) { console.log("stories: held"); return; }
     const list: string[] = topics ?? (await ctx.runQuery(internal.stories.readyTopics, {}));
     const [head, ...rest] = list;
     if (!head) { console.log(`stories: ${done} topics done`); return; }

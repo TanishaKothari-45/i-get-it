@@ -73,9 +73,14 @@ export const waitStory = query({
       .filter((r) => (r.stories ?? []).length && r.title.toLowerCase() !== ex && r.topic.toLowerCase() !== ex);
     if (!rows.length) return null;
     const n = Math.abs(Math.floor(seed));
-    const r = rows[n % rows.length];
+    // D29a: the scroll moves between genres: pick a kind first (by the plan's mode and caution), then a handbook in it, then a story.
+    const kindOf = (r: any) => (r.caution && r.caution !== "none" ? "decision" : r.mode === "story" ? "story" : r.mode === "skill" ? "skill" : "subject");
+    const kinds = [...new Set(rows.map(kindOf))];
+    const kind = kinds[n % kinds.length];
+    const inKind = rows.filter((r) => kindOf(r) === kind);
+    const r = inKind[Math.floor(n / kinds.length) % inKind.length];
     const list = r.stories as any[];
-    const st = list[Math.floor(n / rows.length) % list.length];
+    const st = list[Math.floor(n / (kinds.length * inKind.length)) % list.length];
     const frames: string[] = Array.isArray(st.frames) && st.frames.length ? st.frames : String(st.text ?? "").split(/\n\s*\n/).filter(Boolean);
     return {
       topic: r.title, key: r.key, kind: r.kind, title: st.title ?? null, frames, text: frames.join("\n\n"), source: st.source ?? null,

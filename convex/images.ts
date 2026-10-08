@@ -288,8 +288,17 @@ export const shrinkAll = internalAction({
 export const deleteShrunkOriginals = internalAction({
   args: {},
   handler: async (ctx): Promise<{ deleted: number; kept: number }> => {
-    const referenced: string[] = await ctx.runQuery(internal.repairData.allPictureIds, {});
-    const keep = new Set(referenced);
+    // Referenced ids, table by table and page by page (one big scan in a query blew the read limit).
+    const keep = new Set<string>();
+    for (const table of SHRINK_TABLES) {
+      let c: string | null = null;
+      for (;;) {
+        const page: { rows: { id: string; ids: string[] }[]; cursor: string | null; done: boolean } = await ctx.runQuery(internal.repairData.pictureRefs, { table, cursor: c });
+        for (const row of page.rows) for (const id of row.ids) keep.add(id);
+        c = page.cursor;
+        if (page.done) break;
+      }
+    }
     let cursor: string | null = null, deleted = 0, kept = 0;
     for (;;) {
       const page: { rows: { from: string }[]; cursor: string | null; done: boolean } = await ctx.runQuery(internal.repairData.shrunkPage, { cursor });
