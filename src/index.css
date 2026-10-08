@@ -836,7 +836,7 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .doit-feel { display: flex; flex-direction: column; gap: 8px; }
 .doit-feel-row { display: flex; gap: 8px; }
 .doit-feel-row .story-opt { min-height: 52px; justify-content: center; padding: 10px; }
-.doit-later { align-self: flex-start; margin-top: 4px; }
+.doit-later { align-self: flex-start; margin-top: 4px; color: inherit; opacity: 0.85; text-decoration: underline; text-underline-offset: 3px; }
 
 .story-next { background: none; border: 0; color: inherit; font: inherit; font-weight: 700; padding: 10px 14px; margin: -10px -14px -10px auto; border-radius: 999px; min-height: 44px; }
 .story-next:active { opacity: 0.6; }
