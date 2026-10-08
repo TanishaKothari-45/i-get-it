@@ -9,6 +9,7 @@ import { recentSocial } from "./social";
 
 const limiter = new RateLimiter(components.rateLimiter, {
   visitsAll: { kind: "fixed window", rate: 3000, period: HOUR },   // a made-up token per call can't flood the count past this
+  excludeAll: { kind: "fixed window", rate: 60, period: HOUR },    // "This is my phone" taps app-wide (8 Oct night, audit: the table is read in full by the landing page)
 });
 
 const IST_MS = 5.5 * HOUR;
@@ -50,6 +51,11 @@ export const excludeMe = mutation({
   args: { deviceToken: v.string() },
   handler: async (ctx, { deviceToken }) => {
     if (deviceToken.length < 8 || deviceToken.length > 64) return;
+    // Once per phone, and capped app-wide: every public page collects this table, so it must not grow from a loop
+    // (8 Oct night, security audit). A by_token index would be tidier; the table stays small enough to filter for now.
+    const already = await ctx.db.query("statsExcluded").filter((q) => q.eq(q.field("deviceToken"), deviceToken)).first();
+    if (already) return;
+    if (!(await limiter.limit(ctx, "excludeAll")).ok) return;
     const userId = await getAuthUserId(ctx);
     await ctx.db.insert("statsExcluded", { deviceToken, userId: userId ?? undefined, at: Date.now() });
   },

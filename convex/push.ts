@@ -1,5 +1,14 @@
 import { v } from "convex/values";
 import { internalMutation, internalQuery, mutation, query } from "./_generated/server";
+import { RateLimiter } from "@convex-dev/rate-limiter";
+import { components } from "./_generated/api";
+
+// Reminder saves are capped (8 Oct night, security audit): each row holds an endpoint we later POST to, so a loop
+// could fill the table with attacker-chosen hosts. A phone changes its time a few times at most.
+const limiter = new RateLimiter(components.rateLimiter, {
+  pushDevice: { kind: "fixed window", rate: 10, period: 60 * 60 * 1000 },
+  pushAll: { kind: "fixed window", rate: 300, period: 60 * 60 * 1000 },
+});
 
 // Reminders by web push (6 Oct). The phone subscribes after the reader picks a time on the Done screen; a job every
 // 10 minutes (crons.ts -> pushSend.sendDue) sends "your next chapter is ready" at that local time, once a day, and stays
@@ -14,6 +23,7 @@ export const saveReminder = mutation({
   },
   handler: async (ctx, { deviceToken, at, tzOffsetMin, handbookId, subscription }) => {
     if (!/^\d{2}:\d{2}$/.test(at) || deviceToken.length < 8 || deviceToken.length > 64 || !subscription.endpoint.startsWith("https://")) throw new Error("Bad reminder");
+    if (!(await limiter.limit(ctx, "pushDevice", { key: deviceToken })).ok || !(await limiter.limit(ctx, "pushAll")).ok) throw new Error("busy");
     if (handbookId) {
       const h = await ctx.db.get(handbookId);
       if (!h || h.ownerToken !== deviceToken) handbookId = undefined;
