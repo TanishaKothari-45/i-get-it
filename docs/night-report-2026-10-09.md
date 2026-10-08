@@ -6,7 +6,7 @@ Read this first. Session dc coordinated the night (D19). Every decision taken in
 
 0. "How to make dal" on prod, after 55 and 05 deploy D23: one chapter, ingredients first, steps with quantities, no timer or animated-bowl cards, no sign-up wall mid-recipe. Then type "how to make maggi" as a fresh visitor and expect the same shape.
 1. /admin opens for you again after signing in with your usual password (D18). If it still says denied, sign in once by email code and tell dc.
-2. The path: landing → chapter 1 → Done wall → sign-in. scripts/prove-path.mjs passed on prod at 00:05.
+2. The path: landing → chapter 1 → chapter 2 → Done wall → sign-in (D26 moved the wall to after chapter 2 at your 01:4x ask). scripts/prove-path.mjs passed on prod at 00:05.
 
 ## Numbers (admin:numbers, pulled 00:20 IST)
 
