@@ -137,7 +137,11 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   // The next two frames' pictures are warmed as each frame lands (8 Oct night, critique: an empty plate with a hard shadow
   // mid-chapter is the opposite of a Reel that is "already there"). The browser caches them; no state, no layout.
   useEffect(() => {
-    for (const k of [i + 1, i + 2]) {
+    // On a slow or metered connection the warm-up would fight the picture on screen for the pipe: none on 2G or with
+    // data saver on, one frame ahead on 3G, two otherwise.
+    const c: any = (navigator as any).connection
+    const ahead = c?.saveData || /2g/.test(c?.effectiveType ?? '') ? 0 : c?.effectiveType === '3g' ? 1 : 2
+    for (let k = i + 1; k <= i + ahead; k++) {
       const f = frames[k]
       if (!f || f.item.recall || f.part !== 0) continue
       const src = pictures[f.item.cardIndex]
