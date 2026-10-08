@@ -13,7 +13,8 @@ export default function NextTopics({ topic, deviceToken, extra = [], onReady, on
   if (!related.length && !typed.length) return null
   const links = [
     ...related.map((r) => ({ key: r.topic, label: r.topic, go: () => (r.kind === 'shared' && r.id ? onShared(r.id) : onReady(r.topic)) })),
-    ...typed.map((t) => ({ key: t, label: t, go: () => onTyped(t) })),
+    // A typed suggestion writes a new handbook and uses the reader's typed allowance, so it says so (review #40, 8 Oct).
+    ...typed.map((t) => ({ key: t, label: `${t} (writes a new one)`, go: () => onTyped(t) })),
   ]
   return (
     <p className="sources next-topics"><span className="label">Jump to next</span>{' '}
