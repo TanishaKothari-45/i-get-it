@@ -16,7 +16,7 @@ Scope widened by Prateek, 6 Oct evening ("expand the scope to reduce friction"):
 When I report a bug, I'll name the part. Look there first, and tell me if you think I named the wrong one.
 
 ## 2. How we work
-- Read PRODUCT.md, PLAN.md, PROGRESS.md and docs/decisions.md before anything else, and DESIGN.md before any screen work. docs/decisions.md is the record of decisions and learnings (why, not what); append to it at the end of every session, newest day first. IDEA_SCOPE.md and docs/*.md outside the handbook chapters are superseded; don't build from them.
+- Read PRODUCT.md, PLAN.md, PROGRESS.md and docs/decisions.md before anything else, and DESIGN.md before any screen work. docs/decisions.md is the record of decisions (why we chose what we chose; lessons go in docs/lessons.md); append to it at the end of every session, newest day first. IDEA_SCOPE.md and docs/*.md outside the handbook chapters are superseded; don't build from them.
 - Before writing code, say in two or three sentences what you think I'm after, then your plan. Wait for my yes. (Night of 4 Oct: Prateek asleep and has authorised decisions in his stead; every such decision is written in PROGRESS.md under "Decided", and the first thing in the morning is to read that list.)
 - One milestone at a time: the next one in PLAN.md, working end to end. Nothing outside it.
 - If I ask for something new mid-milestone, add it to the parked list in PLAN.md and carry on.

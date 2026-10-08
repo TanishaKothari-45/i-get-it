@@ -7,7 +7,7 @@ ai-first: true
 
 # Decisions and learnings
 
-One entry per decision: what, why, what it replaced, and when to look at it again. Learnings are things we would not have guessed. Newest day first. PROGRESS.md says what was built; this file says why.
+One entry per decision: what, why, what it replaced, and when to look at it again. Newest day first. PROGRESS.md says what was built; docs/lessons.md says what each day taught; this file says why we chose what we chose.
 
 How to add: at the end of a session, append under today's date. A decision Prateek made says "(Prateek)"; one the agent made in his stead says "(agent, authorised)". Never rewrite an old entry; add a new one that supersedes it.
 
@@ -31,18 +31,7 @@ How to add: at the end of a session, append under today's date. A decision Prate
 
 ### Learnings
 
-- **L1. Full-page screenshots lie about sticky bars.** The fixed action bar is drawn at the viewport's bottom edge over whatever scrolled there. Three review findings were withdrawn after a viewport check. Verify overlaps at viewport size, after scrolling.
-- **L2. A test can outlive its guard.** The frozen list protected chapter 1 from new rewrites, but a test started the day before kept splitting readers. Gate at the moment of use (assignment), not only at creation.
-- **L3. The schema you send shapes the reply.** With a card schema of only type/title/body, Gemini wrote quiz cards with no question and no options. The JSON schema sent to a provider must describe every card shape as a union.
-- **L4. One-shot HTML explainers land about 2 in 3.** A tight brief gets most of the way; the rest needs a look-and-fix pass. Same for the moving figures: clear, not beautiful.
-- **L5. Wikimedia has almost no photos for teaching ideas.** "Owning versus lending" has no photo. Photos work for real things (a person, a place, an artwork); drawings are needed for the rest.
-- **L6. Cheaper Inference has no web search,** and it sells the Claude models at 15–35% off list. DeepSeek V4.1 Flash is about a tenth of the price, but it planned 3 chapters where Claude planned 7 and its own fact check found nothing. Judge scores today: Gemini chapters 5 to 8 of 12 against Opus's usual 9.
-- **L7. Costs, chapters 1 and 2:** Claude setup ₹74; DeepSeek ₹13; Gemini ₹10 (research ₹1.4 to ₹6.5 of that). A full Claude handbook is about ₹220 today, written once and shared.
-- **L8. Reader words beat our guesses.** Jayanth's "stuck in a loop" found a navigation hole the code read had rated P2. The calisthenics reader's "too long to get to the point" set the day's biggest change.
-- **L9. Two build breaks from one cause:** a raw line break inside a JavaScript string in prompts.ts. Prompt edits need `\n`, never a real newline.
-- **L10. Convex:** a query or mutation cannot live in a "use node" file; put it in a plain file and call it from the Node action.
-- **L11. Headless replays pollute the numbers fast:** 20 "visitors" and 20 handbooks in one afternoon. Tag them before the first run.
-- **L12. Gemini's main key was busy (503) on every call for hours;** the backup key answered at once. Keep two keys for anything a reader waits on.
+The day's learnings live in docs/lessons.md (Product/Tech and GTM, thought / learned / now). This file keeps the decisions.
 
 ## 2026-10-07 (from PROGRESS.md "Decided" lines, for the record)
 
