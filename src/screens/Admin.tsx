@@ -33,6 +33,7 @@ export default function Admin() {
           <TrendingCard />
           <ExperimentsCard />
           <PaymentsCard />
+          <CostsCard />
 
           <section className="adm-card adm-wide">
             <h2>Funnel</h2>
@@ -193,7 +194,7 @@ function ProviderSwitch() {
   return (
     <section className="adm-card adm-wide">
       <h2>AI provider</h2>
-      <p className="note">Plans, chapters, fact checks, Say it simpler, teach-backs and picture scenes use this. Ask or object stays on Claude (its web search is Claude's).{st.since ? ` Switched ${time(st.since)}.` : ''}</p>
+      <p className="note">Plans, chapters, fact checks, teach-backs and picture scenes use this. Ask or object stays on Claude (its web search is Claude's).{st.since ? ` Switched ${time(st.since)}.` : ''}</p>
       <div className="adm-tabs" role="group" aria-label="AI provider" style={{ marginTop: 10 }}>
         <button type="button" aria-pressed={st.provider === 'claude'} disabled={busy} onClick={() => flip('claude')}>Claude (Anthropic)</button>
         <button type="button" aria-pressed={st.provider === 'inference'} disabled={busy || !st.inferenceKeySet} onClick={() => flip('inference')}>DeepSeek v4 Pro (The Inference Company)</button>
@@ -269,6 +270,38 @@ function PaymentsCard() {
         <li><span>Pay sheets opened</span><b>{d.started}</b></li>
       </ul>
       {d.recent.length > 0 && <ul className="adm-list">{d.recent.map((r, i) => <li key={i}><span>{when(r.at)} · {r.plan === 'year' ? 'year' : 'month'}{r.tier ? ` · tier ${r.tier}` : ''} · {r.mode}{r.via ? ` · ${r.via}` : ''}</span><b>{r.status} {inr(r.amount)}</b></li>)}</ul>}
+    </section>
+  )
+}
+
+// What the app spends (7 Oct, Prateek): per day, then per model, then per job inside a model. Estimates from list
+// prices (costs.ts); each provider's bill is the truth.
+const JOB: Record<string, string> = { plan: 'Plans', chapter: 'Chapters', check: 'Fact checks', repair: 'Rewrites and polish', scenes: 'Picture scenes', picture: 'Pictures', intent: 'Goal question', research: 'Research', transcript: 'YouTube transcripts', ask: 'Ask or object', teach: 'Teach it back', simpler: 'Say it simpler (removed)', audit: 'Audits' }
+function CostsCard() {
+  const [days, setDays] = useState(14)
+  const rows = useQuery(api.costs.byDay, { days })
+  if (!rows) return null
+  const inr = (n: number) => `₹${n.toLocaleString('en-IN', { maximumFractionDigits: n < 10 ? 1 : 0 })}`
+  const total = rows.reduce((a, d) => a + d.inr, 0)
+  const byModel = new Map<string, { model: string; provider: string; inr: number; calls: number }>()
+  for (const d of rows) for (const m of d.models) { const x = byModel.get(m.model) ?? { model: m.model, provider: m.provider, inr: 0, calls: 0 }; x.inr += m.inr; x.calls += m.calls; byModel.set(m.model, x) }
+  return (
+    <section className="adm-card adm-wide">
+      <h2>What we spend (estimated)</h2>
+      <p className="note">About {inr(total)} over the last {days} days. Tap a day for its models, a model for what it was used for. List prices at ₹84 a dollar; the providers' bills are the real numbers.</p>
+      <p className="note">{[7, 14, 30].map((n) => <button key={n} type="button" className="quiet" style={{ marginRight: 12, fontWeight: n === days ? 700 : 400 }} onClick={() => setDays(n)}>{n} days</button>)}</p>
+      <ul className="adm-list">{[...byModel.values()].sort((a, b) => b.inr - a.inr).map((m) => <li key={m.model}><span>{m.provider} · {m.model} · {m.calls} calls</span><b>{inr(m.inr)}</b></li>)}</ul>
+      {rows.map((d) => (
+        <details key={d.day} className="cost-day">
+          <summary><span>{d.day}</span><b>{inr(d.inr)}</b><span className="note">{d.calls} calls</span></summary>
+          {d.models.map((m) => (
+            <details key={m.model} className="cost-model">
+              <summary><span>{m.provider} · {m.model}</span><b>{inr(m.inr)}</b><span className="note">{m.calls} calls{m.failed ? `, ${m.failed} failed` : ''}{m.tokensIn ? `, ${Math.round(m.tokensIn / 1000)}k in / ${Math.round(m.tokensOut / 1000)}k out` : ''}</span></summary>
+              <ul className="adm-list">{m.kinds.map((k) => <li key={k.kind}><span>{JOB[k.kind] ?? k.kind} · {k.calls} calls{k.failed ? `, ${k.failed} failed` : ''}</span><b>{inr(k.inr)}</b></li>)}</ul>
+            </details>
+          ))}
+        </details>
+      ))}
     </section>
   )
 }

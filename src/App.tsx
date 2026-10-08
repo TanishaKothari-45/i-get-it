@@ -11,14 +11,16 @@ import { absorb } from './components/SourcesInput'
 import { shrinkPhoto } from './lib/photo'
 import type { Id } from '../convex/_generated/dataModel'
 import Plan from './screens/Plan'
-import Chapter, { type AnswerResult, type Card, type Recap } from './screens/Chapter'
+import Chapter, { type AnswerResult, type Card } from './screens/Chapter'
 import Done from './screens/Done'
 import SignIn from './screens/SignIn'
 import Tune from './screens/Tune'
 import Compare from './screens/Compare'
 import Library from './screens/Library'
 import { PolicyLinks } from './screens/Policy'
-import { limitMessage } from './lib/limits'
+import { isMemberLimit, limitCode, limitMessage } from './lib/limits'
+import NextTopics from './components/NextTopics'
+import Sheet from './components/Sheet'
 import Pricing from './screens/Pricing'
 import Landing from './screens/Landing'
 import Explore from './screens/Explore'
@@ -79,7 +81,6 @@ export default function App() {
   const startFromLibrary = useMutation(api.library.start)
   const setTomorrow = useMutation(api.handbooks.setTomorrow)
   const attachToMe = useMutation(api.handbooks.attachToMe)
-  const requestSimpler = useMutation(api.handbooks.requestSimpler)
   const saveProfile = useMutation(api.handbooks.saveProfile)
   const refreshIfStale = useMutation(api.handbooks.refreshIfStale)
   const compareModels = useMutation(api.handbooks.compareModels)
@@ -120,15 +121,39 @@ export default function App() {
   // A chapter not opened yet comes without its cards ("locked", membership.ts). Entering it asks the server to open
   // it, which uses today's reading allowance; if there's none left, the handbook screen says when it opens.
   const openChapter = useMutation(api.handbooks.openChapter)
-  const [lock, setLock] = useState<{ key: string; note: string } | null>(null)
+  const [lock, setLock] = useState<{ key: string; note: string; code: string | null } | null>(null)
+  // When a chapter won't open, go straight to what unblocks it (7 Oct, Prateek): the 3 free chapters are used, so the
+  // free account; today's chapters are used, so membership (a free account has the same 3 a day). A member at 7 a day
+  // just sees the note.
+  const [signinReason, setSigninReason] = useState<string | null>(null)
+  const [pricingNotice, setPricingNotice] = useState<string | null>(null)
+  const routeLock = (code: string | null, note: string) => {
+    if (code === 'signup-more') { setSigninReason(note); setAfterSignIn('chapter'); setView('signin'); return true }
+    if (code === 'daily-free') { setPricingNotice(note); setView('pricing'); return true }
+    return false
+  }
   const chapterLocked = chapter?.status === 'ready' && !!(chapter as any).locked
-  const lockKey = hb && chapter ? `${hb._id}:${chapter.n}` : ''
+  // Signing up opens what a visitor couldn't, once the handbook is attached to the account (signedIn), so the key
+  // includes it and the open is tried again then.
+  const lockKey = hb && chapter ? `${hb._id}:${chapter.n}:${(hb as any).signedIn ? 'in' : 'out'}` : ''
   const wantsChapter = view === 'chapter' || (view === 'auto' && (progress?.currentCard ?? 0) > 0)
   useEffect(() => {
     if (!wantsChapter || !chapterLocked || !hb || !chapter || lock?.key === lockKey) return
     openChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token })
-      .catch((e) => setLock({ key: lockKey, note: limitMessage(e) ?? "Couldn't open this chapter just now. Try again in a minute." }))
+      .catch((e) => { const code = limitCode(e), note = limitMessage(e) ?? "Couldn't open this chapter just now. Try again in a minute."; setLock({ key: lockKey, code, note }); routeLock(code, note) })
   }, [wantsChapter, chapterLocked, lockKey]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // First time in a handbook (7 Oct: 11 of 30 readers saw their plan and never opened chapter 1): go straight into
+  // chapter 1 when it's ready; the plan is one tap away (the chapter's close button). Once per handbook per visit, and
+  // only on the way in: a typed topic whose chapter 1 is still being written shows the plan, as before.
+  const autoEntered = useRef<string | null>(null)
+  const ch1Status = hb?.chapters.find((c) => c.n === 1)?.status
+  useEffect(() => {
+    if (!hb || hb.status !== 'ready' || autoEntered.current === hb._id || view !== 'auto') return
+    autoEntered.current = hb._id
+    const fresh = passed.length === 0 && currentN === 1 && (progress?.currentCard ?? 0) === 0
+    if (fresh && ch1Status === 'ready') { setReadingN(1); setView('chapter') }
+  }, [hb?._id, hb?.status, ch1Status, view]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // A link from a post (?t=public-speaking&ch=2, 7 Oct) opens that ready topic straight away, at that chapter,
   // so a reader who just read chapter 1 on Instagram doesn't land on the landing page. Ready topics only: a link
@@ -172,7 +197,15 @@ export default function App() {
   if (data === undefined || deepLink) return <Shell><div className="splash">Opening your handbook…</div></Shell>
 
   const signIn = (back: View) => { setAfterSignIn(back); setView('signin') }
+  // Open a topic by name: a ready one opens at once; a typed one is written. Past the free typed-topic limit, the
+  // payment page opens with the reason (7 Oct, Prateek: a signed-up reader's next step is membership).
+  const openTopic = async (t: string) => {
+    try { const r = await create({ topic: t, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setDoneN(null); setView('auto') }
+    catch (e) { if (isMemberLimit(e)) { setPricingNotice(limitMessage(e)); setView('pricing') } else throw e }
+  }
   const libRows = lib?.handbooks ?? []
+  // Home is your shelf when you have handbooks; a first-time visitor's home is the landing page.
+  goHome = () => { setDoneN(null); if (libRows.length) setView('library'); else { setView('auto'); window.scrollTo({ top: 0 }) } }
 
   // Library and pricing can be reached from anywhere, with or without a current handbook.
   if (view === 'library') {
@@ -186,7 +219,7 @@ export default function App() {
   if (view === 'pricing') {
     return (
       <Shell back={{ label: 'Back', onClick: () => setView(hb ? 'plan' : 'library') }}>
-        <Pricing plans={plansData as any} fromDone={doneN === total} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={(plan) => payOrder({ plan })} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => setView(hb ? 'plan' : 'library')} onSignIn={() => signIn('pricing')} />
+        <Pricing notice={pricingNotice} plans={plansData as any} fromDone={doneN === total} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={(plan) => payOrder({ plan })} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => { setPricingNotice(null); setView(hb ? 'plan' : 'library') }} onSignIn={() => signIn('pricing')} />
       </Shell>
     )
   }
@@ -223,7 +256,7 @@ export default function App() {
           onChooseIntent={async (goal, mode) => { if (hb) await chooseIntent({ handbookId: hb._id, goal, mode, deviceToken: token }) }}
           error={hb?.error}
           examples={examples}
-          onCreate={async (topic, level, voice, language, sources) => { setDraftTopic(topic); const r = await createFrom(topic, level, voice, language, sources); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
+          onCreate={async (topic, level, voice, language, sources) => { setDraftTopic(topic); let r; try { r = await createFrom(topic, level, voice, language, sources) } catch (e) { if (isMemberLimit(e)) { setPricingNotice(limitMessage(e)); setView('pricing'); return } throw e } pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }}
           onAnswer={async (answer) => { if (hb) await answerQuestion({ handbookId: hb._id, answer, deviceToken: token }) }}
           onRetry={async () => { if (hb) await retry({ handbookId: hb._id, deviceToken: token }) }}
           onAddOther={async (topic) => { await create({ topic, level: 'new', voice: 'friend', deviceToken: token }) }}
@@ -299,7 +332,7 @@ export default function App() {
   if (resolved === 'signin') {
     return (
       <Shell rail={rail} back={{ label: 'Back', onClick: () => setView(afterSignIn) }}>
-        <SignIn onDone={async () => { setView(afterSignIn === 'done' && !doneN ? 'plan' : afterSignIn) }} onBack={() => setView(afterSignIn)} />
+        <SignIn reason={signinReason} onDone={async () => { setSigninReason(null); setView(afterSignIn === 'done' && !doneN ? 'plan' : afterSignIn) }} onBack={() => { setSigninReason(null); setView(afterSignIn) }} />
       </Shell>
     )
   }
@@ -310,6 +343,7 @@ export default function App() {
       <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail} back={toPlan}>
         <Done
           total={total}
+          nextPicture={firstPicture((hb.chapters.find((c) => c.n === (doneN ?? 0) + 1) as any)?.pictures)}
           topic={plan?.topic ?? hb.topic}
           n={doneN}
           passed={passed}
@@ -330,7 +364,7 @@ export default function App() {
           whatsNext={<WhatsNext topic={plan?.topic ?? hb.topic} deviceToken={token} onReady={async (t) => { const r = await create({ topic: t, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setDoneN(null); setView('auto') }} onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setDoneN(null); setView('auto') }} />}
           onRate={async (rating) => { await rateChapter({ handbookId: hb._id, n: doneN, rating, deviceToken: token }) }}
           nextReady={chapterReady && chapter?.n === doneN + 1}
-          onNext={() => { setDoneN(null); setView(chapterReady ? 'chapter' : 'plan') }}
+          onNext={() => { setDoneN(null); if (lockNote && lock && routeLock(lock.code, lock.note)) return; setView(chapterReady ? 'chapter' : 'plan') }}
           bonus={(() => { const b = bonusOf(doneN); return b ? { ...b, onGo: () => openBonus(doneN, b.kind) } : undefined })()}
         />
       </Shell>
@@ -350,13 +384,14 @@ export default function App() {
       <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
         <Chapter
           total={total}
+          recapReteach={(chapter as any).recapReteach ?? []}
+          lastTime={((hb.chapters.find((c) => c.n === chapter.n - 1)?.cards ?? []) as any[]).find((c) => c.type !== 'exercise' && /^in one breath$/i.test((c.title ?? '').trim())) ?? null}
           key={`${hb._id}-${chapter.n}`}
           topic={plan?.topic ?? hb.topic}
           n={chapter.n}
           title={chapter.title ?? plan?.chapters?.[chapter.n - 1]?.title ?? `Chapter ${chapter.n}`}
           cards={chapter.cards as Card[]}
           recall={(chapter.n === currentN ? recall : []) as any}
-          recap={progress?.currentCard === 0 ? recapOf(hb.chapters, chapter.n, plan) : null}
           passed={passed}
           passedExercises={progress?.passedExercises ?? []}
           startAt={progress?.currentCard ?? 0}
@@ -364,7 +399,6 @@ export default function App() {
           onPosition={(cardIndex, part) => { setReadingN(chapter.n); setView('chapter'); setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, part, deviceToken: token }).catch(() => {}) }}
           onAnswer={async (item, optionId, attempt) => { setReadingN(chapter.n); setView('chapter'); return (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult }}
           onFinish={async (stats) => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneStats(stats); setDoneN(chapter.n); setView('done') }}
-          onSimpler={async (item) => requestSimpler({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, deviceToken: token })}
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}
           credits={(chapter as any).credits ?? {}}
@@ -382,15 +416,17 @@ export default function App() {
     <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
       <Plan
         total={total}
+        nextTopics={<NextTopics topic={plan?.topic ?? hb.topic} deviceToken={token} extra={(plan as any)?.next ?? []} onReady={(t) => { openTopic(t).catch(() => {}) }} onTyped={(t) => { openTopic(t).catch(() => {}) }} onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />}
+        onOpenChapter={(n) => { setReadingN(n); setDoneN(null); setView('chapter') }}
         topic={plan?.topic ?? hb.topic}
         plan={plan}
         passed={passed}
         current={currentN}
         chapterReady={!!chapterReady}
         chapterFailed={!!chapterFailed} chapterError={(hb.chapters.find((c) => c.n === currentN) as any)?.error}
-        lockNote={lockNote} onPricing={() => setView('pricing')}
+        lockNote={lockNote} onPricing={() => setView('pricing')} onSignUp={lock?.code === 'signup-more' ? () => signIn('chapter') : undefined}
         voiceNote={flash ? flash : (chapter as any)?.stale ? 'You changed how you want to be taught after this chapter was written. Tap start and it gets rewritten and fact-checked for you first, about a minute.' : hb.source === 'cache' && (hb as any).voice && (hb as any).voice !== 'friend' ? `This one was written in the friendly voice ahead of time. Your "${(hb as any).voice}" choice applies to handbooks written fresh.` : undefined}
-        onStart={() => { if ((chapter as any)?.stale) { refreshIfStale({ handbookId: hb._id, n: currentN, deviceToken: token }).catch(() => {}) ; return } setView('chapter') }}
+        onStart={() => { if (lockNote && lock && routeLock(lock.code, lock.note)) return; if ((chapter as any)?.stale) { refreshIfStale({ handbookId: hb._id, n: currentN, deviceToken: token }).catch(() => {}) ; return } setView('chapter') }}
         onTune={() => setView('tune')}
         onCompare={!tester ? undefined : () => { if (chapter?.variants?.length) { setView('compare'); return } compareModels({ handbookId: hb._id, n: currentN, deviceToken: token }).then(() => setView('compare')).catch(() => {}) }}
         comparing={!!chapter?.variants?.length && chapter.variants.some((v: any) => v.status === 'writing')}
@@ -415,36 +451,37 @@ export default function App() {
   )
 }
 
+// The wordmark takes you home (7 Oct, Prateek): App sets this on every render; there is one App.
+let goHome: (() => void) | null = null
+
 function Shell({ children, onSignOut, rail, back }: { children: React.ReactNode; onSignOut?: () => Promise<void> | void; rail?: React.ReactNode; back?: { label: string; onClick: () => void } }) {
   // The member mark (7 Oct): paying should show, on every screen.
   const member = useQuery(api.membership.status, { deviceToken: deviceToken() })?.member
+  // On a phone the side menu is hidden, so ☰ opens the same menu as a sheet (7 Oct, Prateek).
+  const [menu, setMenu] = useState(false)
   return (
     <div className="shell">
       <header className="top">
-        <p className="wordmark">I Get It{member && <span className="member-mark">Member</span>}<small>Seven chapters. Twenty minutes a night.</small></p>
+        <button type="button" className="wordmark wordmark-btn" onClick={() => goHome?.()} aria-label="I Get It, home">I Get It{member && <span className="member-mark">Member</span>}<small>Seven chapters. Twenty minutes a night.</small></button>
         <span style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
           {back && <button type="button" className="back-link" onClick={back.onClick}>← {back.label}</button>}
-          {onSignOut && <button type="button" className="quiet" onClick={() => onSignOut()}>Sign out</button>}
+          {onSignOut && <button type="button" className="quiet hide-phone" onClick={() => onSignOut()}>Sign out</button>}
+          {rail && <button type="button" className="menu-btn" aria-label="Menu" aria-expanded={menu} onClick={() => setMenu(true)}>☰</button>}
         </span>
       </header>
+      {menu && rail && (
+        <Sheet onClose={() => setMenu(false)}>
+          <nav className="menu-sheet" onClick={(e) => { if ((e.target as HTMLElement).closest('button, a')) setMenu(false) }}>
+            {rail}
+            {onSignOut && <button type="button" className="quiet" onClick={() => onSignOut()}>Sign out</button>}
+          </nav>
+        </Sheet>
+      )}
       {rail && <aside className="rail">{rail}</aside>}
       <main>{children}</main>
       <footer className="foot"><p><PolicyLinks /></p><p>Built in public for GrowthX Build Sprint, October 2026.</p></footer>
     </div>
   )
-}
-
-// The chapter before this one, in one breath: its "In one breath" card, else its outcome line.
-function recapOf(chapters: { n: number; status: string; title?: string; outcomeLine?: string; cards?: unknown }[], n: number, plan: any): Recap | null {
-  const prev = chapters.find((c) => c.n === n - 1)
-  if (!prev || prev.status !== 'ready' || !Array.isArray(prev.cards)) return null
-  const title = prev.title ?? plan?.chapters?.[prev.n - 1]?.title ?? `Chapter ${prev.n}`
-  const summary = (prev.cards as Card[]).find((c) => c.type === 'teach' && (c.summary || /in one breath/i.test(c.title ?? '')))
-  // The card's closing "Tomorrow: ..." teaser was for last night; the recap keeps only the summary.
-  const body = summary && 'body' in summary
-    ? summary.body.split(/\n\n+/).filter((p) => !/^\W*tomorrow\b/i.test(p.trim())).join('\n\n')
-    : prev.outcomeLine
-  return body ? { chapter: prev.n, title, body } : null
 }
 
 // Words for the two bonus lessons. (agent) placeholders until Prateek rewrites them, as DESIGN.md asks.
@@ -503,7 +540,6 @@ function BonusScreen({ hb, n, kind, token, onBack }: { hb: HandbookData; n: numb
         onPosition={() => {}}
         onAnswer={async (item, optionId, attempt) => (await recordAnswer({ handbookId: hb._id, chapter: n, cardIndex: item.cardIndex, optionId, attempt, bonus: true, bonusKind: kind, deviceToken: token })) as AnswerResult}
         onFinish={async () => { await finishBonus({ handbookId: hb._id, n, kind, deviceToken: token }); onBack() }}
-        onSimpler={async () => ({ ready: false })}
         pictures={{}}
         onExit={onBack}
         handbookId={hb._id}

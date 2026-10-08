@@ -5,6 +5,8 @@ import { track } from '../lib/track'
 type Chapter = { n: number; title: string; covers: string; outcome: string; hook?: string; from?: number[] }
 type Props = {
   total?: number   // chapters in this handbook: 7, or 1 to 3 for a quick one (7 Oct)
+  onOpenChapter?: (n: number) => void
+  nextTopics?: React.ReactNode   // "Jump to next" topics in place of further reading (7 Oct)   // a finished chapter opens again on tap (7 Oct, Prateek); never uses the daily allowance
   topic: string
   plan: { outcome7: string; horizon14?: string; horizon28?: string; picture?: { name: string; line: string }; chapters: Chapter[]; sources?: { who: string; what: string; why?: string }[]; pushback?: string | null; framing?: string | null; format?: string }
   passed: number[]
@@ -15,6 +17,7 @@ type Props = {
   // Today's reading allowance is used (membership.ts): what to tell the reader, and the way to membership.
   lockNote?: string | null
   onPricing?: () => void
+  onSignUp?: () => void   // a visitor at chapter 4: the free account is the next step, not money
   onStart: () => void
   onRetry: () => void
   onChangeLine: () => void
@@ -39,7 +42,7 @@ type Props = {
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ total = 7, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext, bonusFor, sourceLabels, sourcesNote, sourceLinks }: Props) {
+export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onSignUp, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext, bonusFor, sourceLabels, sourcesNote, sourceLinks }: Props) {
   useEffect(() => { track('plan_view', undefined, 'plan_view:' + topic) }, [topic])
   const first = passed.length === 0 && current === 1   // a reader who came in at chapter 2 from a post is on 2
   const upTitle = nextUp ? plan.chapters[nextUp.n - 1]?.title : null
@@ -70,9 +73,7 @@ export default function Plan({ total = 7, topic, plan, passed, current, chapterR
         {plan.picture && <p className="roadmap-picture"><strong>The picture for the whole journey:</strong> {plan.picture.line}</p>}
       </section>
 
-      {plan.sources && plan.sources.length > 0 && (
-        <p className="sources"><span className="label">Further reading</span> {plan.sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em></span>)}</p>
-      )}
+      {nextTopics ?? null}
       {voiceNote && <p className="note" style={{ marginBottom: 'var(--m)' }}>{voiceNote}</p>}
       {sourcesNote && <p className="note">{sourcesNote}</p>}
 
@@ -83,22 +84,35 @@ export default function Plan({ total = 7, topic, plan, passed, current, chapterR
           const now = c.n === current && !done
           return (
             <li key={c.n} className={`stop ${done ? 'done' : now ? 'now' : 'ahead'} ${idx % 2 ? 'right' : 'left'}`}>
-              <span className="node" aria-hidden="true">{done ? '✓' : c.n}</span>
-              <div className="stop-card">
-                <span className="stop-n">Chapter {c.n}{now && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}{done && <span className="tag done">Done</span>}</span>
-                <span className="stop-t">{c.title}</span>
-                <span className="stop-hook">{c.hook || c.covers}</span>
-                {(() => {
-                  // Each source it draws on, linking back to the original reel or video (credit to the creator).
-                  const from = (c.from ?? []).filter((k) => sourceLabels?.[k - 1])
-                  if (!from.length) return null
-                  return <span className="stop-from">From {from.map((k, i) => {
-                    const href = sourceLinks?.[k - 1]
-                    return <span key={k}>{i > 0 && ' · '}{href ? <a href={href} target="_blank" rel="noopener noreferrer">{sourceLabels![k - 1]}</a> : sourceLabels![k - 1]}</span>
-                  })}</span>
-                })()}
-                {done && (() => { const b = bonusFor?.(c.n); return b ? <button type="button" className="quiet stop-bonus" onClick={b.onGo}>{b.label}</button> : null })()}
-              </div>
+              <span className="node" aria-hidden="true">{done ? '✓' : ''}</span>{/* the card says "Chapter N"; a number here too read as "1 1" (7 Oct) */}
+              {(() => {
+                const inner = (<>
+                  <span className="stop-n">Chapter {c.n}{now && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}{done && <span className="tag done">Done</span>}</span>
+                  <span className="stop-t">{c.title}</span>
+                  <span className="stop-hook">{c.hook || c.covers}</span>
+                  {done && onOpenChapter && <span className="stop-again">Read it again ›</span>}
+                </>)
+                // Finished chapters and the one you're on open on tap; chapters ahead stay a preview.
+                if (done && onOpenChapter) return <button type="button" className="stop-card stop-tap" onClick={() => onOpenChapter(c.n)}>{inner}</button>
+                if (now && chapterReady) return <button type="button" className="stop-card stop-tap" onClick={onStart}>{inner}</button>
+                return <div className="stop-card">{inner}</div>
+              })()}
+              {/* Under the stop, not inside it (the stop itself is a button): the sources it draws on, linking to the
+                  originals (credit to the creator), and the chapter's bonus lesson once unlocked. */}
+              {(() => {
+                const from = (c.from ?? []).filter((k) => sourceLabels?.[k - 1])
+                const b = done ? bonusFor?.(c.n) : null
+                if (!from.length && !b) return null
+                return (
+                  <div className="stop-extra">
+                    {from.length > 0 && <span className="stop-from">From {from.map((k, i) => {
+                      const href = sourceLinks?.[k - 1]
+                      return <span key={k}>{i > 0 && ' · '}{href ? <a href={href} target="_blank" rel="noopener noreferrer">{sourceLabels![k - 1]}</a> : sourceLabels![k - 1]}</span>
+                    })}</span>}
+                    {b && <button type="button" className="quiet stop-bonus" onClick={b.onGo}>{b.label}</button>}
+                  </div>
+                )
+              })()}
             </li>
           )
         })}
@@ -122,8 +136,13 @@ export default function Plan({ total = 7, topic, plan, passed, current, chapterR
       <ActionBar busy={!chapterReady && !chapterFailed} note={!chapterReady && !chapterFailed ? `Writing chapter ${current} and checking its facts… about a minute.` : undefined}>
         {lockNote ? (
           <>
-            <p className="note" style={{ marginTop: 0 }}>{lockNote}</p>
-            {onPricing && <button className="btn btn-ghost" onClick={onPricing}>See what members get</button>}
+            <div className="lock-card">
+              <p className="lock-card-head">{onSignUp ? `Chapter ${current} is free with an account` : `Chapter ${current} opens tomorrow`}</p>
+              <p className="lock-card-text">{lockNote}</p>
+              {onSignUp && <p className="free-banner"><strong>Free.</strong> Just your email. No card, no spam, ever.</p>}
+              {onSignUp ? <button className="btn" onClick={onSignUp}>Sign up free and keep reading</button>
+                : onPricing && <button className="btn btn-ghost" onClick={onPricing}>See what members get</button>}
+            </div>
           </>
         ) : chapterFailed ? (
           <>

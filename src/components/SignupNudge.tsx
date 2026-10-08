@@ -21,7 +21,7 @@ export default function SignupNudge({ onSignIn, context = 'library', compact }: 
         </ul>
       )}
       <button type="button" className="btn btn-ghost nudge-btn" onClick={onSignIn}>Sign in to keep it all, free</button>
-      {!compact && <p className="note">Email and a password. No card. Signing in is free.</p>}
+      {!compact && <p className="note">Just your email. No card, no spam. Signing up is free.</p>}
     </div>
   )
 }

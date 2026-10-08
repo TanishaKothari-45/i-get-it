@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { internal } from "./_generated/api";
 import { internalMutation, internalQuery } from "./_generated/server";
 import { level } from "./schema";
 
@@ -182,8 +183,11 @@ export const balanceTargets = internalQuery({
 // Whole-card rewrites for a ready topic's chapter (the chapter 1 polish, 6 Oct): every spelling of the topic,
 // then only readers' copies they haven't started (a reader mid-chapter keeps the cards they're reading).
 export const replaceCards = internalMutation({
-  args: { topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")), n: v.number(), cards: v.any() },
-  handler: async (ctx, { topicKey, level: lvl, n, cards }) => {
+  // recallCards and resetPictures (7 Oct, the 6-card chapter 1): a whole new chapter brings its own recall questions,
+  // and the old pictures point at card numbers that no longer match, so they are cleared for a redraw.
+  args: { topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")), n: v.number(), cards: v.any(), recallCards: v.optional(v.any()), resetPictures: v.optional(v.boolean()) },
+  handler: async (ctx, { topicKey, level: lvl, n, cards, recallCards, resetPictures }) => {
+    const extra: any = { ...(recallCards ? { recallCards } : {}), ...(resetPictures ? { pictures: [] } : {}) };
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
     const base = row?.chapters.find((c: any) => c.n === n);
     if (!row || !base || !Array.isArray(cards) || cards.length < 5) return { rows: 0, copies: 0 };
@@ -193,7 +197,7 @@ export const replaceCards = internalMutation({
       if (c.level !== lvl || c.topic !== row.topic) continue;
       const m = c.chapters.find((x: any) => x.n === n);
       if (!m || m.title !== base.title) continue;
-      await ctx.db.patch(c._id, { chapters: c.chapters.map((x: any) => (x.n === n ? { ...x, cards } : x)), version: Date.now() });
+      await ctx.db.patch(c._id, { chapters: c.chapters.map((x: any) => (x.n === n ? { ...x, cards, ...extra } : x)), version: Date.now() });
       keys.add(c.topicKey); rows++;
     }
     let copies = 0;
@@ -204,9 +208,10 @@ export const replaceCards = internalMutation({
       const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
       const unread = !p || p.currentChapter < n || (p.currentChapter === n && p.currentCard === 0 && !p.chaptersPassed.includes(n));
       if (!unread) continue;
-      await ctx.db.patch(ch._id, { cards });
+      await ctx.db.patch(ch._id, { cards, ...extra, ...(resetPictures ? { picturesStatus: undefined } : {}) });
       copies++;
     }
+    await ctx.scheduler.runAfter(0, internal.shelf.syncReadyTopic, { topic: row.topic });
     return { rows, copies };
   },
 });
@@ -219,6 +224,7 @@ export const dropCacheRow = internalMutation({
     const row = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", topicKey).eq("level", lvl)).unique();
     if (!row) return { removed: 0 };
     await ctx.db.delete(row._id);
+    await ctx.scheduler.runAfter(0, internal.shelf.syncReadyTopic, { topic: row.topic });
     return { removed: 1, topic: row.topic };
   },
 });
@@ -296,5 +302,29 @@ export const stripStoryQuizzes = internalMutation({
       }
     }
     return { dryRun, topics: [...topics], rows, copies, skippedStarted };
+  },
+});
+
+// Swap one name for another across a ready topic (every spelling's stored copy and readers' copies), in cards, recall
+// quizzes and quiz levels. 7 Oct: an Indian name in the international finance ad topic. Whole words only.
+export const renameInTopic = internalMutation({
+  args: { topic: v.string(), from: v.string(), to: v.string() },
+  handler: async (ctx, { topic, from, to }) => {
+    const re = new RegExp(`\\b${from.replace(/[^A-Za-z]/g, "")}\\b`, "g");
+    const swap = (x: any) => JSON.parse(JSON.stringify(x).replace(re, to));
+    let rows = 0, copies = 0;
+    for (const c of await ctx.db.query("cache").withIndex("by_topic", (q) => q.eq("topic", topic)).collect()) {
+      await ctx.db.patch(c._id, { chapters: swap(c.chapters), version: Date.now() }); rows++;
+    }
+    for (const h of await ctx.db.query("handbooks").withIndex("by_token").collect()) {
+      if (h.source !== "cache" || h.topic !== topic) continue;
+      for (const ch of await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect()) {
+        const c: any = ch;
+        await ctx.db.patch(ch._id, { cards: swap(c.cards ?? []), recallCards: c.recallCards ? swap(c.recallCards) : undefined, quizTiers: c.quizTiers ? swap(c.quizTiers) : undefined, recallTiers: c.recallTiers ? swap(c.recallTiers) : undefined } as any);
+        copies++;
+      }
+    }
+    await ctx.scheduler.runAfter(0, internal.shelf.syncReadyTopic, { topic });
+    return { rows, copies };
   },
 });

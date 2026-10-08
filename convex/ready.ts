@@ -2,7 +2,7 @@ import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { internalAction } from "./_generated/server";
 import { CHAPTER_PROMPT, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
-import { factCheck, noQuizzes, topicKeyOf } from "./handbooks";
+import { checkWithVersions, noQuizzes, topicKeyOf, writeVersions } from "./handbooks";
 
 // Writes a new ready topic for the shelf, the same way a reader's handbook is written (plan on the plan model,
 // each chapter on the chapter model, every chapter fact-checked), then stores it in the cache and queues its pictures.
@@ -60,8 +60,11 @@ export const build = internalAction({
       }
       const title = String(ch.title ?? plan.chapters[n - 1]?.title ?? `Chapter ${n}`);
       const recall = (Array.isArray(ch.recallQuizzes) ? ch.recallQuizzes : []).filter((e: any) => e?.type === "exercise" && Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer)).slice(0, 2);
-      const checked = await factCheck(ctx, plan.topic ?? topic, "new", title, [...ch.cards, ...recall]);
-      const done = { n, title, cards: checked.cards.slice(0, ch.cards.length), recallCards: checked.cards.slice(ch.cards.length), outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, factCheck: checked.report };
+      // Quiz versions (easier, harder), checked in the same pass (7 Oct).
+      const { qv, rv } = await writeVersions(ctx, plan, plan.topic ?? topic, title, ch.cards, recall);
+      const checked = await checkWithVersions(ctx, plan.topic ?? topic, "new", title, ch.cards, recall, qv, rv);
+      const { recallCards, quizTiers, recallTiers } = checked;
+      const done = { n, title, cards: checked.cards, recallCards, quizTiers, recallTiers, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, factCheck: checked.report };
       console.log(`ready ${topic}: chapter ${n} done (${done.cards.length} cards, check ${checked.report.status}, ${checked.report.fixes} fixes)`);
       await again({ chapters: [...chapters, done] });
       return;
@@ -72,7 +75,8 @@ export const build = internalAction({
     const topicKey = topicKeyOf(plan.topic ?? topic);
     // Chapter 1 gets the 'would they keep swiping?' polish before its pictures are drawn.
     await ctx.scheduler.runAfter(0, internal.polish.queue, { topicKeys: [topicKey] });
-    await ctx.scheduler.runAfter(120000, internal.images.backfill, { queue: Array.from({ length: CHAPTERS }, (_, i) => ({ topicKey, level: "new" as const, n: i + 1 })) });
-    console.log(`ready ${topic}: on the shelf as ${keys.join(", ")}; pictures queued`);
+    // Only chapter 1 is drawn now (it gives the cover); chapters 2 onward are drawn when a reader first opens them (7 Oct).
+    await ctx.scheduler.runAfter(120000, internal.images.backfill, { queue: [{ topicKey, level: "new" as const, n: 1 }] });
+    console.log(`ready ${topic}: on the shelf as ${keys.join(", ")}; chapter 1 pictures queued`);
   },
 });

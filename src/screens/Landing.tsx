@@ -132,7 +132,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
         </details>
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
-      <p className="lp-fine">Your first handbook is free. No card, and no sign-up to start. Topics you start can appear in Explore, never with your name.</p>
+      <p className="lp-fine">The first 3 chapters are free, no sign-up. A free account opens the rest; no card. Topics you start can appear in Explore, never with your name.</p>
       {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
     </form>
   )
@@ -168,7 +168,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
         <h2>Tonight, in twenty minutes.</h2>
         <ol>
           <li><img src="/images/landing/step1.jpg" alt="" loading="lazy" /><span className="lp-n">1</span><h3>Type it.</h3><p>Whatever you keep meaning to learn, in your own words. You get a seven-chapter plan for it in about 40 seconds.</p></li>
-          <li><img src="/images/landing/step2.jpg" alt="" loading="lazy" /><span className="lp-n">2</span><h3>Tap through chapter 1.</h3><p>Full-screen frames, one idea each, with pictures. Stuck? Ask it, or have it said simpler.</p></li>
+          <li><img src="/images/landing/step2.jpg" alt="" loading="lazy" /><span className="lp-n">2</span><h3>Tap through chapter 1.</h3><p>Full-screen frames, one idea each, with pictures. Stuck? Ask it.</p></li>
           <li><img src="/images/landing/step3.jpg" alt="" loading="lazy" /><span className="lp-n">3</span><h3>Light the first rung.</h3><p>Read to the end of chapter 1 and the first rung lights up. No quizzes tonight: chapter 2 opens with two quick questions on what stuck.</p></li>
         </ol>
       </section>
@@ -225,7 +225,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
           <section className="lp-offer">
             <div>
               <h2>Come early, pay less.</h2>
-              <p className="lp-body">Free: one handbook of your own, a chapter a night, plus a daily taste of the ready ones. Members keep 3 topics on the go, read up to 7 chapters a day and can save any handbook as a PDF. The earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
+              <p className="lp-body">The first 3 chapters of anything, free, no sign-up. A free account opens every ready handbook and one of your own. Members keep 3 of their own on the go, read up to 7 chapters a day and can save any handbook as a PDF. The earlier you join, the less you pay, and your price stays yours while you keep paying. Right now it's {inr(open.month)} a month or {inr(open.year)} a year{open.left !== null ? `, with ${open.left} of ${open.size} spots left` : ''}.</p>
               <p className="lp-once">One-time payment · No auto-renew</p>
             </div>
             <ol className="lp-tiers">

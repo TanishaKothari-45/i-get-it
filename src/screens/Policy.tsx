@@ -8,7 +8,7 @@ import type { ReactNode } from 'react'
 export const POLICY_PAGES = ['terms', 'privacy', 'refunds', 'contact'] as const
 export type PolicyPage = (typeof POLICY_PAGES)[number]
 
-const UPDATED = '7 October 2026'
+const UPDATED = '8 October 2026'
 
 // Prateek fills these. Shown on every page that needs them.
 const CONTACT = {
@@ -64,7 +64,7 @@ const BODY: Record<PolicyPage, ReactNode> = {
       <h2>Fair use</h2>
       <p>Don't use I Get It to learn to hurt, threaten, deceive or stalk people, break into accounts or devices, or make weapons or drugs. It will decline those topics or offer a better version. Don't try to overload or break the service, or scrape it.</p>
       <h2>What you get, and what it costs</h2>
-      <p>Free: one handbook you type, opening 1 new chapter of it a day; 1 new chapter a day from each of up to 3 ready or shared handbooks; 3 web-checked answers a week; 10 "Say it simpler" rewrites a day. Members: 3 typed handbooks on the go at a time (up to 6 new a month), up to 7 new chapters a day across everything, ready and shared handbooks without limit, 30 web-checked answers a month, unlimited "Say it simpler", printing or saving any of their handbooks as a PDF, and first access to new parts (a learning dashboard with streaks, Indian languages, days 8 to 28) when they launch. Chapters you've already opened stay open. When free readers' use costs too much in one day, new typed topics and web-checked answers pause for free readers until the next day; members are not paused.</p>
+      <p>Without an account: the first 3 chapters of any handbook, up to 3 new chapters a day, one handbook you type. With a free account: every chapter of every ready and shared handbook and of your one typed handbook, up to 3 new chapters a day; 3 web-checked answers a week. Members: 3 typed handbooks on the go at a time (up to 6 new a month), up to 7 new chapters a day across everything, ready and shared handbooks without limit, 30 web-checked answers a month, printing or saving any of their handbooks as a PDF, and first access to new parts (a learning dashboard with streaks, Indian languages, days 8 to 28) when they launch. Chapters you've already opened stay open. When free readers' use costs too much in one day, new typed topics and web-checked answers pause for free readers until the next day; members are not paused.</p>
       <p>The member price depends on when you first pay: the first 50 paying readers pay ₹199 a month or ₹1,999 a year, the next 100 pay ₹299 or ₹2,999, the next 200 pay ₹399 or ₹3,999, and everyone after that pays ₹499 or ₹4,999. You keep the price you first paid as long as you pay again within 7 days of your time running out. The Pricing screen shows the tiers and how many spots are left.</p>
       <p>Each payment is one-time: a month covers 30 days and a year covers 365 days. Nothing renews by itself: you're only charged when you tap Pay and approve it in Razorpay's payment sheet. Prices include any taxes that apply.</p>
       <p>If we change what members get, this page will say so first, and anything you already paid for stays as it was until your time runs out.</p>
@@ -83,7 +83,7 @@ const BODY: Record<PolicyPage, ReactNode> = {
         <li><strong>What you type:</strong> your topic (up to 200 characters), level, reading voice, the one-line profile you set, questions you ask on a card, and what you write in "teach it back".</li>
         <li><strong>How you read:</strong> your answers, progress, chapter ratings, and simple events (which screen and card you reached, phone or computer, screen width, the link you came from).</li>
         <li><strong>A device code:</strong> a random code stored on your phone so your progress works before you sign in. No cookies from anyone else.</li>
-        <li><strong>If you sign in:</strong> your email and a scrambled form of your password (we never see the password itself).</li>
+        <li><strong>If you sign in:</strong> your email, and a scrambled form of your password if you chose one (we never see the password itself). Sign-in codes are emailed from our Gmail account (Google). We only ever email you those codes, and reminders if you turn them on. No spam, ever.</li>
         <li><strong>If you turn on reminders:</strong> the push address your browser gives us and the time you chose.</li>
         <li><strong>If you pay:</strong> the amount, the date and Razorpay's order and payment numbers. Your card, UPI or bank details go to Razorpay only; we never see them.</li>
       </ul>
@@ -91,9 +91,10 @@ const BODY: Record<PolicyPage, ReactNode> = {
       <ul className="policy-list">
         <li><strong>Convex</strong> (United States) stores everything above and hosts the site.</li>
         <li><strong>Anthropic</strong> (United States) receives your topic, level, profile line and questions so Claude can write and check your chapters. Anthropic doesn't train its models on this data. Some questions are answered with a web search run through Anthropic; the search sees the question, not who asked it.</li>
+        <li><strong>Google</strong> (United States) receives the words of a topic you type, the level you picked and the goal you chose for it, through the Gemini API, and runs Google Search on them to research the topic. It gets nothing else about you. Google may keep and use these words under its Gemini API terms.</li>
         <li><strong>Razorpay</strong> (India) handles payments and sees what you enter in its payment sheet.</li>
-        <li><strong>Research before writing:</strong> when you type a topic, its words (never anything about you) are used in web searches run through Anthropic, to look it up on Wikipedia, and, for films, series, books and games, to fetch the transcript of a public YouTube recap through <strong>Supadata</strong>.</li>
-        <li><strong>Runway</strong> may draw a chapter's pictures from the chapter's own text. Photos come from Wikimedia Commons. Neither gets anything about you.</li>
+        <li><strong>Research before writing:</strong> when you type a topic, Google's Gemini looks it up with Google Search. If Google is busy, the same words go to Anthropic for a web search instead. The topic's words (never anything about you) are also used to look it up on Wikipedia and, for films, series, books and games, to fetch the transcript of a public YouTube recap through <strong>Supadata</strong>.</li>
+        <li><strong>Runway</strong> may draw a handbook's cover from its first chapter's text. Other pictures are photos from Wikimedia Commons. Neither gets anything about you.</li>
         <li><strong>Google Fonts</strong> serves the typefaces, so your browser contacts Google when the page loads.</li>
         <li><strong>Your browser's push service</strong> (Google, Apple or Mozilla) delivers reminders, if you turned them on.</li>
       </ul>

@@ -110,8 +110,6 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .card.picture-card .serif { font-style: italic; }
 .card .kicker { font-size: var(--small); color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-top: var(--l); }
 .mistake { border-left: 3px solid var(--accent); padding-left: var(--m); }
-.simpler-row { margin-top: var(--l); color: var(--ink-2); font-size: var(--small); }
-.simpler-row .quiet { font-size: var(--small); padding: 0; }
 .try { border: 1.5px dashed var(--tint); border-radius: var(--radius); padding: var(--m); }
 
 /* exercise */
@@ -182,15 +180,15 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
   h1 { font-size: 2.5rem; }
   .chips.wrap .chip { min-height: 42px; }
 }
-.rail .rail-topic { font-weight: 700; font-size: var(--ui); letter-spacing: -0.01em; margin: 6px 0 2px; }
-.rail .rail-sub { color: var(--ink-2); font-size: var(--small); margin-bottom: var(--s); }
-.rail ol { list-style: none; margin: var(--m) 0; padding: 0; border-top: 1px solid var(--tint); }
-.rail li { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--tint); font-size: var(--small); color: var(--ink-2); }
-.rail li.now { color: var(--ink); font-weight: 600; }
-.rail li.done { color: var(--pass); }
-.rail li .n { width: 1.2rem; font-variant-numeric: tabular-nums; }
-.rail .rail-links { display: flex; flex-direction: column; gap: 6px; margin-top: var(--m); }
-.rail .rail-links .quiet, .rail .rail-links .back-link { text-align: left; padding: 4px 0; }
+.rail .rail-topic, .menu-sheet .rail-topic { font-weight: 700; font-size: var(--ui); letter-spacing: -0.01em; margin: 6px 0 2px; }
+.rail .rail-sub, .menu-sheet .rail-sub { color: var(--ink-2); font-size: var(--small); margin-bottom: var(--s); }
+.rail ol, .menu-sheet ol { list-style: none; margin: var(--m) 0; padding: 0; border-top: 1px solid var(--tint); }
+.rail li, .menu-sheet li { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--tint); font-size: var(--small); color: var(--ink-2); }
+.rail li.now, .menu-sheet li.now { color: var(--ink); font-weight: 600; }
+.rail li.done, .menu-sheet li.done { color: var(--pass); }
+.rail li .n, .menu-sheet li .n { width: 1.2rem; font-variant-numeric: tabular-nums; }
+.rail .rail-links, .menu-sheet .rail-links { display: flex; flex-direction: column; gap: 6px; margin-top: var(--m); }
+.rail .rail-links .quiet, .rail .rail-links .back-link, .menu-sheet .rail-links .quiet, .menu-sheet .rail-links .back-link { text-align: left; padding: 4px 0; }
 .kbd-hint { color: var(--ink-2); font-size: var(--small); margin-top: var(--s); display: none; }
 @media (min-width: 900px) { .kbd-hint { display: block; } }
 .watch { display: flex; flex-direction: column; gap: 4px; border: 1.5px solid var(--ink); border-radius: var(--radius); padding: var(--m); text-decoration: none; color: var(--ink); margin-top: var(--m); }
@@ -756,3 +754,70 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .unlocks { list-style: none; padding: 0; margin: var(--m) 0; display: grid; gap: 10px; font-family: var(--serif); font-size: 1.04rem; line-height: 1.45; }
 .unlocks strong { font-family: var(--sans); }
 .unlock-on { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 8px; border-radius: 50%; background: var(--pass, #1f7a4d); color: #fff; font-size: 0.8rem; font-weight: 700; }
+
+/* Navigation (7 Oct, Prateek): the wordmark goes home, a menu button on phones, chapters you can reopen */
+.wordmark-btn { all: unset; cursor: pointer; display: block; font-weight: 700; font-size: var(--ui); letter-spacing: -0.01em; color: inherit; }
+.wordmark-btn:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 3px; border-radius: 6px; }
+.menu-btn { all: unset; cursor: pointer; font-size: 1.4rem; line-height: 1; padding: 8px 10px; min-width: 24px; text-align: center; border-radius: 10px; }
+.menu-btn:focus-visible { outline: 3px solid var(--accent-deep); }
+.menu-sheet { display: grid; gap: 4px; max-height: 70vh; overflow-y: auto; }
+.menu-sheet .rail-links, .menu-sheet > div { display: grid; gap: 4px; }
+.menu-sheet button.quiet, .menu-sheet a.quiet { text-align: left; padding: 10px 0; min-height: 44px; }
+@media (min-width: 900px) { .menu-btn { display: none; } }
+@media (max-width: 899px) { .hide-phone { display: none; } }
+button.stop-tap { font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; -webkit-appearance: none; appearance: none; }
+button.stop-tap:active { transform: translateY(1px); }
+button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 3px; }
+.stop-again { margin-top: 6px; font: 700 var(--small) var(--sans); color: var(--pass, #1f7a4d); }
+/* A grid column never grows past the screen because of a wide child (7 Oct: the topic carousel pushed the box,
+   the button and the cover picture off a 390 px phone). */
+.lp-hero > * { min-width: 0; }
+.lp-hero-art { max-width: 100%; }
+
+/* Up next card on the Done screen (7 Oct) */
+.upnext { margin: var(--l) 0 0; border: 3px solid var(--ink); border-radius: 22px; overflow: hidden; background: var(--paper, #fff); box-shadow: 6px 6px 0 var(--ink); }
+.upnext-pic { aspect-ratio: 16 / 9; overflow: hidden; background: var(--paper-2, #f1ece1); }
+.upnext-pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.upnext-body { padding: 16px 18px 18px; display: grid; gap: 6px; }
+.upnext-kicker { margin: 0; font: 700 var(--small) var(--sans); letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-deep); }
+.upnext-title { margin: 0; font-size: 1.35rem; line-height: 1.2; }
+.upnext-hook { margin: 0; font-family: var(--serif); font-style: italic; font-size: 1.05rem; line-height: 1.45; }
+.upnext-btn { margin-top: 10px; width: 100%; }
+/* Reminder moments */
+.moments { display: grid; gap: 8px; margin-top: var(--s); }
+.moment { all: unset; box-sizing: border-box; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 12px 14px; min-height: 48px; border-radius: 14px; border: 1.5px solid var(--tint); background: #fff; }
+.moment[aria-pressed="true"] { border-color: var(--ink); background: var(--accent); }
+.moment:disabled { opacity: 0.6; }
+.moment:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 2px; }
+.moment-label { font: 600 var(--ui) var(--sans); }
+.moment-time { font-size: var(--small); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* Why you're here, and "free" said loudly (7 Oct, Prateek) */
+.why-here { margin: 10px 0 0; padding: 12px 14px; border-radius: 14px; background: var(--accent); color: var(--ink); font-weight: 600; line-height: 1.4; }
+.free-banner { margin: 10px 0; padding: 10px 14px; border-radius: 12px; border: 2px dashed var(--pass, #1f7a4d); color: var(--ink); background: color-mix(in srgb, var(--pass, #1f7a4d) 10%, transparent); font-size: var(--ui); }
+.free-banner strong { color: var(--pass, #1f7a4d); }
+.lock-card { width: 100%; padding: 16px; border-radius: 18px; border: 3px solid var(--ink); background: #fff; box-shadow: 5px 5px 0 var(--ink); display: grid; gap: 8px; text-align: left; }
+.lock-card-head { margin: 0; font: 800 1.15rem/1.25 var(--sans); }
+.lock-card-text { margin: 0; font-family: var(--serif); line-height: 1.45; }
+.lock-card .btn { width: 100%; }
+
+/* /admin cost view (7 Oct) */
+.cost-day, .cost-model { border-top: 1px solid var(--tint); padding: 6px 0; }
+.cost-day > summary, .cost-model > summary { cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline; }
+.cost-day > summary .note, .cost-model > summary .note { grid-column: 1 / -1; margin: 0; }
+.cost-model { margin-left: 14px; }
+
+/* Explore chips (7 Oct) */
+.explore-pills { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px; margin: 6px 0 4px; scrollbar-width: none; }
+.explore-pills::-webkit-scrollbar { display: none; }
+.explore-pills .chip { flex: none; }
+
+/* Jump to next (7 Oct) */
+.next-topics .topic-link { all: unset; cursor: pointer; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; text-decoration-color: var(--accent-deep); font-weight: 600; color: var(--ink); }
+.next-topics .topic-link:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 2px; border-radius: 4px; }
+
+/* Early-bird price, struck at the real next tier (7 Oct) */
+.early-bird { margin: var(--m) 0 6px; padding: 12px 14px; border-radius: 14px; background: var(--accent); font-family: var(--sans); line-height: 1.45; }
+.early-bird s, .chip s.was { opacity: 0.6; font-weight: 400; }
+.early-bird strong { font-weight: 800; }
+.stop-extra { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }

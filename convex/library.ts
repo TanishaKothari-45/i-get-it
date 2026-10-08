@@ -1,10 +1,12 @@
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
-import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx } from "./_generated/server";
+import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { LIBRARY_CHECK_PROMPT } from "./prompts";
 import { isOwner } from "./admin";
+import { weekStartIST } from "./landing";
+import { syncShared } from "./shelf";
 
 // The shared library (6 Oct, Prateek: "any handbook created by one user should immediately be available for all others").
 
@@ -44,31 +46,60 @@ export const publish = internalMutation({
     // One shared copy per topic and kind of goal: the first stays (A/B variants come later).
     const twins = await ctx.db.query("library").withIndex("by_key", (q) => q.eq("topicKey", h.topicKey).eq("level", h.level)).collect();
     const twin = twins.some((x) => x.published && (x.mode ?? "") === (h.mode ?? ""));
-    await ctx.db.insert("library", {
+    const libraryId = await ctx.db.insert("library", {
       topicKey: h.topicKey, topic: String((h.plan as any)?.topic ?? h.topic), level: h.level, goal: h.goal, mode: h.mode ?? (h.plan as any)?.mode,
-      plan: h.plan, chapter1: { title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: (ch as any).svg, pictures: ch.pictures, recallCards: ch.recallCards },
+      plan: h.plan, chapter1: { title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: (ch as any).svg, pictures: ch.pictures, recallCards: ch.recallCards, recallTiers: (ch as any).recallTiers },
       sourceHandbookId: handbookId, published: share && !twin, starts: 1, passes: 0, why: twin ? "a copy for this topic and goal is already shared" : why, createdAt: Date.now(),
     });
+    const row = await ctx.db.get(libraryId); if (row) await syncShared(ctx, row);
   },
 });
 
-// Pictures are drawn after the words: keep the shared chapter 1 in step when they land.
-export const syncPictures = internalMutation({
-  args: { handbookId: v.id("handbooks") },
-  handler: async (ctx, { handbookId }) => {
-    const row = await ctx.db.query("library").withIndex("by_source", (q) => q.eq("sourceHandbookId", handbookId)).first();
-    const ch = row && await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", 1)).unique();
-    if (row && ch?.pictures) await ctx.db.patch(row._id, { chapter1: { ...row.chapter1, pictures: ch.pictures } });
+// The shared row a handbook belongs to: the one it was copied from, or the one it was published as.
+export async function sharedRow(ctx: QueryCtx | MutationCtx, h: Doc<"handbooks">) {
+  const row = (h as any).fromLibrary ? await ctx.db.get((h as any).fromLibrary as Id<"library">)
+    : await ctx.db.query("library").withIndex("by_source", (q) => q.eq("sourceHandbookId", h._id)).first();
+  return row?.published ? row : null;
+}
+
+// A later chapter, the first time any reader of a shared handbook unlocks it: saved for everyone after (7 Oct).
+// Only neutral chapters (written with no reader's profile or quiz history) are saved; a level's row is its own.
+export const saveChapter = internalMutation({
+  args: { handbookId: v.id("handbooks"), n: v.number() },
+  handler: async (ctx, { handbookId, n }) => {
+    const h = await ctx.db.get(handbookId);
+    const row = h && await sharedRow(ctx, h);
+    if (!row || (row.chapters ?? {})[String(n)]) return;
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+    if (!ch?.cards || ch.status !== "ready") return;
+    const c: any = ch;
+    await ctx.db.patch(row._id, { chapters: { ...(row.chapters ?? {}), [String(n)]: { title: c.title, cards: c.cards, outcomeLine: c.outcomeLine, svg: c.svg, pictures: c.pictures ?? [], recallCards: c.recallCards, quizTiers: c.quizTiers, recallTiers: c.recallTiers } } });
   },
 });
+
+// Pictures are drawn after the words: keep the shared copy of that chapter in step when they land.
+export const syncPictures = internalMutation({
+  args: { handbookId: v.id("handbooks"), n: v.optional(v.number()) },
+  handler: async (ctx, { handbookId, n = 1 }) => {
+    const h = await ctx.db.get(handbookId);
+    const row = h && (n === 1 ? await ctx.db.query("library").withIndex("by_source", (q) => q.eq("sourceHandbookId", handbookId)).first() : await sharedRow(ctx, h));
+    const ch = row && await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
+    if (!row || !ch?.pictures?.length) return;
+    if (n === 1) { await ctx.db.patch(row._id, { chapter1: { ...row.chapter1, pictures: ch.pictures } }); const fresh = await ctx.db.get(row._id); if (fresh) await syncShared(ctx, fresh); return; }
+    const saved = (row.chapters ?? {})[String(n)];
+    if (saved && !(saved.pictures ?? []).some((p: any) => p.storageId) && saved.title === ch.title) await ctx.db.patch(row._id, { chapters: { ...row.chapters, [String(n)]: { ...saved, pictures: ch.pictures } } });
+  },
+});
+
 
 // Copy a shared plan and chapter 1 into a handbook (a new one from Explore, or a typed one that matched).
-async function copyInto(ctx: MutationCtx, handbookId: Id<"handbooks">, row: Doc<"library">) {
+export async function copyInto(ctx: MutationCtx, handbookId: Id<"handbooks">, row: Doc<"library">) {
   const now = Date.now();
   await ctx.db.patch(handbookId, { status: "ready", plan: row.plan, goal: row.goal, mode: row.mode, fromLibrary: row._id });
   const c = row.chapter1;
-  await ctx.db.insert("chapters", { handbookId, n: 1, status: "ready", title: c.title, cards: c.cards, outcomeLine: c.outcomeLine, svg: c.svg, pictures: c.pictures, recallCards: c.recallCards, createdAt: now });
+  await ctx.db.insert("chapters", { handbookId, n: 1, status: "ready", title: c.title, cards: c.cards, outcomeLine: c.outcomeLine, svg: c.svg, pictures: c.pictures, recallCards: c.recallCards, recallTiers: c.recallTiers, createdAt: now });
   await ctx.db.patch(row._id, { starts: row.starts + 1 });
+  const fresh = await ctx.db.get(row._id); if (fresh) await syncShared(ctx, fresh);
 }
 
 export async function matchForIntent(ctx: MutationCtx, h: Doc<"handbooks">, mode?: string): Promise<boolean> {
@@ -102,7 +133,7 @@ export const countPass = internalMutation({
     const h = await ctx.db.get(handbookId);
     if (!h) return;
     const row = h.fromLibrary ? await ctx.db.get(h.fromLibrary) : await ctx.db.query("library").withIndex("by_source", (q) => q.eq("sourceHandbookId", handbookId)).first();
-    if (row) await ctx.db.patch(row._id, { passes: row.passes + 1 });
+    if (row) { await ctx.db.patch(row._id, { passes: row.passes + 1 }); const fresh = await ctx.db.get(row._id); if (fresh) await syncShared(ctx, fresh); }
   },
 });
 
@@ -110,26 +141,32 @@ export const countPass = internalMutation({
 export const explore = query({
   args: {},
   handler: async (ctx) => {
+    // Reads the shelf (shelf.ts) and this week's handbooks only, never every full handbook (7 Oct, before launch).
     const url = async (id?: any) => (id ? await ctx.storage.getUrl(id) : null);
-    const cover = async (ch: any) => url((ch?.pictures ?? []).find((p: any) => p.storageId)?.storageId);
     const weekAgo = Date.now() - 7 * DAY;
     const excluded = await ctx.db.query("statsExcluded").collect();
     const xTokens = new Set(excluded.map((e) => e.deviceToken).filter(Boolean) as string[]);
     const xUsers = new Set(excluded.map((e) => e.userId).filter(Boolean).map(String));
-    const recent = (await ctx.db.query("handbooks").collect()).filter((h) => h.createdAt >= weekAgo && !h.ownerToken?.startsWith("abuse-")
+    const recent = (await ctx.db.query("handbooks").withIndex("by_created", (q) => q.gte("createdAt", weekAgo)).collect()).filter((h) => !h.ownerToken?.startsWith("abuse-")
       && !(h.ownerToken && xTokens.has(h.ownerToken)) && !(h.userId && xUsers.has(String(h.userId))));
+    // Finished chapter 1, for "Most finished" (7 Oct: chips on Explore).
+    const finished = new Set<string>();
+    for (const h of recent) { const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique(); if (p?.chaptersPassed.includes(1)) finished.add(h._id); }
+    const thisWeek = weekStartIST();
+    const shelf = await ctx.db.query("shelf").collect();
     const items: any[] = [];
     const seen = new Set<string>();
-    for (const r of (await ctx.db.query("cache").collect()).filter((x) => x.level === "new")) {
+    for (const r of shelf.filter((x) => x.kind === "ready" && x.level === "new")) {
       if (seen.has(r.topic)) continue; seen.add(r.topic);
-      const ch1 = r.chapters.find((c: any) => c.n === 1);
-      items.push({ kind: "ready", key: r.topicKey, topic: (r.plan as any)?.topic ?? r.topic, outcome: String((r.plan as any)?.outcome7 ?? "").split(/(?<=\.)\s/)[0], mode: (r.plan as any)?.mode ?? null,
-        cover: await cover(ch1), week: recent.filter((h) => h.source === "cache" && h.topic === r.topic).length, starts: null, passes: null });
+      const mine = recent.filter((h) => h.source === "cache" && h.topic === r.topic);
+      items.push({ kind: "ready", key: r.key, topic: r.title, outcome: r.outcome, mode: r.mode ?? null, cover: await url(r.cover), week: mine.length, starts: null, passes: null,
+        finishedWeek: mine.filter((h) => finished.has(h._id)).length, trending: r.trendingWeek === thisWeek, addedAt: r.addedAt });
     }
-    for (const r of await ctx.db.query("library").collect()) {
-      if (!r.published || seen.has(r.topic)) continue; seen.add(r.topic);
-      items.push({ kind: "shared", id: r._id, key: r.topicKey, topic: r.topic, goal: r.goal ?? null, outcome: String(r.plan?.outcome7 ?? "").split(/(?<=\.)\s/)[0], mode: r.mode ?? null,
-        cover: await cover(r.chapter1), week: recent.filter((h) => h.fromLibrary === r._id || h._id === r.sourceHandbookId).length, starts: r.starts, passes: r.passes, pick: !!r.pick });
+    for (const r of shelf.filter((x) => x.kind === "shared" && x.published)) {
+      if (seen.has(r.topic)) continue; seen.add(r.topic);
+      const mine = recent.filter((h) => (h as any).fromLibrary === r.libraryId);
+      items.push({ kind: "shared", id: r.libraryId, key: r.key, topic: r.title, goal: r.goal ?? null, outcome: r.outcome, mode: r.mode ?? null, cover: await url(r.cover),
+        week: mine.length, starts: r.starts, passes: r.passes, pick: !!r.pick, finishedWeek: mine.filter((h) => finished.has(h._id)).length, trending: false, addedAt: r.addedAt });
     }
     const hot = new Set(items.filter((i) => i.week >= 2).sort((a, b) => b.week - a.week).slice(0, 3).map((i) => i.key));
     const loved = new Set(items.filter((i) => i.starts !== null && i.starts >= 3 && i.passes / i.starts >= 0.5).sort((a, b) => b.passes / b.starts - a.passes / a.starts).slice(0, 3).map((i) => i.key));
@@ -137,6 +174,7 @@ export const explore = query({
       .sort((a, b) => Number(b.hot) - Number(a.hot) || Number(b.loved) - Number(a.loved) || b.week - a.week || Number(!!b.cover) - Number(!!a.cover));
   },
 });
+
 
 // The owner's view on /admin: every shared row, with a switch.
 export const adminList = query({
@@ -152,6 +190,7 @@ export const setPublished = mutation({
   handler: async (ctx, { id, published, pick }) => {
     if (!(await isOwner(ctx)).ok) throw new Error("Owner only");
     await ctx.db.patch(id, { ...(published !== undefined ? { published } : {}), ...(pick !== undefined ? { pick } : {}) });
+    const row = await ctx.db.get(id); if (row) await syncShared(ctx, row);
   },
 });
 
@@ -164,22 +203,21 @@ export const related = query({
     const mine = userId ? await ctx.db.query("handbooks").withIndex("by_user", (q) => q.eq("userId", userId)).collect() : await ctx.db.query("handbooks").withIndex("by_token", (q) => q.eq("ownerToken", deviceToken)).collect();
     const have = new Set(mine.map((h) => h.topic.toLowerCase()).concat(mine.map((h) => String((h.plan as any)?.topic ?? "").toLowerCase())));
     const url = async (id?: any) => (id ? await ctx.storage.getUrl(id) : null);
-    const cover = async (ch: any) => url((ch?.pictures ?? []).find((p: any) => p.storageId)?.storageId);
     const weekAgo = Date.now() - 7 * DAY;
-    const recent = (await ctx.db.query("handbooks").collect()).filter((h) => h.createdAt >= weekAgo);
-    const current = (await ctx.db.query("cache").collect()).find((r) => r.topic === topic || String((r.plan as any)?.topic) === topic);
-    const myMode = (current?.plan as any)?.mode ?? mine.find((h) => h.topic === topic)?.mode ?? null;
+    const recent = await ctx.db.query("handbooks").withIndex("by_created", (q) => q.gte("createdAt", weekAgo)).collect();
+    const shelf = await ctx.db.query("shelf").collect();
+    const current = shelf.find((r) => r.topic === topic || r.title === topic);
+    const myMode = current?.mode ?? mine.find((h) => h.topic === topic)?.mode ?? null;
     const items: any[] = []; const seen = new Set<string>();
-    for (const r of (await ctx.db.query("cache").collect()).filter((x) => x.level === "new")) {
-      const t = String((r.plan as any)?.topic ?? r.topic);
-      if (seen.has(r.topic) || have.has(r.topic.toLowerCase()) || have.has(t.toLowerCase()) || r.topic === topic) continue; seen.add(r.topic);
-      items.push({ kind: "ready", topic: t, outcome: String((r.plan as any)?.outcome7 ?? "").split(/(?<=\.)\s/)[0], cover: await cover(r.chapters.find((c: any) => c.n === 1)),
-        score: ((r.plan as any)?.mode && (r.plan as any).mode === myMode ? 10 : 0) + recent.filter((h) => h.topic === r.topic).length });
+    for (const r of shelf.filter((x) => x.kind === "ready" && x.level === "new")) {
+      if (seen.has(r.topic) || have.has(r.topic.toLowerCase()) || have.has(r.title.toLowerCase()) || r.topic === topic) continue; seen.add(r.topic);
+      items.push({ kind: "ready", topic: r.title, outcome: r.outcome, cover: await url(r.cover), score: (r.mode && r.mode === myMode ? 10 : 0) + recent.filter((h) => h.topic === r.topic).length });
     }
-    for (const l of await ctx.db.query("library").collect()) {
-      if (!l.published || seen.has(l.topic) || have.has(l.topic.toLowerCase())) continue; seen.add(l.topic);
-      items.push({ kind: "shared", id: l._id, topic: l.topic, outcome: String(l.plan?.outcome7 ?? "").split(/(?<=\.)\s/)[0], cover: await cover(l.chapter1), score: (l.mode && l.mode === myMode ? 10 : 0) + l.starts });
+    for (const r of shelf.filter((x) => x.kind === "shared" && x.published)) {
+      if (seen.has(r.topic) || have.has(r.topic.toLowerCase())) continue; seen.add(r.topic);
+      items.push({ kind: "shared", id: r.libraryId, topic: r.title, outcome: r.outcome, cover: await url(r.cover), score: (r.mode && r.mode === myMode ? 10 : 0) + r.starts });
     }
     return items.sort((a, b) => b.score - a.score).slice(0, 3).map(({ score: _s, ...x }) => x);
   },
 });
+

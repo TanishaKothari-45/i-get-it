@@ -8,22 +8,29 @@
  * @module
  */
 
+import type * as abtest from "../abtest.js";
 import type * as admin from "../admin.js";
 import type * as ai from "../ai.js";
 import type * as audit from "../audit.js";
 import type * as auth from "../auth.js";
 import type * as bonus from "../bonus.js";
+import type * as costs from "../costs.js";
 import type * as crons from "../crons.js";
 import type * as doctor from "../doctor.js";
 import type * as evalModels from "../evalModels.js";
+import type * as evalResearch from "../evalResearch.js";
 import type * as events from "../events.js";
+import type * as frozen from "../frozen.js";
 import type * as handbooks from "../handbooks.js";
 import type * as http from "../http.js";
 import type * as images from "../images.js";
+import type * as inkwash from "../inkwash.js";
 import type * as landing from "../landing.js";
 import type * as languages from "../languages.js";
 import type * as library from "../library.js";
 import type * as links from "../links.js";
+import type * as mail from "../mail.js";
+import type * as mailLimits from "../mailLimits.js";
 import type * as membership from "../membership.js";
 import type * as nism from "../nism.js";
 import type * as payments from "../payments.js";
@@ -36,7 +43,9 @@ import type * as ready from "../ready.js";
 import type * as repair from "../repair.js";
 import type * as repairData from "../repairData.js";
 import type * as research from "../research.js";
+import type * as schemas from "../schemas.js";
 import type * as settings from "../settings.js";
+import type * as shelf from "../shelf.js";
 import type * as sources from "../sources.js";
 import type * as sourcesRead from "../sourcesRead.js";
 import type * as stats from "../stats.js";
@@ -52,22 +61,29 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  abtest: typeof abtest;
   admin: typeof admin;
   ai: typeof ai;
   audit: typeof audit;
   auth: typeof auth;
   bonus: typeof bonus;
+  costs: typeof costs;
   crons: typeof crons;
   doctor: typeof doctor;
   evalModels: typeof evalModels;
+  evalResearch: typeof evalResearch;
   events: typeof events;
+  frozen: typeof frozen;
   handbooks: typeof handbooks;
   http: typeof http;
   images: typeof images;
+  inkwash: typeof inkwash;
   landing: typeof landing;
   languages: typeof languages;
   library: typeof library;
   links: typeof links;
+  mail: typeof mail;
+  mailLimits: typeof mailLimits;
   membership: typeof membership;
   nism: typeof nism;
   payments: typeof payments;
@@ -80,7 +96,9 @@ declare const fullApi: ApiFromModules<{
   repair: typeof repair;
   repairData: typeof repairData;
   research: typeof research;
+  schemas: typeof schemas;
   settings: typeof settings;
+  shelf: typeof shelf;
   sources: typeof sources;
   sourcesRead: typeof sourcesRead;
   stats: typeof stats;

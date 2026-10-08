@@ -7,11 +7,11 @@ import { PLAN_PROMPT, planUserMessage, CHAPTER_PROMPT, chapterUserMessage, CHECK
 // Model comparison (Shaktimaan, 6 Oct). Dev only, by hand; nothing here is on the reader's path.
 // Every call goes through ai.generate with a model and effort override; one fixed judge (Opus 5.5 high) scores.
 const effortV = v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max")));
-const JUDGE_MODEL = "claude-opus-5-5";
+export const JUDGE_MODEL = "claude-opus-5-5";
 
 const PLAN_SCORE = `You score one handbook plan against these rules, 1 to 5 (5 = follows every rule well, 3 = usable with clear gaps, 1 = fails the job). Rules: seven chapters, each teaching one thing, building in order; a specific, honest day-7 outcome (never "understand the basics"); one analogy carried through; each chapter has a plain title, one line on what it covers, an outcome starting "You can", and a hook under 18 words that is an honest open loop; plain words, numbers over adjectives; sources only real works it is certain of; no invented facts. Return only JSON: {"score": <1-5>, "why": "<one line>"}`;
 
-const JUDGE = `You are a strict editor judging one chapter of a short teaching handbook for a busy adult reading on a phone. Answer each check with true or false only, then name the weakest card and one concrete fix. Be harsh: a check passes only if it clearly holds.
+export const JUDGE = `You are a strict editor judging one chapter of a short teaching handbook for a busy adult reading on a phone. Answer each check with true or false only, then name the weakest card and one concrete fix. Be harsh: a check passes only if it clearly holds.
 
 Checks:
 1. hook: the first sentence of card 1 would stop a scroll: specific, surprising or a real question, no throat-clearing.
@@ -42,15 +42,15 @@ export const plan = internalAction({
 });
 
 export const chapter = internalAction({
-  args: { plan: v.any(), model: v.string(), effort: effortV },
-  handler: async (ctx, { plan, model, effort }): Promise<any> => {
+  args: { plan: v.any(), model: v.string(), effort: effortV, n: v.optional(v.number()) },
+  handler: async (ctx, { plan, model, effort, n = 1 }): Promise<any> => {
     const t0 = Date.now();
-    const r: any = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(plan, "new", "English", "friend", 1), model, effort });
+    const r: any = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(plan, "new", "English", "friend", n), model, effort });
     const ms = Date.now() - t0;
     if (!r.ok) return { ok: false, ms, error: r.error };
     const slim = { title: r.json?.title, cards: r.json?.cards, outcomeLine: r.json?.outcomeLine };
     const j: any = await ctx.runAction(internal.ai.generate, { kind: "audit", system: JUDGE, user: "Chapter JSON:\n" + JSON.stringify(slim), model: JUDGE_MODEL, effort: "high" });
-    return { ok: true, ms, tokensIn: r.tokensIn, tokensOut: r.tokensOut, judge: j.ok ? j.json : { error: j.error }, judgeIn: j.tokensIn, judgeOut: j.tokensOut };
+    return { ok: true, ms, tokensIn: r.tokensIn, tokensOut: r.tokensOut, cardTypes: (r.json?.cards ?? []).map((c: any) => c.type), judge: j.ok ? j.json : { error: j.error }, judgeIn: j.tokensIn, judgeOut: j.tokensOut };
   },
 });
 

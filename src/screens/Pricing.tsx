@@ -11,7 +11,7 @@ type Tier = { tier: number; month: number; year: number; size: number | null; le
 type Pay = { live: boolean; mode: 'test' | 'live' | null; customers: number; openTier: number; tier: number; kept: boolean; price: { month: number; year: number }; payments: number; plan: PlanKind | null; paidUntil: number | null }
 type Plans = { tiers: Tier[]; freeDays: number; days: { month: number; year: number }; locked: { price: number; at: number } | null; signedIn: boolean; pay: Pay }
 type Order = { keyId: string; orderId: string; amount: number; month: number; plan: PlanKind; email?: string }
-type Props = { plans: Plans | undefined; onLock: () => Promise<{ price: number; already: boolean }>; onOrder: (plan: PlanKind) => Promise<Order>; onConfirm: (p: Paid) => Promise<{ ok: boolean }>; onBack: () => void; onSignIn: () => void; fromDone?: boolean }
+type Props = { notice?: string | null; plans: Plans | undefined; onLock: () => Promise<{ price: number; already: boolean }>; onOrder: (plan: PlanKind) => Promise<Order>; onConfirm: (p: Paid) => Promise<{ ok: boolean }>; onBack: () => void; onSignIn: () => void; fromDone?: boolean }
 
 const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`
 const WHO = ['First 50', 'Next 100', 'Next 200', 'After that']
@@ -19,10 +19,9 @@ const WHO = ['First 50', 'Next 100', 'Next 200', 'After that']
 // Free vs member, side by side (membership.ts LIMITS are the numbers that are enforced; keep these in step).
 const COMPARE: { what: string; free: string; member: string }[] = [
   { what: 'Handbooks you type', free: '1', member: '3 on the go at a time (up to 6 new a month)' },
-  { what: 'New chapters of your own', free: '1 a day', member: 'Up to 7 a day, across everything' },
-  { what: 'Ready and shared handbooks', free: '1 new chapter a day from each of up to 3', member: 'As many as you like' },
+  { what: 'Ready and shared handbooks', free: 'Every chapter of every one', member: 'Every chapter of every one' },
+  { what: 'New chapters a day', free: '3', member: '7' },
   { what: 'Web-checked answers', free: '3 a week', member: '30 a month' },
-  { what: 'Say it simpler', free: '10 a day', member: 'As many as you like' },
   { what: 'Print or save as PDF', free: '–', member: 'Any of your handbooks' },
   { what: 'Coming next', free: '–', member: 'Your learning dashboard with streaks, Indian languages, days 8 to 28: members first' },
 ]
@@ -30,7 +29,7 @@ const COMPARE: { what: string; free: string; member: string }[] = [
 // Early-bird pricing (7 Oct): the first 50 paying readers pay least, and keep that price while they keep paying.
 // Every payment is one-time (a month or a year) and nothing renews by itself. Numbers come from convex/pricing.ts;
 // the spots left are the real count. Copy is (agent) until Prateek rewrites it.
-export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onSignIn, fromDone }: Props) {
+export default function Pricing({ notice, plans, onLock, onOrder, onConfirm, onBack, onSignIn, fromDone }: Props) {
   const ms = useQuery(api.membership.status, { deviceToken: deviceToken() })
   const [busy, setBusy] = useState(false)
   const [plan, setPlan] = useState<PlanKind>('month')
@@ -65,9 +64,12 @@ export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onS
         : "Couldn't open the payment just now. Nothing was charged; try again in a minute.")
     } finally { setBusy(false) }
   }
+  // The next tier up, if there is one and it costs more: what this price becomes once these spots are gone.
+  const later = (() => { const t = plans.tiers.find((x) => x.tier === p.tier + 1); return t && t.month > p.price.month ? t : null })()
   const until = (t: number) => new Date(t).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
   return (
     <>
+      {notice && <p className="why-here">{notice}</p>}
       {ms?.member && ms.until ? (
         <>
           <p className="sub" style={{ marginTop: 10 }}><span className="member-mark" style={{ marginLeft: 0 }}>Member</span></p>
@@ -82,7 +84,7 @@ export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onS
         <>
           <p className="sub" style={{ marginTop: 10 }}>{fromDone ? 'You reached the summit' : 'Pricing'}</p>
           <h1>Come early, pay less, for as long as you stay.</h1>
-          <p className="lede">Free: one handbook of your own, a chapter a night, plus a taste of the ready ones every day. No card asked. Members read more, and the first 50 pay the least.</p>
+          <p className="lede">Start without an account: the first 3 chapters of any handbook. Sign up free for every chapter of every ready one, plus one of your own. Members get more of their own, and the first 50 pay the least.</p>
           <table className="compare">
             <thead><tr><th></th><th>Free</th><th>Member</th></tr></thead>
             <tbody>{COMPARE.map((r) => <tr key={r.what}><th scope="row">{r.what}</th><td>{r.free}</td><td>{r.member}</td></tr>)}</tbody>
@@ -105,7 +107,7 @@ export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onS
       <p className="once"><strong>One-time payment. No auto-renew.</strong> You pay for a month or a year, once. Nothing is charged again unless you tap Pay again.</p>
 
       <ul className="rules">
-        <li><strong>Free stays free.</strong> Your own handbook, a chapter a night, and everything you've already opened stay yours whether you pay or not.</li>
+        <li><strong>Free stays free.</strong> Every ready and shared handbook, your own one, and everything you've already opened stay yours whether you pay or not.</li>
         <li><strong>A year saves {inr(saving)}.</strong> {inr(p.price.year)} once, instead of {inr(p.price.month)} twelve times.</li>
         <li><strong>Your price stays yours.</strong> Pay again within 7 days of your time running out and you keep it, even after it goes up for newcomers.</li>
         <li><strong>Nothing to cancel.</strong> If you don't pay again, you aren't charged. Your handbooks and progress stay yours.</li>
@@ -116,10 +118,12 @@ export default function Pricing({ plans, onLock, onOrder, onConfirm, onBack, onS
           {p.mode === 'test' && <p className="note" style={{ textAlign: 'center' }}>Test mode: no real money moves.</p>}
           {p.paidUntil ? <p className="locked">Paid. You're covered until {until(p.paidUntil)}.</p>
             : p.kept ? <p className="locked">Your early price is kept: {inr(p.price.month)} a month or {inr(p.price.year)} a year.</p> : null}
+          {/* The struck price is always the real next tier, never a made-up "was" price (7 Oct). */}
+          {!p.paidUntil && later && <p className="early-bird">Early-bird price while the {WHO[p.tier - 1]?.toLowerCase() ?? 'first'} spots last: <s>{inr(later.month)}</s> <strong>{inr(p.price.month)}</strong> a month, or <s>{inr(later.year)}</s> <strong>{inr(p.price.year)}</strong> a year. Then it goes up to {inr(later.month)}.</p>}
           {!p.paidUntil && (
             <div className="chips" role="group" aria-label="Pay for">
-              <button type="button" className="chip" aria-pressed={plan === 'month'} onClick={() => setPlan('month')}>A month · {inr(p.price.month)}</button>
-              <button type="button" className="chip" aria-pressed={plan === 'year'} onClick={() => setPlan('year')}>A year · {inr(p.price.year)}</button>
+              <button type="button" className="chip" aria-pressed={plan === 'month'} onClick={() => setPlan('month')}>A month · {later && <s className="was">{inr(later.month)}</s>} {inr(p.price.month)}</button>
+              <button type="button" className="chip" aria-pressed={plan === 'year'} onClick={() => setPlan('year')}>A year · {later && <s className="was">{inr(later.year)}</s>} {inr(p.price.year)}</button>
             </div>
           )}
           {payError && <p className="error">{payError}</p>}

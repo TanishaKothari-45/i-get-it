@@ -17,6 +17,7 @@ type Props = {
   outcomeLine: string
   nextTitle?: string
   nextHook?: string
+  nextPicture?: string   // the next chapter's first picture, for the Up next card (7 Oct)
   sources?: { who: string; what: string; why?: string }[]
   signedIn: boolean
   tomorrowAt?: string
@@ -51,7 +52,15 @@ const BONUS_COPY = {
   },
 }
 
-const TIMES = ['07:00', '08:00', '13:00', '19:00', '21:00', '22:30']
+// Reminder moments (7 Oct, Prateek: "more casual and witty"): a moment in the day, the clock underneath. Copy (agent).
+const TIMES: { at: string; label: string }[] = [
+  { at: '07:30', label: 'With the morning chai' },
+  { at: '13:00', label: 'At lunch, one hand free' },
+  { at: '19:00', label: 'On the ride home' },
+  { at: '21:00', label: 'After dinner, before the scroll' },
+  { at: '22:30', label: 'In bed, instead of reels' },
+]
+const momentOf = (t: string) => TIMES.find((x) => x.at === t)?.label.toLowerCase()
 
 function pretty(t: string) {
   const [h, m] = t.split(':').map(Number)
@@ -76,7 +85,7 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   return `You took your time, and it stuck. That's the whole point.`
 }
 
-export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext, bonus }: Props) {
+export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, nextPicture, sources: _sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext, bonus }: Props) {
   const [rated, setRated] = useState<string | null>(null)
   const line = cheer(n, stats)
   const copy = bonus ? BONUS_COPY[bonus.kind] : null
@@ -103,7 +112,18 @@ export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTit
       )}
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {handbookId && deviceToken && <TeachBack handbookId={handbookId} n={n} deviceToken={deviceToken} />}
-      {!last && nextTitle && <p className="lede" style={{ marginTop: 'var(--l)' }}>Next: Chapter {n + 1}, {nextTitle}.{nextHook ? <> <em>{nextHook}</em></> : null}</p>}
+      {/* Up next (7 Oct, Prateek): the next chapter as a card worth tapping, with its own button. */}
+      {!last && nextTitle && (
+        <section className="upnext" aria-label={`Up next: chapter ${n + 1}`}>
+          {nextPicture && <div className="upnext-pic"><img src={nextPicture} alt="" /></div>}
+          <div className="upnext-body">
+            <p className="upnext-kicker">Up next · Chapter {n + 1} of {total}</p>
+            <h2 className="upnext-title">{nextTitle}</h2>
+            {nextHook && <p className="upnext-hook">{nextHook}</p>}
+            {onNext && <button type="button" className="btn upnext-btn" onClick={onNext}>{nextReady ? `Start chapter ${n + 1} →` : `Start chapter ${n + 1} → (writing it, about a minute)`}</button>}
+          </div>
+        </section>
+      )}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>{total === 7 ? "That's the whole handbook. Days 14 and 28 come later." : "That's all of it. Quick and done."}</p>}
       {last && whatsNext}
 
@@ -114,7 +134,6 @@ export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTit
           <button type="button" className="btn btn-ghost nudge-btn" onClick={bonus.onGo}>{bonus.done ? copy.again : copy.go}</button>
         </div>
       )}
-      {last && sources && sources.length > 0 && <p className="sources"><span className="label">Read next</span> {sources.map((x, i) => <span key={i}>{i > 0 && ' · '}<strong>{x.who}</strong>, <em>{x.what}</em>{x.why ? ` (${x.why})` : ''}</span>)}</p>}
 
 
       {last && (
@@ -141,7 +160,7 @@ export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTit
         ) : (
           last || !onNext ? <button className="btn btn-ghost" onClick={onContinue}>Back to the handbook</button> : (
             <>
-              <button className="btn" onClick={onNext}>{nextReady ? `Start chapter ${n + 1} now` : `Start chapter ${n + 1} (writing it, about a minute)`}</button>
+              <button className="btn btn-ghost" onClick={onNext}>{`Start chapter ${n + 1}`}</button>
               <button type="button" className="quiet" onClick={onContinue}>Back to the handbook</button>
             </>
           )
@@ -173,17 +192,20 @@ function Reminder({ n, tomorrowAt, onPickTime, handbookId, deviceToken }: { n: n
   }
   return (
     <section className="remind">
-      <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `See you at ${pretty(tomorrowAt)}.` : `When should we remind you about chapter ${n + 1}?`}</h2>
-      <div className="times">
+      <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `Deal. See you ${momentOf(tomorrowAt) ?? `at ${pretty(tomorrowAt)}`}.` : `Chapter ${n + 1} takes twenty minutes. When do you have them?`}</h2>
+      {!tomorrowAt && <p className="note" style={{ marginTop: 0 }}>Pick one. One nudge a day at that time, and none on days you've already read.</p>}
+      <div className="moments">
         {TIMES.map((t) => (
-          <button key={t} type="button" className="chip" aria-pressed={tomorrowAt === t} disabled={!!saving} onClick={() => pick(t)}>{pretty(t)}</button>
+          <button key={t.at} type="button" className="moment" aria-pressed={tomorrowAt === t.at} disabled={!!saving} onClick={() => pick(t.at)}>
+            <span className="moment-label">{t.label}</span><span className="moment-time">{pretty(t.at)}</span>
+          </button>
         ))}
       </div>
       {note && <p className="note">{note}</p>}
       {installable && !isStandalone() && (
         <button type="button" className="quiet" onClick={async () => { await install(); setInstallable(false) }}>Add I Get It to your home screen</button>
       )}
-      {!installable && isIOS() && !isStandalone() && !note && <p className="note">Tip: on iPhone, Share, then Add to Home Screen, puts I Get It next to your apps.</p>}
+      {!installable && isIOS() && !isStandalone() && !note && <p className="note">Tip: on iPhone, tap Share, then Add to Home Screen, to keep I Get It next to your apps.</p>}
     </section>
   )
 }

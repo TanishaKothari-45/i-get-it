@@ -3,6 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 // The AI call. Runs only here, in a Convex action. The key is read from the
 // Convex environment, never from the interface.
 import { v } from "convex/values";
+import { jsonSchema, problems } from "./schemas";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { RESEARCH_PROMPT, researchMessage, researchText } from "./prompts";
@@ -45,15 +46,17 @@ const HAIKU = "claude-haiku-4-5-20251001";
 const OPUS = "claude-opus-5-5";
 const SONNET = "claude-sonnet-5-5";
 type Effort = "low" | "medium" | "high" | "xhigh" | "max";
-type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach" | "intent" | "deeper" | "another";
+type Kind = "plan" | "chapter" | "simpler" | "ask" | "check" | "scenes" | "audit" | "repair" | "teach" | "intent" | "versions" | "match" | "deeper" | "another";
 // Per-job table, set by Prateek 6 Oct: quality first, cost and latency to be handled with prices or limits later.
 // Thinking counts against max_tokens, so max-effort jobs get large caps (and stream; see callAnthropic).
 const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> = {
   plan: { model: OPUS, effort: "high", maxTokens: 32000 },
+  versions: { model: SONNET, effort: "low", maxTokens: 12000 },   // 7 Oct: easier and harder quiz versions from a finished chapter (Opus writing them doubled a chapter's cost)
+  match: { model: HAIKU, maxTokens: 300 },   // 7 Oct: does a typed topic match a handbook we already have (by meaning)?
   intent: { model: HAIKU, maxTokens: 600 },   // "What's it for?": three goals in about a second, before the plan   // 6 Oct: "max" thought >5 min, hit 32k and was cut off (2 of 2)
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
   simpler: { model: SONNET, effort: "medium", maxTokens: 8000 },   // 6 Oct: "max" thought 49 s and was cut off at 8,000 with no answer
-  chapter: { model: OPUS, effort: "medium", maxTokens: 16000 },
+  chapter: { model: OPUS, effort: "medium", maxTokens: 32000 },   // 7 Oct: three quiz versions plus thinking passed 16,000
   scenes: { model: SONNET, effort: "low", maxTokens: 4000 },   // 6 Oct: Sonnet, not Haiku: deciding which cards get a real photo needs judgment
   deeper: { model: HAIKU, maxTokens: 4500 },    // bonus lessons ("go deeper" / "another way"): shorter than a chapter
   another: { model: HAIKU, maxTokens: 4500 },
@@ -92,17 +95,19 @@ async function callAnthropic(kind: Kind, system: string, user: string, modelOver
 
 // GLM (Zhipu / Z.ai), OpenAI-style chat API. Key in the Convex env variable CHEAPER_INFERENCE_API_KEY (Prateek's credits).
 // Only used when a model id starts with "glm-" (6 Oct: under test in the model comparison, not on the reader's path).
-async function callGLM(system: string, user: string, model: string, maxTokens: number, effort?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+async function callGLM(system: string, user: string, model: string, maxTokens: number, effort?: string, kind?: string): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const key = process.env.CHEAPER_INFERENCE_API_KEY;
   if (!key) throw new Error("No GLM key");
   const base = process.env.GLM_BASE_URL ?? "https://api.z.ai/api/paas/v4";
   const res = await fetch(`${base}/chat/completions`, {
-    method: "POST",
+    method: "POST", signal: AbortSignal.timeout(150000),   // 8 Oct: a check hung 5 minutes on the marketplace, then failed
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       model, max_tokens: Math.min(maxTokens, 32000),
       messages: [{ role: "system", content: system + "\n\nReturn only the JSON object. No prose, no code fences." }, { role: "user", content: user }],
       thinking: { type: effort && effort !== "low" ? "enabled" : "disabled" },
+      // 8 Oct: the job's JSON schema goes with the request, so the reply is held to it at the source (schemas.ts).
+      ...(kind && jsonSchema(kind) ? { response_format: { type: "json_schema", json_schema: { name: kind, schema: jsonSchema(kind), strict: false } } } : {}),
     }),
   });
   const body: any = await res.json().catch(() => ({}));
@@ -116,14 +121,14 @@ async function callGLM(system: string, user: string, model: string, maxTokens: n
 // INFERENCE_API_KEY. Used when the /admin switch says "inference", or when a call names a model starting "tic:" (tests).
 // Each call carries an x-task-id header naming the job, so the console shows cost per job.
 const INFERENCE_MODEL = "deepseek-v4-pro";
-async function callInference(kind: string, system: string, user: string, maxTokens: number): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
+async function callInference(kind: string, system: string, user: string, maxTokens: number, model = INFERENCE_MODEL): Promise<{ text: string; tokensIn?: number; tokensOut?: number; model: string }> {
   const key = process.env.INFERENCE_API_KEY;
   if (!key) throw new Error("No INFERENCE_API_KEY");
   const res = await fetch("https://console.theinferencecompany.si/v1/chat/completions", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json", "x-task-id": `igetit-${kind}` },
     body: JSON.stringify({
-      model: INFERENCE_MODEL, max_tokens: Math.min(maxTokens, 32000),
+      model, max_tokens: Math.min(maxTokens, 32000),
       messages: [{ role: "system", content: system + "\n\nReturn only the JSON object. No prose, no code fences." }, { role: "user", content: user }],
     }),
   });
@@ -131,7 +136,7 @@ async function callInference(kind: string, system: string, user: string, maxToke
   if (!res.ok) throw new Error(`Inference ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
   const choice = body.choices?.[0];
   if (choice?.finish_reason === "length") throw new Error("reply cut off at the token limit");
-  return { text: String(choice?.message?.content ?? ""), tokensIn: body.usage?.prompt_tokens, tokensOut: body.usage?.completion_tokens, model: `${body.model ?? INFERENCE_MODEL} (inference)` };
+  return { text: String(choice?.message?.content ?? ""), tokensIn: body.usage?.prompt_tokens, tokensOut: body.usage?.completion_tokens, model: `${body.model ?? model} (inference)` };
 }
 
 // One small request to check the key and the connection: npx convex run ai:pingInference
@@ -151,7 +156,7 @@ function extractJson(text: string): any {
 }
 
 export const generate = internalAction({
-  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent"), v.literal("deeper"), v.literal("another")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))) },
+  args: { kind: v.union(v.literal("plan"), v.literal("chapter"), v.literal("simpler"), v.literal("ask"), v.literal("check"), v.literal("scenes"), v.literal("audit"), v.literal("repair"), v.literal("teach"), v.literal("intent"), v.literal("deeper"), v.literal("another"), v.literal("versions"), v.literal("match")), system: v.string(), user: v.string(), model: v.optional(v.string()), effort: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("xhigh"), v.literal("max"))) },
   handler: async (ctx, { kind, system, user, model, effort }): Promise<Result> => {
     const started = Date.now();
     const maxOut = kind === "plan" ? PLAN_MAX_OUT : kind === "simpler" || kind === "ask" ? SIMPLER_MAX_OUT : CHAPTER_MAX_OUT;
@@ -164,14 +169,30 @@ export const generate = internalAction({
     const viaInference = model?.startsWith("tic:") || (!model && !!process.env.INFERENCE_API_KEY && (await ctx.runQuery(internal.settings.provider, {})) === "inference");
     try {
       const viaGLM = !!model?.startsWith("glm-");
-      const call = () => viaInference ? callInference(kind, system, user, JOB[kind].maxTokens) : viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
-      let r = await call();
+      // "ci:<model>" (8 Oct): any model on the Cheaper Inference marketplace (Prateek's credits), thinking on where Claude thinks.
+      const viaCheaper = !!model?.startsWith("ci:");
+      const call = () => viaInference ? callInference(kind, system, user, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, user, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, user, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, user, model, effort) : callOpenAI(system, user, maxOut);
+      // A marketplace call that times out or drops gets one more try (8 Oct); provider errors on Claude are left as before.
+      let r = await call().catch(async (e: any) => {
+        if ((viaCheaper || viaGLM) && /fetch failed|aborted|timeout|GLM 5\d\d/i.test(String(e?.message ?? e))) return call();
+        throw e;
+      });
       let json: any;
       // A broken JSON reply (6 Oct: an unescaped quote in a SQL chapter) gets one fresh try before it counts as a failure.
       try { json = extractJson(r.text); }
       catch {
         r = await call();
         json = extractJson(r.text);
+      }
+      // 8 Oct: every reply is checked against its job's schema (schemas.ts). A mismatch gets one more try that names
+      // the problems; a second mismatch is a failure, never a half-valid reply.
+      const wrong = problems(kind, json);
+      if (wrong) {
+        const fix = `${user}\n\nYour previous reply did not match the required JSON shape:\n${wrong}\nReturn the whole JSON object again, with these fixed.`;
+        r = await (viaInference ? callInference(kind, system, fix, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, fix, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, fix, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, fix, model, effort) : callOpenAI(system, fix, maxOut));
+        json = extractJson(r.text);
+        const still = problems(kind, json);
+        if (still) throw new Error(`reply did not match the ${kind} schema: ${still.replace(/\n/g, " ").slice(0, 300)}`);
       }
       await ctx.runMutation(internal.handbooks.logAiCall, {
         kind, model: r.model, input: user.slice(0, 2000), output: r.text.slice(0, 20000),
