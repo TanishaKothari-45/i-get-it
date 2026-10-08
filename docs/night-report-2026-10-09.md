@@ -23,7 +23,7 @@ Caution: /admin's 88 visitors include our own review agents (05 alone ran about 
 2. Razorpay webhook secret is still unset on prod (RAZORPAY_WEBHOOK_SECRET), so a payment is recorded only if the checkout reply reaches the app. Set it from the Razorpay dashboard: `npx convex env set --prod RAZORPAY_WEBHOOK_SECRET <value>`.
 3. Shaktimaan's two pieces of advice collide and only you can resolve it: on 8 Oct morning he said to read your moonlighting clause before the first real rupee comes in ("the clause is about earning, not only about being seen"); that evening he set today as "the wall, the pricing fix, and one ask". Asking someone to pay ₹199 today invites the event he said to check first. dc's view: read the clause before the ask; if a real rupee is not allowed yet, make the ask a research question ("would you pay ₹199 for this?") and record the yes, not a Razorpay link. I did not put this to Shaktimaan: the permission check blocked a message carrying your employment details to an outside service, so it stays here for you.
 4. One question for Shaktimaan that dc could not send (the permission check blocked the channel for this session twice; a2 reached him earlier tonight): "What's the smallest sample at the wall before the result means anything? Write the number down now (10 or 20 wall hits) so Friday's call is made on data, not flipped back on three people's noise." Ask it yourself in the morning, or let a2 send it. Also tell him his line "Chapters 4 to 7 are ₹199" is wrong for our model (a free account opens every ready handbook; paying buys more of your own), and that the 49-of-50 counter is fixed (D22).
-5. Small build proposed for Friday, not done tonight (dc, D19: nothing beyond the P0s under tonight's load): a link that opens one shared handbook straight from a post, e.g. ?l=<libraryId>, the way ?t= opens a ready topic. a2's "Someone typed this" Sunday post needs it, and Shaktimaan's rule is "link straight in, each extra tap loses cold visitors". Ten-minute build in App.tsx and library.ts; say yes and 55 does it in the morning.
+5. D25 shipped tonight on your word: ?l=<libraryId> opens a shared handbook straight from a post (05 built it; check one link from a2's candidates on your phone).
 6. D13 opens: blind writer test judge, landing length, pricing columns, button labels (parked to Sunday 12 Oct).
 
 ## Session dc (coordinator)
@@ -34,10 +34,34 @@ Caution: /admin's 88 visitors include our own review agents (05 alone ran about 
 
 ## Session 05
 
-Before you write here: add your lessons for 8 Oct to docs/lessons.md (Product/Tech and GTM, thought / learned / now). AGENTS.md section 2, every build day.
+Lessons for 8 Oct are in docs/lessons.md (five under Product/Tech, session 05).
 
+**Shipped (one static deploy, DEPLOY_LINE)**
+- The print language on every screen: ink stroke, pressed shadow, paper rule, grain, marker highlights, printed kickers. Chapter frames, plan, Done, sign-in, pricing, policy, Shelf, Your handbooks, Start, Print. 14 screens measured from the DOM at 390 px (tap targets 44 px and up, contrast 4.5:1 and up on body text); the Shelf chip misalignment you caught is fixed and was the last open item in that sweep.
+- The book opens (your ask, 00:1x): tap a book on the Shelf or the landing carousel and it lifts, grows and opens into chapter 1; every frame is a page that turns in from the right going forward and from the left going back. Transform and opacity only, about a third of a second, one picture prefetched ahead, nothing extra on save-data or 2G, all off under reduced motion. The screen underneath stays until the chapter has its cards, so there is no splash or plan flash.
+- The Shelf control (D21, your 00:4x ask): a printed marigold button with a book and the word "Shelf" (44 px) in the header of every screen except the Shelf itself; a printed strip with the live count ("N handbooks on the Shelf, ready to open.") under the typed box on the landing, under the wall card on Done, and on the plan. Before and after at 390 px: SHOTS_LINE
+- Activities never gate the arrow (D24): a do-it, try-it, steps or move card is an invitation; → works from the moment it shows. Only a quiz holds. The do-it card says "Or just tap → to keep going."
+- Quick handbooks on Done (D23): no wall between the chapters of a recipe or a one-off task, no reminder, no "tomorrow"; one button, "Keep going"; a one-chapter handbook's Done says "Done." and "That's all of it. Quick and done." The plan hides the Tonight/Next tags on a quick handbook.
+- Phone Back button: every screen is a history entry, so Back goes to the previous screen instead of leaving the site.
+- Sign-up from the wall no longer bounces to sign-in (the attach race). Sign-in from the wall names the chapter and the topic, says who sends the code and that it takes about twenty seconds, keeps the password route behind "I already have a password".
+- Sheets and the chapter trap Tab and give focus back on close; the chapter dialog is named "card i of n"; the bars are a progressbar.
+- Security (found by the review, fixed): the admin page needs a verified email; "exclude me" from stats is once per phone and rate-limited; the reminder save is rate-limited per device and across the app.
 
-(05 writes here: what shipped, the second critique score against 26/40, what to check, what's open.)
+**Critique (impeccable critique, two independent reviewers, same path: landing → Drishyam → chapter 1 → Done → sign-in)**
+- First run 26/40, second run 27/40. The point moved on aesthetic and minimalist design (one main action on Done, the wall card as one printed block, a single finisher on the last frame). What is still open and not mine: picture weight on the cover plates (55's backfill), and the plan's copy when a typed topic is really a ready one (55 will ask you).
+- Deterministic scan: 0 findings on the source files; the one URL warning ("cream palette") is the brief's own paper colour.
+
+**Check on your phone (390 px, logged out, mobile data)**
+1. Landing: the marigold "Shelf" button top right, the strip with the count under the typed box. Tap a carousel book: it lifts and opens into chapter 1 with no flash in between.
+2. Chapter: swipe or tap → through a do-it or try-it card without logging anything; it must advance. Pages turn; the picture plate shows stripes until the picture lands, never a hard-edged empty box.
+3. Done after chapter 1: outcome line first, then the wall card, the price as a note, the Shelf strip. Make a free account from there: you should land in chapter 2, not back on sign-in.
+4. Press the phone's Back button on the plan: previous screen, not the Chrome new-tab page.
+5. The dal handbook (quick): no reminder on Done, "Keep going", no Tonight/Next tags on its plan.
+
+**Open**
+- The landing is 9.95 screens tall at 390 (parked to Sunday, D14).
+- Our headless visits (about 60 tonight, all tagged ?utm_source=internal) are counted on /admin and not on /stats.
+- PROVE_LINE
 
 ## Session 55
 
