@@ -68,7 +68,7 @@ type Item = { id: string; card: number; text: string };
 type Result = { ok: true; groups: string[][] } | { ok: false; error: string };
 
 async function callSarvam(system: string, user: string): Promise<Reply> {
-  const key = process.env.SARVAM_API_KEY!;
+  const key = (process.env.SARVAM_API_KEY ?? process.env.Sarvam)!;   // either name, as set in the Convex dashboard
   const model = process.env.SARVAM_MODEL ?? "sarvam-105b";
   const data = await postJson("Sarvam", "https://api.sarvam.ai/v1/chat/completions", { "api-subscription-key": key, Authorization: `Bearer ${key}` }, {
     model,
@@ -98,7 +98,7 @@ const CALL: Record<Provider, (system: string, user: string) => Promise<Reply>> =
 // Who translates, in the order to try them. Only providers whose key is set.
 function providersFor(info: LanguageInfo): Provider[] {
   const order: Provider[] = info.indian ? ["sarvam", "gemini"] : ["gemini"];
-  return order.filter((p) => (p === "sarvam" ? !!process.env.SARVAM_API_KEY : !!process.env.GEMINI_API_KEY));
+  return order.filter((p) => (p === "sarvam" ? !!(process.env.SARVAM_API_KEY ?? process.env.Sarvam) : !!process.env.GEMINI_API_KEY));
 }
 
 // Groups (one per card) packed into calls of up to BATCH_CHARS, in reading order.

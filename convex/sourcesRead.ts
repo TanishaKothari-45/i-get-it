@@ -116,7 +116,7 @@ function transcriptText(t: unknown): string {
 // Apify's Instagram Reel Scraper: for a reel link, or a public creator's handle (their latest reels), the caption and
 // the video file's link, without logging in. No transcript add-on: Gemini listens to the video itself. null without a key.
 async function apifyReels(target: string, limit: number): Promise<Reel[] | null> {
-  const token = process.env.APIFY_TOKEN;
+  const token = process.env.APIFY_TOKEN ?? process.env.APIFY;   // either name, as set in the Convex dashboard
   if (!token) return null;
   const res = await fetchWithTimeout("https://api.apify.com/v2/acts/apify~instagram-reel-scraper/run-sync-get-dataset-items?timeout=110", {
     method: "POST",
@@ -140,7 +140,7 @@ async function downloadVideo(videoUrl: string): Promise<string | null> {
 
 // Supadata: a transcript from the reel's link, for when the video itself can't be fetched. Slow ones come back as a job.
 async function supadataTranscript(url: string): Promise<string | null> {
-  const key = process.env.SUPADATA_API_KEY;
+  const key = process.env.SUPADATA_API_KEY ?? process.env.SUPADATA;
   if (!key) return null;
   const headers = { "x-api-key": key };
   let res = await fetchWithTimeout(`https://api.supadata.ai/v1/transcript?url=${encodeURIComponent(url)}&text=true`, { headers });
