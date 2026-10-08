@@ -33,6 +33,7 @@ export default function App() {
   const data = useQuery(api.handbooks.current, pinned ? { deviceToken: token, handbookId: pinned as any } : { deviceToken: token })
   const lib = useQuery(api.handbooks.library, { deviceToken: token })
   const plansData = useQuery(api.pricing.plans, { deviceToken: token })
+  const isMember = !!useQuery(api.membership.status, { deviceToken: token })?.member
   const lockPrice = useMutation(api.pricing.lockPrice)
   const payOrder = useAction(api.payments.order)
   const payConfirm = useAction(api.payments.confirm)
@@ -62,7 +63,7 @@ export default function App() {
   const syncFromCache = useMutation(api.handbooks.syncFromCache)
   const profile = useQuery(api.handbooks.myProfile, { deviceToken: token })
 
-  const [view, setView] = useState<View>('auto')
+  const [view, setView] = useState<View>(() => window.location.pathname === '/pricing' ? 'pricing' : 'auto')   // /pricing is a real address (8 Oct night)
   const [doneN, setDoneN] = useState<number | null>(null)
   // The chapter on screen stays on screen when its last quiz passes it and the server moves the reader on (6 Oct).
   const [readingN, setReadingN] = useState<number | null>(null)
@@ -106,7 +107,7 @@ export default function App() {
   const [hold, setHold] = useState<'explore' | 'landing' | 'library' | null>(null)
   const goExplore = () => { setExploreFrom(view === 'auto' || view === 'explore' ? (hb ? 'plan' : 'auto') : view); setView('explore') }
   const routeLock = (code: string | null, note: string) => {
-    if (code === 'signup-more') { setSigninReason(note); setAfterSignIn('chapter'); setView('signin'); return true }
+    if (code === 'signup-more') { setSigninReason(`To open chapter ${chapter?.n ?? currentN} of ${hb?.topic ?? 'this handbook'}. Chapter 1 stays on this phone whatever you choose.`); setAfterSignIn('chapter'); setView('signin'); return true }   // the same words as the wall (8 Oct night); `note` is kept for the plan's lock card
     if (code === 'daily-free') { setPricingNotice(note); setView('pricing'); return true }
     return false
   }
@@ -129,6 +130,8 @@ export default function App() {
   // "Holdable": a fresh handbook about to open chapter 1 by itself. The Shelf or the landing page stays up, with the
   // lifted book, through the load and this one render, so the reader never sees the splash or a flash of the plan.
   // (view 'chapter' with no cards yet is the half-second while chapter 1's cards are fetched; the plan would flash there.)
+  // The chapter a sign-in would open: from the wall (doneN + 1) or from the plan's lock (the chapter on screen).
+  const lockedN = doneN && doneN < total ? doneN + 1 : afterSignIn === 'chapter' ? (chapter?.n ?? currentN) : null
   const holdable = hb?.status === 'ready' && ch1Status === 'ready' && passed.length === 0 && (progress?.currentCard ?? 0) === 0 && (view === 'auto' || (view === 'chapter' && !(chapter?.status === 'ready' && Array.isArray(chapter.cards))))
   useEffect(() => { if (hold && hb && view !== 'explore' && view !== 'library' && !holdable) setHold(null) }, [hold, hb, view, holdable])
   useEffect(() => {
@@ -153,7 +156,8 @@ export default function App() {
   useEffect(() => {
     if (landed.current || lib === undefined || deepLink) return
     landed.current = true
-    if ((lib.handbooks?.length ?? 0) > 0 && view === 'auto') { autoEntered.current = hb?._id ?? null; setView('library') }
+    // A brand-new phone has nothing to come back to: its first handbook is the one it just picked, so never send it to the shelf.
+    if (!freshDevice && (lib.handbooks?.length ?? 0) > 0 && view === 'auto') { autoEntered.current = hb?._id ?? null; setView('library') }
   }, [lib]) // eslint-disable-line react-hooks/exhaustive-deps
   const linkStarted = useRef(false)
   useEffect(() => {
@@ -174,9 +178,19 @@ export default function App() {
 
   // After sign-in, the anonymous night attaches to the person.
   // Merge runs only once the sign-in has reached the server (calling it straight after signIn races the new token).
+  // What to do once the attach has finished (8 Oct night): the wall used to open chapter 2 the instant sign-in
+  // resolved, before the handbook belonged to the account, so the server refused it and the sign-in screen came back.
+  const attachedRef = useRef(false)
+  const afterAttachRef = useRef<(() => void) | null>(null)
+  const afterSignedIn = (go: () => void) => {
+    if (attachedRef.current) { go(); return }
+    afterAttachRef.current = go
+    window.setTimeout(() => { if (afterAttachRef.current === go) { afterAttachRef.current = null; go() } }, 8000)   // never strand them
+  }
   useEffect(() => {
-    if (!isAuthenticated) return
+    if (!isAuthenticated) { attachedRef.current = false; return }
     attachToMe({ deviceToken: token })
+      .finally(() => { attachedRef.current = true; const go = afterAttachRef.current; afterAttachRef.current = null; go?.() })
       .then((r) => { if (r && (r.attached > 0 || r.hidden > 0)) setFlash(`Signed in. ${r.attached} handbook${r.attached === 1 ? '' : 's'} from this device ${r.attached === 1 ? 'is' : 'are'} now in your account, with your settings.${r.hidden ? ' A topic you had on another device too now shows once, the copy with more progress.' : ''}`) })
       .catch(() => {})
   }, [isAuthenticated, attachToMe, token])
@@ -226,7 +240,7 @@ export default function App() {
   if (view === 'pricing') {
     return (
       <Shell back={{ label: 'Back', onClick: () => setView(hb ? 'plan' : 'library') }}>
-        <Pricing notice={pricingNotice} plans={plansData as any} fromDone={doneN === total} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={(plan) => payOrder({ plan })} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => { setPricingNotice(null); setView(hb ? 'plan' : 'library') }} onSignIn={() => signIn('pricing')} />
+        <Pricing notice={pricingNotice} plans={plansData as any} fromDone={doneN === total} onLock={async () => lockPrice({ deviceToken: token, handbookId: hb?._id })} onOrder={(plan) => payOrder({ plan })} onConfirm={(r) => payConfirm({ orderId: r.razorpay_order_id, paymentId: r.razorpay_payment_id, signature: r.razorpay_signature })} onBack={() => { setPricingNotice(null); setView(hb ? 'plan' : 'library') }} onSignIn={() => { setSigninReason('Sign in first; the payment sheet opens right after. Nothing is charged until you approve it there.'); signIn('pricing') }} />
       </Shell>
     )
   }
@@ -237,7 +251,7 @@ export default function App() {
   if (!hb && view === 'signin') {
     return (
       <Shell back={{ label: 'Back', onClick: () => setView(afterSignIn) }}>
-        <SignIn reason={signinReason} onDone={async () => { setSigninReason(null); setView(afterSignIn === 'done' ? 'library' : afterSignIn) }} onBack={() => { setSigninReason(null); setView(afterSignIn) }} />
+        <SignIn reason={signinReason} onDone={async () => afterSignedIn(() => { setSigninReason(null); setView(afterSignIn === 'done' ? 'library' : afterSignIn) })} onBack={() => { setSigninReason(null); if (afterSignIn === 'done') { setDoneN(null); setView('plan') } else setView(afterSignIn) }} />
       </Shell>
     )
   }
@@ -289,9 +303,9 @@ export default function App() {
       <div className="rail-links">
         <button type="button" className="quiet" onClick={() => { setDoneN(null); setView('plan') }}>The handbook</button>
         <button type="button" className="quiet" onClick={() => setView('library')}>Your handbooks{libRows.length > 1 ? ` (${libRows.length})` : ''}</button>
-        <button type="button" className="quiet" onClick={() => setView('tune')}>Make it yours</button>
+        <button type="button" className="quiet" onClick={() => setView('tune')}>Who teaches you, and how</button>
         <button type="button" className="quiet" onClick={() => setView('pricing')}>Pricing</button>
-        <a className="quiet" href={`/print?h=${hb._id}`} target="_blank" rel="noopener">Print or save as PDF</a>
+        {isMember ? <a className="quiet" href={`/print?h=${hb._id}`} target="_blank" rel="noopener">Print or save as PDF</a> : <button type="button" className="quiet" onClick={() => setView('pricing')}>Print or save as PDF (members)</button>}
         <button type="button" className="quiet" onClick={() => { setDraftTopic(''); setView('start-again') }}>Start another topic</button>
         <button type="button" className="quiet" onClick={goExplore}>The Shelf</button>
       </div>
@@ -329,12 +343,13 @@ export default function App() {
   if (resolved === 'signin') {
     return (
       <Shell rail={rail} back={{ label: 'Back', onClick: () => setView(afterSignIn) }}>
-        <SignIn reason={signinReason} heading={signinReason && doneN && doneN < total ? `Chapter ${doneN + 1} is free with an account.` : undefined} backLabel={afterSignIn === 'done' ? 'Not now, back to the handbook' : undefined} onDone={async () => {
+        <SignIn reason={signinReason} heading={afterSignIn === 'pricing' ? 'Sign in, then pay.' : signinReason && lockedN ? `Chapter ${lockedN} is free with an account.` : undefined} backLabel={afterSignIn === 'done' ? 'Not now, back to the handbook' : undefined} onDone={async () => afterSignedIn(() => {
           setSigninReason(null)
-          // From the wall after a chapter (8 Oct night): straight on to the next chapter, which the account now opens.
+          // From the wall after a chapter (8 Oct night): straight on to the next chapter, which the account now opens
+          // (only once the handbook is attached to the account; see afterSignedIn).
           if (afterSignIn === 'done' && doneN && doneN < total) { const next = chapterReady && chapter?.n === doneN + 1; setDoneN(null); setView(next ? 'chapter' : 'plan'); return }
           setView(afterSignIn === 'done' && !doneN ? 'plan' : afterSignIn)
-        }} onBack={() => { setSigninReason(null); setView(afterSignIn) }} />
+        })} onBack={() => { setSigninReason(null); if (afterSignIn === 'done') { setDoneN(null); setView('plan') } else setView(afterSignIn) }} />
       </Shell>
     )
   }

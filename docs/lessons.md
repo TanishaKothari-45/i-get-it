@@ -76,6 +76,13 @@ Feeds the 9:30 X draft (scripts/x-nightly.sh reads yesterday's day) and the end-
 - **Two sessions deploying at once took the site down for 12 minutes.** Thought: one session doing a clean-worktree function deploy while another runs npm run deploy from the shared tree is safe because pushes are atomic. Learned: the static-hosting component is not atomic with the function push; overlapping uploads left index rows whose blobs were gone ("Storage error", every page 500, 22:51 to 23:03). Now: one deploy at a time, announced before and after, and the static upload only from the session that owns the build; a readers-see-500 check (curl / and /stats) right after every deploy.
 - **Cheaper writer, more fixes.** Thought: Gemini Flash chapters at ₹0.70 would need the same light fact check as Opus. Learned: on the first Flash chapter the check made 7 fixes (Opus chapters needed 0 to 3), so the check is now carrying more of the quality and costs ₹3.49 of the ₹7.23 handbook. Now: before 20 readers pass a Flash chapter, measure false and misleading claims the 6 Oct way (docs/measure) and compare with the Opus numbers; the switch back is one constant.
 
+**The night pass (8 to 9 Oct)**
+- Learned: a two-reviewer critique (design review in one head, detector and measurements in another) found the same two P0s independently, and each found things the other could not: the detector the contrast and 44 px numbers, the reviewer the order of the Done screen and the missing anchor on sign-in. Worth the two agents.
+- Learned: three sessions deploying from one working tree can ship each other's half-edited files; a push that fails mid-upload leaves the static site serving index rows whose files never landed ("Storage error"). Now: announce every deploy, commit only your own files, and when the tree is mid-edit upload the static site from a clean worktree or with `npx vite build` only.
+- Learned: a "fresh phone" proof script (scripts/prove-path.mjs) catches more than screenshots do: it caught the doubled wall button, the chapter-2 link, and my own stale assertion. Run it after every deploy; 40 s.
+- Thought: the splash between a tap and the chapter was unavoidable. Learned: it was two renders (the query reload and the plan before chapter 1's cards). Keeping the Shelf or landing mounted through both, with the tapped book lifted, removed it and made the animation possible.
+- Learned: a full-page screenshot lies about lazy images and sticky bars. Check the DOM (img.complete, class lists) before calling something a defect, and look at the chapter's own plate, not the first .story-pic in the document.
+
 ### GTM
 
 **One permanent link**

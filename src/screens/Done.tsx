@@ -100,10 +100,11 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
             <h2 className="upnext-title">Chapter {n + 1} is free with an account.</h2>
             {nextHook && <p className="upnext-hook">{nextHook}</p>}
             <p className="serif">Your email and a 6-digit code, no card. Chapter {n} stays on this phone whatever you choose, and your place is kept on any phone or laptop.</p>
-            {priceLine && <p className="note">{priceLine} <button type="button" className="quiet" style={{ padding: 0 }} onClick={onPricing}>See pricing</button></p>}
           </div>
         </section>
       )}
+      {/* The price is information under the card, never inside the free one (55's review, 8 Oct night): a mixed signal otherwise. */}
+      {wall && nextTitle && priceLine && <p className="note">Chapter {n + 1} costs nothing. {priceLine} <button type="button" className="quiet" style={{ padding: 0 }} onClick={onPricing}>See pricing</button></p>}
       {line && <p className="cheer">{line}</p>}
       {onRate && (
         <div className="rate" role="group" aria-label={`How was chapter ${n}?`}>
@@ -142,7 +143,7 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
         </div>
       )}
 
-      {!last && <Reminder n={n} tomorrowAt={tomorrowAt} onPickTime={onPickTime} handbookId={handbookId} deviceToken={deviceToken} />}
+      {!last && !wall && <Reminder n={n} tomorrowAt={tomorrowAt} onPickTime={onPickTime} handbookId={handbookId} deviceToken={deviceToken} />}
 
       {/* 8 Oct night: after the free chapters a visitor's one main action is the free account (the wall above); before
           them (UX review #15) it is the next chapter, with sign-in as a quiet line. Copy (agent). */}

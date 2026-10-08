@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
@@ -23,6 +23,9 @@ export default function SignIn({ onDone, onBack, reason, heading, backLabel = 'N
   const valid = /^\S+@\S+\.\S+$/.test(email.trim())
   // Until the Gmail app password is set (mailLimits.codesReady), codes can't go out: start on the password form.
   const codesReady = useQuery(api.mailLimits.codesReady, {})
+  // The code field takes focus when the step changes (autoFocus alone misses it on some phones).
+  const codeRef = useRef<HTMLInputElement>(null)
+  useEffect(() => { if (step === 'code') codeRef.current?.focus() }, [step])
   useEffect(() => { if (codesReady === false) { setMode('password'); setFlow('signUp') } }, [codesReady])
 
   const sendCode = async () => {
@@ -52,7 +55,7 @@ export default function SignIn({ onDone, onBack, reason, heading, backLabel = 'N
     return (
       <>
         {reason && <p className="why-here">{reason}</p>}
-        <h1>{codesReady === false ? 'Keep reading, free.' : 'Sign in with a password.'}</h1>
+        <h1>{codesReady === false ? 'Keep reading, free.' : flow === 'signUp' ? 'Make a sign-in with a password.' : 'Sign in with a password.'}</h1>
         {codesReady === false && <p className="free-banner"><strong>Free.</strong> Just an email and a password. No card, no spam, ever.</p>}
         <p className="lede">{codesReady === false ? 'An email and a password, and every chapter of every ready handbook opens. Your place is kept on any phone or laptop.' : 'For accounts made with a password. New here? A code by email is quicker.'}</p>
         <div className="field">
@@ -69,6 +72,7 @@ export default function SignIn({ onDone, onBack, reason, heading, backLabel = 'N
           {codesReady !== false && ' · '}
           {codesReady !== false && <button type="button" className="quiet" style={{ padding: 0 }} onClick={() => { setMode('code'); setError(null) }}>Use a code by email</button>}
         </p>
+        {codesReady !== false && flow === 'signIn' && <p className="note">Forgot it? A code by email signs you in too.</p>}
         {error && <p className="error">{error}</p>}
         <ActionBar busy={busy}>
           <button className="btn" onClick={withPassword} disabled={busy || !email || password.length < (flow === 'signUp' ? 8 : 1)}>{busy ? 'Signing you in…' : flow === 'signUp' ? 'Create my sign-in' : 'Sign me in'}</button>
@@ -93,7 +97,7 @@ export default function SignIn({ onDone, onBack, reason, heading, backLabel = 'N
       ) : (
         <div className="field">
           <label htmlFor="code">The 6-digit code we sent to {email.trim()}</label>
-          <input id="code" className="input" inputMode="numeric" autoComplete="one-time-code" maxLength={6} autoFocus value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
+          <input id="code" ref={codeRef} className="input" inputMode="numeric" autoComplete="one-time-code" maxLength={6} autoFocus value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
             onKeyDown={(e) => { if (e.key === 'Enter' && code.length === 6 && !busy) checkCode() }} />
           <p className="note">
             <button type="button" className="quiet" style={{ padding: 0 }} disabled={busy} onClick={sendCode}>Send a new code</button>
@@ -102,7 +106,7 @@ export default function SignIn({ onDone, onBack, reason, heading, backLabel = 'N
           </p>
         </div>
       )}
-      <p className="note">{step === 'email' ? "The code comes from igetit.now and takes about twenty seconds; check spam if it's slow. No other emails, ever, unless you turn reminders on." : "From igetit.now; check spam if it's slow."}</p>
+      <p className="note">{step === 'email' ? "The code comes from “I Get It” (a gmail.com address) in about twenty seconds; search for it if it's slow. It works for 10 minutes. No other emails, ever, unless you turn reminders on." : "From “I Get It”, a gmail.com address; search for it if it's slow. The code works for 10 minutes."}</p>
       {error && <p className="error">{error}</p>}
       <ActionBar busy={busy}>
         {step === 'email'
