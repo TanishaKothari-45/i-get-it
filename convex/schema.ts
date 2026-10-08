@@ -372,7 +372,8 @@ export default defineSchema({
     paragraphs: v.optional(v.number()),   // D27 (9 Oct): a chapter write's size, so /admin can see short chapters
     words: v.optional(v.number()),
     floorTries: v.optional(v.number()),   // chapter calls needed to clear the length floor (1 = first try)
-    bounced: v.optional(v.boolean()),     // it ended on the Opus backup after Flash fell short twice
+    bounced: v.optional(v.boolean()),     // it ended on the Opus backup
+    bounce: v.optional(v.string()),       // why: "budget" (Gemini's clock), "floor" (too short twice), "error"
   }).index("by_at", ["at"]).index("by_handbook", ["handbookId", "at"]),
 
   // Pre-generated handbooks (same prompts, run offline) so the link works

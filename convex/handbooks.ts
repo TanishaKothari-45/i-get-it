@@ -748,7 +748,9 @@ export const generateChapter = internalAction({
     const pinned = prof.model ?? h.writer;
     const user = chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, shareable ? undefined : prof.line, howTheyDid ?? undefined) + briefForChapter((h as any).brief);
     let r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user, model: pinned ?? CHAPTER_MODEL, trace });
-    if (!r.ok && !pinned && CHAPTER_MODEL) r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user, ...CHAPTER_BACKUP, trace });
+    // Why a chapter left Flash, for the call log: "budget" (Gemini's time ran out), "error" (any other failure), "floor" (too short twice).
+    let bounce: string | undefined;
+    if (!r.ok && !pinned && CHAPTER_MODEL) { bounce = /time budget/i.test(String(r.error)) ? "budget" : "error"; r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user, ...CHAPTER_BACKUP, trace }); }
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
     // D27 (Prateek, 9 Oct: "for 20 minutes we should have at least 30 slides"): a chapter under the floor gets one more
     // try with the counts stated, then the Opus backup; the counts are written to the call log for /admin. A one-sitting
@@ -762,10 +764,10 @@ export const generateChapter = internalAction({
       const more = user + `\n\nYour previous chapter was too short: you wrote ${size.paragraphs} paragraphs and ${size.words} words; chapter ${n} needs ${floor.want}. Write it again, in full, with 2 to 3 paragraphs on every picture, teach, example and mistake card.`;
       let r2 = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: more, model: pinned ?? CHAPTER_MODEL, trace }); tries++;
       let s2 = r2.ok ? chapterSize(r2.json) : size;
-      if (!pinned && (!r2.ok || s2.paragraphs < floor.paragraphs || s2.words < floor.words)) { r2 = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: more, ...CHAPTER_BACKUP, trace }); tries++; s2 = r2.ok ? chapterSize(r2.json) : size; }
+      if (!pinned && (!r2.ok || s2.paragraphs < floor.paragraphs || s2.words < floor.words)) { bounce = !r2.ok && /time budget/i.test(String(r2.error)) ? "budget" : "floor"; r2 = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: more, ...CHAPTER_BACKUP, trace }); tries++; s2 = r2.ok ? chapterSize(r2.json) : size; }
       if (r2.ok && s2.words >= size.words) { r = r2; size = s2; }
     }
-    await ctx.runMutation(internal.handbooks.noteChapterSize, { handbookId, n, paragraphs: size.paragraphs, words: size.words, floorTries: tries, bounced: tries >= 3 || (tries >= 2 && !!r.model && /opus/.test(String(r.model))) });
+    await ctx.runMutation(internal.handbooks.noteChapterSize, { handbookId, n, paragraphs: size.paragraphs, words: size.words, floorTries: tries, bounced: !!bounce, bounce });
     const ch = r.json;
     // A one-sitting handbook opens with its "What you need" checklist (D23); a writer that put a picture first is corrected here.
     if (quick && Array.isArray(ch.cards)) { const k = ch.cards.findIndex((c: any) => c?.type === "doit" && c.kind === "checklist"); if (k > 0) { const [c] = ch.cards.splice(k, 1); ch.cards.unshift(c); } }
@@ -803,12 +805,12 @@ export const generateChapter = internalAction({
 // chapter as context, so they test only what it taught) and added to the chapter; for a shared handbook, to its saved copy too.
 // D27: the chapter's size on its call-log row, so /admin can see short chapters next to their cost.
 export const noteChapterSize = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), paragraphs: v.number(), words: v.number(), floorTries: v.optional(v.number()), bounced: v.optional(v.boolean()) },
-  handler: async (ctx, { handbookId, n, paragraphs, words, floorTries, bounced }) => {
+  args: { handbookId: v.id("handbooks"), n: v.number(), paragraphs: v.number(), words: v.number(), floorTries: v.optional(v.number()), bounced: v.optional(v.boolean()), bounce: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, n, paragraphs, words, floorTries, bounced, bounce }) => {
     const row = await ctx.db.query("callStats").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).order("desc").filter((q) => q.eq(q.field("chapter"), n)).first();
     const c = row && row.kind === "chapter" ? row : await ctx.db.query("callStats").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).order("desc").filter((q) => q.and(q.eq(q.field("chapter"), n), q.eq(q.field("kind"), "chapter"))).first();
     // floorTries: chapter calls it took to clear the length floor; bounced: it ended on the Opus backup (the morning's rate: over 1 in 3 means chapters go back to Opus outright, D27 revisit).
-    if (c) await ctx.db.patch(c._id, { paragraphs, words, ...(floorTries ? { floorTries } : {}), ...(bounced !== undefined ? { bounced } : {}) });
+    if (c) await ctx.db.patch(c._id, { paragraphs, words, ...(floorTries ? { floorTries } : {}), ...(bounced !== undefined ? { bounced } : {}), ...(bounce ? { bounce } : {}) });
   },
 });
 export const addQuizVersions = internalAction({

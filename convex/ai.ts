@@ -228,8 +228,11 @@ export const generate = internalAction({
       // "ci:<model>" (8 Oct): any model on the Cheaper Inference marketplace (Prateek's credits), thinking on where Claude thinks.
       const viaCheaper = !!model?.startsWith("ci:");
       const viaGemini = !!model?.startsWith("gemini-");
-      const geminiDeadline = started + (GEMINI_BUDGET[kind] ?? GEMINI_STEP_BUDGET);
-      const callWith = (u: string) => viaGemini ? callGemini(kind, system, u, model!, JOB[kind].maxTokens, geminiDeadline) : viaInference ? callInference(kind, system, u, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, u, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, u, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, u, model, effort) : callOpenAI(system, u, maxOut);
+      // 9 Oct (dc, D27 follow-up): every try gets its own clock (150 s for a chapter), inside a step budget of twice that,
+      // so a retry never inherits a spent deadline and a long chapter is not bounced to Opus on time alone.
+      const perTry = GEMINI_BUDGET[kind] ?? GEMINI_STEP_BUDGET;
+      const stepDeadline = started + 2 * perTry;
+      const callWith = (u: string) => viaGemini ? callGemini(kind, system, u, model!, JOB[kind].maxTokens, Math.min(Date.now() + perTry, stepDeadline)) : viaInference ? callInference(kind, system, u, JOB[kind].maxTokens, model?.startsWith("tic:") && model.length > 4 ? model.slice(4) : undefined) : viaCheaper ? callGLM(system, u, model!.slice(3), JOB[kind].maxTokens, effort ?? JOB[kind].effort, kind) : viaGLM ? callGLM(system, u, model!, JOB[kind].maxTokens, effort) : provider === "anthropic" ? callAnthropic(kind, system, u, model, effort) : callOpenAI(system, u, maxOut);
       const call = () => callWith(user);
       // A marketplace call that times out or drops gets one more try (8 Oct); provider errors on Claude are left as before.
       let r = await call().catch(async (e: any) => {
