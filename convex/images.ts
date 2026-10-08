@@ -4,6 +4,7 @@ import { internalAction, type ActionCtx } from "./_generated/server";
 import { internal } from "./_generated/api";
 import type { Id } from "./_generated/dataModel";
 import { PICTURE_ANCHOR, PICTURE_NEVER, SCENES_PROMPT, scenesUserMessage } from "./prompts";
+import { inkAndWash } from "./inkwash";
 
 // Pictures come from Runway's API (key in the Convex env variable "Runway"). One call = one picture,
 // stored in Convex file storage so readers never hit Runway. Prices: docs.dev.runwayml.com/guides/pricing.
@@ -85,9 +86,16 @@ async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId:
       if (!ii || !/image\/(jpeg|png)/.test(ii.mime) || (ii.width ?? 0) < 600 || !OPEN.test(license) || /nonfree|fair use/i.test(String(md.NonFree?.value ?? "") + license)) continue;
       const img = await fetch(ii.thumburl ?? ii.url, { headers: { "User-Agent": "IGetIt/1.0 (https://sensible-mongoose-624.convex.site)" } });
       if (!img.ok) continue;
-      const storageId = await ctx.storage.store(await img.blob());
+      // Ink and wash (8 Oct): the photo is restyled to sit with the drawn covers; if the filter fails, the photo as it is.
+      const bytes = new Uint8Array(await img.arrayBuffer());
+      const t0 = Date.now();
+      // Share-alike (CC BY-SA) photos are not restyled: an adaptation would have to be released as CC BY-SA too (8 Oct).
+      const shareAlike = /-sa\b|by-sa/i.test(license);
+      const styled = shareAlike ? null : await inkAndWash(bytes, ii.mime).catch((e: any) => { console.log("inkAndWash failed", String(e?.message ?? e).slice(0, 200)); return null; });
+      if (styled) console.log("inkAndWash ms", Date.now() - t0);
+      const storageId = await ctx.storage.store(new Blob([styled ?? bytes], { type: styled ? "image/jpeg" : ii.mime }));
       const artist = strip(String(md.Artist?.value ?? "")).slice(0, 60) || "Unknown";
-      return { storageId, credit: `${/public domain|^pd/i.test(license) ? "Public domain" : `${artist}, ${license}`}, Wikimedia Commons`, source: String(ii.descriptionurl ?? "") };
+      return { storageId, credit: `${/public domain|^pd/i.test(license) ? "Public domain" : `${artist}, ${license}`}, Wikimedia Commons${styled ? ", adapted" : ""}`, source: String(ii.descriptionurl ?? "") };
     }
   } catch { /* fall back to drawing */ }
   return null;
@@ -202,5 +210,15 @@ export const draw = internalAction({
   handler: async (ctx, { prompt, model, ratio, seed, extra }): Promise<{ ok: boolean; error?: string; url?: string | null; storageId?: Id<"_storage">; ms: number }> => {
     const r = await drawOne(ctx, prompt, model, ratio, model.startsWith("gen4") ? seed : undefined, extra ?? {});
     return r.ok ? { ...r, url: await ctx.storage.getUrl(r.storageId) } : r;
+  },
+});
+
+// Try the Wikimedia photo step (with ink and wash) on one search. npx convex run images:photoTest '{"query":"..."}'
+export const photoTest = internalAction({
+  args: { query: v.string() },
+  handler: async (ctx, { query }): Promise<any> => {
+    const t0 = Date.now();
+    const p = await commonsPhoto(ctx, query);
+    return p ? { ms: Date.now() - t0, credit: p.credit, url: await ctx.storage.getUrl(p.storageId) } : { ms: Date.now() - t0, found: false };
   },
 });

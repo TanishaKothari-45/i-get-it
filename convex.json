@@ -1,0 +1,5 @@
+{
+  "node": {
+    "externalPackages": ["@techstark/opencv-js"]
+  }
+}
