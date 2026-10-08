@@ -95,7 +95,7 @@ ${bars}${legend}
 <text x="${RX + 410}" y="380" class="f r">visitors</text><text x="${RX + 468}" y="380" class="f r">✓ ch 1</text>
 ${table}
 ${social ? `<text x="${RX}" y="${418 + chRows.length * 38 + 14}" class="f">${social}</text>` : ''}
-<text x="${X0}" y="652" class="f">Live and public at sensible-mongoose-624.convex.site/stats. Direct visits, LinkedIn and our own devices left out.</text>
+<text x="${X0}" y="652" class="f">Live and public at www.igetit.now/stats. Direct visits, LinkedIn and our own devices left out.</text>
 </svg></body></html>`
 
 const dir = mkdtempSync(join(tmpdir(), 'xchart-')), page = join(dir, 'chart.html')

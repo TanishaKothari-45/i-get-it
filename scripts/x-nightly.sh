@@ -61,14 +61,14 @@ Day $DAY of building 𝙄 𝙂𝙚𝙩 𝙄𝙩 in public.
 
 Yesterday: $Y_TOTAL new visitors (the day before: $YB_TOTAL), $Y_PASSED of them finished chapter 1. Most came from $Y_TOP.
 
-Live numbers, open to anyone: https://sensible-mongoose-624.convex.site/stats
+Live numbers, open to anyone: https://www.igetit.now/stats
 
 What we decided or struggled with: [one thing, from "Stories from the last day" below]
 What we try today: [one thing, and the number that will tell us if it worked]
 
 [your line: answer the question below]
 
-https://sensible-mongoose-624.convex.site/?utm_source=x
+https://www.igetit.now/?utm_source=x
 
 #IGetIt #buildinpublic #learnsomethingnew #microlearning #AIlearning #growthx
 

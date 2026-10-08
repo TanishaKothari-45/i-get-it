@@ -7,7 +7,7 @@ import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 
 const [out, width = '1200'] = process.argv.slice(2)
-const URL = 'https://sensible-mongoose-624.convex.site/stats'
+const URL = 'https://www.igetit.now/stats'
 const PORT = 9471
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', ['--headless=new', `--remote-debugging-port=${PORT}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), 'stats-shot-'))}`, '--hide-scrollbars', '--force-color-profile=srgb', 'about:blank'], { stdio: 'ignore' })
