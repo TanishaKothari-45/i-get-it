@@ -7,7 +7,7 @@ import { isOwner } from "./admin";
 
 // Visitor, signed up, member (Prateek, 7 Oct, afternoon). One place for every number. Each limit is checked in a Convex
 // function; the screens only explain it. "New chapter" means one opened for the first time; going back is always free.
-//   Visitor (no account): chapter 1 of any handbook, 1 typed handbook. Chapter 2 asks them to sign up, free (Prateek,
+//   Visitor (no account): chapters 1 and 2 of any handbook, 1 typed handbook. Chapter 3 asks them to sign up, free (D26, 9 Oct; before that chapter 2 from 8 Oct night; Prateek,
 //         8 Oct night, on Shaktimaan's advice: the wall moved from after chapter 3 to after chapter 1, because nobody had
 //         reached chapter 4 and the sign-up had never been tested). Chapters opened under the old rule stay open.
 //   Signed up (free): every chapter of every ready and shared handbook and of their 1 typed handbook, up to 3 new
@@ -21,7 +21,7 @@ export const LIMITS = {
   freeTyped: 1,
   memberActiveTyped: 3,
   memberTypedPerMonth: 6,
-  visitorChapters: 1,          // per handbook, before signing up (was 3 until 8 Oct night)
+  visitorChapters: 2,          // per handbook, before signing up (3 until 8 Oct night, 1 until 9 Oct 01:4x; D26, Prateek: "move the sign-up after chapter 2")
   freeChaptersPerDay: 3,       // visitors and signed-up readers
   memberChaptersPerDay: 7,
   freeSearchPerWeek: 3,
@@ -100,6 +100,9 @@ export async function tryOpen(ctx: MutationCtx, h: Doc<"handbooks">, n: number):
   const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
   if (!p) return { ok: false, code: "missing" };
   if (isOpen(p, n)) return { ok: true };
+  // A quick handbook (a recipe, a recap; D23, 9 Oct) is one sitting: its chapters never meet the sign-up wall or the
+  // daily limit, so a cook is never left with the dal on the stove. It is 1 to 3 chapters, written at plan time.
+  if ((h.plan as any)?.format === "quick") { const before0 = p.opened ?? []; await ctx.db.patch(p._id, { opened: [...before0, { n, day: istDay() }], updatedAt: Date.now() }); return { ok: true }; }
   const day = istDay();
   const member = await ownerIsMember(ctx, h);
   // Everything this person (the account, else the phone) opened today, across their handbooks.

@@ -1,8 +1,9 @@
 import { v } from "convex/values";
 import { FROZEN } from "./frozen";
 import { internal } from "./_generated/api";
-import { internalMutation, internalQuery } from "./_generated/server";
+import { internalAction, internalMutation, internalQuery } from "./_generated/server";
 import { level } from "./schema";
+import { syncShared } from "./shelf";
 
 const target = v.union(
   v.object({ kind: v.literal("cache"), topicKey: v.string(), level, n: v.number() }),
@@ -431,5 +432,49 @@ export const stillReferenced = internalQuery({
       for await (const r of (ctx.db.query(table as any) as any)) if (idsOf(table, r).includes(id)) return true;
     }
     return false;
+  },
+});
+
+// 9 Oct: take hidden handbooks' shared copies off the library and the Shelf (review agents' test topics went public).
+// Run: npx convex run --prod repairData:unpublishHidden '{}' then shelf:rebuildAll.
+export const unpublishHidden = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    let n = 0;
+    for await (const row of ctx.db.query("library")) {
+      if (!row.published) continue;
+      const src = row.sourceHandbookId ? await ctx.db.get(row.sourceHandbookId) : null;
+      if (src?.hiddenAt) { await ctx.db.patch(row._id, { published: false }); const fresh = await ctx.db.get(row._id); if (fresh) await syncShared(ctx, fresh); n++; }
+    }
+    return { unpublished: n };
+  },
+});
+
+// 9 Oct (D23): rebuild one handbook under the current rules (research, plan and every chapter again), keeping the
+// reader's progress row but putting them back at the start. Unhides it and takes its shared copy off the library so a
+// typed match never serves the old version. Run: npx convex run --prod repairData:rebuildHandbook '{"handbookId":"..."}'
+export const resetForRebuild = internalMutation({
+  args: { handbookId: v.id("handbooks") },
+  handler: async (ctx, { handbookId }) => {
+    const h = await ctx.db.get(handbookId);
+    if (!h) return { ok: false };
+    for (const c of await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId)).collect()) await ctx.db.delete(c._id);
+    for (const row of await ctx.db.query("library").withIndex("by_source", (q) => q.eq("sourceHandbookId", handbookId)).collect()) {
+      if (row.published) { await ctx.db.patch(row._id, { published: false }); const fresh = await ctx.db.get(row._id); if (fresh) await syncShared(ctx, fresh); }
+    }
+    const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    if (p) await ctx.db.patch(p._id, { currentChapter: 1, currentCard: 0, currentPart: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], opened: [], updatedAt: Date.now() });
+    await ctx.db.patch(handbookId, { status: "planning", plan: undefined, brief: undefined, hiddenAt: undefined, error: undefined, question: undefined } as any);
+    return { ok: true };
+  },
+});
+export const rebuildHandbook = internalAction({
+  args: { handbookId: v.id("handbooks") },
+  handler: async (ctx, { handbookId }): Promise<any> => {
+    const r: any = await ctx.runMutation(internal.repairData.resetForRebuild, { handbookId });
+    if (!r.ok) return r;
+    await ctx.runAction(internal.handbooks.generatePlan, { handbookId });
+    const h: any = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
+    return { status: h?.status, format: h?.plan?.format, chapters: h?.plan?.chapters?.map((c: any) => ({ title: c.title, blocks: c.blocks, proof: c.proof })) };
   },
 });

@@ -240,7 +240,10 @@ export const library = query({
     for (const h of await ownedBooks(ctx, userId, deviceToken)) {
       if (h.status === "declined") continue;   // a topic we won't teach never sits on the shelf
       const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
-      rows.push({ _id: h._id, topic: (h.plan as any)?.topic ?? h.topic, status: h.status, passed: p?.chaptersPassed.length ?? 0, total: totalOf(h), current: p?.currentChapter ?? 1, lastAt: p?.updatedAt ?? h.createdAt, outcome: (h.plan as any)?.outcome7 ?? null });
+      // started (9 Oct, returning-reader review): a handbook only glanced at (opened from a link, never read) should not
+      // look like one in progress, and never be the one "Continue" picks.
+      const started = (p?.currentCard ?? 0) > 0 || (p?.chaptersPassed.length ?? 0) > 0 || (p?.opened?.length ?? 0) > 0;
+      rows.push({ _id: h._id, topic: (h.plan as any)?.topic ?? h.topic, status: h.status, passed: p?.chaptersPassed.length ?? 0, total: totalOf(h), current: p?.currentChapter ?? 1, card: p?.currentCard ?? 0, started, lastAt: p?.updatedAt ?? h.createdAt, outcome: (h.plan as any)?.outcome7 ?? null });
     }
     return { signedIn: !!userId, handbooks: rows.sort((a, b) => b.lastAt - a.lastAt) };
   },
@@ -426,6 +429,14 @@ export const answerQuestion = mutation({
   handler: async (ctx, { handbookId, answer, deviceToken }) => {
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     if (h.status !== "question") throw new Error("No question open");
+    // The "not a topic" question (9 Oct): the answer replaces the line and the goal step runs again; no generation spent.
+    if (h.question === NOT_A_TOPIC_Q) {
+      const clean = answer.trim().slice(0, 200);
+      if (clean.length < 2) throw new Error("A few words is enough. What is it?");
+      await ctx.db.patch(handbookId, { topic: clean, topicKey: topicKeyOf(clean), status: "intent", question: undefined, intents: undefined });
+      await ctx.scheduler.runAfter(0, internal.handbooks.matchOrIntents, { handbookId });
+      return;
+    }
     if (!(await takeGeneration(ctx, h))) throw new ConvexError("busy");
     await ctx.db.patch(handbookId, { status: "planning", question: undefined });
     await ctx.scheduler.runAfter(0, internal.handbooks.generatePlan, { handbookId, clarification: answer.trim().slice(0, 300) });
@@ -505,12 +516,15 @@ export const adoptExisting = internalMutation({
   },
 });
 
+export const NOT_A_TOPIC_Q = "That doesn't look like a topic yet. In a few plain words, what do you want to learn?";
 export const generateIntents = internalAction({
   args: { handbookId: v.id("handbooks") },
   handler: async (ctx, { handbookId }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h || h.status !== "intent") return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "intent", system: INTENT_PROMPT, user: intentUserMessage(h.topic) });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "intent", system: INTENT_PROMPT, user: intentUserMessage(h.topic), trace: { handbookId } });
+    // Not a topic at all (9 Oct: "asdfgh" wrote a whole handbook on touch typing): ask, and the answer becomes the topic.
+    if (r.ok && r.json?.question === "not-a-topic") { await ctx.runMutation(internal.handbooks.setQuestion, { handbookId, question: NOT_A_TOPIC_Q }); return; }
     const goals = r.ok && Array.isArray(r.json?.goals) ? r.json.goals.filter((g: any) => typeof g?.label === "string" && g.label.trim()).slice(0, 3).map((g: any) => ({ label: String(g.label).slice(0, 60), mode: ["skill", "story", "subject", "decision"].includes(g.mode) ? g.mode : "subject" })) : [];
     if (goals.length >= 2) await ctx.runMutation(internal.handbooks.setIntents, { handbookId, intents: { question: String((r as any).json?.question ?? "What's it for?").slice(0, 80), goals } });
     else await ctx.runMutation(internal.handbooks.skipIntent, { handbookId });
@@ -603,6 +617,8 @@ export const generatePlan = internalAction({
     // Chapter 1 runs as its own action (8 Oct, Tanisha): the plan is saved and shown now, and a slow or failed chapter
     // never takes the plan step down with it (each step has its own time limit and its own failure).
     await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n: 1 });
+    // A quick handbook (D23, 9 Oct) is one sitting: every chapter is written now, never one ahead, so nothing waits.
+    if (plan.format === "quick") for (let k = 2; k <= plan.chapters.length; k++) { await ctx.runMutation(internal.handbooks.startChapter, { handbookId, n: k }); await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n: k }); }
   },
 });
 
@@ -731,8 +747,8 @@ export const generateChapter = internalAction({
     // Pictures come after the words. Chapter 1 is drawn now (it opens at once and gives the cover); later chapters are
     // drawn when the reader first opens them (openChapter), so a chapter written but never opened costs no pictures (7 Oct).
     if (n === 1) await ctx.scheduler.runAfter(0, internal.images.forChapter, { handbookId, n });
-    // A typed topic's chapter 1 may go into the shared library (plan and chapter 1 only, after a privacy check).
-    if (n === 1 && h.source === "live" && !h.fromLibrary && !h.test) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId });
+    // A typed topic's chapter 1 goes to the shared library only once its own reader has passed it (9 Oct: test topics
+    // went public within minutes of being typed); see the chapter-pass sites below.
   },
 });
 
@@ -971,7 +987,9 @@ export const setPosition = mutation({
     // A chapter with no quizzes (chapter 1 since 6 Oct) is passed when the reader reaches its last card.
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
     const cards = (ch?.cards ?? []) as any[];
-    const quizFree = cards.length > 0 && !cards.some((c) => c?.type === "exercise") && !cards.some((c) => c?.type === "doit");   // doit chapters pass by a logged set (logSet); a tryit is a bonus, never a wall
+    // D24 (Prateek, 9 Oct 01:0x: "let's not make the activities mandatory to exit the chapter"): a chapter with no quiz
+    // passes on reaching the end, doit or not; a logged set is optional logging, never a gate.
+    const quizFree = cards.length > 0 && !cards.some((c) => c?.type === "exercise");   // a tryit or a doit is a bonus, never a wall
     // The closing "In one breath" card isn't shown any more (it opens the next chapter as "Last time", 7 Oct), so the
     // chapter passes at the last card the reader actually sees.
     const breathLast = /^in one breath$/i.test(String(cards[cards.length - 1]?.title ?? "").trim());
@@ -979,7 +997,7 @@ export const setPosition = mutation({
     if (quizFree && cardIndex >= lastShown && !p.chaptersPassed.includes(chapter)) {
       await ctx.db.patch(p._id, { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < totalOf(h) ? chapter + 1 : chapter, currentCard: 0, currentPart: 0, lastOpenedAt: Date.now(), updatedAt: Date.now() });
       if (chapter < totalOf(h)) await ensureChapter(ctx, h, chapter + 1);
-      if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); }
+      if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); if (h.source === "live" && !(h as any).fromLibrary && !(h as any).test) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId }); }
       return;
     }
     await ctx.db.patch(p._id, { currentChapter: chapter, currentCard: cardIndex, currentPart: Math.max(0, Math.min(20, Math.floor(part ?? 0))), lastOpenedAt: Date.now(), updatedAt: Date.now() });
@@ -1068,7 +1086,7 @@ export const recordAnswer = mutation({
       });
       if (passesNow) {
         if (cardIndex !== lastQuiz && chapter < total) await ensureChapter(ctx, h, chapter + 1);   // passed on an earlier quiz
-        if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); }
+        if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); if (h.source === "live" && !(h as any).fromLibrary && !(h as any).test) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId }); }
         const right = card.options.find((o: any) => o.id === optionId);
         return { correct: true as const, text: right?.text ?? "", why: card.whyRight ?? null, chapterPassed: true as const };
       }
@@ -1121,12 +1139,8 @@ export const finishChapter = mutation({
     // Name the first quiz still open, so the screen can take the reader to it (a plain Error's text is hidden in production).
     const open = exerciseKeys.find((k) => !p.passedExercises.includes(k));
     if (open) throw new ConvexError({ code: "open-check", card: Number(open.split(":")[1]) });
-    // A body-skill chapter (doit cards, no quizzes) counts when a set is logged (8 Oct).
-    const doits: number[] = (ch.cards ?? []).map((c: any, i: number) => (c.type === "doit" ? i : -1)).filter((i: number) => i >= 0);
-    if (doits.length && !exerciseKeys.length && !p.chaptersPassed.includes(n)) {
-      const sets = (await ctx.db.query("sets").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).collect()).filter((s) => s.chapter === n);
-      if (!sets.length) throw new ConvexError({ code: "open-set", card: doits[0] });
-    }
+    // D24 (Prateek, 9 Oct): activities (doit, move, steps, tryit) are never required to finish a chapter; a set logged
+    // through logSet is optional. The "open-set" gate of 8 Oct is gone.
     const chaptersPassed = p.chaptersPassed.includes(n) ? p.chaptersPassed : [...p.chaptersPassed, n];
     const total = totalOf(h);
     const next = Math.min(n + 1, total);

@@ -26,10 +26,20 @@ const modeOf = (): "test" | "live" => ((process.env.RAZORPAY_KEY_ID ?? "").start
 
 // Paying customers so far (people, not payments), in the mode the keys are in, so test payments never use up
 // real early-bird spots. This number sets the open tier.
+// D22 (9 Oct, dc; Shaktimaan 7 Oct: "that number is a promise to buyers, keep it exact"): the owner's own test payment
+// never takes a spot. Owners are the emails in STATS_OWNER_EMAILS, as admin.ts reads them.
 async function customers(ctx: QueryCtx) {
   const mode = modeOf();
   const paid = (await ctx.db.query("payments").collect()).filter((r) => r.status === "paid" && r.mode === mode);
-  return new Set(paid.map((r) => String(r.userId))).size;
+  const owners = (process.env.STATS_OWNER_EMAILS ?? "").toLowerCase().split(",").map((e) => e.trim()).filter(Boolean);
+  const ids = [...new Set(paid.map((r) => String(r.userId)))];
+  let n = 0;
+  for (const id of ids) {
+    const u: any = await ctx.db.get(id as any);
+    if (u?.email && owners.includes(String(u.email).toLowerCase())) continue;
+    n++;
+  }
+  return n;
 }
 
 // What the Pricing screen needs: is paying switched on, which tier is open, this person's tier and prices

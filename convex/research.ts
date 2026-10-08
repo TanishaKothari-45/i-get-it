@@ -66,8 +66,8 @@ If sources disagree, use the newer or more authoritative one. If you cannot supp
 
 DECIDE
 - kind: story | event | person | howto | skill | subject | money | health | legal | other. Use the one that fits best. If two fit, use money, health or legal first; then story; then the others. If Mode is story, kind is story. If Mode is decision, kind is money, health or legal.
-- format: "quick" if the reader can get it in one sitting. "course" if the reader must practise over many days.
-- chapters: quick 1 to 3, by how much there is to cover. course 7. The planner groups the outline parts into these chapters.
+- format: "quick" if the reader can get it in one sitting (a recipe, a how-to, a recap). "course" if the reader must practise over many days.
+- chapters: quick is 1 for a recipe, a single how-to, one event, one person or any one-off task: everything the reader needs in that one sitting, in one chapter. Quick is 2 or 3 only for a recap of a long series, a franchise or a long book. course 7. The planner groups the outline parts into these chapters.
 - outline: the main parts from your map, in the order a reader should learn them. 3 to 6 short names.
 - facts: 12 to 20 facts, at least 3 for each part of the outline, in the same order as the outline. A fact is one checkable statement. Each fact carries at least one specific detail that a reader could look up: a name, a term, a number, a date, a place or a named step. A fact without such a detail does not count. Give each part enough detail that a writer can teach it without guessing. Each fact comes from your results. Choose the facts that serve the goal. Never change what a source says to make it fit the goal. If your results do not support enough facts, return fewer. Never add a fact to reach a number.
 - framing: null.
