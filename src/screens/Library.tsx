@@ -13,12 +13,16 @@ function ago(t: number) {
 
 // Every handbook in one place. Each keeps its own place; starting a new one never resets another.
 export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSignIn, onPlans, onExplore }: Props) {
+  // Newest first, and the one to continue is the one opened last (8 Oct night: a returning reader's one job is to carry
+  // on; the main button says so, by name and chapter, instead of "The Shelf").
+  const sorted = [...rows].sort((a, b) => b.lastAt - a.lastAt)
+  const latest = sorted.find((r) => r.status === 'ready' && r.passed < (r.total ?? 7)) ?? sorted[0]
   return (
     <>
       <h1>Your handbooks.</h1>
       <p className="lede">Each one remembers exactly where you stopped.</p>
       <ul className="shelf">
-        {rows.map((r) => (
+        {sorted.map((r) => (
           <li key={r._id}>
             {/* A book on its side (8 Oct, print shop): cloth spine, paper label, printed rungs. The open one is pressed. */}
             <button type="button" className={`shelf-card${r._id === activeId ? ' active' : ''}`} onClick={() => onOpen(r._id)}>
@@ -34,11 +38,16 @@ export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSig
       </ul>
       {/* The nudge is the short form here (8 Oct, print shop): the handbooks are the page, the account is a footnote. */}
       {!signedIn && rows.length > 0 && <SignupNudge onSignIn={onSignIn} context="library" compact />}
-      <p style={{ marginTop: 'var(--l)' }}><button type="button" className="quiet" onClick={onPlans}>Free and member, side by side</button></p>
-      {/* 8 Oct (UX review #4): the way to other topics was only in the handbook menu, so readers looped here. */}
+      <p style={{ marginTop: 'var(--l)' }}><button type="button" className="quiet" onClick={onPlans}>What's free, and what members get</button></p>
+      {/* 8 Oct (UX review #4): the way to other topics was only in the handbook menu, so readers looped here.
+          8 Oct night: the main button continues the last handbook; The Shelf and a new topic are the quiet pair. */}
       <ActionBar>
-        <button className="btn" onClick={onExplore}>The Shelf</button>
-        <button type="button" className="quiet" onClick={onNew}>Start another topic</button>
+        {latest ? <button className="btn" onClick={() => onOpen(latest._id)}>{latest.status !== 'ready' ? `Open ${latest.topic}` : latest.passed >= (latest.total ?? 7) ? `Open ${latest.topic}` : `Continue ${latest.topic}: chapter ${latest.current}`}</button>
+          : <button className="btn" onClick={onExplore}>The Shelf</button>}
+        <span className="library-quiet">
+          {latest && <button type="button" className="quiet" onClick={onExplore}>The Shelf: every ready handbook</button>}
+          <button type="button" className="quiet" onClick={onNew}>Start another topic</button>
+        </span>
       </ActionBar>
     </>
   )
