@@ -71,6 +71,8 @@ Feeds the 9:30 X draft (scripts/x-nightly.sh reads yesterday's day) and the end-
 - Learned: show the direction as the same screen drawn three ways and ask once; Prateek answered in under a minute. A written list of options would have taken longer to read than the pass took to build.
 - Learned: three sessions on one working tree means a deploy ships whatever is on disk. Say which files you hold, commit only yours, and hand the deploy to whoever has the riskier change (today the wall), with a "go".
 
+- **The sign-up wall.** Thought: sign-in optional until chapter 4 would show whether readers sign up when they don't have to. Learned: after a full day, 0 sign-ups and 1 reader at chapter 3, so a wall nobody reaches tests nothing. Now: the wall is after chapter 1 (live 20:37), and the first number to read tomorrow is how many of the chapter-1 finishers make an account. Second lesson from the same hour: a server rule written to rescue a post link (first opened chapter free) was reverted in ten minutes because Prateek wants every arrival to meet the same wall; ask before writing an exception for marketing.
+
 ### GTM
 
 **One permanent link**
