@@ -49,7 +49,8 @@ export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan
           <p className="nextup-kicker">{nextUp.kind === 'resume' ? `You stopped at card ${nextUp.card} of chapter ${nextUp.n}` : 'Up next'}</p>
           <p className="nextup-title">{nextUp.kind === 'resume' ? `${nextUp.left} card${nextUp.left === 1 ? '' : 's'} left, about ${Math.max(2, nextUp.left * 2)} minutes.` : `Chapter ${nextUp.n}: ${upTitle ?? ''}`}</p>
           {nextUp.kind === 'next' && upHook && <p className="nextup-hook">{upHook}</p>}
-          <button type="button" className="btn" onClick={onStart}>{nextUp.kind === 'resume' ? 'Pick up where you left off' : `Start chapter ${nextUp.n}`}</button>
+          {/* One main button per screen (review #20): the action bar holds it; this one is the quiet twin. */}
+          <button type="button" className="btn btn-ghost" onClick={onStart}>{nextUp.kind === 'resume' ? 'Pick up where you left off' : `Start chapter ${nextUp.n}`}</button>
         </section>
       )}
       {passed.length >= total && whatsNext}
@@ -128,7 +129,7 @@ export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan
             <button className="btn" onClick={onRetry}>Try again</button>
           </>
         ) : (
-          <button className="btn" onClick={onStart} disabled={!chapterReady}>{`Start chapter ${current} ▸`}</button>
+          <button className="btn" onClick={onStart} disabled={!chapterReady}>{passed.length >= total ? `Read chapter ${current} again ▸` : `Start chapter ${current} ▸`}</button>
         )}
       </ActionBar>
     </>

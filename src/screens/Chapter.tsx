@@ -160,7 +160,8 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   useEffect(() => { if (!item.recall) track('card', { n, i: item.cardIndex }, `card:${handbookId}:${n}:${item.cardIndex}`) }, [n, handbookId, item.cardIndex, item.recall])
   useEffect(() => { if (!item.recall) onPosition(item.cardIndex, frame.part) }, [item.cardIndex, item.recall, frame.part]) // eslint-disable-line react-hooks/exhaustive-deps
   const next = () => { if (!canAdvance) return; if (isLast) { finish(); return } setI(i + 1); reset() }
-  const back = () => { if (i > 0) { setI(i - 1); reset() } else onExit() }
+  // Only × and Escape leave the chapter (review #18, 8 Oct): a tap on the left edge of the first frame used to exit silently.
+  const back = () => { if (i > 0) { setI(i - 1); reset() } }
 
   const choose = async (optionId: string) => {
     if (item.card.type !== 'exercise' || sending || exercisePassed) return
