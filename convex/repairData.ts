@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { FROZEN } from "./frozen";
 import { internal } from "./_generated/api";
 import { internalMutation, internalQuery } from "./_generated/server";
 import { level } from "./schema";
@@ -326,5 +327,33 @@ export const renameInTopic = internalMutation({
     }
     await ctx.scheduler.runAfter(0, internal.shelf.syncReadyTopic, { topic });
     return { rows, copies };
+  },
+});
+
+// The chapters still short of pictures (images.backfillMissing, 8 Oct).
+export const missingPictures = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const seen = new Set<string>();
+    const queue: { topicKey: string; level: "new" | "some"; n: number }[] = [];
+    for (const r of await ctx.db.query("cache").collect()) {
+      if (r.level !== "new" || seen.has(r.topic)) continue;
+      seen.add(r.topic);
+      for (const ch of r.chapters as any[]) {
+        const got = (ch.pictures ?? []).filter((p: any) => p.storageId).length;
+        if (ch.n === 1 ? got < 3 && !FROZEN.has(r.topic) : got < 4) queue.push({ topicKey: r.topicKey, level: "new", n: ch.n });
+      }
+    }
+    const since = Date.parse("2026-10-07T14:30:00Z");   // 7 Oct 20:00 IST: when the cover-only rule went live
+    const live: { handbookId: any; n: number }[] = [];
+    for (const h of await ctx.db.query("handbooks").withIndex("by_created", (q) => q.gt("createdAt", since)).collect()) {
+      if (h.hiddenAt || h.source !== "live") continue;
+      for (const ch of await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id)).collect()) {
+        if (ch.status !== "ready" || !ch.cards) continue;
+        const drawn = (ch.pictures ?? []).filter((p) => p.storageId && !p.credit).length;
+        if (drawn <= 1) live.push({ handbookId: h._id, n: ch.n });
+      }
+    }
+    return { queue, live };
   },
 });

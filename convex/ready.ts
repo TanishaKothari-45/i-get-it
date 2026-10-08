@@ -75,8 +75,9 @@ export const build = internalAction({
     const topicKey = topicKeyOf(plan.topic ?? topic);
     // Chapter 1 gets the 'would they keep swiping?' polish before its pictures are drawn.
     await ctx.scheduler.runAfter(0, internal.polish.queue, { topicKeys: [topicKey] });
-    // Only chapter 1 is drawn now (it gives the cover); chapters 2 onward are drawn when a reader first opens them (7 Oct).
-    await ctx.scheduler.runAfter(120000, internal.images.backfill, { queue: [{ topicKey, level: "new" as const, n: 1 }] });
-    console.log(`ready ${topic}: on the shelf as ${keys.join(", ")}; chapter 1 pictures queued`);
+    // Every chapter of a ready topic is drawn (8 Oct, Prateek): it sits on the shelf for everyone. Typed topics still
+    // draw chapters 2 onward only when a reader first opens them (handbooks.openChapter).
+    await ctx.scheduler.runAfter(120000, internal.images.backfill, { queue: plan.chapters.map((_: any, i: number) => ({ topicKey, level: "new" as const, n: i + 1 })) });
+    console.log(`ready ${topic}: on the shelf as ${keys.join(", ")}; pictures queued for ${plan.chapters.length} chapters`);
   },
 });

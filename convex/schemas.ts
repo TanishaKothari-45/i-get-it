@@ -89,7 +89,10 @@ export const research = z.looseObject({
   sources: z.array(z.looseObject({ title: str.optional(), url: str })).max(10),
 });
 
-export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research };
+// One interactive explainer per chapter (8 Oct test, evalArtifact.ts): a self-contained HTML page.
+export const artifact = z.looseObject({ idea: str, html: str.min(300) });
+
+export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact };
 
 // The problems with a reply, in a few short lines the model can act on; null when it fits.
 export function problems(kind: string, json: unknown): string | null {

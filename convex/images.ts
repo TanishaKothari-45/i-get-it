@@ -114,12 +114,12 @@ async function picturesFor(ctx: ActionCtx, topic: string, plan: any, title: stri
   if (!scenes.length) return { status: "failed", pictures: [] };
   // Readers' chapters count against the app-wide hourly cap; the hand-run ready-topic backfill does not.
   if (capped && !(await ctx.runMutation(internal.handbooks.takePictureBudget, { count: scenes.length }))) return { status: "failed", pictures: [] };
-  // Real things: a real, freely licensed photo first. Runway draws only the cover (8 Oct, Prateek: no Runway credits
-  // inside chapters): the first picture of chapter 1, which is also the handbook's cover. Every other card gets a photo.
+  // Real things: a real, freely licensed photo first (ink and wash). Everything else is drawn by Runway (8 Oct, Prateek:
+  // "Runway back on"; the night's cover-only rule left new chapters with 0 or 1 picture, and a reader said so).
   const photos = await Promise.all(scenes.map((s) => (s.real ? commonsPhoto(ctx, s.real) : Promise.resolve(null))));
   const drawn: (Awaited<ReturnType<typeof drawOne>> | null)[] = new Array(scenes.length).fill(null);
-  const first = Math.min(...scenes.map((s) => s.card));
-  const toDraw = scenes.map((_, k) => k).filter((k) => !photos[k] && cover && scenes[k].card === first);
+  void cover;
+  const toDraw = scenes.map((_, k) => k).filter((k) => !photos[k]);
   let next = 0;
   await Promise.all(Array.from({ length: Math.min(AT_ONCE, toDraw.length) }, async () => {
     while (next < toDraw.length) { const k = toDraw[next++]; drawn[k] = await drawOne(ctx, `${PICTURE_ANCHOR} Subject: ${scenes[k].scene} ${PICTURE_NEVER}`); }
@@ -220,5 +220,18 @@ export const photoTest = internalAction({
     const t0 = Date.now();
     const p = await commonsPhoto(ctx, query);
     return p ? { ms: Date.now() - t0, credit: p.credit, url: await ctx.storage.getUrl(p.storageId) } : { ms: Date.now() - t0, found: false };
+  },
+});
+
+// Backfill (8 Oct): every ready-topic chapter with fewer than 4 pictures (chapter 1 only if it has fewer than 3 and the
+// topic isn't frozen), queued one after another; and every live chapter opened since 7 Oct evening with at most 1
+// drawing, redrawn now. Run: npx convex run --prod images:backfillMissing '{}'
+export const backfillMissing = internalAction({
+  args: {},
+  handler: async (ctx): Promise<{ cacheChapters: number; liveChapters: number }> => {
+    const { queue, live } = await ctx.runQuery(internal.repairData.missingPictures, {});
+    if (queue.length) await ctx.scheduler.runAfter(0, internal.images.backfill, { queue });
+    for (const [i, x] of live.entries()) await ctx.scheduler.runAfter(i * 20000, internal.images.forChapter, x);
+    return { cacheChapters: queue.length, liveChapters: live.length };
   },
 });

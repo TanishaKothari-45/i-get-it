@@ -16,6 +16,7 @@ import type * as auth from "../auth.js";
 import type * as costs from "../costs.js";
 import type * as crons from "../crons.js";
 import type * as doctor from "../doctor.js";
+import type * as evalArtifact from "../evalArtifact.js";
 import type * as evalModels from "../evalModels.js";
 import type * as evalResearch from "../evalResearch.js";
 import type * as events from "../events.js";
@@ -62,6 +63,7 @@ declare const fullApi: ApiFromModules<{
   costs: typeof costs;
   crons: typeof crons;
   doctor: typeof doctor;
+  evalArtifact: typeof evalArtifact;
   evalModels: typeof evalModels;
   evalResearch: typeof evalResearch;
   events: typeof events;
