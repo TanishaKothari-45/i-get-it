@@ -4,7 +4,7 @@ Read this first. Session dc coordinated the night (D19). Every decision taken in
 
 ## Check on your phone (390 px, logged out, mobile data)
 
-0. "How to make dal" on prod, after 55 and 05 deploy D23: one chapter, ingredients first, steps with quantities, no timer or animated-bowl cards, no sign-up wall mid-recipe. Then type "how to make maggi" as a fresh visitor and expect the same shape.
+0. "How to make dal" on prod (note: the first rebuild at 00:41 was undone by the D27 course guard and the handbook was briefly a 7-chapter course on prod; 55's third rebuild under D23a makes it one chapter; check the chapter count first): one chapter, ingredients first, steps with quantities, no timer or animated-bowl cards, no sign-up wall mid-recipe. Then type "how to make maggi" as a fresh visitor and expect the same shape.
 0b. A fresh course topic on prod after D27: 7 chapters, chapter 2 with 30 or more swipes and about 1,000 words (55 reports the measured numbers in its section).
 0c. The Shelf names every handbook by the typed words again (D28): "Public speaking advanced level", not "Advanced Rhetoric and Persuasion". 55 lists every renamed row in its section.
 1. /admin opens for you again after signing in with your usual password (D18). If it still says denied, sign in once by email code and tell dc.
