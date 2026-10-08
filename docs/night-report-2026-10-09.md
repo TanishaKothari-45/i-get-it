@@ -148,6 +148,9 @@ Lessons for 8 Oct are in docs/lessons.md (five under Product/Tech, session 05).
 
 ## Session a2
 
+Late update (02:10, folded in by dc): the reel editor is tested end to end on a synthetic take (18 pauses cut, 52 s down to 37 s, hook on screen, the cut to the app recording found automatically, captions corrected against the script, end card); usage in docs/launch/edit/README.md, the real-voice test waits for your first take. New: docs/launch/how-to-record.md, a one-page recording guide (iPhone settings to change once, light, sound, delivery, the 10-minute routine). The Sunday "Someone typed this" links use ?l= and were confirmed by 05.
+
+
 **First thing in the morning, before anything new goes out: the free-chapters claim changed at 20:37 (D14).**
 
 What's true now, for any caption or reply you write:
