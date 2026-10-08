@@ -357,3 +357,79 @@ export const missingPictures = internalQuery({
     return { queue, live };
   },
 });
+
+// ---------- picture shrinking (8 Oct night; images.ts shrinkAll) ----------
+// A page of rows from one table, with every picture file id the row holds.
+const PICS = (xs: any) => (Array.isArray(xs) ? xs.map((p: any) => p?.storageId).filter((x: any) => typeof x === "string") : []) as string[];
+function idsOf(table: string, r: any): string[] {
+  if (table === "chapters") return PICS(r.pictures);
+  if (table === "library") return [...PICS(r.chapter1?.pictures), ...Object.values(r.chapters ?? {}).flatMap((c: any) => PICS(c?.pictures))];
+  if (table === "cache") return (r.chapters ?? []).flatMap((c: any) => PICS(c?.pictures));
+  if (table === "shelf") return [...(r.cover ? [String(r.cover)] : []), ...(Array.isArray(r.stories) ? r.stories.map((st: any) => st?.storageId).filter((x: any) => typeof x === "string") : [])];
+  if (table === "experiments") return PICS(r.b?.pictures);
+  return [];
+}
+export const pictureRefs = internalQuery({
+  args: { table: v.string(), cursor: v.union(v.string(), v.null()) },
+  handler: async (ctx, { table, cursor }) => {
+    const page = await (ctx.db.query(table as any) as any).paginate({ cursor, numItems: 20 });
+    return { rows: page.page.map((r: any) => ({ id: String(r._id), ids: idsOf(table, r) })).filter((x: any) => x.ids.length), cursor: page.continueCursor, done: page.isDone };
+  },
+});
+// Rewrite one row's picture ids from the pairs.
+export const remapRow = internalMutation({
+  args: { table: v.string(), id: v.string(), pairs: v.array(v.object({ from: v.string(), to: v.string() })) },
+  handler: async (ctx, { table, id, pairs }) => {
+    const map = new Map(pairs.map((p) => [p.from, p.to]));
+    const rid = ctx.db.normalizeId(table as any, id);
+    const r: any = rid && (await ctx.db.get(rid));
+    if (!r) return;
+    const swap = (xs: any) => (Array.isArray(xs) ? xs.map((p: any) => (p?.storageId && map.has(p.storageId) ? { ...p, storageId: map.get(p.storageId) } : p)) : xs);
+    if (table === "chapters") await ctx.db.patch(r._id, { pictures: swap(r.pictures) });
+    else if (table === "library") {
+      const chapters: any = {};
+      for (const [k, c] of Object.entries(r.chapters ?? {})) chapters[k] = { ...(c as any), pictures: swap((c as any)?.pictures) };
+      await ctx.db.patch(r._id, { ...(r.chapter1 ? { chapter1: { ...r.chapter1, pictures: swap(r.chapter1.pictures) } } : {}), ...(r.chapters ? { chapters } : {}) });
+    } else if (table === "cache") await ctx.db.patch(r._id, { chapters: (r.chapters ?? []).map((c: any) => (c ? { ...c, pictures: swap(c.pictures) } : c)) });
+    else if (table === "shelf") await ctx.db.patch(r._id, { ...(r.cover && map.has(String(r.cover)) ? { cover: map.get(String(r.cover)) as any } : {}), ...(Array.isArray(r.stories) ? { stories: r.stories.map((st: any) => (st?.storageId && map.has(st.storageId) ? { ...st, storageId: map.get(st.storageId) } : st)) } : {}) });
+    else if (table === "experiments") await ctx.db.patch(r._id, { b: { ...r.b, pictures: swap(r.b?.pictures) } });
+  },
+});
+export const fileMeta = internalQuery({
+  args: { id: v.string() },
+  handler: async (ctx, { id }) => {
+    const fid = ctx.db.system.normalizeId("_storage", id);
+    const f: any = fid && (await ctx.db.system.get(fid));
+    return f ? { size: Number(f.size), contentType: (f.contentType as string | null) ?? null } : null;
+  },
+});
+const SHRUNK = (from: string) => `shrunk:${from}`;
+export const shrunkFor = internalQuery({
+  args: { from: v.string() },
+  handler: async (ctx, { from }) => (await ctx.db.query("settings").withIndex("by_key", (q) => q.eq("key", SHRUNK(from))).unique())?.value ?? null,
+});
+export const rememberShrunk = internalMutation({
+  args: { from: v.string(), to: v.string() },
+  handler: async (ctx, { from, to }) => {
+    const row = await ctx.db.query("settings").withIndex("by_key", (q) => q.eq("key", SHRUNK(from))).unique();
+    if (row) await ctx.db.patch(row._id, { value: to, at: Date.now() });
+    else await ctx.db.insert("settings", { key: SHRUNK(from), value: to, at: Date.now() });
+  },
+});
+export const shrunkPage = internalQuery({
+  args: { cursor: v.union(v.string(), v.null()) },
+  handler: async (ctx, { cursor }) => {
+    const page = await ctx.db.query("settings").withIndex("by_key", (q) => q.gte("key", "shrunk:").lt("key", "shrunk;")).paginate({ cursor, numItems: 50 });
+    return { rows: page.page.map((r) => ({ from: r.key.slice("shrunk:".length) })), cursor: page.continueCursor, done: page.isDone };
+  },
+});
+// Does any table still point at this file? (Full scans, so only for the one-off cleanup.)
+export const stillReferenced = internalQuery({
+  args: { id: v.string() },
+  handler: async (ctx, { id }) => {
+    for (const table of ["chapters", "library", "cache", "shelf", "experiments"]) {
+      for await (const r of (ctx.db.query(table as any) as any)) if (idsOf(table, r).includes(id)) return true;
+    }
+    return false;
+  },
+});

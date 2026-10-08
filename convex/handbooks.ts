@@ -12,7 +12,7 @@ import { MOVE_PROMPT, moveUserMessage, TRYIT_PROMPT, tryItUserMessage, INTENT_PR
 import { level } from "./schema";
 import { copyInto, matchForIntent, sharedRow } from "./library";
 import { assignVariant } from "./doctor";
-import { COST_INR, LIMITS, isOpen, memberUntil, spendFits, tryOpen, typedAllowance } from "./membership";
+import { COST_INR, LIMITS, isOpen, memberUntil, ownerIsMember, spendFits, tryOpen, typedAllowance } from "./membership";
 
 const voiceV = v.union(v.literal("friend"), v.literal("straight"), v.literal("stories"));
 
@@ -32,6 +32,9 @@ const LANGUAGE = "English";
 const limiter = new RateLimiter(components.rateLimiter, {
   generateAll: { kind: "fixed window", rate: 60, period: HOUR },
   generateDevice: { kind: "token bucket", rate: 6, period: HOUR, capacity: 3 },
+  // 8 Oct night (audit): a made-up device token gets a fresh per-device bucket, so new anonymous handbooks share one
+  // app-wide bucket too; a flood of fresh tokens can drain this, never the whole app's 60 an hour.
+  generateAnon: { kind: "fixed window", rate: 20, period: HOUR },
   askDevice: { kind: "token bucket", rate: 40, period: HOUR, capacity: 8 },
   // Free vs member (membership.ts LIMITS, 7 Oct): web-checked answers (~₹9.4 each).
   searchFreeWeek: { kind: "fixed window", rate: LIMITS.freeSearchPerWeek, period: 7 * 24 * HOUR },
@@ -102,11 +105,15 @@ function ownerKey(h: Doc<"handbooks">) {
   return h.userId ? String(h.userId) : (h.ownerToken ?? String(h._id));
 }
 
-// One plan or chapter write (a chapter includes its fact check): the app-wide cap and the owner's cap.
-async function takeGeneration(ctx: MutationCtx, h: Doc<"handbooks">) {
+// One plan or chapter write (a chapter includes its fact check): the app-wide cap and the owner's cap. Since 8 Oct night
+// (audit) a free reader's write also counts against the day's free budget (membership.ts spendFits); members never
+// pause. Past the budget it throws "paused-today" (the honest message) unless soft, when it just says no.
+async function takeGeneration(ctx: MutationCtx, h: Doc<"handbooks">, opts: { soft?: boolean } = {}) {
   const mine = await limiter.limit(ctx, "generateDevice", { key: ownerKey(h) });
   if (!mine.ok) return false;
-  return (await limiter.limit(ctx, "generateAll")).ok;
+  if (!(await limiter.limit(ctx, "generateAll")).ok) return false;
+  if (!(await ownerIsMember(ctx, h)) && !(await spendFits(ctx, COST_INR.chapter))) { if (opts.soft) return false; throw new ConvexError("paused-today"); }
+  return true;
 }
 
 
@@ -402,6 +409,7 @@ export const create = mutation({
     const all = await limiter.limit(ctx, "generateAll");
     const mine = await limiter.limit(ctx, "generateDevice", { key: userId ? String(userId) : deviceToken });
     if (!all.ok || !mine.ok) throw new ConvexError("busy");
+    if (!userId && !(await limiter.limit(ctx, "generateAnon")).ok) throw new ConvexError("busy");
 
     const handbookId = await ctx.db.insert("handbooks", {
       topic: clean, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "intent",
@@ -1340,7 +1348,7 @@ export const refreshIfStale = mutation({
     const h = await ownedHandbook(ctx, handbookId, deviceToken);
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     if (!ch || !ch.stale || !h.plan) return { rewriting: false };
-    if (!(await takeGeneration(ctx, h))) { await ctx.db.patch(ch._id, { stale: false }); return { rewriting: false }; }
+    if (!(await takeGeneration(ctx, h, { soft: true }))) { await ctx.db.patch(ch._id, { stale: false }); return { rewriting: false }; }
     await ctx.db.patch(ch._id, { status: "writing", stale: false, error: undefined });
     await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n });
     return { rewriting: true };
@@ -1369,6 +1377,7 @@ export const compareModels = mutation({
     if (ch?.variants && ch.variants.length === 3) return { started: false };
     const cmp = await limiter.limit(ctx, "compareAll");
     if (!cmp.ok || !(await takeGeneration(ctx, h))) throw new ConvexError("busy");
+    if (!(await ownerIsMember(ctx, h)) && !(await spendFits(ctx, COST_INR.compare))) throw new ConvexError("paused-today");   // three expensive calls (8 Oct night, audit)
     const order = ["sonnet", "opus", "fable"].sort(() => Math.random() - 0.5);
     const variants = order.map((k, i) => ({ key: ["A", "B", "C"][i], model: MODELS[k], status: "writing" }));
     if (ch) await ctx.db.patch(ch._id, { variants });
@@ -1452,6 +1461,7 @@ export const teachBack = mutation({
     if (t.length < 10) throw new Error("A sentence or two is enough.");
     const mine = await limiter.limit(ctx, "teachDevice", { key: ownerKey(h) });
     if (!mine.ok || !(await limiter.limit(ctx, "teachAll")).ok) throw new ConvexError("busy");
+    if (!(await ownerIsMember(ctx, h)) && !(await spendFits(ctx, COST_INR.teach))) throw new ConvexError("paused-today");
     const id = await ctx.db.insert("teachBacks", { handbookId, chapter, text: t, status: "thinking", at: Date.now() });
     await ctx.scheduler.runAfter(0, internal.handbooks.replyToTeachBack, { id });
   },
@@ -1506,6 +1516,7 @@ export const ask = mutation({
     if (q.length < 3) throw new Error("Ask in a few words.");
     const mine = await limiter.limit(ctx, "askDevice", { key: ownerKey(h) });
     if (!mine.ok || !(await limiter.limit(ctx, "askAll")).ok) throw new ConvexError("busy");
+    if (!(await ownerIsMember(ctx, h)) && !(await spendFits(ctx, COST_INR.ask))) throw new ConvexError("paused-today");
     const id = await ctx.db.insert("cardQuestions", { handbookId, chapter, cardIndex, question: q, status: "thinking", at: Date.now() });
     await ctx.scheduler.runAfter(0, internal.handbooks.answerQuestionAboutCard, { questionId: id });
     return id;

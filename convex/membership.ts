@@ -30,7 +30,7 @@ export const LIMITS = {
 } as const;
 
 // What one reader action costs us, roughly (AGENTS.md section 4, measured 4–6 Oct).
-export const COST_INR = { handbook: 17, chapter: 13, search: 9.4 } as const;
+export const COST_INR = { handbook: 17, chapter: 13, search: 9.4, compare: 30, ask: 0.6, teach: 0.2 } as const;   // compare, ask, teach added 8 Oct night (audit): every paid call counts against the free day budget
 
 const DAY = 24 * 60 * 60 * 1000;
 const IST = 5.5 * 60 * 60 * 1000;

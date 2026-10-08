@@ -59,3 +59,18 @@ export async function inkAndWash(bytes: Uint8Array, mime: string, W = 896, H = 6
   for (const m of new Set([rgba, big, crop, src, half, a, b, flat, soft, g, edges, rim, med, raw0, line])) m.delete();
   return new Uint8Array(jpeg.encode({ data: out, width: W, height: H }, 86).data);
 }
+
+// Shrink a picture for the phone (8 Oct night, from session 05's audit: Runway returns 1792 by 1344 PNGs of 3 to 4 MB,
+// drawn at 345 px wide; a first night downloaded about 36 MB and on slow 4G the first picture missed a 60 s wait).
+// Longest side to maxW, JPEG at the given quality: about 60 to 90 KB a picture. About 0.3 s.
+export async function shrink(bytes: Uint8Array, mime: string, maxW = 900, quality = 82): Promise<{ bytes: Uint8Array; width: number; height: number }> {
+  const cv = await opencv();
+  const raw = decode(bytes, mime);
+  const s = Math.min(1, maxW / raw.width), w = Math.max(1, Math.round(raw.width * s)), h = Math.max(1, Math.round(raw.height * s));
+  const src = cv.matFromImageData({ data: raw.data, width: raw.width, height: raw.height });
+  const dst = new cv.Mat();
+  cv.resize(src, dst, new cv.Size(w, h), 0, 0, cv.INTER_AREA);
+  const out = new Uint8Array(dst.data);
+  src.delete(); dst.delete();
+  return { bytes: new Uint8Array(jpeg.encode({ data: out, width: w, height: h }, quality).data), width: w, height: h };
+}

@@ -18,6 +18,9 @@ export const consider = internalAction({
   handler: async (ctx, { handbookId }) => {
     const d: any = await ctx.runQuery(internal.library.readSource, { handbookId });
     if (!d) return;
+    // 8 Oct night (audit): a chapter 1 written for a reader's profile line is theirs, never shared.
+    const prof: { line?: string | null } = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId });
+    if (prof?.line) { await ctx.runMutation(internal.library.publish, { handbookId, share: false, why: "written for one reader's profile" }); return; }
     // Its own job and schema (8 Oct, Tanisha's catch): under "intent" every reply failed the schema, so nothing was ever published.
     const r: any = await ctx.runAction(internal.ai.generate, { kind: "library", system: LIBRARY_CHECK_PROMPT,
       user: `Typed line: "${d.h.topic}"\nPlan topic: ${d.h.plan?.topic ?? ""}\nGoal: ${d.h.goal ?? ""}\nOutcome: ${d.h.plan?.outcome7 ?? ""}`, trace: { handbookId } });

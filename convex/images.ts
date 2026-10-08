@@ -4,7 +4,7 @@ import { internalAction, type ActionCtx } from "./_generated/server";
 import { internal } from "./_generated/api";
 import type { Id } from "./_generated/dataModel";
 import { PICTURE_ANCHOR, PICTURE_NEVER, SCENES_PROMPT, scenesUserMessage } from "./prompts";
-import { inkAndWash } from "./inkwash";
+import { inkAndWash, shrink } from "./inkwash";
 
 // Pictures come from Runway's API (key in the Convex env variable "Runway"). One call = one picture,
 // stored in Convex file storage so readers never hit Runway. Prices: docs.dev.runwayml.com/guides/pricing.
@@ -58,7 +58,13 @@ async function drawOne(ctx: ActionCtx, prompt: string, model = MODEL, ratio = RA
     }
     if (t.status !== "SUCCEEDED" || !t.output?.[0]) throw new Error(`${t.status}: ${t.failure ?? t.failureCode ?? ""}`);
     const img = await fetch(t.output[0]);
-    const storageId = await ctx.storage.store(await img.blob());
+    // Stored small (8 Oct night): about 900 px wide JPEG, not the 3 to 4 MB PNG Runway returns. If shrinking fails, the
+    // original is kept rather than losing the picture.
+    const raw = new Uint8Array(await img.arrayBuffer()), mime = img.headers.get("content-type") ?? "image/png";
+    let blob: Blob;
+    try { const small = await shrink(raw, mime); blob = new Blob([small.bytes as BlobPart], { type: "image/jpeg" }); }
+    catch (e: any) { console.log("shrink failed, storing the original", String(e?.message ?? e).slice(0, 120)); blob = new Blob([raw as BlobPart], { type: mime }); }
+    const storageId = await ctx.storage.store(blob);
     await ctx.runMutation(internal.handbooks.logAiCall, { kind: "picture", model, input: prompt.slice(0, 2000), output: String(storageId), ms: Date.now() - t0, ok: true });
     return { ok: true, storageId, ms: Date.now() - t0 };
   } catch (e: any) {
@@ -236,5 +242,60 @@ export const backfillMissing = internalAction({
     if (queue.length) await ctx.scheduler.runAfter(0, internal.images.backfill, { queue });
     for (const [i, x] of live.entries()) await ctx.scheduler.runAfter(i * 20000, internal.images.forChapter, x);
     return { cacheChapters: queue.length, liveChapters: live.length };
+  },
+});
+
+// ---------- one-off (8 Oct night): shrink every stored picture ----------
+// Walks each table that holds picture ids, shrinks each big PNG once (the old → new pair is kept in settings under
+// "shrunk:<id>", so a file shared by a chapter, its library copy and the shelf is shrunk once), rewrites the row, and
+// schedules the next page. Originals are not deleted here; images:deleteShrunkOriginals does that after a check.
+// Start: npx convex run --prod images:shrinkAll '{}'
+const SHRINK_TABLES = ["chapters", "library", "cache", "shelf", "experiments"] as const;
+const BIG = 400_000;   // bytes; anything smaller is already small enough
+export const shrinkAll = internalAction({
+  args: { table: v.optional(v.string()), cursor: v.optional(v.union(v.string(), v.null())), done: v.optional(v.number()), saved: v.optional(v.number()) },
+  handler: async (ctx, { table = "chapters", cursor = null, done = 0, saved = 0 }): Promise<void> => {
+    const page: { rows: { id: string; ids: string[] }[]; cursor: string | null; done: boolean } = await ctx.runQuery(internal.repairData.pictureRefs, { table, cursor });
+    for (const row of page.rows) {
+      const pairs: { from: string; to: string }[] = [];
+      for (const id of new Set(row.ids)) {
+        const known: string | null = await ctx.runQuery(internal.repairData.shrunkFor, { from: id });
+        if (known) { pairs.push({ from: id, to: known }); continue; }
+        const meta: { size: number; contentType: string | null } | null = await ctx.runQuery(internal.repairData.fileMeta, { id });
+        if (!meta || meta.size < BIG) continue;
+        try {
+          const blob = await ctx.storage.get(id as Id<"_storage">);
+          if (!blob) continue;
+          const small = await shrink(new Uint8Array(await blob.arrayBuffer()), meta.contentType ?? "image/png");
+          const to = await ctx.storage.store(new Blob([small.bytes as BlobPart], { type: "image/jpeg" }));
+          await ctx.runMutation(internal.repairData.rememberShrunk, { from: id, to: String(to) });
+          pairs.push({ from: id, to: String(to) });
+          done++; saved += meta.size - small.bytes.length;
+        } catch (e: any) { console.log("shrink failed", id, String(e?.message ?? e).slice(0, 120)); }
+      }
+      if (pairs.length) await ctx.runMutation(internal.repairData.remapRow, { table, id: row.id, pairs });
+    }
+    if (!page.done) { await ctx.scheduler.runAfter(0, internal.images.shrinkAll, { table, cursor: page.cursor, done, saved }); return; }
+    const next = SHRINK_TABLES[SHRINK_TABLES.indexOf(table as any) + 1];
+    if (next) { await ctx.scheduler.runAfter(0, internal.images.shrinkAll, { table: next, cursor: null, done, saved }); return; }
+    console.log(`shrinkAll finished: ${done} pictures shrunk, about ${Math.round(saved / 1e6)} MB saved`);
+    await ctx.runMutation(internal.repairData.rememberShrunk, { from: "shrinkAll:finished", to: `${done} pictures, ${Math.round(saved / 1e6)} MB, ${new Date().toISOString()}` });
+  },
+});
+
+// After shrinkAll: delete the big originals that were replaced. Only files recorded as "from" in the shrunk map, and only
+// when no table still points at them. Run: npx convex run --prod images:deleteShrunkOriginals '{}'
+export const deleteShrunkOriginals = internalAction({
+  args: { cursor: v.optional(v.union(v.string(), v.null())), deleted: v.optional(v.number()), kept: v.optional(v.number()) },
+  handler: async (ctx, { cursor = null, deleted = 0, kept = 0 }): Promise<void> => {
+    const page: { rows: { from: string }[]; cursor: string | null; done: boolean } = await ctx.runQuery(internal.repairData.shrunkPage, { cursor });
+    for (const r of page.rows) {
+      if (!/^[a-z0-9]{20,}$/.test(r.from)) continue;
+      const still: boolean = await ctx.runQuery(internal.repairData.stillReferenced, { id: r.from });
+      if (still) { kept++; continue; }
+      try { await ctx.storage.delete(r.from as Id<"_storage">); deleted++; } catch { kept++; }
+    }
+    if (!page.done) { await ctx.scheduler.runAfter(0, internal.images.deleteShrunkOriginals, { cursor: page.cursor, deleted, kept }); return; }
+    console.log(`deleteShrunkOriginals finished: ${deleted} deleted, ${kept} kept`);
   },
 });
