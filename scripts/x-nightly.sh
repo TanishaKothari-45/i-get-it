@@ -26,6 +26,9 @@ npx convex run --prod stats:summary '{}' > "$OUT_DIR/$TODAY-numbers.json" 2>/dev
 PUB="$(cat "$OUT_DIR/$TODAY-numbers.json")"
 VIS=$(echo "$PUB" | jq .visitorsAll); STARTED=$(echo "$PUB" | jq .started); PASSED=$(echo "$PUB" | jq .passedChapter1)
 CHART="$OUT_DIR/$TODAY-chart.png"
+# The image for the post: a screenshot of the live /stats dashboard (the chart below stays as a backup and for the numbers)
+SHOT="$OUT_DIR/$TODAY-stats.png"
+node scripts/stats-shot.mjs "$SHOT" >/dev/null 2>&1 || SHOT="(stats screenshot failed; use $CHART)"
 CJ=$(node scripts/x-chart.mjs "$OUT_DIR/$TODAY-numbers.json" "$CHART" "$DAY" 2>/dev/null || echo '{}')
 cj() { echo "$CJ" | jq -r "$1 // \"?\""; }
 Y_TOTAL=$(cj .yesterday.total); Y_PASSED=$(cj .yesterday.passed); YB_TOTAL=$(cj .dayBefore.total)
@@ -69,12 +72,13 @@ https://sensible-mongoose-624.convex.site/?utm_source=x
 
 #IGetIt #buildinpublic #learnsomethingnew #microlearning #AIlearning #growthx
 
-Attach the chart: $CHART
+Attach the dashboard screenshot: $SHOT
+(backup image: $CHART)
 
 ## Yesterday's response, by channel (for you, not the post)
 
 - Visitors yesterday by first source: $Y_CH.
-- Instagram and X post numbers: ${SOCIAL:-not connected yet (docs/launch/social-metrics.json has no line for yesterday)}.
+- Instagram and X numbers on /stats: $(echo "$PUB" | jq -r --arg d "$(date -v-1d +%Y-%m-%d)" '[.social[] | select(.day == $d) | .platform] | if length == 0 then "none for yesterday yet. Send the agent yesterday'"'"'s numbers from each app'"'"'s insights and it saves them (social:record)" else "saved for " + join(" and ") end').
 - All time: $VIS visitors · $STARTED handbooks started · $PASSED passed chapter 1 · $READY ready topics.
 - The loop: keep what brought readers yesterday, change one thing that didn't (docs/content-plan.md section 7).
 

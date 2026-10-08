@@ -347,6 +347,52 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .stats-bar-day { margin-top: 4px; }
 .stats-sources { list-style: none; padding: 0; margin: 0; font-family: var(--sans); font-size: var(--ui); }
 .stats-sources li { display: flex; justify-content: space-between; padding: var(--s) 0; border-bottom: 1px solid var(--tint); }
+/* the dashboard (8 Oct): daily bars by channel, the channel table, our Instagram and X */
+.sd-bars { display: flex; gap: 10px; align-items: stretch; height: 210px; margin-top: var(--s); }
+.sd-bar { flex: 1 1 0; max-width: 120px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-width: 0; }
+.sd-stack { width: 100%; min-height: 3px; display: flex; flex-direction: column-reverse; border-radius: 6px 6px 0 0; overflow: hidden; background: var(--tint); }
+.sd-stack > span { display: block; min-height: 2px; }
+.sd-today .sd-stack { opacity: 0.55; }
+.sd-n { font-family: var(--sans); font-size: var(--ui); font-weight: 700; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+.sd-day { font-family: var(--sans); font-size: var(--small); color: var(--ink-2); margin-top: 6px; white-space: nowrap; }
+.sd-pass { font-family: var(--sans); font-size: var(--small); font-weight: 700; color: var(--pass); }
+.sd-legend { list-style: none; padding: 0; margin: var(--m) 0 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-family: var(--sans); font-size: var(--small); color: var(--ink-2); }
+.sd-legend li { display: flex; align-items: center; gap: 6px; }
+.sd-legend li > span { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.sd-legend-pass { color: var(--pass); font-weight: 600; }
+.sd-table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: var(--ui); font-variant-numeric: tabular-nums; }
+.sd-table th, .sd-table td { padding: 10px 0; border-bottom: 1px solid var(--tint); text-align: right; font-weight: 400; }
+.sd-table thead th { font-size: var(--small); color: var(--ink-2); padding-top: 0; }
+.sd-table th:first-child { text-align: left; }
+.sd-table td { width: 4.5rem; }
+.sd-table tbody th { font-weight: 500; }
+.sd-dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 8px; }
+.sd-meter { display: block; height: 5px; margin: 6px 12px 0 18px; background: var(--paper-2); border-radius: 3px; overflow: hidden; }
+.sd-meter > span { display: block; height: 100%; border-radius: 3px; }
+.sd-good { color: var(--pass); font-weight: 700; }
+.sd-social { display: grid; grid-template-columns: 1fr; gap: var(--s); }
+.sd-card { background: var(--paper-2); border-radius: var(--radius); padding: var(--m); font-family: var(--sans); }
+.sd-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s); }
+.sd-card-head span { font-size: var(--small); color: var(--ink-2); }
+.sd-card .note { margin: var(--s) 0 0; }
+.sd-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s); margin: var(--m) 0 0; }
+.sd-metrics div { min-width: 0; }
+.sd-metrics dt { font-size: var(--small); color: var(--ink-2); }
+.sd-metrics dd { margin: 2px 0 0; font-size: var(--heading); font-weight: 700; font-variant-numeric: tabular-nums; }
+.sd-spark { display: flex; gap: 4px; align-items: flex-end; height: 36px; }
+.sd-spark span { flex: 1; max-width: 28px; min-height: 2px; background: var(--accent); border-radius: 2px 2px 0 0; }
+.sd-spark-label { font-size: var(--small); color: var(--ink-2); margin: var(--m) 0 4px; }
+.sd-via { font-size: var(--small); color: var(--ink-2); margin: var(--s) 0 0; }
+.sd-foot { margin-top: var(--xl); }
+@media (max-width: 480px) { .sd-metrics { grid-template-columns: repeat(2, 1fr); } .sd-bars { gap: 6px; } }
+@media (min-width: 900px) {
+  .shell.stats-shell { display: block; max-width: 1120px; }
+  .stats-shell .lede { max-width: 46rem; }
+  .stats-shell .stats-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .stats-cols { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: start; }
+  .stats-h-first { margin-top: 0; }
+  .sd-social { grid-template-columns: 1fr 1fr; gap: var(--m); }
+}
 
 /* Chapter pictures (design/style-anchor.md): a printed plate that fades in and drifts slowly, like a camera over artwork. */
 .story-pic { aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden; margin: 0 0 16px; background: #f3eee3; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22); flex: none; }

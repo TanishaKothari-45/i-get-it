@@ -237,6 +237,25 @@ export default defineSchema({
     at: v.number(),
   }),
 
+  // Our Instagram and X accounts' numbers for one day, shown on /stats (8 Oct). Typed in from each app's insights
+  // ("typed") until the APIs are connected ("api"). One row per platform per day.
+  socialDaily: defineTable({
+    day: v.string(),
+    platform: v.union(v.literal("instagram"), v.literal("x")),
+    posts: v.optional(v.number()),
+    views: v.optional(v.number()),          // Instagram views, X impressions
+    reach: v.optional(v.number()),
+    likes: v.optional(v.number()),
+    comments: v.optional(v.number()),       // Instagram comments, X replies
+    shares: v.optional(v.number()),         // Instagram shares (sends), X reposts
+    saves: v.optional(v.number()),          // Instagram saves, X bookmarks
+    follows: v.optional(v.number()),
+    profileVisits: v.optional(v.number()),
+    linkClicks: v.optional(v.number()),
+    via: v.union(v.literal("typed"), v.literal("api")),
+    at: v.number(),
+  }).index("by_platform_and_day", ["platform", "day"]),
+
   priceIntents: defineTable({
     userId: v.optional(v.id("users")),
     deviceToken: v.optional(v.string()),

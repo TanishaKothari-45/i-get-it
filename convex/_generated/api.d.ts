@@ -43,6 +43,7 @@ import type * as research from "../research.js";
 import type * as schemas from "../schemas.js";
 import type * as settings from "../settings.js";
 import type * as shelf from "../shelf.js";
+import type * as social from "../social.js";
 import type * as stats from "../stats.js";
 import type * as trending from "../trending.js";
 
@@ -88,6 +89,7 @@ declare const fullApi: ApiFromModules<{
   schemas: typeof schemas;
   settings: typeof settings;
   shelf: typeof shelf;
+  social: typeof social;
   stats: typeof stats;
   trending: typeof trending;
 }>;

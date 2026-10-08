@@ -3,6 +3,7 @@ import { RateLimiter, HOUR } from "@convex-dev/rate-limiter";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { components } from "./_generated/api";
 import { mutation, query } from "./_generated/server";
+import { recentSocial } from "./social";
 
 // The public /stats page: counts only, never an email, a topic or a name.
 
@@ -119,6 +120,7 @@ export const summary = query({
       sources: Object.entries(channels).sort((a, b) => b[1].visitors - a[1].visitors).slice(0, 6).map(([name, c]) => ({ name, n: c.visitors })),
       channels: Object.entries(channels).map(([source, c]) => ({ source, ...c })).sort((a, b) => b.visitors - a.visitors),
       hidden: [...HIDDEN_SOURCES],
+      social: await recentSocial(ctx),
       started: started.size,
       passedChapter1: passed.size,
       signups: users.length,
