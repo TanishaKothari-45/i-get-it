@@ -10,6 +10,15 @@ import type { Doc } from "./_generated/dataModel";
 
 const firstSentence = (s: unknown) => String(s ?? "").split(/(?<=\.)\s/)[0];
 
+// The cover is a drawing in the house style (design/style-anchor.md: one medium for the whole set), never a real photo:
+// a Wikimedia press photo of an actor on the Avengers book broke the shelf (art-direction pass, 8 Oct night). Card 0's
+// drawing first, then any drawing; a photo (it carries a credit) only when the chapter has no drawing at all.
+function coverOf(pictures: any[] | undefined) {
+  const ps = (pictures ?? []).filter((p: any) => p.storageId);
+  const drawn = ps.filter((p: any) => !p.credit);
+  return (drawn.find((p: any) => p.card === 0) ?? drawn[0] ?? ps[0])?.storageId;
+}
+
 // A ready topic: refreshed from its stored copy (any one spelling; they share content).
 export async function syncReady(ctx: MutationCtx, topic: string) {
   const rows = await ctx.db.query("cache").withIndex("by_topic", (q) => q.eq("topic", topic)).collect();
@@ -24,7 +33,7 @@ export async function syncReady(ctx: MutationCtx, topic: string) {
   });
   const row = {
     kind: "ready" as const, topic, key: r.topicKey, title: String((r.plan as any)?.topic ?? r.topic), level: r.level, mode: (r.plan as any)?.mode ?? undefined,
-    outcome: firstSentence((r.plan as any)?.outcome7), cover: ch1?.pictures?.find((p: any) => p.card === 0 && p.storageId)?.storageId ?? ch1?.pictures?.find((p: any) => p.storageId)?.storageId,
+    outcome: firstSentence((r.plan as any)?.outcome7), cover: coverOf(ch1?.pictures),
     trendingWeek: (r as any).trendingWeek, addedAt: (r as any).addedAt ?? r._creationTime, improvedAt: (r as any).improvedAt, stories, published: true,
   };
   if (existing) await ctx.db.patch(existing._id, row);
@@ -36,7 +45,7 @@ export async function syncShared(ctx: MutationCtx, l: Doc<"library">) {
   const existing = await ctx.db.query("shelf").withIndex("by_library", (q) => q.eq("libraryId", l._id)).unique();
   const row = {
     kind: "shared" as const, topic: l.topic, key: l.topicKey, title: l.topic, level: l.level, mode: l.mode, goal: l.goal,
-    outcome: firstSentence((l.plan as any)?.outcome7), cover: (l.chapter1?.pictures ?? []).find((p: any) => p.storageId)?.storageId,
+    outcome: firstSentence((l.plan as any)?.outcome7), cover: coverOf(l.chapter1?.pictures),
     addedAt: l.createdAt, libraryId: l._id, pick: !!l.pick, published: l.published, starts: l.starts, passes: l.passes,
   };
   if (existing) await ctx.db.patch(existing._id, row);
