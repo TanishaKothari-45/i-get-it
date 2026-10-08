@@ -134,6 +134,15 @@ export default function App() {
     const t = q.get('t'), ch = Number(q.get('ch') ?? 1)
     return t ? { t: t.toLowerCase(), ch: Number.isInteger(ch) && ch >= 1 && ch <= 7 ? ch : 1 } : null
   })
+  // Coming back (8 Oct, Prateek: "stop opening up the handbooks the first thing when a user comes back"): a reader who
+  // already has handbooks lands on Your handbooks, one tap from where they left off, never inside a chapter. A first
+  // visit still goes straight into chapter 1, and a post link still opens its topic.
+  const landed = useRef(false)
+  useEffect(() => {
+    if (landed.current || lib === undefined || deepLink) return
+    landed.current = true
+    if ((lib.handbooks?.length ?? 0) > 0 && view === 'auto') { autoEntered.current = hb?._id ?? null; setView('library') }
+  }, [lib]) // eslint-disable-line react-hooks/exhaustive-deps
   const linkStarted = useRef(false)
   useEffect(() => {
     if (!deepLink || readyTopics === undefined || linkStarted.current) return
