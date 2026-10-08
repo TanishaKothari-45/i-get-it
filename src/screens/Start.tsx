@@ -158,9 +158,8 @@ export default function Start({ initialTopic = '', status, question, intents, on
         </section>
       )}
       <p className="for-line">For everything you saved and never got back to.</p>
-      {/* 8 Oct night: no "seven nights" here since a recap is one to three chapters (review #34); the button says what it does (#39). */}
-      <h1>From “I keep meaning to” to “I get it”.</h1>
-      <p className="lede">Twenty minutes at a time. One chapter tonight, up to seven in all.</p>
+      <h1>Seven nights from “I keep meaning to” to “I get it”.</h1>
+      <p className="lede">Twenty minutes a day: a small step. 7 days: a small jump.</p>
 
       <div className="field">
         <label htmlFor="topic">What do you keep meaning to learn?</label>
@@ -198,7 +197,7 @@ export default function Start({ initialTopic = '', status, question, intents, on
         {status === 'failed' && onRetry && topic.trim() === initialTopic.trim() ? (
           <button className="btn" onClick={() => onRetry().catch((e) => setLocalError(friendly(e)))}>Try again</button>
         ) : (
-          <button className="btn" onClick={submit} disabled={writing}>{writing ? 'Writing your handbook…' : 'Write my handbook'}</button>
+          <button className="btn" onClick={submit} disabled={writing}>{writing ? 'Finding your way…' : 'Show me the way'}</button>
         )}
       </ActionBar>
     </>

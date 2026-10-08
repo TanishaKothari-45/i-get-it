@@ -27,7 +27,7 @@ export default function Print() {
             <>
               <h1>Print or save as PDF</h1>
               <p className="lede">Saving a whole handbook as one page is for members. Everything you've read stays in the app either way.</p>
-              <p><a href="/">Back to I Get It</a>, then Pricing, to see what members get.</p>
+              <p><a href="/pricing">See what members get</a> · <a href="/">Back to I Get It</a></p>
             </>
           ) : (
             <>

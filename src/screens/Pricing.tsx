@@ -19,8 +19,7 @@ const WHO = ['First 50', 'Next 100', 'Next 200', 'After that']
 // Free vs member, side by side (membership.ts LIMITS are the numbers that are enforced; keep these in step).
 const COMPARE: { what: string; free: string; member: string }[] = [
   { what: 'Handbooks you type', free: '1', member: '3 on the go at a time (up to 6 new a month)' },
-  { what: 'Ready and shared handbooks', free: 'Every chapter of every one', member: 'Every chapter of every one' },
-  { what: 'New chapters a day', free: '3', member: '7' },
+  { what: 'Ready and shared handbooks', free: 'Every chapter, 3 new a day', member: 'Every chapter, 7 new a day' },
   { what: 'Web-checked answers', free: '3 a week', member: '30 a month' },
   { what: 'Print or save as PDF', free: '–', member: 'Any of your handbooks' },
   { what: 'Coming next', free: '–', member: 'Your learning dashboard with streaks, and Indian languages: members first' },
@@ -110,7 +109,7 @@ export default function Pricing({ notice, plans, onLock, onOrder, onConfirm, onB
         <li><strong>Free stays free.</strong> Every ready and shared handbook, your own one, and everything you've already opened stay yours whether you pay or not.</li>
         <li><strong>A year saves {inr(saving)}.</strong> {inr(p.price.year)} once, instead of {inr(p.price.month)} twelve times.</li>
         <li><strong>Your price stays yours.</strong> Pay again within 7 days of your time running out and you keep it, even after it goes up for newcomers.</li>
-        <li><strong>Nothing to cancel.</strong> If you don't pay again, you aren't charged. Your handbooks and progress stay yours.</li>
+        <li><strong>Nothing to cancel.</strong> If you don't pay again, you aren't charged. When your paid days end you go back to the free limits; every handbook and chapter you opened stays open.</li>
       </ul>
 
       {live ? (
@@ -121,10 +120,12 @@ export default function Pricing({ notice, plans, onLock, onOrder, onConfirm, onB
           {/* The struck price is always the real next tier, never a made-up "was" price (7 Oct). */}
           {!p.paidUntil && (
             <div className="chips" role="group" aria-label="Pay for">
-              <button type="button" className="chip" aria-pressed={plan === 'month'} onClick={() => setPlan('month')}>A month · {later && <s className="was">{inr(later.month)}</s>} {inr(p.price.month)}</button>
-              <button type="button" className="chip" aria-pressed={plan === 'year'} onClick={() => setPlan('year')}>A year · {later && <s className="was">{inr(later.year)}</s>} {inr(p.price.year)}</button>
+              <button type="button" className="chip price-chip" aria-pressed={plan === 'month'} onClick={() => setPlan('month')}>A month · {inr(p.price.month)}</button>
+              <button type="button" className="chip price-chip" aria-pressed={plan === 'year'} onClick={() => setPlan('year')}>A year · {inr(p.price.year)}</button>
             </div>
           )}
+          {/* One price per chip (8 Oct night, review: "₹299₹199" read as a typo); the next tier is a line, not a strike-through. */}
+          {!p.paidUntil && later && <p className="note" style={{ textAlign: 'center' }}>{inr(later.month)} a month once the {WHO[p.tier - 1]?.toLowerCase() ?? 'first'} spots are gone. Your price stays yours while you keep paying.</p>}
           {payError && <p className="error">{payError}</p>}
           <ActionBar busy={busy}>
             {p.paidUntil ? <button className="btn btn-ghost" onClick={onBack}>Back</button>

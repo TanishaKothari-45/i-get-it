@@ -1,3 +1,4 @@
 /* Styles for the screens this session owns (8 Oct night): Plan, Library, Start, Tune, Pricing, Stats, Print, Policy,
    Admin, Compare. index.css belongs to the design pass; nothing here overrides it, only adds. */
 .library-quiet { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.price-chip { white-space: nowrap; }
