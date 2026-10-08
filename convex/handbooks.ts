@@ -6,7 +6,7 @@ import { internalAction, internalMutation, internalQuery, mutation, query, type 
 import type { Doc, Id } from "./_generated/dataModel";
 import { briefForChapter, briefForPlan, MATCH_PROMPT, matchUserMessage, VERSIONS_PROMPT, versionsUserMessage } from "./prompts";
 import { addCost } from "./costs";
-import { INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
+import { MOVE_PROMPT, moveUserMessage, INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
 import { level } from "./schema";
 import { copyInto, matchForIntent, sharedRow } from "./library";
 import { assignVariant } from "./doctor";
@@ -191,6 +191,7 @@ async function fullView(ctx: QueryCtx, h: Doc<"handbooks">) {
     _id: h._id, topic: h.topic, level: h.level, voice: h.voice ?? "friend", status: h.status, question: h.question, intents: h.intents ?? null, plan: h.plan, source: h.source, error: h.error, caution: cautionOf(h), pushback: h.pushback ?? (h.plan as any)?.pushback ?? null, suggestions: h.suggestions ?? [],
     signedIn: !!h.userId,
     total: totalOf(h),
+    loggedSets: (await ctx.db.query("sets").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).collect()).reduce((acc: Record<string, number[]>, s) => { (acc[String(s.chapter)] ??= []).push(s.cardIndex); return acc; }, {}),
     chapters: await Promise.all(chapters.sort((a, b) => a.n - b.n).map((ch) => {
       // A reader on the easier level gets a fuller recap first: the re-teach for each quiz they missed last chapter.
       const tier = tierOf(progress, ch.n);
@@ -637,6 +638,13 @@ export const generateChapter = internalAction({
     const { qv, rv } = await writeVersions(ctx, h.plan, h.plan?.topic ?? h.topic, title, ch.cards, recall, h.writer);
     const { cards, recallCards, quizTiers, recallTiers, report } = await checkWithVersions(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards, recall, qv, rv, h.writer);
     const checked = { report };
+    // Body skills (8 Oct): each "move" card gets its moving figure, drawn by Sonnet from the cues. A failed drawing
+    // leaves the cues alone on the card; the chapter is never held up by it.
+    for (const c of cards as any[]) {
+      if (c?.type !== "move" || c.html) continue;
+      const m = await ctx.runAction(internal.ai.generate, { kind: "move", system: MOVE_PROMPT, user: moveUserMessage(h.plan?.topic ?? h.topic, title, c) });
+      if (m.ok && typeof m.json?.html === "string" && !/(src|href)\s*=\s*["']https?:|\bfetch\(|localStorage/i.test(m.json.html)) c.html = String(m.json.html).slice(0, 40000);
+    }
     await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report, quizTiers, recallTiers });
     if (shareable && n > 1 && !h.test) await ctx.runMutation(internal.library.saveChapter, { handbookId, n });
     // Pictures come after the words. Chapter 1 is drawn now (it opens at once and gives the cover); later chapters are
@@ -841,7 +849,7 @@ export const setPosition = mutation({
     // A chapter with no quizzes (chapter 1 since 6 Oct) is passed when the reader reaches its last card.
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
     const cards = (ch?.cards ?? []) as any[];
-    const quizFree = cards.length > 0 && !cards.some((c) => c?.type === "exercise");
+    const quizFree = cards.length > 0 && !cards.some((c) => c?.type === "exercise") && !cards.some((c) => c?.type === "doit");   // doit chapters pass by a logged set (logSet)
     // The closing "In one breath" card isn't shown any more (it opens the next chapter as "Last time", 7 Oct), so the
     // chapter passes at the last card the reader actually sees.
     const breathLast = /^in one breath$/i.test(String(cards[cards.length - 1]?.title ?? "").trim());
@@ -956,6 +964,28 @@ export const recordAnswer = mutation({
   },
 });
 
+// Log a set on a "do it" card (8 Oct): reps, seconds or ticks, and how it felt. The first set logged in a body-skill
+// chapter passes it, like the last quiz does elsewhere; the next chapter starts writing then.
+export const logSet = mutation({
+  args: { handbookId: v.id("handbooks"), chapter: v.number(), cardIndex: v.number(), count: v.number(), feel: v.union(v.literal("easy"), v.literal("right"), v.literal("hard")), deviceToken: v.optional(v.string()) },
+  handler: async (ctx, { handbookId, chapter, cardIndex, count, feel, deviceToken }) => {
+    const h = await ownedHandbook(ctx, handbookId, deviceToken);
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", chapter)).unique();
+    const card: any = (ch?.cards as any[] | undefined)?.[cardIndex];
+    if (!card || card.type !== "doit") throw new Error("Not a do-it card");
+    const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    if (!isOpen(p, chapter)) throw new Error("Chapter not open");
+    await ctx.db.insert("sets", { handbookId, chapter, cardIndex, count: Math.max(0, Math.min(10000, Math.round(count))), feel, at: Date.now() });
+    const hasQuiz = (ch!.cards as any[]).some((c) => c?.type === "exercise");
+    if (!p || hasQuiz || p.chaptersPassed.includes(chapter)) return { chapterPassed: false as const };
+    const total = totalOf(h);
+    await ctx.db.patch(p._id, { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < total ? chapter + 1 : chapter, currentCard: 0, currentPart: 0, updatedAt: Date.now() });
+    if (chapter < total) await ensureChapter(ctx, h, chapter + 1);
+    if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); }
+    return { chapterPassed: true as const };
+  },
+});
+
 export const finishChapter = mutation({
   args: { handbookId: v.id("handbooks"), n: v.number(), deviceToken: v.optional(v.string()) },
   handler: async (ctx, { handbookId, n, deviceToken }) => {
@@ -969,6 +999,12 @@ export const finishChapter = mutation({
     // Name the first quiz still open, so the screen can take the reader to it (a plain Error's text is hidden in production).
     const open = exerciseKeys.find((k) => !p.passedExercises.includes(k));
     if (open) throw new ConvexError({ code: "open-check", card: Number(open.split(":")[1]) });
+    // A body-skill chapter (doit cards, no quizzes) counts when a set is logged (8 Oct).
+    const doits: number[] = (ch.cards ?? []).map((c: any, i: number) => (c.type === "doit" ? i : -1)).filter((i: number) => i >= 0);
+    if (doits.length && !exerciseKeys.length && !p.chaptersPassed.includes(n)) {
+      const sets = (await ctx.db.query("sets").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).collect()).filter((s) => s.chapter === n);
+      if (!sets.length) throw new ConvexError({ code: "open-set", card: doits[0] });
+    }
     const chaptersPassed = p.chaptersPassed.includes(n) ? p.chaptersPassed : [...p.chaptersPassed, n];
     const total = totalOf(h);
     const next = Math.min(n + 1, total);

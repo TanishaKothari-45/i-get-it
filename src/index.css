@@ -816,3 +816,27 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .early-bird { margin: var(--m) 0 6px; padding: 12px 14px; border-radius: 14px; background: var(--accent); font-family: var(--sans); line-height: 1.45; }
 .early-bird s, .chip s.was { opacity: 0.6; font-weight: 400; }
 .early-bird strong { font-weight: 800; }
+
+/* Body skills (8 Oct): the move and the do-it frames. */
+.move, .doit { display: flex; flex-direction: column; gap: 12px; }
+.move-box { width: 100%; max-width: 390px; aspect-ratio: 390 / 320; border-radius: 18px; overflow: hidden; background: #faf7f0; }
+.move-box iframe { display: block; border: 0; width: 100%; height: 100%; }
+.move-pending { background: repeating-linear-gradient(135deg, #f3efe6 0 12px, #faf7f0 12px 24px); }
+.move-cues { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.move-cues li { background: #f2a93b; color: #1b1a17; font-weight: 700; padding: 8px 12px; border-radius: 999px; font-size: 0.95rem; }
+.doit-counter { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 8px 0; }
+.doit-tap { width: 180px; height: 180px; border-radius: 50%; border: 0; background: #faf7f0; color: #1b1a17; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.18); font-weight: 800; }
+.doit-tap:active { transform: scale(0.96); }
+.doit-n { font-size: 4rem; line-height: 1; letter-spacing: -0.04em; }
+.doit-of { font-size: 0.95rem; font-weight: 600; opacity: 0.7; margin-top: 4px; }
+.doit-hint { font-size: 0.95rem; opacity: 0.8; margin: 0; }
+.doit-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.doit-list label { display: flex; gap: 12px; align-items: center; background: #faf7f0; color: #1b1a17; padding: 14px 16px; border-radius: 16px; font-weight: 600; min-height: 52px; }
+.doit-list input { width: 22px; height: 22px; accent-color: #1f7a4d; }
+.doit-feel { display: flex; flex-direction: column; gap: 8px; }
+.doit-feel-row { display: flex; gap: 8px; }
+.doit-feel-row .story-opt { min-height: 52px; justify-content: center; padding: 10px; }
+.doit-later { align-self: flex-start; margin-top: 4px; }
+
+.story-next { background: none; border: 0; color: inherit; font: inherit; font-weight: 700; padding: 10px 14px; margin: -10px -14px -10px auto; border-radius: 999px; min-height: 44px; }
+.story-next:active { opacity: 0.6; }

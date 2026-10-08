@@ -88,6 +88,7 @@ export default function App() {
   // A chapter not opened yet comes without its cards ("locked", membership.ts). Entering it asks the server to open
   // it, which uses today's reading allowance; if there's none left, the handbook screen says when it opens.
   const openChapter = useMutation(api.handbooks.openChapter)
+  const logSet = useMutation(api.handbooks.logSet)
   const [lock, setLock] = useState<{ key: string; note: string; code: string | null } | null>(null)
   // When a chapter won't open, go straight to what unblocks it (7 Oct, Prateek): the 3 free chapters are used, so the
   // free account; today's chapters are used, so membership (a free account has the same 3 a day). A member at 7 a day
@@ -352,6 +353,8 @@ export default function App() {
           onPosition={(cardIndex, part) => { setReadingN(chapter.n); setView('chapter'); setPosition({ handbookId: hb._id, chapter: chapter.n, cardIndex, part, deviceToken: token }).catch(() => {}) }}
           onAnswer={async (item, optionId, attempt) => { setReadingN(chapter.n); setView('chapter'); return (await recordAnswer({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, optionId, attempt, recall: !!item.recall, deviceToken: token })) as AnswerResult }}
           onFinish={async (stats) => { await finishChapter({ handbookId: hb._id, n: chapter.n, deviceToken: token }); setDoneStats(stats); setDoneN(chapter.n); setView('done') }}
+          onLog={async (item, count, feel) => { setReadingN(chapter.n); setView('chapter'); return logSet({ handbookId: hb._id, chapter: item.chapter, cardIndex: item.cardIndex, count, feel, deviceToken: token }) }}
+          loggedSets={(hb as any).loggedSets?.[String(chapter.n)] ?? []}
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}
           credits={(chapter as any).credits ?? {}}

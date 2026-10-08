@@ -23,10 +23,13 @@ export const exercise = z.looseObject({
 // The card types the app renders (prompts.ts CHAPTER_PROMPT). Two shapes: a quiz card with all its fields, and a text
 // card with a body. As a union, the JSON schema sent to a provider carries the quiz fields too (8 Oct: with only
 // type/title/body in the schema, Gemini wrote quiz cards with no question and no options).
-const CARD_TYPES = ["picture", "teach", "example", "exercise", "mistake", "try", "watch"] as const;
+const CARD_TYPES = ["picture", "teach", "example", "exercise", "mistake", "try", "watch", "move", "doit"] as const;
 const textCard = z.looseObject({ type: z.enum(["picture", "teach", "example", "mistake", "try"]), title: z.string().optional(), body: str });
 const watchCard = z.looseObject({ type: z.literal("watch"), who: z.string().optional(), what: z.string().optional(), url: str, watchFor: z.string().optional() });
-const card = z.union([exercise, textCard, watchCard]);
+// Body skills (8 Oct): the move shown moving, with cues; and "do it", a counter, a timer or a checklist that logs a set.
+const moveCard = z.looseObject({ type: z.literal("move"), title: z.string().optional(), body: z.string().optional(), cues: z.array(str).min(1).max(4), html: z.string().optional() });
+const doitCard = z.looseObject({ type: z.literal("doit"), title: z.string().optional(), instruction: str, kind: z.enum(["reps", "timer", "checklist"]), target: z.number().optional(), items: z.array(str).optional() });
+const card = z.union([exercise, textCard, watchCard, moveCard, doitCard]);
 
 export const plan = z.looseObject({
   needsClarification: z.boolean().optional(),
@@ -91,8 +94,9 @@ export const research = z.looseObject({
 
 // One interactive explainer per chapter (8 Oct test, evalArtifact.ts): a self-contained HTML page.
 export const artifact = z.looseObject({ idea: str, html: str.min(300) });
+export const move = z.looseObject({ html: str.min(300) });
 
-export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact };
+export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact, move };
 
 // The problems with a reply, in a few short lines the model can act on; null when it fits.
 export function problems(kind: string, json: unknown): string | null {

@@ -3,12 +3,16 @@ import Sheet from '../components/Sheet'
 import { track } from '../lib/track'
 import Rich, { inline } from '../components/Rich'
 import AskCard from '../components/AskCard'
+import DoIt, { type DoItCard } from '../components/DoIt'
+import MoveFrame, { type MoveCard } from '../components/MoveFrame'
 import type { Id } from '../../convex/_generated/dataModel'
 
 export type Card =
   | { type: 'picture' | 'example' | 'mistake' | 'try' | 'teach'; title?: string; body: string }
   | { type: 'watch'; who: string; what: string; url: string; from?: string; minutes?: number; watchFor: string }
   | { type: 'exercise'; kind: 'guess' | 'apply' | 'recall'; prompt: string; options: { id: string; text: string }[] }
+  | MoveCard
+  | DoItCard
 
 export type AnswerResult =
   | { correct: true; text: string; why: string | null; chapterPassed?: true }
@@ -32,6 +36,9 @@ type Props = {
   onPosition: (cardIndex: number, part: number) => void
   onAnswer: (item: Item, optionId: string, attempt: number) => Promise<AnswerResult>
   onFinish: (stats: { minutes: number; right: number; total: number }) => Promise<void>
+  // Body skills (8 Oct): logging a set on a "do it" card; the first set passes the chapter.
+  onLog?: (item: Item, count: number, feel: 'easy' | 'right' | 'hard') => Promise<{ chapterPassed: boolean }>
+  loggedSets?: number[]   // card indexes with a set logged already
   // The previous chapter's "In one breath" card, shown first as "Last time" (7 Oct, Prateek): a recap that opens the
   // chapter instead of a summary that ends it.
   lastTime?: Card | null
@@ -73,10 +80,10 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, lastTime, recapReteach = [], pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onLog, loggedSets = [], lastTime, recapReteach = [], pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [
-      ...(lastTime && lastTime.type !== 'exercise' && lastTime.type !== 'watch' ? [{ chapter: n - 1, cardIndex: -1, recall: true, card: { ...lastTime, title: 'Last time', body: dropNextLine(lastTime.body) } as Card }] : []),
+      ...(lastTime && lastTime.type !== 'exercise' && lastTime.type !== 'watch' && lastTime.type !== 'move' && lastTime.type !== 'doit' ? [{ chapter: n - 1, cardIndex: -1, recall: true, card: { ...lastTime, title: 'Last time', body: dropNextLine(lastTime.body) } as Card }] : []),
       ...(recapReteach.length ? [{ chapter: n - 1, cardIndex: -2, recall: true, card: { type: 'teach', title: 'Before we go on', body: recapReteach.join('\n\n') } as Card }] : []),
       ...recall.map((r) => ({ ...r, recall: true })),
       ...cards.map((card, i) => ({ chapter: n, cardIndex: i, card })).filter((x) => !isBreath(x.card)),
@@ -95,6 +102,8 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
       const c = item.card
       if (c.type === 'exercise') { out.push({ item, part: 0, parts: 1, tone: 'ink' }); continue }
       if (c.type === 'watch') { out.push({ item, part: 0, parts: 1, tone: 'indigo' }); continue }
+      if (c.type === 'move') { out.push({ item, part: 0, parts: 1, tone: 'cream' }); continue }
+      if (c.type === 'doit') { out.push({ item, part: 0, parts: 1, tone: 'green' }); continue }
       // A card the screen can't show (8 Oct: a "poll" card from an old rewrite blanked the whole chapter) is skipped, never fatal.
       if (typeof (c as any).body !== 'string') continue
       const ps = paragraphs(c.body)
@@ -132,7 +141,10 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   const [askOpen, setAskOpen] = useState(false)
 
   const exercisePassed = item.card.type === 'exercise' && (item.recall ? result?.correct === true : passedHere.has(key))
-  const canAdvance = item.card.type !== 'exercise' || exercisePassed
+  const [logged, setLogged] = useState<Set<number>>(() => new Set(loggedSets))
+  const [later, setLater] = useState<Set<number>>(() => new Set())
+  const doitOpen = item.card.type === 'doit' && !logged.has(item.cardIndex) && !later.has(item.cardIndex)
+  const canAdvance = (item.card.type !== 'exercise' || exercisePassed) && !doitOpen
   const reset = () => { setAttempt(1); setPicked(null); setMissed([]); setResult(null); setError(null) }
 
   useEffect(() => { track('ch_open', { n }, `ch_open:${handbookId}:${n}`) }, [n, handbookId])
@@ -160,8 +172,8 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
     const tries = [...firstTries.current.values()]
     try { await onFinish({ minutes: Math.max(1, Math.round((Date.now() - openedAt.current) / 60000)), right: tries.filter(Boolean).length, total: tries.length }) } catch (e: any) {
       // A quiz still open (7 Oct: one was skipped by the recall bug): go straight to it instead of a dead end.
-      const open = e?.data?.code === 'open-check' ? frames.findIndex((f) => !f.item.recall && f.item.cardIndex === e.data.card) : -1
-      if (open >= 0) { setI(open); reset(); setError('One quiz is still open. Answer it, then finish.') }
+      const open = e?.data?.code === 'open-check' || e?.data?.code === 'open-set' ? frames.findIndex((f) => !f.item.recall && f.item.cardIndex === e.data.card) : -1
+      if (open >= 0) { setI(open); reset(); setLater((s) => { const x = new Set(s); x.delete(e.data.card); return x }); setError(e?.data?.code === 'open-set' ? 'Log one set and the chapter counts.' : 'One quiz is still open. Answer it, then finish.') }
       else setError(String(e?.message ?? e).includes('Finish') ? 'One quiz is still open. Answer it, then finish.' : "Couldn't save that. Check your connection and tap again.")
     }
     finally { setFinishing(false) }
@@ -206,7 +218,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
 
   const c = item.card
   // A card's picture sits on its first frame only, so the words keep the screen on the frames after it.
-  const pic = !item.recall && frame.part === 0 && c.type !== 'exercise' && c.type !== 'watch' ? pictures[item.cardIndex] : undefined
+  const pic = !item.recall && frame.part === 0 && c.type !== 'exercise' && c.type !== 'watch' && c.type !== 'move' && c.type !== 'doit' ? pictures[item.cardIndex] : undefined
   const revealId = result && !result.correct && result.reveal ? result.reveal.id : null
   const label = item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of ${total}`
 
@@ -243,6 +255,11 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
               </div>
               {exercisePassed && <p className="story-hint">Tap to keep going</p>}
             </>
+          ) : c.type === 'move' ? (
+            <MoveFrame card={c} />
+          ) : c.type === 'doit' ? (
+            <DoIt card={c} logged={logged.has(item.cardIndex)} onLater={() => { setLater((s) => new Set(s).add(item.cardIndex)); setI(i + 1); reset() }}
+              onLog={async (count, feel) => { if (!onLog) return; const r = await onLog(item, count, feel); setLogged((s) => new Set(s).add(item.cardIndex)); if (r.chapterPassed) track('set_passed', { n }) }} />
           ) : c.type === 'watch' ? (
             <>
               <p className="story-kicker">Watch · {c.minutes ? `${c.minutes} min` : 'a few minutes'}</p>
@@ -268,7 +285,10 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
 
         <div className="story-tools no-tap">
           {!item.recall && c.type !== 'try' && <button type="button" onClick={() => setAskOpen(true)}>Ask or object</button>}
-          <span className="story-tapnote">{canAdvance ? (isLast ? 'Last one' : 'Tap →') : 'Pick one'}</span>
+          {/* A real button (UX review #17, 8 Oct): the move and do-it frames are full of things to tap, so "next" needs a target of its own; keyboard and screen readers get one too. */}
+          {canAdvance
+            ? <button type="button" className="story-next" onClick={next} aria-label={isLast ? 'Finish' : 'Next'}>{isLast ? 'Last one' : 'Tap →'}</button>
+            : <span className="story-tapnote">{item.card.type === 'doit' ? 'Log it' : 'Pick one'}</span>}
         </div>
       </div>
 
@@ -318,7 +338,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
 
 // The closing "In one breath" card moves to the start of the next chapter as "Last time" (7 Oct).
 function isBreath(c: Card) {
-  return c.type !== 'exercise' && c.type !== 'watch' && /^in one breath$/i.test((c.title ?? '').trim())
+  return c.type !== 'exercise' && c.type !== 'watch' && c.type !== 'move' && c.type !== 'doit' && /^in one breath$/i.test((c.title ?? '').trim())
 }
 // Its last line teased this chapter ("Next: ..."); as a recap it isn't needed.
 function dropNextLine(body: string) {

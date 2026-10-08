@@ -97,6 +97,16 @@ export default defineSchema({
     at: v.number(),
   }).index("by_handbook", ["handbookId"]),
 
+  // Logged sets (8 Oct): a body-skill chapter is passed by doing the move, not by a quiz. count = reps, seconds or ticks.
+  sets: defineTable({
+    handbookId: v.id("handbooks"),
+    chapter: v.number(),
+    cardIndex: v.number(),
+    count: v.number(),
+    feel: v.union(v.literal("easy"), v.literal("right"), v.literal("hard")),
+    at: v.number(),
+  }).index("by_handbook", ["handbookId"]),
+
   reports: defineTable({
     handbookId: v.id("handbooks"),
     chapter: v.number(),

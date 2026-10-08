@@ -21,10 +21,10 @@ export const inferenceModels = internalAction({
 });
 
 export const setup = internalMutation({
-  args: { email: v.string(), topics: v.array(v.string()), writers: v.array(v.union(v.string(), v.null())) },
-  handler: async (ctx, { email, topics, writers }) => {
-    const user = (await ctx.db.query("users").collect()).find((u: any) => u.email === email);
-    if (!user) throw new Error("no such account");
+  args: { email: v.optional(v.string()), deviceToken: v.optional(v.string()), topics: v.array(v.string()), writers: v.array(v.union(v.string(), v.null())), goal: v.optional(v.string()), mode: v.optional(v.string()) },
+  handler: async (ctx, { email, deviceToken, topics, writers, goal, mode }) => {
+    const user = email ? (await ctx.db.query("users").collect()).find((u: any) => u.email === email) : null;
+    if (!user && !deviceToken) throw new Error("no such account");
     // Shuffle the writers so neither the order nor the topic gives them away.
     const order = writers.map((w) => ({ w, r: Math.random() })).sort((a, b) => a.r - b.r).map((x) => x.w);
     const ids = [];
@@ -32,7 +32,7 @@ export const setup = internalMutation({
     for (let i = 0; i < topics.length; i++) {
       const handbookId = await ctx.db.insert("handbooks", {
         topic: topics[i], topicKey: topicKeyOf(topics[i]), level: "new", language: "English", voice: "friend", status: "planning",
-        userId: user._id, source: "live", createdAt: now, writer: order[i] ?? undefined, test: { label: `Handbook ${i + 1}` },
+        userId: user?._id, ownerToken: user ? undefined : deviceToken, goal, mode, source: "live", createdAt: now, writer: order[i] ?? undefined, test: { label: `Handbook ${i + 1}` },
       });
       await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
       ids.push(handbookId);
