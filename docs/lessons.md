@@ -4,6 +4,65 @@ What each day taught us, not what shipped (that's PROGRESS.md). Every build day 
 
 Feeds the 9:30 X draft (scripts/x-nightly.sh reads yesterday's day) and the end-of-sprint write-up. A message that starts with "learned:" lands under "Noted during the day" at the bottom; fold those into the day before the session ends.
 
+## Fri 9 Oct, the night (day 8, 00:00 to 05:00; session dc)
+
+### Product/Tech
+
+**Two guards that force a format need an order**
+- Thought: adding "a skill is always a 7-chapter course" (D27) and "a recipe is one sitting" (D23) in the same hour was two independent fixes.
+- Learned: the research step called "how to make dal" a skill, the course guard ran last, and the dal handbook was a 7-chapter course on prod for 20 minutes, the exact thing D23 was written to end.
+- Now: the typed-line recipe rule runs before the course guard, and any new guard states which earlier guard it yields to (D23a).
+
+**A ceiling reads as a target**
+- Thought: "at most 80 words a card" keeps chapter 1 short.
+- Learned: Flash wrote 20-word cards, 110 to 130 words a chapter; Opus wrote 400 to 530 under the same line. A model given a ceiling with no floor writes to the floor of the ceiling.
+- Now: every length rule is a range with a floor (60 to 110 a card; 30 paragraphs and 800 words for chapters 2 to 7), counted by the server after the write, one retry with the counts stated (D27, D31).
+
+**Floors need time**
+- Thought: a floor is a prompt change.
+- Learned: 30 paragraphs with thinking on plus one retry did not fit Gemini's 150 s step budget; a pinned Flash chapter 2 failed outright, and on prod it would have bounced to Opus on time, not quality.
+- Now: 300 s a step, 150 s a try, and the bounce reason logged (budget or floor) so tomorrow's rate is readable in /admin.
+
+**Which model: measure with the rule written first**
+- Thought: the model choice is a taste call Prateek makes.
+- Learned: three topics, both writers, same brief, judged on 12 checks: Opus medium about 8 a chapter, Flash with floors about 5.8 and one failure. Flash follows the shape of an instruction (schema satisfied, analogy null three times, one block list copied across chapters); Opus follows its intent. The rule written before the run (within one point, Flash stays) made the decision in a minute (D30, D33).
+- Now: Opus medium writes plans and chapters, Flash keeps research. A cheaper writer gets another trial only against the same judge with the D31 prompts, never on cost alone.
+
+**A silent skip is a pass mark**
+- Learned: the fact check wrote 4 fixes for a Flash chapter, all 4 broke the card shape, all 4 were skipped, and the chapter went out "passed" with its errors in.
+- Now: a shape-breaking fix is retried once with the error stated; otherwise the chapter is stored "unchecked", never "passed" (D31b).
+
+**Judge the chapter you have**
+- Learned: chapter 1 has no quizzes by design, so three of the judge's 12 checks fail on every chapter 1 and "reject under 9" would have rejected all but perfect ones (the first live test scored 8 on a quiz check).
+- Now: chapter 1's bar is under 7, with the three quiz checks stored as n/a (D32a).
+
+**The model's title is not the reader's**
+- Learned: the plan prompt asked for a "clean topic" since 4 Oct and the library took it over the typed line since 7 Oct; Opus echoed the typed words, Flash rewrote them, and a reader's "Public speaking advanced level" became "Advanced Rhetoric and Persuasion" on the Shelf. Nobody noticed until the model changed.
+- Now: the typed line is the name everywhere; the model's title is never shown (D28).
+
+**Activities as gates trap readers**
+- Learned: a "do it" timer counts seconds and was asked to time a 20-minute simmer; a chapter could not be left without logging a set or finding "Later".
+- Now: no activity gates the arrow or the chapter; a chapter with no quiz passes at its end (D24).
+
+**A stories prompt needs a shape, not an adjective**
+- Thought: "surprising true story, 4 to 6 frames" is a brief.
+- Learned: it produced one-paragraph summaries of example cards. The Masala Lab reel Prateek sent is a nine-step shape (contradiction, stakes with a number, the anchor you know, the chain of because-and-so, a named expert, the widening, the answer, a warm line); written as that shape, Opus produced Dunkirk and Midway stories that passed a fact check and a human read, and the drop rule removed the ones with invented specifics (D29c).
+- Now: every content prompt carries a step-by-step shape with an example of the shape, not of the topic.
+
+**Several sessions, one checkout**
+- Learned: `git pull --autostash` ate another session's uncommitted edit; `npm run deploy` builds the site from the working tree, so one session's upload nearly shipped another's half-done screens; a deploy kills in-flight Convex actions, so a chain mid-run loses its topic.
+- Now: no pull, no stash, stage by name; functions-only deploys from the backend owner and one site upload from the screens owner; stop a chain before deploying (D19, D19a).
+
+### GTM
+
+**Written posts outlive the product rule they describe**
+- Learned: the wall moved twice in one day (chapter 3 to chapter 1 to chapter 2) and five live posts still said "first 3 free, no sign-up".
+- Now: a2's list of every live claim with its link is the first thing to fix in the morning; any rule change that touches a promise on a post goes to a2 the same hour (D14, D26).
+
+**The Shelf is the front window**
+- Learned: anything typed on prod went straight to the Shelf once chapter 1 passed, and test strings and spam reached it; the Shelf button looked like text and nobody tapped it.
+- Now: a review queue with an automatic filter and Approve/Reject on /admin (D32); the Shelf as a printed button and a count strip on landing, plan and Done (D21).
+
 ## Thu 8 Oct (day 7)
 
 ### Product/Tech
