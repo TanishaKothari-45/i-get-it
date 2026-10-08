@@ -214,9 +214,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .watch-what { font-family: var(--serif); font-size: var(--body); }
 .watch-go { color: var(--ink-2); font-size: var(--small); margin-top: 6px; }
 .ask { margin-top: var(--l); border-top: 1px solid var(--tint); padding-top: var(--m); }
-.ask-row { display: flex; gap: var(--s); margin-top: var(--s); }
-.ask-row .input { min-height: 48px; padding: 10px 14px; font-size: var(--ui); }
-.ask-send { width: auto; min-height: 48px; padding: 0 18px; box-shadow: none; }
+.ask-row { display: flex; gap: var(--s); margin-top: var(--s); align-items: stretch; }
+.ask-row .input { min-height: 52px; padding: 10px 14px; font-size: var(--ui); }
+.ask-send { width: auto; min-height: 52px; padding: 0 18px; box-shadow: none; flex: none; }
 /* the 6-digit code: big spaced numerals, like a printed ticket */
 #code.input { font-family: var(--sans); font-weight: 800; font-size: 1.6rem; letter-spacing: 0.32em; text-align: center; }
 .ask-qa { margin-bottom: var(--m); }
