@@ -37,10 +37,14 @@ export const consider = internalAction({
     if (!(r.ok && r.json?.share === true)) return reject(`privacy check: ${String(r.ok ? r.json?.why ?? "no" : r.error).slice(0, 120)}`);
     // The 6 Oct judge on chapter 1 (Opus high, 12 checks, about ₹3): under 9 is rejected with its weakest check named.
     const j: any = await ctx.runAction(internal.ai.generate, { kind: "audit", system: JUDGE, user: "Chapter JSON:\n" + JSON.stringify({ title: d.ch.title, cards: d.ch.cards, outcomeLine: d.ch.outcomeLine }), model: JUDGE_MODEL, effort: "high", trace: { handbookId, chapter: 1 } });
-    const checks: Record<string, any> = j.ok && j.json?.checks && typeof j.json.checks === "object" ? j.json.checks : {};
-    const weakest = Object.entries(checks).find(([, v]) => v === false || v === 0)?.[0] ?? null;
-    const judge: any = j.ok ? { score: Number(j.json?.score ?? 0), weakest, why: String(j.json?.why ?? "").slice(0, 300), dubious: Array.isArray(j.json?.dubious_claims) ? j.json.dubious_claims.slice(0, 5) : [] } : { error: String(j.error).slice(0, 120) };
-    if (j.ok && judge.score < 9) return reject(`judge ${judge.score} of 12${weakest ? `: ${weakest}` : ""}`, judge);
+    // Chapter 1 has no quizzes by design, so the three quiz checks are "n/a" and never the weakest; the bar for chapter 1 is
+    // under 7 of 12 (dc, 9 Oct: at most two real faults out of the nine checks that apply; 7 and 8 go to the queue).
+    const NA = ["one_idea", "answerable", "feedback_names_confusion"];
+    const checks: Record<string, any> = j.ok && j.json?.checks && typeof j.json.checks === "object" ? { ...j.json.checks } : {};
+    for (const k of NA) if (k in checks) checks[k] = "n/a";
+    const weakest = Object.entries(checks).find(([k, v]) => !NA.includes(k) && (v === false || v === 0))?.[0] ?? null;
+    const judge: any = j.ok ? { score: Number(j.json?.score ?? 0), checks, weakest, why: String(j.json?.why ?? "").slice(0, 300), dubious: Array.isArray(j.json?.dubious_claims) ? j.json.dubious_claims.slice(0, 5) : [] } : { error: String(j.error).slice(0, 120) };
+    if (j.ok && judge.score < 7) return reject(`judge ${judge.score} of 12${weakest ? `: ${weakest}` : ""}`, judge);
     await ctx.runMutation(internal.library.publish, { handbookId, share: true, why: String(r.json?.why ?? "").slice(0, 120), review: "pending", judge });
   },
 });

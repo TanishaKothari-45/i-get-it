@@ -54,7 +54,7 @@ const JOB: Record<Kind, { model: string; effort?: Effort; maxTokens: number }> =
   versions: { model: SONNET, effort: "low", maxTokens: 12000 },   // 7 Oct: easier and harder quiz versions from a finished chapter (Opus writing them doubled a chapter's cost)
   match: { model: HAIKU, maxTokens: 300 },
   library: { model: HAIKU, maxTokens: 300 },
-  stories: { model: OPUS, effort: "medium", maxTokens: 8000 },   // D29 (9 Oct): three true wait stories per ready handbook, written once   // 8 Oct (Tanisha): the shared-library privacy check, with its own schema (it ran under "intent" and failed every time)   // 7 Oct: does a typed topic match a handbook we already have (by meaning)?
+  stories: { model: OPUS, effort: "medium", maxTokens: 20000 },   // D29c (9 Oct): up to four stories of up to nine frames; thinking counts, so 8,000 cut half of them off   // 8 Oct (Tanisha): the shared-library privacy check, with its own schema (it ran under "intent" and failed every time)   // 7 Oct: does a typed topic match a handbook we already have (by meaning)?
   intent: { model: HAIKU, maxTokens: 600 },   // "What's it for?": three goals in about a second, before the plan   // 6 Oct: "max" thought >5 min, hit 32k and was cut off (2 of 2)
   ask: { model: OPUS, effort: "low", maxTokens: 2000 },
   simpler: { model: SONNET, effort: "medium", maxTokens: 8000 },   // 6 Oct: "max" thought 49 s and was cut off at 8,000 with no answer
