@@ -27,6 +27,7 @@ type Props = {
   onPricing: () => void
   stats?: { minutes: number; right: number; total: number } | null
   nextReady?: boolean
+  nextFailed?: boolean   // the next chapter failed to write: the button says so and tries again (8 Oct)
   onNext?: () => void
   handbookId?: Id<'handbooks'>
   deviceToken?: string
@@ -68,7 +69,7 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   return `You took your time, and it stuck. That's the whole point.`
 }
 
-export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, nextPicture, sources: _sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext }: Props) {
+export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, nextPicture, sources: _sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext }: Props) {
   const [rated, setRated] = useState<string | null>(null)
   const line = cheer(n, stats)
   const [stay, setStay] = useState(false)
@@ -102,7 +103,7 @@ export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTit
             <p className="upnext-kicker">Up next · Chapter {n + 1} of {total}</p>
             <h2 className="upnext-title">{nextTitle}</h2>
             {nextHook && <p className="upnext-hook">{nextHook}</p>}
-            {onNext && <button type="button" className="btn upnext-btn" onClick={onNext}>{nextReady ? `Start chapter ${n + 1} →` : `Start chapter ${n + 1} → (writing it, about two minutes)`}</button>}
+            {onNext && <button type="button" className="btn upnext-btn" onClick={onNext}>{nextFailed ? `Chapter ${n + 1} didn't write. Try again` : nextReady ? `Start chapter ${n + 1} →` : `Start chapter ${n + 1} → (writing it, about two minutes)`}</button>}
           </div>
         </section>
       )}

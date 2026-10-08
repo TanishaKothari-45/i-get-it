@@ -111,7 +111,7 @@ export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan
         <button type="button" className="quiet" onClick={onChangeLine}>Not what you meant? Change what you typed</button>
       </div>
 
-      <ActionBar busy={!chapterReady && !chapterFailed} note={!chapterReady && !chapterFailed ? `Writing chapter ${current} and checking its facts… about a minute.` : undefined}>
+      <ActionBar busy={!chapterReady && !chapterFailed} note={!chapterReady && !chapterFailed ? `Writing chapter ${current} and checking its facts… about two minutes.` : undefined}>
         {lockNote ? (
           <>
             <div className="lock-card">

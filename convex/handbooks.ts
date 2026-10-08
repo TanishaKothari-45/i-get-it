@@ -393,7 +393,7 @@ export const create = mutation({
     // A typed topic: free readers get one, members six a month (membership.ts). Ready and shared ones above are free.
     const allow = await typedAllowance(ctx, userId, deviceToken);
     if (!allow.ok) throw new ConvexError(allow.why ?? "free-used");
-    if (!allow.member && !(await spendFits(ctx, COST_INR.handbook))) throw new ConvexError("busy");
+    if (!allow.member && !(await spendFits(ctx, COST_INR.handbook))) throw new ConvexError("paused-today");   // the day's free budget is spent (8 Oct: its own code, so the message is honest)
 
     // Live generation: the caps are checked here, in the kitchen.
     const all = await limiter.limit(ctx, "generateAll");

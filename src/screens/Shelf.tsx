@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { limitMessage } from '../lib/limits'
 import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import type { Id } from '../../convex/_generated/dataModel'
@@ -42,7 +43,8 @@ export default function Shelf({ onReady, onShared, onBack }: Props) {
       return { ...s, books }
     }).filter((s) => s.books.length > 0)
   }, [items])
-  const open = (it: Item) => (it.kind === 'shared' && it.id ? onShared(it.id) : onReady(it.topic)).catch(() => {})
+  const [note, setNote] = useState<string | null>(null)
+  const open = (it: Item) => { setNote(null); return (it.kind === 'shared' && it.id ? onShared(it.id) : onReady(it.topic)).catch((e) => setNote(limitMessage(e) ?? "Couldn't open that one. Check your connection and tap again.")) }
   const surprise = () => { const pool = items ?? []; if (pool.length) open(pool[Math.floor(Math.random() * pool.length)]) }
 
   return (
@@ -50,6 +52,7 @@ export default function Shelf({ onReady, onShared, onBack }: Props) {
       <button type="button" className="quiet" onClick={onBack}>← Back</button>
       <h1>The Shelf.</h1>
       <p className="lede">Every handbook here opens at once, no sign-in. Pick one up.</p>
+      {note && <p className="error" role="alert">{note}</p>}
       <div className="shelf-tools">
         <button type="button" className="chip" onClick={surprise}>🎲 Surprise me</button>
         {shelves.map((s) => <a key={s.key} className="chip" href={`#shelf-${s.key}`}>{s.label}</a>)}
