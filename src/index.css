@@ -94,7 +94,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .input::placeholder { color: var(--ink-2); opacity: 1; }
 .input:focus { outline: none; background: #fff; box-shadow: var(--press-sm); }
 .chips { display: flex; gap: var(--s); margin-top: var(--m); }
-.chip { flex: 1; min-height: 48px; border: 2px solid var(--rule); border-radius: 999px; background: transparent; font-size: var(--ui); font-weight: 600; color: var(--ink); padding: 0 14px; }
+.chip { flex: 1; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid var(--rule); border-radius: 999px; background: transparent; font-size: var(--ui); font-weight: 600; color: var(--ink); padding: 0 14px; line-height: 1.2; text-decoration: none; }
 .chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .error { color: var(--error); font-size: var(--small); margin-top: var(--s); }
 .note { color: var(--ink-2); font-size: var(--small); margin-top: var(--s); }
@@ -899,7 +899,8 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .shelf-page h1 { margin-top: 10px; }
 .shelf-tools { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 10px; margin: 8px 0 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
 .shelf-tools::-webkit-scrollbar { display: none; }
-.shelf-tools .chip { white-space: nowrap; text-decoration: none; flex: none; }
+.shelf-tools .chip { white-space: nowrap; flex: none; min-height: 44px; border-color: var(--ink); }
+.shelf-tools .chip:active { background: var(--ink); color: var(--paper); }
 .shelf-sec { margin-top: 26px; scroll-margin-top: 16px; }
 .shelf-head h2 { font-family: var(--serif); font-weight: 700; font-size: 1.35rem; letter-spacing: -0.01em; margin: 0; }
 .shelf-head .note { margin: 2px 0 10px; }
