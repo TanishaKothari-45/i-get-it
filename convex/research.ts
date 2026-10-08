@@ -130,6 +130,10 @@ async function transcript(url: string): Promise<string | null> {
 // does it, under the same schema check. Grounded links are Google redirects that expire, so each is resolved first.
 export const GEMINI_RESEARCHER = "gemini-3.8-flash";
 export const CLAUDE_RESEARCHER = "claude-sonnet-5-5";
+// How hard Gemini thinks before answering (8 Oct). Uncapped, one run spent 15,413 thinking tokens; "medium" bounds cost
+// and latency. "low" and the uncapped default were measured against it: evals/research-thinking/.
+export type Thinking = "low" | "medium" | "high" | "default";
+export const GEMINI_THINKING: Thinking = "medium";
 type Attempt = { decided: any; searches: number; grounded?: number; queries?: string[]; tokensIn: number; tokensOut: number; error?: string; model: string; ms: number };
 
 const REDIRECT = /vertexaisearch\.cloud\.google\.com\/grounding-api-redirect/;
@@ -140,7 +144,7 @@ async function realUrl(u: string): Promise<string> {
 }
 const parse = (text: string) => { const m = text.match(/\{[\s\S]*\}/); try { return m ? JSON.parse(m[0]) : null; } catch { return null; } };
 
-async function geminiOnce(model: string, ask: string, version: Version = LIVE, structured = true) {
+async function geminiOnce(model: string, ask: string, version: Version = LIVE, structured = true, thinking: Thinking = GEMINI_THINKING) {
   const { prompt, schema } = SETUP[version];
   const keys = [process.env.GEMINI_API_KEY, process.env.GEMINI_API_KEY_BACKUP].filter(Boolean) as string[];
   if (!keys.length) return { body: null, error: "no Gemini key set" };
@@ -152,7 +156,7 @@ async function geminiOnce(model: string, ask: string, version: Version = LIVE, s
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: prompt() }] }, contents: [{ role: "user", parts: [{ text: ask }] }],
         tools: [{ google_search: {} }],
-        generationConfig: { maxOutputTokens: 8000, ...(structured ? { responseMimeType: "application/json", ...(jsonSchema(schema) ? { responseJsonSchema: jsonSchema(schema) } : {}) } : {}) },
+        generationConfig: { maxOutputTokens: 8000, ...(thinking === "default" ? {} : { thinkingConfig: { thinkingLevel: thinking } }), ...(structured ? { responseMimeType: "application/json", ...(jsonSchema(schema) ? { responseJsonSchema: jsonSchema(schema) } : {}) } : {}) },
       }),
     }).catch((e: any) => ({ ok: false, status: 0, json: async () => ({ error: String(e?.message ?? e) }) }) as any);
     body = await res.json().catch(() => ({}));
@@ -164,14 +168,14 @@ async function geminiOnce(model: string, ask: string, version: Version = LIVE, s
   return { body, error };
 }
 
-export async function geminiResearch(model: string, ask: string, version: Version = LIVE, structured = true): Promise<Attempt> {
+export async function geminiResearch(model: string, ask: string, version: Version = LIVE, structured = true, thinking: Thinking = GEMINI_THINKING): Promise<Attempt> {
   const started = Date.now();
   const { schema } = SETUP[version];
   let tokensIn = 0, tokensOut = 0, searches = 0, grounded = 0, decided: any = null, error: string | undefined;
   const queries: string[] = [];
   for (let attempt = 0; attempt < 2; attempt++) {
     const wrongBefore = attempt ? problems(schema, decided) : null;
-    const { body, error: e } = await geminiOnce(model, wrongBefore ? `${ask}\n\nYour previous reply did not match the required JSON shape:\n${wrongBefore}\nReturn the whole JSON object again, with these fixed.` : ask, version, structured);
+    const { body, error: e } = await geminiOnce(model, wrongBefore ? `${ask}\n\nYour previous reply did not match the required JSON shape:\n${wrongBefore}\nReturn the whole JSON object again, with these fixed.` : ask, version, structured, thinking);
     if (e || !body) { error = e ?? "no reply"; break; }
     const cand = body.candidates?.[0];
     const u = body.usageMetadata ?? {};
@@ -226,7 +230,7 @@ export async function researchFor(ctx: any, ask: string, opts: { claudeOnly?: bo
 }
 
 export function askFor(h: { topic: string; goal?: string; mode?: string; level: string }) {
-  return `Typed: "${h.topic}"${h.goal ? `\nTheir goal: "${h.goal}"` : ""}${h.mode ? `\nMode they picked: ${h.mode}` : ""}\nLevel: ${h.level}\nToday: ${new Date().toISOString().slice(0, 10)}`;
+  return `Typed: "${h.topic}"${h.goal ? `\nGoal: "${h.goal}"` : ""}${h.mode ? `\nMode: ${h.mode}` : ""}\nLevel: ${h.level}\nToday: ${new Date().toISOString().slice(0, 10)}`;
 }
 
 export const run = internalAction({

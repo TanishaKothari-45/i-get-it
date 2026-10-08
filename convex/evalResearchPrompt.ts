@@ -8,7 +8,7 @@ import { v } from "convex/values";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { inrOf } from "./costs";
-import { GEMINI_RESEARCHER, askFor, geminiResearch, type Version } from "./research";
+import { GEMINI_RESEARCHER, GEMINI_THINKING, askFor, geminiResearch, type Version } from "./research";
 
 export const JUDGE = "claude-sonnet-5-5";
 // Search is billed per query on top of tokens (list prices, 8 Oct): Gemini grounding $14 and Anthropic web search $10
@@ -21,17 +21,17 @@ const request = v.object({ topic: v.string(), goal: v.optional(v.string()), mode
 // One research call, Gemini only (the live path), so v1 and v2 differ in the prompt alone. No Claude fallback here:
 // a failure is a result.
 export const runOne = internalAction({
-  args: { request, version: v.union(v.literal("v1"), v.literal("v4")), structured: v.optional(v.boolean()) },
-  handler: async (ctx, { request: r, version, structured = true }) => {
+  args: { request, version: v.union(v.literal("v1"), v.literal("v4")), structured: v.optional(v.boolean()), thinking: v.optional(v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("default"))) },
+  handler: async (ctx, { request: r, version, structured = true, thinking }) => {
     const ask = askFor(r);
-    const a = await geminiResearch(GEMINI_RESEARCHER, ask, version as Version, structured);
+    const a = await geminiResearch(GEMINI_RESEARCHER, ask, version as Version, structured, thinking ?? GEMINI_THINKING);
     await ctx.runMutation(internal.handbooks.logAiCall, {
       kind: `eval research ${version}`, model: a.model, input: ask, output: a.decided ? JSON.stringify(a.decided).slice(0, 4000) : "",
       tokensIn: a.tokensIn, tokensOut: a.tokensOut, ms: a.ms, ok: !a.error, error: a.error,
     });
     const tokenInr = inrOf(a.model, !a.error, a.tokensIn, a.tokensOut);
     return {
-      version, ask, model: a.model, ms: a.ms, searches: a.searches, grounded: a.grounded ?? 0, queries: a.queries ?? [], tokensIn: a.tokensIn, tokensOut: a.tokensOut,
+      version, thinking: thinking ?? GEMINI_THINKING, ask, model: a.model, ms: a.ms, searches: a.searches, grounded: a.grounded ?? 0, queries: a.queries ?? [], tokensIn: a.tokensIn, tokensOut: a.tokensOut,
       inr: tokenInr + a.searches * GEMINI_SEARCH_INR, tokenInr, error: a.error ?? null, output: a.decided,
     };
   },
