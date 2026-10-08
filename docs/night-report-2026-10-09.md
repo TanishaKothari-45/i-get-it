@@ -100,6 +100,33 @@ Lessons for 8 Oct are in docs/lessons.md (five under Product/Tech, session 05).
 
 **Open:** LANGFUSE_TRACES_URL for the /admin links (`npx convex env set LANGFUSE_TRACES_URL "https://us.cloud.langfuse.com/project/<id>/traces" --prod`); the writer's "voice and tension" tone test (about ₹40); self-hosting the two fonts (395 KB); Shelf "for: goal" ribbon text; a 400 px cover size for the carousel and Shelf.
 
+**Read this first: the wait-story sample (World War II, built on dev under D29a, approved by dc):**
+
+*The welcome that started a lie* (points at: The dry timber: why Germany wanted to fight again; source: Handbook chapter 1; A. J. P. Taylor, The Origins of the Second World War)
+1. Berlin, 10 December 1918. Soldiers march through the city with their flags flying. Crowds throw flowers. Friedrich Ebert, Germany's new leader, steps forward to greet them. His country has just lost a war that lasted four years. What he says to these men will echo for the next twenty.
+2. Here is the strange part. The fighting stayed almost entirely outside Germany's borders. No enemy army is marching down these streets. For the people throwing flowers, defeat is something they have read about, not seen. Their sons are walking home in step, rifles on their shoulders, looking like winners.
+3. Ebert tells them: 'No enemy has overcome you.' The crowd cheers. It is not true. The army was beaten in the field that autumn, which is the only reason it is marching home at all. Hold that sentence in your head. In six months Germany has to sign something else.
+4. June 1919, the Treaty of Versailles. Germany loses about 13% of its land. Its army is capped at 100,000 men. It owes reparations for the damage of the war. And one clause makes Germany accept the blame for starting it. Ebert's sentence and the treaty cannot both be true.
+5. Millions of Germans decided the treaty was the lie. And the treaty left the muscle in place: 60 million people, the factories, the officers. A grievance, plus the means to act on it. In January 1933, a man who promised to tear the treaty up became chancellor.
+6. That's chapter 1 of World War II: the dry timber stacked against Germany's walls.
+
+*The rescue that beat its target* (points at: The fire spreads: France falls, Britain holds; source: Handbook chapter 3; Antony Beevor, The Second World War)
+1. Late May 1940, the beaches at Dunkirk. British and French soldiers stand on the sand with the sea at their backs. On 13 May German tanks crossed the Meuse at Sedan. Seven days later they reached the Channel coast near Abbeville. The best Allied armies, sent north into Belgium, are cut off.
+2. On 26 May the Royal Navy begins taking men off the beaches. It has a number in mind, the most it thinks it can save. The number is modest. Most of the men on that sand would not be in it. Behind them, the battle for France is already lost.
+3. Then the boats start to appear. Not only warships. Fishing boats. Pleasure boats. Craft built for a day out on the water are crossing the Channel, about 20 miles at its narrowest, to pick up soldiers. They go back and forth for more than a week.
+4. On 4 June it ends. The men come home without most of their tanks and guns, left behind on the French coast. Ten days later Paris falls. On 22 June France signs an armistice on Germany's terms. So how many men did the boats actually bring back?
+5. The Navy had hoped to rescue about 45,000. It brought home about 338,000. And Churchill refused to call it a win. He told Parliament that wars are not won by evacuations. Dunkirk did not beat Germany. It kept an army alive to fight later.
+6. That's chapter 3 of World War II: why France fell in six weeks and Britain held.
+
+*A broken water plant at Midway* (points at: The turn: three battles that stopped the spread; source: Handbook chapter 5; Antony Beevor, The Second World War)
+1. Hawaii, May 1942. Five months after Pearl Harbor, American codebreakers can read parts of Japan's navy messages. Not all of them. Enough to see that something big is coming. The messages keep naming the next target, but never by its real name. It is only ever called AF.
+2. The codebreakers suspect AF is Midway, a tiny American island in the middle of the Pacific. But suspecting is not knowing. If they guess wrong, America's carriers wait in the wrong stretch of ocean while Japan strikes somewhere else. They need Japan to confirm the target itself.
+3. So Midway gets an odd instruction. Send a message saying the island's water plant has broken. It is fake. There is nothing wrong with the water. No decoy fleet, no clever battle plan. The test is a complaint about plumbing, sent where Japan might be listening.
+4. Then they wait for Japan's reply. Soon after, a Japanese message turns up in the intercepts. It reports that AF is short of water. The guess is confirmed. Midway is the target, and the Americans now know where Japan's carriers are heading.
+5. When Japan's carriers arrive in June 1942, three American carriers are already waiting. Japan loses four aircraft carriers, the floating airfields its whole advance depended on. After Midway, Japan is guarding what it has taken, not taking more. One pretend broken water plant, four sunk carriers.
+6. That's chapter 5 of World War II: the three battles that stopped the spread.
+
+
 ## Session a2
 
 **First thing in the morning, before anything new goes out: the free-chapters claim changed at 20:37 (D14).**
