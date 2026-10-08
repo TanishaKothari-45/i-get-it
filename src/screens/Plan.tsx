@@ -107,9 +107,8 @@ export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan
 
       <div className="roadmap-links">
         <button type="button" className="quiet" onClick={onTune}>Who teaches you, and how</button>
-        {/* The three-writer comparison (an internal test, ₹30 a go) is no longer a link on every handbook (8 Oct night): a
-            first-time reader cannot tell what "three writers" means. It stays reachable for the owner from /admin. */}
-        {onCompare && comparing && <button type="button" className="quiet" onClick={onCompare}>{`Three writers are on chapter ${current}…`}</button>}
+        {/* The three-writer comparison is testers-only (App.tsx: ?compare=1 once on this phone), so readers never see it. */}
+        {onCompare && <button type="button" className="quiet" onClick={onCompare}>{comparing ? `Three writers are on chapter ${current}…` : `Testers: compare three writers on chapter ${current}`}</button>}
         {onLibrary && <button type="button" className="quiet" onClick={onLibrary}>{libraryCount && libraryCount > 1 ? `Your handbooks (${libraryCount})` : 'Start another topic, keep this one'}</button>}
         <button type="button" className="quiet" onClick={onChangeLine}>Not what you meant? Change what you typed</button>
       </div>
