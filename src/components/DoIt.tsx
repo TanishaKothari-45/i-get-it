@@ -78,7 +78,10 @@ export default function DoIt({ card, logged, onLog, onLater }: Props) {
           </div>
         </div>
       ) : (
-        <button type="button" className="quiet doit-later" onClick={onLater}>Not now, I'll do it later</button>
+        <>
+          <button type="button" className="quiet doit-later" onClick={onLater}>Not now, I'll do it later</button>
+          <p className="doit-hint" style={{ marginTop: 6 }}>Or just tap → to keep going. Nothing here is a gate.</p>
+        </>
       )}
       {error && <p className="story-error">{error}</p>}
     </div>

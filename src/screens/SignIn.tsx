@@ -33,7 +33,7 @@ export default function SignIn({ onDone, onBack, reason, heading, backLabel = 'N
     try { await signIn('email-otp', { email: email.trim() }); setStep('code'); setCode('') }
     catch (e: any) {
       const m = String(e?.message ?? e)
-      setError(m.includes('too many') ? "That's a few codes in a row. Wait a few minutes, then try again." : "Couldn't send the code just now. Try again in a minute, or use a password.")
+      setError(m.includes('too many') ? "That's a few codes in a row. Wait a few minutes, then try again." : "Couldn't send the code just now. Try again in a minute.")
     } finally { setBusy(false) }
   }
   const checkCode = async () => {
@@ -106,7 +106,7 @@ export default function SignIn({ onDone, onBack, reason, heading, backLabel = 'N
           </p>
         </div>
       )}
-      <p className="note">{step === 'email' ? "The code comes from “I Get It” (a gmail.com address) in about twenty seconds; search for it if it's slow. It works for 10 minutes. No other emails, ever, unless you turn reminders on." : "From “I Get It”, a gmail.com address; search for it if it's slow. The code works for 10 minutes."}</p>
+      <p className="note">{step === 'email' ? "The code comes from “I Get It” in about twenty seconds; search your inbox for I Get It if it's slow. It works for 10 minutes. No other emails, ever, unless you turn reminders on." : "Sent by “I Get It”; search your inbox for it if it's slow. The code works for 10 minutes."}</p>
       {error && <p className="error">{error}</p>}
       <ActionBar busy={busy}>
         {step === 'email'

@@ -83,6 +83,28 @@ Feeds the 9:30 X draft (scripts/x-nightly.sh reads yesterday's day) and the end-
 - Thought: the splash between a tap and the chapter was unavoidable. Learned: it was two renders (the query reload and the plan before chapter 1's cards). Keeping the Shelf or landing mounted through both, with the tapped book lifted, removed it and made the animation possible.
 - Learned: a full-page screenshot lies about lazy images and sticky bars. Check the DOM (img.complete, class lists) before calling something a defect, and look at the chapter's own plate, not the first .story-pic in the document.
 
+**One print language, inside and out (session 05, the night of 8 Oct)**
+- Thought: the landing's risograph look was for strangers; the chapter and the plan could stay softer.
+- Learned: the first critique scored the path 26/40 and called Done and sign-in "every freemium wall in this product's outlines". Screens that share no stroke weight read as two products. The one-sitting fix was tokens, not redesign: a 2.5 px ink stroke, a 4 px pressed shadow, a paper rule and a grain, applied to every frame, card and sheet.
+- Now: design/style-anchor.md holds the anchor; new screens take the tokens, never a new look. Second critique on the same path: 27/40, with the remaining points in the picture weight and the typed-vs-ready plan copy, not in the surface.
+
+**A screenshot is not a check**
+- Thought: a 390 px capture of each screen was proof it was right.
+- Learned: the Shelf's chips were 3 px out of line because links and a button sat on different baselines; the capture looked fine at a glance and Prateek saw it on his phone first. Lazy pictures and the sticky bar also fake defects in full-page shots.
+- Now: every sweep measures from the DOM (getBoundingClientRect on every tappable, contrast on every text run) and reads the capture second. 14 screens, 0 open items at the end of the night.
+
+**Motion that waits on nothing**
+- Thought: a book that flies off the shelf and opens needs the chapter to be loaded first.
+- Learned: the lift was torn down by the splash screen and the plan flashed in between, because the view changed while the animation ran. Holding the old screen mounted (hold/holdable in App.tsx) until the chapter has its cards costs nothing and removes both. A fixed-position lift escapes the scroll box; a scrim inside the section's own stacking context is the only one that paints above its neighbours.
+- Now: lift, open and page turns are transform and opacity only, about a third of a second each, prefetch one picture ahead, nothing on save-data or 2G, all off under reduced motion.
+
+**Sign-up from the wall bounced**
+- Learned: after a new account the device's handbooks attach to the user in a mutation that lands a beat later; navigating straight to chapter 2 met "not yours" and fell back to sign-in. Waiting for the attach (afterSignedIn, 8 s cap) fixed it.
+
+**Four sessions, one working tree**
+- Learned: a stash by one session undid another's App.tsx fix for ten minutes; a clean deploy from a worktree shipped code a teammate had not finished. 
+- Now: never git pull or stash in the shared tree, stage files by name, say "deploying <what>" to the coordinator first, run scripts/prove-path.mjs after every upload.
+
 ### GTM
 
 **One permanent link**

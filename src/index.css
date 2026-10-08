@@ -60,7 +60,7 @@ body { font-variant-numeric: tabular-nums; }
 .top > span { flex: none; }
 .quiet { background: none; border: 0; padding: 8px 0; color: var(--ink-2); font-size: var(--small); font-weight: 500; text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1.5px; }
 .quiet:hover { color: var(--ink); }
-main { flex: 1; display: flex; flex-direction: column; padding-bottom: 150px; }
+main { flex: 1; display: flex; flex-direction: column; padding-bottom: 170px; }   /* the fixed bar is up to 150 px with its note; nothing hides under it */
 .foot { color: var(--ink-2); font-size: var(--small); padding: var(--l) 0 var(--m); }
 .foot a { display: inline-block; padding: 11px 0; }   /* 44 px rows for the policy links (8 Oct night audit) */
 /* on a phone the fixed action bar is 130 px tall; the footer keeps that much clear so its links can be reached (sign-in's could not) */
@@ -236,12 +236,12 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .story-frame { --fg: #faf7f0; --fg2: rgba(250, 247, 240, 0.78); --bar: rgba(250, 247, 240, 0.35); --mark: #f2a93b; --mark-fg: #1b1a17; --plate: rgba(0, 0, 0, 0.38);
   position: relative; width: 100%; max-width: 480px; height: 100dvh; display: flex; flex-direction: column; color: var(--fg);
   padding: max(10px, env(safe-area-inset-top)) 20px max(14px, env(safe-area-inset-bottom)); overflow: hidden; user-select: none; cursor: pointer;
-  transition: background-color 280ms var(--ease); }
+  transition: none; }   /* no colour fade: the page turn carries the change, and text must never sit on the old colour */
 .story-frame::before { content: ''; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.14; mix-blend-mode: multiply; pointer-events: none; }
 .story-frame > * { position: relative; }
 .tone-ink { background-color: #1b1a17; }
 .tone-indigo { background-color: #3442b8; }
-.tone-green { background-color: #1f7a4d; --fg2: rgba(250, 247, 240, 0.92); }   /* the topic line read 3.7:1 at 0.78 (8 Oct night audit); 0.92 clears 4.5 */
+.tone-green { background-color: #1f7a4d; --fg2: rgba(250, 247, 240, 0.97); }   /* measured 4.47 at 0.92; 0.97 clears 4.5 */   /* the topic line read 3.7:1 at 0.78 (8 Oct night audit); 0.92 clears 4.5 */
 .tone-marigold { background-color: #f2a93b; --fg: #1b1a17; --fg2: rgba(27, 26, 23, 0.72); --bar: rgba(27, 26, 23, 0.25); --mark: #1b1a17; --mark-fg: #faf7f0; --plate: #1b1a17; }
 .tone-coral { background-color: #e8604c; --fg: #1b1a17; --fg2: rgba(27, 26, 23, 0.92); --bar: rgba(27, 26, 23, 0.25); --mark: #faf7f0; --mark-fg: #1b1a17; --plate: #1b1a17; }
 .tone-cream { background-color: #faf7f0; --fg: #1b1a17; --fg2: rgba(27, 26, 23, 0.66); --bar: rgba(27, 26, 23, 0.18); --mark: #f2a93b; --mark-fg: #1b1a17; --plate: #1b1a17; }
@@ -301,7 +301,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .story-text.size-lg { font-size: clamp(1.3rem, 1.1rem + 1vw, 1.55rem); line-height: 1.3; }
 .story-text.size-md { font-size: 1.15rem; line-height: 1.45; }
 /* the key phrase: a marker stroke in the second ink, drawn in as the frame lands */
-.story-text strong, .story-q strong { font-weight: 800; color: var(--mark-fg); padding: 0.02em 0.18em; margin: 0 -0.08em; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; background-image: linear-gradient(var(--mark), var(--mark)); background-repeat: no-repeat; background-position: 0 0; background-size: 0% 100%; animation: hl 650ms 350ms var(--ease) forwards; }
+.story-text strong, .story-q strong { font-weight: 800; color: var(--mark-fg); padding: 0.02em 0.18em; margin: 0 -0.08em; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; background-image: linear-gradient(var(--mark), var(--mark)); background-repeat: no-repeat; background-position: 0 0; background-size: 0% 100%; animation: hl 420ms 60ms var(--ease) forwards; }   /* the marker lands with the page, not a third of a second after */
 @keyframes hl { to { background-size: 100% 100%; } }
 .story-text em { font-style: italic; font-family: var(--serif); font-weight: 500; }
 .story-q { font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.7rem); line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 22px; text-wrap: balance; }
@@ -499,7 +499,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 
 .lp-top { position: absolute; top: 0; left: 0; right: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; padding: 14px max(var(--m), env(safe-area-inset-left)); }
 .lp-mark { font-weight: 800; font-size: 1.15rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
-.lp-top-cta { background: var(--ink); color: var(--paper); border: 0; border-radius: 999px; padding: 10px 16px; font: 700 0.9rem var(--sans); min-height: 40px; }
+.lp-top-cta { background: var(--ink); color: var(--paper); border: 0; border-radius: 999px; padding: 10px 16px; font: 700 0.9rem var(--sans); min-height: 44px; }
 
 /* hero: a marigold poster, the headline printed slightly off-register */
 .lp-hero { background: var(--accent); padding-top: 76px !important; display: grid; gap: 28px; }
@@ -591,7 +591,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .lp-final h2 { max-width: 14ch; }
 .lp-foot { padding: 28px max(var(--m), env(safe-area-inset-left)) 40px; background: var(--ink); color: rgba(250, 247, 240, 0.8); font-size: var(--small); }
 .lp-foot p { margin: 0; max-width: 40rem; line-height: 1.6; }
-.lp-foot a { color: var(--accent); }
+.lp-foot a { color: var(--accent); display: inline-block; padding: 11px 0; }
 
 @media (min-width: 900px) {
   .lp section { padding: 104px max(6vw, calc((100vw - 76rem) / 2)) 112px; }
@@ -761,7 +761,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .lp-carousel button:focus-visible { outline: 3px solid var(--riso-indigo); outline-offset: 3px; border-radius: 14px; }
 .lp-carousel-pic { position: relative; display: block; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; border: 2.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); background: var(--paper-2); }
 .lp-carousel-pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.lp-carousel-pic em { position: absolute; left: 6px; top: 6px; font: 700 0.7rem var(--sans); font-style: normal; background: var(--ink); color: var(--paper); padding: 3px 7px; border-radius: 999px; }   /* top: the anchor keeps the top of every picture calm, the subject sits lower (8 Oct night) */
+.lp-carousel-pic em { position: absolute; left: 6px; top: 6px; font: 700 0.75rem var(--sans); font-style: normal; background: var(--ink); color: var(--paper); padding: 3px 7px; border-radius: 999px; }   /* top: the anchor keeps the top of every picture calm, the subject sits lower (8 Oct night) */
 .lp-carousel strong { font: 800 0.95rem/1.2 var(--sans); color: var(--ink); }
 @media (min-width: 900px) { .lp-carousel li { width: 190px; } }
 
@@ -849,7 +849,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 /* Navigation (7 Oct, Prateek): the wordmark goes home, a menu button on phones, chapters you can reopen */
 .wordmark-btn { all: unset; cursor: pointer; display: block; font-weight: 700; font-size: var(--ui); letter-spacing: -0.01em; color: inherit; }
 .wordmark-btn:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 3px; border-radius: 6px; }
-.menu-btn { all: unset; cursor: pointer; font-size: 1.4rem; line-height: 1; padding: 8px 10px; min-width: 24px; text-align: center; border-radius: 10px; }
+.menu-btn { all: unset; cursor: pointer; font-size: 1.4rem; line-height: 1; padding: 8px 10px; min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; text-align: center; border-radius: 10px; }
 .menu-btn:focus-visible { outline: 3px solid var(--accent-deep); }
 .menu-sheet { display: grid; gap: 4px; max-height: 70vh; overflow-y: auto; }
 .menu-sheet .rail-links, .menu-sheet > div { display: grid; gap: 4px; }
@@ -885,7 +885,7 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .moment-time { font-size: var(--small); color: var(--ink-2); font-variant-numeric: tabular-nums; }
 
 /* Why you're here, and "free" said loudly (7 Oct, Prateek) */
-.why-here { margin: 10px 4px 0 0; padding: 12px 14px; border-radius: var(--radius-card); background: var(--accent); border: var(--stroke) solid var(--ink); box-shadow: var(--press-sm); color: var(--ink); font-weight: 600; line-height: 1.4; }
+.why-here { margin: 10px 0 0; padding: 12px 14px; border-radius: var(--radius-card); background: var(--accent); border: var(--stroke) solid var(--ink); color: var(--ink); font-weight: 600; line-height: 1.4; }   /* flat: the one pressed thing on sign-in is the button */
 .free-banner { margin: 10px 0; padding: 10px 14px; border-radius: var(--radius-card); border: var(--stroke) solid var(--pass, #1f7a4d); color: var(--ink); background: var(--pass-tint); font-size: var(--ui); }
 .free-banner strong { color: var(--pass, #1f7a4d); }
 .lock-card { width: 100%; padding: 16px; border-radius: var(--radius-card); border: var(--stroke) solid var(--ink); background: var(--paper); box-shadow: var(--press); display: grid; gap: 8px; text-align: left; margin-right: 4px; }
@@ -939,12 +939,26 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .story-next:active { opacity: 0.6; }
 
 /* The Shelf (8 Oct): cloth-bound books on wooden shelves. One shelf per kind; a book appears once. */
-.shelf-link { background: var(--paper); border: 2px solid var(--ink); color: var(--ink); border-radius: 999px; padding: 7px 12px; font: 700 0.85rem var(--sans); margin-left: 12px; min-height: 36px; white-space: nowrap; }
-.shelf-link:active { background: var(--ink); color: var(--paper); }
-.lp-top-shelf { background: none; border: 2px solid var(--ink); color: var(--ink); border-radius: 999px; padding: 8px 12px; font: 700 0.85rem var(--sans); margin-left: auto; margin-right: 10px; min-height: 40px; }
+/* The Shelf control (9 Oct, Prateek: it must look tappable): a printed button in the second ink, book and word, pressed. */
+.shelf-btn { display: inline-flex; align-items: center; gap: 7px; background: var(--accent); border: var(--stroke) solid var(--ink); color: var(--ink); border-radius: var(--radius); padding: 0 14px; font: 800 0.9rem var(--sans); min-height: 44px; white-space: nowrap; box-shadow: var(--press-sm); margin-left: 12px; transition: transform 120ms var(--ease), box-shadow 120ms var(--ease); }
+.shelf-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.shelf-btn .book-glyph { flex: none; }
+.lp-top-shelf.shelf-btn { margin-left: auto; margin-right: 10px; background: var(--paper); }   /* on the marigold hero the paper fill is the one that stands out */
+/* The strip: a printed row with the live count, one tap to the Shelf. */
+.shelf-strip { all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; gap: 12px; width: 100%; margin: var(--m) 4px var(--s) 0; padding: 12px 14px; border: var(--stroke) solid var(--ink); border-radius: var(--radius-card); background: var(--paper); color: var(--ink); box-shadow: var(--press-sm); min-height: 56px; text-align: left; }
+.shelf-strip:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.shelf-strip:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.shelf-strip .book-glyph { flex: none; color: var(--accent-deep); }
+.shelf-strip-text { display: grid; gap: 1px; min-width: 0; flex: 1; }
+.shelf-strip-text strong { font: 800 var(--ui) var(--sans); line-height: 1.25; }
+.shelf-strip-text > span { font: 500 var(--small) var(--sans); color: var(--ink-2); }
+.shelf-strip-go { font: 800 1.2rem var(--sans); flex: none; }
+.shelf-strip-landing { margin: 14px 0 0; }
+.lp .shelf-strip { box-shadow: 4px 4px 0 var(--ink); border-width: 3px; }
 .shelf-page { padding-bottom: 80px; }
 .shelf-page h1 { margin-top: 10px; }
-.shelf-tools { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 10px; margin: 8px 0 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.shelf-page > .quiet { min-height: 44px; display: inline-flex; align-items: center; }
+.shelf-tools { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 10px; margin: 8px 0 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }   /* the fade says there is more to the right */
 .shelf-tools::-webkit-scrollbar { display: none; }
 .shelf-tools .chip { white-space: nowrap; flex: none; min-height: 44px; border-color: var(--ink); }
 .shelf-tools .chip:active { background: var(--ink); color: var(--paper); }
@@ -968,9 +982,10 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .book-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .book-cover-blank { display: flex; align-items: center; justify-content: center; height: 100%; font: 800 2.2rem var(--sans); color: var(--ink); }
 .book-plate { position: absolute; left: 20px; right: 10px; bottom: 10px; background: #faf7f0; color: var(--ink); border-radius: 3px; padding: 6px 7px; box-shadow: 0 1px 0 rgba(0,0,0,0.25); display: grid; gap: 1px; }
-.book-title { font: 700 0.78rem/1.15 var(--serif); letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.book-goal { font: 500 0.62rem/1.2 var(--sans); color: var(--fg2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.book-ribbon { position: absolute; top: -6px; right: 8px; background: #e0735a; color: var(--ink); font: 700 0.62rem var(--sans); padding: 3px 7px; border-radius: 3px; box-shadow: 0 1px 0 rgba(0,0,0,0.3); }
+.book-title { font: 700 var(--small)/1.15 var(--serif); letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.book-goal { font: 500 0.75rem/1.2 var(--sans); color: var(--fg2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cloth-coral .book-ribbon { background: var(--ink); color: var(--paper); }
+.book-ribbon { position: absolute; top: -6px; right: 8px; background: #e0735a; color: var(--ink); font: 700 0.75rem var(--sans); padding: 3px 7px; border-radius: 3px; box-shadow: 0 1px 0 rgba(0,0,0,0.3); }
 .shelf-plank { height: 16px; margin: -2px -6px 0; border-radius: 3px; background: linear-gradient(180deg, #b98652, #9a6a3b 55%, #7b5230); box-shadow: 0 6px 10px rgba(27,26,23,0.22), inset 0 1px 0 rgba(255,255,255,0.25); }
 
 /* Tool skills and ideas (8 Oct, block 2): steps and try-it frames. */
@@ -993,3 +1008,9 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .sheet { position: fixed; }
 .sheet > div { position: relative; }
 .story:focus, .sheet:focus { outline: none; }
+
+/* A ?l= link opening (D25): one plank, one book, lifted. The lifted book is position: fixed like a Shelf lift, so the plank
+   under it only needs to exist; the scrim comes from .shelf-page.lifting. */
+.link-opening { min-height: 100dvh; display: grid; align-content: end; padding: 0 16px 28vh; }
+.link-opening .shelf-books { justify-content: center; }
+.link-opening .book { cursor: default; }

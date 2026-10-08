@@ -91,7 +91,7 @@ export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan
               <span className="node" aria-hidden="true">{done ? '✓' : ''}</span>{/* the card says "Chapter N"; a number here too read as "1 1" (7 Oct) */}
               {(() => {
                 const inner = (<>
-                  <span className="stop-n">Chapter {c.n}{now && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}{done && <span className="tag done">Done</span>}</span>
+                  <span className="stop-n">Chapter {c.n}{now && plan.format !== 'quick' && <span className="tag">{first ? 'Tonight' : 'Next'}</span>}{done && <span className="tag done">Done</span>}</span>
                   <span className="stop-t">{c.title}</span>
                   <span className="stop-hook">{c.hook || c.covers}</span>
                   {done && onOpenChapter && <span className="stop-again">Read it again ›</span>}

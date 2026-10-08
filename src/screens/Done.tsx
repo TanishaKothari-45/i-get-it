@@ -3,6 +3,7 @@ import ActionBar from '../components/ActionBar'
 import RungBar from '../components/RungBar'
 import Confetti from '../components/Confetti'
 import TeachBack from '../components/TeachBack'
+import ShelfStrip from '../components/ShelfStrip'
 import { track } from '../lib/track'
 import { useMutation, useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
@@ -34,8 +35,10 @@ type Props = {
   onRate?: (rating: 'too_easy' | 'just_right' | 'lost_me') => Promise<void>
   whatsNext?: React.ReactNode
   adapts?: boolean   // typed topics rewrite the next chapter from the rating; ready topics only record it
-  freeChapters?: number   // chapters a visitor reads without an account (membership.ts LIMITS.visitorChapters; 1 since 8 Oct night)
+  onShelf?: () => void   // the Shelf strip under the wall card (9 Oct, Prateek: make the Shelf findable)
+  freeChapters?: number   // chapters a visitor reads without an account: membership.ts LIMITS.visitorChapters, read from the server (2 since 9 Oct, D26)
   priceLine?: string | null   // the early-bird price, as information on the wall, never a gate (Shaktimaan, 8 Oct)
+  quick?: boolean   // D23 (9 Oct): a recipe or one-off task; read in one sitting, no wall, no reminder, no tomorrow
 }
 
 // Reminder moments (7 Oct, Prateek: "more casual and witty"): a moment in the day, the clock underneath. Copy (agent).
@@ -72,21 +75,21 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   return `You took your time, and it stuck. That's the whole point.`
 }
 
-export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, nextPicture, sources: _sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext, freeChapters = 1, priceLine }: Props) {
+export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeLine, nextTitle, nextHook, nextPicture, sources: _sources, signedIn, tomorrowAt, onKeep, onPickTime, onContinue, onPricing, stats, nextReady, onNext, handbookId, deviceToken, onRate, adapts, whatsNext, freeChapters = 2, priceLine, onShelf, quick = false }: Props) {
   const [rated, setRated] = useState<string | null>(null)
   const line = cheer(n, stats)
   const [stay, setStay] = useState(false)
   const last = n >= total
   // The wall (Prateek, 8 Oct night, Shaktimaan's advice): a visitor's free chapters are read, so the next chapter opens
   // with a free account. The server refuses the chapter without one (membership.ts tryOpen); this screen only says so.
-  const wall = !signedIn && !last && n >= freeChapters
+  const wall = !signedIn && !last && n >= freeChapters && !quick   // a quick handbook is one sitting (D23): no wall between its chapters
   useEffect(() => { if (wall) track('wall', { n }, `wall:${handbookId ?? ''}:${n}`) }, [wall, n, handbookId])
   return (
     <>
       <Confetti fire />
       <RungBar passed={passed} filling={n} total={total} />
       <p className="sub" style={{ marginTop: 10 }}>{topic}</p>
-      <h1>Chapter {n} of {total}: done.</h1>
+      <h1>{total === 1 ? 'Done.' : `Chapter ${n} of ${total}: done.`}</h1>
       {/* The proof of the night comes first (8 Oct night, critique): what they can now do, before any question is asked of them. */}
       {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {/* The wall, as one printed block right under the outcome: what chapter N+1 is, that it is free with an account, what the
@@ -94,9 +97,9 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
           bar, within thumb reach; this card explains it. Copy (agent). */}
       {wall && nextTitle && (
         <section className="upnext" aria-label={`Chapter ${n + 1} is free with an account`}>
-          {nextPicture && <div className="upnext-pic"><img src={nextPicture} alt="" /></div>}
+          {/* No picture here (second critique): it pushed the one sentence that reassures under the fixed button. */}
           <div className="upnext-body">
-            <p className="upnext-kicker">Chapter {n + 1} of {total}: {nextTitle}</p>
+            <p className="upnext-kicker">Up next: {nextTitle}</p>
             <h2 className="upnext-title">Chapter {n + 1} is free with an account.</h2>
             {nextHook && <p className="upnext-hook">{nextHook}</p>}
             <p className="serif">Your email and a 6-digit code, no card. Chapter {n} stays on this phone whatever you choose, and your place is kept on any phone or laptop.</p>
@@ -105,6 +108,7 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
       )}
       {/* The price is information under the card, never inside the free one (55's review, 8 Oct night): a mixed signal otherwise. */}
       {wall && nextTitle && priceLine && <p className="note">Chapter {n + 1} costs nothing. {priceLine} <button type="button" className="quiet" style={{ padding: 0 }} onClick={onPricing}>See pricing</button></p>}
+      {wall && onShelf && <ShelfStrip where="done" onOpen={onShelf} />}
       {line && <p className="cheer">{line}</p>}
       {onRate && (
         <div className="rate" role="group" aria-label={`How was chapter ${n}?`}>
@@ -127,8 +131,8 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
             <p className="upnext-kicker">Up next · Chapter {n + 1} of {total}</p>
             <h2 className="upnext-title">{nextTitle}</h2>
             {nextHook && <p className="upnext-hook">{nextHook}</p>}
-            {wall ? <button type="button" className="btn upnext-btn" onClick={onKeep}>{`Make a free account to start chapter ${n + 1} →`}</button>
-              : onNext && <button type="button" className="btn upnext-btn" onClick={onNext}>{nextFailed ? `Chapter ${n + 1} didn't write. Try again` : nextReady ? `Start chapter ${n + 1} →` : `Start chapter ${n + 1} → (writing it, about two minutes)`}</button>}
+            {/* No button in the card (D26, 9 Oct): the one main action sits in the bar, within thumb reach; the card only says what's next. */}
+            {!nextReady && !nextFailed && !quick && onNext && <p className="note" style={{ margin: '8px 0 0' }}>Being written for you now, about two minutes.</p>}
           </div>
         </section>
       )}
@@ -143,7 +147,7 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
         </div>
       )}
 
-      {!last && !wall && <Reminder n={n} tomorrowAt={tomorrowAt} onPickTime={onPickTime} handbookId={handbookId} deviceToken={deviceToken} />}
+      {!last && !wall && !quick && <Reminder n={n} tomorrowAt={tomorrowAt} onPickTime={onPickTime} handbookId={handbookId} deviceToken={deviceToken} />}
 
       {/* 8 Oct night: after the free chapters a visitor's one main action is the free account (the wall above); before
           them (UX review #15) it is the next chapter, with sign-in as a quiet line. Copy (agent). */}
@@ -155,7 +159,13 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
           </>
         ) : !signedIn && !stay && !last && n < freeChapters && onNext && nextTitle ? (
           <>
+            {/* D26 (9 Oct, Prateek): the wall moved to after chapter 2; before it the main action is the next chapter, sign-in a quiet line. */}
+            <button className="btn" onClick={onNext}>{nextFailed ? `Chapter ${n + 1} didn't write. Try again` : `Start chapter ${n + 1}`}</button>
             <button type="button" className="quiet" onClick={onKeep}>Want it on every device? Make a free account</button>
+          </>
+        ) : quick && !last && onNext ? (
+          <>
+            <button className="btn" onClick={onNext}>{nextFailed ? `Chapter ${n + 1} didn't write. Try again` : 'Keep going'}</button>
             <button type="button" className="quiet" onClick={onContinue}>Back to the handbook</button>
           </>
         ) : !signedIn && !stay ? (

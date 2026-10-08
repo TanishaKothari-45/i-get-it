@@ -5,6 +5,7 @@ import Rich, { inline } from '../components/Rich'
 import { track } from '../lib/track'
 import { PolicyLinks } from './Policy'
 import { limitMessage } from '../lib/limits'
+import ShelfStrip, { ShelfButton } from '../components/ShelfStrip'
 
 // The landing page, for first-time visitors (DESIGN.md, Landing). A printed risograph poster that sells
 // before it asks: the promise, the itch, how tonight works, a real chapter to tap, the seven nights,
@@ -38,7 +39,7 @@ function Carousel({ items, busy, picked, onPick, onExplore }: { items: Shelf[]; 
     if (pill === 'finished') return xs.sort((a, b) => (b.passRate ?? -1) - (a.passRate ?? -1))
     return xs.sort((a, b) => b.addedAt - a.addedAt)
   })()
-  const tag = (it: Shelf) => it.trending ? 'Trending' : it.improved ? 'Just improved' : pill === 'started' && it.week ? `${it.week} started this week` : pill === 'finished' && it.passRate !== null ? `${Math.round(it.passRate * 100)}% finish chapter 1` : pill === 'new' && Date.now() - it.addedAt < 7 * 864e5 ? 'New' : ''
+  const tag = (it: Shelf, k: number) => it.trending && k < 3 ? 'Trending' : it.improved ? 'Just improved' : pill === 'started' && it.week ? `${it.week} started this week` : pill === 'finished' && it.passRate !== null ? `${Math.round(it.passRate * 100)}% finish chapter 1` : pill === 'new' && Date.now() - it.addedAt < 7 * 864e5 ? 'New' : ''
   return (
     <div className="lp-quick">
       <p>Or start one tonight. It opens instantly:</p>
@@ -47,11 +48,11 @@ function Carousel({ items, busy, picked, onPick, onExplore }: { items: Shelf[]; 
         <button type="button" aria-pressed={!!seed} onClick={() => setSeed((x) => x + 1)}>Surprise me</button>
       </div>
       <ul className="lp-carousel">
-        {sorted.slice(0, 12).map((it) => (
+        {sorted.slice(0, 12).map((it, k) => (
           <li key={it.topic} className={picked === it.topic ? 'lifting' : picked ? 'resting' : undefined}>
             <button type="button" onClick={() => onPick(it.topic)} disabled={busy} aria-busy={picked === it.topic || undefined}>
               {picked === it.topic && <span className="lp-visually-hidden" role="status">Opening…</span>}
-              <span className="lp-carousel-pic">{it.cover && <img src={it.cover} alt="" loading="lazy" />}{tag(it) && <em>{tag(it)}</em>}</span>
+              <span className="lp-carousel-pic">{it.cover && <img src={it.cover} alt="" loading="lazy" />}{tag(it, k) && <em>{tag(it, k)}</em>}</span>
               <strong>{it.topic}</strong>
             </button>
           </li>
@@ -138,6 +139,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
       {error && <p className="lp-error" role="alert">{error}</p>}
       {slow && pickedRow && where === 'hero' && <p className="lp-fine" role="status">Slow connection. Still opening; it keeps trying.</p>}
       <p className="lp-fine">Chapter 1 is free, no sign-up. A free account opens the rest; no card. Topics you start can appear on the Shelf, never with your name.</p>
+      {where === 'hero' && onExplore && <ShelfStrip where="landing" onOpen={onExplore} />}
       {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} picked={pickedRow} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
     </form>
   )
@@ -146,7 +148,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
     <div className={`lp${pickedRow ? ' lifting' : ''}`}>
       <header className="lp-top">
         <a className="lp-mark" href="/">I Get It</a>
-        <button type="button" className="lp-top-shelf" onClick={onExplore}>The Shelf</button>
+        {onExplore && <ShelfButton onOpen={onExplore} className="lp-top-shelf" />}
         <button type="button" className="lp-top-cta" onClick={toBox}>Start tonight</button>
       </header>
 
@@ -329,7 +331,7 @@ function Demo({ topic, title, frames, total, onTry }: { topic: string; title: st
           ) : (
             <>
               {i === 0 && <h3 className="story-title">{title}</h3>}
-              {f.picture && <div className="story-pic"><img src={f.picture} alt="" loading="lazy" /></div>}
+              {f.picture && <div className="story-pic"><img src={f.picture} alt="" loading="lazy" onLoad={(e) => e.currentTarget.parentElement?.classList.add('loaded')} ref={(el) => { if (el && el.complete && el.naturalWidth > 0) el.parentElement?.classList.add('loaded') }} /></div>}
               {i > 0 && KICKER[f.kind] && <p className="story-kicker">{KICKER[f.kind]}</p>}
               <Rich text={f.text} className="story-text size-md" />
             </>

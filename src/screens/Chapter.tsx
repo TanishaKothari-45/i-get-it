@@ -140,7 +140,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
     // On a slow or metered connection the warm-up would fight the picture on screen for the pipe: none on 2G or with
     // data saver on, one frame ahead on 3G, two otherwise.
     const c: any = (navigator as any).connection
-    const ahead = c?.saveData || /2g/.test(c?.effectiveType ?? '') ? 0 : c?.effectiveType === '3g' ? 1 : 2
+    const ahead = c?.saveData || /2g/.test(c?.effectiveType ?? '') ? 0 : 1   // one frame ahead (9 Oct: two warmed every plate in the chapter on open)
     for (let k = i + 1; k <= i + ahead; k++) {
       const f = frames[k]
       if (!f || f.item.recall || f.part !== 0) continue
@@ -161,13 +161,18 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   const [error, setError] = useState<string | null>(null)
   const [askOpen, setAskOpen] = useState(false)
   const dialogRef = useRef<HTMLDivElement>(null)
-  useEffect(() => { dialogRef.current?.focus({ preventScroll: true }) }, [])
+  useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null
+    dialogRef.current?.focus({ preventScroll: true })
+    return () => { const back = opener && document.contains(opener) ? opener : document.querySelector<HTMLElement>('.actionbar .btn, .wordmark-btn'); back?.focus({ preventScroll: true }) }
+  }, [])
 
   const exercisePassed = item.card.type === 'exercise' && (item.recall ? result?.correct === true : passedHere.has(key))
   const [logged, setLogged] = useState<Set<number>>(() => new Set(loggedSets))
-  const [later, setLater] = useState<Set<number>>(() => new Set())
-  const doitOpen = item.card.type === 'doit' && !logged.has(item.cardIndex) && !later.has(item.cardIndex)
-  const canAdvance = (item.card.type !== 'exercise' || exercisePassed) && !doitOpen
+  const [, setLater] = useState<Set<number>>(() => new Set())   // D24: 'later' no longer gates anything; the setter keeps the server's open-set hint in step
+  // D24 (9 Oct, Prateek: "let's not make the activities mandatory to exit the chapter"): only a quiz holds the arrow.
+  // A do-it, try-it, steps or move card is an invitation; the arrow works from the moment the card shows.
+  const canAdvance = item.card.type !== 'exercise' || exercisePassed
   const reset = () => { setAttempt(1); setPicked(null); setMissed([]); setResult(null); setError(null) }
 
   useEffect(() => { track('ch_open', { n }, `ch_open:${handbookId}:${n}`) }, [n, handbookId])
@@ -250,9 +255,18 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   const label = item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of ${total}`
 
   return (
-    <div className="story" role="dialog" aria-modal="true" aria-label={`${title}, chapter ${n}`} ref={dialogRef} tabIndex={-1}>
+    <div className="story" role="dialog" aria-modal="true" aria-label={`${title}, chapter ${n}, card ${i + 1} of ${frames.length}`} ref={dialogRef} tabIndex={-1}
+      onKeyDown={(e) => {
+        // Tab stays inside the chapter (9 Oct, accessibility review): the page behind is not reachable while it is open.
+        if (e.key !== 'Tab' || !dialogRef.current) return
+        const f = [...dialogRef.current.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], input, [tabindex]:not([tabindex="-1"])')].filter((el) => el.offsetParent !== null)
+        if (!f.length) return
+        const first = f[0], last = f[f.length - 1], active = document.activeElement as HTMLElement | null
+        if (e.shiftKey && (active === first || !dialogRef.current.contains(active))) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && (active === last || !dialogRef.current.contains(active))) { e.preventDefault(); first.focus() }
+      }}>
       <div className={`story-frame tone-${frame.tone}`} onClick={onTap} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-        <div className="story-bars" aria-hidden="true">
+        <div className="story-bars" role="progressbar" aria-label="Cards in this chapter" aria-valuemin={1} aria-valuemax={frames.length} aria-valuenow={i + 1}>
           {frames.map((_, k) => <span key={k} className={k < i ? 'on' : k === i ? 'now' : ''} />)}
         </div>
         <div className="story-head">
@@ -318,13 +332,13 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
           {!item.recall && c.type !== 'try' && <button type="button" onClick={() => setAskOpen(true)}>Ask or object</button>}
           {/* A real button (UX review #17, 8 Oct): the move and do-it frames are full of things to tap, so "next" needs a target of its own; keyboard and screen readers get one too. */}
           {canAdvance
-            ? <button type="button" className="story-next" onClick={next} aria-label={isLast ? 'Finish' : 'Next'}>{isLast ? 'Finish' : 'Tap →'}</button>
-            : <span className="story-tapnote">{item.card.type === 'doit' ? 'Log it' : 'Pick one'}</span>}
+            ? (isLast ? null : <button type="button" className="story-next" onClick={next} aria-label="Next">Tap →</button>)   /* the last frame has its own Finish button; one finisher (second critique) */
+            : <span className="story-tapnote">Pick one</span>}
         </div>
       </div>
 
       {result && (
-        <Sheet onClose={closeSheet}>
+        <Sheet onClose={closeSheet} label="Your answer">
           {result.correct ? (
             <>
               {(item.card as any).kind === 'poll' ? (
@@ -357,7 +371,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
         </Sheet>
       )}
       {askOpen && (
-        <Sheet onClose={() => setAskOpen(false)}>
+        <Sheet onClose={() => setAskOpen(false)} label="Ask or object">
           <p className="verdict" style={{ fontSize: 'var(--ui)' }}>Ask or object</p>
           <AskCard handbookId={handbookId} chapter={item.chapter} cardIndex={item.cardIndex} deviceToken={deviceToken} />
           <button className="btn btn-ghost" onClick={() => setAskOpen(false)}>Back to the chapter</button>
