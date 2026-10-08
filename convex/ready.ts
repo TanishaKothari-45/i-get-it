@@ -2,7 +2,7 @@ import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { internalAction } from "./_generated/server";
 import { CHAPTER_PROMPT, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
-import { checkWithVersions, noQuizzes, topicKeyOf, writeVersions } from "./handbooks";
+import { checkWithVersions, drawMoves, noQuizzes, topicKeyOf, writeVersions } from "./handbooks";
 
 // Writes a new ready topic for the shelf, the same way a reader's handbook is written (plan on the plan model,
 // each chapter on the chapter model, every chapter fact-checked), then stores it in the cache and queues its pictures.
@@ -79,5 +79,29 @@ export const build = internalAction({
     // draw chapters 2 onward only when a reader first opens them (handbooks.openChapter).
     await ctx.scheduler.runAfter(120000, internal.images.backfill, { queue: plan.chapters.map((_: any, i: number) => ({ topicKey, level: "new" as const, n: i + 1 })) });
     console.log(`ready ${topic}: on the shelf as ${keys.join(", ")}; pictures queued for ${plan.chapters.length} chapters`);
+  },
+});
+
+// Rewrite one chapter of a ready topic in the current shape (8 Oct: Pool swimming chapter 1 as a body-skill lesson).
+// The plan is read as mode "skill" when it has none. Pictures are reset and redrawn; the shelf cover follows.
+// Run: npx convex run --prod ready:rewriteChapter '{"topicKey":"swim","n":1,"mode":"skill"}'
+export const rewriteChapter = internalAction({
+  args: { topicKey: v.string(), n: v.number(), mode: v.optional(v.string()) },
+  handler: async (ctx, { topicKey, n, mode }): Promise<any> => {
+    const row: any = await ctx.runQuery(internal.handbooks.readCacheChapter, { topicKey, level: "new", n });
+    if (!row?.chapter) return { ok: false, error: "no such cached chapter" };
+    const plan = { ...row.plan, mode: row.plan?.mode ?? mode ?? "skill" };
+    const topic = plan.topic ?? row.topic;
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(plan, "new", "English", "friend", n) });
+    const ch = r.ok ? r.json : null;
+    if (!ch || !Array.isArray(ch.cards) || ch.cards.length < 5) return { ok: false, error: r.ok ? "shape" : r.error };
+    const title = String(ch.title ?? plan.chapters[n - 1]?.title ?? `Chapter ${n}`);
+    const recall = (Array.isArray(ch.recallQuizzes) ? ch.recallQuizzes : []).filter((e: any) => e?.type === "exercise" && Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer)).slice(0, 2);
+    const { qv, rv } = await writeVersions(ctx, plan, topic, title, ch.cards, recall);
+    const checked = await checkWithVersions(ctx, topic, "new", title, ch.cards, recall, qv, rv);
+    await drawMoves(ctx, topic, title, checked.cards);
+    const res: any = await ctx.runMutation(internal.repairData.replaceCards, { topicKey, level: "new", n, cards: checked.cards, recallCards: checked.recallCards, resetPictures: true });
+    await ctx.scheduler.runAfter(0, internal.images.forCache, { topicKey, level: "new", n });
+    return { ok: true, title, cards: checked.cards.map((c: any) => c.type), moves: checked.cards.filter((c: any) => c.type === "move" && c.html).length, check: checked.report.status, ...res };
   },
 });

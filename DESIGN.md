@@ -223,3 +223,8 @@ Contradictions between the old principles and what's built (listed 5 Oct, all re
 4. No feed inside the chapter vs a feed-like chapter: principle rewritten ("A chapter looks like a feed but ends like a book…").
 5. The old reading-page reference: kept only for the cream pages; the Stories reference marked replaced by Prateek's Reels.
 6. Reels slides up, chapters moved sideways: chapters now also slide up (swipe up for the next frame, down to go back, frames arrive from below); tapping right and left still works.
+
+
+## The Shelf (8 Oct, Prateek: "a section called The Shelf, always accessible, neatly organised visually as handbooks")
+
+Explore is now The Shelf (src/screens/Shelf.tsx): every ready and shared handbook as a cloth-bound book standing on a wooden shelf. One shelf per kind, in this order: Trending this week, Most finished, Things to do (skills), Stories, How things work, Money/health/legal, Shared by readers, New on the shelf, the rest. A book appears once, on the first shelf it belongs to. A book: cloth in one of five colours (indigo, green, marigold, coral, ink, picked by the topic's name so it never changes), a spine strip, the cover picture pasted on as a plate, a paper title label, a small ribbon for Hot / Finished / Our pick, a tiny fixed lean. On a phone each shelf scrolls sideways; on a wide screen a shelf holds four books and a long shelf becomes several, each with its own plank. Reached from "The Shelf" in the header of every screen, from the landing page's top bar, and as Your handbooks' main button. "Surprise me" and jump links to each shelf at the top. Copy (agent).

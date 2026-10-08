@@ -18,7 +18,7 @@ import NextTopics from './components/NextTopics'
 import Sheet from './components/Sheet'
 import Pricing from './screens/Pricing'
 import Landing from './screens/Landing'
-import Explore from './screens/Explore'
+import Shelf from './screens/Shelf'
 import WhatsNext from './components/WhatsNext'
 import SignupNudge from './components/SignupNudge'
 
@@ -177,6 +177,7 @@ export default function App() {
   const libRows = lib?.handbooks ?? []
   // Home is your shelf when you have handbooks; a first-time visitor's home is the landing page.
   goHome = () => { setDoneN(null); if (libRows.length) setView('library'); else { setView('auto'); window.scrollTo({ top: 0 }) } }
+  goShelf = () => { setDoneN(null); goExplore() }
 
   // Library and pricing can be reached from anywhere, with or without a current handbook.
   if (view === 'library') {
@@ -199,7 +200,7 @@ export default function App() {
   if (view === 'explore') {
     return (
       <Shell>
-        <Explore onBack={() => setView(exploreFrom)}
+        <Shelf onBack={() => setView(exploreFrom)}
           onReady={async (topic) => { const r = await create({ topic, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setView('auto') }}
           onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />
       </Shell>
@@ -259,7 +260,7 @@ export default function App() {
         <button type="button" className="quiet" onClick={() => setView('pricing')}>Pricing</button>
         <a className="quiet" href={`/print?h=${hb._id}`} target="_blank" rel="noopener">Print or save as PDF</a>
         <button type="button" className="quiet" onClick={() => { setDraftTopic(''); setView('start-again') }}>Start another topic</button>
-        <button type="button" className="quiet" onClick={goExplore}>Explore what others are learning</button>
+        <button type="button" className="quiet" onClick={goExplore}>The Shelf</button>
       </div>
     </>
   ) : undefined
@@ -405,6 +406,7 @@ export default function App() {
 
 // The wordmark takes you home (7 Oct, Prateek): App sets this on every render; there is one App.
 let goHome: (() => void) | null = null
+let goShelf: (() => void) | null = null
 
 function Shell({ children, onSignOut, rail, back }: { children: React.ReactNode; onSignOut?: () => Promise<void> | void; rail?: React.ReactNode; back?: { label: string; onClick: () => void } }) {
   // The member mark (7 Oct): paying should show, on every screen.
@@ -415,6 +417,8 @@ function Shell({ children, onSignOut, rail, back }: { children: React.ReactNode;
     <div className="shell">
       <header className="top">
         <button type="button" className="wordmark wordmark-btn" onClick={() => goHome?.()} aria-label="I Get It, home">I Get It{member && <span className="member-mark">Member</span>}<small>Seven chapters. Twenty minutes a night.</small></button>
+        {/* The Shelf (8 Oct, Prateek): always one tap away, on every screen. */}
+        <button type="button" className="shelf-link" onClick={() => goShelf?.()}>The Shelf</button>
         <span style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
           {back && <button type="button" className="back-link" onClick={back.onClick}>← {back.label}</button>}
           {onSignOut && <button type="button" className="quiet hide-phone" onClick={() => onSignOut()}>Sign out</button>}

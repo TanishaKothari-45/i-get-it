@@ -32,7 +32,7 @@ export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSig
       <p style={{ marginTop: 'var(--l)' }}><button type="button" className="quiet" onClick={onPlans}>Free and member, side by side</button></p>
       {/* 8 Oct (UX review #4): the way to other topics was only in the handbook menu, so readers looped here. */}
       <ActionBar>
-        <button className="btn" onClick={onExplore}>Explore topics</button>
+        <button className="btn" onClick={onExplore}>The Shelf</button>
         <button type="button" className="btn btn-ghost" style={{ marginTop: 8 }} onClick={onNew}>Start another topic</button>
       </ActionBar>
     </>

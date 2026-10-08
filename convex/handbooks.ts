@@ -612,6 +612,40 @@ export async function factCheck(ctx: any, topic: string, level: string, title: s
   return { cards: out, report: { status: applied > 0 ? "fixed" : "passed", fixes: applied, notes, model: r.model, at: Date.now() } };
 }
 
+// Body skills (8 Oct): each "move" card gets its moving figure, drawn by Sonnet from the cues. A failed drawing
+// leaves the cues alone on the card; the chapter is never held up by it.
+export async function drawMoves(ctx: any, topic: string, title: string, cards: any[]) {
+  for (const c of cards) {
+    if (c?.type !== "move" || c.html) continue;
+    const m = await ctx.runAction(internal.ai.generate, { kind: "move", system: MOVE_PROMPT, user: moveUserMessage(topic, title, c) });
+    if (m.ok && typeof m.json?.html === "string" && !/(src|href)\s*=\s*["']https?:|\bfetch\(|localStorage/i.test(m.json.html)) c.html = String(m.json.html).slice(0, 40000);
+  }
+}
+
+// Rewrite a live handbook's chapter 1 in the current shape (8 Oct, Prateek: the calisthenics readers). The reader's
+// place in chapter 1 goes back to the start; chapter 2, if written in the old shape, is marked stale so it is rewritten
+// when opened. Run: npx convex run --prod handbooks:rewriteChapterOne '{"handbookId":"..."}'
+export const rewriteChapterOne = internalAction({
+  args: { handbookId: v.id("handbooks") },
+  handler: async (ctx, { handbookId }) => {
+    await ctx.runMutation(internal.handbooks.markRewrite, { handbookId });
+    await ctx.runAction(internal.handbooks.generateChapter, { handbookId, n: 1 });
+    const ch: any = await ctx.runQuery(internal.handbooks.readChapterRow, { handbookId, n: 1 });
+    return { status: ch?.status, cards: (ch?.cards ?? []).map((c: any) => c.type), moves: (ch?.cards ?? []).filter((c: any) => c.type === "move" && c.html).length };
+  },
+});
+export const markRewrite = internalMutation({
+  args: { handbookId: v.id("handbooks") },
+  handler: async (ctx, { handbookId }) => {
+    const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", 1)).unique();
+    if (ch) await ctx.db.patch(ch._id, { status: "writing", pictures: [], picturesStatus: undefined });
+    const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", handbookId)).unique();
+    if (p && !p.chaptersPassed.includes(1)) await ctx.db.patch(p._id, { currentChapter: 1, currentCard: 0, currentPart: 0 });
+    const two = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", 2)).unique();
+    if (two?.status === "ready") await ctx.db.patch(two._id, { stale: true });
+  },
+});
+
 export const generateChapter = internalAction({
   args: { handbookId: v.id("handbooks"), n: v.number() },
   handler: async (ctx, { handbookId, n }) => {
@@ -638,13 +672,7 @@ export const generateChapter = internalAction({
     const { qv, rv } = await writeVersions(ctx, h.plan, h.plan?.topic ?? h.topic, title, ch.cards, recall, h.writer);
     const { cards, recallCards, quizTiers, recallTiers, report } = await checkWithVersions(ctx, h.plan?.topic ?? h.topic, h.level, title, ch.cards, recall, qv, rv, h.writer);
     const checked = { report };
-    // Body skills (8 Oct): each "move" card gets its moving figure, drawn by Sonnet from the cues. A failed drawing
-    // leaves the cues alone on the card; the chapter is never held up by it.
-    for (const c of cards as any[]) {
-      if (c?.type !== "move" || c.html) continue;
-      const m = await ctx.runAction(internal.ai.generate, { kind: "move", system: MOVE_PROMPT, user: moveUserMessage(h.plan?.topic ?? h.topic, title, c) });
-      if (m.ok && typeof m.json?.html === "string" && !/(src|href)\s*=\s*["']https?:|\bfetch\(|localStorage/i.test(m.json.html)) c.html = String(m.json.html).slice(0, 40000);
-    }
+    await drawMoves(ctx, h.plan?.topic ?? h.topic, title, cards);
     await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), svg: typeof ch.svg === "string" ? ch.svg.slice(0, 2000) : undefined, model: r.model, factCheck: checked.report, quizTiers, recallTiers });
     if (shareable && n > 1 && !h.test) await ctx.runMutation(internal.library.saveChapter, { handbookId, n });
     // Pictures come after the words. Chapter 1 is drawn now (it opens at once and gives the cover); later chapters are

@@ -141,6 +141,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
     <div className="lp">
       <header className="lp-top">
         <a className="lp-mark" href="/">I Get It</a>
+        <button type="button" className="lp-top-shelf" onClick={onExplore}>The Shelf</button>
         <button type="button" className="lp-top-cta" onClick={toBox}>Start tonight</button>
       </header>
 

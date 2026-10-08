@@ -840,3 +840,37 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 
 .story-next { background: none; border: 0; color: inherit; font: inherit; font-weight: 700; padding: 10px 14px; margin: -10px -14px -10px auto; border-radius: 999px; min-height: 44px; }
 .story-next:active { opacity: 0.6; }
+
+/* The Shelf (8 Oct): cloth-bound books on wooden shelves. One shelf per kind; a book appears once. */
+.shelf-link { background: none; border: 1.5px solid var(--ink); color: var(--ink); border-radius: 999px; padding: 7px 12px; font: 700 0.85rem var(--sans); margin-left: 12px; min-height: 36px; white-space: nowrap; }
+.shelf-link:active { transform: scale(0.97); }
+.lp-top-shelf { background: none; border: 1.5px solid var(--ink); color: var(--ink); border-radius: 999px; padding: 8px 12px; font: 700 0.85rem var(--sans); margin-left: auto; margin-right: 10px; min-height: 36px; }
+.shelf-page { padding-bottom: 80px; }
+.shelf-page h1 { margin-top: 10px; }
+.shelf-tools { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 10px; margin: 8px 0 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.shelf-tools::-webkit-scrollbar { display: none; }
+.shelf-tools .chip { white-space: nowrap; text-decoration: none; flex: none; }
+.shelf-sec { margin-top: 26px; scroll-margin-top: 16px; }
+.shelf-head h2 { font-family: var(--serif); font-weight: 700; font-size: 1.35rem; letter-spacing: -0.01em; margin: 0; }
+.shelf-head .note { margin: 2px 0 10px; }
+.shelf-books { list-style: none; margin: 0; padding: 14px 6px 0; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x proximity; align-items: flex-end; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.shelf-books::-webkit-scrollbar { display: none; }
+.shelf-books li { flex: none; scroll-snap-align: start; transform: rotate(var(--lean, 0deg)); transform-origin: 50% 100%; }
+@media (min-width: 640px) { .shelf-books { overflow: visible; } .shelf-row + .shelf-row { margin-top: 10px; } }
+.book { all: unset; box-sizing: border-box; cursor: pointer; position: relative; display: block; width: 132px; height: 184px; border-radius: 3px 9px 9px 3px; padding: 12px 10px 10px 18px; color: var(--paper);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 2px 3px 0 rgba(27,26,23,0.25), 6px 8px 14px rgba(27,26,23,0.18);
+  background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 3px); }
+.book:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.book:active { transform: translateY(2px); }
+.cloth-indigo { background-color: #2f3e8c; } .cloth-green { background-color: #1f7a4d; } .cloth-marigold { background-color: #d9902a; } .cloth-coral { background-color: #c8603f; } .cloth-ink { background-color: #2a2825; }
+.book-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 12px; border-radius: 3px 0 0 3px; background: linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.12) 60%, rgba(255,255,255,0.08)); }
+.book-spine::before, .book-spine::after { content: ''; position: absolute; left: 3px; right: 3px; height: 1px; background: rgba(255,255,255,0.35); top: 14px; }
+.book-spine::after { top: auto; bottom: 14px; }
+.book-cover { display: block; aspect-ratio: 4 / 3; border-radius: 4px; overflow: hidden; background: #faf7f0; box-shadow: 0 0 0 2px rgba(250,247,240,0.9), inset 0 0 0 1px rgba(27,26,23,0.2); }
+.book-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.book-cover-blank { display: flex; align-items: center; justify-content: center; height: 100%; font: 800 2.2rem var(--sans); color: var(--ink); }
+.book-plate { position: absolute; left: 20px; right: 10px; bottom: 10px; background: #faf7f0; color: var(--ink); border-radius: 3px; padding: 6px 7px; box-shadow: 0 1px 0 rgba(0,0,0,0.25); display: grid; gap: 1px; }
+.book-title { font: 700 0.78rem/1.15 var(--serif); letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.book-goal { font: 500 0.62rem/1.2 var(--sans); color: var(--fg2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.book-ribbon { position: absolute; top: -6px; right: 8px; background: #e0735a; color: var(--ink); font: 700 0.62rem var(--sans); padding: 3px 7px; border-radius: 3px; box-shadow: 0 1px 0 rgba(0,0,0,0.3); }
+.shelf-plank { height: 16px; margin: -2px -6px 0; border-radius: 3px; background: linear-gradient(180deg, #b98652, #9a6a3b 55%, #7b5230); box-shadow: 0 6px 10px rgba(27,26,23,0.22), inset 0 1px 0 rgba(255,255,255,0.25); }
