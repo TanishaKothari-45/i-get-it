@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { Component, StrictMode, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ConvexReactClient } from 'convex/react'
 import { ConvexAuthProvider } from '@convex-dev/auth/react'
@@ -8,7 +8,7 @@ import Stats from './screens/Stats'
 import Admin from './screens/Admin'
 import Policy, { POLICY_PAGES, type PolicyPage } from './screens/Policy'
 import Print from './screens/Print'
-import { initTrack, startSession } from './lib/track'
+import { initTrack, startSession, track } from './lib/track'
 import { registerServiceWorker, captureInstallPrompt } from './lib/push'
 import { api } from '../convex/_generated/api'
 import { deviceToken } from './lib/device'
@@ -32,10 +32,27 @@ if (!onStats && !onAdmin && !policy && !onPrint) {
   convex.mutation(api.stats.recordVisit, { visitor: deviceToken(), source: utm ?? ref }).catch(() => {})
 }
 
+// A crash anywhere used to leave a blank page (8 Oct, found on Public speaking chapter 1). Now: one plain line and a
+// reload button, and the error is counted so /admin can see it. Copy (agent).
+class Safety extends Component<{ children: ReactNode }, { err: string | null }> {
+  state = { err: null as string | null }
+  static getDerivedStateFromError(e: unknown) { return { err: String((e as any)?.message ?? e).slice(0, 160) } }
+  componentDidCatch(e: unknown) { track('crash', { m: String((e as any)?.message ?? e).slice(0, 120), path: window.location.pathname }) }
+  render() {
+    if (!this.state.err) return this.props.children
+    return (
+      <div className="splash" style={{ padding: 24, textAlign: 'center' }}>
+        <p className="serif" style={{ fontSize: 20, marginBottom: 12 }}>Something broke on our side. Your place is saved.</p>
+        <button type="button" className="btn" onClick={() => window.location.reload()}>Reload</button>
+      </div>
+    )
+  }
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ConvexAuthProvider client={convex}>
-      {onPrint ? <Print /> : policy ? <Policy page={policy} /> : onAdmin ? <Admin /> : onStats ? <Stats /> : <App />}
+      <Safety>{onPrint ? <Print /> : policy ? <Policy page={policy} /> : onAdmin ? <Admin /> : onStats ? <Stats /> : <App />}</Safety>
     </ConvexAuthProvider>
   </StrictMode>,
 )

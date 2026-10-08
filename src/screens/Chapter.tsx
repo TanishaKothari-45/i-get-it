@@ -54,8 +54,9 @@ function safeUrl(u: string): string {
 }
 
 // One idea per frame: split a card into paragraphs, folding a very short one into the next.
-function paragraphs(text: string): string[] {
+function paragraphs(text: string | undefined): string[] {
   const out: string[] = []
+  if (typeof text !== 'string') return ['']
   for (const p of text.split(/\n\n+/).map((s) => s.trim()).filter(Boolean)) {
     if (out.length && out[out.length - 1].split(/\s+/).length < 14) out[out.length - 1] += '\n\n' + p
     else out.push(p)
@@ -94,6 +95,8 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
       const c = item.card
       if (c.type === 'exercise') { out.push({ item, part: 0, parts: 1, tone: 'ink' }); continue }
       if (c.type === 'watch') { out.push({ item, part: 0, parts: 1, tone: 'indigo' }); continue }
+      // A card the screen can't show (8 Oct: a "poll" card from an old rewrite blanked the whole chapter) is skipped, never fatal.
+      if (typeof (c as any).body !== 'string') continue
       const ps = paragraphs(c.body)
       ps.forEach((text, part) => {
         const tone: Tone = c.type === 'picture' ? (part === 0 ? 'ink' : 'indigo') : c.type === 'example' ? 'cream' : c.type === 'mistake' ? 'coral' : c.type === 'try' ? 'green' : TEACH_TONES[t++ % TEACH_TONES.length]

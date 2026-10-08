@@ -6,6 +6,7 @@ import { DOCTOR_PROMPT } from "./prompts";
 import { factCheck } from "./handbooks";
 import { isOwner } from "./admin";
 import { FROZEN } from "./frozen";
+import { problems } from "./schemas";
 
 // Self-improving handbooks (6 Oct, Prateek: "if multiple people start and quit a handbook, generate a much better
 // output... and see the A/B test results"). Ready topics only: their chapter 1 is shared, so one fix serves everyone.
@@ -59,7 +60,8 @@ export const diagnose = internalAction({
     const exercises = cards.filter((c: any) => c?.type === "exercise");
     if (cards.length < 6 || !exercises.every((e: any) => Array.isArray(e.options) && e.options.length === 3 && e.options.some((o: any) => o.id === e.answer))) return { ok: false, error: "rewrite failed the shape check" };
     const checked = await factCheck(ctx, row.plan?.topic ?? topic, row.level, ch.title ?? "", cards);
-    const id: Id<"experiments"> = await ctx.runMutation(internal.doctor.start, { topic, topicKey: row.topicKey, level: row.level, diagnosis: String(r.json.diagnosis ?? "").slice(0, 800), lesson: String(r.json.lesson ?? "").slice(0, 300), evidence, b: { title: ch.title, cards: checked.cards, outcomeLine: ch.outcomeLine } });
+    const id: Id<"experiments"> | null = await ctx.runMutation(internal.doctor.start, { topic, topicKey: row.topicKey, level: row.level, diagnosis: String(r.json.diagnosis ?? "").slice(0, 800), lesson: String(r.json.lesson ?? "").slice(0, 300), evidence, b: { title: ch.title, cards: checked.cards, outcomeLine: ch.outcomeLine } });
+    if (!id) return { ok: false, error: "the rewrite had a card the app can't show" };
     await ctx.scheduler.runAfter(0, internal.images.forExperiment, { experimentId: id });
     return { ok: true, id, diagnosis: r.json.diagnosis, lesson: r.json.lesson };
   },
@@ -71,9 +73,45 @@ export const readTopic = internalQuery({
 });
 export const readExperiment = internalQuery({ args: { id: v.id("experiments") }, handler: async (ctx, { id }) => ctx.db.get(id) });
 
+// A rewrite the app can't show (8 Oct: B chapter 1s with a "poll" card and no body blanked the screen for half of
+// Public speaking's new readers). Checked against the chapter schema before a test starts and before a reader is put on B.
+export function unshowable(b: any): string | null {
+  return problems("chapter", { title: String(b?.title ?? "chapter 1"), cards: Array.isArray(b?.cards) ? b.cards : [] });
+}
 export const start = internalMutation({
   args: { topic: v.string(), topicKey: v.string(), level: v.union(v.literal("new"), v.literal("some")), diagnosis: v.string(), lesson: v.string(), evidence: v.any(), b: v.any() },
-  handler: async (ctx, a) => ctx.db.insert("experiments", { ...a, status: "running", aStarts: 0, aPasses: 0, bStarts: 0, bPasses: 0, startedAt: Date.now() }),
+  handler: async (ctx, a) => {
+    const bad = FROZEN.has(a.topic) ? "topic is frozen (shown in a live post or ad)" : unshowable(a.b);
+    if (bad) { console.log("doctor: B rejected", a.topic, bad.slice(0, 200)); return null; }
+    return ctx.db.insert("experiments", { ...a, status: "running", aStarts: 0, aPasses: 0, bStarts: 0, bPasses: 0, startedAt: Date.now() });
+  },
+});
+// Stop every running test whose B the app can't show, or whose topic is frozen, and put its B readers back on the
+// normal chapter 1 (cards, pictures and recall from the cache row). Run: npx convex run --prod doctor:stopBroken '{}'
+export const stopBroken = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const out: any[] = [];
+    const books = await ctx.db.query("handbooks").collect();
+    for (const e of await ctx.db.query("experiments").collect()) {
+      if (e.status !== "running") continue;
+      const why = unshowable(e.b) ? "B has a card the app can't show" : FROZEN.has(e.topic) ? "topic is frozen" : null;
+      if (!why) continue;
+      await ctx.db.patch(e._id, { status: "stopped", endedAt: Date.now() });
+      const cache = await ctx.db.query("cache").withIndex("by_key", (q) => q.eq("topicKey", e.topicKey).eq("level", e.level)).unique();
+      const a: any = cache?.chapters.find((c: any) => c.n === 1);
+      let moved = 0;
+      for (const h of books) {
+        if (h.experimentId !== e._id || h.variant !== "b") continue;
+        const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", h._id).eq("n", 1)).unique();
+        if (ch && a) await ctx.db.patch(ch._id, { cards: a.cards, pictures: a.pictures ?? [], recallCards: a.recallCards, quizTiers: a.quizTiers, recallTiers: a.recallTiers, cacheVersion: cache!.version } as any);
+        await ctx.db.patch(h._id, { variant: "a" });
+        moved++;
+      }
+      out.push({ topic: e.topic, why, bReadersMovedToA: moved });
+    }
+    return out;
+  },
 });
 export const setBPictures = internalMutation({
   args: { id: v.id("experiments"), pictures: v.any() },
@@ -92,7 +130,9 @@ export const setBPictures = internalMutation({
 
 // Called when a reader starts a ready topic: if it has a running test, pick a side (half and half by their phone).
 export async function assignVariant(ctx: MutationCtx, topic: string, deviceToken: string): Promise<{ experimentId: Id<"experiments">; variant: "a" | "b"; b: any } | null> {
-  const e = (await ctx.db.query("experiments").withIndex("by_topic", (q) => q.eq("topic", topic).eq("level", "new")).collect()).find((x) => x.status === "running");
+  // Frozen topics (frozen.ts) never split readers: what a post shows must be what the app shows (8 Oct, 71).
+  if (FROZEN.has(topic)) return null;
+  const e = (await ctx.db.query("experiments").withIndex("by_topic", (q) => q.eq("topic", topic).eq("level", "new")).collect()).find((x) => x.status === "running" && !unshowable(x.b));
   if (!e) return null;
   let h = 0; for (const c of deviceToken + e._id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
   const variant = h % 2 === 0 ? "a" : "b";
