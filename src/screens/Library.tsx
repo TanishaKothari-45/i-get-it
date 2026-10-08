@@ -20,20 +20,25 @@ export default function Library({ rows, signedIn, activeId, onOpen, onNew, onSig
       <ul className="shelf">
         {rows.map((r) => (
           <li key={r._id}>
+            {/* A book on its side (8 Oct, print shop): cloth spine, paper label, printed rungs. The open one is pressed. */}
             <button type="button" className={`shelf-card${r._id === activeId ? ' active' : ''}`} onClick={() => onOpen(r._id)}>
-              <span className="shelf-top"><span className="shelf-topic">{r.topic}</span><span className="shelf-when">{ago(r.lastAt)}</span></span>
-              <span className="shelf-bar" aria-label={`${r.passed} of ${r.total ?? 7} chapters done`}>{Array.from({ length: r.total ?? 7 }, (_, k) => <span key={k} className={k < r.passed ? 'on' : ''} />)}</span>
-              <span className="shelf-next">{r.status !== 'ready' ? 'Being written…' : r.passed >= (r.total ?? 7) ? `All ${r.total ?? 7} chapters done` : `Next: chapter ${r.current}`}</span>
+              <span className="shelf-spine" aria-hidden="true" />
+              <span className="shelf-body">
+                <span className="shelf-top"><span className="shelf-topic">{r.topic}</span><span className="shelf-when">{ago(r.lastAt)}</span></span>
+                <span className="shelf-bar" aria-label={`${r.passed} of ${r.total ?? 7} chapters done`}>{Array.from({ length: r.total ?? 7 }, (_, k) => <span key={k} className={k < r.passed ? 'on' : ''} />)}</span>
+                <span className="shelf-next">{r.status !== 'ready' ? 'Being written…' : r.passed >= (r.total ?? 7) ? `All ${r.total ?? 7} chapters done` : `Next: chapter ${r.current}`}</span>
+              </span>
             </button>
           </li>
         ))}
       </ul>
-      {!signedIn && rows.length > 0 && <SignupNudge onSignIn={onSignIn} context="library" />}
+      {/* The nudge is the short form here (8 Oct, print shop): the handbooks are the page, the account is a footnote. */}
+      {!signedIn && rows.length > 0 && <SignupNudge onSignIn={onSignIn} context="library" compact />}
       <p style={{ marginTop: 'var(--l)' }}><button type="button" className="quiet" onClick={onPlans}>Free and member, side by side</button></p>
       {/* 8 Oct (UX review #4): the way to other topics was only in the handbook menu, so readers looped here. */}
       <ActionBar>
         <button className="btn" onClick={onExplore}>The Shelf</button>
-        <button type="button" className="btn btn-ghost" style={{ marginTop: 8 }} onClick={onNew}>Start another topic</button>
+        <button type="button" className="quiet" onClick={onNew}>Start another topic</button>
       </ActionBar>
     </>
   )

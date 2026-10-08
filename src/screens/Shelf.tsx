@@ -54,7 +54,7 @@ export default function Shelf({ onReady, onShared, onBack }: Props) {
       <p className="lede">Every handbook here opens at once, no sign-in. Pick one up.</p>
       {note && <p className="error" role="alert">{note}</p>}
       <div className="shelf-tools">
-        <button type="button" className="chip" onClick={surprise}>🎲 Surprise me</button>
+        <button type="button" className="chip" onClick={surprise}>Surprise me</button>
         {shelves.map((s) => <a key={s.key} className="chip" href={`#shelf-${s.key}`}>{s.label}</a>)}
       </div>
       {!items ? <p className="note">Dusting the shelves…</p> : shelves.map((s) => (
