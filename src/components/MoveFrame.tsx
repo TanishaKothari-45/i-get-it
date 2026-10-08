@@ -1,4 +1,5 @@
 import Rich from './Rich'
+import { lockDown } from '../lib/sandbox'
 
 // "Move" card (8 Oct): the move shown moving. A looping, code-drawn figure written by the model, in a locked box
 // (no network, no storage, scripts only), with the cues to watch for under it. Until the figure lands, the cues alone.
@@ -9,7 +10,7 @@ export default function MoveFrame({ card }: { card: MoveCard }) {
     <div className="move no-tap">
       <p className="story-kicker">{card.title ?? 'The move'}</p>
       {card.html ? (
-        <div className="move-box"><iframe title={card.title ?? 'The move'} sandbox="allow-scripts" srcDoc={card.html} /></div>
+        <div className="move-box"><iframe title={card.title ?? 'The move'} sandbox="allow-scripts" srcDoc={lockDown(card.html)} /></div>
       ) : (
         <div className="move-box move-pending" aria-label="The figure is being drawn" />
       )}

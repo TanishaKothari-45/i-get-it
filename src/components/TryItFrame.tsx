@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { lockDown } from '../lib/sandbox'
 
 // "Try it" card (8 Oct, block 2): the chapter's one idea as a small interactive page the reader works with their thumb
 // (drag the bakery's value, bend the screen). Written once per chapter by Sonnet, shown in a locked box: no network,
@@ -24,7 +25,7 @@ export default function TryItFrame({ card, done, onDone }: Props) {
       <p className="story-kicker">{card.title ?? 'Try it'}</p>
       <p className="story-text size-md" style={{ marginBottom: 10 }}>{card.idea}</p>
       {card.html ? (
-        <div className="tryit-box"><iframe ref={box} title={card.title ?? 'Try it'} sandbox="allow-scripts" srcDoc={card.html} /></div>
+        <div className="tryit-box"><iframe ref={box} title={card.title ?? 'Try it'} sandbox="allow-scripts" srcDoc={lockDown(card.html)} /></div>
       ) : (
         <div className="tryit-box move-pending" aria-label="Being built" />
       )}
