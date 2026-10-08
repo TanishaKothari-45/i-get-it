@@ -39,11 +39,15 @@ Caution: /admin's 88 visitors include our own review agents (05 alone ran about 
 
 Lessons for 8 Oct are in docs/lessons.md (five under Product/Tech, session 05).
 
-**Shipped (one static deploy, DEPLOY_LINE)**
+**Shipped (two static deploys: b052149 at 00:5x and 3eb0e2b at 02:4x, both proven by scripts/prove-path.mjs on prod: PASS)**
 - The print language on every screen: ink stroke, pressed shadow, paper rule, grain, marker highlights, printed kickers. Chapter frames, plan, Done, sign-in, pricing, policy, Shelf, Your handbooks, Start, Print. 14 screens measured from the DOM at 390 px (tap targets 44 px and up, contrast 4.5:1 and up on body text); the Shelf chip misalignment you caught is fixed and was the last open item in that sweep.
 - The book opens (your ask, 00:1x): tap a book on the Shelf or the landing carousel and it lifts, grows and opens into chapter 1; every frame is a page that turns in from the right going forward and from the left going back. Transform and opacity only, about a third of a second, one picture prefetched ahead, nothing extra on save-data or 2G, all off under reduced motion. The screen underneath stays until the chapter has its cards, so there is no splash or plan flash.
-- The Shelf control (D21, your 00:4x ask): a printed marigold button with a book and the word "Shelf" (44 px) in the header of every screen except the Shelf itself; a printed strip with the live count ("N handbooks on the Shelf, ready to open.") under the typed box on the landing, under the wall card on Done, and on the plan. Before and after at 390 px: SHOTS_LINE
-- Activities never gate the arrow (D24): a do-it, try-it, steps or move card is an invitation; → works from the moment it shows. Only a quiz holds. The do-it card says "Or just tap → to keep going."
+- The Shelf control (D21, your 00:4x ask): a printed marigold button with a book and the word "Shelf" (44 px) in the header of every screen except the Shelf itself; a printed strip with the live count ("N handbooks on the Shelf, ready to open.") under the typed box on the landing, under the wall card on Done, and on the plan. Before and after at 390 px: docs/shots/2026-10-09/before-landing.jpg → after-landing.jpg, before-done.jpg → after-done-1.jpg and after-done-2-wall.jpg.
+- Activities never gate the arrow (D24): a do-it, try-it, steps or move card is an invitation; → works from the moment it shows. Only a quiz holds. The do-it card says "Or just tap → to keep going." Verified in code and by walking three body-skill chapters (dev and prod); none of them put a do-it card in chapter 1 tonight, so the "nothing logged, arrow advances" case was not seen on a real do-it card. Worth one tap on your phone on a calisthenics chapter.
+- The wall after chapter 2 (D26, your 01:4x): Done after chapter 1 has "Start chapter 2" as its one main button and "Want it on every device? Make a free account" as the quiet line; after chapter 2 the wall card says "Chapter 3 is free with an account." The number comes from the server's limits field (membership.status), so it lives in one place. Shots: after-done-1.jpg, after-done-2-wall.jpg.
+- A post link to one shared handbook (D25): ?l=<library id> starts it the way a Shelf tap does and opens chapter 1 with the book lifted (after-link-opening.jpg → after-link-chapter1.jpg); a phone that has it opens where it was; a junk id lands on the Shelf quietly. prove-path scenario 3 covers both halves. a2 has the ids.
+- The typed line is the name everywhere (D28): the plan h1, the rail, the chapter header, Done, the menu and the compare screen all show what was typed, first letter capitalised; the model's own title is no longer displayed by the app (55 reset the server rows).
+- The wait-screen story as pages (D29, your 02:1x; second deploy): one story at a time as swipeable pages with arrows and dots, picture on page 1, source on the last, "Next story →" and "Add this handbook" always under it ("Added. It's on your shelf." keeps you on the wait screen), "From <typed name>". When the handbook gets ready while you're mid-story, "Open your handbook →" appears above the story and nothing moves until you tap. Shots: after-wait-page1.jpg, after-wait-page2.jpg, after-wait-ready.jpg. Today's one-paragraph stories show as one page with no arrows.
 - Quick handbooks on Done (D23): no wall between the chapters of a recipe or a one-off task, no reminder, no "tomorrow"; one button, "Keep going"; a one-chapter handbook's Done says "Done." and "That's all of it. Quick and done." The plan hides the Tonight/Next tags on a quick handbook.
 - Phone Back button: every screen is a history entry, so Back goes to the previous screen instead of leaving the site.
 - Sign-up from the wall no longer bounces to sign-in (the attach race). Sign-in from the wall names the chapter and the topic, says who sends the code and that it takes about twenty seconds, keeps the password route behind "I already have a password".
@@ -59,12 +63,14 @@ Lessons for 8 Oct are in docs/lessons.md (five under Product/Tech, session 05).
 2. Chapter: swipe or tap → through a do-it or try-it card without logging anything; it must advance. Pages turn; the picture plate shows stripes until the picture lands, never a hard-edged empty box.
 3. Done after chapter 1: outcome line first, then the wall card, the price as a note, the Shelf strip. Make a free account from there: you should land in chapter 2, not back on sign-in.
 4. Press the phone's Back button on the plan: previous screen, not the Chrome new-tab page.
-5. The dal handbook (quick): no reminder on Done, "Keep going", no Tonight/Next tags on its plan.
+5. A quick handbook (the dal one, or the lasagna one on dev: after-quick-done.jpg, after-quick-plan.jpg): no reminder on Done, "Keep going", no Tonight/Next tags on its plan.
+6. Type a new topic and, on the wait screen, swipe the story and tap "Next story →"; when the handbook is ready the button appears above the story.
 
 **Open**
 - The landing is 9.95 screens tall at 390 (parked to Sunday, D14).
 - Our headless visits (about 60 tonight, all tagged ?utm_source=internal) are counted on /admin and not on /stats.
-- PROVE_LINE
+- The dev deployment's waitStory had the new 4-to-6-frame stories at 02:3x; prod shows one-page stories until 55 runs stories:buildAll.
+- Our headless runs tonight made about 8 more handbooks on dev (two typed: suspension bridges, why the sky is blue) and about 6 on prod from the Shelf, all tagged internal.
 
 ## Session 55
 
