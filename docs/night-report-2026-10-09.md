@@ -74,7 +74,31 @@ Lessons for 8 Oct are in docs/lessons.md (five under Product/Tech, session 05).
 
 ## Session 55
 
-(55 writes here: what shipped, the picture shrink and originals delete status, what to check, what's open.)
+**Shipped tonight, all on prod (functions deploys at 23:38, 00:40, 00:50 and 00:55; the site builds carry my screen changes):**
+- Tanisha's feat/observability brought in by hand (D15): call log with handbook/chapter/tries, callStats, /admin "AI pipeline", Langfuse export (numbers only), research v5 after the goal on Gemini Flash, plans and chapters on Gemini Flash with Opus backup, chapter 1 as its own step, fact check writes the picture scenes, quiz versions in the background, no SVG, library check on its own schema, privacy page updated. Dev test: goal to chapter 1 in 110 s, ₹7.23 a handbook (was about ₹25). Flash chapters measured the 6 Oct way on two topics: 0 false, 3 and 1 misleading (docs/measure/2026-10-08-flash-slips.md).
+- Pictures stored at ~900 px JPEG (~100 KB) instead of 3.5 MB PNG; backfill images:shrinkAll ran on prod (see the originals line below).
+- Free day budget now covers chapter writes, compares, asks and teach-backs; anonymous creations share an app-wide bucket; a profiled chapter 1 is never shared.
+- UX from four review agents (first-time phone, returning reader + desktop, account/money, accessibility + weight): Library's main button continues the last handbook by name; "Who teaches you, and how"; pricing chips one price each, the next tier as a line, "when your paid days end" rule, D20 row; Terms matches Privacy; Print links; goal screen says it is thinking; wait screen times match the pipeline; 200-char counter; level heading; "Other handbooks you might like" lists ready/shared only (a typed link spent the free handbook with no warning); Policy back link; contrast on Pricing/stats; Plan: "Start chapter N (free account)", declined state, shelf strip slot.
+- D22: the early-bird spot count ignores the owner's own payment (50 of 50 left).
+- D23: a recipe, a single how-to or any one-off task is ONE chapter with every step: a "What you need" checklist first (quantities, serves, total time), then steps with timings, mistake, breath; never a move or a timer; a typed "how to make/cook/bake X" or "…recipe" line is one sitting whatever research labelled it (research called dal a skill once). Quick handbooks skip the sign-up wall and the daily limit and are written whole at plan time. Your dal (k970557) was rebuilt three times tonight and is now one chapter, "From Dry Lentils to Sizzling Tadka".
+- D24: no activity (do-it, move, steps, try-it) ever gates finishing a chapter; a chapter with no quiz passes on reaching its last card; logged sets are optional. Proved on dev with 0 sets.
+- D26: the sign-up wall is after chapter 2 (visitorChapters 2); chapter 3 needs the free account.
+- D27: a skill, a subject or a money/health/legal brief is a 7-chapter course (one retry, then Opus); chapters 2 to 7 have a hard floor of 30 paragraphs and 800 words (prompt asks 30 / 1,000), chapter 1 a floor of 12 / 350 (asks 15 to 18 / 450); one retry with the counts stated, then the Opus backup; paragraphs, words, floorTries and bounced are on each chapter's call row for /admin. Measured on dev: stock market → 7 chapters; chapter 1: 18 paragraphs / 467 words first try; chapter 2: 24 / 975 on the second try (before the floor went to 30).
+- D28: a handbook is named by what the person typed, never the model's title (library, shelf, your list, print, recap). Renamed on prod: Building a swing trading assistant → I want to build a swing trading AI agent; The science of consciousness → Philosophy, scientific spirituality; Investing in the stock market → The stock market; Investing in Indian stocks → Indian stock market basics; Calisthenics for beginners → Calisthenics for beginner; Explosive calisthenics → Calisthenics; How to Make Dal → How to make dal; Advanced Rhetoric and Persuasion → Public speaking advanced level; plus two hidden test rows. "n8n" keeps its spelling.
+- D29/D29a: three true teaser stories per ready handbook for the writing wait (Opus medium, from the handbook's own chapters and named sources, run through the chapter fact check; a story with a claim the check calls false or unsupported is dropped, never softened); the wait query picks a genre, then a handbook, then a story, never the one being written, and returns all frames plus a one-tap start. Sample built on dev (World War II: Ebert's "no enemy has overcome you", Dunkirk's 45,000 → 338,000, Midway's fake water-plant message); the prod build waits on dc's yes.
+- Not-a-topic check: "asdfgh" gets a plain question and the answer becomes the topic, no generation spent.
+
+**Check on your phone:** type "how to make maggi": one chapter, a "What you need" checklist first, no timer, finish by reaching the end. Open Your handbooks: the main button continues your last handbook. Pricing: one price per chip, "50 of 50 left" (your own payment no longer takes a spot).
+
+**Pictures:** 1,485 originals (4.9 GB) shrunk to ~100 KB JPEGs and deleted after a live spot-check (26 landing pictures, all JPEG, largest 236 KB).
+
+**Hidden handbooks (dc's ask):** 13 were hidden at 00:1x by test string. All 13 were made 23:40–00:03 by the review agents' phones (tokens 424db3f4 [self-identified], 9e44d891 [asdfgh + a Public speaking copy], 99c8b088 and e4421e1c [the 200-char string], ec4e66c6 and c674ed85 [dal, abandoned at the goal step], c7611c27 [dal, 23:50]); none has a userId. dc says k970557 (token c7611c27) is yours; it is unhidden and rebuilt as one chapter under D23. Nobody real lost a handbook as far as the data shows.
+
+**Bot visits:** the four review agents made roughly 40 to 60 fresh-phone visits between 23:35 and 00:30 with no utm tag; the 7 tokens above are in statsExcluded, the rest are not identifiable. Treat 8 Oct "direct" visitors as mostly ours.
+
+**/stats "Signed up" 1 → 0:** not something I changed; 05's verified-email check (c80f17a) or an excluded test account is the likely cause; 05 can confirm.
+
+**Open:** LANGFUSE_TRACES_URL for the /admin links (`npx convex env set LANGFUSE_TRACES_URL "https://us.cloud.langfuse.com/project/<id>/traces" --prod`); the writer's "voice and tension" tone test (about ₹40); self-hosting the two fonts (395 KB); Shelf "for: goal" ribbon text; a 400 px cover size for the carousel and Shelf.
 
 ## Session a2
 
