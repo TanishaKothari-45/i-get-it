@@ -428,7 +428,7 @@ export default function App() {
 
   return (
     <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail}>
-      <Plan
+      <Plan needsAccount={!isAuthenticated && currentN > 1}
         total={total}
         nextTopics={<NextTopics topic={plan?.topic ?? hb.topic} deviceToken={token} extra={(plan as any)?.next ?? []} onReady={(t) => { openTopic(t).catch((e) => setFlash(limitMessage(e) ?? "Couldn't open that one. Check your connection and tap again.")) }} onTyped={(t) => { openTopic(t).catch((e) => setFlash(limitMessage(e) ?? "Couldn't open that one. Check your connection and tap again.")) }} onShared={async (id) => { const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />}
         onOpenChapter={(n) => { setReadingN(n); setDoneN(null); setView('chapter') }}

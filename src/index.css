@@ -192,6 +192,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
   .shell > .rail { display: block; grid-column: 1; position: sticky; top: 24px; align-self: start; padding-top: var(--l); }
   .shell > main { grid-column: 2; position: relative; padding-bottom: var(--xl); min-height: 60vh; }
   .shell > .foot { grid-column: 1 / -1; }
+  /* no rail (Your handbooks, sign-in, pricing, the Shelf): one centred column instead of a page that leans right (8 Oct night, 55's desktop review) */
+  .shell:not(:has(> .rail)) { grid-template-columns: minmax(0, 42rem); }
+  .shell:not(:has(> .rail)) > main { grid-column: 1; }
   .actionbar { position: sticky; left: auto; right: auto; bottom: 0; margin: var(--xl) -4px 0; padding: 12px 4px 16px; background: linear-gradient(to top, var(--paper) 75%, rgba(250, 247, 240, 0)); }
   .actionbar > div { max-width: none; }
   .sheet { left: 50%; right: auto; width: min(38rem, 100vw - 32px); transform: translateX(-50%); border-radius: var(--radius-sheet); bottom: 24px; }
