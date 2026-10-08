@@ -52,19 +52,24 @@ export const buildFor = internalAction({
     const raw: any[] = (g.json?.stories ?? []).filter((s: any) => Array.isArray(s?.frames) && s.frames.length >= 3).slice(0, 3);
     // The same fact check as a chapter, frame by frame (each frame as a teach card); a corrected frame replaces its original.
     const cards = raw.flatMap((s: any) => s.frames.map((f: string) => ({ type: "teach", title: s.title, body: f })));
-    const checked = await factCheck(ctx, r.topic, "new", "Wait stories", cards, { effort: "low" });
+    // Level "some": the check's beginner-term rule (explain every term of art) is not a truth test; only false claims count.
+    const checked = await factCheck(ctx, r.topic, "some", "Wait stories", cards, { effort: "low" });
     let k = 0;
-    // D29a: a story with any claim the check could not stand behind is dropped, never softened (a fix on a frame = unverified).
-    const fixedIdx = new Set((checked.report.notes ?? []).map((x: string) => Number(String(x).match(/card (\d+)/)?.[1])).filter((x: number) => Number.isInteger(x)));
+    // D29a: a story with a claim the check could not stand behind is dropped, never softened. The check's own notes say
+    // when a claim is false or unsupported ("not true", "no evidence", "not established", "invented"…); a note that only
+    // confirms or rewords ("correct", "no change needed") keeps the story as written.
+    const BAD = /\b(false|not true|untrue|incorrect|wrong|no evidence|not established|unsupported|cannot be verified|unverified|invented|made up|fabricated|did not happen|never happened|misattribut|no record)\b/i;
+    const badIdx = new Set((checked.report.notes ?? []).filter((x: string) => BAD.test(String(x)) && !/no false claim|no change needed|is (accurate|correct|true)/i.test(String(x))).map((x: string) => Number(String(x).match(/card (\d+)/)?.[1])).filter((x: number) => Number.isInteger(x)));
     const stories: any[] = [];
     raw.forEach((s: any, i: number) => {
-      const start = k; const frames = s.frames.map(() => String(checked.cards[k++]?.body ?? "")).filter(Boolean);
-      const touched = Array.from({ length: s.frames.length }, (_, j) => start + j).some((idx) => fixedIdx.has(idx));
-      if (touched || frames.length < 4) return;
+      const start = k; k += s.frames.length;
+      const frames = s.frames.map((f: string) => String(f)).filter(Boolean);   // the original words, never the softened ones
+      const bad = Array.from({ length: s.frames.length }, (_, j) => start + j).some((idx) => badIdx.has(idx));
+      if (bad || frames.length < 4) return;
       stories.push({ title: String(s.title).slice(0, 80), chapter: String(s.chapter ?? "").slice(0, 120), frames, source: String(s.source ?? "").slice(0, 120), storageId: r.pictures[i % Math.max(1, r.pictures.length)] ?? undefined });
     });
     await ctx.runMutation(internal.stories.save, { id: r.id, topic: r.topic, stories });
-    return { ok: true, stories: stories.map((s: any) => ({ title: s.title, chapter: s.chapter, frames: s.frames, source: s.source })), dropped: raw.length - stories.length, fixes: checked.report.fixes };
+    return { ok: true, stories: stories.map((s: any) => ({ title: s.title, chapter: s.chapter, frames: s.frames, source: s.source })), dropped: raw.length - stories.length, fixes: checked.report.fixes, notes: checked.report.notes, candidates: raw.map((s: any) => ({ title: s.title, chapter: s.chapter, frames: s.frames, source: s.source })) };
   },
 });
 export const readyTopics = internalQuery({ args: {}, handler: async (ctx) => [...new Set((await ctx.db.query("cache").collect()).filter((r) => r.level === "new").map((r) => r.topic))] });
