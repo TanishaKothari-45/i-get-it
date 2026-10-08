@@ -30,8 +30,8 @@ export default function Stats() {
               {s.pay && <Stat n={s.pay.tapped} label="Tapped Pay (only you see this)" />}
             </div>
 
-            <h2 className="stats-h">Visitors, last 14 days</h2>
-            <div className="stats-bars" role="img" aria-label={`Daily visitors: ${s.days.map((d) => `${d.day.slice(5)} ${d.visitors}`).join(', ')}`}>
+            <h2 className="stats-h">New visitors, last 14 days</h2>
+            <div className="stats-bars" role="img" aria-label={`New visitors each day: ${s.days.map((d) => `${d.day.slice(5)} ${d.visitors}`).join(', ')}`}>
               {s.days.map((d) => (
                 <div key={d.day} className="stats-bar">
                   <span className="stats-bar-n">{d.visitors || ''}</span>
@@ -40,7 +40,7 @@ export default function Stats() {
                 </div>
               ))}
             </div>
-            <p className="note">One phone counts once a day. Days are India time.</p>
+            <p className="note">A person counts once, on the day they first came. Days are India time. Left out in case they're us: visits with no source, from LinkedIn, from our test setups, or tagged internal, and anyone whose first visit was the home-screen app.</p>
 
             {s.sources.length > 0 && (
               <>

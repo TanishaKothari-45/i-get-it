@@ -93,7 +93,7 @@ async function commonsPhoto(ctx: ActionCtx, query: string): Promise<{ storageId:
       const shareAlike = /-sa\b|by-sa/i.test(license);
       const styled = shareAlike ? null : await inkAndWash(bytes, ii.mime).catch((e: any) => { console.log("inkAndWash failed", String(e?.message ?? e).slice(0, 200)); return null; });
       if (styled) console.log("inkAndWash ms", Date.now() - t0);
-      const storageId = await ctx.storage.store(new Blob([styled ?? bytes], { type: styled ? "image/jpeg" : ii.mime }));
+      const storageId = await ctx.storage.store(new Blob([(styled ?? bytes) as BlobPart], { type: styled ? "image/jpeg" : ii.mime }));
       const artist = strip(String(md.Artist?.value ?? "")).slice(0, 60) || "Unknown";
       return { storageId, credit: `${/public domain|^pd/i.test(license) ? "Public domain" : `${artist}, ${license}`}, Wikimedia Commons${styled ? ", adapted" : ""}`, source: String(ii.descriptionurl ?? "") };
     }

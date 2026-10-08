@@ -18,11 +18,24 @@ function cleanSource(s?: string) {
   return x || undefined;
 }
 
+// Left out of every public count (Prateek, 8 Oct): no source ("direct") and LinkedIn may be our own taps, and
+// "internal" is the tag for our own visits. "app" as a first visit means the home-screen app was installed
+// with no counted visit before it (likely us, from /admin or /stats), and localhost is our own test setup.
+// A person counts under the source of their first visit.
+export const HIDDEN_SOURCES = new Set(["direct", "linkedin.com", "internal", "app"]);
+const hiddenSource = (s: string) => HIDDEN_SOURCES.has(s) || s.startsWith("localhost");
+
 export const recordVisit = mutation({
   args: { visitor: v.string(), source: v.optional(v.string()) },
   handler: async (ctx, { visitor, source }) => {
     if (visitor.length < 8 || visitor.length > 64) return;
     const now = Date.now();
+    // ?utm_source=internal (from 8 Oct): this phone is ours, so it stops counting, like "This is my phone"
+    if (cleanSource(source) === "internal") {
+      const userId = await getAuthUserId(ctx);
+      const known = (await ctx.db.query("statsExcluded").collect()).some((e) => e.deviceToken === visitor);
+      if (!known) await ctx.db.insert("statsExcluded", { deviceToken: visitor, userId: userId ?? undefined, at: now });
+    }
     const day = dayOf(now);
     const seen = await ctx.db.query("visits").withIndex("by_visitor_day", (q) => q.eq("visitor", visitor).eq("day", day)).first();
     if (seen) return;
@@ -53,25 +66,42 @@ export const summary = query({
     // A signed-in person's phone token is theirs too: drop its visits when the account is excluded.
     for (const h of await ctx.db.query("handbooks").collect()) if (h.userId && xUsers.has(String(h.userId)) && h.ownerToken) xTokens.add(h.ownerToken);
 
-    const visits = (await ctx.db.query("visits").collect()).filter((x) => !xTokens.has(x.visitor));
+    const visits = (await ctx.db.query("visits").collect()).filter((x) => !xTokens.has(x.visitor)).sort((a, b) => a.at - b.at);
+    const first = new Map<string, { source: string; day: string }>();
+    for (const x of visits) if (!first.has(x.visitor)) first.set(x.visitor, { source: x.source ?? "direct", day: x.day });
+    const counted = (t?: string) => !!t && first.has(t) && !hiddenSource(first.get(t)!.source);
+    const people = [...first].filter(([t]) => counted(t));
     const today = dayOf(Date.now());
-    const days: { day: string; visitors: number }[] = [];
+
+    // a handbook counts when its phone's first visit came from a counted source (no visit on record: left out)
+    const books = handbooks.filter((h) => counted(h.ownerToken));
+    const ownerOf = (h: { userId?: unknown; ownerToken?: string }) => (h.userId ? `u:${h.userId}` : `d:${h.ownerToken}`);
+    const started = new Set(books.map(ownerOf));
+    const passed = new Set<string>(), passedTokens = new Set<string>(), startedTokens = new Set<string>();
+    for (const h of books) {
+      startedTokens.add(h.ownerToken!);
+      const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
+      if (p?.chaptersPassed.includes(1)) { passed.add(ownerOf(h)); passedTokens.add(h.ownerToken!); }
+    }
+
+    // each day: people who came for the first time, by source, and how many of them have finished chapter 1
+    const days: { day: string; visitors: number; passed: number; sources: Record<string, number> }[] = [];
     for (let i = 13; i >= 0; i--) {
       const d = dayOf(Date.now() - i * 24 * HOUR);
-      days.push({ day: d, visitors: visits.filter((x) => x.day === d).length });
+      const fresh = people.filter(([, f]) => f.day === d);
+      const sources: Record<string, number> = {};
+      for (const [, f] of fresh) sources[f.source] = (sources[f.source] ?? 0) + 1;
+      days.push({ day: d, visitors: fresh.length, passed: fresh.filter(([t]) => passedTokens.has(t)).length, sources });
     }
-    const sources: Record<string, number> = {};
-    for (const x of visits) { const k = x.source ?? "direct"; sources[k] = (sources[k] ?? 0) + 1; }
-
-    const ownerOf = (h: { userId?: unknown; ownerToken?: string }) => (h.userId ? `u:${h.userId}` : `d:${h.ownerToken}`);
-    const started = new Set(handbooks.map(ownerOf));
-    const passed = new Set<string>();
-    for (const h of handbooks) {
-      const p = await ctx.db.query("progress").withIndex("by_handbook", (q) => q.eq("handbookId", h._id)).unique();
-      if (p?.chaptersPassed.includes(1)) passed.add(ownerOf(h));
+    const channels: Record<string, { visitors: number; started: number; passed: number }> = {};
+    for (const [t, f] of people) {
+      const c = (channels[f.source] ??= { visitors: 0, started: 0, passed: 0 });
+      c.visitors++; if (startedTokens.has(t)) c.started++; if (passedTokens.has(t)) c.passed++;
     }
 
-    const users = (await ctx.db.query("users").collect()).filter((u) => !xUsers.has(String(u._id)));
+    // a sign-up counts when the account owns a counted handbook
+    const countedUsers = new Set(books.filter((h) => h.userId).map((h) => String(h.userId)));
+    const users = (await ctx.db.query("users").collect()).filter((u) => !xUsers.has(String(u._id)) && countedUsers.has(String(u._id)));
     const intents = (await ctx.db.query("priceIntents").collect()).filter((i) =>
       !(i.userId && xUsers.has(String(i.userId))) && !(i.deviceToken && xTokens.has(i.deviceToken)));
     // Pay numbers are shown only to the owner (emails in STATS_OWNER_EMAILS): a visitor who learns that
@@ -83,10 +113,12 @@ export const summary = query({
     const payers = new Set(intents.map((i) => (i.userId ? `u:${i.userId}` : `d:${i.deviceToken ?? i._id}`)));
 
     return {
-      visitorsToday: visits.filter((x) => x.day === today).length,
-      visitorsAll: new Set(visits.map((x) => x.visitor)).size,
+      visitorsToday: new Set(visits.filter((x) => x.day === today && counted(x.visitor)).map((x) => x.visitor)).size,
+      visitorsAll: people.length,
       days,
-      sources: Object.entries(sources).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([name, n]) => ({ name, n })),
+      sources: Object.entries(channels).sort((a, b) => b[1].visitors - a[1].visitors).slice(0, 6).map(([name, c]) => ({ name, n: c.visitors })),
+      channels: Object.entries(channels).map(([source, c]) => ({ source, ...c })).sort((a, b) => b.visitors - a.visitors),
+      hidden: [...HIDDEN_SOURCES],
       started: started.size,
       passedChapter1: passed.size,
       signups: users.length,

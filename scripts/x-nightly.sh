@@ -21,21 +21,20 @@ READY=$(npx convex run --prod handbooks:cachedTopics '{}' 2>/dev/null | jq 'leng
 
 # The chart (8 Oct, Prateek: "the X post needs to be a graph"): each day's visitors by channel and chapter 1
 # finishes, yesterday vs the day before, each channel since launch. Saved next to the draft; attach it to the post.
-npx convex run --prod admin:numbers '{"days":14}' > "$OUT_DIR/$TODAY-numbers.json" 2>/dev/null
+# Same numbers as the public /stats page (8 Oct: direct, LinkedIn, internal and test setups left out).
+npx convex run --prod stats:summary '{}' > "$OUT_DIR/$TODAY-numbers.json" 2>/dev/null
+PUB="$(cat "$OUT_DIR/$TODAY-numbers.json")"
+VIS=$(echo "$PUB" | jq .visitorsAll); STARTED=$(echo "$PUB" | jq .started); PASSED=$(echo "$PUB" | jq .passedChapter1)
 CHART="$OUT_DIR/$TODAY-chart.png"
 CJ=$(node scripts/x-chart.mjs "$OUT_DIR/$TODAY-numbers.json" "$CHART" "$DAY" 2>/dev/null || echo '{}')
 cj() { echo "$CJ" | jq -r "$1 // \"?\""; }
-Y_TOTAL=$(cj .yesterday.total); Y_PASSED=$(cj .yesterday.passed); Y_OPENED=$(cj .yesterday.opened); YB_TOTAL=$(cj .dayBefore.total)
-Y_TOP=$(echo "$CJ" | jq -r '.yesterday.by // {} | to_entries | sort_by(-.value) | .[0].key // "?"' | sed 's/growthx/the GrowthX community/; s/^ig$/Instagram/; s/^x$/X/; s/^dm$/DMs/; s/other/direct visits/')
-Y_CH=$(echo "$CJ" | jq -r '.yesterday.by // {} | "GrowthX \(.growthx // 0) · Instagram \(.ig // 0) · X \(.x // 0) · DMs \(.dm // 0) · direct and other \(.other // 0)"')
+Y_TOTAL=$(cj .yesterday.total); Y_PASSED=$(cj .yesterday.passed); YB_TOTAL=$(cj .dayBefore.total)
+Y_TOP=$(echo "$CJ" | jq -r '.yesterday.by // {} | to_entries | sort_by(-.value) | .[0].key // "?"' | sed 's/growthx/the GrowthX community/; s/^ig$/Instagram/; s/^x$/X/; s/^dm$/DMs/; s/other/other sites/')
+Y_CH=$(echo "$CJ" | jq -r '.yesterday.by // {} | "GrowthX \(.growthx // 0) · Instagram \(.ig // 0) · X \(.x // 0) · DMs \(.dm // 0) · other sites \(.other // 0)"')
 SOCIAL=$( [ -f docs/launch/social-metrics.json ] && jq -r --arg d "$(date -v-1d +%Y-%m-%d)" '.[$d] // empty | tostring' docs/launch/social-metrics.json || true )
 step() { echo "$1" | jq -r --arg s "$2" '.funnel[] | select(.step == $s) | .n'; }
 
-# Shaktimaan's 3 test runs on 6 Oct (tides, sourdough, public speaking; one passed chapter 1) aren't real readers.
-VIS=$(( $(step "$ALL" "Visited") - 1 ))
-STARTED=$(( $(step "$ALL" "Started a handbook") - 3 ))
-PASSED=$(( $(step "$ALL" "Passed chapter 1") - 1 ))
-SIGNUPS=$(step "$ALL" "Signed up")
+SIGNUPS=$(echo "$PUB" | jq .signups)
 T_VIS=$(step "$DAYJ" "Visited"); T_OPEN=$(step "$DAYJ" "Opened chapter 1"); T_PASS=$(step "$DAYJ" "Passed chapter 1")
 T_X=$(echo "$DAYJ" | jq -r '[.sources[] | select(.source == "x") | .visitors] | add // 0')
 
@@ -57,7 +56,9 @@ Drafted at $(date +%H:%M) from live numbers. Add your line, then post it yoursel
 
 Day $DAY of building 𝙄 𝙂𝙚𝙩 𝙄𝙩 in public.
 
-Yesterday: $Y_TOTAL visitors (the day before: $YB_TOTAL), $Y_PASSED finished chapter 1 of $Y_OPENED who opened it. Most came from $Y_TOP.
+Yesterday: $Y_TOTAL new visitors (the day before: $YB_TOTAL), $Y_PASSED of them finished chapter 1. Most came from $Y_TOP.
+
+Live numbers, open to anyone: https://sensible-mongoose-624.convex.site/stats
 
 What we decided or struggled with: [one thing, from "Stories from the last day" below]
 What we try today: [one thing, and the number that will tell us if it worked]
@@ -86,7 +87,7 @@ $Q
 - $BET
 - $T_VIS visitors since yesterday, $T_X of them from X.
 - Sign-ups all time: $SIGNUPS.
-- Numbers are all time with your devices left out, minus Shaktimaan's 3 test runs.
+- Post numbers match /stats: direct, LinkedIn, internal and test setups left out (8 Oct). The lines above this one use the owner's full log.
 
 ## Stories from the last day (docs/launch/post-ideas.md: what shipped, and your "idea:" notes)
 
