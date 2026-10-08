@@ -110,4 +110,19 @@ Feeds the 9:30 X draft (scripts/x-nightly.sh reads yesterday's day) and the end-
 **Build-in-public posts**
 - Learned: a numbers-only post talks at people. Asking other builders what got their first 100 users invites replies, and readers' feedback with what we changed is a story in itself.
 
+**Promises in posts expire**
+- Thought: a post's offer line ("first 3 chapters free, no sign-up") was safe because it was true when posted.
+- Learned: moving the wall after chapter 1 (20:37) made 5 live posts false at once: 2 Instagram captions, an Instagram reel still saying "28 days", the X ad and the pinned X post ("Week 1 free"). Posts outlive product changes.
+- Now: offers in posts use the most stable line ("Chapter 1 is free, no sign-up"); any change to what's free comes with a sweep of live posts, bios and pinned posts before it ships (list in docs/night-report-2026-10-09.md).
+
+**New accounts reach strangers through sends and replies, not followers**
+- Thought: daily posts on fresh Instagram and X accounts would bring readers.
+- Learned: with 18 and 23 followers, reach depends on strangers: Instagram tests each post on a small non-follower audience and weighs DM sends per view most (Mosseri, Jan 2025); on X, small accounts that grew spent most of their time replying (one grew 50 to 7K in about 16 months at 50+ replies a day). X sent us 1 visitor all week.
+- Now: every post ends on a send line; 15-20 hand-written replies a day on X; a daily reel with a 3-second hook (the reel formula) and judging after 30 posts, not 5 (docs/growth-playbook.md).
+
+**Hashtags and links: we were following folklore**
+- Thought: more hashtags, more reach; links on X go in the first reply.
+- Learned: Instagram's own guidance (Dec 2025) is up to 5 targeted hashtags; our posts carried 11-13. X's head of product said links aren't deboosted (Oct 2025, Apr 2026), though an outside test still found fewer views on link posts.
+- Now: 3-5 hashtags, #IGetIt first; on X, a two-week test (link in the post on odd days, first reply on even days), judged by visitors with utm_source=x.
+
 ## Noted during the day
