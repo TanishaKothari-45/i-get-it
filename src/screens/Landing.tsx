@@ -70,7 +70,9 @@ export default function Landing({ onCreate, onExplore }: Props) {
   const [level, setLevel] = useState<Level>('new')
   const [voice, setVoice] = useState<Voice>('friend')
   const [busy, setBusy] = useState(false)
-  const [pickedRow, setPickedRow] = useState<string | null>(null)   // the carousel card that flies up while its handbook opens (8 Oct night)
+  const [pickedRow, setPickedRow] = useState<string | null>(null)
+  const [slow, setSlow] = useState(false)
+  useEffect(() => { if (!pickedRow) { setSlow(false); return } const t = setTimeout(() => setSlow(true), 12000); return () => clearTimeout(t) }, [pickedRow])   // the carousel card that flies up while its handbook opens (8 Oct night)
   const [error, setError] = useState<string | null>(null)
   const heroInput = useRef<HTMLInputElement>(null)
 
@@ -133,6 +135,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
         </details>
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
+      {slow && pickedRow && where === 'hero' && <p className="lp-fine" role="status">Slow connection. Still opening; it keeps trying.</p>}
       <p className="lp-fine">Chapter 1 is free, no sign-up. A free account opens the rest; no card. Topics you start can appear on the Shelf, never with your name.</p>
       {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} picked={pickedRow} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
     </form>

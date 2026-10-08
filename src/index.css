@@ -476,10 +476,13 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 /* Chapter pictures (design/style-anchor.md): a printed plate that fades in and drifts slowly, like a camera over artwork. */
 /* a printed plate: a paper mat, pasted on with an offset print shadow in the frame's plate ink */
 .story-pic { aspect-ratio: 4 / 3; border-radius: var(--radius-card); overflow: hidden; margin: 0 4px 18px 0; background: #f3eee3; border: 3px solid #faf7f0; box-shadow: 5px 5px 0 var(--plate, rgba(0, 0, 0, 0.38)); flex: none; }
-.story-pic img { width: 100%; height: 100%; object-fit: cover; display: block; animation: picin 700ms var(--ease) both, drift 16s ease-in-out 700ms infinite alternate; transform-origin: 40% 60%; }
+.story-pic img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transform-origin: 40% 60%; }
+/* until the picture's bytes land the plate reads as "arriving" (a faint printed stripe), not as an empty box with a shadow (8 Oct night, critique) */
+.story-pic:not(.loaded) { background: repeating-linear-gradient(135deg, #f3eee3 0 14px, #ece5d6 14px 28px); animation: platepulse 1.6s ease-in-out infinite alternate; }
+.story-pic.loaded img { opacity: 1; animation: picin 700ms var(--ease) both, drift 16s ease-in-out 700ms infinite alternate; }
 @keyframes picin { from { opacity: 0; } to { opacity: 1; } }
 @keyframes drift { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.12) translate(-2%, -1.5%); } }
-@media (prefers-reduced-motion: reduce) { .story-pic img, .story-pic.real img, .roadmap-pic img { animation: picin 1ms both; } .story-opt.pass, .intent-ghost { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .story-pic.loaded img, .story-pic.loaded.real img, .roadmap-pic img { animation: picin 1ms both; } .story-pic:not(.loaded) { animation: none; } .story-opt.pass, .intent-ghost { animation: none !important; } }
 
 /* ---------- Landing (first-time visitors): a risograph poster, DESIGN.md Landing ---------- */
 .lp { --riso-indigo: #3a4170; --riso-coral: #e0735a; --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -739,7 +742,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 
 /* real photos carry their licence credit (Wikimedia Commons) */
 .story-pic { position: relative; }
-.story-pic.real img { animation: picin 700ms var(--ease) both; }
+.story-pic.loaded.real img { animation: picin 700ms var(--ease) both; }   /* a real photo fades in and holds still */
 .story-credit { position: absolute; left: 8px; right: 8px; bottom: 6px; font: 600 10px/1.3 var(--sans); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.8); text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* the "start one tonight" carousel with pills (6 Oct) */

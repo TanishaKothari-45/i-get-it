@@ -298,7 +298,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
             <>
               {frame.cover && <h1 className="story-title">{title}</h1>}
               {frame.cover && caution && <p className="story-caution">Study aid, verify before you act.</p>}
-              {pic ? <div className={`story-pic${credits[item.cardIndex] ? ' real' : ''}`}><img src={pic} alt={alts[item.cardIndex] ?? ''} />{credits[item.cardIndex] && <a className="story-credit no-tap" href={credits[item.cardIndex].source || undefined} target="_blank" rel="noopener noreferrer">Photo: {credits[item.cardIndex].credit}</a>}</div>
+              {pic ? <div className={`story-pic${credits[item.cardIndex] ? ' real' : ''}`}><img src={pic} alt={alts[item.cardIndex] ?? ''} onLoad={(e) => e.currentTarget.parentElement?.classList.add('loaded')} ref={(el) => { if (el && el.complete && el.naturalWidth > 0) el.parentElement?.classList.add('loaded') }} />{credits[item.cardIndex] && <a className="story-credit no-tap" href={credits[item.cardIndex].source || undefined} target="_blank" rel="noopener noreferrer">Photo: {credits[item.cardIndex].credit}</a>}</div>
                 : null /* no picture yet, or none: no box at all; the picture fades in when it lands */}
               {!frame.cover && frame.part === 0 && (KICKER[c.type] || c.title) && <p className="story-kicker">{KICKER[c.type] ?? c.title}</p>}
               <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover || pic ? (pic && !frame.cover && sizeOf(frame.text ?? '') === 'xl' ? 'lg' : 'md') : sizeOf(frame.text ?? '')}`} />

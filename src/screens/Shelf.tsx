@@ -48,6 +48,9 @@ export default function Shelf({ onReady, onShared, onBack }: Props) {
   // a CSS transform only, so it costs nothing on a slow connection; it holds "lifted" until the chapter arrives, and
   // settles back if the open fails.
   const [lifting, setLifting] = useState<string | null>(null)
+  // On a slow connection the lifted book would breathe forever with no word: after 12 s it says so (8 Oct night).
+  const [slow, setSlow] = useState(false)
+  useEffect(() => { if (!lifting) { setSlow(false); return } const t = setTimeout(() => setSlow(true), 12000); return () => clearTimeout(t) }, [lifting])
   const open = (it: Item) => {
     setNote(null); setLifting(it.key)
     return (it.kind === 'shared' && it.id ? onShared(it.id) : onReady(it.topic)).catch((e) => { setLifting(null); setNote(limitMessage(e) ?? "Couldn't open that one. Check your connection and tap again.") })
@@ -60,6 +63,7 @@ export default function Shelf({ onReady, onShared, onBack }: Props) {
       <h1>The Shelf.</h1>
       <p className="lede">Every handbook here opens at once, no sign-in. Pick one up.</p>
       {note && <p className="error" role="alert">{note}</p>}
+      {slow && lifting && <p className="note" role="status">Slow connection. Still opening; it keeps trying.</p>}
       <div className="shelf-tools">
         <button type="button" className="chip" onClick={surprise}>Surprise me</button>
         {shelves.map((s) => <a key={s.key} className="chip" href={`#shelf-${s.key}`}>{s.label}</a>)}

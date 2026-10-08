@@ -63,6 +63,8 @@ if (await step('chapter 1 opens as full-screen frames', `!!document.querySelecto
   if (await step('the Done screen says chapter 1 is done', `/Chapter 1 of \\d+: done/.test(document.querySelector('h1')?.textContent ?? '')`, 15000)) {
     await step('the rung bar shows one lit segment', `document.querySelectorAll('.rung span.on, .rung span.filling').length === 1`, 5000)
     await step('the sign-up wall is the main action ("Make a free account")', `[...document.querySelectorAll('button')].some((b) => b.textContent.trim().startsWith('Make a free account'))`, 5000)
+    await step('and it is the only one (no doubled button)', `[...document.querySelectorAll('button')].filter((b) => b.textContent.trim().startsWith('Make a free account')).length === 1`, 2000)
+    await step('the wall card names chapter 2 under the outcome line', `[...document.querySelectorAll('h2')].some((h) => /Chapter 2 is free with an account/.test(h.textContent))`, 2000)
     console.log(`     Done screenshot: ${await shot('done')}`)
     await tap('Make a free account')
     await step('the sign-in screen opens with an email field', `!!document.querySelector('#email') && (document.querySelector('h1')?.textContent ?? '').length > 0`, 10000)
