@@ -25,6 +25,46 @@ Feeds the 9:30 X draft (scripts/x-nightly.sh reads yesterday's day) and the end-
 **Link previews**
 - Learned: the site sends no preview image, so a shared link shows no picture. A 1200x630 image is ready in docs/launch/link-image; adding it to the page is still to do.
 
+**Lesson shape, one size doesn't fit (the calisthenics reader)**
+- Thought: one chapter shape (story card, teach, three quizzes) works for every topic.
+- Learned: a reader doing push-ups said the story time and the quizzes were in the way and it took too long to get to the point. The same shape scored 9/12 on "how tides work".
+- Now: the plan picks each chapter's blocks from a kit (picture, teach, example, mistake, try, move, do it, steps, try it, quiz, watch, one breath) and its proof (set / result / predict / scenario / retell). Body skills pass on a logged set, no quiz. Calisthenics ×2 and Pool swimming chapter 1 rebuilt: picture → move (a drawn figure with cues) → do it (timer) → mistake → do it → one breath.
+
+**Pictures**
+- Thought: free Wikimedia photos could replace Runway drawings on 4 of 5 picture cards (last night's "Runway for the cover only").
+- Learned: Wikimedia has almost no photos for teaching ideas ("owning versus lending"). New chapters got 0 or 1 picture; a reader called the lack of visuals an impediment. 19 of 24 ready topics still had 5 to 8 drawings a chapter; everything written after 7 Oct 20:00 had 1.
+- Now: Runway draws every picture card again (up to 5 a chapter, ₹4.25 once, shared). Photos with an ink-and-wash filter (OpenCV, 0.8 s, ₹0) only for real things. Backfilled 162 pictures in 40 minutes.
+
+**Interactive explainers**
+- Thought: readers would need video for anything that moves.
+- Learned: a one-call Sonnet page (drag the bakery's value, bend the screen, drag the Moon) lands about 2 in 3 one-shot, costs ₹3 once, 12 to 15 s, 3.5 to 4.6 KB. The weak third needs a look-and-fix pass.
+- Now: "try it" is a block in the kit, in a locked iframe (sandbox allow-scripts + a CSP), done-message as proof but never a wall.
+
+**Research model**
+- Thought: moving research off Claude would need Cheaper Inference.
+- Learned: Cheaper Inference has no web search at all. Gemini 3.8 Flash with Google Search costs about ₹1 to ₹1.4 a topic against Claude's ₹5 to ₹10, takes 28 to 66 s, and found the same current facts (Nifty's Tuesday expiry, lot size 65). Google's main key answered 503 on every call for hours; the backup key worked 3 of 3.
+- Now: research runs on Gemini with Google Search, Claude Sonnet as the backup, two Google keys, a schema on the reply.
+
+**Schemas on every model reply**
+- Thought: JSON "mostly works".
+- Learned: a Gemini chapter put prose in a card's "type"; an old rewrite shipped a "poll" card the screen could not show, which blanked chapter 1 for half of a frozen topic's new readers. And the schema you send shapes the reply: with only type/title/body described, Gemini dropped the quiz fields.
+- Now: zod schemas on plan, chapter, check, versions, scenes, intent, match, teach, research and the explainers; one corrective retry, then a failure; the JSON schema goes with Cheaper Inference requests as a full union of card shapes.
+
+**Writers, blind**
+- Learned: DeepSeek V4.1 Flash wrote chapters 1 and 2 for ₹13 against Claude's ₹74, but planned 3 chapters where Claude planned 7, and its own fact check found 0 errors where the judge found several. Gemini 3.8 Flash end to end: ₹10 for research, plan and 4 chapters; judge 5 to 8 of 12 against Opus's usual 9. The neutral judge's verdict on A vs B is still open.
+
+**Navigation**
+- Thought: the ☰ menu was enough to get around.
+- Learned: a visitor who finished a chapter could not find other topics (logo → Your handbooks → Start another → logo), reported by a reader who could have paid. The code read had rated it P2.
+- Now: The Shelf (books on planks, one shelf per kind) is a header button on every screen; Start another starts empty with a back link; returning readers land on Your handbooks, not inside a chapter; sign-in copy says it is optional for the first 3 chapters.
+
+**UX review method**
+- Learned: a full-page screenshot draws the sticky action bar at the viewport's bottom edge over whatever scrolled there; 3 of 51 findings were withdrawn after a viewport check. A headless walk plus a code read found 51 items in an hour; 29 fixed the same day.
+- Learned: a running A/B test outlived the frozen list that was meant to protect the topic. Gate at the moment of assignment, not only at creation.
+
+**Small build traps**
+- Learned: a raw line break inside a JavaScript string in prompts.ts broke the build twice today; prompt edits need `\n`. A Convex query cannot live in a "use node" file.
+
 ### GTM
 
 **One permanent link**
