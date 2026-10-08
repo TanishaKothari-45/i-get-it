@@ -377,6 +377,7 @@ export default function App() {
           svg={(chapter as any).svg}
           pictures={(chapter as any).pictures ?? {}}
           credits={(chapter as any).credits ?? {}}
+          alts={(chapter as any).alts ?? {}}
           caution={(hb as any).caution ?? null}
           picturesPending={!!(chapter as any).picturesPending}
           onExit={() => setView('plan')}

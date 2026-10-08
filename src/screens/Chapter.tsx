@@ -51,6 +51,7 @@ type Props = {
   svg?: string
   pictures: Record<number, string>   // card index -> picture URL (a drawing, or a real photo), arriving after the chapter
   credits?: Record<number, { credit: string; source?: string }>   // real photos carry their licence credit
+  alts?: Record<number, string>   // the scene each picture was drawn from, read out as its alt text
   caution?: string | null            // money / health / legal topics: the fixed study-aid line
   picturesPending?: boolean          // pictures are still being drawn: a quiet plate, never the rough drawing
   onExit: () => void
@@ -84,7 +85,7 @@ function sizeOf(text: string) {
 }
 
 // The chapter as Stories: full-screen frames, one idea each, tap or swipe through.
-export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onLog, loggedSets = [], lastTime, recapReteach = [], pictures, credits = {}, caution, onExit, handbookId, deviceToken }: Props) {
+export default function Chapter({ total = 7, topic, n, title, cards, recall, passed: _passed, passedExercises, startAt, startPart = 0, onPosition, onAnswer, onFinish, onLog, loggedSets = [], lastTime, recapReteach = [], pictures, credits = {}, alts = {}, caution, onExit, handbookId, deviceToken }: Props) {
   const items: Item[] = useMemo(
     () => [
       ...(lastTime && !['exercise', 'watch', 'move', 'doit', 'steps', 'tryit'].includes(lastTime.type) ? [{ chapter: n - 1, cardIndex: -1, recall: true, card: { ...lastTime, title: 'Last time', body: dropNextLine((lastTime as any).body ?? '') } as Card }] : []),
@@ -145,6 +146,8 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   const [finishing, setFinishing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [askOpen, setAskOpen] = useState(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  useEffect(() => { dialogRef.current?.focus({ preventScroll: true }) }, [])
 
   const exercisePassed = item.card.type === 'exercise' && (item.recall ? result?.correct === true : passedHere.has(key))
   const [logged, setLogged] = useState<Set<number>>(() => new Set(loggedSets))
@@ -229,7 +232,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   const label = item.recall ? `Remember this? · from chapter ${item.chapter}` : `Chapter ${n} of ${total}`
 
   return (
-    <div className="story" role="dialog" aria-label={`${title}, chapter ${n}`}>
+    <div className="story" role="dialog" aria-modal="true" aria-label={`${title}, chapter ${n}`} ref={dialogRef} tabIndex={-1}>
       <div className={`story-frame tone-${frame.tone}`} onClick={onTap} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         <div className="story-bars" aria-hidden="true">
           {frames.map((_, k) => <span key={k} className={k < i ? 'on' : k === i ? 'now' : ''} />)}
@@ -240,7 +243,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
           <button type="button" className="story-close" onClick={onExit} aria-label="Back to the handbook">×</button>
         </div>
 
-        <div className="story-body" key={i}>
+        <div className="story-body" key={i} aria-live="polite">
           {caution && i === 0 && <p className="story-caution">Study aid, verify before you act.</p>}
           {c.type === 'exercise' ? (
             <>
@@ -281,7 +284,7 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
           ) : (
             <>
               {frame.cover && <h1 className="story-title">{title}</h1>}
-              {pic ? <div className={`story-pic${credits[item.cardIndex] ? ' real' : ''}`}><img src={pic} alt="" />{credits[item.cardIndex] && <a className="story-credit no-tap" href={credits[item.cardIndex].source || undefined} target="_blank" rel="noopener noreferrer">Photo: {credits[item.cardIndex].credit}</a>}</div>
+              {pic ? <div className={`story-pic${credits[item.cardIndex] ? ' real' : ''}`}><img src={pic} alt={alts[item.cardIndex] ?? ''} />{credits[item.cardIndex] && <a className="story-credit no-tap" href={credits[item.cardIndex].source || undefined} target="_blank" rel="noopener noreferrer">Photo: {credits[item.cardIndex].credit}</a>}</div>
                 : null /* no picture yet, or none: no box at all; the picture fades in when it lands */}
               {!frame.cover && frame.part === 0 && (KICKER[c.type] || c.title) && <p className="story-kicker">{KICKER[c.type] ?? c.title}</p>}
               <Rich text={frame.text ?? ''} className={`story-text size-${frame.cover || pic ? (pic && !frame.cover && sizeOf(frame.text ?? '') === 'xl' ? 'lg' : 'md') : sizeOf(frame.text ?? '')}`} />
