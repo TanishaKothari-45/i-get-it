@@ -64,7 +64,8 @@ function cheer(n: number, s?: { minutes: number; right: number; total: number } 
   const fast = s.minutes < 20
   const score = s.total ? `${s.right} of ${s.total} first try` : ''
   const mins = `${s.minutes} minute${s.minutes === 1 ? '' : 's'}`
-  if (!s.total) return fast ? `${mins}. We budgeted 20. Show-off.` : `You took your time with it. That's how it sticks.`   // a reading-only chapter (chapter 1 since 6 Oct)
+  // A reading-only chapter (chapter 1 since 6 Oct) earns no "show-off": a 1-minute skim is not a win to cheer (8 Oct night, critique).
+  if (!s.total) return s.minutes >= 4 ? `You took your time with it. That's how it sticks.` : null
   if (fast && perfect) return [`${mins}, ${score}. We budgeted 20. Show-off.`, `${score}, in ${mins}. Your brain called; it wants a raise.`, `Chapter ${n}, done before your chai went cold. ${score}, too.`][n % 3]
   if (perfect) return `${score}. Someone's been paying attention.`
   if (fast) return `${mins}, and you fixed every miss on the way. That's exactly how it sticks.`
@@ -86,6 +87,23 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
       <RungBar passed={passed} filling={n} total={total} />
       <p className="sub" style={{ marginTop: 10 }}>{topic}</p>
       <h1>Chapter {n} of {total}: done.</h1>
+      {/* The proof of the night comes first (8 Oct night, critique): what they can now do, before any question is asked of them. */}
+      {outcomeLine && <p className="done-line">{outcomeLine}</p>}
+      {/* The wall, as one printed block right under the outcome: what chapter N+1 is, that it is free with an account, what the
+          account costs them (an email and a code), and what they keep either way. The only button is the one in the action
+          bar, within thumb reach; this card explains it. Copy (agent). */}
+      {wall && nextTitle && (
+        <section className="upnext" aria-label={`Chapter ${n + 1} is free with an account`}>
+          {nextPicture && <div className="upnext-pic"><img src={nextPicture} alt="" /></div>}
+          <div className="upnext-body">
+            <p className="upnext-kicker">Chapter {n + 1} of {total}: {nextTitle}</p>
+            <h2 className="upnext-title">Chapter {n + 1} is free with an account.</h2>
+            {nextHook && <p className="upnext-hook">{nextHook}</p>}
+            <p className="serif">Your email and a 6-digit code, no card. Chapter {n} stays on this phone whatever you choose, and your place is kept on any phone or laptop.</p>
+            {priceLine && <p className="note">{priceLine} <button type="button" className="quiet" style={{ padding: 0 }} onClick={onPricing}>See pricing</button></p>}
+          </div>
+        </section>
+      )}
       {line && <p className="cheer">{line}</p>}
       {onRate && (
         <div className="rate" role="group" aria-label={`How was chapter ${n}?`}>
@@ -99,10 +117,9 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
           )}
         </div>
       )}
-      {outcomeLine && <p className="done-line">{outcomeLine}</p>}
       {handbookId && deviceToken && <TeachBack handbookId={handbookId} n={n} deviceToken={deviceToken} />}
-      {/* Up next (7 Oct, Prateek): the next chapter as a card worth tapping, with its own button. */}
-      {!last && nextTitle && (
+      {/* Up next (7 Oct, Prateek): the next chapter as a card worth tapping, with its own button. Behind the wall the card above says it instead. */}
+      {!last && nextTitle && !wall && (
         <section className="upnext" aria-label={`Up next: chapter ${n + 1}`}>
           {nextPicture && <div className="upnext-pic"><img src={nextPicture} alt="" /></div>}
           <div className="upnext-body">
@@ -113,13 +130,6 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
               : onNext && <button type="button" className="btn upnext-btn" onClick={onNext}>{nextFailed ? `Chapter ${n + 1} didn't write. Try again` : nextReady ? `Start chapter ${n + 1} →` : `Start chapter ${n + 1} → (writing it, about two minutes)`}</button>}
           </div>
         </section>
-      )}
-      {wall && (
-        <div className="nudge" role="region" aria-label="Free account">
-          <p className="nudge-lead">Chapter {n + 1} is free with an account.</p>
-          <p className="serif">Your email and a 6-digit code. No card. Every chapter of every ready handbook opens, and your place is kept on any phone or laptop.</p>
-          {priceLine && <p className="note">{priceLine} <button type="button" className="quiet" style={{ padding: 0 }} onClick={onPricing}>See pricing</button></p>}
-        </div>
       )}
       {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>{total === 7 ? "That's the whole handbook. Seven chapters, done." : "That's all of it. Quick and done."}</p>}
       {last && whatsNext}

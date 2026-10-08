@@ -62,6 +62,9 @@ body { font-variant-numeric: tabular-nums; }
 .quiet:hover { color: var(--ink); }
 main { flex: 1; display: flex; flex-direction: column; padding-bottom: 150px; }
 .foot { color: var(--ink-2); font-size: var(--small); padding: var(--l) 0 var(--m); }
+.foot a { display: inline-block; padding: 11px 0; }   /* 44 px rows for the policy links (8 Oct night audit) */
+/* on a phone the fixed action bar is 130 px tall; the footer keeps that much clear so its links can be reached (sign-in's could not) */
+@media (max-width: 899px) { .shell > .foot { padding-bottom: 150px; } }
 
 /* type */
 h1 { font-family: var(--sans); font-size: var(--display); line-height: 1.05; letter-spacing: -0.025em; font-weight: 700; margin: var(--l) 0 var(--m); text-wrap: balance; }
@@ -235,9 +238,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .story-frame > * { position: relative; }
 .tone-ink { background-color: #1b1a17; }
 .tone-indigo { background-color: #3442b8; }
-.tone-green { background-color: #1f7a4d; }
+.tone-green { background-color: #1f7a4d; --fg2: rgba(250, 247, 240, 0.92); }   /* the topic line read 3.7:1 at 0.78 (8 Oct night audit); 0.92 clears 4.5 */
 .tone-marigold { background-color: #f2a93b; --fg: #1b1a17; --fg2: rgba(27, 26, 23, 0.72); --bar: rgba(27, 26, 23, 0.25); --mark: #1b1a17; --mark-fg: #faf7f0; --plate: #1b1a17; }
-.tone-coral { background-color: #e8604c; --fg: #1b1a17; --fg2: rgba(27, 26, 23, 0.74); --bar: rgba(27, 26, 23, 0.25); --mark: #faf7f0; --mark-fg: #1b1a17; --plate: #1b1a17; }
+.tone-coral { background-color: #e8604c; --fg: #1b1a17; --fg2: rgba(27, 26, 23, 0.92); --bar: rgba(27, 26, 23, 0.25); --mark: #faf7f0; --mark-fg: #1b1a17; --plate: #1b1a17; }
 .tone-cream { background-color: #faf7f0; --fg: #1b1a17; --fg2: rgba(27, 26, 23, 0.66); --bar: rgba(27, 26, 23, 0.18); --mark: #f2a93b; --mark-fg: #1b1a17; --plate: #1b1a17; }
 @media (min-width: 900px) { .story { align-items: center; } .story-frame { height: min(92vh, 900px); border-radius: 28px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); } .story-frame::before { border-radius: 28px; } }
 .story-bars { display: flex; gap: 4px; padding-top: 6px; }
@@ -285,7 +288,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .story-finish:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 #1b1a17; }
 .story-error { margin-top: 14px; background: rgba(0, 0, 0, 0.35); color: #fff; padding: 10px 12px; border-radius: 12px; font-size: var(--small); }
 .story-tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; cursor: default; }
-.story-tools button, .story-tools > span:not(.story-tapnote) { background: transparent; color: var(--fg); border: 2px solid var(--fg); border-radius: 999px; padding: 9px 14px; font-size: var(--small); font-weight: 700; min-height: 40px; }
+.story-tools button, .story-tools > span:not(.story-tapnote) { background: transparent; color: var(--fg); border: 2px solid var(--fg); border-radius: 999px; padding: 9px 14px; font-size: var(--small); font-weight: 700; min-height: 44px; }
 .story-tools button:active { background: var(--fg); color: var(--mark-fg); }
 .tone-ink .story-tools button:active, .tone-indigo .story-tools button:active, .tone-green .story-tools button:active { color: #1b1a17; }
 .story-tapnote { margin-left: auto; color: var(--fg2); font-size: var(--small); font-weight: 600; }
@@ -442,7 +445,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .story-pic img { width: 100%; height: 100%; object-fit: cover; display: block; animation: picin 700ms var(--ease) both, drift 16s ease-in-out 700ms infinite alternate; transform-origin: 40% 60%; }
 @keyframes picin { from { opacity: 0; } to { opacity: 1; } }
 @keyframes drift { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.12) translate(-2%, -1.5%); } }
-@media (prefers-reduced-motion: reduce) { .story-pic img { animation: picin 1ms both; } }
+@media (prefers-reduced-motion: reduce) { .story-pic img, .story-pic.real img, .roadmap-pic img { animation: picin 1ms both; } .story-opt.pass, .intent-ghost { animation: none !important; } }
 
 /* ---------- Landing (first-time visitors): a risograph poster, DESIGN.md Landing ---------- */
 .lp { --riso-indigo: #3a4170; --riso-coral: #e0735a; --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -474,6 +477,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .lp-field { display: flex; flex-direction: column; gap: 10px; }
 .lp-field input { width: 100%; min-height: 58px; border: 3px solid var(--ink); border-radius: 14px; background: var(--paper); padding: 0 16px; font: 500 1.08rem var(--serif); color: var(--ink); }
 .lp-field input:focus { outline: none; box-shadow: 0 0 0 4px rgba(58, 65, 112, 0.35); }
+.lp-field input::placeholder { color: var(--ink-2); opacity: 1; }   /* the browser's grey read 4.3:1 on paper (8 Oct night audit) */
 .lp-field button { min-height: 58px; border: 3px solid var(--ink); border-radius: 14px; background: var(--ink); color: var(--paper); font: 800 1.1rem var(--sans); font-variation-settings: 'wdth' 90; letter-spacing: 0.005em; cursor: pointer; transition: transform 120ms var(--ease), box-shadow 120ms var(--ease); box-shadow: 4px 4px 0 var(--riso-indigo); }
 .lp-field button:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--riso-indigo); }
 .lp-field button:disabled { opacity: 0.7; }
@@ -481,7 +485,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .lp-options summary { cursor: pointer; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; list-style: none; min-height: 32px; display: flex; align-items: center; }
 .lp-options summary::-webkit-details-marker { display: none; }
 .lp-seg { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
-.lp-seg button { border: 2px solid var(--ink); background: transparent; color: var(--ink); border-radius: 999px; padding: 8px 14px; font: 600 0.9rem var(--sans); min-height: 40px; }
+.lp-seg button { border: 2px solid var(--ink); background: transparent; color: var(--ink); border-radius: 999px; padding: 8px 14px; font: 600 0.9rem var(--sans); min-height: 44px; }
 .lp-seg button[aria-pressed='true'] { background: var(--ink); color: var(--paper); }
 .lp-error { margin: 10px 0 0; font-weight: 600; color: #7a1d10; }
 .lp-fine { margin: 12px 0 0; font-size: var(--small); color: rgba(27, 26, 23, 0.75); }
@@ -502,7 +506,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .lp-steps ol { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 36px; }
 .lp-steps li { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: baseline; }
 .lp-steps img { grid-column: 1 / -1; margin-bottom: 14px; border: 3px solid var(--ink); }
-.lp-n { font-weight: 800; font-variation-settings: 'wdth' 75, 'opsz' 96; font-size: 3.2rem; line-height: 0.8; color: var(--riso-coral); text-shadow: 0.05em 0.04em 0 rgba(58, 65, 112, 0.5); grid-row: span 2; }
+.lp-n { font-weight: 800; font-variation-settings: 'wdth' 75, 'opsz' 96; font-size: 3.2rem; line-height: 0.8; color: #c8603f; text-shadow: 0.05em 0.04em 0 rgba(58, 65, 112, 0.5); grid-row: span 2; }   /* the deeper coral (the Shelf's cloth) reads 3.9:1; the print coral read 2.9 */
 .lp-steps h3 { margin: 0; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.01em; }
 .lp-steps p { margin: 4px 0 0; font-family: var(--serif); font-size: 1.05rem; line-height: 1.5; grid-column: 2; }
 
@@ -678,7 +682,9 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 .intent-own { margin-top: var(--m); }
 
 /* Explore (6 Oct) */
-.lp-explore { margin-top: 10px; background: none; border: 0; padding: 6px 0; font: 700 var(--small) var(--sans); color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.lp-explore { margin-top: 6px; background: none; border: 0; padding: 12px 0; min-height: 44px; font: 700 var(--small) var(--sans); color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+/* the carousel's space is reserved before its data arrives, so the hero art does not jump (8 Oct night audit: the only layout shift) */
+.lp-quick { min-height: 232px; }
 .explore { padding-bottom: 80px; }
 .explore h1 { margin-top: 10px; }
 .explore-grid { list-style: none; margin: var(--l) 0 0; padding: 0; display: grid; gap: 18px; grid-template-columns: 1fr; }
@@ -704,7 +710,7 @@ h2 { font-family: var(--sans); font-size: var(--heading); line-height: 1.15; let
 /* the "start one tonight" carousel with pills (6 Oct) */
 .lp-pills { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 0 calc(-1 * var(--m)) 10px 0; padding: 2px var(--m) 4px 0; }
 .lp-pills::-webkit-scrollbar { display: none; }
-.lp-pills button { flex: none; border: 2px solid var(--ink); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 12px; font: 700 0.82rem var(--sans); min-height: 36px; cursor: pointer; }
+.lp-pills button { flex: none; border: 2px solid var(--ink); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 12px; font: 700 0.82rem var(--sans); min-height: 44px; cursor: pointer; }
 .lp-pills button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
 .lp-carousel { list-style: none; margin: 0 calc(-1 * var(--m)) 0 0; padding: 2px var(--m) 10px 0; display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .lp-carousel::-webkit-scrollbar { display: none; }
@@ -894,7 +900,7 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 /* The Shelf (8 Oct): cloth-bound books on wooden shelves. One shelf per kind; a book appears once. */
 .shelf-link { background: var(--paper); border: 2px solid var(--ink); color: var(--ink); border-radius: 999px; padding: 7px 12px; font: 700 0.85rem var(--sans); margin-left: 12px; min-height: 36px; white-space: nowrap; }
 .shelf-link:active { background: var(--ink); color: var(--paper); }
-.lp-top-shelf { background: none; border: 1.5px solid var(--ink); color: var(--ink); border-radius: 999px; padding: 8px 12px; font: 700 0.85rem var(--sans); margin-left: auto; margin-right: 10px; min-height: 36px; }
+.lp-top-shelf { background: none; border: 2px solid var(--ink); color: var(--ink); border-radius: 999px; padding: 8px 12px; font: 700 0.85rem var(--sans); margin-left: auto; margin-right: 10px; min-height: 40px; }
 .shelf-page { padding-bottom: 80px; }
 .shelf-page h1 { margin-top: 10px; }
 .shelf-tools { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 10px; margin: 8px 0 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }

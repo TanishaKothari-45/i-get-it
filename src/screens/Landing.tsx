@@ -324,7 +324,7 @@ function Demo({ topic, title, frames, total, onTry }: { topic: string; title: st
           ) : (
             <>
               {i === 0 && <h3 className="story-title">{title}</h3>}
-              {f.picture && <div className="story-pic"><img src={f.picture} alt="" /></div>}
+              {f.picture && <div className="story-pic"><img src={f.picture} alt="" loading="lazy" /></div>}
               {i > 0 && KICKER[f.kind] && <p className="story-kicker">{KICKER[f.kind]}</p>}
               <Rich text={f.text} className="story-text size-md" />
             </>

@@ -4,12 +4,13 @@ import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import ActionBar from '../components/ActionBar'
 
-type Props = { onDone: () => Promise<void>; onBack: () => void; reason?: string | null }
+// heading and backLabel (8 Oct night, critique): the wall names the chapter it opens and says where "Not now" goes.
+type Props = { onDone: () => Promise<void>; onBack: () => void; reason?: string | null; heading?: string; backLabel?: string }
 
 // Sign in or sign up with a 6-digit code by email (7 Oct, Prateek: less friction than a password; no spam, ever).
 // The same code works for a new account and an existing one. Email + password stays as a fallback for accounts made
 // before 7 Oct. Copy is (agent) until Prateek rewrites it.
-export default function SignIn({ onDone, onBack, reason }: Props) {
+export default function SignIn({ onDone, onBack, reason, heading, backLabel = 'Not now' }: Props) {
   const { signIn } = useAuthActions()
   const [mode, setMode] = useState<'code' | 'password'>('code')
   const [step, setStep] = useState<'email' | 'code'>('email')
@@ -70,8 +71,8 @@ export default function SignIn({ onDone, onBack, reason }: Props) {
         </p>
         {error && <p className="error">{error}</p>}
         <ActionBar busy={busy}>
-          <button className="btn" onClick={withPassword} disabled={busy || !email || password.length < (flow === 'signUp' ? 8 : 1)}>{busy ? 'Signing you in…' : flow === 'signUp' ? 'Create my sign-in' : 'Sign in'}</button>
-          <button type="button" className="quiet" onClick={onBack}>Not now</button>
+          <button className="btn" onClick={withPassword} disabled={busy || !email || password.length < (flow === 'signUp' ? 8 : 1)}>{busy ? 'Signing you in…' : flow === 'signUp' ? 'Create my sign-in' : 'Sign me in'}</button>
+          <button type="button" className="quiet" onClick={onBack}>{backLabel}</button>
         </ActionBar>
       </>
     )
@@ -80,9 +81,9 @@ export default function SignIn({ onDone, onBack, reason }: Props) {
   return (
     <>
       {reason && <p className="why-here">{reason}</p>}
-      <h1>Keep reading, free.</h1>
-      <p className="free-banner"><strong>Free.</strong> Just your email. No card, no spam, ever.</p>
-      <p className="lede">Your email, then a 6-digit code. Every chapter of every ready handbook opens, and your place is kept on any phone or laptop.</p>
+      <h1>{heading ?? 'Keep reading, free.'}</h1>
+      {!heading && <p className="free-banner"><strong>Free.</strong> Just your email. No card, no spam, ever.</p>}
+      <p className="lede">{heading ? 'Your email, then a 6-digit code. No card. Every chapter of every ready handbook opens too.' : 'Your email, then a 6-digit code. Every chapter of every ready handbook opens, and your place is kept on any phone or laptop.'}</p>
       {step === 'email' ? (
         <div className="field">
           <label htmlFor="email">Email</label>
@@ -101,15 +102,16 @@ export default function SignIn({ onDone, onBack, reason }: Props) {
           </p>
         </div>
       )}
-      <p className="note">No spam, ever. The only emails you'll get are these codes, and reminders if you turn them on.</p>
+      <p className="note">{step === 'email' ? "The code comes from igetit.now and takes about twenty seconds; check spam if it's slow. No other emails, ever, unless you turn reminders on." : "From igetit.now; check spam if it's slow."}</p>
       {error && <p className="error">{error}</p>}
       <ActionBar busy={busy}>
         {step === 'email'
           ? <button className="btn" onClick={sendCode} disabled={busy || !valid}>{busy ? 'Sending…' : 'Email me a code'}</button>
-          : <button className="btn" onClick={checkCode} disabled={busy || code.length !== 6}>{busy ? 'Checking…' : 'Continue'}</button>}
-        <button type="button" className="quiet" onClick={onBack}>Not now</button>
+          : <button className="btn" onClick={checkCode} disabled={busy || code.length !== 6}>{busy ? 'Checking…' : 'Sign me in'}</button>}
+        <button type="button" className="quiet" onClick={onBack}>{backLabel}</button>
       </ActionBar>
-      <p className="note" style={{ textAlign: 'center' }}><button type="button" className="quiet" style={{ padding: 0 }} onClick={() => { setMode('password'); setError(null) }}>Use a password instead</button></p>
+      {/* Accounts made before 7 Oct have a password; a new person never needs this line, so it reads as an answer, not a choice. */}
+      <p className="note" style={{ textAlign: 'center' }}><button type="button" className="quiet" style={{ padding: 0 }} onClick={() => { setMode('password'); setFlow('signIn'); setError(null) }}>I already have a password</button></p>
     </>
   )
 }

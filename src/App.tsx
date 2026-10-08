@@ -317,7 +317,7 @@ export default function App() {
   if (resolved === 'signin') {
     return (
       <Shell rail={rail} back={{ label: 'Back', onClick: () => setView(afterSignIn) }}>
-        <SignIn reason={signinReason} onDone={async () => {
+        <SignIn reason={signinReason} heading={signinReason && doneN && doneN < total ? `Chapter ${doneN + 1} is free with an account.` : undefined} backLabel={afterSignIn === 'done' ? 'Not now, back to the handbook' : undefined} onDone={async () => {
           setSigninReason(null)
           // From the wall after a chapter (8 Oct night): straight on to the next chapter, which the account now opens.
           if (afterSignIn === 'done' && doneN && doneN < total) { const next = chapterReady && chapter?.n === doneN + 1; setDoneN(null); setView(next ? 'chapter' : 'plan'); return }
@@ -343,7 +343,7 @@ export default function App() {
           sources={plan?.sources}
           signedIn={isAuthenticated}
           tomorrowAt={progress?.tomorrowAt}
-          onKeep={() => signIn('done')}
+          onKeep={() => { if (doneN && doneN < total) setSigninReason(`To open chapter ${doneN + 1} of ${plan?.topic ?? hb.topic}. Chapter ${doneN} stays on this phone whatever you choose.`); signIn('done') }}
           freeChapters={1}
           priceLine={priceLine}
           onPricing={() => setView('pricing')}

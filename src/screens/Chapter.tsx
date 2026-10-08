@@ -134,6 +134,16 @@ export default function Chapter({ total = 7, topic, n, title, cards, recall, pas
   const item = frame.item
   const key = `${item.chapter}:${item.cardIndex}`
   const isLast = i >= frames.length - 1
+  // The next two frames' pictures are warmed as each frame lands (8 Oct night, critique: an empty plate with a hard shadow
+  // mid-chapter is the opposite of a Reel that is "already there"). The browser caches them; no state, no layout.
+  useEffect(() => {
+    for (const k of [i + 1, i + 2]) {
+      const f = frames[k]
+      if (!f || f.item.recall || f.part !== 0) continue
+      const src = pictures[f.item.cardIndex]
+      if (src) { const im = new Image(); im.src = src }
+    }
+  }, [i, frames, pictures])
 
   // exercise state, per frame
   const [attempt, setAttempt] = useState(1)
