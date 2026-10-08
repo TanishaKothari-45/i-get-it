@@ -9,3 +9,8 @@
 .next-topics .topic-link { padding: 10px 0; }
 .intent-thinking { grid-column: 1 / -1; }
 .quiet-link { color: inherit; }
+/* /admin Review (D32) */
+.adm-review { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.adm-review-row { padding: 12px; border: 1px solid var(--ink); border-radius: 10px; background: var(--paper); }
+.adm-review-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+.adm-review-actions .input { flex: 1 1 200px; min-width: 160px; }

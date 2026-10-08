@@ -188,6 +188,13 @@ export default defineSchema({
     passes: v.number(),
     why: v.optional(v.string()),       // the privacy check's reason
     createdAt: v.number(),
+    // D32 (Prateek, 9 Oct 03:5x): nothing typed goes public by itself. "pending" waits for his Approve on /admin;
+    // "rejected" came from the automatic filter (reviewWhy says why) or his Reject; "approved" was his tap.
+    review: v.optional(v.string()),
+    reviewWhy: v.optional(v.string()),
+    reviewedBy: v.optional(v.string()),
+    reviewedAt: v.optional(v.number()),
+    judge: v.optional(v.any()),        // { score, weakest, why, dubious } from the 6 Oct judge on chapter 1
   })
     .index("by_key", ["topicKey", "level"])
     .index("by_source", ["sourceHandbookId"]),

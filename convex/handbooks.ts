@@ -414,8 +414,10 @@ export const create = mutation({
     if (!all.ok || !mine.ok) throw new ConvexError("busy");
     if (!userId && !(await limiter.limit(ctx, "generateAnon")).ok) throw new ConvexError("busy");
 
+    // D31b (9 Oct): the typed line can say the level ("advanced", "beyond basics" → some; "beginner", "from scratch" → new).
+    const cue = /\b(advanced|intermediate|beyond (the )?basics|next level|deep dive|expert)\b/i.test(clean) ? "some" : /\b(beginner|beginners|basics|from scratch|for dummies|101|absolute beginner)\b/i.test(clean) ? "new" : null;
     const handbookId = await ctx.db.insert("handbooks", {
-      topic: clean, topicKey, level: lvl, language: LANGUAGE, voice: voice ?? "friend", status: "intent",
+      topic: clean, topicKey, level: (cue ?? lvl) as any, language: LANGUAGE, voice: voice ?? "friend", status: "intent",
       ownerToken: deviceToken, userId: userId ?? undefined, source: "live", createdAt: now,
     });
     await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
@@ -564,8 +566,10 @@ export const chooseIntent = mutation({
 // Opus 5.5 at medium effort as the backup when Gemini fails for any reason. Her evals on frozen briefs: Opus v1 4.67,
 // Flash 3.56 on a blind ranking; about ₹1 a plan on Flash against about ₹7 on Opus at high effort. A writer pinned by an
 // A/B test keeps its own model. To switch back: PLAN_MODEL = undefined (Opus high, the 6 Oct setting).
-const PLAN_MODEL: string | undefined = "gemini-3.8-flash";
-const PLAN_BACKUP = { model: "claude-opus-5-5", effort: "medium" as const };
+// D33 (dc for Prateek, 9 Oct 04:0x, from the dev judge: Opus about 8 of 12 a chapter, Flash about 6 with invented numbers; Flash plans had no picture and one block list for every chapter): back on Opus 5.5, effort medium.
+const PLAN_MODEL: string | undefined = undefined;
+const PLAN_EFFORT = "medium" as const;
+const PLAN_BACKUP = { model: "claude-opus-5-5", effort: "high" as const };   // D33: the first try is Opus medium, so the backup is Opus high
 
 export const generatePlan = internalAction({
   args: { handbookId: v.id("handbooks"), clarification: v.optional(v.string()) },
@@ -586,7 +590,7 @@ export const generatePlan = internalAction({
     const oneOff = /^(how (do i|to) (make|cook|bake|prepare|fry|boil|roast|grill|fix|repair|install|set ?up|tie|fold|clean|wash|change|replace|assemble)\b|.*\brecipe\b)/i.test(h.topic.trim());
     if (oneOff && brief && (brief.format !== "quick" || Number(brief.chapters) !== 1 || !["howto", "recipe", "event", "person"].includes(String(brief.kind)))) brief = { ...brief, kind: "howto", format: "quick", chapters: 1 };
     const planUser = planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief) + (oneOff ? `\n\nThis is a one-sitting handbook: "format" is "quick" and "chapters" has exactly ONE item holding every step, starting with a doit checklist titled "What you need".` : "");
-    let r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUser, model: h.writer ?? PLAN_MODEL, trace: { handbookId } });
+    let r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUser, model: h.writer ?? PLAN_MODEL, effort: h.writer ? undefined : PLAN_EFFORT, trace: { handbookId } });
     if (!r.ok && !h.writer && PLAN_MODEL) r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUser, ...PLAN_BACKUP, trace: { handbookId } });
     // Claude's own safety check said no: say so plainly, never "try again".
     if (!r.ok && /^declined/.test(r.error)) {
@@ -627,10 +631,40 @@ export const generatePlan = internalAction({
       await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `plan had ${plan.chapters?.length ?? 0} chapters` });
       return;
     }
+    // D31b (1) (9 Oct): a course with no picture, or one block list copied across chapters 2 to 7, is asked again once
+    // with the fault stated, then the backup; the better of the two is kept.
+    const faults = (p: any): string[] => {
+      const out: string[] = [];
+      if (Array.isArray(p?.chapters) && p.chapters.length === CHAPTERS) {
+        if (!p.picture || !p.picture.name) out.push("\"picture\" is null: a course needs one analogy carried through every chapter, with its \"maps\"");
+        const lists = p.chapters.slice(1).map((c: any) => JSON.stringify(c.blocks ?? []));
+        if (lists.length > 1 && new Set(lists).size === 1) out.push("chapters 2 to 7 all have the same block list: choose each chapter's blocks for what it teaches");
+      }
+      return out;
+    };
+    let planFaults = faults(plan);
+    if (planFaults.length) {
+      const again = planUser + `\n\nYour previous plan had these faults: ${planFaults.join("; ")}. Write the whole plan again with them fixed.`;
+      let r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: again, model: h.writer ?? PLAN_MODEL, effort: h.writer ? undefined : PLAN_EFFORT, trace: { handbookId }, logAs: "plan" });
+      if ((!r2.ok || faults(r2.json).length) && !h.writer) r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: again, ...PLAN_BACKUP, trace: { handbookId } });
+      if (r2.ok && Array.isArray(r2.json?.chapters) && r2.json.chapters.length >= 1 && faults(r2.json).length < planFaults.length) { Object.assign(plan, r2.json); planFaults = faults(plan); }
+      console.log("plan faults", handbookId, planFaults.length ? planFaults : "fixed");
+    }
     if (!plan.mode && h.mode) plan.mode = h.mode;
     if (h.goal) plan.goal = h.goal;
     plan.chapters = plan.chapters.map((c: any, i: number) => ({ ...c, n: i + 1 }));
     plan.format = plan.chapters.length < CHAPTERS ? "quick" : "course";
+    // D31b (2): move and doit cards are for body skills only (a sport, exercise, dance, yoga, swimming); any other course
+    // loses them and a proof of "set" becomes "predict". A one-sitting handbook keeps its "What you need" checklist.
+    const bodySkill = /\b(sport|sports|exercise|exercises|dance|dancing|yoga|swim|swimming|calisthenics|workout|fitness|running|jogging|martial|boxing|gym|stretch|stretching|pilates|cricket|football|tennis|badminton|climbing|cycling|push-?ups?|pull-?ups?|squats?|planks?|posture|breathing)\b/i.test(`${h.topic} ${brief?.kind ?? ""} ${h.goal ?? ""} ${plan.mode ?? ""}`);
+    if (plan.format === "course" && !bodySkill) {
+      let stripped = 0;
+      for (const c of plan.chapters) {
+        if (Array.isArray(c.blocks)) { const n0 = c.blocks.length; c.blocks = c.blocks.filter((b: string) => b !== "move" && b !== "doit"); stripped += n0 - c.blocks.length; }
+        if (c.proof === "set") c.proof = "predict";
+      }
+      if (stripped) console.log("block guard", handbookId, `${stripped} move/doit blocks removed (not a body skill)`);
+    }
     if (plan.format === "quick" && !plan.framing && brief?.framing) plan.framing = brief.framing;
     if (plan.format === "course") plan.framing = null;
     await ctx.runMutation(internal.handbooks.setPlan, { handbookId, plan, topic: clarification ? `${h.topic} (${clarification})` : h.topic });
@@ -666,15 +700,32 @@ export async function factCheck(ctx: any, topic: string, level: string, title: s
   }
   const out = cards.slice();
   const notes: string[] = [];
+  const broken: { i: number; problem: string }[] = [];
   for (const f of Array.isArray(r.json?.fixes) ? r.json.fixes : []) {
     const i = Number(f?.card);
     if (!Number.isInteger(i) || i < 0 || i >= out.length) continue;
-    if (!validFix(out[i], f.fixed)) { notes.push(`card ${i}: fix skipped (shape) - ${String(f.problem ?? "").slice(0, 200)}`); continue; }
+    if (!validFix(out[i], f.fixed)) { broken.push({ i, problem: String(f.problem ?? "").slice(0, 200) }); continue; }
     out[i] = f.fixed;
     notes.push(`card ${i}: ${String(f.problem ?? "").slice(0, 300)}`);
   }
+  // D31b (3) (9 Oct): a fix that broke the card's shape used to be skipped and the chapter still went out as "passed"
+  // with the error in it. Now the checker is asked once more for just those cards, with the shape named; if a fix is
+  // still unusable the chapter is stored as "unchecked" with the notes, never "passed".
+  let stillBroken = broken;
+  if (broken.length) {
+    const again = `Topic: ${topic}\nThese cards had a real problem but your corrected version did not keep the card's shape (same "type", same fields; an exercise keeps exactly three options with ids a, b, c and "answer" one of them). Return the corrected WHOLE card for each, same shape as the original, in the same JSON format as before.\n` +
+      broken.map(({ i, problem }) => `Card ${i} (problem: ${problem}):\n${JSON.stringify(out[i])}`).join("\n\n") + `\n\nReturn only this JSON: {"ok": false, "fixes": [{"card": <index>, "problem": "...", "fixed": <the corrected card>}]}`;
+    const r2 = await ctx.runAction(internal.ai.generate, { kind: "check", system: CHECK_PROMPT, user: again, ...callOpts });
+    stillBroken = [];
+    for (const b of broken) {
+      const f = r2.ok ? (Array.isArray(r2.json?.fixes) ? r2.json.fixes : []).find((x: any) => Number(x?.card) === b.i) : null;
+      if (f && validFix(out[b.i], f.fixed)) { out[b.i] = f.fixed; notes.push(`card ${b.i}: ${b.problem} (fixed on the second ask)`); }
+      else { stillBroken.push(b); notes.push(`card ${b.i}: fix skipped (shape) - ${b.problem}`); }
+    }
+  }
   const applied = notes.filter((x) => !x.includes("fix skipped")).length;
-  return { cards: out, report: { status: applied > 0 ? "fixed" : "passed", fixes: applied, notes, model: r.model, at: Date.now() }, scenes };
+  const status = stillBroken.length ? "unchecked" : applied > 0 ? "fixed" : "passed";
+  return { cards: out, report: { status, fixes: applied, notes, model: r.model, at: Date.now() }, scenes };
 }
 
 // Body skills (8 Oct): each "move" card gets its moving figure, drawn by Sonnet from the cues. A failed drawing
@@ -722,7 +773,7 @@ export const markRewrite = internalMutation({
 // medium effort (the writer until now) as the backup when Gemini fails. A model pinned for a reader's profile or by an
 // A/B test keeps its own model. On Flash her v3 prompt kept every shape check at about ₹1.2 a chapter. To switch back:
 // CHAPTER_MODEL = undefined (Opus medium, the 6 Oct setting).
-const CHAPTER_MODEL: string | undefined = "gemini-3.8-flash";
+const CHAPTER_MODEL: string | undefined = undefined;   // D33: Opus 5.5 medium (the JOB default)
 const CHAPTER_BACKUP = { model: "claude-opus-5-5", effort: "medium" as const };
 // Paragraphs (one swipe each) and words across the body-bearing cards of a chapter reply (D27).
 export function chapterSize(json: any) {

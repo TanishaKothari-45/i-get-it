@@ -6,6 +6,7 @@ import { internalAction, internalMutation, internalQuery, mutation, query, type 
 import type { Doc, Id } from "./_generated/dataModel";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { LIBRARY_CHECK_PROMPT } from "./prompts";
+import { JUDGE, JUDGE_MODEL } from "./evalModels";
 import { isOwner } from "./admin";
 import { weekStartIST } from "./landing";
 import { syncShared } from "./shelf";
@@ -15,19 +16,32 @@ import { syncShared } from "./shelf";
 const DAY = 24 * 60 * 60 * 1000;
 
 // After a typed topic's chapter 1 is written: share its plan and chapter 1 if the privacy check says it's a general subject.
+// After a typed topic's chapter 1 is passed by its own reader: an automatic filter, then the row waits for Prateek's
+// Approve on /admin (D32, 9 Oct 03:5x: "people are now starting to spam our app"). Nothing typed goes public by itself.
 export const consider = internalAction({
   args: { handbookId: v.id("handbooks") },
-  handler: async (ctx, { handbookId }) => {
+  handler: async (ctx, { handbookId }): Promise<void> => {
     const d: any = await ctx.runQuery(internal.library.readSource, { handbookId });
     if (!d) return;
+    const h = d.h;
+    const reject = async (why: string, judge?: any): Promise<void> => { await ctx.runMutation(internal.library.publish, { handbookId, share: false, why, review: "rejected", judge }); };
     // 8 Oct night (audit): a chapter 1 written for a reader's profile line is theirs, never shared.
     const prof: { line?: string | null } = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId });
-    if (prof?.line) { await ctx.runMutation(internal.library.publish, { handbookId, share: false, why: "written for one reader's profile" }); return; }
-    // Its own job and schema (8 Oct, Tanisha's catch): under "intent" every reply failed the schema, so nothing was ever published.
+    if (prof?.line) return reject("written for one reader's profile");
+    if (String(h.topic ?? "").trim().length < 8) return reject("typed line under 8 characters");
+    if ((h.status as string) === "declined" || h.plan?.pushback) return reject("a declined or pushback plan");
+    if (d.excluded) return reject("typed from one of our own or a test phone");
+    // The privacy check (its own job and schema since 8 Oct).
     const r: any = await ctx.runAction(internal.ai.generate, { kind: "library", system: LIBRARY_CHECK_PROMPT,
-      user: `Typed line: "${d.h.topic}"\nPlan topic: ${d.h.plan?.topic ?? ""}\nGoal: ${d.h.goal ?? ""}\nOutcome: ${d.h.plan?.outcome7 ?? ""}`, trace: { handbookId } });
-    const share = r.ok && r.json?.share === true;
-    await ctx.runMutation(internal.library.publish, { handbookId, share, why: String(r.ok ? r.json?.why ?? "" : r.error).slice(0, 120) });
+      user: `Typed line: "${h.topic}"\nPlan topic: ${h.plan?.topic ?? ""}\nGoal: ${h.goal ?? ""}\nOutcome: ${h.plan?.outcome7 ?? ""}`, trace: { handbookId } });
+    if (!(r.ok && r.json?.share === true)) return reject(`privacy check: ${String(r.ok ? r.json?.why ?? "no" : r.error).slice(0, 120)}`);
+    // The 6 Oct judge on chapter 1 (Opus high, 12 checks, about ₹3): under 9 is rejected with its weakest check named.
+    const j: any = await ctx.runAction(internal.ai.generate, { kind: "audit", system: JUDGE, user: "Chapter JSON:\n" + JSON.stringify({ title: d.ch.title, cards: d.ch.cards, outcomeLine: d.ch.outcomeLine }), model: JUDGE_MODEL, effort: "high", trace: { handbookId, chapter: 1 } });
+    const checks: Record<string, any> = j.ok && j.json?.checks && typeof j.json.checks === "object" ? j.json.checks : {};
+    const weakest = Object.entries(checks).find(([, v]) => v === false || v === 0)?.[0] ?? null;
+    const judge: any = j.ok ? { score: Number(j.json?.score ?? 0), weakest, why: String(j.json?.why ?? "").slice(0, 300), dubious: Array.isArray(j.json?.dubious_claims) ? j.json.dubious_claims.slice(0, 5) : [] } : { error: String(j.error).slice(0, 120) };
+    if (j.ok && judge.score < 9) return reject(`judge ${judge.score} of 12${weakest ? `: ${weakest}` : ""}`, judge);
+    await ctx.runMutation(internal.library.publish, { handbookId, share: true, why: String(r.json?.why ?? "").slice(0, 120), review: "pending", judge });
   },
 });
 
@@ -39,13 +53,14 @@ export const readSource = internalQuery({
     if (await ctx.db.query("library").withIndex("by_source", (q) => q.eq("sourceHandbookId", handbookId)).first()) return null;
     const ch = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", 1)).unique();
     if (!ch || ch.status !== "ready" || !ch.cards) return null;
-    return { h };
+    const excluded = h.ownerToken ? !!(await ctx.db.query("statsExcluded").filter((q) => q.eq(q.field("deviceToken"), h.ownerToken)).first()) : false;
+    return { h, ch: { title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine }, excluded };
   },
 });
 
 export const publish = internalMutation({
-  args: { handbookId: v.id("handbooks"), share: v.boolean(), why: v.string() },
-  handler: async (ctx, { handbookId, share, why }) => {
+  args: { handbookId: v.id("handbooks"), share: v.boolean(), why: v.string(), review: v.optional(v.string()), judge: v.optional(v.any()) },
+  handler: async (ctx, { handbookId, share, why, review, judge }) => {
     const h = await ctx.db.get(handbookId);
     const ch = h && await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", 1)).unique();
     if (!h || !ch?.cards) return;
@@ -55,7 +70,9 @@ export const publish = internalMutation({
     const libraryId = await ctx.db.insert("library", {
       topicKey: h.topicKey, topic: typedName(h.topic), level: h.level, goal: h.goal, mode: h.mode ?? (h.plan as any)?.mode,   // D28 (9 Oct): named by what the person typed, never the model's rewrite
       plan: h.plan, chapter1: { title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: (ch as any).svg, pictures: ch.pictures, recallCards: ch.recallCards, recallTiers: (ch as any).recallTiers },
-      sourceHandbookId: handbookId, published: share && !twin, starts: 1, passes: 0, why: twin ? "a copy for this topic and goal is already shared" : why, createdAt: Date.now(),
+      // D32: never published here; "pending" waits for Approve on /admin, "rejected" says why.
+      sourceHandbookId: handbookId, published: false, starts: 1, passes: 0, why: twin ? "a copy for this topic and goal is already shared" : why, createdAt: Date.now(),
+      review: twin ? "rejected" : (review ?? (share ? "pending" : "rejected")), reviewWhy: twin ? "a copy for this topic and goal is already shared" : (share ? undefined : why), judge,
     });
     const row = await ctx.db.get(libraryId); if (row) await syncShared(ctx, row);
   },
@@ -197,9 +214,40 @@ export const adminList = query({
   handler: async (ctx) => {
     if (!(await isOwner(ctx)).ok) return null;
     return (await ctx.db.query("library").collect()).sort((a, b) => b.createdAt - a.createdAt)
-      .map((r) => ({ id: r._id, topic: r.topic, goal: r.goal ?? null, mode: r.mode ?? null, published: r.published, pick: !!r.pick, starts: r.starts, passes: r.passes, why: r.why ?? null, createdAt: r.createdAt }));
+      .map((r) => ({ id: r._id, topic: r.topic, goal: r.goal ?? null, mode: r.mode ?? null, published: r.published, pick: !!r.pick, starts: r.starts, passes: r.passes, why: r.why ?? null, createdAt: r.createdAt, review: r.review ?? null }));
   },
 });
+// D32: the review queue for /admin (owner only): pending rows newest first, then the automatic rejections.
+export const reviewQueue = query({
+  args: {},
+  handler: async (ctx) => {
+    if (!(await isOwner(ctx)).ok) return null;
+    const rows = (await ctx.db.query("library").collect()).filter((r) => r.review === "pending" || r.review === "rejected").sort((a, b) => b.createdAt - a.createdAt);
+    return rows.map((r) => {
+      const cards: any[] = Array.isArray(r.chapter1?.cards) ? r.chapter1.cards : [];
+      const text = cards.filter((c) => typeof c?.body === "string").slice(0, 2).map((c) => String(c.body).replace(/\*\*/g, "").slice(0, 320));
+      return { id: r._id, review: r.review, reviewWhy: r.reviewWhy ?? null, topic: r.topic, level: r.level, goal: r.goal ?? null, mode: r.mode ?? null, title: r.chapter1?.title ?? null, text,
+        judge: r.judge ? { score: r.judge.score ?? null, weakest: r.judge.weakest ?? null, error: r.judge.error ?? null } : null, starts: r.starts, passes: r.passes, createdAt: r.createdAt, why: r.why ?? null,
+        reviewedBy: r.reviewedBy ?? null, reviewedAt: r.reviewedAt ?? null };
+    });
+  },
+});
+export const decide = mutation({
+  args: { id: v.id("library"), approve: v.boolean(), why: v.optional(v.string()) },
+  handler: async (ctx, { id, approve, why }) => {
+    const who = await isOwner(ctx);
+    if (!who.ok) throw new Error("Owner only");
+    const me = await getAuthUserId(ctx); const user = me ? await ctx.db.get(me) : null;
+    const row = await ctx.db.get(id);
+    if (!row) return;
+    const twins = await ctx.db.query("library").withIndex("by_key", (q) => q.eq("topicKey", row.topicKey).eq("level", row.level)).collect();
+    const twin = twins.some((x) => x._id !== id && x.published && (x.mode ?? "") === (row.mode ?? ""));
+    if (approve && twin) throw new Error("A copy for this topic and goal is already shared; hide that one first.");
+    await ctx.db.patch(id, { published: approve, review: approve ? "approved" : "rejected", reviewWhy: approve ? undefined : (why?.trim().slice(0, 200) || "rejected by the owner"), reviewedBy: user?.email ?? "owner", reviewedAt: Date.now() });
+    const fresh = await ctx.db.get(id); if (fresh) await syncShared(ctx, fresh);
+  },
+});
+export const pendingCount = internalQuery({ args: {}, handler: async (ctx) => (await ctx.db.query("library").collect()).filter((r) => r.review === "pending").length });
 export const setPublished = mutation({
   args: { id: v.id("library"), published: v.optional(v.boolean()), pick: v.optional(v.boolean()) },
   handler: async (ctx, { id, published, pick }) => {

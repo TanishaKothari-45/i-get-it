@@ -39,7 +39,7 @@ export default function AdminPipeline() {
   const d = useQuery(api.pipeline.dashboard, { days })
   if (!d || d.denied) return null
   const t = d.summary
-  const groups = ['reader', 'maintenance', 'eval'].map((g) => ({ g, rows: d.steps.filter((x) => x.group === g) })).filter((x) => x.rows.length)
+  const groups = ['reader', 'maintenance', 'eval'].map((g) => ({ g, rows: d.steps.filter((x: any) => x.group === g) })).filter((x) => x.rows.length)
   return (
     <section className="adm-card adm-wide">
       <h2>AI pipeline</h2>

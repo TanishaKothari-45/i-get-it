@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import AdminPipeline from '../components/AdminPipeline'
+import AdminReview from '../components/AdminReview'
 import { useMutation, useQuery } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { api } from '../../convex/_generated/api'
@@ -30,6 +31,7 @@ export default function Admin() {
           <p className="note">Updated live. Your own phones and accounts are left out. {d.trackingSince ? `Landing steps (marked •) are counted from ${time(d.trackingSince)}, when page tracking began.` : 'Landing steps (marked •) start counting from the next visit.'}</p>
 
           <ProviderSwitch />
+          <AdminReview />
           <LibraryCard />
           <TrendingCard />
           <ExperimentsCard />
