@@ -168,7 +168,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
       <section className="lp-steps">
         <h2>Tonight, in twenty minutes.</h2>
         <ol>
-          <li><img src="/images/landing/step1.jpg" alt="" loading="lazy" /><span className="lp-n">1</span><h3>Type it.</h3><p>Whatever you keep meaning to learn, in your own words. You get a seven-chapter plan for it in about 40 seconds.</p></li>
+          <li><img src="/images/landing/step1.jpg" alt="" loading="lazy" /><span className="lp-n">1</span><h3>Type it.</h3><p>Whatever you keep meaning to learn, in your own words. You get a plan, up to seven chapters for it in two to four minutes.</p></li>
           <li><img src="/images/landing/step2.jpg" alt="" loading="lazy" /><span className="lp-n">2</span><h3>Tap through chapter 1.</h3><p>Full-screen frames, one idea each, with pictures. Stuck? Ask it.</p></li>
           <li><img src="/images/landing/step3.jpg" alt="" loading="lazy" /><span className="lp-n">3</span><h3>Light the first rung.</h3><p>Read to the end of chapter 1 and the first rung lights up. No quizzes tonight: chapter 2 opens with two quick questions on what stuck.</p></li>
         </ol>
@@ -186,7 +186,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
 
       {c?.path && (
         <section className="lp-path">
-          <h2>Seven nights to the summit.</h2>
+          <h2>Seven nights to the summit, for a full course.</h2>
           <p className="lp-body">{c.path.outcome}</p>
           <ol>
             {c.path.chapters.map((ch: { n: number; title: string; hook: string }) => (
@@ -203,7 +203,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
       {c && c.shelf.length > 0 && (
         <section className="lp-shelf">
           <h2>Ready tonight.</h2>
-          <p className="lp-body">These open instantly. Anything else: your plan in about 40 seconds, and chapter 1 is written while you read it.</p>
+          <p className="lp-body">These open instantly. Anything else: your plan in two to four minutes, and chapter 1 is written while you read it.</p>
           <ul>
             {c.shelf.map((s: { topic: string; outcome: string; cover: string | null }) => (
               <li key={s.topic}>

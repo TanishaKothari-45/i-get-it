@@ -18,7 +18,7 @@ export default function Print() {
   return (
     <div className="shell print-page">
       <header className="top no-print">
-        <a className="wordmark" href="/" style={{ color: 'inherit', textDecoration: 'none' }}>I Get It<small>Seven chapters. Twenty minutes a night.</small></a>
+        <a className="wordmark" href="/" style={{ color: 'inherit', textDecoration: 'none' }}>I Get It<small>Twenty minutes at a time.</small></a>
       </header>
       <main className="policy">
         {!id ? <p className="lede">No handbook chosen. Open one and tap "Print or save as PDF".</p>

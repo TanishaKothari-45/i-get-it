@@ -76,7 +76,7 @@ export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTit
   return (
     <>
       <Confetti fire />
-      <RungBar passed={passed} filling={n} />
+      <RungBar passed={passed} filling={n} total={total} />
       <p className="sub" style={{ marginTop: 10 }}>{topic}</p>
       <h1>Chapter {n} of {total}: done.</h1>
       {line && <p className="cheer">{line}</p>}
@@ -102,11 +102,11 @@ export default function Done({ total = 7, topic, n, passed, outcomeLine, nextTit
             <p className="upnext-kicker">Up next · Chapter {n + 1} of {total}</p>
             <h2 className="upnext-title">{nextTitle}</h2>
             {nextHook && <p className="upnext-hook">{nextHook}</p>}
-            {onNext && <button type="button" className="btn upnext-btn" onClick={onNext}>{nextReady ? `Start chapter ${n + 1} →` : `Start chapter ${n + 1} → (writing it, about a minute)`}</button>}
+            {onNext && <button type="button" className="btn upnext-btn" onClick={onNext}>{nextReady ? `Start chapter ${n + 1} →` : `Start chapter ${n + 1} → (writing it, about two minutes)`}</button>}
           </div>
         </section>
       )}
-      {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>{total === 7 ? "That's the whole handbook. Days 14 and 28 come later." : "That's all of it. Quick and done."}</p>}
+      {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>{total === 7 ? "That's the whole handbook. Seven chapters, done." : "That's all of it. Quick and done."}</p>}
       {last && whatsNext}
 
       {last && (
@@ -165,9 +165,18 @@ function Reminder({ n, tomorrowAt, onPickTime, handbookId, deviceToken }: { n: n
     } catch { setNote("Couldn't save that. Try again.") }
     finally { setSaving(null) }
   }
+  // Collapsed until tapped (UX review #39, 8 Oct): six reminder times on every Done screen pushed the next chapter down.
+  const [open, setOpen] = useState(!!tomorrowAt)
+  if (!open) {
+    return (
+      <section className="remind">
+        <p className="note" style={{ marginTop: 'var(--l)' }}><button type="button" className="quiet" style={{ padding: 0 }} onClick={() => setOpen(true)}>Want a nudge for chapter {n + 1}? Pick a time</button></p>
+      </section>
+    )
+  }
   return (
     <section className="remind">
-      <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `Deal. See you ${momentOf(tomorrowAt) ?? `at ${pretty(tomorrowAt)}`}.` : `Chapter ${n + 1} takes twenty minutes. When do you have them?`}</h2>
+      <h2 style={{ marginTop: 'var(--xl)' }}>{tomorrowAt ? `Deal. See you ${momentOf(tomorrowAt) ?? `at ${pretty(tomorrowAt)}`}.` : `When do you have twenty minutes for chapter ${n + 1}?`}</h2>
       {!tomorrowAt && <p className="note" style={{ marginTop: 0 }}>Pick one. One nudge a day at that time, and none on days you've already read.</p>}
       <div className="moments">
         {TIMES.map((t) => (

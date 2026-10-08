@@ -23,7 +23,7 @@ const COMPARE: { what: string; free: string; member: string }[] = [
   { what: 'New chapters a day', free: '3', member: '7' },
   { what: 'Web-checked answers', free: '3 a week', member: '30 a month' },
   { what: 'Print or save as PDF', free: '–', member: 'Any of your handbooks' },
-  { what: 'Coming next', free: '–', member: 'Your learning dashboard with streaks, Indian languages, days 8 to 28: members first' },
+  { what: 'Coming next', free: '–', member: 'Your learning dashboard with streaks, and Indian languages: members first' },
 ]
 
 // Early-bird pricing (7 Oct): the first 50 paying readers pay least, and keep that price while they keep paying.

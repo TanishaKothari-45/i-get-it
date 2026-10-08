@@ -40,7 +40,7 @@ export default function Policy({ page }: { page: PolicyPage }) {
   return (
     <div className="shell">
       <header className="top">
-        <a className="wordmark" href="/" style={{ color: 'inherit', textDecoration: 'none' }}>I Get It<small>Seven chapters. Twenty minutes a night.</small></a>
+        <a className="wordmark" href="/" style={{ color: 'inherit', textDecoration: 'none' }}>I Get It<small>Twenty minutes at a time.</small></a>
       </header>
       <main className="policy">
         <p className="sub" style={{ marginTop: 10 }}>Last updated {UPDATED}</p>
@@ -57,7 +57,7 @@ const BODY: Record<PolicyPage, ReactNode> = {
     <>
       <p className="lede">I Get It is run by {CONTACT.name}, an individual in India. Using it means you agree to these terms. They're short on purpose.</p>
       <h2>What I Get It is</h2>
-      <p>You type something you want to learn. An AI model (Claude, made by Anthropic) writes a seven-chapter handbook for you, one chapter at a time, and a second model checks each chapter for mistakes before you see it.</p>
+      <p>You type something you want to learn. An AI model (Claude, made by Anthropic) writes a handbook of up to seven chapters for you, one chapter at a time, and a second model checks each chapter for mistakes before you see it.</p>
       <p>It's a study aid. The checks catch a lot, not everything. On money, health and legal topics, treat it as a starting point and check before you act. Nothing here is professional advice.</p>
       <h2>Your account</h2>
       <p>You can read without signing in; your progress is kept on your phone. Sign in to keep it across devices and to pay. Keep your password to yourself; you're responsible for what happens under your account.</p>
@@ -107,7 +107,7 @@ const BODY: Record<PolicyPage, ReactNode> = {
   ),
   refunds: (
     <>
-      <p className="lede">Your first handbook is free, all seven chapters, so you can see exactly what you're paying for before you pay.</p>
+      <p className="lede">The first 3 chapters of any handbook are free without an account, and a free account opens the rest of every ready handbook plus your one typed handbook, so you can see exactly what you're paying for before you pay.</p>
       <h2>Refunds</h2>
       <p>Payments are final: we don't give refunds, for a month or a year. That's why your first handbook is free and nothing renews by itself, so you only ever pay for time you chose.</p>
       <p>The one exception is a payment that went wrong; see below.</p>

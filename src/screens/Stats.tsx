@@ -45,7 +45,7 @@ export default function Stats() {
   return (
     <div className="shell stats-shell">
       <header className="top">
-        <a className="wordmark" href="/" style={{ color: 'inherit', textDecoration: 'none' }}>I Get It<small>Seven chapters. Twenty minutes a night.</small></a>
+        <a className="wordmark" href="/" style={{ color: 'inherit', textDecoration: 'none' }}>I Get It<small>Twenty minutes at a time.</small></a>
       </header>
       <main>
         <h1>The numbers, in public.</h1>

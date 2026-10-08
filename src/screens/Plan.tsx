@@ -16,6 +16,7 @@ type Props = {
   chapterError?: string
   // Today's reading allowance is used (membership.ts): what to tell the reader, and the way to membership.
   lockNote?: string | null
+  lockHead?: string | null   // what the lock means, from the server's code (8 Oct): a daily limit, or just not open
   onPricing?: () => void
   onSignUp?: () => void   // a visitor at chapter 4: the free account is the next step, not money
   onStart: () => void
@@ -36,7 +37,7 @@ type Props = {
 }
 
 // The handbook as a journey: a cover, then seven stops on a winding path, each with its hook as the teaser.
-export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, onPricing, onSignUp, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
+export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan, passed, current, chapterReady, chapterFailed, chapterError: _chapterError, lockNote, lockHead, onPricing, onSignUp, onStart, onRetry, onChangeLine, voiceNote, onTune, onCompare, comparing, coverPicture, caution, onLibrary, libraryCount, nextUp, whatsNext }: Props) {
   useEffect(() => { track('plan_view', undefined, 'plan_view:' + topic) }, [topic])
   const first = passed.length === 0 && current === 1   // a reader who came in at chapter 2 from a post is on 2
   const upTitle = nextUp ? plan.chapters[nextUp.n - 1]?.title : null
@@ -114,7 +115,7 @@ export default function Plan({ total = 7, onOpenChapter, nextTopics, topic, plan
         {lockNote ? (
           <>
             <div className="lock-card">
-              <p className="lock-card-head">{onSignUp ? `Chapter ${current} is free with an account` : `Chapter ${current} opens tomorrow`}</p>
+              <p className="lock-card-head">{onSignUp ? `Chapter ${current} is free with an account` : lockHead ? `Chapter ${current} ${lockHead}` : `Chapter ${current} didn't open`}</p>
               <p className="lock-card-text">{lockNote}</p>
               {onSignUp && <p className="free-banner"><strong>Free.</strong> Just your email. No card, no spam, ever.</p>}
               {onSignUp ? <button className="btn" onClick={onSignUp}>Sign up free and keep reading</button>
