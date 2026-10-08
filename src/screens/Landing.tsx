@@ -24,7 +24,7 @@ type Pill = 'trending' | 'started' | 'finished' | 'new'
 const PILLS: { key: Pill; label: string }[] = [{ key: 'trending', label: '🔥 Trending this week' }, { key: 'started', label: 'Most started' }, { key: 'finished', label: 'Most finished' }, { key: 'new', label: 'New' }]
 
 // "Or start one tonight" as a carousel (6 Oct): pills sort it by real numbers, Surprise me shuffles it. One tap starts.
-function Carousel({ items, busy, onPick, onExplore }: { items: Shelf[]; busy: boolean; onPick: (topic: string) => void; onExplore?: () => void }) {
+function Carousel({ items, busy, picked, onPick, onExplore }: { items: Shelf[]; busy: boolean; picked: string | null; onPick: (topic: string) => void; onExplore?: () => void }) {
   const hasTrending = items.some((i) => i.trending)
   const hasFinished = items.some((i) => i.passRate !== null)
   const pills = PILLS.filter((p) => (p.key !== 'trending' || hasTrending) && (p.key !== 'finished' || hasFinished))
@@ -48,15 +48,15 @@ function Carousel({ items, busy, onPick, onExplore }: { items: Shelf[]; busy: bo
       </div>
       <ul className="lp-carousel">
         {sorted.slice(0, 12).map((it) => (
-          <li key={it.topic}>
-            <button type="button" onClick={() => onPick(it.topic)} disabled={busy}>
+          <li key={it.topic} className={picked === it.topic ? 'lifting' : picked ? 'resting' : undefined}>
+            <button type="button" onClick={() => onPick(it.topic)} disabled={busy} aria-busy={picked === it.topic || undefined}>
               <span className="lp-carousel-pic">{it.cover && <img src={it.cover} alt="" loading="lazy" />}{tag(it) && <em>{tag(it)}</em>}</span>
               <strong>{it.topic}</strong>
             </button>
           </li>
         ))}
       </ul>
-      {onExplore && <button type="button" className="lp-explore" onClick={() => { track('submit', { via: 'explore_open' }); onExplore() }}>Explore everything →</button>}
+      {onExplore && <button type="button" className="lp-explore" onClick={() => { track('submit', { via: 'explore_open' }); onExplore() }}>See the whole Shelf →</button>}
     </div>
   )
 }
@@ -70,6 +70,7 @@ export default function Landing({ onCreate, onExplore }: Props) {
   const [level, setLevel] = useState<Level>('new')
   const [voice, setVoice] = useState<Voice>('friend')
   const [busy, setBusy] = useState(false)
+  const [pickedRow, setPickedRow] = useState<string | null>(null)   // the carousel card that flies up while its handbook opens (8 Oct night)
   const [error, setError] = useState<string | null>(null)
   const heroInput = useRef<HTMLInputElement>(null)
 
@@ -96,9 +97,9 @@ export default function Landing({ onCreate, onExplore }: Props) {
   // A ready topic starts straight away: no typing, and it opens instantly (it's already written).
   const pick = async (t: string, via: 'row' | 'shelf') => {
     track('submit', { via, topic: t })
-    setTopic(t); setError(null); setBusy(true)
+    setTopic(t); setError(null); setBusy(true); if (via === 'row') setPickedRow(t)
     try { await onCreate(t, 'new', voice) }
-    catch { setError("Couldn't start it just now. Try once more in a minute."); setBusy(false); toBox() }
+    catch { setError("Couldn't start it just now. Try once more in a minute."); setBusy(false); setPickedRow(null); toBox() }
   }
   const go = async () => {
     setError(null)
@@ -132,13 +133,13 @@ export default function Landing({ onCreate, onExplore }: Props) {
         </details>
       )}
       {error && <p className="lp-error" role="alert">{error}</p>}
-      <p className="lp-fine">Chapter 1 is free, no sign-up. A free account opens the rest; no card. Topics you start can appear in Explore, never with your name.</p>
-      {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
+      <p className="lp-fine">Chapter 1 is free, no sign-up. A free account opens the rest; no card. Topics you start can appear on the Shelf, never with your name.</p>
+      {where === 'hero' && c && c.shelf.length > 0 && <Carousel items={c.shelf as Shelf[]} busy={busy} picked={pickedRow} onPick={(t) => pick(t, 'row')} onExplore={onExplore} />}
     </form>
   )
 
   return (
-    <div className="lp">
+    <div className={`lp${pickedRow ? ' lifting' : ''}`}>
       <header className="lp-top">
         <a className="lp-mark" href="/">I Get It</a>
         <button type="button" className="lp-top-shelf" onClick={onExplore}>The Shelf</button>

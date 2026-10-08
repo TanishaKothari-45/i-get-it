@@ -103,8 +103,7 @@ export default function App() {
   const [exploreFrom, setExploreFrom] = useState<View>('auto')
   // A book tapped on the Shelf stays lifted on the Shelf while its handbook loads (8 Oct night, Prateek's animation):
   // the splash would tear the Shelf down, so the Shelf keeps rendering until the handbook query answers.
-  const [fromShelf, setFromShelf] = useState(false)
-  useEffect(() => { if (fromShelf && data !== undefined && view !== 'explore') setFromShelf(false) }, [fromShelf, data, view])
+  const [hold, setHold] = useState<'explore' | 'landing' | null>(null)
   const goExplore = () => { setExploreFrom(view === 'auto' || view === 'explore' ? (hb ? 'plan' : 'auto') : view); setView('explore') }
   const routeLock = (code: string | null, note: string) => {
     if (code === 'signup-more') { setSigninReason(note); setAfterSignIn('chapter'); setView('signin'); return true }
@@ -127,6 +126,11 @@ export default function App() {
   // only on the way in: a typed topic whose chapter 1 is still being written shows the plan, as before.
   const autoEntered = useRef<string | null>(null)
   const ch1Status = hb?.chapters.find((c) => c.n === 1)?.status
+  // "Holdable": a fresh handbook about to open chapter 1 by itself. The Shelf or the landing page stays up, with the
+  // lifted book, through the load and this one render, so the reader never sees the splash or a flash of the plan.
+  // (view 'chapter' with no cards yet is the half-second while chapter 1's cards are fetched; the plan would flash there.)
+  const holdable = hb?.status === 'ready' && ch1Status === 'ready' && passed.length === 0 && (progress?.currentCard ?? 0) === 0 && (view === 'auto' || (view === 'chapter' && !(chapter?.status === 'ready' && Array.isArray(chapter.cards))))
+  useEffect(() => { if (hold && hb && view !== 'explore' && !holdable) setHold(null) }, [hold, hb, view, holdable])
   useEffect(() => {
     if (!hb || hb.status !== 'ready' || autoEntered.current === hb._id || view !== 'auto') return
     autoEntered.current = hb._id
@@ -183,16 +187,18 @@ export default function App() {
   useEffect(() => { if (hb?._id && hb.status === 'ready') syncFromCache({ handbookId: hb._id, deviceToken: token }).catch(() => {}) }, [hb?._id, hb?.status, syncFromCache, token])
 
   // Explore: ready topics and the ones other readers started (6 Oct).
-  if (view === 'explore' || (fromShelf && data === undefined)) {
+  if (view === 'explore' || (hold === 'explore' && (data === undefined || holdable))) {
     return (
       <Shell>
         <Shelf onBack={() => setView(exploreFrom)}
-          onReady={async (topic) => { setFromShelf(true); const r = await create({ topic, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setView('auto') }}
-          onShared={async (id) => { setFromShelf(true); const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />
+          onReady={async (topic) => { setHold('explore'); const r = await create({ topic, level: 'new', voice: 'friend', deviceToken: token }); pin(String(r.handbookId)); setView('auto') }}
+          onShared={async (id) => { setHold('explore'); const r = await startFromLibrary({ libraryId: id, deviceToken: token }); pin(String(r.handbookId)); setView('auto') }} />
       </Shell>
     )
   }
 
+  // A first-time visitor's pick stays on the landing page, with the card lifted, until its handbook is ready (8 Oct night).
+  if (hold === 'landing' && !deepLink && (data === undefined || holdable))    return <Landing onExplore={() => setView('explore')} onCreate={async (topic, level, voice) => { setHold('landing'); setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
   if (data === undefined || deepLink) return <Shell><div className="splash">Opening your handbook…</div></Shell>
 
   const signIn = (back: View) => { setAfterSignIn(back); setView('signin') }
@@ -235,7 +241,7 @@ export default function App() {
     )
   }
   if (!hb && view !== 'start-again' && libRows.length === 0 && lib !== undefined) {
-    return <Landing onExplore={() => setView('explore')} onCreate={async (topic, level, voice) => { setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
+    return <Landing onExplore={() => setView('explore')} onCreate={async (topic, level, voice) => { setHold('landing'); setDraftTopic(topic); const r = await create({ topic, level, voice, deviceToken: token }); pin(String(r.handbookId)); setFlash(r.existing ? 'You already have this handbook, so we opened it where you left off. Each topic lives in one handbook.' : null); setView('auto') }} />
   }
 
   // No handbook yet, or the person wants a different line: the first screen.
