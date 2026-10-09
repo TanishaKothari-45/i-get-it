@@ -32,6 +32,7 @@ export default function Admin() {
 
           <ProviderSwitch />
           <AdminReview />
+          <ShelfCard />
           <LibraryCard />
           <TrendingCard />
           <ExperimentsCard />
@@ -207,6 +208,59 @@ function ProviderSwitch() {
       {!st.inferenceKeySet && <p className="note">The Inference Company key isn't set on this server yet.</p>}
       {st.provider === 'inference' && <p className="note">Readers' topics and chapters now go to The Inference Company. Switch back to Claude any time; chapters already written stay as they are.</p>}
       {error && <p className="error">{error}</p>}
+    </section>
+  )
+}
+
+// The Shelf (D34, 9 Oct, Prateek: "clean up the Shelf, keep only the best"): every handbook that could be on it, on or
+// off with one tap (off is reversible and recorded), the Spotlight as the server ranks it with a pin to force one in,
+// and the Awards (D34a): a title and a citation line typed here, shown on the Shelf's Awards row.
+function ShelfCard() {
+  const rows = useQuery(api.shelf.adminList, {})
+  const setOn = useMutation(api.shelf.setOnShelf)
+  const setPick = useMutation(api.shelf.setPick)
+  const setAward = useMutation(api.shelf.setAward)
+  const [editing, setEditing] = useState<string | null>(null)
+  const [title, setTitle] = useState('')
+  const [line, setLine] = useState('')
+  if (!rows) return null
+  const on = rows.filter((r) => r.on).length
+  const startEdit = (r: { id: string; award: { title: string; line: string } | null }) => { setEditing(r.id); setTitle(r.award?.title ?? ''); setLine(r.award?.line ?? '') }
+  return (
+    <section className="adm-card adm-wide">
+      <h2>The Shelf</h2>
+      <p className="note">{on} on the Shelf of {rows.length}. Spotlight: the three on the Shelf with the most readers finishing chapter 1 (starts break ties, a pinned one goes first, an awarded one is left out). "Take off" hides a handbook from the Shelf, the landing carousel, the wait stories and What's next; readers who already have it keep it, and you can put it back. A shared handbook taken off is also unpublished (its ?l= link stops), with the reason in the review list.</p>
+      <div className="adm-scroll">
+        <table className="adm-table">
+          <thead><tr><th>Handbook</th><th>Kind</th><th>Mode</th><th>Starts</th><th>Finished ch 1</th><th>Spotlight</th><th>Award</th><th>On the Shelf</th></tr></thead>
+          <tbody>{rows.map((r) => (
+            <tr key={r.id} style={r.on ? undefined : { opacity: 0.55 }}>
+              <td>{r.title}{r.goal ? <small> · for: {r.goal}</small> : null}{!r.cover && <small> · no cover</small>}</td>
+              <td>{r.kind}</td><td>{r.mode ?? ''}</td><td>{r.starts}</td><td>{r.passes}</td>
+              <td>{r.spot ? `No. ${r.spot}` : ''} <button type="button" className="quiet" onClick={() => setPick({ id: r.id, pick: !r.pick })}>{r.pick ? 'Pinned ✓' : 'Pin'}</button></td>
+              <td>
+                {editing === r.id ? (
+                  <span style={{ display: 'inline-grid', gap: 4 }}>
+                    <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Award title" maxLength={60} />
+                    <input value={line} onChange={(e) => setLine(e.target.value)} placeholder="One citation line" maxLength={200} style={{ width: 320 }} />
+                    <span>
+                      <button type="button" className="quiet" onClick={() => { if (title.trim() && line.trim()) { setAward({ id: r.id, award: { title, line } }); setEditing(null) } }}>Save</button>{' '}
+                      {r.award && <button type="button" className="quiet" onClick={() => { setAward({ id: r.id, award: null }); setEditing(null) }}>Remove</button>}{' '}
+                      <button type="button" className="quiet" onClick={() => setEditing(null)}>Cancel</button>
+                    </span>
+                  </span>
+                ) : (
+                  <>{r.award ? <small>{r.award.title}</small> : null} <button type="button" className="quiet" onClick={() => startEdit(r)}>{r.award ? 'Edit' : 'Give award'}</button></>
+                )}
+              </td>
+              <td>
+                <button type="button" className="quiet" onClick={() => setOn({ id: r.id, on: !r.on })}>{r.on ? 'On · take off' : 'Off · put back'}</button>
+                {r.offWhy && <small> {r.offWhy}</small>}
+              </td>
+            </tr>
+          ))}</tbody>
+        </table>
+      </div>
     </section>
   )
 }

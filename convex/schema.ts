@@ -326,6 +326,12 @@ export default defineSchema({
     trendingWeek: v.optional(v.string()), addedAt: v.number(), improvedAt: v.optional(v.number()),
     stories: v.optional(v.any()),
     libraryId: v.optional(v.id("library")), pick: v.optional(v.boolean()), published: v.boolean(),
+    // D34 (Prateek, 9 Oct: "clean up the Shelf, keep only the best"): a ready topic the owner took off the Shelf, and why.
+    // A shared handbook is taken off through its library row instead (published false, review "rejected").
+    offShelf: v.optional(v.boolean()), offWhy: v.optional(v.string()),
+    // D34a (Prateek, 9 Oct: "funny award categories for the creative handbooks people are requesting"): the owner's award,
+    // shown in the Awards row of the Shelf. Copy is his; the agent's first set is a placeholder.
+    award: v.optional(v.object({ title: v.string(), line: v.string() })),
     starts: v.number(), passes: v.number(),
   }).index("by_topic_kind", ["topic", "kind"]).index("by_library", ["libraryId"]).index("by_kind", ["kind"]),
 

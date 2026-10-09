@@ -986,6 +986,61 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .book-goal { font: 500 0.75rem/1.2 var(--sans); color: var(--fg2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cloth-coral .book-ribbon { background: var(--ink); color: var(--paper); }
 .book-ribbon { position: absolute; top: -6px; right: 8px; background: #e0735a; color: var(--ink); font: 700 0.75rem var(--sans); padding: 3px 7px; border-radius: 3px; box-shadow: 0 1px 0 rgba(0,0,0,0.3); }
+/* The Spotlight (D34, 9 Oct, Prateek: "a spotlight section to highlight 3 handbooks users like the best. Expecting fabulous UI"):
+   a marigold stand with paper grain at the top of the Shelf; three printed cards face out on it, each pressed (the stand
+   is the one hero on this screen), numbered with a printed ticket, the cover on a matted plate with an ink offset. On a
+   phone the cards are swipe pages; on a wide screen three across. */
+.spot { margin: 18px 0 0; padding: 16px 14px 6px; border: var(--stroke) solid var(--ink); border-radius: var(--radius-card); background-color: var(--accent); background-image: var(--grain); color: var(--ink); position: relative; }
+.spot-head { display: grid; gap: 2px; }
+.spot-label, .spot-no { display: inline-block; width: max-content; background: var(--ink); color: var(--paper); font: 800 0.72rem/1 var(--sans); letter-spacing: 0.02em; padding: 5px 9px; border-radius: 4px; transform: rotate(-2deg); }
+.spot-head h2 { margin: 8px 0 0; font: 800 1.5rem/1.1 var(--sans); font-stretch: 90%; letter-spacing: -0.015em; }
+.spot-list { list-style: none; margin: 0 -14px; padding: 22px 14px 18px; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; counter-reset: spot; }
+.spot-list::-webkit-scrollbar { display: none; }
+.spot-list li { flex: 0 0 80%; max-width: 320px; scroll-snap-align: start; position: relative; display: flex; }
+@media (min-width: 640px) { .spot-list { overflow: visible; } .spot-list li { flex: 1 1 0; max-width: none; } }
+.spot-card { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-rows: auto auto auto 1fr auto auto; gap: 6px; width: 100%; padding: 14px 12px 14px; background: var(--paper); color: var(--ink); border: var(--stroke) solid var(--ink); border-radius: var(--radius-card); box-shadow: var(--press); position: relative; transition: transform 120ms var(--ease), box-shadow 120ms var(--ease); }
+.spot-card:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.spot-card:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.spot-no { position: absolute; top: -13px; left: 12px; transform: rotate(-3deg); }
+.spot-plate { display: block; aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden; background: var(--paper-2); border: 3px solid var(--paper); box-shadow: 0 0 0 2px var(--ink), 5px 5px 0 var(--ink); margin: 4px 6px 8px 0; }
+.spot-plate img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.spot-plate-blank { display: flex; align-items: center; justify-content: center; height: 100%; font: 800 2.6rem var(--sans); color: var(--ink); }
+.spot-title { font: 700 1.3rem/1.15 var(--serif); letter-spacing: -0.01em; }
+.spot-goal { font: 600 var(--small) var(--sans); color: var(--accent-deep); }
+.spot-outcome { font: 400 0.98rem/1.4 var(--serif); color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.spot-stat { font: 700 var(--small) var(--sans); color: var(--pass); text-wrap: balance; }
+.spot-go { font: 800 var(--ui) var(--sans); }
+.spot-list li.lifting { z-index: 20; }
+.spot-list li.lifting .spot-card { transform: translateY(-4px); box-shadow: 6px 6px 0 var(--ink); }
+.spot-list li.lifting .spot-card::after { content: 'Opening…'; position: absolute; right: 10px; top: -13px; background: var(--accent); color: var(--ink); border: 2px solid var(--ink); border-radius: 4px; padding: 4px 8px; font: 800 0.72rem/1 var(--sans); transform: rotate(2deg); animation: labelbreathe 1.4s ease-in-out infinite alternate; }
+.shelf-page.lifting .spot-list li:not(.lifting) .spot-card { transform: none; }
+
+@keyframes labelbreathe { from { transform: rotate(2deg) translateY(0); } to { transform: rotate(2deg) translateY(-3px); } }
+
+/* The Awards (D34a, 9 Oct, Prateek: "funny award categories for the creative handbooks people are requesting"): printed
+   certificates with a coral rosette, the award title in serif italic, the typed line in quotes, one citation line. */
+.awards { margin-top: 26px; scroll-margin-top: 16px; }
+.award-list { list-style: none; margin: 0 calc(-1 * var(--s)); padding: 14px var(--s) 10px; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--s); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.award-list::-webkit-scrollbar { display: none; }
+.award-list li { flex: 0 0 84%; max-width: 340px; scroll-snap-align: start; position: relative; display: flex; }
+@media (min-width: 640px) { .award-list li { flex: 0 0 calc(50% - 7px); } }
+.award-card { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 4px; width: 100%; padding: 22px 16px 16px; background: var(--paper); color: var(--ink); border: var(--stroke) solid var(--ink); border-radius: var(--radius-card); position: relative; text-align: center; justify-items: center; box-shadow: inset 0 0 0 6px var(--paper), inset 0 0 0 8px var(--rule); transition: transform 120ms var(--ease), box-shadow 120ms var(--ease); }
+.award-card:active { transform: translate(2px, 2px); }
+.award-card:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.award-rosette { position: absolute; top: -12px; right: 14px; width: 40px; height: 40px; border-radius: 50%; background: #e0735a; border: 2.5px solid var(--ink); display: grid; place-items: center; color: var(--paper); font: 800 1.1rem/1 var(--sans); box-shadow: var(--press-sm); }
+.award-rosette::before, .award-rosette::after { content: ''; position: absolute; top: 30px; width: 10px; height: 20px; background: #e0735a; border: 2.5px solid var(--ink); border-top: 0; }
+.award-rosette::before { left: 6px; transform: rotate(14deg); }
+.award-rosette::after { right: 6px; transform: rotate(-14deg); }
+.award-title { font: 700 italic 1.35rem/1.15 var(--serif); letter-spacing: -0.01em; margin-top: 10px; max-width: 72%; text-wrap: balance; }
+.award-to { font: 600 0.72rem/1 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 4px; }
+.award-topic { font: 800 1.02rem/1.25 var(--sans); font-stretch: 92%; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.award-line { font: 400 0.98rem/1.4 var(--serif); color: var(--ink-2); margin-top: 4px; }
+.award-go { font: 800 var(--ui) var(--sans); margin-top: 8px; }
+.award-list li.lifting { z-index: 20; }
+.award-list li.lifting .award-card { transform: translateY(-4px); box-shadow: inset 0 0 0 6px var(--paper), inset 0 0 0 8px var(--rule), var(--press); }
+.award-list li.lifting .award-card::after { content: 'Opening…'; position: absolute; left: 12px; top: -13px; background: var(--accent); color: var(--ink); border: 2px solid var(--ink); border-radius: 4px; padding: 4px 8px; font: 800 0.72rem/1 var(--sans); transform: rotate(-2deg); animation: labelbreathe 1.4s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) { .spot-list li.lifting .spot-card::after, .award-list li.lifting .award-card::after { animation: none; } }
+
 .shelf-plank { height: 16px; margin: -2px -6px 0; border-radius: 3px; background: linear-gradient(180deg, #b98652, #9a6a3b 55%, #7b5230); box-shadow: 0 6px 10px rgba(27,26,23,0.22), inset 0 1px 0 rgba(255,255,255,0.25); }
 
 /* Tool skills and ideas (8 Oct, block 2): steps and try-it frames. */

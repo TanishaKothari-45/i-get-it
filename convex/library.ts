@@ -9,7 +9,7 @@ import { LIBRARY_CHECK_PROMPT } from "./prompts";
 import { JUDGE, JUDGE_MODEL } from "./evalModels";
 import { isOwner } from "./admin";
 import { weekStartIST } from "./landing";
-import { syncShared } from "./shelf";
+import { onShelf, spotlight, syncShared } from "./shelf";
 
 // The shared library (6 Oct, Prateek: "any handbook created by one user should immediately be available for all others").
 
@@ -192,22 +192,26 @@ export const explore = query({
     const shelf = await ctx.db.query("shelf").collect();
     const items: any[] = [];
     const seen = new Set<string>();
-    for (const r of shelf.filter((x) => x.kind === "ready" && x.level === "new")) {
+    // D34: only what the owner keeps on the Shelf; ready rows carry their real counts (readers only, since D34) so the
+    // Spotlight and "Most finished" can rank them with the shared ones.
+    for (const r of shelf.filter((x) => x.kind === "ready" && x.level === "new" && onShelf(x))) {
       if (seen.has(r.topic)) continue; seen.add(r.topic);
       const mine = recent.filter((h) => h.source === "cache" && h.topic === r.topic);
-      items.push({ kind: "ready", key: r.key, topic: r.title, outcome: r.outcome, mode: r.mode ?? null, cover: await url(r.cover), week: mine.length, starts: null, passes: null,
+      items.push({ kind: "ready", key: r.key, topic: r.title, outcome: r.outcome, mode: r.mode ?? null, cover: await url(r.cover), week: mine.length, starts: r.starts, passes: r.passes, pick: !!r.pick, award: r.award ?? null,
         finishedWeek: mine.filter((h) => finished.has(h._id)).length, trending: r.trendingWeek === thisWeek, addedAt: r.addedAt });
     }
-    for (const r of shelf.filter((x) => x.kind === "shared" && x.published)) {
+    for (const r of shelf.filter((x) => x.kind === "shared" && onShelf(x))) {
       if (seen.has(r.topic)) continue; seen.add(r.topic);
       const mine = recent.filter((h) => (h as any).fromLibrary === r.libraryId);
       items.push({ kind: "shared", id: r.libraryId, key: r.key, topic: r.title, goal: r.goal ?? null, outcome: r.outcome, mode: r.mode ?? null, cover: await url(r.cover),
-        week: mine.length, starts: r.starts, passes: r.passes, pick: !!r.pick, finishedWeek: mine.filter((h) => finished.has(h._id)).length, trending: false, addedAt: r.addedAt });
+        week: mine.length, starts: r.starts, passes: r.passes, pick: !!r.pick, award: r.award ?? null, finishedWeek: mine.filter((h) => finished.has(h._id)).length, trending: false, addedAt: r.addedAt });
     }
     const hot = new Set(items.filter((i) => i.week >= 2).sort((a, b) => b.week - a.week).slice(0, 3).map((i) => i.key));
     const loved = new Set(items.filter((i) => i.starts !== null && i.starts >= 3 && i.passes / i.starts >= 0.5).sort((a, b) => b.passes / b.starts - a.passes / a.starts).slice(0, 3).map((i) => i.key));
-    return items.map((i) => ({ ...i, hot: hot.has(i.key), loved: loved.has(i.key) }))
-      .sort((a, b) => Number(b.hot) - Number(a.hot) || Number(b.loved) - Number(a.loved) || b.week - a.week || Number(!!b.cover) - Number(!!a.cover));
+    // D34: the Spotlight, the three readers finish most (shelf.ts spotlight); spot is 1 to 3 on those, null elsewhere.
+    const spot = spotlight(items);
+    return items.map((i) => ({ ...i, hot: hot.has(i.key), loved: loved.has(i.key), spot: spot.indexOf(i.key) + 1 || null }))
+      .sort((a, b) => (a.spot ?? 9) - (b.spot ?? 9) || Number(b.hot) - Number(a.hot) || Number(b.loved) - Number(a.loved) || b.week - a.week || Number(!!b.cover) - Number(!!a.cover));
   },
 });
 
@@ -276,11 +280,11 @@ export const related = query({
     const current = shelf.find((r) => r.topic === topic || r.title === topic);
     const myMode = current?.mode ?? mine.find((h) => h.topic === topic)?.mode ?? null;
     const items: any[] = []; const seen = new Set<string>();
-    for (const r of shelf.filter((x) => x.kind === "ready" && x.level === "new")) {
+    for (const r of shelf.filter((x) => x.kind === "ready" && x.level === "new" && onShelf(x))) {
       if (seen.has(r.topic) || have.has(r.topic.toLowerCase()) || have.has(r.title.toLowerCase()) || r.topic === topic) continue; seen.add(r.topic);
       items.push({ kind: "ready", topic: r.title, outcome: r.outcome, cover: await url(r.cover), score: (r.mode && r.mode === myMode ? 10 : 0) + recent.filter((h) => h.topic === r.topic).length });
     }
-    for (const r of shelf.filter((x) => x.kind === "shared" && x.published)) {
+    for (const r of shelf.filter((x) => x.kind === "shared" && onShelf(x))) {
       if (seen.has(r.topic) || have.has(r.topic.toLowerCase())) continue; seen.add(r.topic);
       items.push({ kind: "shared", id: r.libraryId, topic: r.title, outcome: r.outcome, cover: await url(r.cover), score: (r.mode && r.mode === myMode ? 10 : 0) + r.starts });
     }

@@ -11,6 +11,7 @@ import type { Trace } from "./trace";
 import { MOVE_PROMPT, moveUserMessage, TRYIT_PROMPT, tryItUserMessage, INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, CHECK_SCENES_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
 import { level } from "./schema";
 import { copyInto, matchForIntent, sharedRow } from "./library";
+import { onShelf } from "./shelf";
 import { assignVariant } from "./doctor";
 import { COST_INR, LIMITS, isOpen, memberUntil, ownerIsMember, spendFits, tryOpen, typedAllowance } from "./membership";
 
@@ -399,7 +400,7 @@ export const create = mutation({
           pictures: useB ? (ab!.b.pictures ?? []) : ch.pictures, recallCards: ch.recallCards, quizTiers: (ch as any).quizTiers, recallTiers: (ch as any).recallTiers, cacheVersion: useB ? Number.MAX_SAFE_INTEGER : cached.version ?? 0, createdAt: now });
       }
       await ctx.db.insert("progress", { handbookId, currentChapter: 1, currentCard: 0, chaptersPassed: [], passedExercises: [], missedExercises: [], lastOpenedAt: now, updatedAt: now });
-      await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: cached.topic, started: true });
+      await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: cached.topic, started: true, handbookId });
       return { handbookId, fromCache: true, existing: false };
     }
 
@@ -486,7 +487,7 @@ export const matchOrIntents = internalAction({
 });
 export const shelfOptions = internalQuery({
   args: { level },
-  handler: async (ctx, { level: lvl }) => (await ctx.db.query("shelf").collect()).filter((r) => r.published && r.level === lvl)
+  handler: async (ctx, { level: lvl }) => (await ctx.db.query("shelf").collect()).filter((r) => onShelf(r) && r.level === lvl)
     .map((r) => ({ kind: r.kind, title: r.goal ? `${r.title} (for: ${r.goal})` : r.title, topic: r.topic, libraryId: r.libraryId })),
 });
 export const markResearch = internalMutation({
@@ -513,7 +514,7 @@ export const adoptExisting = internalMutation({
       await ctx.db.insert("chapters", { handbookId, n: ch.n, status: "ready", title: ch.title, cards: ch.cards, outcomeLine: ch.outcomeLine, svg: ch.svg,
         pictures: ch.pictures, recallCards: ch.recallCards, quizTiers: ch.quizTiers, recallTiers: ch.recallTiers, cacheVersion: cached.version ?? 0, createdAt: now });
     }
-    await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: cached.topic, started: true });
+    await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: cached.topic, started: true, handbookId });
     return true;
   },
 });
@@ -1109,7 +1110,7 @@ export const setPosition = mutation({
     if (quizFree && cardIndex >= lastShown && !p.chaptersPassed.includes(chapter)) {
       await ctx.db.patch(p._id, { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < totalOf(h) ? chapter + 1 : chapter, currentCard: 0, currentPart: 0, lastOpenedAt: Date.now(), updatedAt: Date.now() });
       if (chapter < totalOf(h)) await ensureChapter(ctx, h, chapter + 1);
-      if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); if (h.source === "live" && !(h as any).fromLibrary && !(h as any).test) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId }); }
+      if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true, handbookId }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); if (h.source === "live" && !(h as any).fromLibrary && !(h as any).test) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId }); }
       return;
     }
     await ctx.db.patch(p._id, { currentChapter: chapter, currentCard: cardIndex, currentPart: Math.max(0, Math.min(20, Math.floor(part ?? 0))), lastOpenedAt: Date.now(), updatedAt: Date.now() });
@@ -1198,7 +1199,7 @@ export const recordAnswer = mutation({
       });
       if (passesNow) {
         if (cardIndex !== lastQuiz && chapter < total) await ensureChapter(ctx, h, chapter + 1);   // passed on an earlier quiz
-        if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); if (h.source === "live" && !(h as any).fromLibrary && !(h as any).test) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId }); }
+        if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true, handbookId }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); await ctx.scheduler.runAfter(0, internal.doctor.countPass, { handbookId }); if (h.source === "live" && !(h as any).fromLibrary && !(h as any).test) await ctx.scheduler.runAfter(0, internal.library.consider, { handbookId }); }
         const right = card.options.find((o: any) => o.id === optionId);
         return { correct: true as const, text: right?.text ?? "", why: card.whyRight ?? null, chapterPassed: true as const };
       }
@@ -1233,7 +1234,7 @@ export const logSet = mutation({
     const total = totalOf(h);
     await ctx.db.patch(p._id, { chaptersPassed: [...p.chaptersPassed, chapter], currentChapter: chapter < total ? chapter + 1 : chapter, currentCard: 0, currentPart: 0, updatedAt: Date.now() });
     if (chapter < total) await ensureChapter(ctx, h, chapter + 1);
-    if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); }
+    if (chapter === 1) { if (h.source === "cache") await ctx.scheduler.runAfter(0, internal.shelf.countReady, { topic: h.topic, passed: true, handbookId }); await ctx.scheduler.runAfter(0, internal.library.countPass, { handbookId }); }
     return { chapterPassed: true as const };
   },
 });

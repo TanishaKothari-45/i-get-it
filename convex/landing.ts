@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { smallUrl } from "./pictures";
 import { query } from "./_generated/server";
+import { onShelf } from "./shelf";
 
 // Public content for the landing page, all from the ready topics: a tappable demo of
 // Public speaking chapter 1, its seven-night path, and a shelf of ready topics with cover pictures.
@@ -23,7 +24,7 @@ export const content = query({
     const url = async (id?: any) => (id ? await smallUrl(ctx, id) : null);   // D29b: the small variant when one exists
     const pictureFor = async (ch: any, card: number) => url(ch?.pictures?.find((p: any) => p.card === card)?.storageId);
     // The shelf (shelf.ts) holds one light row per ready topic, so this page never loads every full handbook (7 Oct).
-    const rows = (await ctx.db.query("shelf").withIndex("by_kind", (q) => q.eq("kind", "ready")).collect()).filter((r) => r.level === "new");
+    const rows = (await ctx.db.query("shelf").withIndex("by_kind", (q) => q.eq("kind", "ready")).collect()).filter((r) => r.level === "new" && onShelf(r));   // D34
     // Real numbers for the carousel pills (6 Oct): started this week, share passing chapter 1, trending, new.
     const excluded = await ctx.db.query("statsExcluded").collect();
     const xTokens = new Set(excluded.map((e) => e.deviceToken).filter(Boolean) as string[]);
@@ -71,7 +72,7 @@ export const waitStory = query({
   handler: async (ctx, { seed, exclude }) => {
     const ex = (exclude ?? "").trim().toLowerCase();
     const rows = (await ctx.db.query("shelf").withIndex("by_kind", (q) => q.eq("kind", "ready")).collect())
-      .filter((r) => (r.stories ?? []).length && r.title.toLowerCase() !== ex && r.topic.toLowerCase() !== ex);
+      .filter((r) => onShelf(r) && (r.stories ?? []).length && r.title.toLowerCase() !== ex && r.topic.toLowerCase() !== ex);   // D34: a story never sells a handbook that is off the Shelf
     if (!rows.length) return null;
     const n = Math.abs(Math.floor(seed));
     // D29a: the scroll moves between genres: pick a kind first (by the plan's mode and caution), then a handbook in it, then a story.
