@@ -219,6 +219,12 @@ export default function Start({ initialTopic = '', status, question, intents, on
   )
 }
 
+// The beat: "**Richard fired.** Out of the corner…" → ["Richard fired.", "Out of the corner…"]; null when the frame has none.
+const beatOf = (f: string): [string, string] | null => {
+  const m = f.match(/^\s*\*\*([^*\n]{2,40})\*\*\s*/)
+  if (!m || m[1].trim().split(/\s+/).length > 4) return null
+  return [m[1].trim(), f.slice(m[0].length)]
+}
 type WaitStory = { topic: string; key: string; title: string | null; frames: string[]; text: string; source: string | null; chapter: string; picture: string | null; count: number }
 
 // The story as pages (D29, 9 Oct, Prateek): one frame at a time, swiped or stepped with the arrows, dots underneath. The
@@ -245,7 +251,8 @@ function StoryCarousel({ story, onEngaged }: { story: WaitStory; onEngaged?: () 
           <article className="wait-frame" key={k} aria-label={`Page ${k + 1} of ${frames.length}`} aria-hidden={k !== i}>
             {k === 0 && story.picture && <div className={`story-pic${picReady ? ' loaded' : ''}`} style={picReady ? undefined : { display: 'none' }}><img src={story.picture} alt="" onLoad={() => setPicReady(true)} ref={(el) => { if (el && el.complete && el.naturalWidth > 0) setPicReady(true) }} /></div>}
             {k === 0 && story.title && <p className="wait-story-title">{story.title}</p>}
-            <Rich text={f} className="serif wait-story-text" />
+            {/* D29d: a frame that opens with a bold beat of 2 to 4 words shows it as the printed caption a storyteller puts on screen. */}
+            {beatOf(f) ? <><span className="wait-beat">{beatOf(f)![0]}</span><Rich text={beatOf(f)![1]} className="serif wait-story-text" /></> : <Rich text={f} className="serif wait-story-text" />}
             {k === frames.length - 1 && story.source && <p className="note wait-story-source">{story.source}</p>}
           </article>
         ))}

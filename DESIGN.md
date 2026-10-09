@@ -69,6 +69,18 @@ What this means for chapters (agent's reading, for Prateek to confirm):
 - A tiny instant reward on every answer (6), not only the green option.
 - The first frame of each card is the hook (8); vary the shape from card to card so the next one is a small surprise (9).
 
+## 2c. Teardown: two story reels by Arvind Vijay Mohan, sent by Prateek (9 Oct)
+What the two reels share, and what the wait stories and Prateek's own reels take from them (D29d):
+- **The cold open is a whole story in one sentence with the how missing.** A person, a number, a charge: "He was 18, and the man he had just shot had a daughter." The second reel opens on the exact question an official asked. No "today I'll tell you about". The viewer owes the next three minutes to one sentence.
+- **Stamp, then scene.** Date and place in under ten words, then short sentences you can see: the corner of an eye, a wallet falling open, a photo the size of a postage stamp. One physical detail per beat, never two adjectives.
+- **A person is one habit.** Ridiculous trousers on Fridays so that kids would stop and talk. That is the whole characterisation, and it is enough.
+- **An object carries the story across time.** The photograph: a trail in 1967, a wallet for 22 years, a memorial wall in 1989, a book in 1995, a Hanoi newspaper wrapping a parcel, a village in 2000. Every jump has its date said plainly. The jumps are the structure.
+- **Turn lines.** Two to five words that reverse the sentence before them: "He thought he was finally free. He wasn't." "There was no explosion." The cut lands on the turn. Our swipe is the cut.
+- **Cost rises in steps.** Removed from school, then leave at once, then "him or you". Three steps, each named.
+- **The last line is the first line turned round.** The man who took her father is the one holding her while she cries. He lost a career and gained a son. Nothing new is introduced at the end; the opening is paid off.
+- **On screen:** the storyteller to camera in a warm study, a 2-to-4-word caption in a heavy serif on a marigold card at each beat, an illustrated scene inset under it. That is the wait card: picture, printed beat label, serif text, one frame per beat.
+- Pace: about 560 words in 3 minutes, sentences of 8 to 14 words with beats of 2 to 5 between. Our frames at 40 to 60 words are one beat each.
+
 ## 3. Type and colour
 Font: two. Bricolage Grotesque (already loaded) for the headline, headings, chapter numbers, buttons and labels. Newsreader (Google Fonts, optical size 16) for the teaching body, examples, the mistake card, the feedback sheet's re-teach text and the exercise prompt.
 Sizes: display 34 (clamp 28 to 38) for the headline and the chapter title · heading 22 · body 17.5 (serif) · ui 16 (sans, buttons, options) · small 13.5 (labels, "Chapter 1 of 7", timings). No other sizes without asking.

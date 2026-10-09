@@ -4,6 +4,16 @@ What each day taught us, not what shipped (that's PROGRESS.md). Every build day 
 
 Feeds the 9:30 X draft (scripts/x-nightly.sh reads yesterday's day) and the end-of-sprint write-up. A message that starts with "learned:" lands under "Noted during the day" at the bottom; fold those into the day before the session ends.
 
+
+## Fri 9 Oct, the day (day 8)
+
+### Product/Tech
+- **Thought:** a story prompt needs one good shape. **Learned:** two reels (Arvind Vijay Mohan) showed a second shape the Masala Lab one cannot do: a person, an object, time jumps with dates, turn lines, a mirrored last line. On dev the writer picked shape B by itself where the material named a real person (WWII: Ebert, Chamberlain) and stayed with shape A where it did not (pool swimming). **Now:** the prompt carries both shapes and the techniques they share; the beat ("**Pick a lie.**") is also the caption on the wait card, so the writing and the screen are one design.
+- **Thought:** a shelf shows everything it has. **Learned:** 30 rows on the Shelf held two duplicate stock-market copies, a keyboard smash and a trading-agent handbook 7 people opened and none finished; with tens of readers in total, "best" cannot be ranked by taste, only by quality, duplication and finishes. **Now:** an on/off switch per row with the reason recorded, a Spotlight ranked by chapter-1 finishes (not starts: the landing demo inflates starts), and counts that skip our own phones (every review bot had been counting as a reader).
+- **Thought:** a proof script that passes is proof. **Learned:** scripts/prove-path.mjs read the shared-handbook id from dev whenever it was given the prod .convex.site address, so its last step could only pass on igetit.now. **Now:** the script knows both prod addresses; a FAIL is read before it is believed, and so is a PASS.
+
+### GTM
+- **Thought:** a reel is a hook plus a tip. **Learned:** the two reels Prateek sent are 3 minutes of one story told to camera with a 2-to-4-word caption at each beat and a picture inset; no tip, no list, and the hook is the whole story with the how withheld. **Now:** the same shape fits Prateek's own reels about building I Get It (the cold open: "A stranger typed a 200-character line into my app at 2 am. We gave him an award."), caption per beat, the picture under it.
 ## Fri 9 Oct, the night (day 8, 00:00 to 05:00; session dc)
 
 ### Product/Tech

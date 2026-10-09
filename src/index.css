@@ -1084,6 +1084,7 @@ button.stop-tap:focus-visible { outline: 3px solid var(--accent-deep); outline-o
 .wait-frame { flex: 0 0 100%; width: 100%; scroll-snap-align: start; scroll-snap-stop: always; padding: 14px 16px 12px; box-sizing: border-box; }
 .wait-frame .story-pic { margin: 0 0 12px; border: none; box-shadow: none; border-radius: 10px; overflow: hidden; }
 .wait-frame .wait-story-text p:last-child { margin-bottom: 0; }
+.wait-beat { display: inline-block; margin: 0 0 10px; padding: 5px 10px; background: var(--ink); color: var(--paper); border-radius: 4px; font: 800 0.92rem/1 var(--sans); letter-spacing: 0.01em; transform: rotate(-1.5deg); }   /* D29d: the storyteller's caption */
 .wait-story-source { margin: 10px 0 0; font-style: italic; }
 .wait-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
 .wait-arrow { width: 44px; height: 44px; border: var(--stroke) solid var(--ink); border-radius: 50%; background: var(--paper); color: var(--ink); font: 800 1.4rem/1 var(--sans); display: grid; place-items: center; }
