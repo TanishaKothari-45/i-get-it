@@ -39,10 +39,13 @@ export const plan = z.looseObject({
   question: nullableStr,
   topic: str.optional(),
   mode: z.enum(["skill", "story", "subject", "decision"]).optional(),
+  body: z.boolean().optional(),
+  pictureWhyNot: nullableStr.optional(),   // plan v8 (9 Oct): why there is no analogy, when there is none   // plan v8 (9 Oct): learned by moving one's own body; the code reads it for move and doit cards
   outcome7: nullableStr,
   format: z.enum(["course", "quick"]).optional(),
   framing: nullableStr,
-  chapters: z.array(z.looseObject({ title: str, covers: str.optional(), outcome: str.optional(), hook: str.optional(), blocks: z.array(str).max(12).optional(), proof: z.string().optional() })).max(7),
+  // minutes (plan v8, 9 Oct): the reading and doing time this chapter needs, from the weight of what it covers.
+  chapters: z.array(z.looseObject({ title: str, covers: str.optional(), outcome: str.optional(), hook: str.optional(), minutes: z.number().optional(), readMinutes: z.number().optional(), pieces: z.array(z.string()).optional(), needs: z.array(z.string()).optional(), assumes: z.array(z.string()).optional(), blocks: z.array(str).max(12).optional(), proof: z.string().optional() })).max(7),
   sources: z.array(z.looseObject({ who: str.optional(), what: str.optional(), why: str.optional() })).optional(),
   next: z.array(str).optional(),
   caution: z.enum(["money", "health", "legal", "none"]).optional(),
@@ -113,13 +116,35 @@ export const researchV4 = z.looseObject({
   sources: z.array(z.looseObject({ title: str.optional(), url: str })).max(10),
 });
 
+// Research v6 (9 Oct): v4's keys plus the handbook's shape for this reader: where they start, and each outline part
+// weighed for this reader and goal. The chapter count is worked out from those weights (1 to 7, either format).
+export const researchV6 = researchV4.extend({
+  start: str,
+  parts: z.array(z.looseObject({ part: str, weight: z.enum(["light", "normal", "heavy"]), why: z.string().optional() })).min(1).max(8),
+});
+
 // The shared-library privacy check (8 Oct): its own schema, so a reply is judged on its own keys.
 export const library = z.looseObject({ share: z.boolean(), why: z.string().optional() });
 
 // D29 (9 Oct): three true, little-known stories for the writing-wait screen, 4 to 6 frames each.
 export const stories = z.looseObject({ stories: z.array(z.looseObject({ title: str, chapter: z.string().optional(), frames: z.array(str).min(4).max(10), source: str })).min(1).max(5) });
 
-export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact, move, researchV4, library, stories };
+// Research v7 (9 Oct): the neutral shape spec. What the reader walks away with, the pieces with their depth, 3 to 7 chapters.
+export const researchV7 = researchV4.extend({
+  deliverable: str,
+  start: str,
+  parts: z.array(z.looseObject({ part: str, depth: z.enum(["light", "medium", "deep"]), why: z.string().optional() })).min(1).max(8),
+  chapters: z.number().int().min(3).max(7),
+});
+
+// Research v8 (9 Oct, the 26 changes): each piece lists its must-haves ("needs"), and each fact names the piece it
+// belongs to, so a chapter gets its own facts. Up to 40 facts, by depth.
+export const researchV8 = researchV7.extend({
+  parts: z.array(z.looseObject({ part: str, depth: z.enum(["light", "medium", "deep"]), why: z.string().optional(), needs: z.array(str).max(10).optional() })).min(1).max(8),
+  facts: z.array(z.looseObject({ part: str, fact: str })).min(1).max(40),
+});
+
+export const SCHEMAS: Record<string, z.ZodType> = { plan, chapter, check, versions, scenes, intent, match, teach, research, artifact, move, researchV4, researchV6, researchV7, researchV8, library, stories };
 
 // The problems with a reply, in a few short lines the model can act on; null when it fits.
 export function problems(kind: string, json: unknown): string | null {

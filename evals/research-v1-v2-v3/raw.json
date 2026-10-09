@@ -1,0 +1,3443 @@
+{
+  "versions": [
+    "v1",
+    "v2",
+    "v3"
+  ],
+  "topics": [
+    {
+      "genre": "physical skill",
+      "request": {
+        "topic": "Swimming",
+        "goal": "swim my first full length of a pool without stopping",
+        "mode": "skill",
+        "level": "new"
+      }
+    },
+    {
+      "genre": "history",
+      "request": {
+        "topic": "World War I",
+        "goal": "understand why it started and how it changed the world",
+        "mode": "subject",
+        "level": "new"
+      }
+    }
+  ],
+  "research": [
+    {
+      "genre": "physical skill",
+      "request": {
+        "topic": "Swimming",
+        "goal": "swim my first full length of a pool without stopping",
+        "mode": "skill",
+        "level": "new"
+      },
+      "version": "v1",
+      "n": 1,
+      "ask": "Typed: \"Swimming\"\nTheir goal: \"swim my first full length of a pool without stopping\"\nMode they picked: skill\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 10,
+      "inr": 3.352629,
+      "model": "gemini-3.8-flash",
+      "ms": 50958,
+      "output": {
+        "chapters": 7,
+        "facts": [
+          "A standard short-course pool length measures 25 meters or 25 yards.",
+          "Water is approximately 800 times denser than air.",
+          "Lifting the head out of the water forces the hips and legs to sink.",
+          "Looking down toward the pool bottom keeps the spine horizontal and the hips high.",
+          "Holding your breath causes muscle tension and accelerates fatigue.",
+          "Swimmers exhale continuously through the nose or mouth whenever the face is submerged.",
+          "Breathing to the side requires rotating the whole torso rather than lifting the neck.",
+          "A swimmer keeps one goggle lens submerged in the water while inhaling.",
+          "Bilateral breathing means taking a breath every three arm strokes across alternating sides.",
+          "The flutter kick originates from the hips with long legs and relaxed ankles.",
+          "Bending knees excessively creates water drag and consumes excessive oxygen.",
+          "Rotating the body along its long axis allows the arms to recover cleanly above water.",
+          "The catchup drill improves stroke timing by keeping one hand forward until the other hand enters.",
+          "A relaxed pace preserves oxygen and enables a swimmer to finish 25 meters without stopping."
+        ],
+        "format": "course",
+        "framing": null,
+        "kind": "skill",
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "Freestyle Body Position and Rotation | U.S. Masters Swimming",
+            "url": "https://www.usms.org/fitness-and-training/guides/freestyle/body-position"
+          },
+          {
+            "title": "5 Freestyle Drills For Beginner Swimmers - MySwimPro",
+            "url": "https://blog.myswimpro.com/2019/12/18/5-freestyle-drills-for-beginner-swimmers/"
+          },
+          {
+            "title": "Front Crawl Swimming - Technique, Tips & Beginner Guide - themagic5",
+            "url": "https://themagic5.com/blogs/news/front-crawl-swimming-technique-tips-beginner-guide"
+          },
+          {
+            "title": "Best Swimming Workouts for Beginners",
+            "url": "https://www.usms.org/fitness-and-training/articles-and-videos/articles/best-swimming-workouts-for-beginners"
+          },
+          {
+            "title": "Front Crawl / Freestyle Swimming Technique: Breathing",
+            "url": "https://www.enjoy-swimming.com/crawl-stroke.html"
+          },
+          {
+            "title": "Swimming drills for beginners | Race At Your Pace",
+            "url": "https://www.raceatyourpace.com/insights/swimming-drills-for-beginners/"
+          }
+        ],
+        "wikipediaTitle": "Front crawl"
+      },
+      "queries": [
+        "swim first full length of pool beginner adult drills tips",
+        "beginner swimming front crawl first 25 meters breath body position"
+      ],
+      "searches": 2,
+      "tokenInr": 1.000629,
+      "tokensIn": 743,
+      "tokensOut": 3028,
+      "checks": {
+        "valid": true,
+        "kind": "skill",
+        "format": "course",
+        "chapters": 7,
+        "outline": null,
+        "facts": 14,
+        "factWordsAvg": 12.6,
+        "sentencesOver20": 0,
+        "sources": 6,
+        "framing": null
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.485096,
+        "ms": 14252,
+        "searches": 0,
+        "tokensIn": 7788,
+        "tokensOut": 2002,
+        "verdict": {
+          "best": "Every fact is correct, and the body position and breathing cues are the right ones for a new swimmer.",
+          "facts": [
+            {
+              "fact": "A standard short-course pool length measures 25 meters or 25 yards.",
+              "helpsGoal": true,
+              "note": "Short-course pools are 25 m or 25 yd. Many public pools are 25 yd in the US, and 50 m pools exist. The brief should tell the reader to check their own pool.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Water is approximately 800 times denser than air.",
+              "helpsGoal": false,
+              "note": "Water is about 775 to 830 times denser than air, so 'about 800' holds. A beginner gets little use from it.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Lifting the head out of the water forces the hips and legs to sink.",
+              "helpsGoal": true,
+              "note": "This is a core beginner error.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Looking down toward the pool bottom keeps the spine horizontal and the hips high.",
+              "helpsGoal": true,
+              "note": "A neutral head position is standard advice. 'Hips high' is slightly loose, but it is fine.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Holding your breath causes muscle tension and accelerates fatigue.",
+              "helpsGoal": true,
+              "note": "Holding the breath is a common cause of early gasping.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Swimmers exhale continuously through the nose or mouth whenever the face is submerged.",
+              "helpsGoal": true,
+              "note": "Some coaches teach a bubble-then-sniff exhale. Continuous exhale is the common beginner method.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Breathing to the side requires rotating the whole torso rather than lifting the neck.",
+              "helpsGoal": true,
+              "note": "Strictly, the head rotates with the body roll. The point is to avoid lifting the head.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "A swimmer keeps one goggle lens submerged in the water while inhaling.",
+              "helpsGoal": true,
+              "note": "This is the standard 'one goggle in the water' cue. The mouth sits in the bow-wave trough.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Bilateral breathing means taking a breath every three arm strokes across alternating sides.",
+              "helpsGoal": false,
+              "note": "This is the right definition. It is an advanced skill for a new swimmer. Breathing every 2 strokes to one side, or resting at the wall, fits the goal better.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The flutter kick originates from the hips with long legs and relaxed ankles.",
+              "helpsGoal": true,
+              "note": "Standard technique. It is missing a small, quick kick size.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Bending knees excessively creates water drag and consumes excessive oxygen.",
+              "helpsGoal": true,
+              "note": "Correct. The oxygen claim is a loose general statement.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Rotating the body along its long axis allows the arms to recover cleanly above water.",
+              "helpsGoal": true,
+              "note": "Standard. It also helps breathing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The catchup drill improves stroke timing by keeping one hand forward until the other hand enters.",
+              "helpsGoal": true,
+              "note": "Strictly, one hand waits until the other hand touches it. The brief's wording is close enough.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "A relaxed pace preserves oxygen and enables a swimmer to finish 25 meters without stopping.",
+              "helpsGoal": true,
+              "note": "The advice is sound but vague. It gives no plan or progression.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "A step-by-step progression to 25 m: water comfort, floating and gliding, kick with a board, one-arm drills, then short swims with wall rests, plus how to build from 5 to 10 to 25 m",
+            "Basic arm stroke mechanics (entry, catch, pull, recovery), and pacing and rest cues, such as breathing every 2 strokes and stopping at the lane rope",
+            "Pool practicalities and safety: shallow versus deep end, lane etiquette, goggles, and checking whether the pool is 25 m, 25 yd or 50 m"
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 5,
+              "why": "Every claim checks out as standard swim coaching or physics."
+            },
+            "breadth": {
+              "score": 2,
+              "why": "It covers body position, breathing, kick and arms. It omits water comfort, floating and pushing off, the arm pull, a progression to 25 m, pacing and rest, safety, and what to do when tired."
+            },
+            "clarity": {
+              "score": 4,
+              "why": "The sentences are short and plain. Some are generic."
+            },
+            "currency": {
+              "score": 4,
+              "why": "The content is timeless technique. Nothing changes with time. Source dates are not shown."
+            },
+            "decisions": {
+              "score": 3,
+              "why": "Skill kind and course format fit a first-length goal. Seven chapters is reasonable. No chapter outline or length is given, so the planner has nothing to work from."
+            },
+            "depth": {
+              "score": 2,
+              "why": "Each point is a single line. There are no drill steps, no cues for the arm pull, no practice sets and no troubleshooting. A writer would have to guess a lot."
+            },
+            "goalFit": {
+              "score": 3,
+              "why": "Most facts are about front-crawl technique, which suits the goal. Bilateral breathing and the water-density fact do not suit a first length. The brief assumes freestyle. It never considers that a new swimmer may do better with a simpler stroke or with rests."
+            },
+            "sources": {
+              "score": 4,
+              "why": "USMS is authoritative, and the rest are relevant swim-coaching sites. Several are commercial blogs, and the claims are not tied to specific sources."
+            },
+            "specificity": {
+              "score": 2,
+              "why": "There are few numbers apart from pool length, 800x and a breath every 3 strokes. There are no distances, rests, times or set counts."
+            }
+          },
+          "worst": "The brief is thin. It has no progression to the first length, no arm-pull detail, and no practice plan."
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "request": {
+        "topic": "Swimming",
+        "goal": "swim my first full length of a pool without stopping",
+        "mode": "skill",
+        "level": "new"
+      },
+      "version": "v1",
+      "n": 2,
+      "ask": "Typed: \"Swimming\"\nTheir goal: \"swim my first full length of a pool without stopping\"\nMode they picked: skill\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 10,
+      "inr": 3.32913,
+      "model": "gemini-3.8-flash",
+      "ms": 32491,
+      "output": {
+        "chapters": 7,
+        "facts": [
+          "A standard short-course pool length measures 25 meters or 25 yards.",
+          "Water is approximately 800 times denser than air.",
+          "Lifting your head above the water causes your hips and legs to sink.",
+          "Keep your eyes pointed down toward the pool floor to maintain a horizontal body position.",
+          "Exhale continuously underwater through your nose or mouth instead of holding your breath.",
+          "Rotate your torso along your long axis to breathe instead of lifting your head forward.",
+          "Keep one goggle lens submerged in the water when you rotate your face sideways to inhale.",
+          "Initiate the flutter kick from your hips with relaxed knees and pointed toes.",
+          "An effective flutter kick keeps the feet just below the surface of the water.",
+          "The freestyle stroke consists of four main phases: entry, catch, pull, and recovery.",
+          "Extend your hand forward in line with your shoulder during the stroke entry.",
+          "The catch-up drill trains you to pause until the recovering arm finishes its forward reach.",
+          "Kickboards and swim fins help beginner swimmers build kick strength and maintain balance.",
+          "Always practice in a swimming pool with a lifeguard or partner present."
+        ],
+        "format": "course",
+        "framing": null,
+        "kind": "skill",
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "Learning To Swim If You're a Complete Beginner - MySwimPro",
+            "url": "https://blog.myswimpro.com/2025/07/16/learning-to-swim-if-youre-a-complete-beginner/"
+          },
+          {
+            "title": "Swimming 101: The Beginner's Guide to Swimming | U.S. Masters Swimming",
+            "url": "https://www.usms.org/fitness-and-training/guides/swimming-101"
+          },
+          {
+            "title": "5 Freestyle Drills For Beginner Swimmers - MySwimPro",
+            "url": "https://blog.myswimpro.com/2019/12/18/5-freestyle-drills-for-beginner-swimmers/"
+          },
+          {
+            "title": "20 Swimming Drills for Beginners: Progressive Skills Training Program - SPEEDISWIM",
+            "url": "https://www.speediswim.org/20-swimming-drills-for-beginners-progressive-skills-training-program/"
+          }
+        ],
+        "wikipediaTitle": "Swimming"
+      },
+      "queries": [
+        "how to swim first full length of pool beginner freestyle",
+        "beginner swimming drills swim 25 meters without stopping"
+      ],
+      "searches": 2,
+      "tokenInr": 0.97713,
+      "tokensIn": 750,
+      "tokensOut": 2952,
+      "checks": {
+        "valid": true,
+        "kind": "skill",
+        "format": "course",
+        "chapters": 7,
+        "outline": null,
+        "facts": 14,
+        "factWordsAvg": 13.1,
+        "sentencesOver20": 0,
+        "sources": 4,
+        "framing": null
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.255272,
+        "ms": 12946,
+        "searches": 0,
+        "tokensIn": 7666,
+        "tokensOut": 1844,
+        "verdict": {
+          "best": "The technique facts are accurate and practical: head position, exhaling, rotating to breathe, and the kick.",
+          "facts": [
+            {
+              "fact": "A standard short-course pool length measures 25 meters or 25 yards.",
+              "helpsGoal": true,
+              "note": "Short-course pools are 25 m or 25 yd. Long-course is 50 m, and many community pools are other lengths. The brief doesn't say this, and a beginner should check their own pool's length.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Water is approximately 800 times denser than air.",
+              "helpsGoal": false,
+              "note": "The figure is about 800 (roughly 784 to 830). It is trivia and does not help a beginner swim a length.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Lifting your head above the water causes your hips and legs to sink.",
+              "helpsGoal": true,
+              "note": "This is a core cause of beginner fatigue.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Keep your eyes pointed down toward the pool floor to maintain a horizontal body position.",
+              "helpsGoal": true,
+              "note": "Standard coaching advice. Some coaches say to look slightly forward, but down is the common cue.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Exhale continuously underwater through your nose or mouth instead of holding your breath.",
+              "helpsGoal": true,
+              "note": "This is the most important breathing skill for a beginner.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Rotate your torso along your long axis to breathe instead of lifting your head forward.",
+              "helpsGoal": true,
+              "note": "Correct. Strictly it is the body and head rotating together.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Keep one goggle lens submerged in the water when you rotate your face sideways to inhale.",
+              "helpsGoal": true,
+              "note": "A common cue. It keeps the head low in the bow wave pocket.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Initiate the flutter kick from your hips with relaxed knees and pointed toes.",
+              "helpsGoal": true,
+              "note": "Correct. Loose ankles are also important.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "An effective flutter kick keeps the feet just below the surface of the water.",
+              "helpsGoal": true,
+              "note": "Correct. A small, fast kick is the aim.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The freestyle stroke consists of four main phases: entry, catch, pull, and recovery.",
+              "helpsGoal": true,
+              "note": "Sources split the stroke differently. Some use entry, catch, pull, push and recovery, so the four-phase count is not universal. It also adds little for a new swimmer.",
+              "verdict": "unsure"
+            },
+            {
+              "fact": "Extend your hand forward in line with your shoulder during the stroke entry.",
+              "helpsGoal": true,
+              "note": "Correct. It avoids crossing the midline.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The catch-up drill trains you to pause until the recovering arm finishes its forward reach.",
+              "helpsGoal": true,
+              "note": "Strictly, one hand waits until the other hand touches it, which is a reasonable description.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Kickboards and swim fins help beginner swimmers build kick strength and maintain balance.",
+              "helpsGoal": true,
+              "note": "Generally accepted. Fins can mask poor body position.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Always practice in a swimming pool with a lifeguard or partner present.",
+              "helpsGoal": true,
+              "note": "A sound safety rule.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "A progression to the first full length: float and glide, kick with a board, breathing practice, short swims, then linking them with rest at the wall",
+            "How to handle fatigue and stopping: rest on the wall or lane line, use breaststroke or backstroke as a fallback, and take a breath every 2 or 3 strokes",
+            "Practical setup: check the pool depth and lane rules, how to use the wall, how to push off, and typical session length and frequency"
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 4,
+              "why": "Nearly every fact is correct. The four-phase stroke count is contestable."
+            },
+            "breadth": {
+              "score": 2,
+              "why": "It covers body position, breathing, kick and stroke. It lacks a path to the goal: a first-time water setup, floating and pushing off the wall, rest strategy, a practice progression, and what to do when tired."
+            },
+            "clarity": {
+              "score": 4,
+              "why": "The facts are short and plain. The density fact is filler."
+            },
+            "currency": {
+              "score": 4,
+              "why": "The content is timeless. The sources are dated 2019 and 2025, and nothing in the brief goes stale."
+            },
+            "decisions": {
+              "score": 3,
+              "why": "Skill kind and course format fit. Seven chapters is plausible, but no chapter outline is given."
+            },
+            "depth": {
+              "score": 2,
+              "why": "There are one-line facts only. It has no drill sequences, no distances or times, no practice plan, and no common errors with fixes."
+            },
+            "goalFit": {
+              "score": 3,
+              "why": "Most facts support the goal. The density trivia does not, and the brief is mostly technique, with little on how to build to a full length."
+            },
+            "sources": {
+              "score": 4,
+              "why": "USMS and MySwimPro are relevant. SPEEDISWIM is weaker. The sources are not linked to specific facts."
+            },
+            "specificity": {
+              "score": 3,
+              "why": "Some facts are checkable (25 m, 800x). Most are general cues with no numbers, rep counts or session plans."
+            }
+          },
+          "worst": "The brief has no progression or practice plan for reaching a first full length, and it includes irrelevant trivia such as water density."
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "request": {
+        "topic": "Swimming",
+        "goal": "swim my first full length of a pool without stopping",
+        "mode": "skill",
+        "level": "new"
+      },
+      "version": "v2",
+      "n": 1,
+      "ask": "Typed: \"Swimming\"\nTheir goal: \"swim my first full length of a pool without stopping\"\nMode they picked: skill\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 0,
+      "inr": 1.001637,
+      "model": "gemini-3.8-flash",
+      "ms": 29208,
+      "output": {
+        "chapters": 7,
+        "facts": [
+          "Horizontal body alignment reduces water drag and conserves swimmer energy.",
+          "Eyes point toward the pool floor slightly forward to keep hips near the surface.",
+          "Lifting the head out of the water drops hips and legs toward the pool floor.",
+          "Flutter kicks generate propulsion from the hips with long and supple legs.",
+          "Kicking from bent knees creates excessive drag and tires leg muscles quickly.",
+          "Swimmers continuously exhale underwater through the nose or mouth before rotating to breathe.",
+          "The head turns sideways with torso rotation to inhale air without lifting the neck.",
+          "Fingertips enter the water smoothly between the head and the shoulder line.",
+          "The pulling hand sweeps under the torso and pushes backward past the hip.",
+          "The recovering arm lifts out of the water with a high and relaxed elbow.",
+          "The catch-up drill trains stroke timing by keeping one hand extended forward until the next arrives."
+        ],
+        "format": "course",
+        "framing": null,
+        "kind": "skill",
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "How to Swim Front Crawl: Adult Beginner Guide",
+            "url": "https://www.swimdesignspace.com/blog/how-to-swim-front-crawl-beginners-guide-adults"
+          },
+          {
+            "title": "Front Crawl Technique for Beginners | Shaw Method - Art of Swimming",
+            "url": "https://www.artofswimming.com/front-crawl/"
+          },
+          {
+            "title": "Swim smarter to swim faster with coach's top 15 front crawl swim drills | 220 Triathlon",
+            "url": "https://www.220triathlon.com/training/swim-training/15-key-front-crawl-swim-drills-to-improve-your-technique"
+          },
+          {
+            "title": "Basic Front Crawl Swimming Tips - Swim Teach",
+            "url": "https://www.swim-teach.com/basic-front-crawl-swimming-tips.html"
+          },
+          {
+            "title": "Top 5 Best Swim Drills For Beginner Triathletes",
+            "url": "https://www.workingtriathlete.com/articles/2024/7/19/top-5-best-swim-drills-for-beginner-triathletes"
+          }
+        ],
+        "wikipediaTitle": "Front crawl"
+      },
+      "queries": [],
+      "searches": 0,
+      "tokenInr": 1.001637,
+      "tokensIn": 904,
+      "tokensOut": 2999,
+      "checks": {
+        "valid": true,
+        "kind": "skill",
+        "format": "course",
+        "chapters": 7,
+        "outline": null,
+        "facts": 11,
+        "factWordsAvg": 13.2,
+        "sentencesOver20": 0,
+        "sources": 5,
+        "framing": null
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.002264,
+        "ms": 11615,
+        "searches": 0,
+        "tokensIn": 7652,
+        "tokensOut": 1646,
+        "verdict": {
+          "best": "All the technique facts are accurate and clearly written, and they cover the key beginner points of body position, breathing, kick and arm stroke.",
+          "facts": [
+            {
+              "fact": "Horizontal body alignment reduces water drag and conserves swimmer energy.",
+              "helpsGoal": true,
+              "note": "Standard swim technique. It is general and has no numbers.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Eyes point toward the pool floor slightly forward to keep hips near the surface.",
+              "helpsGoal": true,
+              "note": "This matches common coaching. Some coaches say to look straight down.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Lifting the head out of the water drops hips and legs toward the pool floor.",
+              "helpsGoal": true,
+              "note": "Head position and hip sinking are well established.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Flutter kicks generate propulsion from the hips with long and supple legs.",
+              "helpsGoal": true,
+              "note": "The kick starts at the hips with loose ankles. Many beginners get little propulsion from the kick, so the wording is vague.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Kicking from bent knees creates excessive drag and tires leg muscles quickly.",
+              "helpsGoal": true,
+              "note": "A common beginner fault. A small knee bend is normal.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Swimmers continuously exhale underwater through the nose or mouth before rotating to breathe.",
+              "helpsGoal": true,
+              "note": "Steady exhaling is the key to breathing for a new swimmer.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The head turns sideways with torso rotation to inhale air without lifting the neck.",
+              "helpsGoal": true,
+              "note": "The head turns with the body roll. One goggle stays in the water.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Fingertips enter the water smoothly between the head and the shoulder line.",
+              "helpsGoal": true,
+              "note": "Entry is usually described as in line with the shoulder. The wording is slightly loose.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The pulling hand sweeps under the torso and pushes backward past the hip.",
+              "helpsGoal": true,
+              "note": "Describes the pull. Coaches teach it as an S-pull or straight-line pull, and a beginner needs it less than breathing and relaxing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The recovering arm lifts out of the water with a high and relaxed elbow.",
+              "helpsGoal": true,
+              "note": "Standard cue.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The catch-up drill trains stroke timing by keeping one hand extended forward until the next arrives.",
+              "helpsGoal": true,
+              "note": "An accurate description of the drill. It is useful for a beginner.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "A step-by-step progression to a full length, covering floating, pushing off, kick with a board, breathing practice, short swims and then a full length, with practice targets",
+            "Pacing and rest: how to stay relaxed, breathe every 2 or 3 strokes, and rest at the wall or switch strokes mid-length",
+            "Safety and setup: swim in a shallow lane or with a lifeguard, standard pool length, goggles, and what to do if tired"
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 5,
+              "why": "Every fact is accurate technique advice."
+            },
+            "breadth": {
+              "score": 2,
+              "why": "Missing: getting in the water and comfort, floating and pushing off, a progression to a full length, pacing and rest, a fallback stroke such as breaststroke or backstroke, pool etiquette, and safety."
+            },
+            "clarity": {
+              "score": 5,
+              "why": "The facts are short, plain sentences."
+            },
+            "currency": {
+              "score": 4,
+              "why": "Technique does not change with time. The brief gives no date for any fact."
+            },
+            "decisions": {
+              "score": 3,
+              "why": "Skill and course fit the request. Choosing front crawl only is a risk, as a beginner may finish a length sooner with an easier stroke. The brief has no chapter list, only a count of 7."
+            },
+            "depth": {
+              "score": 2,
+              "why": "There is one line per technique cue. The brief gives no drills for breathing, no kick-board progression, no step-by-step plan and no practice targets."
+            },
+            "goalFit": {
+              "score": 3,
+              "why": "The facts are all front crawl technique. The goal is finishing one pool length without stopping, which needs endurance, pacing and safety. Nothing covers these."
+            },
+            "sources": {
+              "score": 4,
+              "why": "The sources are relevant, real-sounding swim teaching sites. Some are triathlon-oriented and none are an official body such as a national swim association or the Red Cross."
+            },
+            "specificity": {
+              "score": 2,
+              "why": "The facts are qualitative with no numbers. There are no pool lengths (25 m or 25 yd), stroke counts, breath rhythm or practice amounts."
+            }
+          },
+          "worst": "The brief covers technique only. It has no endurance or pacing plan, no progression to a full length, no numbers, and no safety or fallback options."
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "request": {
+        "topic": "Swimming",
+        "goal": "swim my first full length of a pool without stopping",
+        "mode": "skill",
+        "level": "new"
+      },
+      "version": "v2",
+      "n": 2,
+      "ask": "Typed: \"Swimming\"\nTheir goal: \"swim my first full length of a pool without stopping\"\nMode they picked: skill\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 0,
+      "inr": 0.976122,
+      "model": "gemini-3.8-flash",
+      "ms": 31420,
+      "output": {
+        "chapters": 7,
+        "facts": [
+          "A standard short-course swimming pool measures 25 meters or 25 yards in length.",
+          "Continuous exhalation underwater prevents carbon dioxide buildup and avoids panicked gasping at the surface.",
+          "Holding breath while swimming causes chest tightness and rapid physical fatigue.",
+          "Freestyle swimmers turn the head sideways to breathe rather than lifting it forward.",
+          "Lifting the head out of the water drops the hips and creates extra drag.",
+          "Keeping one eye goggle submerged during side breathing maintains a flat body position.",
+          "Swimmers inhale quickly through the mouth and exhale steadily through the nose or mouth.",
+          "Rotating the torso along the long body axis creates an open window for side breathing.",
+          "A steady flutter kick originates from the hips rather than from bent knees.",
+          "Pushing off the pool wall in a streamlined glide preserves momentum without extra effort."
+        ],
+        "format": "course",
+        "framing": null,
+        "kind": "skill",
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "Swimming Breathing Technique: Step-by-Step Guide - Aquaducks Swim School",
+            "url": "https://www.aquaducks.com.sg/swimming-breathing-technique/"
+          },
+          {
+            "title": "Breathing Basics: How to Breathe Like a Pro Swimmer — A How-To Guide for Beginners",
+            "url": "https://www.swimschoolacademy.com/breathing-basics-how-to-breathe-like-a-pro-swimmer-a-how-to-guide-for-beginners/"
+          },
+          {
+            "title": "Learn to Breathe While Swimming: Easy 4-Step Side Breathing Tutorial for Beginners",
+            "url": "https://www.youtube.com/watch?v=AHwinLuCYUY&vl=en"
+          },
+          {
+            "title": "Master the Basics of Breathing in Swimming - WeAquatics",
+            "url": "https://weaquatics.com/blog/breathing-in-swimming/"
+          },
+          {
+            "title": "List of world records in swimming - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/List_of_world_records_in_swimming"
+          }
+        ],
+        "wikipediaTitle": "Swimming"
+      },
+      "queries": [],
+      "searches": 0,
+      "tokenInr": 0.976122,
+      "tokensIn": 864,
+      "tokensOut": 2926,
+      "checks": {
+        "valid": true,
+        "kind": "skill",
+        "format": "course",
+        "chapters": 7,
+        "outline": null,
+        "facts": 10,
+        "factWordsAvg": 13.4,
+        "sentencesOver20": 0,
+        "sources": 5,
+        "framing": null
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.044096,
+        "ms": 12408,
+        "searches": 0,
+        "tokensIn": 7638,
+        "tokensOut": 1682,
+        "verdict": {
+          "best": "All ten facts are accurate and clearly written. They correctly identify side breathing as the main hurdle for new swimmers.",
+          "facts": [
+            {
+              "fact": "A standard short-course swimming pool measures 25 meters or 25 yards in length.",
+              "helpsGoal": true,
+              "note": "Short-course pools are 25 m or 25 yd. Long-course pools are 50 m. The brief doesn't say that many pools, such as hotel and home pools, are shorter. 'Full length' for a beginner could be 25 m, 25 yd or 50 m.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Continuous exhalation underwater prevents carbon dioxide buildup and avoids panicked gasping at the surface.",
+              "helpsGoal": true,
+              "note": "This is standard coaching advice. The CO2 explanation is a simplification but is accepted.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Holding breath while swimming causes chest tightness and rapid physical fatigue.",
+              "helpsGoal": true,
+              "note": "Coaches commonly say this. It is a generalization.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Freestyle swimmers turn the head sideways to breathe rather than lifting it forward.",
+              "helpsGoal": true,
+              "note": "This is standard technique. It is the main breathing skill for freestyle.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Lifting the head out of the water drops the hips and creates extra drag.",
+              "helpsGoal": true,
+              "note": "This is a well-known cause of sinking legs.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Keeping one eye goggle submerged during side breathing maintains a flat body position.",
+              "helpsGoal": true,
+              "note": "This is common coaching language: one goggle in the water, with the head resting on the 'pillow' of water.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Swimmers inhale quickly through the mouth and exhale steadily through the nose or mouth.",
+              "helpsGoal": true,
+              "note": "This is standard advice.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Rotating the torso along the long body axis creates an open window for side breathing.",
+              "helpsGoal": true,
+              "note": "The brief says the body rotates, but not by how much, and it doesn't link rotation to the arm stroke.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "A steady flutter kick originates from the hips rather than from bent knees.",
+              "helpsGoal": true,
+              "note": "This is standard. Beginners often over-bend the knees.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Pushing off the pool wall in a streamlined glide preserves momentum without extra effort.",
+              "helpsGoal": true,
+              "note": "This is true. It is also useful for resting and for starting each length.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "A progression from floating and kicking to arm stroke, then to breathing, then to the full length, with distances and rests (for example, 5 m, then 10 m, then 25 m).",
+            "Arm stroke and body position basics, along with a pacing and rest plan (for example, wall rests, backstroke or breaststroke as a fallback).",
+            "Safety and setup: shallow-end use, a lifeguard, goggles, and what 'a full length' means in the reader's pool (25 m, 25 yd, 50 m)."
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 5,
+              "why": "Every fact is correct and standard coaching advice."
+            },
+            "breadth": {
+              "score": 2,
+              "why": "Most facts are about breathing. Arm stroke, body position, floating, water confidence, pacing, a training progression, resting strategies (such as breaststroke or backstroke), and safety are missing."
+            },
+            "clarity": {
+              "score": 4,
+              "why": "The facts are short, plain sentences. There is no filler."
+            },
+            "currency": {
+              "score": 4,
+              "why": "Swimming technique does not change over time. Nothing in the brief is dated, so nothing is out of date."
+            },
+            "decisions": {
+              "score": 3,
+              "why": "A skill course fits a new swimmer. But 7 chapters are planned from facts that mostly cover one topic, and the brief gives no chapter outline."
+            },
+            "depth": {
+              "score": 2,
+              "why": "There are ten one-line facts. No drills, no step-by-step progressions, no common mistakes beyond the head lift, and no numbers for how far to progress each week."
+            },
+            "goalFit": {
+              "score": 3,
+              "why": "Breathing is the main barrier for new swimmers, but the brief goes deep on it and leaves out other things the goal needs."
+            },
+            "sources": {
+              "score": 3,
+              "why": "The swim school and breathing guides are relevant. The Wikipedia world-records list is irrelevant to a beginner, and the YouTube video is a weak source. No national body such as USA Swimming, the Red Cross or Swim England is cited."
+            },
+            "specificity": {
+              "score": 2,
+              "why": "The facts are mostly qualitative. Few numbers beyond pool length, with no stroke counts, no breath timing, and no practice plan."
+            }
+          },
+          "worst": "The brief is too narrow. It is almost all breathing, with no progression, no drills and no arm stroke, so it can't support a 7-chapter course that gets a beginner to a full length."
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "request": {
+        "topic": "Swimming",
+        "goal": "swim my first full length of a pool without stopping",
+        "mode": "skill",
+        "level": "new"
+      },
+      "version": "v3",
+      "n": 1,
+      "ask": "Typed: \"Swimming\"\nTheir goal: \"swim my first full length of a pool without stopping\"\nMode they picked: skill\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 10,
+      "inr": 3.5725619999999996,
+      "model": "gemini-3.8-flash",
+      "ms": 36101,
+      "output": {
+        "chapters": 7,
+        "facts": [
+          "Well-fitting goggles seal out chlorinated water and allow clear underwater vision.",
+          "Practicing in chest-deep water ensures safe foot contact with the pool floor.",
+          "Continuous exhalation through the nose or mouth underwater prevents panic and breath-holding fatigue.",
+          "Bobbing exercises train rhythmic exhalation below the surface and quick inhalation above water.",
+          "Looking straight down keeps the head neutral and lifts the hips toward the surface.",
+          "A streamlined front glide begins with arms extended forward and ears pressed between the biceps.",
+          "Standing up from a float requires tucking the knees to the chest before placing feet down.",
+          "Flutter kicks originate from the hips rather than bending sharply at the knees.",
+          "Pointed toes and relaxed ankles create forward propulsion with minimal water resistance.",
+          "Holding a kickboard allows swimmers to practice leg endurance independently.",
+          "The freestyle arm stroke pulls water backward toward the hip to generate forward motion.",
+          "High-elbow recovery lifts the arm out of the water cleanly before re-entry.",
+          "Hand entry occurs fingertip-first in line with the shoulder.",
+          "Turning the body along its long axis allows side breathing without lifting the head.",
+          "One goggle lens stays submerged during a side breath to preserve horizontal balance.",
+          "Swimmers inhale quickly through the mouth while one arm extends forward.",
+          "A slow and steady stroke rate conserves oxygen over the full 25-meter distance.",
+          "Short practice segments of 10 to 15 meters build confidence before attempting the continuous length."
+        ],
+        "format": "course",
+        "kind": "skill",
+        "outline": [
+          "Gear and Water Comfort",
+          "Rhythmic Breathing and Submersion",
+          "Floating and Horizontal Balance",
+          "Flutter Kick Technique",
+          "Freestyle Arm Stroke",
+          "Side Breathing Mechanics",
+          "Pacing Your First Full Length"
+        ],
+        "sources": [
+          {
+            "title": "The Step-by-Step Guide to Learning to Swim as an Adult - Chicago Blue Dolphins",
+            "url": "https://chicagobluedolphins.com/adult-learn-to-swim-guide/"
+          },
+          {
+            "title": "Guide To Adult Swimming Progression For Beginners | AQZOG Swim Class",
+            "url": "https://aqzog.com/guide-to-adult-swimming-progression/"
+          },
+          {
+            "title": "Swimming 101: How to Start Swim Training as an Adult",
+            "url": "https://www.usms.org/fitness-and-training/guides/swimming-101/adult-swim-training"
+          },
+          {
+            "title": "How to Start Lap Swimming for Exercise - SwimSwam",
+            "url": "https://swimswam.com/how-to-start-lap-swimming-for-exercise/"
+          },
+          {
+            "title": "A Beginner's Guide To Lap Swimming: Tips, Gear, And Training",
+            "url": "https://www.rosenaquatic.com/beginners-guide-to-lap-swimming/"
+          }
+        ]
+      },
+      "queries": [
+        "how to swim a full lap of the pool without stopping beginner guide",
+        "adult beginner swim first length pool steps progression"
+      ],
+      "searches": 2,
+      "tokenInr": 1.220562,
+      "tokensIn": 1134,
+      "tokensOut": 3648,
+      "checks": {
+        "valid": true,
+        "kind": "skill",
+        "format": "course",
+        "chapters": 7,
+        "outline": [
+          "Gear and Water Comfort",
+          "Rhythmic Breathing and Submersion",
+          "Floating and Horizontal Balance",
+          "Flutter Kick Technique",
+          "Freestyle Arm Stroke",
+          "Side Breathing Mechanics",
+          "Pacing Your First Full Length"
+        ],
+        "facts": 18,
+        "factWordsAvg": 12.8,
+        "sentencesOver20": 0,
+        "sources": 5,
+        "framing": null
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.70484,
+        "ms": 14500,
+        "searches": 0,
+        "tokensIn": 7950,
+        "tokensOut": 2144,
+        "verdict": {
+          "best": "A clean, logical skill progression from water comfort through breathing, balance, kick, arms and side breathing to pacing, with accurate cues.",
+          "facts": [
+            {
+              "fact": "Well-fitting goggles seal out chlorinated water and allow clear underwater vision.",
+              "helpsGoal": true,
+              "note": "Generic but true. It gives no fit-test advice.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Practicing in chest-deep water ensures safe foot contact with the pool floor.",
+              "helpsGoal": true,
+              "note": "Shallow water is standard advice. 'Ensures' overstates it, and chest-deep is not safe for every new swimmer.",
+              "verdict": "unsure"
+            },
+            {
+              "fact": "Continuous exhalation through the nose or mouth underwater prevents panic and breath-holding fatigue.",
+              "helpsGoal": true,
+              "note": "Standard teaching. It is the key skill for continuous swimming.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Bobbing exercises train rhythmic exhalation below the surface and quick inhalation above water.",
+              "helpsGoal": true,
+              "note": "Standard drill.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Looking straight down keeps the head neutral and lifts the hips toward the surface.",
+              "helpsGoal": true,
+              "note": "Standard. It is a common cue.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "A streamlined front glide begins with arms extended forward and ears pressed between the biceps.",
+              "helpsGoal": true,
+              "note": "Standard cue.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Standing up from a float requires tucking the knees to the chest before placing feet down.",
+              "helpsGoal": true,
+              "note": "Standard recovery skill. Pressing down with the hands is also taught.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Flutter kicks originate from the hips rather than bending sharply at the knees.",
+              "helpsGoal": true,
+              "note": "Standard.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Pointed toes and relaxed ankles create forward propulsion with minimal water resistance.",
+              "helpsGoal": true,
+              "note": "Mostly correct. Loose ankles and plantar flexion are the cue.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Holding a kickboard allows swimmers to practice leg endurance independently.",
+              "helpsGoal": true,
+              "note": "True but thin. A kickboard also helps with confidence and with breathing practice.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The freestyle arm stroke pulls water backward toward the hip to generate forward motion.",
+              "helpsGoal": true,
+              "note": "Standard.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "High-elbow recovery lifts the arm out of the water cleanly before re-entry.",
+              "helpsGoal": true,
+              "note": "Fine, though a high-elbow catch is the more important cue for beginners.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Hand entry occurs fingertip-first in line with the shoulder.",
+              "helpsGoal": true,
+              "note": "Standard.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Turning the body along its long axis allows side breathing without lifting the head.",
+              "helpsGoal": true,
+              "note": "Standard.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "One goggle lens stays submerged during a side breath to preserve horizontal balance.",
+              "helpsGoal": true,
+              "note": "Standard cue: one goggle in the water, with the head turning rather than lifting.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Swimmers inhale quickly through the mouth while one arm extends forward.",
+              "helpsGoal": true,
+              "note": "Generally right. The breath is taken as the arm on the breathing side recovers, while the other arm is forward.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "A slow and steady stroke rate conserves oxygen over the full 25-meter distance.",
+              "helpsGoal": true,
+              "note": "The pacing advice is sound. The 25 m figure is an assumption, since pools may be 25 yards, 25 m or 20 yards, and the reader never said which.",
+              "verdict": "unsure"
+            },
+            {
+              "fact": "Short practice segments of 10 to 15 meters build confidence before attempting the continuous length.",
+              "helpsGoal": true,
+              "note": "Reasonable progression advice, but it is not backed by a source.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "Safety and the wall: how to rest at the wall, what to do if tired or in trouble, learning with a lifeguard or instructor, and knowing the pool length and depth (25 m, 25 yd or 20 yd).",
+            "Wall push-off and glide, plus a rest-and-continue plan, such as breathing every 2 or 3 strokes and a stroke-count target.",
+            "Practice plan: how many sessions, how long, and the common faults (sinking legs, lifting the head, holding the breath) with fixes."
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 4,
+              "why": "Almost all the technique claims are standard and true. The 25 m assumption and 'ensures' are minor flaws."
+            },
+            "breadth": {
+              "score": 3,
+              "why": "It covers breathing, floating, kick, arms and pacing. It leaves out safety, rest-stop strategy, pool etiquette, wall push-offs, and what to do when tired."
+            },
+            "clarity": {
+              "score": 4,
+              "why": "The sentences are short and plain. Some are padded, such as 'ensures' and 'allows'."
+            },
+            "currency": {
+              "score": 4,
+              "why": "Technique does not change with time. The brief has no dated claims, and none are needed."
+            },
+            "decisions": {
+              "score": 4,
+              "why": "Skill kind and a course format with 7 chapters suit a new learner. The order is logical."
+            },
+            "depth": {
+              "score": 2,
+              "why": "The facts are one-line cues. They give no drills, no progressions, no numbers for practice, no common errors and no fixes."
+            },
+            "goalFit": {
+              "score": 4,
+              "why": "It aims at a first continuous length with a clear progression. It does not address the reader's own pool or any fear."
+            },
+            "sources": {
+              "score": 3,
+              "why": "The sources are relevant and plausibly real, including USMS. No fact is tied to a source, and some are commercial swim-school pages."
+            },
+            "specificity": {
+              "score": 2,
+              "why": "Most facts are qualitative cues. Only 25 m and 10 to 15 m are concrete. There are no session counts, rest times or timelines."
+            }
+          },
+          "worst": "It is shallow. It offers one-line cues with no drills, numbers, safety or troubleshooting, and it assumes a 25 m pool."
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "request": {
+        "topic": "Swimming",
+        "goal": "swim my first full length of a pool without stopping",
+        "mode": "skill",
+        "level": "new"
+      },
+      "version": "v3",
+      "n": 2,
+      "ask": "Typed: \"Swimming\"\nTheir goal: \"swim my first full length of a pool without stopping\"\nMode they picked: skill\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 11,
+      "inr": 3.382932,
+      "model": "gemini-3.8-flash",
+      "ms": 40513,
+      "output": {
+        "chapters": 7,
+        "facts": [
+          "Exhaling steadily underwater prevents water from entering the nose and lowers anxiety.",
+          "Bobbing exercises involve dipping the face underwater, blowing bubbles, and rising to inhale.",
+          "The lungs act as natural floats to support the upper body in water.",
+          "Pushing off the wall into a streamlined glide establishes an efficient horizontal body position.",
+          "Looking toward the pool bottom keeps the head neutral and lifts sinking hips.",
+          "Flutter kicks originate from the hips rather than bending sharply at the knees.",
+          "Pointing the toes with relaxed ankles creates continuous forward propulsion.",
+          "Rapid, heavy kicking drains energy quickly and causes early exhaustion.",
+          "In front crawl, the hand enters the water fingertips first, ahead of the shoulder.",
+          "The pulling arm presses water directly toward the hips to generate forward motion.",
+          "The recovering arm exits the water with an elbow high and muscles relaxed.",
+          "Rotating the head to the side allows quick inhalation without lifting the neck.",
+          "Lifting the head upward causes the hips and legs to sink into the water.",
+          "Keeping one goggle lens underwater preserves body balance while breathing on the side.",
+          "The torso rotates side to side along its central axis with every stroke cycle.",
+          "Coordinating underwater exhalations with side inhales creates a sustainable breathing rhythm.",
+          "A standard short-course pool measures 25 yards in the United States or 25 meters internationally.",
+          "Pushing firmly off the wall provides instant forward speed before the first arm stroke.",
+          "Swimming at an easy, relaxed pace conserves oxygen across the full distance."
+        ],
+        "format": "course",
+        "framing": null,
+        "kind": "skill",
+        "outline": [
+          "Water Comfort and Bubble Breathing",
+          "Buoyancy and Gliding",
+          "Flutter Kick Mechanics",
+          "Front Crawl Arm Stroke",
+          "Side Breathing Technique",
+          "Stroke Rhythm and Body Rotation",
+          "Pacing Your First Full Length"
+        ],
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "Swimming 101: The Beginner's Guide to Swimming | U.S. Masters Swimming",
+            "url": "https://www.usms.org/fitness-and-training/guides/swimming-101"
+          },
+          {
+            "title": "Learning To Swim If You're a Complete Beginner - MySwimPro",
+            "url": "https://blog.myswimpro.com/2025/07/16/learning-to-swim-if-youre-a-complete-beginner/"
+          },
+          {
+            "title": "Adult Swim Lessons: What to Expect When You Learn to Swim as an Adult",
+            "url": "https://www.safesplash.com/blog/adult-swim-lessons"
+          },
+          {
+            "title": "Ultimate Swim Lessons for Adults Checklist",
+            "url": "https://americanswimacademy.com/beginners-guide-to-swim-lessons-for-adults/"
+          },
+          {
+            "title": "If I Wanted to Swim Without STOPPING, I'd Do This - YouTube",
+            "url": "https://www.youtube.com/watch?v=p9dUzSXwdTw&vl=en-US"
+          }
+        ],
+        "wikipediaTitle": "Swimming"
+      },
+      "queries": [
+        "how to swim a full length of the pool without stopping beginner guide",
+        "beginner learn to swim first full length pool progression adult"
+      ],
+      "searches": 2,
+      "tokenInr": 1.030932,
+      "tokensIn": 1019,
+      "tokensOut": 3069,
+      "checks": {
+        "valid": true,
+        "kind": "skill",
+        "format": "course",
+        "chapters": 7,
+        "outline": [
+          "Water Comfort and Bubble Breathing",
+          "Buoyancy and Gliding",
+          "Flutter Kick Mechanics",
+          "Front Crawl Arm Stroke",
+          "Side Breathing Technique",
+          "Stroke Rhythm and Body Rotation",
+          "Pacing Your First Full Length"
+        ],
+        "facts": 19,
+        "factWordsAvg": 12.8,
+        "sentencesOver20": 0,
+        "sources": 5,
+        "framing": null
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.759272,
+        "ms": 14358,
+        "searches": 0,
+        "tokensIn": 8016,
+        "tokensOut": 2174,
+        "verdict": {
+          "best": "All the technique facts are accurate, and the outline moves in a sensible order from comfort to the first full length.",
+          "facts": [
+            {
+              "fact": "Exhaling steadily underwater prevents water from entering the nose and lowers anxiety.",
+              "helpsGoal": true,
+              "note": "Steady exhaling keeps water out of the nose. Calmer breathing is a standard teaching point.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Bobbing exercises involve dipping the face underwater, blowing bubbles, and rising to inhale.",
+              "helpsGoal": true,
+              "note": "A common beginner drill.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The lungs act as natural floats to support the upper body in water.",
+              "helpsGoal": true,
+              "note": "Air in the lungs gives buoyancy. The legs tend to sink.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Pushing off the wall into a streamlined glide establishes an efficient horizontal body position.",
+              "helpsGoal": true,
+              "note": "Standard teaching.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Looking toward the pool bottom keeps the head neutral and lifts sinking hips.",
+              "helpsGoal": true,
+              "note": "Correct. A slight forward tilt is fine.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Flutter kicks originate from the hips rather than bending sharply at the knees.",
+              "helpsGoal": true,
+              "note": "Standard teaching.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Pointing the toes with relaxed ankles creates continuous forward propulsion.",
+              "helpsGoal": true,
+              "note": "Loose, plantar-flexed ankles help. The 'continuous propulsion' wording is a little loose.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Rapid, heavy kicking drains energy quickly and causes early exhaustion.",
+              "helpsGoal": true,
+              "note": "Legs use a lot of oxygen. Beginners should use a light, steady kick.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "In front crawl, the hand enters the water fingertips first, ahead of the shoulder.",
+              "helpsGoal": true,
+              "note": "Standard entry, with the hand in front of or in line with the shoulder.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The pulling arm presses water directly toward the hips to generate forward motion.",
+              "helpsGoal": true,
+              "note": "Broadly right. The actual path has an elbow bend, an early vertical forearm and a push back.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The recovering arm exits the water with an elbow high and muscles relaxed.",
+              "helpsGoal": true,
+              "note": "Standard teaching.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Rotating the head to the side allows quick inhalation without lifting the neck.",
+              "helpsGoal": true,
+              "note": "Correct.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Lifting the head upward causes the hips and legs to sink into the water.",
+              "helpsGoal": true,
+              "note": "A key beginner error.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Keeping one goggle lens underwater preserves body balance while breathing on the side.",
+              "helpsGoal": true,
+              "note": "A common cue: one goggle in the water.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The torso rotates side to side along its central axis with every stroke cycle.",
+              "helpsGoal": true,
+              "note": "Body roll about the long axis. 'Every stroke cycle' is imprecise.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Coordinating underwater exhalations with side inhales creates a sustainable breathing rhythm.",
+              "helpsGoal": true,
+              "note": "Correct, but it gives no pattern such as every 2 or 3 strokes.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "A standard short-course pool measures 25 yards in the United States or 25 meters internationally.",
+              "helpsGoal": true,
+              "note": "Correct. Pools can also be 20 yards or 50 m. A 'length' is one trip across the pool.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Pushing firmly off the wall provides instant forward speed before the first arm stroke.",
+              "helpsGoal": true,
+              "note": "Correct. It repeats an earlier fact.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Swimming at an easy, relaxed pace conserves oxygen across the full distance.",
+              "helpsGoal": true,
+              "note": "Correct but vague.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "Safety: swim in a pool with a lifeguard, start in water where you can stand, and rest at the wall or lane rope when needed.",
+            "A concrete breathing pattern and progression, such as breathing every 2–3 strokes, plus drills (kick on a board, side kick, catch-up) and a distance build-up plan.",
+            "Practical tips for the first full length: use the lane edge, take short rests between attempts, and use goggles, a nose clip or fins as aids. Say whether a 'length' is 25 yards or 25 m."
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 5,
+              "why": "Every claim is sound technique teaching, with no errors found."
+            },
+            "breadth": {
+              "score": 3,
+              "why": "It covers breath, float, kick, arms, breathing and pacing. It omits safety, a lifeguard or shallow end, gear, rest options such as resting at the wall, troubleshooting, and a practice plan."
+            },
+            "clarity": {
+              "score": 4,
+              "why": "The sentences are short and plain. A few are repetitive, such as the wall push-off."
+            },
+            "currency": {
+              "score": 4,
+              "why": "Technique does not change with time. Dated facts are not needed, and the sources are recent."
+            },
+            "decisions": {
+              "score": 4,
+              "why": "Skill mode and the course format fit. Seven chapters in a logical order suit a beginner."
+            },
+            "depth": {
+              "score": 2,
+              "why": "The facts are one-line cues with no drills, counts, progressions or numbers. A writer would have to guess the detail."
+            },
+            "goalFit": {
+              "score": 4,
+              "why": "The outline follows the path from water comfort to a first full length. Safety and practical steps are missing."
+            },
+            "sources": {
+              "score": 3,
+              "why": "USMS and the swim school blogs are relevant. A YouTube video and commercial blogs are weaker, and the facts are not linked to specific sources."
+            },
+            "specificity": {
+              "score": 2,
+              "why": "There are almost no numbers. It gives no breathing pattern, no kick tempo, no practice schedule, no stroke count and no distance progression."
+            }
+          },
+          "worst": "The facts are thin: no numbers, drills, progressions or safety guidance. A writer could not build a practical plan for the first full length from them."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "request": {
+        "topic": "World War I",
+        "goal": "understand why it started and how it changed the world",
+        "mode": "subject",
+        "level": "new"
+      },
+      "version": "v1",
+      "n": 1,
+      "ask": "Typed: \"World War I\"\nTheir goal: \"understand why it started and how it changed the world\"\nMode they picked: subject\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 0,
+      "inr": 1.226358,
+      "model": "gemini-3.8-flash",
+      "ms": 78394,
+      "output": {
+        "chapters": 3,
+        "facts": [
+          "Gavrilo Princip assassinated Archduke Franz Ferdinand of Austria-Hungary in Sarajevo on 28 June 1914.",
+          "Austria-Hungary declared war on Serbia on 28 July 1914 after the July Crisis.",
+          "Mutual alliances drew the Russian Empire, Germany, France, and Great Britain into war within days.",
+          "Two opposing coalitions fought the war: the Allied Powers and the Central Powers.",
+          "Germany invaded Belgium in August 1914 to attack northern France.",
+          "Soldiers dug large trench networks across the Western Front from the English Channel to the Swiss border.",
+          "New battlefield technologies included poison gas, machine guns, combat aircraft, and armored tanks.",
+          "The Ottoman Empire joined the Central Powers in late 1914.",
+          "Italy joined the Allied Powers in May 1915 after signing the Treaty of London.",
+          "The United States entered the war on 6 April 1917 against Germany.",
+          "The Bolshevik Revolution led Russia to exit the war through the Treaty of Brest-Litovsk in 1918.",
+          "The fighting ended when an armistice took effect on 11 November 1918.",
+          "The war caused an estimated 15 million to 22 million military and civilian deaths.",
+          "Four major empires collapsed during or after the war: the German, Austro-Hungarian, Russian, and Ottoman empires.",
+          "Delegates signed the Treaty of Versailles on 28 June 1919 to settle peace terms with Germany.",
+          "Postwar border changes created several new European nations, including Poland, Czechoslovakia, and Yugoslavia.",
+          "The Paris Peace Conference established the League of Nations to prevent future international conflicts."
+        ],
+        "format": "quick",
+        "framing": "You do not need weeks of study to understand World War I. Let us review its causes, events, and aftermath quickly.",
+        "kind": "event",
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "World War I - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/World_War_I"
+          },
+          {
+            "title": "Causes of World War I - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Causes_of_World_War_I"
+          },
+          {
+            "title": "Aftermath of World War I - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Aftermath_of_World_War_I"
+          },
+          {
+            "title": "World War I and its Aftermath: Key Dates | Holocaust Encyclopedia",
+            "url": "https://encyclopedia.ushmm.org/content/en/article/world-war-i-and-its-aftermath-key-dates"
+          }
+        ],
+        "wikipediaTitle": "World War I"
+      },
+      "queries": [],
+      "searches": 0,
+      "tokenInr": 1.226358,
+      "tokensIn": 1141,
+      "tokensOut": 3665,
+      "checks": {
+        "valid": true,
+        "kind": "event",
+        "format": "quick",
+        "chapters": 3,
+        "outline": null,
+        "facts": 17,
+        "factWordsAvg": 13.6,
+        "sentencesOver20": 0,
+        "sources": 4,
+        "framing": "You do not need weeks of study to understand World War I. Let us review its causes, events, and aftermath quickly."
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.511052,
+        "ms": 13310,
+        "searches": 0,
+        "tokensIn": 7776,
+        "tokensOut": 2025,
+        "verdict": {
+          "best": "Every fact is accurate, with precise dates and a clean timeline from assassination to treaty.",
+          "facts": [
+            {
+              "fact": "Gavrilo Princip assassinated Archduke Franz Ferdinand in Sarajevo on 28 June 1914.",
+              "helpsGoal": true,
+              "note": "Standard trigger event.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Austria-Hungary declared war on Serbia on 28 July 1914 after the July Crisis.",
+              "helpsGoal": true,
+              "note": "Date is right.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Mutual alliances drew Russia, Germany, France and Great Britain into war within days.",
+              "helpsGoal": true,
+              "note": "Broadly right, but it is simplified. Britain entered on 4 August over Belgium, not mainly through an alliance.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Two opposing coalitions fought: the Allied Powers and the Central Powers.",
+              "helpsGoal": true,
+              "note": "Members are not listed.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Germany invaded Belgium in August 1914 to attack northern France.",
+              "helpsGoal": true,
+              "note": "Schlieffen Plan context is missing. The invasion began on 4 August.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Trench networks ran across the Western Front from the English Channel to the Swiss border.",
+              "helpsGoal": true,
+              "note": "Right.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "New technologies included poison gas, machine guns, combat aircraft and tanks.",
+              "helpsGoal": false,
+              "note": "Machine guns predate the war, but the war saw their mass use. This is of marginal help to the goal.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The Ottoman Empire joined the Central Powers in late 1914.",
+              "helpsGoal": true,
+              "note": "The Ottomans entered in late October/November 1914.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Italy joined the Allies in May 1915 after signing the Treaty of London.",
+              "helpsGoal": false,
+              "note": "Treaty signed in April 1915, war declared on Austria-Hungary in May 1915.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The US entered the war on 6 April 1917 against Germany.",
+              "helpsGoal": true,
+              "note": "Right.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The Bolshevik Revolution led Russia to exit the war via the Treaty of Brest-Litovsk in 1918.",
+              "helpsGoal": true,
+              "note": "Signed 3 March 1918.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The armistice took effect on 11 November 1918.",
+              "helpsGoal": true,
+              "note": "It was with Germany, at 11:00.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The war caused an estimated 15 to 22 million military and civilian deaths.",
+              "helpsGoal": true,
+              "note": "Commonly cited range. It is not split into military and civilian, and the 1918 flu is not mentioned.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Four empires collapsed: German, Austro-Hungarian, Russian and Ottoman.",
+              "helpsGoal": true,
+              "note": "Right.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Delegates signed the Treaty of Versailles on 28 June 1919.",
+              "helpsGoal": true,
+              "note": "Right. No terms are given, such as war guilt, reparations or territorial losses.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Postwar border changes created new nations including Poland, Czechoslovakia and Yugoslavia.",
+              "helpsGoal": true,
+              "note": "Poland was re-created rather than newly created. Yugoslavia began as the Kingdom of Serbs, Croats and Slovenes.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The Paris Peace Conference established the League of Nations to prevent future conflicts.",
+              "helpsGoal": true,
+              "note": "The League was created through the Covenant in the Versailles treaty. The US never joined, which is missing.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "Long-term causes: the alliance system (Triple Entente and Triple Alliance), nationalism in the Balkans, imperialism, the arms race and the Schlieffen Plan.",
+            "Treaty of Versailles terms: war guilt clause, reparations, territorial losses and military limits, and how they fed later instability.",
+            "Wider world changes: the Russian Revolution's legacy, the Middle East mandates, the League's weakness and the US absence, the 1918 flu, and the link to WWII."
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 5,
+              "why": "Every checked fact is correct, with only minor simplifications."
+            },
+            "breadth": {
+              "score": 2,
+              "why": "Long-term causes (militarism, imperialism, nationalism, the alliance system, the arms race) are missing. Consequences such as reparations, the Middle East, the economy, society and the road to WWII are also thin."
+            },
+            "clarity": {
+              "score": 5,
+              "why": "Short, plain sentences with no filler."
+            },
+            "currency": {
+              "score": 4,
+              "why": "Historical facts do not change. The brief carries no stale claims, and the 2026 centenary context is absent but not needed."
+            },
+            "decisions": {
+              "score": 3,
+              "why": "Event kind and quick format fit a newcomer. Three chapters is tight for causes plus the war plus its changes."
+            },
+            "depth": {
+              "score": 2,
+              "why": "Each fact is a single line. The writer has no mechanisms or explanations and would have to guess."
+            },
+            "goalFit": {
+              "score": 3,
+              "why": "It is mostly a timeline of events. The goal of understanding why it started is weakly served, since deeper causes are missing."
+            },
+            "sources": {
+              "score": 3,
+              "why": "The sources are real and relevant, but three are Wikipedia. Only the USHMM source is authoritative, and no other primary or museum source appears."
+            },
+            "specificity": {
+              "score": 4,
+              "why": "Dates and names are concrete. The death range is wide and unsplit, and no coalition members are named."
+            }
+          },
+          "worst": "It lacks the 'why' and the 'how it changed the world' depth: the underlying causes and the consequences are barely explained."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "request": {
+        "topic": "World War I",
+        "goal": "understand why it started and how it changed the world",
+        "mode": "subject",
+        "level": "new"
+      },
+      "version": "v1",
+      "n": 2,
+      "ask": "Typed: \"World War I\"\nTheir goal: \"understand why it started and how it changed the world\"\nMode they picked: subject\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 0,
+      "inr": 1.152459,
+      "model": "gemini-3.8-flash",
+      "ms": 73963,
+      "output": {
+        "chapters": 3,
+        "facts": [
+          "Gavrilo Princip assassinated Archduke Franz Ferdinand in Sarajevo on June 28, 1914.",
+          "Austria-Hungary declared war on Serbia on July 28, 1914.",
+          "Alliance treaties quickly drew Russia, Germany, France, and Great Britain into the conflict in August 1914.",
+          "The Central Powers mainly included Germany, Austria-Hungary, the Ottoman Empire, and Bulgaria.",
+          "The Allied Powers included Great Britain, France, Russia, Italy, Japan, and later the United States.",
+          "Opposing armies constructed extensive trench systems across northern France and Belgium.",
+          "The war introduced industrial weapons, including machine guns, poison gas, tanks, and military aircraft.",
+          "The United States entered the war against Germany in April 1917.",
+          "The Russian Empire exited the war following the 1917 Bolshevik Revolution.",
+          "An armistice on November 11, 1918, ended active combat on the Western Front.",
+          "The conflict caused roughly twenty million military and civilian deaths.",
+          "Four major empires collapsed: the German, Austro-Hungarian, Russian, and Ottoman empires.",
+          "The 1919 Treaty of Versailles assigned war guilt and financial penalties to Germany.",
+          "The peace treaties drew new national boundaries across Europe and the Middle East.",
+          "Diplomats founded the League of Nations to resolve international disputes through negotiation."
+        ],
+        "format": "quick",
+        "framing": "You do not need weeks of study to understand this war. Let us examine the causes and results quickly.",
+        "kind": "event",
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "Overview of the start of World War I",
+            "url": "https://www.britannica.com/video/Overview-start-details-World-War-I-assassination-June-28-1914/-191716"
+          },
+          {
+            "title": "World War I | Causes, Years, Combatants, Casualties, Maps, & Facts | Britannica",
+            "url": "https://www.britannica.com/event/World-War-I"
+          },
+          {
+            "title": "Causes and Effects of World War I - Britannica",
+            "url": "https://www.britannica.com/summary/Causes-and-Effects-of-World-War-I"
+          },
+          {
+            "title": "Timeline of World War I | Britannica",
+            "url": "https://www.britannica.com/list/timeline-of-world-war-i"
+          },
+          {
+            "title": "World War I Facts | Britannica",
+            "url": "https://www.britannica.com/facts/World-War-I"
+          },
+          {
+            "title": "World War I - Armistice, Treaty, Legacy | Britannica",
+            "url": "https://www.britannica.com/event/World-War-I/The-end-of-the-German-war"
+          }
+        ],
+        "wikipediaTitle": "World War I"
+      },
+      "queries": [],
+      "searches": 0,
+      "tokenInr": 1.152459,
+      "tokensIn": 1168,
+      "tokensOut": 3425,
+      "checks": {
+        "valid": true,
+        "kind": "event",
+        "format": "quick",
+        "chapters": 3,
+        "outline": null,
+        "facts": 15,
+        "factWordsAvg": 12.2,
+        "sentencesOver20": 0,
+        "sources": 6,
+        "framing": "You do not need weeks of study to understand this war. Let us examine the causes and results quickly."
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.644864,
+        "ms": 14171,
+        "searches": 0,
+        "tokensIn": 7797,
+        "tokensOut": 2127,
+        "verdict": {
+          "best": "Every stated fact is accurate and clearly worded, with solid Britannica sources.",
+          "facts": [
+            {
+              "fact": "Gavrilo Princip assassinated Archduke Franz Ferdinand in Sarajevo on June 28, 1914.",
+              "helpsGoal": true,
+              "note": "Standard trigger event. It leaves out the Archduke's wife Sophie and the underlying causes.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Austria-Hungary declared war on Serbia on July 28, 1914.",
+              "helpsGoal": true,
+              "note": "The date is right. The brief omits the July Crisis, the ultimatum and Germany's 'blank check'.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Alliance treaties quickly drew Russia, Germany, France, and Great Britain into the conflict in August 1914.",
+              "helpsGoal": true,
+              "note": "Russia mobilized in late July, and Germany declared war on Russia on Aug 1. The 'treaties' framing is simplified, and Britain entered over Belgian neutrality.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The Central Powers mainly included Germany, Austria-Hungary, the Ottoman Empire, and Bulgaria.",
+              "helpsGoal": true,
+              "note": "Accurate.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The Allied Powers included Great Britain, France, Russia, Italy, Japan, and later the United States.",
+              "helpsGoal": true,
+              "note": "Italy joined in 1915 after leaving the Triple Alliance. The US was technically an 'Associated Power'. Serbia and Belgium are missing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Opposing armies constructed extensive trench systems across northern France and Belgium.",
+              "helpsGoal": true,
+              "note": "Accurate but vague. No dates, no named battles and no stalemate explanation.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The war introduced industrial weapons, including machine guns, poison gas, tanks, and military aircraft.",
+              "helpsGoal": false,
+              "note": "Machine guns existed before the war and were not introduced by it. The rest were first used at scale. It is a marginal fact for the reader's goal.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The United States entered the war against Germany in April 1917.",
+              "helpsGoal": true,
+              "note": "Declared April 6, 1917. The reasons (unrestricted submarine warfare, Zimmermann Telegram) are missing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The Russian Empire exited the war following the 1917 Bolshevik Revolution.",
+              "helpsGoal": true,
+              "note": "The Treaty of Brest-Litovsk was signed in March 1918. The tsar fell in the February Revolution, so the sequence is oversimplified.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "An armistice on November 11, 1918, ended active combat on the Western Front.",
+              "helpsGoal": true,
+              "note": "Accurate.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The conflict caused roughly twenty million military and civilian deaths.",
+              "helpsGoal": true,
+              "note": "Estimates are about 15 to 22 million, so 'roughly' is acceptable. Britannica gives a similar figure. It is not split into military and civilian deaths.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Four major empires collapsed: the German, Austro-Hungarian, Russian, and Ottoman empires.",
+              "helpsGoal": true,
+              "note": "Accurate.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The 1919 Treaty of Versailles assigned war guilt and financial penalties to Germany.",
+              "helpsGoal": true,
+              "note": "Signed June 28, 1919. It covers Article 231 and reparations. The brief gives no figures.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The peace treaties drew new national boundaries across Europe and the Middle East.",
+              "helpsGoal": true,
+              "note": "Correct but vague. It names no countries or mandates.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Diplomats founded the League of Nations to resolve international disputes through negotiation.",
+              "helpsGoal": true,
+              "note": "Founded in 1920. The brief omits that the US never joined and that the League was weak.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "Long-term causes: militarism, alliance blocs (Triple Entente and Triple Alliance), imperial rivalry, nationalism in the Balkans, and the July Crisis steps (ultimatum, German blank check, Belgium)",
+            "Why the war changed the world: the Russian Revolution and the USSR, the Versailles resentment that fed WWII, Middle East mandates (Sykes-Picot), and women's suffrage and social change",
+            "Key war-course facts: the Schlieffen Plan, the Marne and the start of trench stalemate, Somme and Verdun casualties, and Germany's unrestricted submarine warfare"
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 5,
+              "why": "Every fact is true. Only small simplifications, such as the machine gun point."
+            },
+            "breadth": {
+              "score": 2,
+              "why": "Long-term causes are missing: militarism, alliances, imperialism, nationalism and the Balkans. Also missing: the Schlieffen Plan, Belgium, the 1917 Russian revolutions and the later social and economic change."
+            },
+            "clarity": {
+              "score": 5,
+              "why": "The sentences are short, plain and easy to translate."
+            },
+            "currency": {
+              "score": 5,
+              "why": "These are settled historical facts, so nothing is stale as of 2026."
+            },
+            "decisions": {
+              "score": 3,
+              "why": "'Event' and 'quick' suit a new reader. Three chapters is tight for causes, course and consequences, and the facts do not support the cause chapter."
+            },
+            "depth": {
+              "score": 2,
+              "why": "These are one-line facts. A writer would have to guess at the explanation of causes and consequences."
+            },
+            "goalFit": {
+              "score": 3,
+              "why": "The effects are covered, but the 'why it started' half is thin. It is mostly a trigger and a timeline."
+            },
+            "sources": {
+              "score": 4,
+              "why": "The sources are real and authoritative Britannica pages. They are all from one publisher, and there are no primary or academic sources."
+            },
+            "specificity": {
+              "score": 3,
+              "why": "The dates are precise. The effects are vague, with no figures, names or places."
+            }
+          },
+          "worst": "It does not explain why the war started beyond the assassination, so it fails half of the reader's goal."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "request": {
+        "topic": "World War I",
+        "goal": "understand why it started and how it changed the world",
+        "mode": "subject",
+        "level": "new"
+      },
+      "version": "v2",
+      "n": 1,
+      "ask": "Typed: \"World War I\"\nTheir goal: \"understand why it started and how it changed the world\"\nMode they picked: subject\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 0,
+      "inr": 0.550809,
+      "model": "gemini-3.8-flash",
+      "ms": 40742,
+      "output": {
+        "chapters": 3,
+        "facts": [
+          "Gavrilo Princip assassinates Archduke Franz Ferdinand in Sarajevo on June 28, 1914.",
+          "Austria-Hungary declares war on Serbia on July 28, 1914.",
+          "Rival treaty alliances quickly draw Germany, Russia, France, and Great Britain into the war.",
+          "The Central Powers center on Germany, Austria-Hungary, and the Ottoman Empire.",
+          "The Allied Powers include Great Britain, France, Russia, and later the United States.",
+          "The United States enters the war against Germany on April 6, 1917.",
+          "The 1917 Bolshevik Revolution ends imperial rule in Russia and leads to Russia leaving the war.",
+          "An armistice halts the fighting on November 11, 1918.",
+          "Combat claims more than 8 million soldiers and about 13 million civilians die from war-related causes.",
+          "The conflict destroys four ruling dynasties across Germany, Austria-Hungary, Russia, and the Ottoman Empire.",
+          "The victorious Allies establish the League of Nations to resolve international disputes peacefully.",
+          "Allied powers redraw international borders across Europe and divide Ottoman territories in the Middle East."
+        ],
+        "format": "quick",
+        "framing": "This quick guide explains how World War I began and how it reshaped the modern world.",
+        "kind": "subject",
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "Causes and Effects of World War I - Britannica",
+            "url": "https://www.britannica.com/summary/Causes-and-Effects-of-World-War-I"
+          },
+          {
+            "title": "World War I | Causes, Years, Combatants, Casualties, Maps, & Facts | Britannica",
+            "url": "https://www.britannica.com/event/World-War-I"
+          },
+          {
+            "title": "World War I Facts | Britannica",
+            "url": "https://www.britannica.com/facts/World-War-I"
+          },
+          {
+            "title": "World War I 1914-1918 - Britannica",
+            "url": "https://www.britannica.com/story/world-war-i-1914-1918"
+          },
+          {
+            "title": "Six Causes of World War I | Norwich University - Online",
+            "url": "https://online.norwich.edu/academic-programs/resources/six-causes-world-war-i"
+          }
+        ],
+        "wikipediaTitle": "World War I"
+      },
+      "queries": [],
+      "searches": 0,
+      "tokenInr": 0.550809,
+      "tokensIn": 828,
+      "tokensOut": 1583,
+      "checks": {
+        "valid": true,
+        "kind": "subject",
+        "format": "quick",
+        "chapters": 3,
+        "outline": null,
+        "facts": 12,
+        "factWordsAvg": 12.8,
+        "sentencesOver20": 0,
+        "sources": 5,
+        "framing": "This quick guide explains how World War I began and how it reshaped the modern world."
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.376988,
+        "ms": 12309,
+        "searches": 0,
+        "tokensIn": 7634,
+        "tokensOut": 1947,
+        "verdict": {
+          "best": "The key dates are accurate and clearly stated. They cover the trigger, US entry and the armistice.",
+          "facts": [
+            {
+              "fact": "Gavrilo Princip assassinates Archduke Franz Ferdinand in Sarajevo on June 28, 1914.",
+              "helpsGoal": true,
+              "note": "Standard trigger event. Princip was a Bosnian Serb nationalist.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Austria-Hungary declares war on Serbia on July 28, 1914.",
+              "helpsGoal": true,
+              "note": "Correct date. The July Crisis and the ultimatum that preceded it are missing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Rival treaty alliances quickly draw Germany, Russia, France, and Great Britain into the war.",
+              "helpsGoal": true,
+              "note": "Accurate but vague. It names no alliances (Triple Entente, Triple Alliance), no Schlieffen Plan and no invasion of Belgium.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The Central Powers center on Germany, Austria-Hungary, and the Ottoman Empire.",
+              "helpsGoal": true,
+              "note": "Bulgaria also joined in 1915 and is omitted.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The Allied Powers include Great Britain, France, Russia, and later the United States.",
+              "helpsGoal": true,
+              "note": "Italy (1915) and Japan are omitted. The US was formally an 'Associated Power'.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The United States enters the war against Germany on April 6, 1917.",
+              "helpsGoal": true,
+              "note": "Congress declared war on April 6, 1917. The causes (unrestricted submarine warfare, Zimmermann Telegram) are missing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The 1917 Bolshevik Revolution ends imperial rule in Russia and leads to Russia leaving the war.",
+              "helpsGoal": true,
+              "note": "The February 1917 revolution ended the tsar's rule. The Bolshevik (October) Revolution overthrew the Provisional Government. Russia left the war with Brest-Litovsk in March 1918.",
+              "verdict": "wrong"
+            },
+            {
+              "fact": "An armistice halts the fighting on November 11, 1918.",
+              "helpsGoal": true,
+              "note": "The armistice with Germany took effect at 11 a.m. Earlier armistices ended fighting with other Central Powers.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Combat claims more than 8 million soldiers and about 13 million civilians die from war-related causes.",
+              "helpsGoal": true,
+              "note": "The figures are roughly Britannica's, but they are ambiguous. Common estimates are about 9–10 million military deaths and about 6–13 million civilian deaths. 'Combat claims' is imprecise.",
+              "verdict": "unsure"
+            },
+            {
+              "fact": "The conflict destroys four ruling dynasties across Germany, Austria-Hungary, Russia, and the Ottoman Empire.",
+              "helpsGoal": true,
+              "note": "Hohenzollern, Habsburg, Romanov and Ottoman. The dynasties are not named.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The victorious Allies establish the League of Nations to resolve international disputes peacefully.",
+              "helpsGoal": true,
+              "note": "Created in 1919–20. The US never joined, which is an important caveat.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Allied powers redraw international borders across Europe and divide Ottoman territories in the Middle East.",
+              "helpsGoal": true,
+              "note": "Accurate but thin. The Treaty of Versailles, the war guilt clause, reparations, the mandates and Sykes-Picot are missing.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "The deep causes (militarism, alliances, imperialism, nationalism) and the July Crisis chain, including the German 'blank cheque' and the invasion of Belgium",
+            "The Treaty of Versailles terms (war guilt clause, reparations, territorial losses) and their link to WWII",
+            "Wider effects: the end of the Ottoman, Austro-Hungarian, German and Russian empires, new nations, the Middle East mandates, the rise of the USSR, and the social changes"
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 3,
+              "why": "Most facts are right, but the Bolshevik Revolution entry is wrong about the end of imperial rule and the exit from the war. The casualty line is ambiguous."
+            },
+            "breadth": {
+              "score": 2,
+              "why": "Missing deep causes (militarism, imperialism, nationalism, the alliance system), the war's course, the Versailles terms, the interwar and WWII link, and the empires' collapse."
+            },
+            "clarity": {
+              "score": 4,
+              "why": "Short, plain sentences, but some are vague."
+            },
+            "currency": {
+              "score": 5,
+              "why": "History facts are stable. Nothing here is time-sensitive."
+            },
+            "decisions": {
+              "score": 3,
+              "why": "Subject kind and a quick format fit a new reader. Three chapters is slim for causes plus global change, and no chapter titles are given."
+            },
+            "depth": {
+              "score": 2,
+              "why": "Each point is a one-line headline. A writer would have to guess at the mechanisms and the links between events."
+            },
+            "goalFit": {
+              "score": 3,
+              "why": "Facts touch both causes and effects, but the causes are mostly a timeline of events. They do not explain why it started."
+            },
+            "sources": {
+              "score": 3,
+              "why": "Britannica is authoritative and real, but four of the five sources are Britannica. The Norwich University page is weaker. There are no primary or museum sources."
+            },
+            "specificity": {
+              "score": 3,
+              "why": "Dates are precise, but the alliance, casualty and border points are vague."
+            }
+          },
+          "worst": "The Bolshevik Revolution fact is wrong, and the causes are thin. There is no explanation of why the alliances turned a regional crisis into a world war."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "request": {
+        "topic": "World War I",
+        "goal": "understand why it started and how it changed the world",
+        "mode": "subject",
+        "level": "new"
+      },
+      "version": "v2",
+      "n": 2,
+      "ask": "Typed: \"World War I\"\nTheir goal: \"understand why it started and how it changed the world\"\nMode they picked: subject\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 0,
+      "inr": 0.898506,
+      "model": "gemini-3.8-flash",
+      "ms": 55303,
+      "output": {
+        "chapters": 3,
+        "facts": [
+          "Bosnian Serb nationalist Gavrilo Princip assassinates Archduke Franz Ferdinand of Austria-Hungary on June 28, 1914.",
+          "Austria-Hungary declares war on Serbia on July 28, 1914.",
+          "Interlocking treaty alliances quickly draw Germany, Russia, Great Britain, and France into the conflict.",
+          "Two opposing coalitions fight the war: the Allied Powers and the Central Powers.",
+          "Industrial technology introduces deadly weapons, including machine guns, poison gas, tanks, and combat submarines.",
+          "Soldiers fight largely in static trench systems across the Western Front.",
+          "The United States enters the war on the Allied side in April 1917.",
+          "Fighting ends when an armistice takes effect on November 11, 1918.",
+          "The conflict causes between 15 million and 22 million military and civilian deaths.",
+          "The war triggers the collapse of four empires: the German, Austro-Hungarian, Russian, and Ottoman empires.",
+          "The 1917 Russian Revolution removes Russia from the war and establishes the Bolshevik state.",
+          "The 1919 Treaty of Versailles imposes heavy financial and territorial penalties on Germany.",
+          "Post-war political instability and altered borders create conditions that lead to World War II."
+        ],
+        "format": "quick",
+        "framing": "Here is a quick overview of how World War I began and reshaped the modern world.",
+        "kind": "subject",
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "Causes and Effects of World War I - Britannica",
+            "url": "https://www.britannica.com/summary/Causes-and-Effects-of-World-War-I"
+          },
+          {
+            "title": "World War I - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/World_War_I"
+          },
+          {
+            "title": "Key Dates | National WWI Museum and Memorial",
+            "url": "https://www.theworldwar.org/learn/about-wwi/key-dates"
+          }
+        ],
+        "wikipediaTitle": "World War I"
+      },
+      "queries": [],
+      "searches": 0,
+      "tokenInr": 0.898506,
+      "tokensIn": 822,
+      "tokensOut": 2688,
+      "checks": {
+        "valid": true,
+        "kind": "subject",
+        "format": "quick",
+        "chapters": 3,
+        "outline": null,
+        "facts": 13,
+        "factWordsAvg": 13,
+        "sentencesOver20": 0,
+        "sources": 3,
+        "framing": "Here is a quick overview of how World War I began and reshaped the modern world."
+      },
+      "judge": {
+        "error": null,
+        "inr": 4.65444,
+        "ms": 14371,
+        "searches": 0,
+        "tokensIn": 7540,
+        "tokensOut": 2186,
+        "verdict": {
+          "best": "Every fact is accurate and the sources are real and authoritative.",
+          "facts": [
+            {
+              "fact": "Gavrilo Princip, a Bosnian Serb nationalist, assassinated Archduke Franz Ferdinand on June 28, 1914.",
+              "helpsGoal": true,
+              "note": "This is the standard trigger event. The brief gives no context on why he was in Sarajevo or why Serbia mattered.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Austria-Hungary declared war on Serbia on July 28, 1914.",
+              "helpsGoal": true,
+              "note": "The date is correct. The brief omits the July ultimatum and the German 'blank cheque'.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Interlocking treaty alliances quickly drew in Germany, Russia, Great Britain and France.",
+              "helpsGoal": true,
+              "note": "Broadly true. It is vague, and it skips the order of events. Russia mobilized, Germany declared war on Russia and France, and the invasion of Belgium brought in Britain. Some alliances were not formal treaties, such as Britain's with France.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Two opposing coalitions fought: the Allied Powers and the Central Powers.",
+              "helpsGoal": true,
+              "note": "No members are named. The Central Powers were Germany, Austria-Hungary, the Ottoman Empire and Bulgaria.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Industrial technology introduced machine guns, poison gas, tanks and combat submarines.",
+              "helpsGoal": true,
+              "note": "Machine guns existed before the war. Gas, tanks and the large-scale use of aircraft and submarines were wartime developments. The wording is loose, but acceptable.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Soldiers fought largely in static trench systems on the Western Front.",
+              "helpsGoal": true,
+              "note": "True. The brief does not mention the Eastern Front or other theatres.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The US entered the war on the Allied side in April 1917.",
+              "helpsGoal": true,
+              "note": "The US declared war on Germany on April 6, 1917. Technically it was an 'Associated Power'. The brief gives no cause, such as unrestricted submarine warfare or the Zimmermann Telegram.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Fighting ended with an armistice on November 11, 1918.",
+              "helpsGoal": true,
+              "note": "The armistice with Germany took effect at 11:00. Earlier armistices ended fighting with other powers.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The war caused between 15 million and 22 million military and civilian deaths.",
+              "helpsGoal": true,
+              "note": "This range is commonly cited, with roughly 9–11 million military deaths. It is a wide range, and the brief does not break it down.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The war triggered the collapse of the German, Austro-Hungarian, Russian and Ottoman empires.",
+              "helpsGoal": true,
+              "note": "True. The Russian collapse came in 1917, before the war ended, and the brief does not say what replaced these empires.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The 1917 Russian Revolution removed Russia from the war and established the Bolshevik state.",
+              "helpsGoal": true,
+              "note": "The October Revolution brought the Bolsheviks to power, and the Treaty of Brest-Litovsk in March 1918 took Russia out of the war. The February Revolution is not mentioned.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The 1919 Treaty of Versailles imposed heavy financial and territorial penalties on Germany.",
+              "helpsGoal": true,
+              "note": "True. It had no figures. It left out the war guilt clause, the reparations total of 132 billion gold marks, the loss of Alsace-Lorraine, and the military limits.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Post-war instability and altered borders created conditions that led to World War II.",
+              "helpsGoal": true,
+              "note": "This is a reasonable general claim, but it is vague and offers no mechanism.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "Underlying causes: militarism, alliance system (Triple Entente and Triple Alliance), imperialism, nationalism, and the July Crisis steps (ultimatum, German backing, mobilizations, Belgium invasion, British entry on Aug 4, 1914).",
+            "Concrete Versailles details: the war guilt clause, reparations of 132 billion gold marks, the territorial losses, and the League of Nations.",
+            "Wider consequences: new nations in Europe, the Middle East mandates, the 1918 flu and economic effects, women's roles, and the rise of fascism or communism."
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 5,
+              "why": "Every stated fact is correct, and none is wrong or outdated."
+            },
+            "breadth": {
+              "score": 2,
+              "why": "The deeper causes are missing: militarism, imperialism, nationalism, the arms race, the Balkans, and the July Crisis. Consequences beyond empires and Versailles are also missing, such as the League of Nations, the Middle East, the economy, and social change."
+            },
+            "clarity": {
+              "score": 4,
+              "why": "Short, plain sentences with little filler. The word 'triggers' is a mild overstatement."
+            },
+            "currency": {
+              "score": 5,
+              "why": "The facts are historical and stable, so they are current as of 2026. The centenary has passed, and nothing needs updating."
+            },
+            "decisions": {
+              "score": 3,
+              "why": "The subject kind suits the request. A quick format fits a new reader, but 3 chapters is thin for both causes and consequences, though it is workable. Chapter titles are not given."
+            },
+            "depth": {
+              "score": 2,
+              "why": "Most facts are one-line statements with little mechanism. A writer would have to guess how alliances escalated the crisis and why the effects followed."
+            },
+            "goalFit": {
+              "score": 3,
+              "why": "The facts mostly list events. The reader wants to know why the war started, and the brief covers the assassination and alliances but not the deeper causes."
+            },
+            "sources": {
+              "score": 4,
+              "why": "Britannica, Wikipedia and the National WWI Museum are real and relevant. The museum's key dates page is strong. There are no scholarly sources."
+            },
+            "specificity": {
+              "score": 3,
+              "why": "The dates and the death range are concrete. Several facts are vague, such as 'interlocking treaty alliances', 'deadly weapons' and 'heavy penalties', with no figures or names."
+            }
+          },
+          "worst": "It barely explains why the war started. The causes are reduced to one assassination and vague alliances, and the effects are thin too."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "request": {
+        "topic": "World War I",
+        "goal": "understand why it started and how it changed the world",
+        "mode": "subject",
+        "level": "new"
+      },
+      "version": "v3",
+      "n": 1,
+      "ask": "Typed: \"World War I\"\nTheir goal: \"understand why it started and how it changed the world\"\nMode they picked: subject\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 0,
+      "inr": 1.356075,
+      "model": "gemini-3.8-flash",
+      "ms": 48615,
+      "output": {
+        "chapters": 3,
+        "facts": [
+          "European powers build rival military alliances before 1914, splitting Europe into two armed camps.",
+          "Germany, Austria-Hungary, and Italy initially form the Triple Alliance in 1882.",
+          "Great Britain, France, and Russia counter by forming the Triple Entente in 1907.",
+          "Imperial competition for overseas colonies increases tension and fuels naval arms races among these powers.",
+          "Nationalist movements in the Balkan region create intense political instability inside the Austro-Hungarian Empire.",
+          "On June 28, 1914, a Serbian nationalist assassinates Archduke Franz Ferdinand in Sarajevo.",
+          "Austria-Hungary blames Serbia for the assassination and declares war on July 28, 1914.",
+          "Russia mobilizes its army to defend Serbia against Austria-Hungary.",
+          "Germany backs Austria-Hungary and declares war on Russia and France in August 1914.",
+          "Great Britain enters the war after German forces invade neutral Belgium.",
+          "The war causes the collapse of four major imperial dynasties: Russian, German, Austro-Hungarian, and Ottoman.",
+          "The Russian Empire falls to the Bolshevik Revolution in 1917, establishing Soviet rule.",
+          "Austria-Hungary fractures into several independent nation-states, including Austria, Hungary, and Czechoslovakia.",
+          "The 1919 Treaty of Versailles imposes heavy financial reparations and territorial losses on Germany.",
+          "Allied diplomats divide former Ottoman lands across the Middle East into British and French mandates.",
+          "The peace treaties establish the League of Nations to prevent future international conflicts.",
+          "The conflict causes an estimated 15 to 22 million military and civilian deaths worldwide.",
+          "Economic disruption and unresolved territorial grievances from the war set the stage for World War II."
+        ],
+        "format": "quick",
+        "framing": null,
+        "kind": "subject",
+        "outline": [
+          "Imperial Rivalry and Alliances",
+          "The Balkan Crisis",
+          "Outbreak of Global Conflict",
+          "Fall of Four Empires",
+          "Treaty of Versailles and New Borders",
+          "Long-Term Global Impact"
+        ],
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "World War I | Causes, Years, Combatants, Casualties, Maps, & Facts | Britannica",
+            "url": "https://www.britannica.com/event/World-War-I"
+          },
+          {
+            "title": "Causes and Effects of World War I - Britannica",
+            "url": "https://www.britannica.com/summary/Causes-and-Effects-of-World-War-I"
+          },
+          {
+            "title": "World War I - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/World_War_I"
+          },
+          {
+            "title": "Causes & Start of World War I | Britannica",
+            "url": "https://www.britannica.com/video/Overview-start-details-World-War-I-assassination-June-28-1914/-191716"
+          }
+        ],
+        "wikipediaTitle": "World War I"
+      },
+      "queries": [],
+      "searches": 0,
+      "tokenInr": 1.356075,
+      "tokensIn": 990,
+      "tokensOut": 4107,
+      "checks": {
+        "valid": true,
+        "kind": "subject",
+        "format": "quick",
+        "chapters": 3,
+        "outline": [
+          "Imperial Rivalry and Alliances",
+          "The Balkan Crisis",
+          "Outbreak of Global Conflict",
+          "Fall of Four Empires",
+          "Treaty of Versailles and New Borders",
+          "Long-Term Global Impact"
+        ],
+        "facts": 18,
+        "factWordsAvg": 13.2,
+        "sentencesOver20": 0,
+        "sources": 4,
+        "framing": null
+      },
+      "judge": {
+        "error": null,
+        "inr": 5.38272,
+        "ms": 17069,
+        "searches": 0,
+        "tokensIn": 7920,
+        "tokensOut": 2688,
+        "verdict": {
+          "best": "The facts are mostly accurate and follow a clear cause-to-consequence line that fits the reader's goal.",
+          "facts": [
+            {
+              "fact": "European powers build rival military alliances before 1914, splitting Europe into two armed camps.",
+              "helpsGoal": true,
+              "note": "Standard account of the alliance system.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Germany, Austria-Hungary, and Italy initially form the Triple Alliance in 1882.",
+              "helpsGoal": true,
+              "note": "The alliance was signed in May 1882. Italy stayed neutral in 1914 and joined the Allies in 1915. The brief omits this.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Great Britain, France, and Russia counter by forming the Triple Entente in 1907.",
+              "helpsGoal": true,
+              "note": "The Anglo-Russian Entente of 1907 completed it. It was an entente, not a formal alliance. The brief leaves out the 1894 Franco-Russian alliance and the 1904 Entente Cordiale.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Imperial competition for overseas colonies increases tension and fuels naval arms races among these powers.",
+              "helpsGoal": true,
+              "note": "Broadly accepted, but vague. The Anglo-German naval race is the main case and is not named. Colonial rivalry is also debated as a cause.",
+              "verdict": "unsure"
+            },
+            {
+              "fact": "Nationalist movements in the Balkan region create intense political instability inside the Austro-Hungarian Empire.",
+              "helpsGoal": true,
+              "note": "Vague. It omits the 1908 annexation of Bosnia and the Balkan Wars of 1912-13.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "On June 28, 1914, a Serbian nationalist assassinates Archduke Franz Ferdinand in Sarajevo.",
+              "helpsGoal": true,
+              "note": "Gavrilo Princip was a Bosnian Serb, a Young Bosnia member. Calling him a Serbian nationalist is acceptable but imprecise. He is not named.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Austria-Hungary blames Serbia for the assassination and declares war on July 28, 1914.",
+              "helpsGoal": true,
+              "note": "The July Ultimatum of 23 July and Germany's 'blank cheque' are missing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Russia mobilizes its army to defend Serbia against Austria-Hungary.",
+              "helpsGoal": true,
+              "note": "Russia began general mobilization on 30-31 July. No date is given.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Germany backs Austria-Hungary and declares war on Russia and France in August 1914.",
+              "helpsGoal": true,
+              "note": "Germany declared war on Russia on 1 Aug and on France on 3 Aug. The Schlieffen Plan is missing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Great Britain enters the war after German forces invade neutral Belgium.",
+              "helpsGoal": true,
+              "note": "Britain declared war on 4 Aug 1914. The 1839 Treaty of London guaranteed Belgian neutrality.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The war causes the collapse of four major imperial dynasties: Russian, German, Austro-Hungarian, and Ottoman.",
+              "helpsGoal": true,
+              "note": "The Romanov, Hohenzollern, Habsburg and Ottoman dynasties all fell. The Ottoman sultanate was abolished in 1922.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The Russian Empire falls to the Bolshevik Revolution in 1917, establishing Soviet rule.",
+              "helpsGoal": true,
+              "note": "The tsar abdicated in the February 1917 revolution. The Bolsheviks seized power in October 1917. The brief makes the monarchy's fall look like the Bolshevik act. The USSR was formally founded in 1922.",
+              "verdict": "unsure"
+            },
+            {
+              "fact": "Austria-Hungary fractures into several independent nation-states, including Austria, Hungary, and Czechoslovakia.",
+              "helpsGoal": true,
+              "note": "Yugoslavia, in its Kingdom of Serbs, Croats and Slovenes form, and parts of Poland and Romania also took its lands.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The 1919 Treaty of Versailles imposes heavy financial reparations and territorial losses on Germany.",
+              "helpsGoal": true,
+              "note": "The war guilt clause, military limits and the 132 billion gold mark figure of 1921 are missing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Allied diplomats divide former Ottoman lands across the Middle East into British and French mandates.",
+              "helpsGoal": true,
+              "note": "The mandates were Iraq, Palestine and Transjordan (British) and Syria and Lebanon (French). The Sykes-Picot agreement and San Remo (1920) are not named.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The peace treaties establish the League of Nations to prevent future international conflicts.",
+              "helpsGoal": true,
+              "note": "The League was created by the Covenant in the Versailles treaty in 1920. The US never joined. This is a key weakness and is not mentioned.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The conflict causes an estimated 15 to 22 million military and civilian deaths worldwide.",
+              "helpsGoal": true,
+              "note": "Common estimates range from about 15 to 22 million, with roughly 9-10 million military deaths. The range is wide and unsourced.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Economic disruption and unresolved territorial grievances from the war set the stage for World War II.",
+              "helpsGoal": true,
+              "note": "A common view. It is stated without detail such as hyperinflation, the Depression or the rise of Nazism.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "The war itself and how it ended: the stalemate on the Western Front, new weapons, the US entering in 1917, and the armistice of 11 November 1918",
+            "The July Crisis details: the 23 July ultimatum, Germany's blank cheque, the Schlieffen Plan, and the Franco-Russian alliance",
+            "Wider effects of the war: Wilson's self-determination, the Armenian genocide, women's roles and the 1918 flu, and the US not joining the League"
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 4,
+              "why": "No outright errors. The Russian 1917 item blurs February and October. Some wording is imprecise."
+            },
+            "breadth": {
+              "score": 3,
+              "why": "Misses the war itself (the Western Front, the US entry, the 1918 armistice), plus the social and economic change, women's roles, the 1918 flu and the Wilson principles of self-determination."
+            },
+            "clarity": {
+              "score": 4,
+              "why": "Short, plain sentences. Some use the historical present tense, which is fine."
+            },
+            "currency": {
+              "score": 4,
+              "why": "Historical facts do not change. The death toll range is still the common one. The 2026 centenary and recent estimates are not noted."
+            },
+            "decisions": {
+              "score": 2,
+              "why": "The outline has six chapters but the 'chapters' field says 3. This is inconsistent. 'Quick' format fits a new reader, but it conflicts with the six-part outline."
+            },
+            "depth": {
+              "score": 2,
+              "why": "Mostly one-line statements. Few dates, names or mechanisms such as the July Crisis, the ultimatum or the Schlieffen Plan."
+            },
+            "goalFit": {
+              "score": 4,
+              "why": "Covers causes and consequences as the reader wants, at an intro level."
+            },
+            "sources": {
+              "score": 3,
+              "why": "Britannica and Wikipedia are real and relevant but general. There are no primary or scholarly sources. One source is a video page."
+            },
+            "specificity": {
+              "score": 3,
+              "why": "Some firm dates, but many claims are vague, such as nationalist movements and economic disruption. There are no names, numbers or treaty terms."
+            }
+          },
+          "worst": "The brief is thin. It omits the war itself, and it has few names, dates or numbers. It also has a chapter-count mismatch (3 vs 6)."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "request": {
+        "topic": "World War I",
+        "goal": "understand why it started and how it changed the world",
+        "mode": "subject",
+        "level": "new"
+      },
+      "version": "v3",
+      "n": 2,
+      "ask": "Typed: \"World War I\"\nTheir goal: \"understand why it started and how it changed the world\"\nMode they picked: subject\nLevel: new\nToday: 2026-10-08",
+      "error": null,
+      "grounded": 9,
+      "inr": 3.639216,
+      "model": "gemini-3.8-flash",
+      "ms": 32399,
+      "output": {
+        "chapters": 3,
+        "facts": [
+          "European powers form rival military alliances before 1914.",
+          "A naval and military arms race increases tension between Great Britain and Germany.",
+          "Nationalist movements create volatile political conflicts across the Balkan Peninsula.",
+          "A Serbian nationalist assassinates Archduke Franz Ferdinand of Austria on June 28, 1914.",
+          "Austria-Hungary declares war on Serbia on July 28, 1914.",
+          "Mutual defense treaties pull Russia, Germany, France, and Great Britain into war within weeks.",
+          "Opposing armies dig expansive trench networks that lock the Western Front into bloody stalemates.",
+          "New technologies such as poison gas, tanks, machine guns, and airplanes transform combat.",
+          "More than sixty-five million soldiers mobilize to fight in the global conflict.",
+          "The war kills over eight million soldiers and injures more than twenty million.",
+          "The war destroys four major dynastic empires: the German, Austro-Hungarian, Russian, and Ottoman.",
+          "Severe wartime strain triggers the Russian Revolution in 1917 and topples the imperial monarchy.",
+          "An armistice ends the fighting along the Western Front on November 11, 1918.",
+          "The 1919 Treaty of Versailles forces Germany to give up territory and pay heavy financial reparations.",
+          "Postwar peace treaties establish new independent European nations, including Poland and Czechoslovakia.",
+          "United States President Woodrow Wilson creates the League of Nations to resolve international disputes.",
+          "Allied powers carve new Middle Eastern and European borders that create lasting ethnic tensions.",
+          "Economic distress and deep resentment over the postwar settlements help trigger World War II."
+        ],
+        "format": "quick",
+        "framing": null,
+        "kind": "subject",
+        "outline": [
+          "Root causes in Europe",
+          "The spark and mobilization",
+          "Modern industrial warfare",
+          "The fall of four empires",
+          "The Treaty of Versailles",
+          "Long-term global consequences"
+        ],
+        "recapVideo": null,
+        "sources": [
+          {
+            "title": "Causes & Start of World War I",
+            "url": "https://www.britannica.com/video/Overview-start-details-World-War-I-assassination-June-28-1914/-191716"
+          },
+          {
+            "title": "History of Europe - WWI, Aftermath, Treaty of Versailles | Britannica",
+            "url": "https://www.britannica.com/topic/history-of-Europe/The-Great-War-and-its-aftermath"
+          },
+          {
+            "title": "How World War I Changed Map of the World | RealClearHistory",
+            "url": "https://www.realclearhistory.com/articles/2018/11/29/how_world_war_i_changed_map_of_the_world_389.html"
+          },
+          {
+            "title": "How World War I changed the world forever | PBS News Hour Classroom",
+            "url": "https://www.pbs.org/newshour/classroom/daily-news-lessons/2017/04/how-wwi-changed-the-world-forever"
+          },
+          {
+            "title": "Map of Europe at the End of WW I, 1918: After the Great War - World History Encyclopedia",
+            "url": "https://www.worldhistory.org/image/18127/map-of-europe-at-the-end-of-ww-i-1918/"
+          },
+          {
+            "title": "World War I - Kids | Britannica Kids | Homework Help",
+            "url": "https://kids.britannica.com/kids/article/World-War-I/353933"
+          }
+        ],
+        "wikipediaTitle": "World War I"
+      },
+      "queries": [
+        "how World War I changed the world aftermath empires map",
+        "World War I causes spark aftermath consequences summary britannica"
+      ],
+      "searches": 2,
+      "tokenInr": 1.287216,
+      "tokensIn": 982,
+      "tokensOut": 3890,
+      "checks": {
+        "valid": true,
+        "kind": "subject",
+        "format": "quick",
+        "chapters": 3,
+        "outline": [
+          "Root causes in Europe",
+          "The spark and mobilization",
+          "Modern industrial warfare",
+          "The fall of four empires",
+          "The Treaty of Versailles",
+          "Long-term global consequences"
+        ],
+        "facts": 18,
+        "factWordsAvg": 12.7,
+        "sentencesOver20": 0,
+        "sources": 6,
+        "framing": null
+      },
+      "judge": {
+        "error": null,
+        "inr": 5.09544,
+        "ms": 15374,
+        "searches": 0,
+        "tokensIn": 8075,
+        "tokensOut": 2429,
+        "verdict": {
+          "best": "All facts are accurate and in clear cause-and-effect order, from the assassination to the consequences.",
+          "facts": [
+            {
+              "fact": "European powers form rival military alliances before 1914.",
+              "helpsGoal": true,
+              "note": "The Triple Alliance and the Triple Entente. The brief does not name them.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "A naval and military arms race increases tension between Great Britain and Germany.",
+              "helpsGoal": true,
+              "note": "The Anglo-German naval race (Dreadnoughts) is well documented.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Nationalist movements create volatile political conflicts across the Balkan Peninsula.",
+              "helpsGoal": true,
+              "note": "Vague, with no mention of the Balkan Wars of 1912-13 or of Bosnia's annexation in 1908.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "A Serbian nationalist assassinates Archduke Franz Ferdinand of Austria on June 28, 1914.",
+              "helpsGoal": true,
+              "note": "Gavrilo Princip, in Sarajevo. The brief names neither. 'Serbian' is loosely accurate: he was a Bosnian Serb.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Austria-Hungary declares war on Serbia on July 28, 1914.",
+              "helpsGoal": true,
+              "note": "The brief omits the July ultimatum and the German 'blank check'.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Mutual defense treaties pull Russia, Germany, France, and Great Britain into war within weeks.",
+              "helpsGoal": true,
+              "note": "Simplified. Germany declared war on Russia on Aug 1, on France on Aug 3, and Britain entered on Aug 4 after the invasion of Belgium. The Schlieffen Plan and Belgium are missing.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Opposing armies dig expansive trench networks that lock the Western Front into bloody stalemates.",
+              "helpsGoal": true,
+              "note": "No specific battles are given, such as the Somme or Verdun.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "New technologies such as poison gas, tanks, machine guns, and airplanes transform combat.",
+              "helpsGoal": true,
+              "note": "Machine guns predate the war, but their mass use was decisive.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "More than sixty-five million soldiers mobilize to fight in the global conflict.",
+              "helpsGoal": true,
+              "note": "The usual figure is about 65-70 million.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The war kills over eight million soldiers and injures more than twenty million.",
+              "helpsGoal": true,
+              "note": "Estimates are roughly 9-10 million military dead and about 21 million wounded, so 'over eight million' is low but not false. Civilian deaths (about 6-10 million) are omitted.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The war destroys four major dynastic empires: the German, Austro-Hungarian, Russian, and Ottoman.",
+              "helpsGoal": true,
+              "note": "The Ottoman Empire's end was formalized in 1922.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Severe wartime strain triggers the Russian Revolution in 1917 and topples the imperial monarchy.",
+              "helpsGoal": true,
+              "note": "The February Revolution toppled the tsar. The Bolsheviks took power in October.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "An armistice ends the fighting along the Western Front on November 11, 1918.",
+              "helpsGoal": true,
+              "note": "It took effect at 11 a.m.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "The 1919 Treaty of Versailles forces Germany to give up territory and pay heavy financial reparations.",
+              "helpsGoal": true,
+              "note": "Signed June 28, 1919. The brief omits the war guilt clause, the military limits and the reparations total (132 billion gold marks).",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Postwar peace treaties establish new independent European nations, including Poland and Czechoslovakia.",
+              "helpsGoal": true,
+              "note": "Yugoslavia and the Baltic states could also be named.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "United States President Woodrow Wilson creates the League of Nations to resolve international disputes.",
+              "helpsGoal": true,
+              "note": "Wilson championed it, but the US Senate never ratified the treaty, so the US did not join. The brief omits this, which is a key point.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Allied powers carve new Middle Eastern and European borders that create lasting ethnic tensions.",
+              "helpsGoal": true,
+              "note": "Sykes-Picot, the mandates and the Balfour Declaration are not named.",
+              "verdict": "correct"
+            },
+            {
+              "fact": "Economic distress and deep resentment over the postwar settlements help trigger World War II.",
+              "helpsGoal": true,
+              "note": "Stated without specifics: hyperinflation, the Great Depression and the rise of Hitler.",
+              "verdict": "correct"
+            }
+          ],
+          "missing": [
+            "Named alliances (Triple Entente, Triple Alliance), the July Crisis, the blank check, the Schlieffen Plan and the German invasion of Belgium as Britain's reason for entering",
+            "US entry in 1917, and the fact that the US Senate rejected the Versailles treaty and the League",
+            "Civilian deaths, the 1918 flu, and social changes such as women's suffrage and the rise of the US as a world power"
+          ],
+          "scores": {
+            "accuracy": {
+              "score": 5,
+              "why": "Every claim holds up. Some are simplified, and the casualty figure is on the low side."
+            },
+            "breadth": {
+              "score": 3,
+              "why": "Causes and consequences are covered. It omits the Eastern Front and other theaters, the US entry in 1917, the home front, civilian toll, the 1918 flu, social change such as women's suffrage, and the Armistice's context."
+            },
+            "clarity": {
+              "score": 4,
+              "why": "The sentences are short and plain. The fact list is not tied to the outline."
+            },
+            "currency": {
+              "score": 5,
+              "why": "These are settled historical facts, so nothing is out of date as of 2026. The 2026 date may mean the centennial context is over, which does not matter here."
+            },
+            "decisions": {
+              "score": 3,
+              "why": "The subject kind suits the request. The 3 chapters do not match the 6-item outline, and 'quick' is a reasonable format."
+            },
+            "depth": {
+              "score": 2,
+              "why": "Most facts are one-line generalities. A writer would have to guess at the mechanisms, such as how the alliances worked and what the Schlieffen Plan was."
+            },
+            "goalFit": {
+              "score": 4,
+              "why": "It follows the 'why it started' and 'how it changed the world' goal in a plain way for a newcomer."
+            },
+            "sources": {
+              "score": 3,
+              "why": "Britannica and PBS are real and authoritative. RealClearHistory, a kids' encyclopedia and a map image are weaker, and one is a video page."
+            },
+            "specificity": {
+              "score": 2,
+              "why": "Only a few dates and numbers are given. Names such as Princip, Sarajevo and the alliance names, and places and battles, are missing."
+            }
+          },
+          "worst": "Facts are thin and generic. Names, battles, mechanisms and key events like US entry and the Senate's rejection are missing, and the count of 3 chapters conflicts with the 6-item outline."
+        }
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "genre": "physical skill",
+      "n": 1,
+      "x": "v1",
+      "y": "v2",
+      "xAsA": {
+        "error": null,
+        "inr": 0.969192,
+        "ms": 3117,
+        "searches": 0,
+        "tokensIn": 2261,
+        "tokensOut": 317,
+        "verdict": {
+          "accuracy_note": "Both are mostly accurate; the one-goggle-in-water line in A is a common side-breathing tip, and B has no clear errors.",
+          "dimensions": {
+            "accuracy": "B",
+            "breadth": "A",
+            "clarity": "tie",
+            "currency": "tie",
+            "decisions": "tie",
+            "depth": "tie",
+            "goalFit": "A",
+            "sources": "tie",
+            "specificity": "A"
+          },
+          "overall": "A",
+          "why": "Brief A covers the beginner's goal better: it defines the pool length, adds breathing mechanics and pacing to finish a length, and notes rotation. Its accuracy is weaker, though: it describes bilateral breathing as every three strokes, which is true but not essential for a first length, and the \"800 times denser\" figure is off-topic. Brief B is accurate and clear on arm mechanics but has no pacing or goal-specific content. I would give A to the planner and writer, with the bilateral-breathing and density facts treated cautiously."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.831852,
+        "ms": 2127,
+        "searches": 0,
+        "tokensIn": 2261,
+        "tokensOut": 208,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "tie",
+            "breadth": "B",
+            "clarity": "tie",
+            "currency": "tie",
+            "decisions": "tie",
+            "depth": "tie",
+            "goalFit": "B",
+            "sources": "B",
+            "specificity": "B"
+          },
+          "overall": "B",
+          "why": "Brief B ties its facts to the goal: it gives the pool length, relaxed pacing to finish 25 m without stopping, breathing rhythm, and body rotation. It also has a stronger source set that includes USMS beginner workouts. Brief A has good technique facts, including arm entry and pull, but nothing about pacing, pool length, or finishing a length."
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "n": 1,
+      "x": "v1",
+      "y": "v3",
+      "xAsA": {
+        "error": "no JSON: {\"dimensions\":{\"accuracy\":\"B\",\"goalFit\":\"B\",\"breadth\":\"B\",\"depth\":\"B\",\"currency\":\"tie\",\"specificity\":\"B\",\"decisions\":\"B\",\"sources\":\"B\",\"clarity\":\"B\"},\"overall\":\"B\",\"why\":\"Brief B follows a beginner's ",
+        "inr": 0.942228,
+        "ms": 2621,
+        "searches": 0,
+        "tokensIn": 2559,
+        "tokensOut": 236,
+        "verdict": null
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.942228,
+        "ms": 2231,
+        "searches": 0,
+        "tokensIn": 2559,
+        "tokensOut": 236,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "A",
+            "breadth": "A",
+            "clarity": "A",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "tie",
+            "specificity": "A"
+          },
+          "overall": "A",
+          "why": "Brief A covers the full path for a new swimmer: gear, water comfort, breathing, floating, kick, arms, side breathing and pacing. It also has an explicit 7-chapter outline and practical steps such as chest-deep practice and 10-15 m segments. Brief B has fewer facts and no outline. It includes a questionable bilateral breathing definition ('every three strokes') and an odd 'water 800 times denser' claim that does little for the goal."
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "n": 1,
+      "x": "v2",
+      "y": "v3",
+      "xAsA": {
+        "error": null,
+        "inr": 0.853776,
+        "ms": 1962,
+        "searches": 0,
+        "tokensIn": 2423,
+        "tokensOut": 193,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "tie",
+            "breadth": "B",
+            "clarity": "B",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "B",
+            "specificity": "B"
+          },
+          "overall": "B",
+          "why": "Brief B follows a beginner's path from water comfort and breathing through floating, kicking, arms and side breathing to pacing the full 25m length, and it includes an outline. Brief A is only front crawl technique, with no gear, water comfort, floating or pacing, and no outline, so it fits a new swimmer's goal less well."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.897876,
+        "ms": 2433,
+        "searches": 0,
+        "tokensIn": 2423,
+        "tokensOut": 228,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "tie",
+            "breadth": "A",
+            "clarity": "A",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "A",
+            "specificity": "A"
+          },
+          "overall": "A",
+          "why": "Brief A covers the whole path to the goal for a new swimmer: water comfort, floating, kick, arms, breathing and pacing the first 25 m. It also includes a chapter outline and practical facts such as chest-deep water and 10 to 15 m practice segments. Brief B covers only front crawl technique, has fewer facts, and gives no outline, so it leaves out the beginner foundations and pacing the reader needs.\n"
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "n": 2,
+      "x": "v1",
+      "y": "v2",
+      "xAsA": {
+        "error": null,
+        "inr": 0.77868,
+        "ms": 2102,
+        "searches": 0,
+        "tokensIn": 2125,
+        "tokensOut": 193,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "tie",
+            "breadth": "A",
+            "clarity": "tie",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "A",
+            "specificity": "A"
+          },
+          "overall": "A",
+          "why": "Brief A covers what a first full length needs: body position, breathing, kick, stroke phases, drills, equipment and safety. Its sources are beginner guides. Brief B is mostly about breathing, with one line on the wall push-off, and it cites a world-records list that does not help this reader. A is the one to give the planner and writer."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.76608,
+        "ms": 2028,
+        "searches": 0,
+        "tokensIn": 2125,
+        "tokensOut": 183,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "tie",
+            "breadth": "B",
+            "clarity": "tie",
+            "currency": "tie",
+            "decisions": "tie",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "B",
+            "specificity": "B"
+          },
+          "overall": "B",
+          "why": "Brief B covers more of what a first-length swimmer needs: body position, breathing, kick, arm stroke, drills, equipment and safety. Its sources are beginner guides and drill programs. Brief A is almost all breathing, and its Wikipedia world-records source has no use for this reader."
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "n": 2,
+      "x": "v1",
+      "y": "v3",
+      "xAsA": {
+        "error": null,
+        "inr": 0.919296,
+        "ms": 2467,
+        "searches": 0,
+        "tokensIn": 2503,
+        "tokensOut": 229,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "B",
+            "breadth": "B",
+            "clarity": "B",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "B",
+            "specificity": "tie"
+          },
+          "overall": "B",
+          "why": "Brief B follows the goal from water comfort through to pacing the first full length, and it includes an outline, so the chapter plan is concrete. Brief A has no outline and includes less useful items, such as the water density figure and an unusable definition of the stroke phases, and it says nothing on pacing or glide. B also gets the pool-length units right (yards in the US, meters internationally), where A writes '25 meters or 25 yards' with no distinction."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.934416,
+        "ms": 2577,
+        "searches": 0,
+        "tokensIn": 2503,
+        "tokensOut": 241,
+        "verdict": {
+          "accuracy_note": "B's hand-entry wording is less accurate.",
+          "dimensions": {
+            "accuracy": "A",
+            "breadth": "A",
+            "clarity": "A",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "tie",
+            "specificity": "A"
+          },
+          "overall": "A",
+          "why": "Brief A has a 7-chapter outline that leads from water comfort to pacing a full length, and its 19 facts cover breathing, kick, arms, rhythm and pacing. Brief B has no outline, fewer facts, and some off-goal or loosely worded items (water density, a hand 'in line with the shoulder' at entry, gear). It also gives nothing on pacing for a non-stop length."
+        }
+      }
+    },
+    {
+      "genre": "physical skill",
+      "n": 2,
+      "x": "v2",
+      "y": "v3",
+      "xAsA": {
+        "error": null,
+        "inr": 0.87444,
+        "ms": 1939,
+        "searches": 0,
+        "tokensIn": 2475,
+        "tokensOut": 199,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "tie",
+            "breadth": "B",
+            "clarity": "B",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "B",
+            "specificity": "B"
+          },
+          "overall": "B",
+          "why": "Brief B covers the whole path to a first full length: water comfort, glide, kick, arms, breathing, rhythm and pacing. It also supplies a chapter outline and beginner-focused sources. Brief A is almost all breathing, omits arms and pacing, and cites a Wikipedia world-records list that has no use for a new swimmer."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.90342,
+        "ms": 2148,
+        "searches": 0,
+        "tokensIn": 2475,
+        "tokensOut": 222,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "tie",
+            "breadth": "A",
+            "clarity": "A",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "A",
+            "specificity": "A"
+          },
+          "overall": "A",
+          "why": "Brief A covers the whole path to a first full length: water comfort, buoyancy, kick, arms, breathing, rhythm and pacing. It has 19 facts and a clear 7-chapter outline. Brief B is only about breathing, with 10 facts, no outline, and a world-records Wikipedia page as a source that doesn't fit a beginner's goal, so I'd give Brief A to the planner and writer."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "n": 1,
+      "x": "v1",
+      "y": "v2",
+      "xAsA": {
+        "error": null,
+        "inr": 0.899388,
+        "ms": 2493,
+        "searches": 0,
+        "tokensIn": 2234,
+        "tokensOut": 267,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "A",
+            "breadth": "A",
+            "clarity": "A",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "B",
+            "specificity": "A"
+          },
+          "overall": "A",
+          "why": "Brief A has more facts covering both the causes (the July Crisis, alliances, the invasion of Belgium) and the consequences (the Treaty of Versailles, new nations, the League of Nations, the collapse of four empires). Its 'event' kind also suits WWI better, and its casualty range is hedged rather than stated as a firm count. Brief B is thinner and its 'more than 8 million soldiers and about 13 million civilians' figure is shakier, though its Britannica sources are somewhat stronger than A's Wikipedia-heavy list."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.877968,
+        "ms": 2318,
+        "searches": 0,
+        "tokensIn": 2234,
+        "tokensOut": 250,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "B",
+            "breadth": "B",
+            "clarity": "tie",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "tie",
+            "specificity": "B"
+          },
+          "overall": "B",
+          "why": "Brief B covers the July Crisis, the Belgium invasion, trench warfare and new technology, Brest-Litovsk, Versailles, and the new nations, so it supports both the 'why it started' and 'how it changed the world' parts of the goal. Brief A is thinner on aftermath, and its '8 million soldiers' versus '13 million civilians' figures and its 'subject' kind fit a specific event less well than B's 'event'. I would give Brief B to the planner and writer.\n"
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "n": 1,
+      "x": "v1",
+      "y": "v3",
+      "xAsA": {
+        "error": null,
+        "inr": 1.0836,
+        "ms": 3381,
+        "searches": 0,
+        "tokensIn": 2520,
+        "tokensOut": 356,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "B",
+            "breadth": "B",
+            "clarity": "B",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "B",
+            "specificity": "A"
+          },
+          "dimensions_note": "B's accuracy edge is slight and uncertain.",
+          "overall": "B",
+          "why": "Brief B centers on the reader's goal, covering why the war started (alliances, imperial rivalry, Balkan nationalism) and how it changed the world (empires, mandates, Versailles, WWII). It also includes an outline and kind=subject, which matches the chosen mode. Brief A is a more event-focused timeline with little on causes or long-term impact, though it is specific on dates and battlefield details. It also says Russia exited the war in 1918 but gives no 1917 revolution date, and its 'Bolshevik Revolution' line is vague. B has a small error: it says Germany declared war on France and Russia in August 1914 and implies Italy was in the Triple Alliance without noting that it later joined the Allies, which could mislead a beginner."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 1.0143,
+        "ms": 2855,
+        "searches": 0,
+        "tokensIn": 2520,
+        "tokensOut": 301,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "A",
+            "breadth": "A",
+            "clarity": "A",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "tie",
+            "specificity": "B"
+          },
+          "dimensionsNote": "B has more concrete names and dates (Princip, 6 April 1917, 11 November 1918), which is why it wins specificity.",
+          "overall": "A",
+          "why": "Brief A covers both halves of the goal: the causes (alliances, imperial rivalry, Balkan nationalism) and the consequences (fallen empires, Versailles, mandates, the road to WWII). It also gives an outline. Brief B is mostly a battle and event timeline with thin causes and little on how the war changed the world. A has one small slip: it says Germany declared war on France and Russia without the dates and the Italy detail, and its Triple Alliance fact omits that Italy later switched sides."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "n": 1,
+      "x": "v2",
+      "y": "v3",
+      "xAsA": {
+        "error": null,
+        "inr": 0.915516,
+        "ms": 2328,
+        "searches": 0,
+        "tokensIn": 2378,
+        "tokensOut": 251,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "B",
+            "breadth": "B",
+            "clarity": "B",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "tie",
+            "specificity": "B"
+          },
+          "overall": "B",
+          "why": "Brief B covers the causes in depth (alliances, imperial rivalry, the Balkans, the July crisis, Belgium) and the consequences (Versailles, the end of empires, the mandates, the road to WWII), which is exactly what a new reader asking why it started and how it changed the world needs. Brief A is thin on causes, and its mention of 'more than 8 million soldiers' alongside 'about 13 million civilians' is less clean than B's range. B also provides an outline, which helps the planner."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.938196,
+        "ms": 2783,
+        "searches": 0,
+        "tokensIn": 2378,
+        "tokensOut": 269,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "B",
+            "breadth": "A",
+            "clarity": "A",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "tie",
+            "specificity": "A"
+          },
+          "overall": "A",
+          "why": "Brief A covers both halves of the goal: the causes (alliances, imperial rivalry, the Balkans, the July crisis) and the consequences (fallen empires, Versailles, the Middle East mandates, the road to WWII). It also supplies an outline. Brief B is thin on causes and has no outline. Its figures are plainer, but A has a few flaws a writer should check: Italy's alliance status, and \"declares war on Russia and France\" in A against Germany's actual sequence of declarations.\n\nI would give Brief A to the planner and writer."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "n": 2,
+      "x": "v1",
+      "y": "v2",
+      "xAsA": {
+        "error": null,
+        "inr": 0.805392,
+        "ms": 2670,
+        "searches": 0,
+        "tokensIn": 2161,
+        "tokensOut": 207,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "B",
+            "breadth": "A",
+            "clarity": "tie",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "A",
+            "goalFit": "tie",
+            "sources": "A",
+            "specificity": "A"
+          },
+          "overall": "A",
+          "why": "Brief A has more facts on both the causes and the aftermath, including the Central Powers and Allies membership, the borders redrawn in Europe and the Middle East, and the League of Nations. Its sources are also stronger. Brief B has a better death-toll range and fits the mode picked (kind: subject), but it covers less, so I would give Brief A to the planner and writer."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.835632,
+        "ms": 2213,
+        "searches": 0,
+        "tokensIn": 2161,
+        "tokensOut": 231,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "tie",
+            "breadth": "B",
+            "clarity": "tie",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "B",
+            "specificity": "B"
+          },
+          "overall": "B",
+          "why": "Brief B gives the reader more of what the goal needs: the combatants on each side, the redrawn borders, and the League of Nations, which cover how the war changed the world. It also labels the topic as an 'event', which fits better than 'subject', and its sources are more numerous and more relevant. Brief A's fact on how the war led to World War II is useful, but it does not make up for the gaps elsewhere. I would give Brief B to the planner and writer."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "n": 2,
+      "x": "v1",
+      "y": "v3",
+      "xAsA": {
+        "error": null,
+        "inr": 0.989352,
+        "ms": 2375,
+        "searches": 0,
+        "tokensIn": 2696,
+        "tokensOut": 246,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "A",
+            "breadth": "B",
+            "clarity": "B",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "B",
+            "specificity": "A"
+          },
+          "overall": "B",
+          "why": "Brief B covers the 'why it started' half of the goal with causes (alliances, arms race, Balkan nationalism) and the 'how it changed the world' half with consequences through to WWII. It also provides an outline and the right kind (subject). Brief A is more precise on some numbers, but it has almost nothing on root causes, and its 'event' kind fits the subject mode less well. B has a few loose figures, such as 'over eight million soldiers' killed, but they are minor next to A's gaps."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 1.041012,
+        "ms": 2731,
+        "searches": 0,
+        "tokensIn": 2696,
+        "tokensOut": 287,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "A",
+            "breadth": "A",
+            "clarity": "A",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "B",
+            "specificity": "B"
+          },
+          "overall": "A",
+          "why": "Brief A covers both halves of the goal: the long-term causes (alliances, arms race, Balkan nationalism) and the consequences (empires falling, Versailles, new borders, the road to WWII). It also supplies an outline. Brief B is thinner on why the war started, and its 'event' kind is a slightly worse fit than 'subject'. B's casualty figure of about twenty million is a reasonable total, but A's military death and injury figures are more concrete.\n\nA has a possible numeric issue: 'over eight million' military deaths fits common estimates of roughly 9-10 million, so it is low but defensible."
+        }
+      }
+    },
+    {
+      "genre": "history",
+      "n": 2,
+      "x": "v2",
+      "y": "v3",
+      "xAsA": {
+        "error": null,
+        "inr": 0.928368,
+        "ms": 2434,
+        "searches": 0,
+        "tokensIn": 2439,
+        "tokensOut": 249,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "B",
+            "breadth": "B",
+            "clarity": "B",
+            "currency": "tie",
+            "decisions": "B",
+            "depth": "B",
+            "goalFit": "B",
+            "sources": "B",
+            "specificity": "B"
+          },
+          "overall": "B",
+          "why": "Brief B covers the root causes (alliances, arms race, Balkan nationalism) that the reader's 'why it started' goal needs, and it spells out the consequences: new nations, the League of Nations, new borders and the road to WWII. It also supplies an outline and more varied sources. Brief A is thinner on causes and offers no outline. Brief A's 15–22 million death range is more defensible than B's 'over eight million soldiers' figure, but B's figure is still plausible and not clearly wrong."
+        }
+      },
+      "yAsA": {
+        "error": null,
+        "inr": 0.987588,
+        "ms": 2860,
+        "searches": 0,
+        "tokensIn": 2439,
+        "tokensOut": 296,
+        "verdict": {
+          "dimensions": {
+            "accuracy": "B",
+            "breadth": "A",
+            "clarity": "A",
+            "currency": "tie",
+            "decisions": "A",
+            "depth": "A",
+            "goalFit": "A",
+            "sources": "A",
+            "specificity": "tie"
+          },
+          "overall": "A",
+          "why": "Brief A covers the long-term causes (alliances, arms race, Balkan nationalism), the war itself, and the consequences (new nations, League of Nations, Middle Eastern borders). That fits a new reader who wants to know why it started and how it changed the world, and it also gives an outline. Brief B is thinner on causes and omits the arms race and Balkan context, though it is somewhat more accurate: A's 'over eight million killed' understates the toll and A's 'Wilson creates the League' oversimplifies, while B's 15–22 million deaths figure is better. I would give Brief A to the planner and writer, with those two facts corrected."
+        }
+      }
+    }
+  ],
+  "at": "2026-10-08T10:24:45.246Z"
+}

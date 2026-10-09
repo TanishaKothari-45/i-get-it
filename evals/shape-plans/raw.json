@@ -1,0 +1,3925 @@
+{
+  "at": "2026-10-09T07:54:40.824Z",
+  "results": [
+    {
+      "topic": "how to make dal",
+      "goal": "make dal for a family dinner tonight",
+      "level": "new",
+      "mode": "skill",
+      "expect": "1 to 2, quick",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "Toor dal, moong dal, and masoor dal serve as standard yellow lentils for everyday dal.",
+            "Rinsing lentils three to four times in cold water removes surface dust and excess starch.",
+            "Soaking split lentils in cool water for twenty minutes reduces cooking time on the stove.",
+            "A classic cooking ratio requires three cups of water for every one cup of dry lentils.",
+            "Half a teaspoon of ground turmeric and one teaspoon of salt go directly into the simmering water.",
+            "Uncovered split lentils simmer in a regular pot for twenty-five to thirty minutes until soft and creamy.",
+            "Skimming the white foam off the surface during boiling produces a cleaner, smoother broth.",
+            "Two tablespoons of neutral oil or ghee heat up in a heavy skillet over medium flame.",
+            "Sautéing finely chopped onions for eight minutes develops a golden brown color and rich sweetness.",
+            "Minced ginger, minced garlic, and diced tomatoes cook together until the tomatoes turn soft and paste-like.",
+            "Folding the simmered lentils into the cooked tomato mixture marries the flavors together.",
+            "Tadka refers to blooming whole spices and aromatics in hot fat to extract fat-soluble aromas.",
+            "One teaspoon of cumin seeds splutters in two tablespoons of hot ghee in a small pan.",
+            "Sliced garlic cloves, dried red chilies, and a pinch of asafoetida fry for sixty seconds.",
+            "North Indian roadside dhabas often catch sparks in the tadka fat to create a distinctive smoky char.",
+            "Pouring the sizzling hot tadka directly over the cooked dal releases an instant aromatic burst."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "skill",
+          "outline": [
+            "Choosing and Rinsing Lentils",
+            "Simmering the Dal",
+            "Cooking the Masala Base",
+            "Tempering the Tadka"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "Dal Tadka Recipe",
+              "url": "https://www.indianhealthyrecipes.com/dal-tadka/"
+            },
+            {
+              "title": "Dal Tadka Recipe: Restaurant-Style Yellow Dal at Home in 30 Minutes - ODM Masala",
+              "url": "https://www.odmspices.com/blogs/news/dal-tadka-recipe-restaurant-style-yellow-dal-at-home-in-30-minutes"
+            },
+            {
+              "title": "Authentic Dal Tadka Recipe",
+              "url": "https://www.youtube.com/watch?v=A5aaQodhexo"
+            },
+            {
+              "title": "Dal Tadka - Indiaphile",
+              "url": "https://indiaphile.info/dal-tadka/"
+            }
+          ],
+          "wikipediaTitle": "Dal"
+        },
+        "plan": {
+          "body": false,
+          "caution": "none",
+          "chapters": [
+            {
+              "blocks": [
+                "teach",
+                "steps",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Choosing yellow lentils, rinsing away excess starch, and simmering them until creamy.",
+              "hook": "Why does skimming the white foam off your boiling lentils completely change their texture?",
+              "outcome": "You can rinse, soak, and simmer lentils into a smooth, creamy base.",
+              "proof": "set",
+              "title": "Soak and Simmer the Lentils"
+            },
+            {
+              "blocks": [
+                "teach",
+                "steps",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Caramelizing onions, cooking garlic and ginger, and marrying the sauce with the cooked dal.",
+              "hook": "Can eight minutes of patient onion browning turn simple boiled lentils into a rich feast?",
+              "outcome": "You can sauté an aromatic onion-tomato masala and fold it into the cooked dal.",
+              "proof": "set",
+              "title": "Build the Tomato Masala"
+            },
+            {
+              "blocks": [
+                "teach",
+                "steps",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Blooming cumin, garlic, and dried chilies in hot ghee to finish the dish.",
+              "hook": "What happens when you drop whole cumin seeds and dried chilies into smoking-hot ghee?",
+              "outcome": "You can bloom whole spices in hot ghee and pour a crackling tadka over your dal.",
+              "proof": "set",
+              "title": "Temper the Sizzling Tadka"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "You don't need weeks of practice to make comforting dal; a single evening in the kitchen is plenty.",
+          "mode": "skill",
+          "needsClarification": false,
+          "next": [
+            "steamed basmati rice",
+            "homemade roti",
+            "jeera aloo"
+          ],
+          "outcome7": "By the end you'll be able to cook a rich, creamy yellow dal with a fragrant spiced tadka for tonight's dinner.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "An Invitation to Indian Cooking",
+              "who": "Madhur Jaffrey",
+              "why": "foundational ratios for simmering lentils and blooming spices in hot fat"
+            }
+          ],
+          "suggestions": [],
+          "topic": "How to Make Dal"
+        },
+        "error": null,
+        "inr": 2.2030469999999998
+      },
+      "new": {
+        "id": "kh7d7kab3pkez54c8q7h2m38m98fyxcs",
+        "h": {
+          "brief": {
+            "at": 1791532168801,
+            "chapters": 2,
+            "error": null,
+            "facts": [
+              "Toor dal and yellow moong dal make the classic base for everyday North Indian yellow dal.",
+              "Split red masoor dal cooks the fastest among split legumes and softens in 20 minutes.",
+              "Rinsing lentils three times in cold water removes surface starch and prevents excessive boiling foam.",
+              "Soaking yellow lentils in warm water for 20 minutes reduces stove cook time by roughly one-third.",
+              "Use three cups of water for every one cup of dry lentils in a stovetop pot.",
+              "Add one-half teaspoon of turmeric and one teaspoon of salt to the boiling water.",
+              "A standard stovetop pot needs 30 to 40 minutes of simmering until lentils turn tender and mashable.",
+              "An electric pressure cooker cooks soaked yellow dal in six to ten minutes on high pressure.",
+              "Whisking cooked lentils with a wire whisk or wooden mathani breaks them into a smooth, creamy texture.",
+              "Cook diced yellow onions in oil for six minutes until golden brown.",
+              "Add minced ginger, minced garlic, and chopped green chilies, frying them for 60 seconds.",
+              "Cook diced tomatoes until they break down into a soft paste and release oil around the edges.",
+              "The word tadka means tempering spices in hot fat, also called chaunk, vaghar, or talimpu across India.",
+              "Warm two tablespoons of ghee or neutral cooking oil in a small pan over medium heat.",
+              "Add whole cumin seeds to hot oil, where they crackle and darken within 30 seconds.",
+              "Stir in a pinch of asafoetida powder, dried red chilies, and Kashmiri chili powder for five seconds.",
+              "Burnt tadka spices turn bitter instantly, so pull the small pan off heat before adding chili powder.",
+              "Pour the sizzling tadka directly into the warm lentil pot and cover immediately to trap the aromatic vapors.",
+              "Lentils absorb liquid and thicken as they cool, so stir in warm water to reach a soup consistency.",
+              "Squeeze fresh lemon juice and scatter chopped fresh cilantro leaves over the dal right before serving."
+            ],
+            "fellBack": null,
+            "format": "quick",
+            "framing": null,
+            "kind": "skill",
+            "nism": null,
+            "outline": [
+              "Lentil selection and prep",
+              "Boiling the lentils",
+              "Aromatic base",
+              "Tempering with tadka",
+              "Finishing and serving"
+            ],
+            "parts": [
+              {
+                "part": "Lentil selection and prep",
+                "weight": "light",
+                "why": "Rinsing and soaking dried split lentils is a simple step done in minutes."
+              },
+              {
+                "part": "Boiling the lentils",
+                "weight": "normal",
+                "why": "Requires learning correct water ratios and visual checks for tender, creamy lentils."
+              },
+              {
+                "part": "Aromatic base",
+                "weight": "normal",
+                "why": "Covers sweating onions, garlic, ginger, and tomatoes to build deep savory flavor."
+              },
+              {
+                "part": "Tempering with tadka",
+                "weight": "heavy",
+                "why": "Tempering whole spices in hot ghee demands fast heat control so delicate spices bloom without scorching."
+              },
+              {
+                "part": "Finishing and serving",
+                "weight": "light",
+                "why": "Involves adjusting final consistency with water and finishing with lemon and fresh herbs."
+              }
+            ],
+            "researcher": "gemini-3.8-flash",
+            "searches": 2,
+            "sources": [
+              {
+                "title": "Dal (Wikipedia)",
+                "url": "https://en.wikipedia.org/wiki/Dal"
+              },
+              {
+                "title": "Dal Tadka Recipe - Swasthi's Recipes",
+                "url": "https://www.indianhealthyrecipes.com/dal-tadka-recipe-restaurant-style/"
+              },
+              {
+                "title": "Moong Dal Recipe (Moong Dal Tadka) - Cook With Manali",
+                "url": "https://www.cookwithmanali.com/moong-dal-tadka/"
+              },
+              {
+                "title": "Dal Tadka - Cook With Manali",
+                "url": "https://www.cookwithmanali.com/restaurant-style-dal-tadka/"
+              },
+              {
+                "title": "Yellow Moong Dal Tadka Recipe - Whisk Affair",
+                "url": "https://www.whiskaffair.com/moong-dal-recipe/"
+              },
+              {
+                "title": "Yellow Dal (Rajasthani Style Lentils Stew) - Cubes N Juliennes",
+                "url": "https://cubesnjuliennes.com/yellow-dal-recipe/"
+              }
+            ],
+            "start": "You want to make homemade dal for dinner tonight, but you have never cooked Indian lentils before."
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "make dal for a family dinner tonight",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "none",
+            "chapters": [
+              {
+                "blocks": [
+                  "picture",
+                  "teach",
+                  "example",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Rinsing lentils, stovetop boiling ratios with turmeric and salt, and whisking them into a tender soup base.",
+                "hook": "Why does rinsing your dried lentils three times completely change the texture of your final stew?",
+                "minutes": 15,
+                "n": 1,
+                "outcome": "You can prep and simmer lentils until they are completely tender and whisk them into a smooth, creamy base.",
+                "proof": "scenario",
+                "title": "Simmer the creamy lentil base"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "tryit",
+                  "breath"
+                ],
+                "covers": "Sweating onions and tomatoes, blooming whole cumin in hot ghee without scorching, and sealing the aroma inside.",
+                "hook": "Why must ground chili hit the hot ghee for only five seconds before touching the pot?",
+                "minutes": 15,
+                "n": 2,
+                "outcome": "You can cook an aromatic tomato base, temper whole spices in hot ghee, and fold both into the warm lentils.",
+                "proof": "scenario",
+                "title": "Aromatics and the sizzling tadka finish"
+              }
+            ],
+            "declined": false,
+            "format": "quick",
+            "framing": "You don't need weeks or special cookware to make incredible dal tonight: just simmering lentils and sizzling spices.",
+            "goal": "make dal for a family dinner tonight",
+            "mode": "skill",
+            "needsClarification": false,
+            "next": [
+              "Steaming perfect basmati rice",
+              "Making fresh roti at home",
+              "Cooking quick vegetable sabzi"
+            ],
+            "outcome7": "By the end you'll cook a comforting, fragrant pot of yellow dal from scratch and serve it at tonight's family dinner.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "Swasthi's Recipes: Dal Tadka",
+                "who": "Swasthi Shreekanth",
+                "why": "Provides standard stovetop proportions and two-step tempering method for home cooks"
+              },
+              {
+                "what": "Cook With Manali: Restaurant Style Dal Tadka",
+                "who": "Manali Singh",
+                "why": "Provides visual cues for tomato-onion paste reduction and heat control for blooming whole spices"
+              }
+            ],
+            "suggestions": [],
+            "topic": "How to make dal"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [],
+            "firstFaults": [],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532142298
+          },
+          "topic": "how to make dal"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash"
+            ],
+            "research": [
+              "gemini-3.8-flash"
+            ]
+          },
+          "calls": 2,
+          "failed": 0,
+          "inr": 1.302336
+        }
+      }
+    },
+    {
+      "topic": "how to tie a tie",
+      "goal": "tie a tie for my interview tomorrow",
+      "level": "new",
+      "mode": "skill",
+      "expect": "1, quick",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "Button the top collar button on the dress shirt before putting on the tie.",
+            "Flip the shirt collar upright so the neckband rests flat around the neck.",
+            "Drape the tie with the wide blade on your dominant side and seams facing inwards.",
+            "Lower the wide blade roughly 12 inches below the narrow tail to begin.",
+            "Cross the wide blade over the narrow tail from right to left.",
+            "Wrap the wide blade around the back of the narrow tail and across the front again.",
+            "Pull the wide blade upward through the neck loop from underneath.",
+            "Guide the wide blade down through the front loop created by the horizontal wrap.",
+            "The nineteenth-century Four-in-Hand knot shares the exact mechanical structure of a Buntline Hitch knot.",
+            "The Half Windsor creates a symmetrical triangular knot suited for spread collars and interview suits.",
+            "Cross the wide blade over the narrow tail, then wrap it behind toward the right.",
+            "Fold the wide blade up and pass it downward through the neck loop.",
+            "Wrap the wide blade horizontally across the front from right to left.",
+            "Draw the wide blade up behind the collar loop and down through the front pocket.",
+            "The tip of the wide blade should rest squarely at the center of the belt buckle.",
+            "A tie tip resting above the waistband exposes shirt fabric and appears noticeably undersized.",
+            "Pinch a dimple into the silk directly below the knot before sliding it snug against the collar.",
+            "Feed the narrow tail through the fabric keeper loop located on the back of the wide blade."
+          ],
+          "format": "quick",
+          "kind": "skill",
+          "outline": [
+            "Collar and Tie Setup",
+            "The Four-in-Hand Knot",
+            "The Half Windsor Knot",
+            "Interview Length and Finishing"
+          ],
+          "sources": [
+            {
+              "title": "Four-in-Hand Necktie - Animated Knots",
+              "url": "https://www.animatedknots.com/tie-a-four-in-hand-necktie-knot"
+            },
+            {
+              "title": "How To Tie A Tie (Four-In-Hand Knot) - The Tie Bar",
+              "url": "https://www.thetiebar.com/how-to-tie/four-in-hand"
+            },
+            {
+              "title": "How to Tie a Half Windsor Knot | Step-by-Step Guide by General Knot & Co.",
+              "url": "https://www.generalknot.com/pages/how-to-tie-a-half-windsor-knot"
+            },
+            {
+              "title": "The Half Windsor Tie Knot | Sophisticated and Classic Tie Knots",
+              "url": "https://www.youtube.com/watch?v=t1mAItWAi2M"
+            },
+            {
+              "title": "How Long Should a Tie Be? The Rules Every Man Should Know - Men's Wearhouse",
+              "url": "https://www.menswearhouse.com/blog/guidelines/how-long-should-my-tie-be/"
+            },
+            {
+              "title": "How Long Should a Tie Be? - The Style Guide - Jos. A. Bank",
+              "url": "https://www.josbank.com/blog/how-long-should-a-tie-be/"
+            }
+          ]
+        },
+        "plan": {
+          "body": true,
+          "caution": "none",
+          "chapters": [
+            {
+              "blocks": [
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Buttoning the collar, setting starting lengths, and wrapping the classic Four-in-Hand knot.",
+              "hook": "The classic Four-in-Hand knot shares the exact mechanical structure of a nineteenth-century sailor's Buntline Hitch.",
+              "minutes": 15,
+              "outcome": "You can prep your collar and wrap a fast Four-in-Hand knot that sits snug against your neck.",
+              "proof": "set",
+              "title": "Collar Prep and the Four-in-Hand"
+            },
+            {
+              "blocks": [
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Adding the center anchor pass to shape a crisp, symmetrical triangle for spread collars.",
+              "hook": "One extra pass down through the neck loop turns an uneven knot into a crisp triangle.",
+              "minutes": 15,
+              "outcome": "You can tie a balanced Half Windsor knot suited for an interview suit.",
+              "proof": "set",
+              "title": "The Symmetrical Half Windsor"
+            },
+            {
+              "blocks": [
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Hitting the center of the belt buckle, pinching the dimple, and securing the keeper loop.",
+              "hook": "A tie tip resting above the waistband exposes shirt fabric and appears noticeably undersized.",
+              "minutes": 10,
+              "outcome": "You can adjust your knot to land at your belt buckle with a neat dimple and secured tail.",
+              "proof": "set",
+              "title": "Buckle Length and the Dimple"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "You do not need weeks of practice to walk into your interview tomorrow with a sharp, balanced tie.",
+          "mode": "skill",
+          "needsClarification": false,
+          "next": [
+            "folding a pocket square",
+            "ironing a dress shirt",
+            "polishing dress shoes"
+          ],
+          "outcome7": "By the end you'll be able to tie both a Four-in-Hand and a Half Windsor knot resting cleanly at your belt buckle.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "Four-in-Hand Necktie Knot Guide",
+              "who": "Animated Knots",
+              "why": "provides precise mechanical steps for the asymmetric knot"
+            },
+            {
+              "what": "How Long Should a Tie Be?",
+              "who": "Men's Wearhouse",
+              "why": "defines standard waistband and buckle placement rules"
+            },
+            {
+              "what": "How to Tie a Half Windsor Knot",
+              "who": "General Knot & Co.",
+              "why": "details the anchor loop technique for interview collars"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Tying a Necktie"
+        },
+        "error": null,
+        "inr": 6.934578
+      },
+      "new": {
+        "id": "kh7dfb7hpwgsak2y1cjaqrnmds8fz8pn",
+        "h": {
+          "brief": {
+            "at": 1791532181408,
+            "chapters": 2,
+            "error": null,
+            "facts": [
+              "Lift your shirt collar and button the top neck button before draping the tie.",
+              "Drape the tie around your neck with the seam side facing against your shirt.",
+              "Place the wide blade on your dominant side and the narrow tail on the other side.",
+              "Hang the wide blade roughly 12 inches lower than the tip of the narrow tail.",
+              "London carriage drivers and the 19th-century Four-in-Hand Club gave the knot its name.",
+              "Cross the wide blade over the front of the narrow tail from right to left.",
+              "Wrap the wide blade behind the narrow tail back toward your dominant side.",
+              "Bring the wide blade horizontally across the front to create the outer knot band.",
+              "Pull the wide blade upward through the neck loop from underneath.",
+              "Tuck the wide blade downward through the front horizontal loop.",
+              "In knot theory and sailing, the Four-in-Hand knot is identical to a buntline hitch.",
+              "Hold the narrow tail firmly while pulling down on the wide blade to shape the knot.",
+              "Slide the knot upward along the tail until it sits snug against your collar button.",
+              "Check your waistband so the tip of the wide blade rests at the belt buckle center.",
+              "The knot is self-releasing, meaning pulling the narrow tail out unties the knot cleanly in one motion.",
+              "Press an index finger into the blade fold under the knot to create a crisp dimple.",
+              "Slide the narrow tail through the keeper loop on the reverse side of the wide blade.",
+              "Fold your collar down completely to hide the tie band all the way around your neck."
+            ],
+            "fellBack": null,
+            "format": "quick",
+            "framing": null,
+            "kind": "skill",
+            "nism": null,
+            "outline": [
+              "Collar and Tie Setup",
+              "The Four-in-Hand Steps",
+              "Tightening and Ideal Length",
+              "Interview Collar and Dimple Finish"
+            ],
+            "parts": [
+              {
+                "part": "Collar and Tie Setup",
+                "weight": "light",
+                "why": "A beginner only needs simple rules to position the collar and set initial blade lengths."
+              },
+              {
+                "part": "The Four-in-Hand Steps",
+                "weight": "heavy",
+                "why": "The winding sequence requires careful spatial coordination and several practice repetitions to master."
+              },
+              {
+                "part": "Tightening and Ideal Length",
+                "weight": "normal",
+                "why": "Getting the tip to land squarely at the belt buckle requires tension control and trial adjustment."
+              },
+              {
+                "part": "Interview Collar and Dimple Finish",
+                "weight": "light",
+                "why": "Adding a dimple and tucking the tail are quick finishing touches for a professional look."
+              }
+            ],
+            "researcher": "gemini-3.8-flash",
+            "searches": 0,
+            "sources": [
+              {
+                "title": "Four-in-hand knot - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Four-in-hand_knot"
+              },
+              {
+                "title": "How To Tie A Four-in-Hand Knot - Ties.com",
+                "url": "https://www.ties.com/assets/img/how-to-tie-a-tie/instructions/how-to-tie-the-four-in-hand-knot-tying-instructions-03.png"
+              },
+              {
+                "title": "How to Tie a Tie | Four-in-Hand, Half Windsor & Windsor - Harvie & Hudson",
+                "url": "https://www.harvieandhudson.com/images/full%20windsor%20knot.jpg"
+              },
+              {
+                "title": "How To Tie a Classic Four-In-Hand Knot - Effortless Gent",
+                "url": "https://www.youtube.com/watch?v=SmAP_ikzifY"
+              }
+            ],
+            "start": "You have a tie and an interview tomorrow, but you have never tied a necktie yourself."
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "tie a tie for my interview tomorrow",
+          "level": "new",
+          "plan": {
+            "body": true,
+            "caution": "none",
+            "chapters": [
+              {
+                "blocks": [
+                  "teach",
+                  "move",
+                  "doit",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Draping the blades to the right starting lengths and executing the four wrap-and-tuck motions.",
+                "hook": "Why is the classic interview knot identical to a nineteenth-century sailor's buntline hitch?",
+                "minutes": 10,
+                "n": 1,
+                "outcome": "You can wrap, tuck, and pull through a crisp Four-in-Hand knot on your own neck.",
+                "proof": "set",
+                "title": "Set Up and Tie the Four-in-Hand"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "move",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Snugging the knot to your collar button, adjusting the tip to your belt line, and pinching the dimple.",
+                "hook": "How does a single fingertip pinch under the knot keep a tie looking sharp all interview?",
+                "minutes": 8,
+                "n": 2,
+                "outcome": "You can set your tie tip exactly at your belt buckle and lock in a sharp dimple.",
+                "proof": "set",
+                "title": "Dial the Belt Length, Dimple, and Collar"
+              }
+            ],
+            "declined": false,
+            "format": "quick",
+            "framing": "You do not need days to master a necktie—just ten focused minutes in front of a mirror tonight.",
+            "goal": "tie a tie for my interview tomorrow",
+            "mode": "skill",
+            "needsClarification": false,
+            "next": [
+              "iron a dress shirt",
+              "tie a half-Windsor knot",
+              "job interview body language"
+            ],
+            "outcome7": "By the end you'll tie a clean Four-in-Hand knot, hit your belt buckle squarely, and finish your collar for tomorrow's interview.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "The 85 Ways to Tie a Tie",
+                "who": "Thomas Fink and Yong Mao",
+                "why": "Provides the formal topological notation and historical mechanics of the Four-in-Hand knot"
+              }
+            ],
+            "suggestions": [],
+            "topic": "Tie a Four-in-Hand Knot"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [],
+            "firstFaults": [],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532143296
+          },
+          "topic": "how to tie a tie"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash"
+            ],
+            "research": [
+              "gemini-3.8-flash"
+            ]
+          },
+          "calls": 2,
+          "failed": 0,
+          "inr": 1.8514439999999999
+        }
+      }
+    },
+    {
+      "topic": "my wifi is slow at home",
+      "goal": "fix it myself this weekend",
+      "level": "new",
+      "mode": "skill",
+      "expect": "1 to 2, quick",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "Connect a computer directly to your router using an Ethernet cable before testing speeds.",
+            "Run three speed tests on Speedtest.net or Fast.com to determine your wired baseline download speed.",
+            "Run the speed test wirelessly right beside the router, then repeat it in the furthest room.",
+            "Speed drops of 50 percent or more between rooms indicate a Wi-Fi coverage flaw, not provider failure.",
+            "Unplug the power cords from both the modem and the router.",
+            "Wait 30 seconds before reconnecting power to clear stored cache memory completely.",
+            "Plug the modem back in first and wait until all connection lights turn solid green.",
+            "Plug in the router second and allow two to three minutes for its operational lights to stabilize.",
+            "Elevate your router on a desk or shelf near the geographic center of your home.",
+            "Dense physical barriers like brick walls, metal enclosures, and stone fireplaces severely degrade wireless radio signals.",
+            "Keep your router at least several feet away from microwave ovens and baby monitors.",
+            "Split your network into distinct names for the 2.4 GHz and 5 GHz frequency bands.",
+            "Connect streaming boxes and gaming consoles to the 5 GHz band for faster throughput.",
+            "Restrict smart home plugs and appliances to the slower, long-range 2.4 GHz band.",
+            "Select channel 1, channel 6, or channel 11 in your router settings for 2.4 GHz Wi-Fi.",
+            "Setting a 2.4 GHz router to channel 9 causes overlapping interference across neighboring channels."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "skill",
+          "outline": [
+            "Isolate the source",
+            "Power cycle the hardware",
+            "Optimize router placement",
+            "Tune frequency bands and channels"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "Home Network Tips | Federal Communications Commission",
+              "url": "https://www.fcc.gov/home-network-tips"
+            },
+            {
+              "title": "Why Is My Internet Slow? 9 Reasons and How to Fix Them - EarthLink",
+              "url": "https://www.earthlink.net/blog/why-is-my-internet-slow/"
+            },
+            {
+              "title": "Wi-Fi and your home layout | Microsoft Support",
+              "url": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/wi-fi-and-your-home-layout"
+            },
+            {
+              "title": "Why Use Wi‑Fi Channels 1, 6, or 11?",
+              "url": "https://www.oscium.com/training/why-channels-1-6-11/"
+            },
+            {
+              "title": "How to fix a weak WiFi signal — Easy Solutions - NetSpot",
+              "url": "https://www.netspotapp.com/wifi-troubleshooting/how-to-fix-weak-wifi-signal.html"
+            },
+            {
+              "title": "How to Test Your Internet Speed (And What to Do If It's Slow) - Vision Computers",
+              "url": "https://www.visioncomputers.com/test-internet-speed"
+            }
+          ],
+          "wikipediaTitle": "Wi-Fi"
+        },
+        "plan": {
+          "body": false,
+          "caution": "none",
+          "chapters": [
+            {
+              "blocks": [
+                "steps",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Testing baseline speed via Ethernet versus Wi-Fi and power cycling hardware in sequence.",
+              "hook": "Is your provider actually underdelivering, or is your router just choking on stored cache memory?",
+              "minutes": 20,
+              "outcome": "You can tell whether your provider or your Wi-Fi is failing and clear router cache memory completely.",
+              "proof": "result",
+              "title": "Find the Bottleneck and Reboot Cleanly"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "try",
+                "breath"
+              ],
+              "covers": "Centering and elevating router placement away from dense construction materials and interfering appliances.",
+              "hook": "A speed drop of 50 percent between rooms signals poor router placement, not your provider failing.",
+              "minutes": 20,
+              "outcome": "You can diagnose signal drop-offs across rooms and position your router to eliminate dead zones.",
+              "proof": "scenario",
+              "title": "Clear Obstacles and Place Your Router"
+            },
+            {
+              "blocks": [
+                "steps",
+                "teach",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Separating 2.4 GHz and 5 GHz networks and switching 2.4 GHz to channels 1, 6, or 11.",
+              "hook": "Setting your router to channel 9 causes overlapping interference across nearby networks.",
+              "minutes": 20,
+              "outcome": "You can assign devices to the proper band and avoid interference from neighboring Wi-Fi networks.",
+              "proof": "result",
+              "title": "Split Frequency Bands and Clear Channels"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "Fixing slow home Wi-Fi doesn't take weeks; an afternoon of smart testing and simple router adjustments will get your speed back.",
+          "mode": "skill",
+          "needsClarification": false,
+          "next": [
+            "Setting up a home mesh network",
+            "Securing home Wi-Fi routers",
+            "Running Ethernet through home walls"
+          ],
+          "outcome7": "By the end you'll be able to identify where your connection is dropping, reset your network cleanly, and configure router bands and channels to restore full speed.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "Home Network Tips",
+              "who": "Federal Communications Commission",
+              "why": "Testing speedbaselines directly on wired connections and maintaining network hardware"
+            },
+            {
+              "what": "Wi-Fi and your home layout",
+              "who": "Microsoft Support",
+              "why": "Physical barrier interference and optimal hardware positioning within residential spaces"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Fix Slow Home Wi-Fi"
+        },
+        "error": null,
+        "inr": 2.436588
+      },
+      "new": {
+        "id": "kh73kzaehn9nd3hdyz71jxer2x8fzw1a",
+        "h": {
+          "brief": {
+            "at": 1791532219124,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+          "goal": "fix it myself this weekend",
+          "level": "new",
+          "plan": null,
+          "question": null,
+          "status": "failed",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532143380
+          },
+          "topic": "my wifi is slow at home"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)"
+            ]
+          },
+          "calls": 2,
+          "failed": 2,
+          "inr": 0
+        }
+      }
+    },
+    {
+      "topic": "avengers before doomsday",
+      "goal": "catch up before the new film",
+      "level": "new",
+      "mode": "story",
+      "expect": "2 to 4, quick",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "The Marvel Cinematic Universe begins in 2008 with the film Iron Man.",
+            "Six core heroes form the original Avengers team in 2012 to protect Earth.",
+            "Thanos collects six Infinity Stones and erases half of all universal life in Avengers: Infinity War.",
+            "The surviving heroes defeat Thanos and restore the fallen universe in the 2019 film Avengers: Endgame.",
+            "Tony Stark dies during the final battle, and Steve Rogers passes the Captain America shield to Sam Wilson.",
+            "Marvel Studios names the overarching story following Avengers: Endgame the Multiverse Saga.",
+            "Time breaches break the single timeline and reveal infinite alternate universes with distinct variants of heroes.",
+            "Cosmic incursions begin when boundaries between different realities collapse into catastrophic collisions.",
+            "Heroes from legacy Fox X-Men and alternate comic realities cross directly into the main Marvel Cinematic Universe.",
+            "Marvel Studios originally announced this fifth Avengers movie in July 2022 as Avengers: The Kang Dynasty.",
+            "Marvel Studios retitled the film Avengers: Doomsday and hired directors Anthony Russo and Joe Russo.",
+            "Robert Downey Jr. returns to the franchise to portray the armored villain Doctor Doom.",
+            "Avengers: Doomsday brings together the Avengers, the Fantastic Four, and the X-Men against Victor von Doom.",
+            "The film features an ensemble cast and premieres in movie theaters on December 18, 2026."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "story",
+          "outline": [
+            "The Infinity Saga",
+            "The Multiverse Saga",
+            "The Road to Doomsday"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "Avengers: Doomsday - Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/Avengers:_Doomsday"
+            },
+            {
+              "title": "Production of Avengers: Doomsday and Avengers: Secret Wars - Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/Production_of_Avengers:_Doomsday_and_Avengers:_Secret_Wars"
+            },
+            {
+              "title": "MCU Recap Before Avengers: Doomsday - DFI Rentals",
+              "url": "https://www.dfirentals.com/news/mcu-recap-before-avengers-doomsday"
+            },
+            {
+              "title": "'Avengers: Doomsday' Release Date, Cast, Trailer, And Plot For The Marvel Blockbuster - Inverse",
+              "url": "https://www.inverse.com/entertainment/avengers-doomsday-release-date-cast-trailer-plot"
+            },
+            {
+              "title": "Marvel Studios' Avengers: Doomsday: Release Date, Trailer, Cast & More | Explore Disney+ Australia",
+              "url": "https://www.disneyplus.com/en-au/explore/articles/avengers-doomsday"
+            }
+          ],
+          "wikipediaTitle": "Avengers: Doomsday"
+        },
+        "plan": {
+          "body": false,
+          "caution": "none",
+          "chapters": [
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "exercise",
+                "breath"
+              ],
+              "covers": "How six core heroes formed in 2012, fought Thanos across the cosmos, and paid a fatal price in Endgame.",
+              "hook": "Why did reversing Thanos's universal snap require Tony Stark's death and Steve Rogers handing off his shield?",
+              "minutes": 15,
+              "outcome": "You can explain how the original Avengers defeated Thanos and why the universe lost Iron Man and Captain America.",
+              "proof": "retell",
+              "title": "The Infinity Saga"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "exercise",
+                "breath"
+              ],
+              "covers": "How broken timelines opened infinite realities, introducing variants, incursions, and crossing heroes from legacy Fox X-Men films.",
+              "hook": "What triggers a cosmic incursion when alternate realities collide and threaten to erase entire dimensions?",
+              "minutes": 15,
+              "outcome": "You can define a cosmic incursion and explain how alternate dimensions began colliding with the main Marvel timeline.",
+              "proof": "retell",
+              "title": "The Multiverse Saga"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "exercise",
+                "breath"
+              ],
+              "covers": "The shift from Kang to Doctor Doom, the Russo brothers returning, and the upcoming clash premiering December 18, 2026.",
+              "hook": "How did a canceled Kang storyline bring Robert Downey Jr. back to the MCU as Victor von Doom?",
+              "minutes": 15,
+              "outcome": "You can describe why Robert Downey Jr. plays Doctor Doom and which hero factions unite against him.",
+              "proof": "retell",
+              "title": "The Road to Doomsday"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "Catching up before Avengers: Doomsday does not take weeks; here is the story from Thanos to Doctor Doom.",
+          "mode": "story",
+          "needsClarification": false,
+          "next": [
+            "Doctor Doom Marvel origins",
+            "Marvel Secret Wars explained",
+            "Fantastic Four MCU timeline"
+          ],
+          "outcome7": "By the end you'll be able to explain how the Marvel universe fractured, why Doctor Doom emerges, and where the Avengers stand.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "Avengers: Endgame",
+              "who": "Marvel Studios",
+              "why": "concludes the Infinity Saga and establishes the loss of key founding heroes"
+            },
+            {
+              "what": "Avengers: Doomsday",
+              "who": "Marvel Studios",
+              "why": "establishes the return of the Russo brothers and Robert Downey Jr. as Doctor Doom"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Avengers Before Doomsday"
+        },
+        "error": null,
+        "inr": 2.716245
+      },
+      "new": {
+        "id": "kh71cjqw0kkw0x9283nd2fharh8fzzp5",
+        "h": {
+          "brief": {
+            "at": 1791532184586,
+            "chapters": 5,
+            "error": null,
+            "facts": [
+              "Thanos wipes out half of all life across the cosmos in Avengers: Infinity War using six Infinity Stones.",
+              "The surviving Avengers travel back through time in Avengers: Endgame to reclaim the Infinity Stones.",
+              "Tony Stark sacrifices his life defeating Thanos in Avengers: Endgame, ending his tenure as Iron Man.",
+              "Steve Rogers passes the mantle and shield of Captain America to Sam Wilson after aging into retirement.",
+              "Loki escapes with the Tesseract, prompting the Time Variance Authority to capture him in Loki.",
+              "The Time Variance Authority regulates the Sacred Timeline until Sylvie kills He Who Remains.",
+              "Uncontrolled timeline branches create an infinitely branching multiverse of alternate dimensions and character variants.",
+              "Loki ultimately assumes the multiversal throne, weaving endless timelines into a massive World Tree.",
+              "A botched memory spell cast by Doctor Strange pulls alternate villains into New York in Spider-Man: No Way Home.",
+              "Wanda Maximoff rampages across dimensions using the Darkhold before causing catastrophic cosmic instability.",
+              "An incursion happens when two alternate realities collide, threatening the total destruction of both universes.",
+              "Clea recruits Doctor Strange into the Dark Dimension to halt a massive looming incursion.",
+              "Sam Wilson formally accepts the Captain America mantle while confronting global geopolitical conspiracies.",
+              "The Fantastic Four: First Steps introduces Mister Fantastic, Sue Storm, Johnny Storm, and the Thing from Earth-828.",
+              "Pedro Pascal portrays Reed Richards leading the retro-futuristic team into the broader Marvel multiverse.",
+              "Wade Wilson and Wolverine preserve their decaying timeline before entering the mainline Marvel timeline.",
+              "Anthony and Joe Russo return to direct Avengers: Doomsday, scheduled for release on December 18, 2026.",
+              "Robert Downey Jr. returns to Marvel not as Iron Man, but as the armored tyrant Victor von Doom.",
+              "Avengers: Doomsday marks the thirty-ninth feature film in the Marvel Cinematic Universe.",
+              "Marvel Studios positions Doctor Doom as the central antagonist leading directly into Avengers: Secret Wars."
+            ],
+            "fellBack": null,
+            "format": "quick",
+            "framing": null,
+            "kind": "story",
+            "nism": null,
+            "outline": [
+              "The Fall of the Original Avengers",
+              "The Multiverse Opens",
+              "Incursions and Colliding Realities",
+              "New Heroes Assemble",
+              "The Threat of Doctor Doom"
+            ],
+            "parts": [
+              {
+                "part": "The Fall of the Original Avengers",
+                "weight": "heavy",
+                "why": "The resolution of the Infinity Saga reshapes the entire team and establishes the baseline world state."
+              },
+              {
+                "part": "The Multiverse Opens",
+                "weight": "normal",
+                "why": "Explains how the timeline fractured and why parallel dimensions now exist."
+              },
+              {
+                "part": "Incursions and Colliding Realities",
+                "weight": "heavy",
+                "why": "Incursions provide the central universe-ending threat that forces different realities together in Doomsday."
+              },
+              {
+                "part": "New Heroes Assemble",
+                "weight": "normal",
+                "why": "Introduces the new teams and crossover heroes, including the Fantastic Four and the X-Men."
+              },
+              {
+                "part": "The Threat of Doctor Doom",
+                "weight": "normal",
+                "why": "Sets up the primary villain and context for Robert Downey Jr.'s return to the MCU."
+              }
+            ],
+            "researcher": "gemini-3.8-flash",
+            "searches": 0,
+            "sources": [
+              {
+                "title": "Avengers: Doomsday (Wikipedia)",
+                "url": "https://en.wikipedia.org/wiki/Avengers%3A_Doomsday"
+              },
+              {
+                "title": "Avengers: Doomsday - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Avengers:_Doomsday"
+              },
+              {
+                "title": "Avengers: Doomsday Watchlist: 15 Movies & Shows to Watch - Superhero Toystore",
+                "url": "https://www.superherotoystore.com/blogs/news/avengers-doomsday-watchlist-15-movies-shows-to-watch"
+              },
+              {
+                "title": "10 Marvel Movies and Shows to Watch Before Avengers: Doomsday - League of Filmmakers",
+                "url": "https://www.leagueoffilmmakers.com/a-realistic-list-of-rewatches-before-avengers-doomsday-for-those-of-us-with-a-life/"
+              }
+            ],
+            "start": "You know little to nothing about the Marvel Cinematic Universe and its ongoing superhero storyline."
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "catch up before the new film",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "none",
+            "chapters": [
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "watch",
+                  "breath"
+                ],
+                "covers": "How the defeat of Thanos shattered the original team and cleared the stage for a new era.",
+                "hook": "Thanos wiped out half of all life, but winning it back broke the original team forever.",
+                "minutes": 10,
+                "n": 1,
+                "outcome": "You can explain why Tony Stark is gone and who holds Captain America's shield today.",
+                "proof": "retell",
+                "title": "Where the Original Avengers Left Off"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "watch",
+                  "breath"
+                ],
+                "covers": "Loki's escape, the fall of the Sacred Timeline, and an infinite branching of alternate realities.",
+                "hook": "When the Time Variance Authority lost control, one single timeline fractured into endless parallel worlds.",
+                "minutes": 8,
+                "n": 2,
+                "outcome": "You can describe how parallel timelines broke loose and why variants of familiar faces exist.",
+                "proof": "retell",
+                "title": "How the Multiverse Cracked Open"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "watch",
+                  "breath"
+                ],
+                "covers": "What happens when dimensions collide and why crossing timelines risks destroying entire universes.",
+                "hook": "Messing with other dimensions triggers incursions, where two universes smash together until neither survives.",
+                "minutes": 10,
+                "n": 3,
+                "outcome": "You can define what an incursion is and why it poses an existential threat to reality.",
+                "proof": "retell",
+                "title": "Incursions and When Realities Collide"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "watch",
+                  "breath"
+                ],
+                "covers": "How heroes from alternate realities, including Earth-828 and the mutant timelines, enter the mix.",
+                "hook": "Reed Richards and Wolverine aren't just guest stars; their universes are actively bleeding into ours.",
+                "minutes": 8,
+                "n": 4,
+                "outcome": "You can map out which teams from other worlds are crossing paths with Earth's defenders.",
+                "proof": "retell",
+                "title": "The Fantastic Four, X-Men, and New Alliances"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "watch",
+                  "breath"
+                ],
+                "covers": "Why Victor von Doom steps into the void and what Robert Downey Jr.'s return means for the multiverse.",
+                "hook": "Robert Downey Jr. is back, but this time he wears the mask of Marvel's deadliest armored tyrant.",
+                "minutes": 8,
+                "n": 5,
+                "outcome": "You can walk into the cinema knowing exactly who Doctor Doom is and what stakes await.",
+                "proof": "retell",
+                "title": "The Arrival of Doctor Doom"
+              }
+            ],
+            "declined": false,
+            "format": "quick",
+            "framing": "You don't need to binge thirty-eight films to be ready when Doctor Doom arrives.",
+            "goal": "catch up before the new film",
+            "mode": "story",
+            "needsClarification": false,
+            "next": [
+              "Fantastic Four comic history",
+              "Secret Wars storyline breakdown",
+              "MCU timeline in order"
+            ],
+            "outcome7": "By the end you'll know every major plot thread, timeline break, and character switch leading straight into Avengers: Doomsday.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "Avengers: Endgame",
+                "who": "Anthony and Joe Russo",
+                "why": "concludes the Infinity Saga and establishes the baseline state for surviving MCU heroes"
+              },
+              {
+                "what": "Loki Season 1",
+                "who": "Michael Waldron",
+                "why": "establishes the Sacred Timeline rules and the birth of the multiverse"
+              }
+            ],
+            "suggestions": [],
+            "topic": "MCU Catch-up for Avengers Doomsday"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [],
+            "firstFaults": [],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532143221
+          },
+          "topic": "avengers before doomsday"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash"
+            ],
+            "research": [
+              "gemini-3.8-flash"
+            ]
+          },
+          "calls": 2,
+          "failed": 0,
+          "inr": 2.212371
+        }
+      }
+    },
+    {
+      "topic": "how compound interest works",
+      "goal": "understand why starting early matters",
+      "level": "new",
+      "mode": "subject",
+      "expect": "1 to 3",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "Compound interest earns returns on both initial principal and accumulated interest from previous periods.",
+            "A deposit of $100 earning 5 percent interest grows to $110.25 after two years.",
+            "The standard compound interest formula calculates future balance as A = P(1 + r/n)^(nt).",
+            "Popular financial lore frequently attributes calling compound interest the eighth wonder of the world to Albert Einstein.",
+            "The Rule of 72 estimates how many years an investment takes to double at a fixed interest rate.",
+            "Dividing 72 by an expected annual return of 9 percent yields a doubling period of eight years.",
+            "Dividing 72 by an expected annual return of 6 percent yields a doubling period of 12 years.",
+            "An investor saving $100 monthly starting at age 25 accumulates about $584,000 by age 65 at 7 percent.",
+            "An investor waiting until age 35 to save $100 monthly accumulates about $217,000 by age 65 at 7 percent.",
+            "The 10-year delay costs the later investor over $367,000 despite saving only $12,000 less out of pocket.",
+            "An investor saving between ages 25 and 35 who stops can accumulate more than someone saving from 35 to 65.",
+            "Compounding can occur daily, monthly, or annually, with higher frequency generating a higher annual percentage yield.",
+            "Credit card companies compound interest charges against borrowers on unpaid balances daily.",
+            "Inflation steadily erodes the actual purchasing power of nominal compounded savings over decades."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "money",
+          "outline": [
+            "How Compounding Works",
+            "The Rule of 72",
+            "The Cost of Waiting",
+            "Compounding Frequency and Debt"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "What is compound interest? | Investor.gov",
+              "url": "https://www.investor.gov/additional-resources/information/youth/teachers-classroom-resources/what-compound-interest"
+            },
+            {
+              "title": "Compounding: Time Is On Your Side | Texas State Securities Board",
+              "url": "https://ssb.texas.gov/compounding-time-your-side"
+            },
+            {
+              "title": "The Power of Compound Interest (and Why You Should Start Early)",
+              "url": "https://avior.com/insights/wealth-management/investment-management/the-power-of-compound-interest-and-why-you-should-start-early/"
+            },
+            {
+              "title": "Simple Interest vs Compound Interest - OneMain Financial",
+              "url": "https://www.onemainfinancial.com/personal-loans/resources/simple-interest-vs-compound-interest"
+            },
+            {
+              "title": "What is Compound Interest? - Universal 1 Credit Union",
+              "url": "https://www.u1cu.org/blog/what-is-compound-interest"
+            },
+            {
+              "title": "Investing early and often: the magic of compound interest - Rathbones",
+              "url": "https://www.rathbones.com/en-gb/wealth-management/knowledge-and-insight/the-magic-of-compound-interest"
+            }
+          ],
+          "wikipediaTitle": "Compound interest"
+        },
+        "plan": {
+          "caution": "money",
+          "chapters": [
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "tryit",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "How compounding earns on past earnings and how to calculate doubling time with 72",
+              "hook": "Divide 72 by your interest rate, and you instantly know when your money doubles.",
+              "minutes": 15,
+              "outcome": "You can explain how $100 grows to $110.25 in two years and estimate doubling times in your head.",
+              "proof": "predict",
+              "title": "Interest on Interest and the Rule of 72"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "tryit",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Comparing saving at age 25 versus age 35 to show how early years carry most of the growth",
+              "hook": "Starting ten years later costs an investor $367,000, despite saving only $12,000 less out of pocket.",
+              "minutes": 15,
+              "outcome": "You can calculate how missing ten early years costs over $367,000 from just $12,000 in missed deposits.",
+              "proof": "scenario",
+              "title": "The Brutal Cost of Waiting Ten Years"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "tryit",
+                "exercise",
+                "breath"
+              ],
+              "covers": "How compounding frequency speeds up gains and how credit cards and inflation turn it against you",
+              "hook": "Credit card companies use compound interest daily against you, turning unpaid balances into exponential growth.",
+              "minutes": 15,
+              "outcome": "You can identify why credit cards compound daily against borrowers and adjust expectations for inflation.",
+              "proof": "predict",
+              "title": "Daily Compounding, Debt, and Inflation"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "You do not need weeks of finance classes to see why time beats timing with compound interest.",
+          "mode": "subject",
+          "needsClarification": false,
+          "next": [
+            "index fund investing",
+            "paying off high interest debt",
+            "emergency fund planning"
+          ],
+          "outcome7": "By the end you'll calculate doubling time in your head and prove why waiting ten years costs hundreds of thousands of dollars.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "What is Compound Interest?",
+              "who": "Investor.gov",
+              "why": "Basic formula mechanics and mathematical foundation of compounding returns"
+            },
+            {
+              "what": "Compounding: Time Is On Your Side",
+              "who": "Texas State Securities Board",
+              "why": "Concrete comparisons showing the compounding penalty of starting later"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Compound Interest"
+        },
+        "error": null,
+        "inr": 5.556662999999999
+      },
+      "new": {
+        "id": "kh70c3rnp2dktwgzxfjkj0nvdx8fzcdy",
+        "h": {
+          "brief": {
+            "at": 1791532169146,
+            "chapters": 3,
+            "error": null,
+            "facts": [
+              "Simple interest pays returns solely on the original principal balance.",
+              "Compound interest adds earned interest back into the principal before the next calculation.",
+              "A 1,000 dollar deposit at five percent simple interest earns 50 dollars every single year.",
+              "A 1,000 dollar deposit compounding annually at five percent earns 50 dollars in year one and 52.50 in year two.",
+              "After 40 years, 10,000 dollars at five percent simple interest totals 30,000 dollars.",
+              "After 40 years, 10,000 dollars compounding annually at five percent totals 70,399.89 dollars.",
+              "The standard compound interest formula is A equals P times the quantity 1 plus r over n raised to nt.",
+              "In the formula, P represents principal, r represents the annual interest rate, and t represents years.",
+              "Compounding frequency n can occur annually, quarterly, monthly, or daily.",
+              "Frequent compounding yields slightly larger totals because interest enters the base sooner.",
+              "Because time sits in the exponent, compounded growth accelerates into a steep hockey-stick curve.",
+              "The Rule of 72 estimates how many years an investment takes to double at a fixed rate.",
+              "Dividing 72 by an eight percent return shows that money doubles in nine years.",
+              "Luca Pacioli published the earliest known mention of the Rule of 72 in 1494 in Venice.",
+              "Money doubling every decade multiplies an initial sum 32 times over 50 years.",
+              "Investing 200 dollars monthly from age 25 to 65 at seven percent yields about 480,000 dollars.",
+              "Delaying that 200 dollar monthly contribution until age 35 cuts the final age-65 balance to roughly 227,000 dollars.",
+              "The ten-year delay costs over 250,000 dollars despite saving only 24,000 dollars out of pocket.",
+              "An investor starting at 25 can stop contributing after ten years and still beat a late starter.",
+              "Albert Einstein allegedly praised compound interest as the eighth wonder of the world."
+            ],
+            "fellBack": null,
+            "format": "quick",
+            "framing": null,
+            "kind": "money",
+            "nism": "NISM Series X-A: Investment Adviser (Level 1) (for personal finance and financial planning). Official syllabus, chapter by chapter:\n1. Introduction To Personal Financial Planning\n2. Time Value Of Money: Time Value of Money; Calculate the following\n3. Evaluating The Financial Position Of Clients: Importance of cash flow management in personal finance; Preparing Household Budget; Cash inflows and outflows; Budgeting and forecasting; Monitoring budgets and provision for savings; Creating a personal Balance Sheet and net-worth; Creating a budget and savings plan; Contingency Planning\n4. Debt Management And Loans: The purpose or need of debt; Role and impact of debt in cash flow management; Leverage and Debt Counselling; Calculate the debt servicing requirements; Responsible Borrowing; Secured and Unsecured loans; Terms related to loans; Types of borrowing\n5. Introduction To The Indian Financial Markets: The Indian Economy; The Indian Financial Markets; Regulators of Financial Markets; Structure of Financial Markets in India\n6. Securities Market Segments: Nature and Definition of Primary Markets; Role and Function of the Secondary Market; Corporate Actions\n7. Introduction To Investment: Types of investment; Equity; Fixed Income; Commodities; Real Estate; Other investment opportunities; Channels for making investments\n8. Investing In Stocks: Equity as an investment; Diversification of risk through equity instruments - Cross sectional versus time; Combining Relative Valuation And Discounted Cash Flow Models; Technical Analysis; Qualitative evaluation of stocks\n9. Investing In Fixed Income Securities: Debt market and its need in financing structure of Corporates and Government; Bond market ecosystem; Risks associated with fixed income securities; Pricing of Bond; Traditional Yield Measures; Concept of Yield Curve; Concept of Duration; Introduction to Government Debt Market\n10. Understanding Derivatives: Basics of Derivatives; Underlying concepts in derivatives; Types of derivative products; Structure of derivative markets; Purpose of Derivatives; Benefits, Costs and risks of Derivatives; Equity, Currency and Commodity derivatives; Derivative markets, products and strategies\n11. Mutual Funds: Meaning and features of Mutual Fund; Concepts and Terms Related to Mutual Funds; Features of and differences between Open-ended schemes, Close-ended schemes,; Regulatory Framework of Mutual Funds; Mutual Fund Products; Triggers in Mutual Fund Investment; Process associated with Investment in Mutual Funds; Systematic Transactions\n12. Portfolio Manager: Overview of portfolio managers in India; Types of portfolio management services; Structure of PMS in India; Registration requirements of a Portfolio Manager; Responsibilities of a Portfolio Manager; Cost, expenses and fees of investing in PMS; Direct access facility offered by PMS; SEBI requirements on performance disclosure\n13. Overview Of Alternative Investment Funds (Aifs): Introduction to Alternative Investments; Evolution and Growth of AIFs in India; SEBI requirements on AIF; Categories of AIFs and their comparison; Types of AIFs; Role of Alternative Investments in Portfolio Management\n14. Introduction To Modern Portfolio Theory: Framework for constructing portfolios - modern portfolio theory; Assumptions of the theory; Definition of risk averse, risk seeking and risk neutral investor; Graphical presentation of portfolio risk/return of two securities\n15. Portfolio Construction Process: Importance of Asset Allocation Decision; Understanding correlation across asset classes and securities; Steps in Portfolio Construction Process; Investment Objectives; Investment Constraints; Exposures limits to different Sectors, Entities and Asset Classes; Unique needs and preferences; Assessments of needs and requirements of investor\n16. Portfolio Performance Measurement And Evaluation: Parameters to define performance – risk and return; Rate of return measures; Risk measures; Performance Evaluation: Benchmarking and peer group analysis; Performance attribution analysis\n17. Operational Aspects Of Investment Management: Investors and the investing process; PAN and KYC Process; Dematerialisation and Re-materialisation of Securities; Power of Attorney; Account Opening Process for Non-Residents; Process of Consolidating, reorganising and folio keeping/Maintenance of Investme; Change in Status of Special Investor Categories; Documentation for Financial Advice\n18. Key Regulations: Securities Contracts Regulation Act (SCRA 1956); SEBI Act; SEBI Prevention of Fraudulent and Unfair Trade Practices Regulations,; Securities and Exchange Board of India (Intermediaries) Regulations,; SEBI (Prohibition of Insider Trading) Regulations,; SEBI Investment Advisers Regulations,; Prevention of Money-Laundering Act,; Key provisions of various other acts, as applicable to investment advisory profe\n19. Ethical Issues: Ethical issues; Importance of ethical conduct of business; Ethical issues for an Investment Adviser; Ethical Dilemma; Fiduciary responsibility of Investment Advisers; Do’s and Don’ts for investors issued by SEBI; Learn about addressing annual audit observations; Global Best Practices\n20. Grievance Redress Mechanism: Consumer Protection Act; Investor Grievance Redressal Mechanism; Grievance Redress System; Grievance Redress System of an Investment Adviser; Grievance Redress System in Capital Market; Grievance Redress System in Banking; Grievance Redressal in Insurance; Redress in Pension Sector",
+            "outline": [
+              "Simple versus compound interest",
+              "The compound formula and the Rule of 72",
+              "The cost of waiting"
+            ],
+            "parts": [
+              {
+                "part": "Simple versus compound interest",
+                "weight": "normal",
+                "why": "It defines the core mechanism by showing how earning interest on interest differs from a flat payout."
+              },
+              {
+                "part": "The compound formula and the Rule of 72",
+                "weight": "normal",
+                "why": "It explains why time acts as an exponent and provides a quick mental calculation rule for doubling periods."
+              },
+              {
+                "part": "The cost of waiting",
+                "weight": "heavy",
+                "why": "It demonstrates through direct side-by-side scenarios why delaying even a decade drastically cuts total wealth."
+              }
+            ],
+            "researcher": "gemini-3.8-flash",
+            "searches": 0,
+            "sources": [
+              {
+                "title": "Compound interest (Wikipedia)",
+                "url": "https://en.wikipedia.org/wiki/Compound_interest"
+              },
+              {
+                "title": "What is compound interest? - Fidelity Investments",
+                "url": "https://www.fidelity.com/learning-center/trading-investing/what-is-compound-interest"
+              },
+              {
+                "title": "The Rule of 72 - Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/Rule_of_72"
+              },
+              {
+                "title": "What I Wish I Learned in School: Compound Interest - High Point FCU",
+                "url": "https://www.highpointfcu.com/what-i-wish-i-learned-in-school-compound-interest/"
+              },
+              {
+                "title": "Doubling Your Money With the Rule of 72 - Nebraska Department of Banking and Finance",
+                "url": "https://ndbf.nebraska.gov/about/doubling-your-money-rule-72"
+              },
+              {
+                "title": "Simple and Compound Interest : Mathworks - Texas State University",
+                "url": "https://www.txst.edu/mathworks/resources/teachers/middle-school-math-curriculum/simple-and-compound-interest.html"
+              }
+            ],
+            "start": "You want to understand compound interest and see why starting to invest early produces vastly larger gains than starting late."
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "understand why starting early matters",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "money",
+            "chapters": [
+              {
+                "blocks": [
+                  "picture",
+                  "teach",
+                  "example",
+                  "tryit",
+                  "mistake",
+                  "breath"
+                ],
+                "covers": "How earning interest on interest separates compounding from a flat, static payout over decades.",
+                "hook": "Why does a 10,000 dollar deposit earn 40,000 dollars more under compounding than simple interest over 40 years?",
+                "minutes": 8,
+                "n": 1,
+                "outcome": "You can explain the difference between simple interest and compounding using real balance differences over time.",
+                "proof": "predict",
+                "title": "Snowball on the Hill: Simple vs Compound"
+              },
+              {
+                "blocks": [
+                  "picture",
+                  "teach",
+                  "example",
+                  "mistake",
+                  "tryit",
+                  "breath"
+                ],
+                "covers": "How compounding frequency and exponents work, plus how to divide 72 by any return rate to find doubling time.",
+                "hook": "How can dividing the number 72 by your interest rate tell you when your money doubles?",
+                "minutes": 10,
+                "n": 2,
+                "outcome": "You can estimate how fast any sum doubles using mental math without touching a calculator.",
+                "proof": "predict",
+                "title": "The Slope and Speed: Formula and Rule of 72"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "tryit",
+                  "mistake",
+                  "breath"
+                ],
+                "covers": "Side-by-side timelines showing why a 10-year head start easily beats saving larger amounts later in life.",
+                "hook": "How can skipping ten early years cost over 250,000 dollars while only saving 24,000 dollars out of pocket?",
+                "minutes": 14,
+                "n": 3,
+                "outcome": "You can demonstrate the exact dollar penalty of waiting a decade to invest even modest monthly sums.",
+                "proof": "scenario",
+                "title": "The Price of Waiting: Why Starting Early Wins"
+              }
+            ],
+            "declined": false,
+            "format": "quick",
+            "framing": "You don't need weeks or advanced math to understand compound interest and see why starting early changes everything.",
+            "goal": "understand why starting early matters",
+            "mode": "subject",
+            "needsClarification": false,
+            "next": [
+              "index funds for beginners",
+              "how inflation affects savings",
+              "setting up an emergency fund"
+            ],
+            "outcome7": "By the end you'll be able to calculate doubling times mentally and explain exactly why delaying investment by ten years cuts wealth in half.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "Summa de arithmetica",
+                "who": "Luca Pacioli",
+                "why": "Introduced the earliest recorded reference to the Rule of 72 mental doubling calculation."
+              },
+              {
+                "what": "What is compound interest?",
+                "who": "Fidelity Investments",
+                "why": "Provides the foundational framework for compounding frequency and side-by-side growth models."
+              }
+            ],
+            "suggestions": [],
+            "topic": "Compound Interest and Starting Early"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "\"picture\" is null: a handbook that teaches a skill, a system or an idea needs one analogy carried through its chapters, with its \"maps\""
+            ],
+            "firstFaults": [
+              "\"picture\" is null: a handbook that teaches a skill, a system or an idea needs one analogy carried through its chapters, with its \"maps\""
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532143929
+          },
+          "topic": "how compound interest works"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash",
+              "gemini-3.8-flash"
+            ],
+            "research": [
+              "gemini-3.8-flash"
+            ]
+          },
+          "calls": 3,
+          "failed": 0,
+          "inr": 2.182824
+        }
+      }
+    },
+    {
+      "topic": "git merge conflicts",
+      "goal": "stop being scared of merge conflicts",
+      "level": "some",
+      "mode": "skill",
+      "expect": "1 to 3",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "Git triggers a merge conflict when two branches modify the same line or delete an edited file.",
+            "A merge conflict does not corrupt repository history or delete existing commits.",
+            "Git pauses the merge deliberately to prevent silent overwriting of differing code.",
+            "The conflict state exists purely in your local working tree without affecting remote teammates.",
+            "Git inserts visible text markers directly into conflicted files around competing changes.",
+            "The marker <<<<<<< HEAD indicates the start of edits from your currently checked-out branch.",
+            "The divider ======= separates current branch changes from incoming branch changes.",
+            "The marker >>>>>>> followed by the branch name marks the end of the conflict block.",
+            "Running git status lists all conflicted files under the heading Unmerged paths.",
+            "Developers resolve conflicts by deleting marker lines and saving the intended final text.",
+            "Running git add marks that specific file as resolved in the staging area.",
+            "Running git commit finalizes the resolution and generates a pre-filled merge commit message.",
+            "The command git merge --abort cancels the merge and restores your repository to its pre-merge state.",
+            "The command git checkout --ours or git checkout --theirs selects one complete branch version.",
+            "Running git config --global rerere.enabled true turns on the Reuse Recorded Resolution cache.",
+            "The command git mergetool launches external comparison programs like vimdiff or meld."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "skill",
+          "outline": [
+            "Why merge conflicts happen",
+            "Reading conflict markers",
+            "The resolution workflow",
+            "Safe aborts and helper tools"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "Resolving a merge conflict using the command line - GitHub Docs",
+              "url": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line"
+            },
+            {
+              "title": "How to Resolve Merge Conflicts in Git? | Atlassian Git Tutorial",
+              "url": "https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts"
+            },
+            {
+              "title": "Rerere - Git",
+              "url": "https://git-scm.com/book/en/v2/Git-Tools-Rerere"
+            },
+            {
+              "title": "Resolve a merge conflict — Git Course - Flavio Copes",
+              "url": "https://flaviocopes.com/git-merge-conflict/"
+            },
+            {
+              "title": "Conflict resolution — Introduction to version control with Git",
+              "url": "https://coderefinery.github.io/git-intro/conflicts/"
+            }
+          ],
+          "wikipediaTitle": "Merge (version control)"
+        },
+        "plan": {
+          "caution": "none",
+          "chapters": [
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "steps",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Why Git pauses merges, why history stays intact, and decoding HEAD, divider, and incoming markers.",
+              "hook": "Git triggers conflicts to protect your work, pausing locally before any remote teammate sees a thing.",
+              "minutes": 15,
+              "outcome": "You can identify conflicted lines in git status and read every marker without guessing.",
+              "proof": "predict",
+              "title": "Why Conflicts Happen and How to Read Markers"
+            },
+            {
+              "blocks": [
+                "steps",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Editing out markers, choosing final code, staging with git add, and finalizing with git commit.",
+              "hook": "Fixing a conflict is just normal text editing followed by your familiar add and commit.",
+              "minutes": 15,
+              "outcome": "You can resolve conflicted files, stage them, and complete the merge commit cleanly.",
+              "proof": "result",
+              "title": "The Clean Resolution Workflow"
+            },
+            {
+              "blocks": [
+                "steps",
+                "teach",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Aborting cleanly with git merge --abort, checkout ours or theirs, mergetool, and turning on rerere.",
+              "hook": "One quick abort command returns your working directory exactly to where you started unharmed.",
+              "minutes": 15,
+              "outcome": "You can reset safely when stuck, pick whole-branch versions, and let Git remember past fixes automatically.",
+              "proof": "result",
+              "title": "The Safe Escape Hatch and Power Tools"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "You don't need weeks to handle merge conflicts: three short chapters will turn that red warning into everyday muscle memory.",
+          "mode": "skill",
+          "needsClarification": false,
+          "next": [
+            "git rebase interactive",
+            "git cherry pick",
+            "git reset and revert"
+          ],
+          "outcome7": "By the end you'll be able to read conflict markers calmly, clean them up, commit the fix, or safely abort whenever you want.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "Resolving a merge conflict using the command line",
+              "who": "GitHub Docs",
+              "why": "standard terminal workflow for resolving conflicts and staging fixes"
+            },
+            {
+              "what": "Pro Git",
+              "who": "Scott Chacon and Ben Straub",
+              "why": "underlying merge mechanics and reuse recorded resolution tooling"
+            },
+            {
+              "what": "Git Merge Conflicts Tutorial",
+              "who": "Atlassian",
+              "why": "practical models of line divergence and conflict inspection"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Git Merge Conflicts"
+        },
+        "error": null,
+        "inr": 2.2082129999999998
+      },
+      "new": {
+        "id": "kh73a2veyhd5xh3jm03qp1smd58fz3tf",
+        "h": {
+          "brief": {
+            "at": 1791532240789,
+            "chapters": 2,
+            "error": null,
+            "facts": [
+              "A merge conflict occurs when two branches modify the same file lines or one branch deletes an edited file.",
+              "Running `git merge --abort` restores the working directory to the commit before the merge started.",
+              "Git sets `ORIG_HEAD` to the tip of the current branch before initiating a merge.",
+              "Running `git status` lists all conflicted files under the section heading Unmerged paths.",
+              "Git refuses to guess ambiguous resolutions and halts intentionally to protect your code from silent overwrites.",
+              "Git marks your checked-out branch changes between `<<<<<<< HEAD` and the middle separator `=======`.",
+              "Git marks the incoming branch changes between `=======` and the closing marker `>>>>>>>`.",
+              "The default two-way conflict view hides the original ancestral code that both branches started from.",
+              "Running `git config --global merge.conflictStyle zdiff3` displays the ancestor code between `|||||||` and `=======` markers.",
+              "Git 2.35 introduced `zdiff3` in January 2022 to shrink conflict blocks by excluding shared lines automatically.",
+              "During `git rebase`, `HEAD` refers to the upstream target branch rather than your feature branch.",
+              "Resolving a conflict requires editing the code and deleting all conflict marker lines manually.",
+              "Running `git checkout --ours <file>` accepts your current branch version of the file.",
+              "Running `git checkout --theirs <file>` keeps the version from the branch you are merging in.",
+              "Running `git add <file>` marks that conflicted file as resolved in the Git index.",
+              "Running `git rm <file>` resolves conflicts where one branch intentionally deleted the file.",
+              "Running `git merge --continue` or `git commit` creates the final merge commit.",
+              "The `git rerere` feature name stands for reuse recorded resolution.",
+              "Running `git config --global rerere.enabled true` enables automatic tracking of conflict solutions.",
+              "Git rerere automatically applies your recorded resolution whenever it encounters the identical conflict block."
+            ],
+            "fellBack": null,
+            "format": "quick",
+            "framing": null,
+            "kind": "skill",
+            "nism": null,
+            "outline": [
+              "The safety net",
+              "Conflict markers and zdiff3",
+              "Resolving and committing",
+              "Recorded resolutions"
+            ],
+            "parts": [
+              {
+                "part": "The safety net",
+                "weight": "normal",
+                "why": "It eliminates the fear of breaking the repository by showing how to safely inspect and abort merges."
+              },
+              {
+                "part": "Conflict markers and zdiff3",
+                "weight": "heavy",
+                "why": "Understanding raw marker syntax and three-way base diffs turns confusing blocks into clear side-by-side choices."
+              },
+              {
+                "part": "Resolving and committing",
+                "weight": "normal",
+                "why": "It covers editing the file, using branch shortcuts, staging, and sealing the resolution commit."
+              },
+              {
+                "part": "Recorded resolutions",
+                "weight": "light",
+                "why": "It introduces a global setting that prevents having to resolve the exact same conflict twice."
+              }
+            ],
+            "researcher": "gemini-3.8-flash",
+            "searches": 0,
+            "sources": [
+              {
+                "title": "Merge (version control) (Wikipedia)",
+                "url": "https://en.wikipedia.org/wiki/Merge_(version_control)"
+              },
+              {
+                "title": "git-merge Documentation - Git",
+                "url": "https://git-scm.com/docs/git-merge"
+              },
+              {
+                "title": "Resolving a merge conflict using the command line - GitHub Docs",
+                "url": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line"
+              },
+              {
+                "title": "Git: Improve conflict display with the zdiff3 style - Adam Johnson",
+                "url": "https://adamj.eu/tech/2023/12/29/git-merge-conflictstyle-zdiff3/"
+              },
+              {
+                "title": "Better Git Conflicts with zdiff3 - Ductile Systems",
+                "url": "https://ductilesystems.com/blog/better-git-conflicts-with-zdiff3"
+              },
+              {
+                "title": "7.8 Git Tools - Advanced Merging - Pro Git Book",
+                "url": "https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging"
+              },
+              {
+                "title": "Git Tools - Rerere - Pro Git Book",
+                "url": "https://git-scm.com/book/en/v2/Git-Tools-Rerere"
+              }
+            ],
+            "start": "You know everyday Git commands, but merge conflicts feel unpredictable and risky."
+          },
+          "chapters": [],
+          "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+          "goal": "stop being scared of merge conflicts",
+          "level": "some",
+          "plan": null,
+          "question": null,
+          "status": "failed",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532186929
+          },
+          "topic": "git merge conflicts"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash"
+            ]
+          },
+          "calls": 2,
+          "failed": 1,
+          "inr": 1.919547
+        }
+      }
+    },
+    {
+      "topic": "git",
+      "goal": "use git at my new job",
+      "level": "new",
+      "mode": "skill",
+      "expect": "4 to 6, course",
+      "old": {
+        "brief": {
+          "chapters": 7,
+          "facts": [
+            "Linus Torvalds created Git in 2005 to manage Linux kernel development.",
+            "Run git config --global user.name and user.email to set your identity for every commit.",
+            "The command git clone copies an existing remote repository and its full version history onto your computer.",
+            "Git stores project history as snapshots rather than separate file differences.",
+            "Running git status shows modified files, staged changes, and untracked files in the working directory.",
+            "The command git add moves changes from your working directory into the staging area before committing.",
+            "The command git commit -m records staged changes permanently into project history with a descriptive log message.",
+            "The main branch serves as the default line of production code in modern Git repositories.",
+            "The command git switch -c creates and switches immediately to a new feature branch.",
+            "Fast-forward merges move branch pointers forward without creating an extra merge commit when no histories diverge.",
+            "The command git fetch downloads remote updates to tracking branches like origin/main without changing local working files.",
+            "Many beginners run git pull blindly and trigger unwanted automatic merges that git fetch avoids.",
+            "The command git push uploads local branch commits to the remote repository for teammates to view.",
+            "A pull request lets teammates review, discuss, and approve branch changes before merging into production.",
+            "Merge conflicts occur when two branches modify the exact same lines of code in a shared file.",
+            "Resolving a conflict requires editing conflict markers by hand, running git add, and finishing with git commit."
+          ],
+          "format": "course",
+          "framing": null,
+          "kind": "skill",
+          "outline": [
+            "Setup and Repository Basics",
+            "The Staging and Commit Cycle",
+            "Working with Branches",
+            "Syncing with Remotes",
+            "Collaboration and Merge Conflicts"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "First-Time Git Setup",
+              "url": "https://git-scm.com/book/it/v2/Per-Iniziare-First-Time-Git-Setup"
+            },
+            {
+              "title": "book Basic Snapshotting - Git Reference",
+              "url": "https://git.github.io/git-reference/basic/"
+            },
+            {
+              "title": "Basic Branching and Merging - Git",
+              "url": "https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging"
+            },
+            {
+              "title": "Git Workflow Basics - The Data School",
+              "url": "https://www.thedataschool.co.uk/alvaro-gonzalez/git-workflow-basics/"
+            },
+            {
+              "title": "What is Git Fetch - ITU Online IT Training",
+              "url": "https://www.ituonline.com/tech-definitions/what-is-git-fetch/"
+            },
+            {
+              "title": "Git Feature Branch Workflow | Atlassian Git Tutorial",
+              "url": "https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow"
+            }
+          ],
+          "wikipediaTitle": "Git"
+        },
+        "plan": {
+          "caution": "none",
+          "chapters": [
+            {
+              "blocks": [
+                "steps",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Configuring your user name, email, and creating your first local studio repo.",
+              "hook": "Every commit records your name and email, and changing them later across project history is messy.",
+              "outcome": "You can configure your Git author details and initialise a fresh repository on your computer.",
+              "proof": "result",
+              "title": "Set Up Your Identity and Workspace"
+            },
+            {
+              "blocks": [
+                "steps",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Moving files from the work desk into the staging tray with git add and git commit.",
+              "hook": "Why does Git make you stage a file before saving instead of saving it right away?",
+              "outcome": "You can inspect changes with git status, stage specific files, and save clean snapshots to history.",
+              "proof": "result",
+              "title": "Stage the Shot and Commit the Snapshot"
+            },
+            {
+              "blocks": [
+                "steps",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Creating isolated workspaces using git switch -c to protect production code.",
+              "hook": "Production code stays safe because a new branch is just a moveable pointer to a snapshot.",
+              "outcome": "You can create, switch between, and list local branches without altering production files.",
+              "proof": "result",
+              "title": "Branch Out Without Touching Main"
+            },
+            {
+              "blocks": [
+                "steps",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Merging completed feature branches back into the main branch line.",
+              "hook": "If your main branch never moved, Git joins histories simply by sliding a pointer forward.",
+              "outcome": "You can merge clean feature branches into main and delete obsolete local branches.",
+              "proof": "result",
+              "title": "Bring Changes Together with Fast-Forward Merges"
+            },
+            {
+              "blocks": [
+                "steps",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Cloning team repositories and pushing your branch snapshots to remote servers.",
+              "hook": "Running git clone downloads not just current files, but every snapshot the project ever took.",
+              "outcome": "You can clone existing remote projects with git clone and push branch commits to your team.",
+              "proof": "result",
+              "title": "Connect to the Cloud Archive"
+            },
+            {
+              "blocks": [
+                "steps",
+                "teach",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Downloading teammate updates with git fetch instead of blind pulls, and opening review requests.",
+              "hook": "Blindly running git pull causes unexpected merge commits that running git fetch first prevents.",
+              "outcome": "You can inspect remote updates with git fetch and coordinate work using team pull requests.",
+              "proof": "result",
+              "title": "Fetch Safely and Open Pull Requests"
+            },
+            {
+              "blocks": [
+                "steps",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Spotting conflict markers, editing disputed lines, and completing the conflict commit.",
+              "hook": "What happens when two teammates edit the exact same line of code before pushing?",
+              "outcome": "You can locate conflict markers, choose the correct code lines, and finalize the resolved commit.",
+              "proof": "result",
+              "title": "Fix Merge Conflicts by Hand"
+            }
+          ],
+          "declined": false,
+          "framing": null,
+          "mode": "skill",
+          "needsClarification": false,
+          "next": [
+            "git rebase interactive",
+            "github actions workflows",
+            "command line basics"
+          ],
+          "outcome7": "By day 7 you'll be able to clone a team repo, make commits on your own branch, push changes, and resolve merge conflicts cleanly.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "Pro Git",
+              "who": "Scott Chacon and Ben Straub",
+              "why": "Standard reference for Git snapshot architecture, branching mechanics, and remote workflows"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Git at Work"
+        },
+        "error": null,
+        "inr": 3.154095
+      },
+      "new": {
+        "id": "kh7esrpzg3xdn6hnbqvkzs3w3s8fy6jd",
+        "h": {
+          "brief": {
+            "at": 1791532246512,
+            "chapters": 5,
+            "error": null,
+            "facts": [
+              "Linus Torvalds created Git in April 2005 after BitKeeper stopped offering free access for Linux kernel development.",
+              "Git saves full project snapshots with SHA hashes rather than tracking file delta changes.",
+              "New users configure their identity globally using git config with user.name and user.email options.",
+              "Git tracks files across three states: the working directory, the staging area index, and the commit repository.",
+              "The command git status lists tracked files, untracked files, and files staged for the next commit.",
+              "Running git add stages modified files into the index before committing them.",
+              "The command git diff --staged displays the exact line changes prepared inside the staging area index.",
+              "Running git commit -m permanently records the staged snapshot into repository history with an explanatory message.",
+              "The command git log --oneline displays the repository commit history as single-line summaries with commit hashes.",
+              "Git 2.23 released git switch in 2019 because git checkout handled too many unrelated tasks.",
+              "The command git switch -c feature-name creates a new branch and points the HEAD pointer to it.",
+              "A Git branch is a lightweight forty-byte pointer referencing a specific commit SHA hash.",
+              "Running git branch -d safely deletes a local feature branch after merging its commits.",
+              "The command git clone copies an entire remote repository, history, and branches to your local machine.",
+              "Git names the default primary remote server connection origin during a clone operation.",
+              "The command git fetch retrieves remote updates without merging them into your active local working files.",
+              "Running git push -u origin branch-name uploads local commits and establishes an upstream tracking link.",
+              "The command git pull executes git fetch and immediately merges remote changes into the checked-out branch.",
+              "Git marks conflicting edits between <<<<<<< HEAD, =======, and >>>>>>> branch-name during a merge conflict.",
+              "Running git stash temporarily shelves uncommitted local modifications to give you a clean working tree."
+            ],
+            "fellBack": null,
+            "format": "course",
+            "framing": null,
+            "kind": "skill",
+            "nism": null,
+            "outline": [
+              "Core model and setup",
+              "Tracking and committing changes",
+              "Branching for team development",
+              "Syncing with remote repositories",
+              "Resolving conflicts and stashing"
+            ],
+            "parts": [
+              {
+                "part": "Core model and setup",
+                "weight": "heavy",
+                "why": "Git's internal snapshot model and three tree states dictate every local and remote command."
+              },
+              {
+                "part": "Tracking and committing changes",
+                "weight": "normal",
+                "why": "The cycle of staging, reviewing diffs, and saving commits establishes daily workplace habits."
+              },
+              {
+                "part": "Branching for team development",
+                "weight": "normal",
+                "why": "Engineering tasks require isolating features on dedicated branches without touching main code."
+              },
+              {
+                "part": "Syncing with remote repositories",
+                "weight": "normal",
+                "why": "Publishing code and retrieving team updates keep the shared project repository synchronized."
+              },
+              {
+                "part": "Resolving conflicts and stashing",
+                "weight": "heavy",
+                "why": "Merge conflicts and abrupt context switches cause common blockers for new engineers."
+              }
+            ],
+            "researcher": "gemini-3.8-flash",
+            "searches": 0,
+            "sources": [
+              {
+                "title": "Git (Wikipedia)",
+                "url": "https://en.wikipedia.org/wiki/Git"
+              },
+              {
+                "title": "Pro Git book",
+                "url": "https://git-scm.com/book/en/v2"
+              },
+              {
+                "title": "git-switch Documentation",
+                "url": "https://git-scm.com/docs/git-switch"
+              },
+              {
+                "title": "git-restore Documentation",
+                "url": "https://git-scm.com/docs/git-restore"
+              },
+              {
+                "title": "Resolving a merge conflict using the command line - GitHub Docs",
+                "url": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line"
+              }
+            ],
+            "start": "The reader has never used Git and needs to manage source code collaboratively on an engineering team."
+          },
+          "chapters": [],
+          "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+          "goal": "use git at my new job",
+          "level": "new",
+          "plan": null,
+          "question": null,
+          "status": "failed",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532207109
+          },
+          "topic": "git"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash"
+            ]
+          },
+          "calls": 2,
+          "failed": 1,
+          "inr": 1.406223
+        }
+      }
+    },
+    {
+      "topic": "chess",
+      "goal": "play a full game with my nephew",
+      "level": "new",
+      "mode": "skill",
+      "expect": "3 to 5, course",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "A chessboard contains 64 squares arranged in an 8 by 8 grid.",
+            "Each player aligns the board with a light square in the bottom-right corner.",
+            "White arranges pieces on ranks 1 and 2, while Black occupies ranks 7 and 8.",
+            "Each queen starts on her matching color, putting the white queen on the d1 square.",
+            "Pawns advance one square forward, but they can move two squares on their first move.",
+            "A rook moves any number of squares along horizontal ranks or vertical files.",
+            "A bishop moves diagonally across any number of squares of its starting color.",
+            "A knight moves in an L-shape of two squares forward and one square sideways.",
+            "Knights are the only pieces permitted to jump over other pieces during a move.",
+            "Castling moves the king two squares toward a rook while that rook hops over it.",
+            "A player cannot castle if the king or rook has moved, or through check.",
+            "En passant lets a pawn capture an enemy pawn that just moved two squares past it.",
+            "Pawn promotion allows a pawn reaching the opposite back rank to become a new queen.",
+            "Check occurs when an enemy piece directly attacks the king.",
+            "Checkmate ends the game when a king faces attack with no legal move to escape.",
+            "Stalemate creates a draw when a player has no legal moves and avoids check."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "skill",
+          "outline": [
+            "Board setup",
+            "Standard moves",
+            "Special moves",
+            "Ending the game"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "FIDE LAWS of CHESS",
+              "url": "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf"
+            },
+            {
+              "title": "Rules of chess - Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/Rules_of_chess"
+            },
+            {
+              "title": "How to Play Chess: Learn the Rules & 7 Steps To Get You Started",
+              "url": "https://www.chess.com/learn-how-to-play-chess"
+            },
+            {
+              "title": "Castling, En Passant, and Pawn Promotion: Special Chess Rules Explained - Chess4life",
+              "url": "https://chess4life.com/blog/chess-special-rules-castling-en-passant-pawn-promotion"
+            }
+          ],
+          "wikipediaTitle": "Chess"
+        },
+        "plan": {
+          "caution": "none",
+          "chapters": [
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "tryit",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "The 64-square grid setup, bottom-right white square, queen on her color, and how all six piece types move.",
+              "hook": "Why does the square in each player's bottom-right corner always have to be light?",
+              "minutes": 20,
+              "outcome": "You can set up the board correctly and move every piece by its standard rules.",
+              "proof": "predict",
+              "title": "Setting the board and moving your army"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "tryit",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Castling with the king and rook, en passant pawn captures, and pawn promotion on the back rank.",
+              "hook": "Did you know a pawn can capture an enemy pawn that has already slipped past it?",
+              "minutes": 20,
+              "outcome": "You can perform castling, en passant, and pawn promotion without breaking the rules.",
+              "proof": "predict",
+              "title": "The three special moves"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "exercise",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Attacking the king, escaping check, delivering checkmate, and avoiding an accidental stalemate draw.",
+              "hook": "How can you trap the opponent's king without winning the game?",
+              "minutes": 20,
+              "outcome": "You can recognize check, execute a valid checkmate, and tell a win apart from a stalemate draw.",
+              "proof": "scenario",
+              "title": "Check, checkmate, and how games end"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "You do not need weeks of study to sit down and play a proper game of chess with your nephew.",
+          "mode": "skill",
+          "needsClarification": false,
+          "next": [
+            "chess opening principles",
+            "basic chess tactics",
+            "beginner endgame checkmates"
+          ],
+          "outcome7": "By the end you will set up a board accurately and play a complete, legal game of chess from first move to checkmate.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "FIDE Laws of Chess",
+              "who": "FIDE",
+              "why": "the official governing rules of board setup, movement, and game outcomes"
+            },
+            {
+              "what": "How to Play Chess: Learn the Rules",
+              "who": "Chess.com",
+              "why": "plain-language guidance for beginner board orientation and piece mechanics"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Chess basics"
+        },
+        "error": null,
+        "inr": 1.7410679999999998
+      },
+      "new": {
+        "id": "kh7df4g1gasazmqejdd995jjen8fy97n",
+        "h": {
+          "brief": {
+            "at": 1791532325110,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+          "goal": "play a full game with my nephew",
+          "level": "new",
+          "plan": null,
+          "question": null,
+          "status": "failed",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532208010
+          },
+          "topic": "chess"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)"
+            ]
+          },
+          "calls": 2,
+          "failed": 2,
+          "inr": 2.613996
+        }
+      }
+    },
+    {
+      "topic": "swimming",
+      "goal": "swim one length of a pool",
+      "level": "new",
+      "mode": "skill",
+      "expect": "4 to 7, course, body",
+      "old": {
+        "brief": {
+          "chapters": 7,
+          "facts": [
+            "Swimmers blow continuous bubbles through the nose or mouth when submerging the face underwater.",
+            "The American Red Cross uses rhythmic bobbing drills to develop continuous breath exchange.",
+            "Holding breath underwater traps carbon dioxide, which triggers involuntary panic and throat tightness.",
+            "The lungs act as natural flotation devices when the swimmer keeps the head aligned face-down.",
+            "Lifting the head out of the water forces the hips and legs to sink downward.",
+            "Swimmers push off the wall into a streamline position with straight arms squeezed behind the ears.",
+            "The flutter kick generates propulsion from the hips with relaxed knees and loose ankles.",
+            "Bending the knees excessively creates bicycle kicks that drag the body backward.",
+            "Australian swimmer Richmond Cavill popularized the alternating flutter kick for the modern front crawl.",
+            "The freestyle arm cycle consists of four distinct phases: entry, catch, pull, and recovery.",
+            "The entering hand reaches forward fingertips first between the head centerline and the shoulder line.",
+            "Swimmers rotate the shoulders and torso along the spine's long axis to increase reach.",
+            "Rotary breathing requires turning the chin sideways while keeping one goggle lens submerged.",
+            "Bilateral breathing alternates inhalation to both sides every three arm strokes to maintain stroke balance.",
+            "Completing one standard short-course pool length requires covering 25 yards or 25 meters."
+          ],
+          "format": "course",
+          "framing": null,
+          "kind": "skill",
+          "outline": [
+            "Breath Control and Water Comfort",
+            "Buoyancy and Streamline Position",
+            "Flutter Kick Technique",
+            "Arm Stroke and Body Rotation",
+            "Rotary Breathing and Pacing"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "American Red Cross : Swim Lessons : Learn to Swim: Levels 1-5",
+              "url": "https://commonstandardsproject.com/search?ids=%5B%2264B9B5F1639F4D659A346B9AD59658CC%22%5D"
+            },
+            {
+              "title": "Improving your front crawl technique - Swimming.org",
+              "url": "https://www.swimming.org/masters/improving-front-crawl-technique/"
+            },
+            {
+              "title": "Front Crawl Swimming - Technique, Tips & Beginner Guide - themagic5",
+              "url": "https://themagic5.com/blogs/news/front-crawl-swimming-technique-tips-beginner-guide"
+            },
+            {
+              "title": "Front Crawl Basics - Great Swim",
+              "url": "https://greatswim.org/train/front-crawl-basics/"
+            },
+            {
+              "title": "Freestyle swimming - Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/Freestyle_swimming"
+            }
+          ],
+          "wikipediaTitle": "Swimming"
+        },
+        "plan": {
+          "caution": "health",
+          "chapters": [
+            {
+              "blocks": [
+                "picture",
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Water comfort, breathing out continuously through nose and mouth, and rhythmic bobbing.",
+              "hook": "Holding your breath underwater is what triggers that sudden jolt of chest panic.",
+              "outcome": "You can submerge comfortably and exhale steady bubbles underwater ten times without panic.",
+              "proof": "set",
+              "title": "Blowing Bubbles and Relaxing Your Hull"
+            },
+            {
+              "blocks": [
+                "teach",
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Buoyancy, keeping the face submerged to lift the hips, and recovering safely to stand.",
+              "hook": "Lifting your chin just two inches forces your lower body to sink instantly.",
+              "outcome": "You can relax into a horizontal front float with legs near the surface for five seconds.",
+              "proof": "set",
+              "title": "Floating Flat on Your Hull"
+            },
+            {
+              "blocks": [
+                "teach",
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Wall push-offs, squeezing arms behind ears, and gliding through the water like a sleek hull.",
+              "hook": "A tight launch off the wall carries you a quarter of the lane for free.",
+              "outcome": "You can launch into a tight five-meter streamline glide without kicking or arm pulls.",
+              "proof": "set",
+              "title": "The Streamline Wall Launch"
+            },
+            {
+              "blocks": [
+                "teach",
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Flutter kick technique driven from hips with relaxed knees and floppy ankles.",
+              "hook": "Bending your knees like riding a bicycle creates drag that pulls you backward.",
+              "outcome": "You can kick across ten meters with a kickboard while keeping your knees long and relaxed.",
+              "proof": "set",
+              "title": "The Hip-Driven Rudder Kick"
+            },
+            {
+              "blocks": [
+                "teach",
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Fingertip entry, catch, pull, and relaxed recovery along the torso centerline.",
+              "hook": "Your hands push water best when they slide in quietly between your ear and shoulder.",
+              "outcome": "You can execute twenty smooth arm stroke cycles with clean fingertip entry and high elbows.",
+              "proof": "set",
+              "title": "The Four-Phase Paddle Stroke"
+            },
+            {
+              "blocks": [
+                "teach",
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Torso rotation along the spine axis and side breathing with one goggle lens submerged.",
+              "hook": "You do not lift your head to breathe; you simply roll your cheek into the pocket.",
+              "outcome": "You can turn your chin sideways to sip air smoothly while maintaining forward momentum.",
+              "proof": "set",
+              "title": "Rolling the Hull for Air"
+            },
+            {
+              "blocks": [
+                "teach",
+                "move",
+                "doit",
+                "mistake",
+                "doit",
+                "breath"
+              ],
+              "covers": "Combining streamline, steady kick, arm cycles, and bilateral breathing across one length.",
+              "hook": "Putting all four parts together turns a 25-meter swim into one steady, meditative rhythm.",
+              "outcome": "You can swim one unbroken 25-meter pool length calmly without touching the bottom.",
+              "proof": "set",
+              "title": "Crossing the 25-Meter Line"
+            }
+          ],
+          "declined": false,
+          "format": "course",
+          "framing": null,
+          "mode": "skill",
+          "needsClarification": false,
+          "next": [
+            "treading water calmly",
+            "bilateral breathing drills",
+            "swimming backstroke basics"
+          ],
+          "outcome7": "By day 7 you'll swim one full 25-meter pool length with steady front crawl and rhythmic breathing.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "Learn to Swim Swimming and Water Safety",
+              "who": "American Red Cross",
+              "why": "Provides foundational bobbing, buoyancy, and breath exchange drills for beginning swimmers."
+            },
+            {
+              "what": "Improving Your Front Crawl Technique",
+              "who": "Swimming.org",
+              "why": "Supplies technical standards for arm catch mechanics, streamline posture, and body rotation."
+            }
+          ],
+          "suggestions": [],
+          "topic": "Swimming One Pool Length"
+        },
+        "error": null,
+        "inr": 2.323377
+      },
+      "new": {
+        "id": "kh7caeg77763zy1fqs9gpzgyfs8fzr1x",
+        "h": {
+          "brief": {
+            "at": 1791532234547,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+          "goal": "swim one length of a pool",
+          "level": "new",
+          "plan": null,
+          "question": null,
+          "status": "failed",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532208124
+          },
+          "topic": "swimming"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)"
+            ]
+          },
+          "calls": 2,
+          "failed": 2,
+          "inr": 0
+        }
+      }
+    },
+    {
+      "topic": "mutual funds",
+      "goal": "start a SIP this month",
+      "level": "new",
+      "mode": "decision",
+      "expect": "3 to 5, course",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "A Systematic Investment Plan invests a fixed amount into a mutual fund scheme at set intervals.",
+            "Investors can begin a monthly SIP with amounts as low as ₹100 or ₹500.",
+            "Rupee-cost averaging buys more units when fund NAV falls and fewer units when NAV rises.",
+            "Compounding reinvests returns to build wealth over decades without needing to time market fluctuations.",
+            "SEBI introduced direct mutual fund plans on January 1, 2013, alongside regular plans.",
+            "Direct plans exclude distributor commissions and feature a lower Total Expense Ratio.",
+            "Regular plans pay ongoing trail commissions between 0.5% and 1% annually to intermediaries.",
+            "Passive index funds track benchmarks like the Nifty 50 with minimal fund management costs.",
+            "The Prevention of Money Laundering Act mandates KYC compliance before any mutual fund investment.",
+            "First-time investors must submit a PAN card, address proof, and bank account details.",
+            "KYC Registration Agencies such as CAMS and CVL maintain central verification records.",
+            "Investors can check their status online to confirm it reads KYC Validated.",
+            "Setting up an e-mandate through NPCI NACH automates scheduled monthly bank deductions.",
+            "Scheduling debits right after salary deposits prevents missed deductions and bank overdraft penalties.",
+            "Investors can pause or cancel a SIP anytime without paying AMC exit penalties.",
+            "A Step-Up SIP automatically increases monthly contributions by a set percentage each year."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "money",
+          "outline": [
+            "SIP Core Mechanics",
+            "Fund and Plan Selection",
+            "KYC Verification Steps",
+            "Mandate Setup and Maintenance"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "How to invest in Mutual Funds - AMFI",
+              "url": "https://www.amfiindia.com/investor/become-mf-distributor?zoneName=HowtoInvestInMF"
+            },
+            {
+              "title": "KYC - AMFI",
+              "url": "https://www.amfiindia.com/kyc"
+            },
+            {
+              "title": "How to Invest in SIP: The Ultimate Guide for Beginners - Standard Chartered Bank",
+              "url": "https://www.sc.bank.in/investment/wealthinsights/what-is-sip-how-to-invest-in-it/"
+            },
+            {
+              "title": "Regular vs Direct Mutual Fund Plans: What You're Paying For - Value Research",
+              "url": "https://www.valueresearchonline.com/learn/mutual-funds/regular-vs-direct-mutual-fund-plan/"
+            }
+          ],
+          "wikipediaTitle": "Systematic Investment Plan"
+        },
+        "plan": {
+          "caution": "money",
+          "chapters": [
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "tryit",
+                "exercise",
+                "breath"
+              ],
+              "covers": "How rupee-cost averaging works, compounding over time, and why direct index plans cost less than regular plans.",
+              "hook": "Did you know regular plans take up to 1% of your investment every year as commissions?",
+              "outcome": "You can explain how SIPs handle market swings and select a low-cost Direct index fund.",
+              "proof": "scenario",
+              "title": "The SIP Engine and Choosing Your Plan"
+            },
+            {
+              "blocks": [
+                "teach",
+                "steps",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Submitting PAN, address, and bank documents to agencies like CAMS or CVL to get verified under PMLA rules.",
+              "hook": "Why does a mutual fund application get blocked before your status reads KYC Validated?",
+              "outcome": "You can check your central KYC status online and provide the exact documents needed for approval.",
+              "proof": "result",
+              "title": "Getting KYC Validated"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "tryit",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Registering an NPCI NACH e-mandate, aligning debits with salary dates, using step-ups, and pausing without penalties.",
+              "hook": "Why does picking a deduction date two days after payday prevent unexpected bank overdraft fees?",
+              "outcome": "You can schedule an automated monthly bank debit and adjust, increase, or pause your payments without exit penalties.",
+              "proof": "scenario",
+              "title": "Setting Up and Managing Your Mandate"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "Starting a monthly SIP doesn't take weeks of study—you can pick a fund and automate it today.",
+          "mode": "decision",
+          "needsClarification": false,
+          "next": [
+            "building an emergency fund",
+            "investing in index funds",
+            "tax saving under ELSS"
+          ],
+          "outcome7": "By the end you'll be able to complete your KYC, choose a direct index fund, and start an automated monthly SIP from your bank account.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "KYC and Investment Guidelines",
+              "who": "Association of Mutual Funds in India (AMFI)",
+              "why": "defines PMLA compliance and central agency verification rules"
+            },
+            {
+              "what": "Regular vs Direct Mutual Fund Plans",
+              "who": "Value Research",
+              "why": "breaks down expense ratios and ongoing distributor trail commissions"
+            },
+            {
+              "what": "NACH e-Mandate Framework",
+              "who": "National Payments Corporation of India (NPCI)",
+              "why": "details automated recurring debits for retail mutual fund investments"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Starting a SIP"
+        },
+        "error": null,
+        "inr": 2.346687
+      },
+      "new": {
+        "id": "kh7ea198pp0qbaf29hend1vqv98fyp2w",
+        "h": {
+          "brief": {
+            "at": 1791532263077,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "start a SIP this month",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "money",
+            "chapters": [
+              {
+                "blocks": [
+                  "picture",
+                  "teach",
+                  "example",
+                  "tryit",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "How pooling money into a fund basket works and why SIP replaces market timing",
+                "hook": "Why does buying a basket on the exact same date every month beat waiting for a market dip?",
+                "minutes": 9,
+                "n": 1,
+                "outcome": "You can explain how pooled fund units work and calculate how a monthly SIP averages price swings.",
+                "proof": "scenario",
+                "title": "The Shared Fruit Basket"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Active stock picking versus broad market index funds, and equity versus debt",
+                "hook": "Over fifteen-year spans, why do more than eighty percent of actively managed large-cap funds lag their benchmark?",
+                "minutes": 11,
+                "n": 2,
+                "outcome": "You can distinguish between passive index funds and actively managed funds to pick your category.",
+                "proof": "scenario",
+                "title": "Index Crates vs Handpicked Baskets"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "tryit",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Direct plans versus regular plans, expense ratios, and distributor commission drag",
+                "hook": "A seemingly tiny one percent distributor fee can quietly swallow nearly a quarter of your thirty-year gains.",
+                "minutes": 10,
+                "n": 3,
+                "outcome": "You can identify direct plans and quantify the compounding cost of a one percent distributor commission over decades.",
+                "proof": "predict",
+                "title": "The Middleman Cut"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "tryit",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "A three-filter checklist to evaluate tracking error, fund size, and expense ratio",
+                "hook": "What three numbers on a one-page fund fact sheet tell you everything you need to know?",
+                "minutes": 12,
+                "n": 4,
+                "outcome": "You can evaluate fund fact sheets and select a specific low-cost broad index fund with low tracking error.",
+                "proof": "scenario",
+                "title": "Picking Your Starter Crate"
+              },
+              {
+                "blocks": [
+                  "steps",
+                  "mistake",
+                  "try",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "KYC verification steps, choosing a direct platform, and scheduling your SIP date",
+                "hook": "Which calendar date each month ensures your automated SIP runs smoothly without bouncing?",
+                "minutes": 14,
+                "n": 5,
+                "outcome": "You can complete your investment KYC, set an automated bank mandate, and lock in your monthly SIP debit date.",
+                "proof": "result",
+                "title": "Plugging in the Auto-Debit"
+              }
+            ],
+            "declined": false,
+            "format": "course",
+            "framing": null,
+            "goal": "start a SIP this month",
+            "mode": "decision",
+            "needsClarification": false,
+            "next": [
+              "Building an emergency fund",
+              "Asset allocation for beginners",
+              "Tax saving under Section 80C"
+            ],
+            "outcome7": "By day 5 you'll be able to choose a low-cost direct index fund, clear your KYC, and schedule your first recurring monthly SIP.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "The Little Book of Common Sense Investing",
+                "who": "John C. Bogle",
+                "why": "The compounding power of low-cost broad index investing over active stock selection."
+              },
+              {
+                "what": "Let's Talk Money",
+                "who": "Monika Halan",
+                "why": "Practical framework for choosing direct mutual funds and setting up systematic investment plans."
+              },
+              {
+                "what": "A Random Walk Down Wall Street",
+                "who": "Burton G. Malkiel",
+                "why": "Evidence showing the futility of timing market highs and lows versus regular dollar cost averaging."
+              }
+            ],
+            "suggestions": [],
+            "topic": "Mutual Funds and SIPs"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "\"picture\" is null: a handbook that teaches a skill, a system or an idea needs one analogy carried through its chapters, with its \"maps\""
+            ],
+            "firstFaults": [
+              "\"picture\" is null: a handbook that teaches a skill, a system or an idea needs one analogy carried through its chapters, with its \"maps\""
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532239241
+          },
+          "topic": "mutual funds"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)"
+            ]
+          },
+          "calls": 3,
+          "failed": 2,
+          "inr": 0.848043
+        }
+      }
+    },
+    {
+      "topic": "how the stock market works",
+      "goal": "understand the news about markets",
+      "level": "new",
+      "mode": "subject",
+      "expect": "4 to 6, course",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "A share represents fractional ownership in a publicly traded corporation.",
+            "Companies issue shares to the public through an initial public offering, known as an IPO.",
+            "Investors trade listed shares on organized stock exchanges like the New York Stock Exchange and Nasdaq.",
+            "Each publicly traded company trades under a unique abbreviation called a ticker symbol.",
+            "Online retail investors route orders through brokerages rather than trading directly on exchange floors.",
+            "Stock prices change continuously when buyer bids meet seller asking prices.",
+            "Market makers provide liquidity by constantly quoting both buy and sell prices for specific stocks.",
+            "A market index measures the collective performance of a defined basket of company shares.",
+            "The Dow Jones Industrial Average tracks 30 large American blue-chip company stocks.",
+            "The S&P 500 index measures 500 large publicly traded corporations across United States exchanges.",
+            "Financial media watch quarterly corporate earnings reports to assess individual business performance.",
+            "Stocks often swing sharply when reported company profits differ from consensus analyst expectations.",
+            "The Federal Reserve influences stock valuations by adjusting the target federal funds interest rate.",
+            "Higher interest rates raise borrowing costs for corporations and make Treasury bonds more attractive to investors.",
+            "FINRA defines a market correction as a decline of at least 10 percent from a recent peak.",
+            "A bear market occurs when a major stock index declines 20 percent or more from its high."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "money",
+          "outline": [
+            "Shares and exchanges",
+            "Indexes and price movements",
+            "Headlines and economic drivers"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "Stocks | Investor.gov",
+              "url": "https://www.investor.gov/glossary-term-categories/stocks?page=5"
+            },
+            {
+              "title": "Executing an Order | Investor.gov",
+              "url": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/executing-order"
+            },
+            {
+              "title": "Key Terms for Tough Times: The Vocabulary of Stressed Markets | FINRA.org",
+              "url": "https://www.finra.org/investors/insights/key-terms-tough-times-vocabulary-stressed-markets"
+            },
+            {
+              "title": "How do changing interest rates affect the stock market in 2026 - U.S. Bank",
+              "url": "https://www.usbank.com/investing/financial-perspectives/market-news/how-do-rising-interest-rates-affect-the-stock-market.html"
+            },
+            {
+              "title": "Stock market outlook: Rising rates, rising risk? - Fidelity Investments",
+              "url": "https://www.fidelity.com/learning-center/trading-investing/stock-market-outlook"
+            }
+          ],
+          "wikipediaTitle": "Stock market"
+        },
+        "plan": {
+          "body": false,
+          "caution": "money",
+          "chapters": [
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "How fractional ownership is created via IPOs, identified by ticker symbols, and bought through brokers on exchanges like the NYSE and Nasdaq.",
+              "hook": "Why can an everyday investor never buy shares directly on the New York Stock Exchange floor?",
+              "minutes": 15,
+              "outcome": "You can explain what owning a share means and trace an order from an online brokerage to an exchange.",
+              "proof": "scenario",
+              "title": "Shares, Tickers, and Exchanges"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "tryit",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "How continuous bid-ask pricing and market makers move stock prices, and how the Dow 30 and S&P 500 measure collective markets.",
+              "hook": "What actually decides a stock's price when thousands of buyers and sellers trade simultaneously?",
+              "minutes": 18,
+              "outcome": "You can explain how matching bids move prices and contrast single stocks with basket indexes like the S&P 500.",
+              "proof": "predict",
+              "title": "Bids, Asks, and Major Indexes"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "How quarterly earnings expectations, Federal Reserve interest rates, and technical drops like corrections and bear markets drive financial news.",
+              "hook": "Why does a company's stock sometimes plunge immediately after reporting its highest profits ever?",
+              "minutes": 18,
+              "outcome": "You can decode headlines about rate changes, earnings surprises, and market pullbacks without getting lost in jargon.",
+              "proof": "scenario",
+              "title": "Earnings, Interest Rates, and Headlines"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "You don't need weeks to follow financial news: three short reads unpack how shares trade, why indexes move, and what market headlines actually mean.",
+          "mode": "subject",
+          "needsClarification": false,
+          "next": [
+            "reading financial statements",
+            "how index funds work",
+            "understanding bond markets"
+          ],
+          "outcome7": "By the end you'll be able to read financial news headlines, explain why stock prices shift, and tell a market correction from a bear market.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "Executing an Order",
+              "who": "U.S. Securities and Exchange Commission (Investor.gov)",
+              "why": "Provides the mechanics of retail brokerage order routing, exchanges, and fractional ownership."
+            },
+            {
+              "what": "Key Terms for Tough Times: The Vocabulary of Stressed Markets",
+              "who": "Financial Industry Regulatory Authority (FINRA)",
+              "why": "Defines official market thresholds including corrections and bear markets."
+            },
+            {
+              "what": "How do changing interest rates affect the stock market",
+              "who": "U.S. Bank",
+              "why": "Explains how Federal Reserve interest rate benchmarks influence corporate borrowing and stock valuations."
+            }
+          ],
+          "suggestions": [],
+          "topic": "How the Stock Market Works"
+        },
+        "error": null,
+        "inr": 5.748372
+      },
+      "new": {
+        "id": "kh78gk8rr3h7w5s0gysyxp8cxx8fyyeb",
+        "h": {
+          "brief": {
+            "at": 1791532310576,
+            "chapters": 5,
+            "error": null,
+            "facts": [
+              "A share represents fractional equity ownership in a corporation.",
+              "Companies sell shares to the public through an initial public offering, known as an IPO.",
+              "Some companies distribute a portion of corporate profits directly to shareholders through periodic cash dividends.",
+              "Owning common stock gives voting rights, but most individual investors never cast their proxy ballots.",
+              "The New York Stock Exchange and Nasdaq operate as the primary trading exchanges in the United States.",
+              "A market maker quotes both a bid price to buy and an ask price to sell shares.",
+              "The bid-ask spread is the price difference between what buyers offer and what sellers demand.",
+              "Clicking buy in an online brokerage app routes your trade through intermediaries rather than directly to the exchange.",
+              "News reports use the Standard and Poor's 500, or S&P 500, to represent the broader American equity market.",
+              "The Dow Jones Industrial Average tracks thirty prominent blue-chip companies weighted strictly by individual share prices.",
+              "The Nasdaq Composite index includes over 3,000 exchange-listed companies and skews heavily toward technology firms.",
+              "Headlines often report index moves in points, but investors measure meaningful market changes in percentages.",
+              "A bull market describes an extended financial period when broad market prices rise consistently.",
+              "A market correction occurs when a major index declines by at least 10 percent from its recent peak.",
+              "Financial regulators classify a market decline of 20 percent or more as an official bear market.",
+              "The term bull market comes from the upward thrust of a bull's horns during an attack.",
+              "Publicly traded companies release quarterly earnings reports on Form 10-Q through the SEC's EDGAR database.",
+              "The Federal Reserve influences equity valuations by adjusting the target range for the federal funds interest rate.",
+              "Rising interest rates increase corporate borrowing costs, which can reduce reported earnings and slow business expansion.",
+              "When government bond yields climb, fixed-income investments become more competitive against riskier stocks."
+            ],
+            "fellBack": null,
+            "format": "quick",
+            "framing": null,
+            "kind": "money",
+            "nism": "NISM Series VIII: Equity Derivatives (for traders in equity futures and options). Official syllabus, chapter by chapter:\n1. Basics Of Derivatives: Basics of Derivatives; Derivatives Market – History & Evolution; Indian Derivatives Market; Market Participants; Types of Derivatives Market; Significance of Derivatives; Various risks faced by the participants in derivatives\n2. Understanding The Index: Introduction to an Index; Significance of the stock index; Types of Stock Market Indices; Attributes of an Index; Index management; Major Indices in India; Application of Indices\n3. Introduction To Forwards And Futures: Introduction to forward contracts; Futures contracts; Contract specifications of futures contracts; Some important terminology associated with futures contracts; Differences between Forwards and Futures; Payoff Charts for Futures contracts; Futures pricing; Price discovery and convergence of cash and futures prices on the expiry\n4. Introduction To Options: Basics of options; Contract specifications of exchange-traded options; Moneyness of an option; Intrinsic value and time value of an option; Payoff Charts for Options; Distinction between futures and options contracts; Basics of Option Pricing and Option Greeks; Option Pricing Models\n5. Strategies Using Equity Futures And Equity Options: Futures contracts for hedging, speculation and arbitrage; Use of options for trading and hedging; Arbitrage using options: Put-call parity; Delta-hedging; Interpreting open interest and put-call ratio for trading strategies\n6. Trading Mechanism: Trading Mechanism; Eligibility criteria for selection of stocks for derivatives trading; Selection criteria of Index for trading; Adjustments for Corporate Actions; Trading costs; Algorithmic trading; Tracking Futures and Options data; Introduction of Investor Risk Reduction Access (IRRA) platform:\n7. Introduction To Clearing And Settlement System: Clearing Members; Clearing Mechanism; Interoperability of clearing corporations; Settlement Mechanism; Risk Management; Margining and mark to market under SPAN; Position limits; Violations and Penalties\n8. Legal And Regulatory Environment: Securities Contracts (Regulation) Act,; Securities and Exchange Board of India Act,; Regulations in Trading; Regulations in Clearing & Settlement and Risk Management; Eligibility criteria for membership on derivatives segment; Standard Operating Procedure in the case of default by TM or CM; Standard Operating Procedure (SOP) for handling stock exchange outage\n9. Accounting And Taxation: Accounting; Taxation of derivative transaction in securities\n10. Sales Practices And Investors Protection Services: Understanding risk profile of the client; Risk Disclosure Document; Written Anti Money Laundering Procedures; Investors Grievance Redressal Mechanism\n\nNISM Series XV: Research Analyst (for anyone analysing companies and stocks). Official syllabus, chapter by chapter:\n1. Introduction To Research Analyst Profession: Primary Role of a Research Analyst; Primary Responsibilities of a Research Analyst; Basic Principles of Interaction with Companies/Clients; Important Qualities of a Research Analyst\n2. Introduction To Securities Market: Introduction to Securities and Securities Market; Product Definitions / Terminology; Structure of Securities Market; Various Market Participants and Their Activities; Kinds of Transactions; Dematerialization and Rematerialization of securities\n3. Terminology In Equity And Debt Markets: Terminology in Equity Market; Terminology in Debt Market; Types of Bonds\n4. Fundamentals Of Research: What is Investing?; The role of research in investment activity; Technical Analysis; Fundamental Analysis; Quantitative Research; Behavioral Approach to Equity Investing\n5. Economic Analysis: Basic Principles of Microeconomics; Basic Principles of Macroeconomics; Introduction to Various Macroeconomic Variables; Role of economic analysis in fundamental analysis; Secular, cyclical and seasonal trends; Sources of Information for Economic Analysis\n6. Industry Analysis: Role of industry analysis in fundamental analysis; Defining the industry; Understanding industry cyclicality; Market sizing and trend analysis; Secular trends, value migration and business life cycle; Understanding the industry landscape; Key Industry Drivers and Industry KPIs; Regulatory environment/framework\n7. Company Analysis – Business And Governance: Role of company analysis in fundamental research; Understand Business and Business Models; Pricing Power and Sustainability of This Power; Competitive Advantages/Points of differentiation over the Competitors; Strengths, Weaknesses, Opportunities and Threats (SWOT) Analysis; Quality of Management and Governance Structure; Risks in the Business; History of credit rating\n8. Company Analysis – Financial Analysis\n9. Corporate Actions: Philosophy of Corporate Actions; Dividend; Rights Issue; Bonus Issue; Stock Split; Share Consolidation; Merger and Acquisition; Demerger / Spin-off\n10. Valuation Principles: Difference between Price and Value; Why Valuations are required; Sources of Value in a Business – Earnings and Assets; Approaches to valuation; Discounted Cash Flows Model for Business Valuation; Relative valuation; Earnings Based Valuation Matrices; Assets based Valuation Matrices\n11. Fundamentals Of Risk And Return: Concept of Return of Investment and Return on Investment; Calculation of Simple, Annualized and Compounded Returns; Risks in Investments; Measuring risk; Concepts of Market Risk (Beta); Sensitivity Analysis to Assumptions; Concept of Margin of Safety; Comparison of Equity Returns with Bond Returns\n12. Qualities Of A Good Research Report: Qualities of a Good Research Report; Checklist Based Approach to the Research Reports; A Sample Checklist for Investment Research Reports\n13. Legal And Regulatory Environment: Regulatory infrastructure in Financial Markets; Important regulations in Indian Securities Market; Code of Conduct for Research Analysts; Management of Conflicts of Interest and Disclosure Requirements for Research Ana; Exchange surveillance mechanisms: GSM and ASM",
+            "outline": [
+              "Stocks and Public Companies",
+              "Exchanges and Trading",
+              "Major Market Indices",
+              "Bull and Bear Markets",
+              "Economic Drivers and News"
+            ],
+            "parts": [
+              {
+                "part": "Stocks and Public Companies",
+                "weight": "normal",
+                "why": "Explains core concepts of corporate shares, equity ownership, and dividends."
+              },
+              {
+                "part": "Exchanges and Trading",
+                "weight": "normal",
+                "why": "Covers where trading happens and how bid-ask pricing functions."
+              },
+              {
+                "part": "Major Market Indices",
+                "weight": "heavy",
+                "why": "Indices like the S&P 500 and Dow drive nearly all daily market reporting."
+              },
+              {
+                "part": "Bull and Bear Markets",
+                "weight": "normal",
+                "why": "Defines key news terminology including corrections, rallies, and bear markets."
+              },
+              {
+                "part": "Economic Drivers and News",
+                "weight": "heavy",
+                "why": "Connects financial headlines to corporate earnings, inflation, and Federal Reserve decisions."
+              }
+            ],
+            "researcher": "gemini-3.8-flash",
+            "searches": 3,
+            "sources": [
+              {
+                "title": "Stock market (Wikipedia)",
+                "url": "https://en.wikipedia.org/wiki/Stock_market"
+              },
+              {
+                "title": "How Stock Markets Work | Investor.gov",
+                "url": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work"
+              },
+              {
+                "title": "Executing an Order | Investor.gov",
+                "url": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/executing-order"
+              },
+              {
+                "title": "The S&P 500, Explained - Business Insider",
+                "url": "https://www.businessinsider.com/personal-finance/investing/what-is-the-sp-500"
+              },
+              {
+                "title": "Key Terms for Tough Times: The Vocabulary of Stressed Markets | FINRA.org",
+                "url": "https://www.finra.org/investors/insights/key-terms-tough-times-vocabulary-stressed-markets"
+              },
+              {
+                "title": "Bull vs. bear markets: What they are and how to invest during them - Citizens Bank",
+                "url": "https://www.citizensbank.com/learning/bull-market-vs-bear-market.aspx"
+              },
+              {
+                "title": "How do changing interest rates affect the stock market in 2026 - U.S. Bank",
+                "url": "https://www.usbank.com/investing/financial-perspectives/market-news/how-do-rising-interest-rates-affect-the-stock-market.html"
+              }
+            ],
+            "start": "You are new to finance and want to understand daily headlines about stock market moves."
+          },
+          "chapters": [],
+          "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+          "goal": "understand the news about markets",
+          "level": "new",
+          "plan": null,
+          "question": null,
+          "status": "failed",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532251981
+          },
+          "topic": "how the stock market works"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash"
+            ]
+          },
+          "calls": 2,
+          "failed": 1,
+          "inr": 1.997415
+        }
+      }
+    },
+    {
+      "topic": "world war 2",
+      "goal": "understand why it started and how it ended",
+      "level": "new",
+      "mode": "subject",
+      "expect": "5 to 7, course",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "Germany resented the territorial losses and reparations imposed by the 1919 Treaty of Versailles.",
+            "Adolf Hitler began rearming Germany in the mid-1930s in direct violation of international treaties.",
+            "Imperial Japan invaded Manchuria in 1931 and launched a full war against China in 1937.",
+            "Britain and France conceded Czechoslovak territory to Germany in 1938 under a failed policy of appeasement.",
+            "Germany and the Soviet Union signed the German-Soviet Nonaggression Pact in August 1939 to divide Poland.",
+            "German forces invaded Poland on September 1, 1939, starting the war in Europe.",
+            "Great Britain and France declared war on Germany on September 3, 1939.",
+            "Soviet troops invaded eastern Poland on September 17, 1939, fulfilling terms of the secret protocol.",
+            "The Soviet victory at the Battle of Stalingrad in February 1943 shattered the German eastern offensive.",
+            "Allied armies advanced into western Germany while Soviet troops captured Berlin in May 1945.",
+            "Adolf Hitler committed suicide in his Berlin bunker on April 30, 1945.",
+            "Germany signed an unconditional surrender at Reims, France, on May 7, 1945, taking effect May 8.",
+            "Allied leaders issued the Potsdam Declaration on July 26, 1945, demanding Japan surrender unconditionally.",
+            "The United States dropped atomic bombs on Hiroshima on August 6 and Nagasaki on August 9, 1945.",
+            "The Soviet Union declared war on Japan and invaded Japanese-occupied Manchuria on August 9, 1945.",
+            "Japan formally signed surrender documents aboard the battleship USS Missouri in Tokyo Bay on September 2, 1945."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "subject",
+          "outline": [
+            "Roots and Prewar Aggression",
+            "The Outbreak of War in 1939",
+            "The Fall of Nazi Germany",
+            "The Surrender of Imperial Japan"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "World War II | Facts, Summary, History, Dates, Combatants, & Causes | Britannica",
+              "url": "https://www.britannica.com/event/World-War-II"
+            },
+            {
+              "title": "How Did World War II Start? | Timeline, Causes, Key Events, History Facts, & Summary",
+              "url": "https://www.britannica.com/event/How-Did-World-War-II-Start"
+            },
+            {
+              "title": "Causes, events, and casualties of World War II | Britannica",
+              "url": "https://www.britannica.com/summary/World-War-II"
+            },
+            {
+              "title": "Timeline of World War II | Key Events, Europe, Pacific, & Battles | Britannica",
+              "url": "https://www.britannica.com/topic/Timeline-of-World-War-II"
+            },
+            {
+              "title": "The End of World War II 1945 | The National WWII Museum | New Orleans",
+              "url": "https://www.nationalww2museum.org/war/topics/end-world-war-ii-1945"
+            },
+            {
+              "title": "Germany's surrender | World War II [1945] - Britannica",
+              "url": "https://www.britannica.com/event/Germanys-surrender-1945"
+            }
+          ],
+          "wikipediaTitle": "World War II"
+        },
+        "plan": {
+          "caution": "none",
+          "chapters": [
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "exercise",
+                "teach",
+                "breath"
+              ],
+              "covers": "Treaty of Versailles grievances, Japanese and German prewar expansion, appeasement, and the invasion of Poland in September 1939",
+              "hook": "Why did Britain and France declare war over Poland after letting Hitler take Czechoslovakia?",
+              "outcome": "You can trace the chain reaction from the 1919 Versailles treaty to Britain and France declaring war on Germany.",
+              "proof": "predict",
+              "title": "The Spark: From Versailles to Poland"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "The Stalingrad turning point, the two-front Allied advance into Germany, Hitler's suicide, and unconditional surrender in May 1945",
+              "hook": "How did the defeat at Stalingrad shatter Germany's offensive and begin the march on Berlin?",
+              "outcome": "You can explain how the European war turned and ended with Germany's unconditional surrender on May 8, 1945.",
+              "proof": "predict",
+              "title": "The Western Finish: The Collapse of Nazi Germany"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "The Potsdam Declaration, the atomic bombs, Soviet invasion of Manchuria, and the September 2 surrender aboard USS Missouri",
+              "hook": "What two shocks in August 1945 forced Japan's surrender days after rejecting the Potsdam Declaration?",
+              "outcome": "You can explain the twin crises in August 1945 that compelled Japan to sign the formal surrender ending World War II.",
+              "proof": "predict",
+              "title": "The Final Close: The Surrender of Imperial Japan"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "You do not need weeks of study to grasp World War II; three focused sessions give you the clear chain of how it began and how it ended.",
+          "mode": "subject",
+          "needsClarification": false,
+          "next": [
+            "Battle of Stalingrad",
+            "Cold War beginnings",
+            "The Manhattan Project"
+          ],
+          "outcome7": "By the end you'll be able to explain the specific triggers that sparked World War II in 1939 and the sequence of military collapses that ended it in 1945.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "World War II",
+              "who": "Encyclopaedia Britannica",
+              "why": "core timeline of diplomatic breakdowns, invasions, and official surrender agreements"
+            },
+            {
+              "what": "The End of World War II 1945",
+              "who": "The National WWII Museum",
+              "why": "operational details of the German and Japanese surrenders"
+            },
+            {
+              "what": "The Second World War",
+              "who": "Antony Beevor",
+              "why": "narrative synthesis linking prewar expansion directly to the dual-theatre endgame"
+            }
+          ],
+          "suggestions": [],
+          "topic": "World War II Origins and End"
+        },
+        "error": null,
+        "inr": 2.411703
+      },
+      "new": {
+        "id": "kh7587ejmaa3wqkkph0jmya4js8fycth",
+        "h": {
+          "brief": {
+            "at": 1791532291715,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+          "goal": "understand why it started and how it ended",
+          "level": "new",
+          "plan": null,
+          "question": null,
+          "status": "failed",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532266373
+          },
+          "topic": "world war 2"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)"
+            ]
+          },
+          "calls": 2,
+          "failed": 2,
+          "inr": 0
+        }
+      }
+    },
+    {
+      "topic": "spanish",
+      "goal": "hold basic conversations on a trip in three months",
+      "level": "new",
+      "mode": "skill",
+      "expect": "7, course",
+      "old": {
+        "brief": {
+          "chapters": 7,
+          "facts": [
+            "The letter h is completely silent in standard Spanish words like hola.",
+            "Spanish distinguishes between the informal pronoun tú and the formal pronoun usted for address.",
+            "Speakers use buenos días in the morning and switch to buenas tardes in the afternoon.",
+            "Written Spanish questions require an inverted question mark ¿ at the start of a clause.",
+            "Travelers ask for locations by saying ¿dónde está followed by the specific destination.",
+            "Standard directional responses include a la derecha for right and a la izquierda for left.",
+            "Diners place polite food and drink orders using the verb phrase quería or me gustaría.",
+            "Restaurant guests ask for their dining bill by saying la cuenta, por favor.",
+            "English speakers often mistakenly say estoy embarazada for embarrassed, which actually means I am pregnant.",
+            "Shoppers inquire about prices at local markets with the phrase ¿cuánto cuesta?",
+            "Spanish counts from one to ten with uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez.",
+            "Numbers sixteen through nineteen merge diez y into compound forms starting with dieci-.",
+            "Listeners signal lack of understanding by stating no entiendo or no comprendo.",
+            "Travelers request slower speech from locals by saying ¿puede hablar más despacio, por favor?",
+            "Three essential modal travel verbs are querer to want, tener to have, and necesitar to need."
+          ],
+          "format": "course",
+          "kind": "skill",
+          "outline": [
+            "Sounds and greetings",
+            "Questions and directions",
+            "Ordering and dining",
+            "Numbers and purchases",
+            "Conversation repairs and core verbs"
+          ],
+          "sources": [
+            {
+              "title": "Essential Spanish Phrases for Travel & Everyday - MeloLingua",
+              "url": "https://melolingua.com/basic-spanish-phrases"
+            },
+            {
+              "title": "Survival Spanish: 50+ Essential Phrases for Travellers",
+              "url": "https://www.spanishobsessed.com/learn/survival-spanish/"
+            },
+            {
+              "title": "15 essential Spanish travel phrases - Journey Latin America",
+              "url": "https://www.journeylatinamerica.com/travel-inspiration/travel-tips/15-essential-spanish-phrases/"
+            },
+            {
+              "title": "20 SURVIVAL SPANISH PHRASES",
+              "url": "https://www.goyalanguages.com/post/20-survival-spanish-phrases"
+            }
+          ]
+        },
+        "plan": {
+          "caution": "none",
+          "chapters": [
+            {
+              "blocks": [
+                "picture",
+                "teach",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Pronouncing silent h, choosing buenos días or buenas tardes, and knowing when to use tú versus usted.",
+              "hook": "Why do locals smile when you drop the 'h' in hola?",
+              "outcome": "You can greet someone at any hour and introduce yourself without pronouncing silent letters.",
+              "proof": "scenario",
+              "title": "Unzip the Front Pocket: Greetings and Politeness"
+            },
+            {
+              "blocks": [
+                "picture",
+                "teach",
+                "example",
+                "tryit",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Carrying sentences with the three heavyweight verbs: wanting, having, and needing.",
+              "hook": "Can three simple verbs carry almost every travel sentence?",
+              "outcome": "You can state what you want, have, or need in a single clean phrase.",
+              "proof": "predict",
+              "title": "Adjust the Pack Straps: Querer, Tener, and Necesitar"
+            },
+            {
+              "blocks": [
+                "picture",
+                "teach",
+                "example",
+                "tryit",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Forming questions with inverted punctuation, asking ¿dónde está, and decoding a la derecha or a la izquierda.",
+              "hook": "What does a written upside-down question mark tell your eyes before you speak?",
+              "outcome": "You can ask where a landmark is and follow street directions given in Spanish.",
+              "proof": "predict",
+              "title": "The Compass Clip: Questions and Street Directions"
+            },
+            {
+              "blocks": [
+                "picture",
+                "teach",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Requesting meals with polite phrases like quería and me gustaría, and requesting la cuenta.",
+              "hook": "Why does asking for food directly with 'quiero' sound blunt to your server?",
+              "outcome": "You can order a meal courteously and ask for the dining bill without English.",
+              "proof": "scenario",
+              "title": "The Water Bottle Sleeve: Ordering Food and Drink"
+            },
+            {
+              "blocks": [
+                "picture",
+                "teach",
+                "example",
+                "tryit",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Counting from uno to diez and forming compound numbers sixteen to nineteen using dieci-.",
+              "hook": "How do Spanish numbers build a bridge at sixteen with one prefix?",
+              "outcome": "You can count to twenty and recognize quantities spoken at natural speed.",
+              "proof": "predict",
+              "title": "The Coin Pouch: Counting from One to Twenty"
+            },
+            {
+              "blocks": [
+                "picture",
+                "teach",
+                "example",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Inquiring with ¿cuánto cuesta, handing over cash, and avoiding the awkward embarazada trap.",
+              "hook": "How could saying you are embarrassed accidentally announce a pregnancy?",
+              "outcome": "You can ask prices at a market stall and avoid notorious false-friend words.",
+              "proof": "scenario",
+              "title": "Market Checkout: Asking Prices Without Costly Mistakes"
+            },
+            {
+              "blocks": [
+                "picture",
+                "teach",
+                "example",
+                "tryit",
+                "mistake",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Signaling confusion with no entiendo and asking locals to speak slower with ¿puede hablar más despacio, por favor?",
+              "hook": "What single polite question stops rapid-fire Spanish without ending the conversation?",
+              "outcome": "You can reset any conversation when someone speaks too quickly for you.",
+              "proof": "predict",
+              "title": "The Emergency Patch: Slowing Down Fast Speakers"
+            }
+          ],
+          "declined": false,
+          "format": "course",
+          "framing": null,
+          "mode": "skill",
+          "needsClarification": false,
+          "next": [
+            "Spanish Past Tense for Travelers",
+            "Latin American Street Food Spanish",
+            "Booking Hotels and Transport in Spanish"
+          ],
+          "outcome7": "By day 7 you'll be able to greet locals politely, order food, ask for directions, and buy items in Spanish using complete everyday phrases.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "15 Essential Spanish Travel Phrases",
+              "who": "Journey Latin America",
+              "why": "Provides practical restaurant, dining, and navigation phrases for travelers"
+            },
+            {
+              "what": "Survival Spanish: 50+ Essential Phrases for Travellers",
+              "who": "Spanish Obsessed",
+              "why": "Supplies conversation repair techniques and core travel verb structures"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Spanish for Travel"
+        },
+        "error": null,
+        "inr": 4.392507
+      },
+      "new": {
+        "id": "kh7avz0a3vaa66d1hg37d70w6s8fycbb",
+        "h": {
+          "brief": {
+            "at": 1791532301948,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+          "goal": "hold basic conversations on a trip in three months",
+          "level": "new",
+          "plan": null,
+          "question": null,
+          "status": "failed",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532277999
+          },
+          "topic": "spanish"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)"
+            ]
+          },
+          "calls": 2,
+          "failed": 2,
+          "inr": 0
+        }
+      }
+    },
+    {
+      "topic": "getting over a breakup",
+      "goal": "feel like myself again",
+      "level": "new",
+      "mode": "subject",
+      "expect": "2 to 4, gentle",
+      "old": {
+        "brief": {
+          "chapters": 3,
+          "facts": [
+            "Edward Smith at Columbia University showed romantic rejection activates the dorsal anterior cingulate cortex and insular cortex.",
+            "Helen Fisher showed that romantic rejection triggers dopamine reward pathways in the ventral tegmental area.",
+            "Breakups flood the body with cortisol and adrenaline through the hypothalamic-pituitary-adrenal axis.",
+            "Brain scans show romantic rejection activates the exact neural pathways involved in physical thermal burns.",
+            "Arthur Aron developed the Inclusion of Other in the Self model showing romantic partners merge identities.",
+            "Erica Slotter found that relationship endings cause a measurable decrease in self-concept clarity.",
+            "Gary Lewandowski observed that people use fewer unique words to describe themselves after breaking up.",
+            "A 2010 study showed that drops in self-concept clarity directly predict post-breakup depressive symptoms.",
+            "The default mode network repeatedly replays memories after breakups to analyze social survival threats.",
+            "Hyperactivity in the amygdala weakens prefrontal cortex regulation, intensifying intrusive thoughts.",
+            "Checking an ex-partner's social media triggers dopamine bursts that reset the brain's craving cycle.",
+            "Arthur Aron demonstrated that self-expansion through novel individual hobbies rapidly rebuilds identity boundaries.",
+            "Neuroplasticity weakens synaptic connections linked to an ex-partner when daily routines change.",
+            "Re-establishing separate daily habits actively restores self-concept clarity and speeds emotional recovery."
+          ],
+          "format": "quick",
+          "framing": null,
+          "kind": "health",
+          "outline": [
+            "The Neurological Shock",
+            "The Fractured Self",
+            "The Ruminative Loop",
+            "Rebuilding Self-Concept"
+          ],
+          "recapVideo": null,
+          "sources": [
+            {
+              "title": "The Neuroscience of Relationship Breakups - Psychology Today",
+              "url": "https://www.psychologytoday.com/us/blog/the-mindful-self-express/201104/the-neuroscience-relationship-breakups"
+            },
+            {
+              "title": "Who am I without you? The influence of romantic breakup on the self-concept - PubMed",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/20008964/"
+            },
+            {
+              "title": "The Break-Up Brain: The Neurology of Romantic Separation - Neuro Health Alliance",
+              "url": "https://neurohealthalliance.org/post/the-break-up-brain-the-neurology-of-romantic-separation"
+            },
+            {
+              "title": "Blog: Breakup Neuroscience - Northlight Mental Health",
+              "url": "https://www.northlightmentalhealth.com/blog-breakup-neuroscience"
+            },
+            {
+              "title": "How to Get Over a Breakup Faster Using Neuroscience and Psychology - Medium",
+              "url": "https://jeff-losaria.medium.com/how-to-get-over-a-breakup-faster-using-neuroscience-and-psychology-996f4a0267ca"
+            },
+            {
+              "title": "Breakup - Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/Breakup"
+            }
+          ],
+          "wikipediaTitle": "Breakup"
+        },
+        "plan": {
+          "caution": "health",
+          "chapters": [
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "exercise",
+                "mistake",
+                "breath"
+              ],
+              "covers": "How romantic rejection mirrors physical burn pain in brain scans and triggers chemical withdrawal through dopamine and stress pathways.",
+              "hook": "Brain scans reveal that rejection activates the identical sensory circuits triggered by physical thermal burns.",
+              "minutes": 20,
+              "outcome": "You can identify why your body experiences grief as physical pain and treat sudden cravings as neurochemical withdrawal.",
+              "proof": "scenario",
+              "title": "The Neurological Shock"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "exercise",
+                "mistake",
+                "breath"
+              ],
+              "covers": "Why identity blurs when shared boundaries collapse, how the default mode network loops memories, and why digital checking restarts cravings.",
+              "hook": "After a breakup, people use fewer unique words to describe who they are.",
+              "minutes": 20,
+              "outcome": "You can explain why your self-concept feels foggy and spot the social media loops that reset craving cycles.",
+              "proof": "scenario",
+              "title": "The Fractured Self and the Replay Loop"
+            },
+            {
+              "blocks": [
+                "teach",
+                "example",
+                "try",
+                "exercise",
+                "breath"
+              ],
+              "covers": "Using Arthur Aron's self-expansion model and routine disruption to prune old synaptic pathways and restore clear personal boundaries.",
+              "hook": "Taking up novel solo hobbies rewires emotional pathways faster than waiting for time to pass.",
+              "minutes": 20,
+              "outcome": "You can design novel daily routines that leverage neuroplasticity to rebuild your independent identity boundaries.",
+              "proof": "scenario",
+              "title": "Rebuilding Self-Concept"
+            }
+          ],
+          "declined": false,
+          "format": "quick",
+          "framing": "You do not need weeks of generic clichés to understand why heartbreak hurts so intensely and start reclaiming who you are.",
+          "mode": "subject",
+          "needsClarification": false,
+          "next": [
+            "building emotional resilience",
+            "habit loops and neuroplasticity",
+            "assertive boundary setting"
+          ],
+          "outcome7": "By the end you'll be able to explain the exact brain biology driving your grief, halt the digital dopamine loops keeping you stuck, and use targeted daily self-expansion to rebuild a clear identity.",
+          "pushback": null,
+          "question": null,
+          "sources": [
+            {
+              "what": "Social rejection shares somatosensory representations with physical pain",
+              "who": "Edward E. Smith",
+              "why": "Demonstrates that dorsal anterior cingulate and insular activation during rejection mirrors physical pain"
+            },
+            {
+              "what": "Who am I without you? The influence of romantic breakup on the self-concept",
+              "who": "Erica B. Slotter",
+              "why": "Establishes how losing an overlapping identity directly triggers drops in self-concept clarity and depressive symptoms"
+            },
+            {
+              "what": "Reward, Addiction, and Emotion Regulation Systems Associated With Rejection in Love",
+              "who": "Helen Fisher",
+              "why": "Identifies the ventral tegmental dopamine craving mechanisms underlying post-breakup obsessive impulses"
+            }
+          ],
+          "suggestions": [],
+          "topic": "Getting Over a Breakup"
+        },
+        "error": null,
+        "inr": 2.0509649999999997
+      },
+      "new": {
+        "id": "kh72n4m7y4jdj082g9prxbz92h8fz5jv",
+        "h": {
+          "brief": {
+            "at": 1791532342407,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "feel like myself again",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "health",
+            "chapters": [
+              {
+                "blocks": [
+                  "picture",
+                  "teach",
+                  "example",
+                  "tryit",
+                  "mistake",
+                  "breath"
+                ],
+                "covers": "Why heartbreak causes genuine physical pain and how dopamine withdrawal drives obsessive urges.",
+                "hook": "Why does a breakup activate the exact same brain regions as physical bone fractures?",
+                "minutes": 10,
+                "n": 1,
+                "outcome": "You can treat your cravings as predictable neurological withdrawal instead of personal weakness.",
+                "proof": "predict",
+                "title": "The Chemical Crash"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "try",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Creating friction around digital triggers, old messages, and shared artifacts to halt compulsive checking.",
+                "hook": "How does checking their profile for three seconds reset days of emotional progress?",
+                "minutes": 12,
+                "n": 2,
+                "outcome": "You can set up strict digital boundaries that cut off sudden dopamine spikes.",
+                "proof": "scenario",
+                "title": "Clearing the Clutter"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "tryit",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Interrupting repetitive rumination loops and disarming the urge to idealize past memories.",
+                "hook": "Why does your memory edit out every red flag the moment you feel lonely?",
+                "minutes": 14,
+                "n": 3,
+                "outcome": "You can catch runaway rumination and replace nostalgia with a balanced, factual record.",
+                "proof": "scenario",
+                "title": "Muting the Echo"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "try",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Reclaiming shared places, mutual playlists, and times of day that trigger grief.",
+                "hook": "Can visiting a favorite shared coffee shop alone help rewire your memory?",
+                "minutes": 14,
+                "n": 4,
+                "outcome": "You can decouple everyday habits from their presence by overwriting old associations.",
+                "proof": "scenario",
+                "title": "Repainting the Walls"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "tryit",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Rebuilding independent identity and scheduling anchor habits that belong purely to you.",
+                "hook": "What is the single quickest predictor that someone has regained their sense of self?",
+                "minutes": 12,
+                "n": 5,
+                "outcome": "You can define an independent daily routine centered entirely on your own goals.",
+                "proof": "predict",
+                "title": "Your New Layout"
+              }
+            ],
+            "declined": false,
+            "format": "course",
+            "framing": null,
+            "goal": "feel like myself again",
+            "mode": "subject",
+            "needsClarification": false,
+            "next": [
+              "building emotional resilience",
+              "setting personal boundaries",
+              "journaling for self discovery"
+            ],
+            "outcome7": "By day 5 you'll be able to explain the chemical withdrawal behind your cravings, stop the urge loops, and rebuild daily routines that belong solely to you.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "How to Fix a Broken Heart",
+                "who": "Guy Winch",
+                "why": "provides practical tools to break rumination loops and stop emotional idealization"
+              },
+              {
+                "what": "Anatomy of Love",
+                "who": "Helen Fisher",
+                "why": "explains the neurochemical and dopamine withdrawal processes driving heartbreak"
+              }
+            ],
+            "suggestions": [],
+            "topic": "Getting Over a Breakup"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "\"picture\" is null: a handbook that teaches a skill, a system or an idea needs one analogy carried through its chapters, with its \"maps\""
+            ],
+            "firstFaults": [
+              "\"picture\" is null: a handbook that teaches a skill, a system or an idea needs one analogy carried through its chapters, with its \"maps\""
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791532308445
+          },
+          "topic": "getting over a breakup"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)"
+            ]
+          },
+          "calls": 3,
+          "failed": 2,
+          "inr": 0.762111
+        }
+      }
+    }
+  ]
+}

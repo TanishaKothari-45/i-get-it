@@ -1,0 +1,662 @@
+{
+  "at": "2026-10-09T12:29:16.561Z",
+  "results": [
+    {
+      "topic": "write a cover letter for my first job",
+      "level": "new",
+      "goal": "send a strong cover letter this week",
+      "mode": "skill",
+      "new": {
+        "id": "kh79fhtny49fceddhyhnphzg2h8fz8z8",
+        "h": {
+          "brief": {
+            "at": 1791548162491,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [
+            {
+              "cards": [],
+              "error": "Gemini time budget used up",
+              "factCheck": null,
+              "model": null,
+              "n": 1,
+              "outcomeLine": null,
+              "paragraphs": null,
+              "status": "failed",
+              "title": null,
+              "words": null
+            },
+            {
+              "cards": [],
+              "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+              "factCheck": null,
+              "model": null,
+              "n": 2,
+              "outcomeLine": null,
+              "paragraphs": null,
+              "status": "failed",
+              "title": null,
+              "words": null
+            },
+            {
+              "cards": [
+                {
+                  "body": "The closing sentence that makes a manager want to interview you does not beg; it simply **proposes the next conversation**. Most applicants finish by apologizing for taking up the reader's time or writing passive phrases like *I hope to hear from you soon*.\n\nA confident closing paragraph takes two clear sentences. First, state that you would welcome twenty minutes to discuss how your background fits their immediate priorities. Second, point directly to where they can reach you and thank them for considering your application. You are inviting a working discussion between peers, not asking for a favor.",
+                  "title": "The Closing Call to Action",
+                  "type": "teach"
+                },
+                {
+                  "body": "Before you hit send, run a **four-point polish sweep** across the page. Every application deserves fresh eyes because small mistakes can make a reader doubt your care.\n\nFirst, match the hiring manager's name and company name against the job post so no leftover template text slips through. Second, verify that every number (like a result or a date) matches your resume exactly. Third, read your letter aloud, one sentence at a time starting from the last sentence and moving up, to spot awkward phrasing. Finally, save the file as a PDF (a file type that looks the same on every screen) titled with your name and the role so your formatting never shifts on their screen.",
+                  "title": "The Pre-Send Quality Check",
+                  "type": "teach"
+                },
+                {
+                  "body": "Priya finished drafting her three paragraphs for a junior research associate opening at an analytics firm in Bengaluru. Her final lines originally read: *Please let me know if I am suitable for this role, as I am very eager to learn.*\n\nShe scrapped that timid draft. Instead, she wrote: **I would welcome the opportunity to discuss how my survey analysis projects can support your client research team next quarter. You can reach me by phone or email, and thank you for your time.** The rewrite took sixty seconds, but it transformed her from an anxious student asking for validation into a prepared candidate ready to contribute.",
+                  "title": "A Clean Landing",
+                  "type": "example"
+                },
+                {
+                  "body": "Rohan finished his application late on a Sunday night and clicked submit without opening the attachment. His closing line still read: *I look forward to discussing how I can assist [Company Name] with its summer campaign.*\n\nHe had copied a strong closing from an earlier draft and forgotten to replace the placeholder (the bracketed stand-in words). The manager may well have lost confidence in him. You can catch this by searching for brackets or asterisks and reading the whole file before converting your draft into a PDF (a file that looks the same on every screen), **clearing every stray note** before anyone else opens the document.",
+                  "type": "mistake"
+                },
+                {
+                  "body": "Read your final paragraph out loud right now. If it uses the word *hope* or *sorry*, replace it with **one clear invitation** to discuss their team's goals.",
+                  "type": "try"
+                },
+                {
+                  "body": "Check your draft one by one: the company name is spelled exactly as in the job post, your phone and email are correct, and the PDF file name has your name and the role.",
+                  "title": "Try it",
+                  "type": "try"
+                },
+                {
+                  "body": "A memorable cover letter finishes with a direct invitation to speak rather than a plea for approval, backed by a ruthless final read that catches stray template words. When your closing sounds ready to work and your text is spotless, you separate yourself from hundreds of rushed submissions.\n\nYou now have all the tools to draft, polish, and submit a tailored cover letter that earns serious interviews.",
+                  "title": "In one breath",
+                  "type": "teach"
+                }
+              ],
+              "error": null,
+              "factCheck": {
+                "at": 1791548243077,
+                "fixes": 3,
+                "model": "claude-sonnet-5-5",
+                "notes": [
+                  "card 1: Reading backwards sentence by sentence is fine, but 'read your sentences aloud backwards, from the final period' is unclear and the claim that tiny errors break trust faster than a missing qualification is an overclaim; also 'PDF' and 'metric' are unexplained terms for a beginner.",
+                  "card 3: Claimed the manager stopped reading immediately, which is an unsupported specific; also 'bracketed placeholder' and PDF terms were unexplained, and brackets search doesn't catch all stray notes.",
+                  "card 5: You cannot 'tap each section' of a draft; the instruction is not doable. Rewritten as a checklist action."
+                ],
+                "status": "fixed"
+              },
+              "model": "gemini-3.8-flash",
+              "n": 3,
+              "outcomeLine": "You can now assemble the complete letter, close on a professional note, and catch the errors that disqualify beginners.",
+              "paragraphs": null,
+              "status": "ready",
+              "title": "Close Confidently and Polish",
+              "words": null
+            }
+          ],
+          "error": null,
+          "goal": "send a strong cover letter this week",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "none",
+            "chapters": [
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "tryit",
+                  "breath"
+                ],
+                "covers": "How to open with genuine interest and relevance instead of a robotic summary.",
+                "hook": "Why does opening with 'I am writing to apply' make managers tune out right away?",
+                "minutes": 12,
+                "n": 1,
+                "outcome": "You can write an opening paragraph that names the role, connects to the company's work, and skips tired openings.",
+                "pieces": [
+                  "The opening hook",
+                  "Company research basics"
+                ],
+                "proof": "scenario",
+                "title": "Hook the Hiring Manager"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "tryit",
+                  "breath"
+                ],
+                "covers": "Translating coursework, clubs, part-time shifts, or volunteering into evidence of dependable work.",
+                "hook": "Can a class presentation or retail shift convince an employer you are ready for the role?",
+                "minutes": 15,
+                "n": 2,
+                "outcome": "You can turn non-office experiences into two concrete stories that demonstrate your ability to deliver.",
+                "pieces": [
+                  "Translating school and side work",
+                  "The evidence paragraph"
+                ],
+                "proof": "scenario",
+                "title": "Turn Everyday Projects into Proof"
+              },
+              {
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "tryit",
+                  "breath"
+                ],
+                "covers": "Writing a clean call to action, setting the tone, and running the pre-send quality check.",
+                "hook": "What closing sentence leaves a manager eager to call you for an interview?",
+                "minutes": 10,
+                "n": 3,
+                "outcome": "You can assemble the complete letter, close on a professional note, and catch the errors that disqualify beginners.",
+                "pieces": [
+                  "The closing call to action",
+                  "Pre-send review checklist"
+                ],
+                "proof": "scenario",
+                "title": "Close Confidently and Polish"
+              }
+            ],
+            "declined": false,
+            "format": "quick",
+            "framing": "Writing your first cover letter does not take days—you can draft, polish, and send a standout letter in two sittings.",
+            "goal": "send a strong cover letter this week",
+            "mode": "skill",
+            "needsClarification": false,
+            "next": [
+              "entry level resume formatting",
+              "first job interview preparation",
+              "cold emailing for internships"
+            ],
+            "outcome7": "By the end you'll have a tailored, three-paragraph cover letter ready to submit.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "What Color Is Your Parachute?",
+                "who": "Richard N. Bolles",
+                "why": "Principles of identifying transferable skills when entering the workforce without traditional experience."
+              },
+              {
+                "what": "HBR Guide to Getting the Right Job",
+                "who": "Harvard Business Review",
+                "why": "Frameworks for tailoring letters to employer needs and writing concise, impactful openings."
+              }
+            ],
+            "suggestions": [],
+            "topic": "First Job Cover Letter"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "firstFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "noVersions": true,
+            "startedAt": 1791548145887
+          },
+          "topic": "write a cover letter for my first job"
+        },
+        "cost": {
+          "byKind": {
+            "chapter": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)"
+            ],
+            "check": [
+              "claude-sonnet-5-5"
+            ],
+            "plan": [
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)"
+            ]
+          },
+          "calls": 13,
+          "failed": 10,
+          "inr": 4.418883
+        }
+      }
+    },
+    {
+      "topic": "the mughal empire",
+      "level": "new",
+      "goal": "understand how it rose and fell",
+      "mode": "subject",
+      "new": {
+        "id": "kh78hnpceq08w0tpxqmrc6by698fz90w",
+        "h": {
+          "brief": null,
+          "chapters": [],
+          "error": null,
+          "goal": "understand how it rose and fell",
+          "level": "new",
+          "plan": null,
+          "question": null,
+          "status": "planning",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "noVersions": true,
+            "startedAt": 1791548145385
+          },
+          "topic": "the mughal empire"
+        }
+      }
+    },
+    {
+      "topic": "learn guitar",
+      "level": "new",
+      "goal": "play my first song in a month",
+      "mode": "skill",
+      "new": {
+        "id": "kh7bg4q3b2d0nfgd0zry6mgw6n8fyaw6",
+        "h": {
+          "brief": {
+            "at": 1791548451444,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [
+            {
+              "cards": [],
+              "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+              "factCheck": null,
+              "model": null,
+              "n": 1,
+              "outcomeLine": null,
+              "paragraphs": null,
+              "status": "failed",
+              "title": null,
+              "words": null
+            },
+            {
+              "cards": [],
+              "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+              "factCheck": null,
+              "model": null,
+              "n": 2,
+              "outcomeLine": null,
+              "paragraphs": null,
+              "status": "failed",
+              "title": null,
+              "words": null
+            },
+            {
+              "cards": [],
+              "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+              "factCheck": null,
+              "model": null,
+              "n": 3,
+              "outcomeLine": null,
+              "paragraphs": null,
+              "status": "failed",
+              "title": null,
+              "words": null
+            },
+            {
+              "cards": [],
+              "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+              "factCheck": null,
+              "model": null,
+              "n": 4,
+              "outcomeLine": null,
+              "paragraphs": null,
+              "status": "failed",
+              "title": null,
+              "words": null
+            },
+            {
+              "cards": [
+                {
+                  "cues": [
+                    "Unlock your right elbow",
+                    "Keep your wrist loose",
+                    "Brush down across strings"
+                  ],
+                  "html": "<div style='padding:1rem;text-align:center;'><strong>Swing your forearm like a clock pendulum</strong> while keeping your wrist soft and fluid.</div>",
+                  "title": "The Pendulum Swing",
+                  "type": "move"
+                },
+                {
+                  "instruction": "Strum sixteen steady *downstrums*—downward strokes across all six strings—while counting '1, 2, 3, 4' out loud.",
+                  "kind": "reps",
+                  "target": 16,
+                  "title": "Do it now",
+                  "type": "doit"
+                },
+                {
+                  "body": "Rohan locks his wrist rigid and chops down with his entire arm, snagging the pick between two strings with a jarring rattle. His forearm knots with tension before the first song finishes. If your stroke sounds like slapping a fence with a branch, your wrist has frozen solid; loosen your grip until the pick **feathers gently across the strings** without digging in.",
+                  "type": "mistake"
+                },
+                {
+                  "instruction": "Keep your elbow swinging smoothly for sixty seconds, brushing downward on each beat without letting your wrist lock.",
+                  "kind": "timer",
+                  "target": 60,
+                  "title": "Do it now",
+                  "type": "doit"
+                },
+                {
+                  "body": "A clean rhythm flows from an **unbroken elbow swing** paired with a limp, brushing wrist. Keep that arm moving like a relaxed grandfather clock so your pulse never falters.\n\nNext: how to bring your fretting hand into the rhythm with simple chord shapes.",
+                  "title": "In one breath",
+                  "type": "teach"
+                }
+              ],
+              "error": null,
+              "factCheck": {
+                "at": 1791548674786,
+                "fixes": 1,
+                "model": "claude-sonnet-5-5",
+                "notes": [
+                  "card 4: The closing line promises that a sixty-second timer trains the fingers to snap into chord shapes, which is a specific unsupported claim; the timer drill here trains steady strumming, not chord changes."
+                ],
+                "status": "fixed"
+              },
+              "model": "gemini-3.8-flash",
+              "n": 5,
+              "outcomeLine": "You can now strum steady quarter notes with a relaxed wrist to a 60 BPM pulse.",
+              "paragraphs": null,
+              "status": "ready",
+              "title": "The Pendulum Arm: Downstrums on the Beat",
+              "words": null
+            },
+            {
+              "cards": [],
+              "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+              "factCheck": null,
+              "model": null,
+              "n": 6,
+              "outcomeLine": null,
+              "paragraphs": null,
+              "status": "failed",
+              "title": null,
+              "words": null
+            },
+            {
+              "cards": [],
+              "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+              "factCheck": null,
+              "model": null,
+              "n": 7,
+              "outcomeLine": null,
+              "paragraphs": null,
+              "status": "failed",
+              "title": null,
+              "words": null
+            }
+          ],
+          "error": null,
+          "goal": "play my first song in a month",
+          "level": "new",
+          "plan": {
+            "body": true,
+            "caution": "none",
+            "chapters": [
+              {
+                "blocks": [
+                  "move",
+                  "doit",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Guitar posture, thumb placement behind the neck, and fretting close to the metal wire without buzzing.",
+                "hook": "Why pressing harder doesn't stop fret buzz, but sliding your fingertip two millimeters forward does.",
+                "n": 1,
+                "outcome": "You can press a single string right behind the fret wire and make it ring clean without buzz or finger fatigue.",
+                "pieces": [
+                  "holding posture",
+                  "thumb placement",
+                  "fret wire positioning"
+                ],
+                "proof": "set",
+                "title": "Holding the Neck and Striking Your First Clean Note"
+              },
+              {
+                "blocks": [
+                  "move",
+                  "doit",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Two easy two-finger chord shapes that share string spacing and let you make music right away.",
+                "hook": "Can two fingers per chord really unlock dozens of recognizable folk and pop tunes?",
+                "n": 2,
+                "outcome": "You can form E minor and A7 without checking your fingers one by one.",
+                "pieces": [
+                  "E minor chord shape",
+                  "A7 chord shape",
+                  "open-string ringing check"
+                ],
+                "proof": "set",
+                "title": "Your First Two Chords: Em and A7"
+              },
+              {
+                "blocks": [
+                  "move",
+                  "doit",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Keeping a shared finger planted on the fretboard so your hand never loses its place during transitions.",
+                "hook": "What is the single physical trick that keeps your fingers from wandering between chord changes?",
+                "n": 3,
+                "outcome": "You can switch between Em and A7 in rhythm by anchoring one finger to the fretboard.",
+                "pieces": [
+                  "anchor finger concept",
+                  "common pivot points",
+                  "transition economy of motion"
+                ],
+                "proof": "set",
+                "title": "The Anchor Finger: Moving Between Chords"
+              },
+              {
+                "blocks": [
+                  "move",
+                  "doit",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Forming the three-finger D major triangle on the top three strings while muting lower strings.",
+                "hook": "How do three fingers make the bright, classic D chord shape sound clean every time?",
+                "n": 4,
+                "outcome": "You can drop into a crisp D major chord without letting the thick low strings ring out.",
+                "pieces": [
+                  "D major triangle shape",
+                  "right-hand string selection",
+                  "thumb muting"
+                ],
+                "proof": "set",
+                "title": "The D Major Shape and the Triangular Grip"
+              },
+              {
+                "blocks": [
+                  "move",
+                  "doit",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Establishing a relaxed wrist pendulum that keeps continuous 4/4 time instead of rigid hacking.",
+                "hook": "Why keeping your elbow moving like a grandfather clock stops your strumming hand from tensing up.",
+                "n": 5,
+                "outcome": "You can strum steady quarter notes with a relaxed wrist to a 60 BPM pulse.",
+                "pieces": [
+                  "elbow-wrist pendulum",
+                  "quarter-note downstrums",
+                  "strumming dynamics"
+                ],
+                "proof": "set",
+                "title": "The Pendulum Arm: Downstrums on the Beat"
+              },
+              {
+                "blocks": [
+                  "move",
+                  "doit",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Timed chord switches to build unconscious finger placement before tackling full song tempo.",
+                "hook": "How does a one-minute timer train your brain to snap fingers into position all at once?",
+                "n": 6,
+                "outcome": "You can complete at least 25 clean chord switches in sixty seconds between Em and D.",
+                "pieces": [
+                  "timed change method",
+                  "blind fretting practice",
+                  "speed tracking"
+                ],
+                "proof": "set",
+                "title": "The One-Minute Change Drill"
+              },
+              {
+                "blocks": [
+                  "move",
+                  "doit",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Strumming a classic G-Em-C-D style beginner progression across 16 beats without stopping the right hand.",
+                "hook": "What is the golden rule that guarantees your first song sounds like real music today?",
+                "n": 7,
+                "outcome": "You can play an unbroken 4-measure chord loop in time, keeping the rhythm steady even if a finger lands late.",
+                "pieces": [
+                  "full 4-measure progression",
+                  "right-hand continuity",
+                  "song loop pacing"
+                ],
+                "proof": "set",
+                "title": "Playing Your First Full Four-Measure Loop"
+              }
+            ],
+            "declined": false,
+            "format": "course",
+            "framing": null,
+            "goal": "play my first song in a month",
+            "mode": "skill",
+            "needsClarification": false,
+            "next": [
+              "Down-up strumming patterns",
+              "Open G and C chords",
+              "Reading basic guitar tabs"
+            ],
+            "outcome7": "By day 7 you'll be able to switch cleanly between three essential open chords and play a complete 4-beat song progression without pausing.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "JustinGuitar Beginner's Course",
+                "who": "Justin Sandercoe",
+                "why": "Pioneered the anchor finger technique and the one-minute change drill for beginner transitions"
+              },
+              {
+                "what": "Hal Leonard Guitar Method Book 1",
+                "who": "Will Schmid and Greg Koch",
+                "why": "Standardized modern fretting ergonomics and foundational open chord chord progressions"
+              }
+            ],
+            "suggestions": [],
+            "topic": "Beginner Guitar Foundations"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "firstFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "noVersions": true,
+            "startedAt": 1791548145252
+          },
+          "topic": "learn guitar"
+        },
+        "cost": {
+          "byKind": {
+            "chapter": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)"
+            ],
+            "check": [
+              "claude-sonnet-5-5"
+            ],
+            "plan": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)"
+            ]
+          },
+          "calls": 30,
+          "failed": 27,
+          "inr": 3.1175550000000003
+        }
+      }
+    }
+  ]
+}

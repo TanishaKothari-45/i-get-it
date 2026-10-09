@@ -1,0 +1,1467 @@
+{
+  "at": "2026-10-09T14:50:31.386Z",
+  "results": [
+    {
+      "topic": "change a flat bicycle tyre",
+      "level": "new",
+      "goal": "do it myself this weekend",
+      "mode": "skill",
+      "new": {
+        "id": "kh71pc1c2pd7gsp65cd9gfeaas8fyf89",
+        "h": {
+          "brief": {
+            "at": 1791554971968,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}} | gemini-3.1-pro-preview: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "do it myself this weekend",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "none",
+            "chapters": [
+              {
+                "assumes": [],
+                "blocks": [
+                  "teach",
+                  "steps",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Releasing the brake or chain, undoing the axle, and using tyre levers to pop one edge of the tyre off the rim.",
+                "hook": "Why do most people struggle to remove a tyre simply because they started near the valve?",
+                "minutes": 15,
+                "n": 1,
+                "needs": [
+                  "Wheel off the frame",
+                  "One tyre bead unhooked with levers"
+                ],
+                "outcome": "You can remove your wheel from the frame and unhook the tyre bead without pinching the rubber.",
+                "pieces": [
+                  "Wheel removal",
+                  "Tyre bead release"
+                ],
+                "proof": "result",
+                "readMinutes": 5,
+                "title": "Drop the Wheel and Pop the Bead"
+              },
+              {
+                "assumes": [
+                  "Wheel removal",
+                  "Tyre bead release"
+                ],
+                "blocks": [
+                  "teach",
+                  "steps",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Extracting the punctured tube and carefully checking the tyre tread and rim tape so the new tube does not pop immediately.",
+                "hook": "What causes a brand-new tube to go flat within seconds of installation?",
+                "minutes": 15,
+                "n": 2,
+                "needs": [
+                  "Clear tyre casing with thorn or wire removed",
+                  "Working replacement tube ready"
+                ],
+                "outcome": "You can locate the puncture cause and ensure the inside of the tyre is safe for a new tube.",
+                "pieces": [
+                  "Tube removal",
+                  "Debris inspection"
+                ],
+                "proof": "result",
+                "readMinutes": 5,
+                "title": "Pull the Tube and Hunt the Thorn"
+              },
+              {
+                "assumes": [
+                  "Debris inspection"
+                ],
+                "blocks": [
+                  "teach",
+                  "steps",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Tucking the new tube into the tyre, rolling the bead back over the rim using only your palms, and securing the wheel back on the bike.",
+                "hook": "Why should you never use tyre levers to force the tyre back onto the wheel?",
+                "minutes": 15,
+                "n": 3,
+                "needs": [
+                  "Fully inflated wheel reinstalled in frame with brakes functioning"
+                ],
+                "outcome": "You can seat the tyre evenly, inflate it to pressure, and reinstall the wheel with aligned brakes.",
+                "pieces": [
+                  "Tube installation",
+                  "Tyre seating",
+                  "Wheel reinstallation"
+                ],
+                "proof": "result",
+                "readMinutes": 5,
+                "title": "Fit, Reseat, and Pump It Up"
+              }
+            ],
+            "declined": false,
+            "format": "quick",
+            "framing": "You do not need weeks of mechanic classes to fix a puncture—just three clear steps with tyre levers and a pump this weekend.",
+            "goal": "do it myself this weekend",
+            "mode": "skill",
+            "needsClarification": false,
+            "next": [
+              "Clean and lube bicycle chain",
+              "Adjust bicycle brakes",
+              "Pack a roadside puncture kit"
+            ],
+            "outcome7": "By the end you'll be able to take off the wheel, find what punctured the tube, swap in a fresh tube, and get the tyre safely back on the bike.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "Big Blue Book of Bicycle Repair",
+                "who": "C. Calvin Jones",
+                "why": "Standard shop procedures for wheel removal, tyre lever technique, and tube inspection"
+              }
+            ],
+            "suggestions": [],
+            "topic": "Change a Flat Bicycle Tyre"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "firstFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791554885228
+          },
+          "topic": "change a flat bicycle tyre"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview (failed)"
+            ]
+          },
+          "calls": 4,
+          "failed": 3,
+          "inr": 0.693063
+        }
+      }
+    },
+    {
+      "topic": "prepare for a job interview",
+      "level": "new",
+      "goal": "my interview is next Monday",
+      "mode": "skill",
+      "new": {
+        "id": "kh77bx3srkngpvp78yajfe7zms8fytkp",
+        "h": {
+          "brief": {
+            "at": 1791555033108,
+            "chapters": 4,
+            "deliverable": "You prepare structured answers, thoughtful questions, and professional habits for your upcoming interview.",
+            "error": null,
+            "facts": [
+              "Researching the organization before the interview shows interest and professionalism.",
+              "Reviewing the job description helps a candidate anticipate challenges they might face.",
+              "Candidates can connect past experiences to the company's current projects.",
+              "Behavioral interviews evaluate job candidates based on their past workplace behavior.",
+              "STAR is an acronym for Situation, Task, Action, and Result.",
+              "The Situation step establishes the context by explaining the workplace scenario.",
+              "The Task step outlines a candidate's specific responsibility or objective.",
+              "The Action step describes the specific steps a candidate took to resolve the issue.",
+              "The Result step summarizes the outcome and highlights measurable achievements.",
+              "The STAR method creates a structured story with a clear conflict and resolution.",
+              "Answering a question about failure requires a candidate to acknowledge weakness and share lessons learned.",
+              "Candidates ask the interviewer questions to learn about the team and role expectations.",
+              "A candidate can ask what a normal day involves for someone in the position.",
+              "A candidate must avoid asking about basic responsibilities already explained in the job description.",
+              "Asking an interviewer how they have grown at the company indicates workplace health.",
+              "Positive body language includes smiling, nodding in agreement, and maintaining open arms.",
+              "Mirroring an interviewer's body language helps create a warm and inviting environment.",
+              "Crossing arms often indicates a defensive or wary attitude during a conversation.",
+              "Looking directly into the camera during a virtual interview demonstrates engagement and attention."
+            ],
+            "factsByPart": {
+              "Body Language and Etiquette": [
+                "Positive body language includes smiling, nodding in agreement, and maintaining open arms.",
+                "Mirroring an interviewer's body language helps create a warm and inviting environment.",
+                "Crossing arms often indicates a defensive or wary attitude during a conversation.",
+                "Looking directly into the camera during a virtual interview demonstrates engagement and attention."
+              ],
+              "Preparation and Research": [
+                "Researching the organization before the interview shows interest and professionalism.",
+                "Reviewing the job description helps a candidate anticipate challenges they might face.",
+                "Candidates can connect past experiences to the company's current projects."
+              ],
+              "Questions for the Interviewer": [
+                "Candidates ask the interviewer questions to learn about the team and role expectations.",
+                "A candidate can ask what a normal day involves for someone in the position.",
+                "A candidate must avoid asking about basic responsibilities already explained in the job description.",
+                "Asking an interviewer how they have grown at the company indicates workplace health."
+              ],
+              "The STAR Method": [
+                "Behavioral interviews evaluate job candidates based on their past workplace behavior.",
+                "STAR is an acronym for Situation, Task, Action, and Result.",
+                "The Situation step establishes the context by explaining the workplace scenario.",
+                "The Task step outlines a candidate's specific responsibility or objective.",
+                "The Action step describes the specific steps a candidate took to resolve the issue.",
+                "The Result step summarizes the outcome and highlights measurable achievements.",
+                "The STAR method creates a structured story with a clear conflict and resolution.",
+                "Answering a question about failure requires a candidate to acknowledge weakness and share lessons learned."
+              ]
+            },
+            "fellBack": "Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+            "format": "quick",
+            "framing": null,
+            "kind": "skill",
+            "nism": null,
+            "outline": [
+              "Preparation and Research",
+              "The STAR Method",
+              "Questions for the Interviewer",
+              "Body Language and Etiquette"
+            ],
+            "parts": [
+              {
+                "depth": "light",
+                "needs": [
+                  "job description",
+                  "company background",
+                  "past experience context"
+                ],
+                "part": "Preparation and Research",
+                "why": "You must know the company and role to tailor your answers."
+              },
+              {
+                "depth": "deep",
+                "needs": [
+                  "Situation",
+                  "Task",
+                  "Action",
+                  "Result",
+                  "specific work stories"
+                ],
+                "part": "The STAR Method",
+                "why": "This framework provides clear and effective answers to behavioral questions."
+              },
+              {
+                "depth": "light",
+                "needs": [
+                  "daily role questions",
+                  "workplace culture questions",
+                  "questions to avoid"
+                ],
+                "part": "Questions for the Interviewer",
+                "why": "Asking questions demonstrates your interest and assesses job fit."
+              },
+              {
+                "depth": "light",
+                "needs": [
+                  "eye contact",
+                  "smiling",
+                  "mirroring body language",
+                  "virtual interview setup"
+                ],
+                "part": "Body Language and Etiquette",
+                "why": "Physical presence leaves a strong final impression on hiring managers."
+              }
+            ],
+            "researcher": "gemini-3.1-pro-preview",
+            "searches": 5,
+            "sources": [
+              {
+                "title": "Job interview (Wikipedia)",
+                "url": "https://en.wikipedia.org/wiki/Job_interview"
+              },
+              {
+                "title": "How To Prepare for an Interview | Indeed.com Hong Kong",
+                "url": "https://hk.indeed.com/career-advice/interviewing/interview-preparation"
+              },
+              {
+                "title": "How To Use the STAR Interview Response Technique | Indeed.com",
+                "url": "https://www.indeed.com/career-advice/interviewing/how-to-use-the-star-interview-response-technique"
+              },
+              {
+                "title": "Understanding the STAR Interview Method Format - Indeed",
+                "url": "https://ca.indeed.com/hire/c/info/understanding-the-star-interview-format"
+              },
+              {
+                "title": "Interview Question: “Tell Me About a Time You Failed” | Indeed.com",
+                "url": "https://www.indeed.com/career-advice/interviewing/interview-question-tell-me-about-a-time-you-failed"
+              },
+              {
+                "title": "Avoid asking your interviewer these questions (with examples) | Indeed.com UK",
+                "url": "https://uk.indeed.com/career-advice/cvs-cover-letters/avoid-asking-your-interviewer-these-questions"
+              },
+              {
+                "title": "10 Smart Questions To Ask in an Interview [Video + Transcript] | Indeed.com",
+                "url": "https://www.indeed.com/career-advice/interviewing/questions-to-ask-interviewer"
+              }
+            ],
+            "start": "You know you have an interview on Monday but have not prepared structured answers or company research yet."
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "my interview is next Monday",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "none",
+            "chapters": [
+              {
+                "assumes": [],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "try",
+                  "breath"
+                ],
+                "covers": "How to extract employer pain points from the job description and align your background with their immediate priorities.",
+                "hook": "Why does reviewing the job description closely reveal the exact operational problems the hiring team faces?",
+                "minutes": 12,
+                "n": 1,
+                "needs": [
+                  "job description",
+                  "company background",
+                  "past experience context"
+                ],
+                "outcome": "You can connect your past professional accomplishments directly to the target role's core responsibilities and company objectives.",
+                "pieces": [
+                  "Preparation and Research"
+                ],
+                "proof": "scenario",
+                "readMinutes": 4,
+                "title": "Deconstruct the Role and the Company"
+              },
+              {
+                "assumes": [
+                  "Preparation and Research"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Structuring behavioral answers across Situation, Task, Action, and Result to prove capability and ownership.",
+                "hook": "Why do interviewers rely on past workplace behavior rather than hypothetical promises to predict your future performance?",
+                "minutes": 18,
+                "n": 2,
+                "needs": [
+                  "Situation",
+                  "Task",
+                  "Action",
+                  "Result",
+                  "specific work stories"
+                ],
+                "outcome": "You can build structured answers for behavioral prompts and handle failure questions by highlighting lessons learned.",
+                "pieces": [
+                  "The STAR Method"
+                ],
+                "proof": "scenario",
+                "readMinutes": 6,
+                "title": "Master the STAR Storytelling Framework"
+              },
+              {
+                "assumes": [
+                  "Preparation and Research"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Inquiring about team culture and daily expectations while steering clear of questions already covered in the listing.",
+                "hook": "Which innocent question about everyday tasks instantly signals to an interviewer that you skipped reading the posting?",
+                "minutes": 10,
+                "n": 3,
+                "needs": [
+                  "daily role questions",
+                  "workplace culture questions",
+                  "questions to avoid"
+                ],
+                "outcome": "You can ask insightful questions about typical workdays and internal growth while filtering out redundant inquiries.",
+                "pieces": [
+                  "Questions for the Interviewer"
+                ],
+                "proof": "scenario",
+                "readMinutes": 3,
+                "title": "Ask High-Impact Questions"
+              },
+              {
+                "assumes": [
+                  "The STAR Method",
+                  "Questions for the Interviewer"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Setting up eye contact, smiling, mirroring postures, and arranging your virtual interview station to build trust.",
+                "hook": "Why does folding your arms during an interview prompt hiring managers to read you as defensive?",
+                "minutes": 10,
+                "n": 4,
+                "needs": [
+                  "eye contact",
+                  "smiling",
+                  "mirroring body language",
+                  "virtual interview setup"
+                ],
+                "outcome": "You can project warmth and poise using deliberate eye contact, open posture, and a calibrated camera setup.",
+                "pieces": [
+                  "Body Language and Etiquette"
+                ],
+                "proof": "scenario",
+                "readMinutes": 3,
+                "title": "Signal Confidence in Person and on Camera"
+              }
+            ],
+            "declined": false,
+            "format": "quick",
+            "framing": "You don't need weeks to prepare for Monday: four focused sessions give you clear stories, sharp questions, and calm presence.",
+            "goal": "my interview is next Monday",
+            "mode": "skill",
+            "needsClarification": false,
+            "next": [
+              "Negotiating a Job Offer",
+              "Post-Interview Thank You Emails",
+              "First 90 Days at Work"
+            ],
+            "outcome7": "By the end you'll walk into Monday's interview with researched talking points, structured STAR stories, thoughtful questions, and calm body language.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "How To Use the STAR Interview Response Technique",
+                "who": "Indeed Career Guide",
+                "why": "provides the foundational Situation, Task, Action, and Result behavioral storytelling framework"
+              },
+              {
+                "what": "Job interview",
+                "who": "Wikipedia contributors",
+                "why": "establishes structured interview formats and the role of behavioral assessment in candidate evaluation"
+              }
+            ],
+            "suggestions": [],
+            "topic": "Job Interview Preparation"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "firstFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791554885227
+          },
+          "topic": "prepare for a job interview"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview"
+            ]
+          },
+          "calls": 6,
+          "failed": 4,
+          "inr": 1.421217
+        }
+      }
+    },
+    {
+      "topic": "how vaccines work",
+      "level": "new",
+      "goal": "explain it to my parents",
+      "mode": "subject",
+      "new": {
+        "id": "kh7cjvs7ma0awe2cdq19k7x99n8fyjbt",
+        "h": {
+          "brief": {
+            "at": 1791555480848,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}} | gemini-3.1-pro-preview: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "explain it to my parents",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "health",
+            "chapters": [
+              {
+                "assumes": [],
+                "blocks": [
+                  "picture",
+                  "teach",
+                  "example",
+                  "mistake",
+                  "breath"
+                ],
+                "covers": "How the immune system recognises an intruder through a harmless preview instead of a live infection.",
+                "hook": "Your body fights off invaders every day, but it works much faster when it has seen a photo first.",
+                "minutes": 10,
+                "n": 1,
+                "needs": [
+                  "a clear everyday analogy for an antigen",
+                  "the distinction between live pathogens and vaccine components"
+                ],
+                "outcome": "You can describe the difference between catching a live disease and receiving a vaccine antigen using a simple training analogy.",
+                "pieces": [
+                  "immune recognition",
+                  "vaccine components"
+                ],
+                "proof": "scenario",
+                "readMinutes": 6,
+                "title": "The Training Drill"
+              },
+              {
+                "assumes": [
+                  "immune recognition",
+                  "vaccine components"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "How antibodies and memory cells remember a threat, and why a brief fever or sore arm is a sign of practice, not disease.",
+                "hook": "A mild fever after a shot is not the infection taking hold, but the defense team running a drill.",
+                "minutes": 10,
+                "n": 2,
+                "needs": [
+                  "plain-language distinction between an actual illness and an immune practice response",
+                  "explanation of immune memory"
+                ],
+                "outcome": "You can explain to your parents why resting with a sore arm means their immune system is successfully learning.",
+                "pieces": [
+                  "immune response",
+                  "side effects",
+                  "memory B and T cells"
+                ],
+                "proof": "scenario",
+                "readMinutes": 6,
+                "title": "Memory Cells and Why Aches Happen"
+              },
+              {
+                "assumes": [
+                  "immune response",
+                  "side effects",
+                  "memory B and T cells"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "How to address common questions around boosters, waning immunity, and community protection with calm clarity.",
+                "hook": "Why do we need another shot if the immune system already has a memory?",
+                "minutes": 12,
+                "n": 3,
+                "needs": [
+                  "simple script for family questions about boosters",
+                  "explanation of herd immunity without technical jargon"
+                ],
+                "outcome": "You can walk your parents through why boosters renew protection and how vaccination shields elderly family members.",
+                "pieces": [
+                  "boosters",
+                  "waning immunity",
+                  "community protection"
+                ],
+                "proof": "scenario",
+                "readMinutes": 7,
+                "title": "Answering Everyday Worries"
+              }
+            ],
+            "declined": false,
+            "format": "quick",
+            "framing": "You do not need a medical degree or weeks of study to explain how vaccines protect us over a cup of chai.",
+            "goal": "explain it to my parents",
+            "mode": "subject",
+            "needsClarification": false,
+            "next": [
+              "how antibiotics differ from antivirals",
+              "understanding basic blood test reports",
+              "how the lymphatic system works"
+            ],
+            "outcome7": "By the end you'll be able to clearly explain to your parents how vaccines train the body without causing illness, why mild side effects happen, and why boosters are needed.",
+            "pushback": null,
+            "question": null,
+            "sources": [],
+            "suggestions": [],
+            "topic": "How Vaccines Work"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "firstFaults": [
+              "every chapter after the first has the same block list: choose each chapter's blocks for what it teaches"
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791555103299
+          },
+          "topic": "how vaccines work"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview (failed)"
+            ]
+          },
+          "calls": 7,
+          "failed": 6,
+          "inr": 0.633087
+        }
+      }
+    },
+    {
+      "topic": "photosynthesis",
+      "level": "new",
+      "goal": "pass my class 10 exam",
+      "mode": "subject",
+      "new": {
+        "id": "kh7ce3f3q61kebqn69trp5sbnx8fzaf2",
+        "h": {
+          "brief": {
+            "at": 1791555466883,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}} | gemini-3.1-pro-preview: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "pass my class 10 exam",
+          "level": "new",
+          "plan": {
+            "body": false,
+            "caution": "none",
+            "chapters": [
+              {
+                "assumes": [],
+                "blocks": [
+                  "picture",
+                  "teach",
+                  "example",
+                  "mistake",
+                  "tryit",
+                  "breath"
+                ],
+                "covers": "The overall balanced chemical equation, raw inputs, and where reactions occur inside chloroplasts.",
+                "hook": "Where does the mass of a massive banyan tree actually come from?",
+                "minutes": 15,
+                "n": 1,
+                "needs": [
+                  "Balanced equation memorised",
+                  "Distinction between grana and stroma"
+                ],
+                "outcome": "You can write the complete chemical equation for photosynthesis and label the parts of a chloroplast.",
+                "pieces": [
+                  "The balanced chemical equation",
+                  "Inputs and outputs",
+                  "Chloroplast structure"
+                ],
+                "proof": "predict",
+                "readMinutes": 8,
+                "title": "The Master Recipe and Leaf Anatomy"
+              },
+              {
+                "assumes": [
+                  "The balanced chemical equation",
+                  "Chloroplast structure"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Absorption of solar energy by chlorophyll, splitting of water molecules, and release of oxygen.",
+                "hook": "The oxygen you breathe is actually a plant's discarded byproduct from split water.",
+                "minutes": 15,
+                "n": 2,
+                "needs": [
+                  "Step-by-step light reaction breakdown",
+                  "Source of released oxygen identified"
+                ],
+                "outcome": "You can explain photolysis of water and how light energy turns into chemical currency.",
+                "pieces": [
+                  "Chlorophyll excitation",
+                  "Photolysis of water",
+                  "ATP and NADPH generation"
+                ],
+                "proof": "predict",
+                "readMinutes": 8,
+                "title": "The Light Phase: Trapping the Sun"
+              },
+              {
+                "assumes": [
+                  "ATP and NADPH generation"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Carbon dioxide reduction, formation of glucose, and conversion into starch for storage.",
+                "hook": "Plants don't need continuous sunshine to build sugar molecules.",
+                "minutes": 15,
+                "n": 3,
+                "needs": [
+                  "Distinction between light and dark phases",
+                  "Reason starch is tested rather than glucose"
+                ],
+                "outcome": "You can describe how carbon dioxide is fixed into glucose without needing direct sunlight.",
+                "pieces": [
+                  "Reduction of carbon dioxide",
+                  "Glucose synthesis",
+                  "Storage as insoluble starch"
+                ],
+                "proof": "scenario",
+                "readMinutes": 8,
+                "title": "The Dark Phase: Cooking the Sugar"
+              },
+              {
+                "assumes": [
+                  "The balanced chemical equation"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "tryit",
+                  "breath"
+                ],
+                "covers": "Structure of stomatal pores, guard cell turgidity mechanism, and balancing carbon intake with water loss.",
+                "hook": "Every breath of carbon dioxide a plant takes risks dehydrating it completely.",
+                "minutes": 14,
+                "n": 4,
+                "needs": [
+                  "Clear diagram description of open vs closed stoma",
+                  "Turgidity explanation"
+                ],
+                "outcome": "You can explain how guard cells swell and shrink to open and close stomata.",
+                "pieces": [
+                  "Guard cell structure",
+                  "Turgor pressure mechanism",
+                  "Transpiration trade-off"
+                ],
+                "proof": "predict",
+                "readMinutes": 7,
+                "title": "Stomata and the Gatekeeper Cells"
+              },
+              {
+                "assumes": [
+                  "Storage as insoluble starch",
+                  "Distinction between grana and stroma"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "The iodine starch test, destarching potted plants, and proving sunlight, carbon dioxide, and chlorophyll are essential.",
+                "hook": "Why must you boil a leaf in alcohol before testing it with iodine?",
+                "minutes": 18,
+                "n": 5,
+                "needs": [
+                  "Reason for each step in leaf testing",
+                  "Interpretation of iodine colour changes"
+                ],
+                "outcome": "You can solve experimental deduction questions testing variables like sunlight, chlorophyll, and potassium hydroxide.",
+                "pieces": [
+                  "Destarching protocol",
+                  "Iodine test principle",
+                  "Moll's half-leaf experiment with KOH",
+                  "Light screen experiment"
+                ],
+                "proof": "scenario",
+                "readMinutes": 9,
+                "title": "Board Exam Lab Experiments Solved"
+              }
+            ],
+            "declined": false,
+            "format": "course",
+            "framing": null,
+            "goal": "pass my class 10 exam",
+            "mode": "subject",
+            "needsClarification": false,
+            "next": [
+              "Respiration in plants",
+              "Human circulatory system",
+              "Excretion in humans"
+            ],
+            "outcome7": "By day 5 you'll be able to write the balanced equation, trace both reaction phases step-by-step, and explain the core lab experiments asked in board exams.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "Class 10 Science, Chapter 6: Life Processes",
+                "who": "NCERT",
+                "why": "Standard syllabus definitions, chemical equations, and core laboratory activities"
+              }
+            ],
+            "suggestions": [],
+            "topic": "Photosynthesis for Class 10"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "\"picture\" is null: a course that teaches a skill, a system or an idea needs one analogy where it helps, with its \"maps\", or \"pictureWhyNot\" saying why none fits",
+              "a chapter assumes a piece no earlier chapter teaches (chapter 5 assumes \"Distinction between grana and stroma\"): teach it earlier, or in that chapter"
+            ],
+            "firstFaults": [
+              "\"picture\" is null: a course that teaches a skill, a system or an idea needs one analogy where it helps, with its \"maps\", or \"pictureWhyNot\" saying why none fits",
+              "a chapter assumes a piece no earlier chapter teaches (chapter 5 assumes \"Distinction between grana and stroma\"): teach it earlier, or in that chapter"
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791555310302
+          },
+          "topic": "photosynthesis"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview (failed)"
+            ]
+          },
+          "calls": 4,
+          "failed": 3,
+          "inr": 0.707805
+        }
+      }
+    },
+    {
+      "topic": "start running",
+      "level": "new",
+      "goal": "run 5 km without stopping in two months",
+      "mode": "skill",
+      "new": {
+        "id": "kh70x36yaze39rf3hbh3ytakes8fzebc",
+        "h": {
+          "brief": {
+            "at": 1791555625061,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}} | gemini-3.1-pro-preview: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "run 5 km without stopping in two months",
+          "level": "new",
+          "plan": {
+            "body": true,
+            "caution": "health",
+            "chapters": [
+              {
+                "assumes": [],
+                "blocks": [
+                  "teach",
+                  "move",
+                  "doit",
+                  "mistake",
+                  "breath"
+                ],
+                "covers": "Using the talk test and short intervals so your heart rate stays manageable",
+                "hook": "Most beginners quit because their natural starting pace is far too fast.",
+                "minutes": 25,
+                "n": 1,
+                "needs": [
+                  "conversational effort gauge",
+                  "run-walk timing structure"
+                ],
+                "outcome": "You can alternate easy jogging and walking while speaking full sentences out loud.",
+                "pieces": [
+                  "talk test",
+                  "run-walk intervals"
+                ],
+                "proof": "set",
+                "readMinutes": 4,
+                "title": "The Conversational Pace"
+              },
+              {
+                "assumes": [
+                  "talk test"
+                ],
+                "blocks": [
+                  "teach",
+                  "move",
+                  "doit",
+                  "mistake",
+                  "breath"
+                ],
+                "covers": "Shortening stride length to reduce impact force on knees and shins",
+                "hook": "Reaching forward with your front foot acts like tapping the brakes with every step.",
+                "minutes": 25,
+                "n": 2,
+                "needs": [
+                  "stride cue",
+                  "cadence awareness"
+                ],
+                "outcome": "You can take shorter steps that land beneath your body instead of reaching ahead.",
+                "pieces": [
+                  "stride length",
+                  "midfoot landing"
+                ],
+                "proof": "set",
+                "readMinutes": 5,
+                "title": "Landing Softly Under Your Hips"
+              },
+              {
+                "assumes": [
+                  "stride length"
+                ],
+                "blocks": [
+                  "teach",
+                  "move",
+                  "doit",
+                  "mistake",
+                  "breath"
+                ],
+                "covers": "Dropping shoulder tension and coordinating steady breathing with footsteps",
+                "hook": "Clenched fists and raised shoulders waste energy that your legs need.",
+                "minutes": 25,
+                "n": 3,
+                "needs": [
+                  "relaxed arm swing",
+                  "breath rhythm"
+                ],
+                "outcome": "You can jog with relaxed hands and shoulders while exhaling smoothly.",
+                "pieces": [
+                  "posture alignment",
+                  "belly breathing"
+                ],
+                "proof": "set",
+                "readMinutes": 5,
+                "title": "Rhythmic Breathing and Relaxed Posture"
+              },
+              {
+                "assumes": [
+                  "run-walk timing structure"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Why connective tissues adapt slower than your heart and lungs",
+                "hook": "Your heart and lungs gain fitness weeks before your bones and tendons fully adapt.",
+                "minutes": 15,
+                "n": 4,
+                "needs": [
+                  "rest day checklist",
+                  "overuse warning signs"
+                ],
+                "outcome": "You can plan non-consecutive training days and spot early signs of shin irritation.",
+                "pieces": [
+                  "tissue adaptation",
+                  "recovery spacing"
+                ],
+                "proof": "set",
+                "readMinutes": 5,
+                "title": "Rest Days and Tissue Recovery"
+              },
+              {
+                "assumes": [
+                  "talk test",
+                  "midfoot landing",
+                  "recovery spacing"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "move",
+                  "doit",
+                  "breath"
+                ],
+                "covers": "Systematically expanding running blocks while keeping the effort easy",
+                "hook": "Steadily stretching the running segments works only when the pace remains strictly gentle.",
+                "minutes": 25,
+                "n": 5,
+                "needs": [
+                  "progression template",
+                  "warm-up routine"
+                ],
+                "outcome": "You can adjust your weekly running volume gradually without triggering persistent soreness.",
+                "pieces": [
+                  "progressive overload",
+                  "volume management"
+                ],
+                "proof": "set",
+                "readMinutes": 5,
+                "title": "Progressing Toward Continuous Running"
+              }
+            ],
+            "declined": false,
+            "format": "course",
+            "framing": null,
+            "goal": "run 5 km without stopping in two months",
+            "mode": "skill",
+            "needsClarification": false,
+            "next": [
+              "proper running shoes",
+              "runner calf strength",
+              "post run stretching routine"
+            ],
+            "outcome7": "By the end of this course you will be able to complete structured run-walk sessions at an easy conversational effort and manage weekly recovery.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "Galloway's Book on Running",
+                "who": "Jeff Galloway",
+                "why": "pioneered the structured run-walk-run approach for beginner endurance and injury prevention"
+              },
+              {
+                "what": "Daniels' Running Formula",
+                "who": "Jack Daniels",
+                "why": "established foundational principles of easy aerobic pacing and gradual cardiovascular training"
+              }
+            ],
+            "suggestions": [],
+            "topic": "Start Running"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "a chapter assumes a piece no earlier chapter teaches (chapter 4 assumes \"run-walk timing structure\"): teach it earlier, or in that chapter"
+            ],
+            "firstFaults": [
+              "a chapter assumes a piece no earlier chapter teaches (chapter 4 assumes \"run-walk timing structure\"): teach it earlier, or in that chapter"
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791555514224
+          },
+          "topic": "start running"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview (failed)"
+            ]
+          },
+          "calls": 4,
+          "failed": 3,
+          "inr": 1.222956
+        }
+      }
+    },
+    {
+      "topic": "excel",
+      "level": "new",
+      "goal": "make a monthly budget sheet",
+      "mode": "skill",
+      "new": {
+        "error": "Command failed: npx convex run handbooks:generatePlan {\"handbookId\":\"kh7aa8hee5k6x5wbb7x8cnt5gh8fz3nm\"}\n✖ Failed to run function \"handbooks:generatePlan\":\nError\n"
+      }
+    },
+    {
+      "topic": "the french revolution",
+      "level": "new",
+      "goal": "understand what happened and why",
+      "mode": "subject",
+      "new": {
+        "error": "Command failed: npx convex run handbooks:generatePlan {\"handbookId\":\"kh78tsb4mhpfm114j5x4r5xtk98fz0tn\"}\n✖ Failed to run function \"handbooks:generatePlan\":\nError\n"
+      }
+    },
+    {
+      "topic": "indian constitution basics",
+      "level": "new",
+      "goal": "understand my rights",
+      "mode": "subject",
+      "new": {
+        "error": "Command failed: npx convex run handbooks:generatePlan {\"handbookId\":\"kh752rcfqv318j4zk6nqwsa00h8fys7n\"}\n✖ Failed to run function \"handbooks:generatePlan\":\nError\n"
+      }
+    },
+    {
+      "topic": "file my income tax return",
+      "level": "new",
+      "goal": "file it myself this year",
+      "mode": "decision",
+      "new": {
+        "error": "Command failed: npx convex run handbooks:generatePlan {\"handbookId\":\"kh7aw18tregj767nxpd3shd8kd8fzs9d\"}\n✖ Failed to run function \"handbooks:generatePlan\":\nError\n"
+      }
+    },
+    {
+      "topic": "meditation",
+      "level": "new",
+      "goal": "sleep better",
+      "mode": "skill",
+      "new": {
+        "error": "Command failed: npx convex run handbooks:generatePlan {\"handbookId\":\"kh7f7rtz3vrc8w0vzhn7pv244x8fz0t2\"}\n✖ Failed to run function \"handbooks:generatePlan\":\nError\n"
+      }
+    },
+    {
+      "topic": "game of thrones",
+      "level": "new",
+      "goal": "catch up before the new season",
+      "mode": "story",
+      "new": {
+        "id": "kh797dadzk8mknk4zp78b7kx8n8fz3h2",
+        "h": {
+          "brief": {
+            "at": 1791557347561,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}} | gemini-3.1-pro-preview: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": "Gemini 503: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+          "goal": "catch up before the new season",
+          "level": "new",
+          "plan": null,
+          "question": null,
+          "status": "failed",
+          "test": {
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791556660726
+          },
+          "topic": "game of thrones"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.8-flash (failed)"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview (failed)",
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview (failed)"
+            ]
+          },
+          "calls": 9,
+          "failed": 9,
+          "inr": 0
+        }
+      }
+    },
+    {
+      "topic": "speak confidently in meetings",
+      "level": "some",
+      "goal": "speak up in team meetings",
+      "mode": "skill",
+      "new": {
+        "id": "kh794nprea9hr65236qt4w137n8fy3gk",
+        "h": {
+          "brief": {
+            "at": 1791556898271,
+            "error": "gemini-3.8-flash: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}} | gemini-3.1-pro-preview: Gemini 503 (main key): {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again",
+            "facts": [],
+            "failed": true,
+            "kind": "",
+            "outline": [],
+            "parts": [],
+            "searches": 0,
+            "sources": []
+          },
+          "chapters": [],
+          "error": null,
+          "goal": "speak up in team meetings",
+          "level": "some",
+          "plan": {
+            "body": false,
+            "caution": "none",
+            "chapters": [
+              {
+                "assumes": [],
+                "blocks": [
+                  "picture",
+                  "teach",
+                  "example",
+                  "mistake",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Speaking early in the agenda before hesitation sets in",
+                "hook": "Hesitating on an agenda item makes every passing minute feel harder to interrupt.",
+                "minutes": 15,
+                "n": 1,
+                "needs": [
+                  "A go-to phrase for entering the conversation early"
+                ],
+                "outcome": "You can chime in during the opening discussion with a low-friction question or confirming statement.",
+                "pieces": [
+                  "The first-turn barrier",
+                  "Low-stakes entry lines"
+                ],
+                "proof": "scenario",
+                "readMinutes": 5,
+                "title": "Breaking the Silence Barrier"
+              },
+              {
+                "assumes": [
+                  "The first-turn barrier"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Packaging ideas using a direct bottom-line-first pattern",
+                "hook": "Starting with background context invites listeners to zone out before your point arrives.",
+                "minutes": 18,
+                "n": 2,
+                "needs": [
+                  "A three-part template that prevents rambling"
+                ],
+                "outcome": "You can deliver a business recommendation using the headline-reason-evidence structure.",
+                "pieces": [
+                  "Bottom-line-first framing",
+                  "Trimming qualifiers"
+                ],
+                "proof": "predict",
+                "readMinutes": 6,
+                "title": "Structuring a Sharp Point"
+              },
+              {
+                "assumes": [
+                  "Bottom-line-first framing"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "exercise",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Claiming speaking turns without waiting for total silence",
+                "hook": "Polite pauses rarely appear on active conference calls without someone creating the bridge.",
+                "minutes": 18,
+                "n": 3,
+                "needs": [
+                  "Verbal connectors to transition from another person to your idea"
+                ],
+                "outcome": "You can link your thought to another speaker's remark to take the microphone seamlessly.",
+                "pieces": [
+                  "Verbal bridges",
+                  "Pacing your entry"
+                ],
+                "proof": "scenario",
+                "readMinutes": 6,
+                "title": "Bridging into the Flow"
+              },
+              {
+                "assumes": [
+                  "Verbal bridges"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "exercise",
+                  "breath"
+                ],
+                "covers": "Maintaining cadence and reclaiming the conversation when interrupted",
+                "hook": "Dropping your voice when someone speaks over you invites them to take the floor permanently.",
+                "minutes": 20,
+                "n": 4,
+                "needs": [
+                  "Scripted holding lines to finish an interrupted thought"
+                ],
+                "outcome": "You can calmly finish your thought when another voice cuts into your sentence.",
+                "pieces": [
+                  "Verbal holding tactics",
+                  "Steady volume control"
+                ],
+                "proof": "scenario",
+                "readMinutes": 7,
+                "title": "Holding the Floor Against Talk-Overs"
+              },
+              {
+                "assumes": [
+                  "Bottom-line-first framing",
+                  "Verbal holding tactics"
+                ],
+                "blocks": [
+                  "teach",
+                  "example",
+                  "mistake",
+                  "exercise",
+                  "try",
+                  "breath"
+                ],
+                "covers": "Offering counterarguments and alternative directions without soft qualifiers",
+                "hook": "Leading a disagreement with an apology signals doubt about your own position.",
+                "minutes": 20,
+                "n": 5,
+                "needs": [
+                  "A direct script for offering pushback on an active proposal"
+                ],
+                "outcome": "You can state an opposing viewpoint cleanly without disclaimers or defensive phrasing.",
+                "pieces": [
+                  "Direct dissent phrasing",
+                  "Focusing on operational trade-offs"
+                ],
+                "proof": "scenario",
+                "readMinutes": 7,
+                "title": "Disagreeing Without Apologising"
+              }
+            ],
+            "declined": false,
+            "format": "course",
+            "framing": null,
+            "goal": "speak up in team meetings",
+            "mode": "skill",
+            "needsClarification": false,
+            "next": [
+              "handling tough questions at work",
+              "managing meeting conflict",
+              "giving executive updates"
+            ],
+            "outcome7": "By day 5 you'll be able to enter live discussions early, deliver a structured point without rambling, and hold the floor through interruptions.",
+            "pushback": null,
+            "question": null,
+            "sources": [
+              {
+                "what": "The Pyramid Principle",
+                "who": "Barbara Minto",
+                "why": "The logic of stating the conclusion first before supporting arguments"
+              }
+            ],
+            "suggestions": [],
+            "topic": "Speaking Up in Meetings"
+          },
+          "question": null,
+          "status": "ready",
+          "test": {
+            "finalFaults": [
+              "\"picture\" is null: a course that teaches a skill, a system or an idea needs one analogy where it helps, with its \"maps\", or \"pictureWhyNot\" saying why none fits"
+            ],
+            "firstFaults": [
+              "\"picture\" is null: a course that teaches a skill, a system or an idea needs one analogy where it helps, with its \"maps\", or \"pictureWhyNot\" saying why none fits"
+            ],
+            "flashOnly": true,
+            "label": "shape-bench",
+            "planOnly": true,
+            "startedAt": 1791556744086
+          },
+          "topic": "speak confidently in meetings"
+        },
+        "cost": {
+          "byKind": {
+            "plan": [
+              "gemini-3.8-flash",
+              "gemini-3.8-flash"
+            ],
+            "research": [
+              "gemini-3.8-flash (failed)",
+              "gemini-3.1-pro-preview (failed)"
+            ]
+          },
+          "calls": 4,
+          "failed": 2,
+          "inr": 1.844514
+        }
+      }
+    }
+  ]
+}

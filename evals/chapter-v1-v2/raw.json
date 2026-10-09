@@ -1,0 +1,2335 @@
+{
+  "at": "2026-10-08T14:03:49.287Z",
+  "model": "gemini-3.8-flash",
+  "cases": [
+    {
+      "id": "swimming ch1",
+      "n": 1
+    },
+    {
+      "id": "swimming ch2",
+      "n": 2
+    },
+    {
+      "id": "world war I ch1",
+      "n": 1
+    }
+  ],
+  "chapters": [
+    {
+      "case": "swimming ch1",
+      "version": "v1",
+      "k": 1,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Most fear in a pool isn't about swimming; it is simply stinging eyes and nowhere to stand.\n\nBefore you launch a boat, you inspect the hull in the shallow dock. Tight suction seals out the water like a shut hatch, while **solid tiles beneath your feet** mean you stay completely in control.",
+            "type": "picture"
+          },
+          {
+            "body": "Your goggles do not need tight straps to work. They need **suction**.\n\nPress the cups gently against your eye sockets without putting the strap around your head. If they stay stuck for two seconds on their own, the seal is airtight.\n\nThat rubber rim forms a dry pocket that locks out stinging chlorinated water, so you can look around without squinting.",
+            "title": "Sealing your view",
+            "type": "teach"
+          },
+          {
+            "body": "Marcus hated putting his face in the municipal pool because chlorine burned his eyes instantly. Last Tuesday, he stopped yanking the strap tighter. Instead, he pressed the rubber cups onto his brow until they popped softly and stayed on by themselves. When he ducked his chin under, his eyes stayed bone-dry.",
+            "title": "Testing the suction",
+            "type": "example"
+          },
+          {
+            "body": "Always start in **chest-deep water** with a lifeguard on duty.\n\nChest-deep means the water surface sits safely below your mouth, while your soles rest flat on the bottom tiles. You never have to float to be safe.\n\nBend your knees, rest your chin on the surface, and let your eyes gaze straight at the floor for five calm seconds.",
+            "title": "Feet on the floor",
+            "type": "teach"
+          },
+          {
+            "body": "The classic mistake is cranking the head strap until it leaves deep purple dents, hoping brute force stops leaks. In reality, **over-tight straps warp the rubber rims**, causing water to trickle straight inside. If water seeps in, loosen the band, brush away stray hair, and re-press the cups to reset the vacuum.",
+            "title": "The overtightened strap",
+            "type": "mistake"
+          },
+          {
+            "body": "Lock your goggles with gentle suction and keep your feet planted on the bottom tiles before you lower your face.\n\nWhen your eyes stay dry and your feet touch solid ground, panic has nowhere to land.\n\nNext: why holding your breath underwater makes you tire out twice as fast.",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 1,
+        "outcomeLine": "You can stand in chest-deep water with sealed goggles, put your face in, and look at the floor for 5 seconds without flinching.",
+        "recallQuizzes": [
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Standing where water reaches her chest and both soles rest flat on the floor."
+              },
+              {
+                "id": "b",
+                "text": "Floating beside the lane rope where water reaches two feet over her head."
+              },
+              {
+                "id": "c",
+                "text": "Leaning against the steps in waist-deep water with one hand gripping the rail."
+              }
+            ],
+            "prompt": "Sarah walks into the shallow lane for her first session. Which setup gives her the safest place to lower her face?",
+            "reteach": "Practicing in chest-deep water keeps the surface comfortably below your chin while your feet rest firmly on the bottom tiles.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's deep water where feet cannot touch: it triggers panic instead of relaxed control.",
+              "c": "That relies on clutching pool fixtures rather than building calm balance on two feet."
+            }
+          },
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "He pulls the elastic strap to the tightest notch until the cups press hard."
+              },
+              {
+                "id": "b",
+                "text": "He presses the cups onto his eye sockets without the strap to check suction."
+              },
+              {
+                "id": "c",
+                "text": "He wets the rubber seal in pool water and loops the strap twice around his head."
+              }
+            ],
+            "prompt": "Ken is testing a pair of swim goggles before getting in. How does he confirm they will keep water out?",
+            "reteach": "A good goggle fit relies on natural suction, not a painfully tight strap. If the cups stay stuck on their own for a couple of seconds, the seal works.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's cranking the strap too tight: it warps the rubber seal and actually lets water in.",
+              "c": "That focuses on wetting the band rather than testing whether the cups form an airtight seal."
+            }
+          }
+        ],
+        "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"0\" y=\"0\" width=\"320\" height=\"200\" fill=\"none\"/><path d=\"M20 110 Q80 100 160 110 T300 110\" stroke=\"#1F7A4D\" stroke-width=\"3\" fill=\"none\"/><rect x=\"20\" y=\"170\" width=\"280\" height=\"15\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"60\" y1=\"170\" x2=\"60\" y2=\"185\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"120\" y1=\"170\" x2=\"120\" y2=\"185\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"180\" y1=\"170\" x2=\"180\" y2=\"185\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><line x1=\"240\" y1=\"170\" x2=\"240\" y2=\"185\" stroke=\"#1B1A17\" stroke-width=\"1.5\"/><ellipse cx=\"125\" cy=\"65\" rx=\"26\" ry=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><ellipse cx=\"195\" cy=\"65\" rx=\"26\" ry=\"18\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2.5\"/><line x1=\"151\" y1=\"65\" x2=\"169\" y2=\"65\" stroke=\"#1B1A17\" stroke-width=\"3\"/><path d=\"M99 65 Q70 65 50 72\" stroke=\"#1B1A17\" stroke-width=\"2\" fill=\"none\"/><path d=\"M221 65 Q250 65 270 72\" stroke=\"#1B1A17\" stroke-width=\"2\" fill=\"none\"/><text x=\"160\" y=\"150\" font-size=\"14\" font-family=\"sans-serif\" fill=\"#1B1A17\" text-anchor=\"middle\">SEAL AND STAND</text></svg>",
+        "title": "Goggles on, feet down, face in"
+      },
+      "error": null,
+      "inr": 1.377999,
+      "model": "gemini-3.8-flash",
+      "ms": 38575,
+      "ok": true,
+      "tokensIn": 4503,
+      "tokensOut": 3474,
+      "checks": {
+        "valid": true,
+        "cards": 6,
+        "exercises": 0,
+        "shapeOk": true,
+        "totalWords": 324,
+        "maxCardWords": 61,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": null,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "0/0",
+        "reteachLeaks": 0,
+        "nextLine": "why holding your breath underwater makes you tire out twice as fast.",
+        "recall": 2,
+        "svgChars": 1159
+      },
+      "reads": [
+        {
+          "rank": 0,
+          "scores": null,
+          "note": null
+        },
+        {
+          "rank": 4,
+          "scores": {
+            "clarity": 3,
+            "concreteness": 4,
+            "fidelity": 3,
+            "followsPlan": 4,
+            "hook": 3,
+            "pace": 4,
+            "picture": 3,
+            "quizzes": 3,
+            "teachBeforeTest": 3
+          },
+          "note": "Best: the 'chest-deep' definition is vivid and the suction test is explained clearly. Worst: the quiz about the shallow lane uses the 'waist-deep with a rail' option, which is ambiguous. 'Tire out twice as fast' and 'last Tuesday' are made up, and the text says a plain 'Chest-deep means below your mouth', which is off."
+        }
+      ]
+    },
+    {
+      "case": "swimming ch1",
+      "version": "v1",
+      "k": 2,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Most nerves in the pool come down to two fixable things: **leaky goggles and deep water**.\n\nThink of your body as a boat ready to launch. Before heading into open water, you test the hull at the shallow dock where you can stand up at any second.",
+            "type": "picture"
+          },
+          {
+            "body": "Press the rubber eye cups against your face without the strap. **A good goggle seal sticks on its own** for a second before dropping. Once that suction works, slip the strap over the crown of your head.\n\nNow step into water that reaches your chest. With a lifeguard watching, your feet rest firmly on the tiles, giving you total control.",
+            "title": "A tight seal and solid ground",
+            "type": "teach"
+          },
+          {
+            "body": "Maya stepped into the shallow lane where the surface reached her ribs. She pressed her goggles on, feeling the soft suction cup her eyes with no pinching. She bent her knees, submerged her face, and stared at the blue bottom line for 5 quiet seconds. Then she stood right back up, dry-eyed and steady.",
+            "title": "Five seconds on the tiles",
+            "type": "example"
+          },
+          {
+            "body": "When you put your face into the water, **look straight down at the pool floor**, not forward at the wall. Looking ahead cranes your neck and triggers worry.\n\nKeeping your eyes on the bottom relaxes your head. The pool floor is stationary and clear, letting your brain realise there is nothing to fear.",
+            "title": "Gazing straight down",
+            "type": "teach"
+          },
+          {
+            "body": "Sam felt water seeping into his eyes, so he pulled the rubber strap painfully tight. The extra tension distorted the soft gaskets and let in even more water.\n\nIf water leaks, do not yank the strap. Take them off, smooth your hair away, and reset the gentle suction against your eye sockets.",
+            "title": "Cranking the strap",
+            "type": "mistake"
+          },
+          {
+            "body": "Secure eye suction and chest-deep water give you a safe, clear space to relax your face beneath the surface. When your feet can touch bottom anytime, your body learns the water is safe.\n\nNext: why holding your breath underwater wears you out before you even swim.",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 1,
+        "outcomeLine": "You can now stand in chest-deep water with sealed goggles, put your face in, and look at the floor for 5 seconds without flinching.",
+        "recallQuizzes": [
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Pull the elastic head strap as tightly as possible around her temples."
+              },
+              {
+                "id": "b",
+                "text": "Press the rubber eye cups against her face to check if suction holds."
+              },
+              {
+                "id": "c",
+                "text": "Rest the goggles loosely across her eyebrows and look up at the ceiling."
+              }
+            ],
+            "prompt": "Elena wants to make sure her new goggles will keep water out. How should she test the fit before swimming?",
+            "reteach": "A watertight fit comes from light suction, not tight straps. Press the cups against your eye sockets without the strap; they should momentarily grip your skin on their own.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That overtightens the frame: yanking the strap warps the rubber rims and invites leaks.",
+              "c": "That skips the seal: resting frames on your brow does not test airtight suction against your eyes."
+            }
+          },
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Stand in chest-deep water where his feet firmly touch the pool bottom."
+              },
+              {
+                "id": "b",
+                "text": "Float in deep water where his feet cannot touch the pool bottom."
+              },
+              {
+                "id": "c",
+                "text": "Sit along the edge with his legs swinging out above the deep end."
+              }
+            ],
+            "prompt": "Marcus is dipping his face underwater for the first time. What water depth should he pick for practice?",
+            "reteach": "Practising in chest-deep water ensures you can always regain your footing immediately. Having the pool floor right under your soles gives you total control.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That creates unnecessary panic: deep water prevents you from standing up whenever you want.",
+              "c": "That keeps you out of position: sitting on the coping does not let you practise standing up safely."
+            }
+          }
+        ],
+        "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M10 130 C60 120 100 140 160 130 C220 120 260 140 310 130\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"4\" stroke-linecap=\"round\"/><ellipse cx=\"110\" cy=\"80\" rx=\"26\" ry=\"18\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><ellipse cx=\"110\" cy=\"80\" rx=\"20\" ry=\"12\" fill=\"#F2A93B\" opacity=\"0.4\"/><ellipse cx=\"170\" cy=\"80\" rx=\"26\" ry=\"18\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\"/><ellipse cx=\"170\" cy=\"80\" rx=\"20\" ry=\"12\" fill=\"#F2A93B\" opacity=\"0.4\"/><line x1=\"136\" y1=\"80\" x2=\"144\" y2=\"80\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M84 80 Q60 84 50 92\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M196 80 Q220 84 230 92\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"40\" y1=\"170\" x2=\"280\" y2=\"170\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"6 6\"/><text x=\"160\" y=\"190\" text-anchor=\"middle\" fill=\"#1B1A17\" font-family=\"sans-serif\" font-size=\"11\">shallow floor</text></svg>",
+        "title": "Goggles on, feet down, face in"
+      },
+      "error": null,
+      "inr": 1.354374,
+      "model": "gemini-3.8-flash",
+      "ms": 35180,
+      "ok": true,
+      "tokensIn": 4503,
+      "tokensOut": 3399,
+      "checks": {
+        "valid": true,
+        "cards": 6,
+        "exercises": 0,
+        "shapeOk": true,
+        "totalWords": 312,
+        "maxCardWords": 60,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": null,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "0/0",
+        "reteachLeaks": 0,
+        "nextLine": "why holding your breath underwater wears you out before you even swim.",
+        "recall": 2,
+        "svgChars": 1045
+      },
+      "reads": [
+        {
+          "rank": 0,
+          "scores": null,
+          "note": null
+        },
+        {
+          "rank": 1,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 4,
+            "fidelity": 4,
+            "followsPlan": 4,
+            "hook": 5,
+            "pace": 5,
+            "picture": 4,
+            "quizzes": 4,
+            "teachBeforeTest": 5
+          },
+          "note": "Best: the hook is the plan's own sentence, and the boat and dock picture is used lightly. Worst: the claim that looking ahead 'triggers worry' is a small unsupported reach. Quiz option c in the first quiz is an obvious throwaway."
+        }
+      ]
+    },
+    {
+      "case": "swimming ch1",
+      "version": "v2",
+      "k": 1,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Pool nerves rarely come from poor fitness; they start when stinging water leaks into your eyes or your feet lose the floor.\n\nThink of your body as a small boat sitting safely in dry dock before its voyage. When your eyes stay completely dry and your feet stay planted, your brain stops bracing for danger and lets your muscles relax.",
+            "type": "picture"
+          },
+          {
+            "body": "A calm swim starts with two setup steps: **sealing your goggles** and choosing chest-deep water with a lifeguard on duty.\n\nPress the goggle cups against your eye sockets without the strap. If they stay in place for a second, the rubber suction will hold out chlorinated water. Then step into water reaching mid-chest, where your feet always rest securely on the floor.",
+            "title": "Clear eyes and safe footing",
+            "type": "teach"
+          },
+          {
+            "body": "Marcus spent his first pool visit gripping the ladder, wiping stinging eyes every thirty seconds. Next time, he adjusted the nose bridge, pressed the silicone cups until they popped lightly onto his brow, and stepped to the four-foot marker.\n\nWith clear vision and solid tiles under his feet, he lowered his face into the water and calmly watched a pool drain for five seconds.",
+            "title": "Finding solid ground",
+            "type": "example"
+          },
+          {
+            "body": "Putting your face into the water feels strange until you do it on your terms.\n\nStand tall, rest both hands on your thighs, take a normal breath, and **lower your face straight down**. Keep your eyes wide open behind your goggles to inspect the tiles. You stay in complete control: whenever you decide, simply lift your chin and breathe.",
+            "title": "Looking at the floor",
+            "type": "teach"
+          },
+          {
+            "body": "The classic mistake is yanking the goggle strap tight to stop leaks. An overtight strap pinches your temples and wrinkles the rubber cup, letting water seep right in.\n\nIf you feel painful pressure on your cheekbones, loosen the strap: **a gentle, even seal** keeps the water out, not painful clamping.",
+            "title": "The overtight strap",
+            "type": "mistake"
+          },
+          {
+            "body": "Sealed goggles keep your eyes clear, while chest-deep water gives you solid footing to lower your face without panic.\n\nOnce you can look at the tiles calmly, floating stops feeling scary.\n\nNext: How do you breathe underwater without choking or gasping for air?",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 1,
+        "outcomeLine": "You can now stand in chest-deep water with sealed goggles, put your face in, and look at the floor for 5 seconds without flinching.",
+        "recallQuizzes": [
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Tighten the rear strap firmly around the back of her head."
+              },
+              {
+                "id": "b",
+                "text": "Press the eye cups against her face without using the strap."
+              },
+              {
+                "id": "c",
+                "text": "Dip the lenses into the water to see if air bubbles escape."
+              }
+            ],
+            "prompt": "Elena wants to check whether her new goggles will keep water out before getting in. What should she do?",
+            "reteach": "A good goggle fit relies on natural suction rather than tight elastic tension. If the eye pieces stick to your skin for a brief moment on their own, the seal is watertight.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's tightening the band, not checking the seal: excessive strap tension warps the rubber cups.",
+              "c": "That's wetting the plastic, not testing suction: water contact alone cannot show if the cups match your face."
+            }
+          },
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "In waist-deep water right next to the pool steps or wall."
+              },
+              {
+                "id": "b",
+                "text": "In chest-deep water where his feet easily rest on the bottom."
+              },
+              {
+                "id": "c",
+                "text": "In shoulder-deep water so his head remains closer to the surface."
+              }
+            ],
+            "prompt": "David feels nervous about putting his face underwater for the first time. Where should he stand?",
+            "reteach": "Chest-deep water gives you the right balance between submerged depth and stability. Your feet stay firmly planted, letting you stand up easily whenever you want.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's standing by the shallow entrance, not chest-deep water: shallow water makes lowering your face awkward.",
+              "c": "That's water that is too deep, not mid-chest height: deeper water makes it harder to keep your footing stable."
+            }
+          }
+        ],
+        "title": "Goggles on, feet down, face in"
+      },
+      "error": null,
+      "inr": 1.442196,
+      "model": "gemini-3.8-flash",
+      "ms": 34900,
+      "ok": true,
+      "tokensIn": 3977,
+      "tokensOut": 3783,
+      "checks": {
+        "valid": true,
+        "cards": 6,
+        "exercises": 0,
+        "shapeOk": true,
+        "totalWords": 338,
+        "maxCardWords": 64,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": null,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "0/0",
+        "reteachLeaks": 0,
+        "nextLine": "How do you breathe underwater without choking or gasping for air?",
+        "recall": 2,
+        "svgChars": 0
+      },
+      "reads": [
+        {
+          "rank": 0,
+          "scores": null,
+          "note": null
+        },
+        {
+          "rank": 2,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 4,
+            "fidelity": 3,
+            "followsPlan": 5,
+            "hook": 3,
+            "pace": 4,
+            "picture": 3,
+            "quizzes": 3,
+            "teachBeforeTest": 4
+          },
+          "note": "Best: it covers all three plan elements, including a dedicated face-in card and the lifeguard. Worst: its distractors are weak, and 'shoulder-deep' is a distractor that is wrong in an unclear way. Some details are invented, such as 'four-foot marker' and the pool drain."
+        }
+      ]
+    },
+    {
+      "case": "swimming ch1",
+      "version": "v2",
+      "k": 2,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Most nerves in the pool vanish the moment you **fix your goggles and stay in shallow water**. Before a boat ever leaves the dock, you check that the hull stays dry and the water is safe. Standing in chest-deep water where your feet firmly touch the bottom gives you complete control. You are simply testing the glass on your porthole before setting out.",
+            "type": "picture"
+          },
+          {
+            "body": "Always choose water that reaches roughly to your chest. That depth lets your feet rest flat on the pool floor whenever you want, while a lifeguard watches nearby.\n\nYou never need to float or kick until you are ready. Standing firmly keeps your nervous system calm, because safety is always just a footstep away.",
+            "title": "Stand where you are safe",
+            "type": "teach"
+          },
+          {
+            "body": "Marcus stood in waist-to-chest water at the municipal pool, his hands resting lightly on the gutter. Instead of jumping into swimming laps, he pressed his goggles gently to his eyes and lowered his chin until his nose dipped under. He stared at a blue tile on the bottom for five steady counts, then stood back up with dry, calm eyes.",
+            "title": "A quiet test at the lane edge",
+            "type": "example"
+          },
+          {
+            "body": "Good goggles work by suction, not tight straps. Press the rubber eye cups against your dry skin without looping the strap over your head; they should stay stuck for two seconds on their own.\n\nOnce the cups seal, slide the strap over the back of your head. This keeps stingy, chlorinated water out so you can look straight down in peace.",
+            "title": "The seal makes the view",
+            "type": "teach"
+          },
+          {
+            "body": "Elena pulled her goggle straps so tight they left deep red marks, hoping that would stop the leaking. Water still seeped into the corners because hair was caught under the rubber rim.\n\nTo spot this trap, **check the suction first without the strap**. If hair or an eyebrow breaks the rim, no amount of strap-tightening will keep the water out.",
+            "type": "mistake"
+          },
+          {
+            "body": "Keep your feet on the bottom in chest-deep water and let a clean goggle seal protect your eyes while you look down.\n\nNext: why does holding your breath underwater exhaust you so quickly?",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 1,
+        "outcomeLine": "You can now stand in chest-deep water with sealed goggles, put your face in, and look at the floor for 5 seconds without flinching.",
+        "recallQuizzes": [
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Press the rubber cups to the face without using the strap to check for suction."
+              },
+              {
+                "id": "b",
+                "text": "Tighten the elastic strap until the frames press firmly against the brow ridge."
+              },
+              {
+                "id": "c",
+                "text": "Fill the plastic lenses with tap water to see if any drops leak past the seals."
+              }
+            ],
+            "prompt": "Sam wants to test whether a new pair of goggles fits properly before getting in the pool. What is the best check?",
+            "reteach": "A good fit depends entirely on how the rubber cushions meet the skin around your eyes. If they hold on briefly by gentle air pressure alone, the goggles will seal cleanly in the water without painful strap pressure.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's tightening the strap, not checking the eye-cup seal: overtightening distorts the rubber and causes leaks.",
+              "c": "That's filling the cups with water, not checking the fit: suction against the skin is what keeps pool water out."
+            }
+          },
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "In deep water beside the lane line so their legs can hang straight down."
+              },
+              {
+                "id": "b",
+                "text": "In chest-deep water where their feet can stay planted flat on the pool floor."
+              },
+              {
+                "id": "c",
+                "text": "In ankle-deep water by the stairs so their body rests fully on the steps."
+              }
+            ],
+            "prompt": "Where should a beginner first practice putting their face into the water?",
+            "reteach": "Chest-deep water gives you the perfect balance of submersion and security. Your body is deep enough to dip your face under comfortably, but your feet remain securely anchored whenever you want to stand.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's deep water, not chest-deep water: hanging without floor contact raises panic and removes easy recovery.",
+              "c": "That's the pool steps, not chest-deep water: ankle depth does not allow you to submerge the face naturally while standing."
+            }
+          }
+        ],
+        "title": "Goggles on, feet down, face in"
+      },
+      "error": null,
+      "inr": 0.963396,
+      "model": "gemini-3.8-flash",
+      "ms": 26300,
+      "ok": true,
+      "tokensIn": 3977,
+      "tokensOut": 2263,
+      "checks": {
+        "valid": true,
+        "cards": 6,
+        "exercises": 0,
+        "shapeOk": true,
+        "totalWords": 331,
+        "maxCardWords": 63,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": null,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "0/0",
+        "reteachLeaks": 0,
+        "nextLine": "why does holding your breath underwater exhaust you so quickly?",
+        "recall": 2,
+        "svgChars": 0
+      },
+      "reads": [
+        {
+          "rank": 0,
+          "scores": null,
+          "note": null
+        },
+        {
+          "rank": 3,
+          "scores": {
+            "clarity": 3,
+            "concreteness": 4,
+            "fidelity": 3,
+            "followsPlan": 3,
+            "hook": 4,
+            "pace": 4,
+            "picture": 3,
+            "quizzes": 3,
+            "teachBeforeTest": 4
+          },
+          "note": "Best: the 'mistake' card teaches that hair under the rim breaks the seal. Worst: the first card says 'shallow water', and the seal card says to hold the cups on 'without looping the strap' and then to slide the strap on, which is muddled. The lifeguard is mentioned only once and the face-in step is thin."
+        }
+      ]
+    },
+    {
+      "case": "swimming ch2",
+      "version": "v1",
+      "k": 1,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Holding your breath feels safer underwater, yet it is the very habit that exhausts you before you reach mid-pool.\n\nThink of your body as a boat with an engine: if you trap the exhaust inside, the engine chokes. To let fresh air in above the water, you must steadily vent the old air out below.",
+            "type": "picture"
+          },
+          {
+            "body": "Most people hold their breath tight the second their nose dips underwater. That traps carbon dioxide in your lungs, which triggers the burning urge to gasp.\n\nThe fix is simple: **blow a slow, steady stream of air** through your nose or mouth whenever your face is submerged. You can hum a gentle note to keep the air trickling out.\n\nWhen your face breaks the surface, your lungs are already empty and ready. You only have to open your mouth to let fresh air rush in.",
+            "title": "Clear the pipe early",
+            "type": "teach"
+          },
+          {
+            "body": "Stand in chest-deep water. Take an easy breath, lower your mouth beneath the surface, and hum softly to blow bubbles for 4 seconds.\n\nStand back up. Notice how your lungs are clear and ready to inhale.",
+            "type": "try"
+          },
+          {
+            "body": "Sam stood by lane 1, gripping the pool edge with white knuckles after swimming just five metres.\n\nHis instructor told him to let go and do *bobs*, rhythmic squats where you drop underwater to exhale and pop up to breathe. On his first try, Sam held his breath underwater and popped up gasping.\n\nOn his second try, he hummed through his nose the whole way down. He bobbed ten times in a row without breaking his rhythm once.",
+            "title": "Sam's ten bobs",
+            "type": "example"
+          },
+          {
+            "answer": "b",
+            "kind": "apply",
+            "options": [
+              {
+                "id": "a",
+                "text": "Clamp your lips shut and hold your breath tight until you return to the surface."
+              },
+              {
+                "id": "b",
+                "text": "Hum a steady stream of air out through your nose as your face goes under."
+              },
+              {
+                "id": "c",
+                "text": "Force all your air out in one explosive puff before your chin touches water."
+              }
+            ],
+            "prompt": "You are standing in chest-deep water practising your breathing rhythm. As your chin dips below the water, what should you do with your breath?",
+            "reteach": "Fresh air cannot enter lungs that are already full of stale air. Vent your breath steadily into the water so you are ready to inhale the instant you pop up.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That traps stale carbon dioxide, which creates that panicked urge to gasp.",
+              "c": "That empties your lungs before you submerge, leaving you with no air to vent."
+            }
+          },
+          {
+            "body": "A *bob* turns breathing into an effortless cycle. You sink down into the water, breathe out slow bubbles, and push off the floor to rise.\n\nYour mouth should clear the surface for only a split second. Snatch a quick gulp of air through your mouth, then drop back down without pausing.\n\nDo not wipe your eyes or adjust your goggles between bobs. Any extra motion breaks your tempo and makes you tense your neck.",
+            "title": "The rhythm of the bob",
+            "type": "teach"
+          },
+          {
+            "body": "Elena kept gasping for air on every third bob. Her mistake was wiping pool water off her eyelids the moment her head surfaced, delaying her inhale until she was already sinking.\n\nOnce she trusted her goggles and kept her hands resting at her sides, her breathing rhythm clicked into place.",
+            "type": "mistake"
+          },
+          {
+            "answer": "c",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Wipe your face dry with your hands before taking your next breath."
+              },
+              {
+                "id": "b",
+                "text": "Pause at the surface for five seconds to check your goggle seal."
+              },
+              {
+                "id": "c",
+                "text": "Take a quick breath in through your mouth and sink back under."
+              }
+            ],
+            "prompt": "You pop your mouth above the surface after blowing bubbles underwater. What should your immediate next action be?",
+            "reteach": "Bobs work like a metronome. You blow bubbles continuously on the way down, grab a quick inhale at the top, and sink immediately back into the water.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That wastes your brief window at the surface and breaks your rhythm.",
+              "b": "That stops the cycle completely instead of building continuous breathing."
+            }
+          },
+          {
+            "body": "Breathe out a steady stream of bubbles whenever your face is submerged, so your lungs are empty when you surface. Pop up only long enough to grab a quick mouthful of air, keeping the rhythm smooth and unbroken.\n\nNext: why looking straight down lifts your sinking hips instantly.",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 2,
+        "outcomeLine": "You can now do 10 rhythmic bobs in chest-deep water, blowing bubbles under and breathing in above.",
+        "recallQuizzes": [
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "She is exhaling continuously through her nose while her face is down."
+              },
+              {
+                "id": "b",
+                "text": "She is holding her breath underwater instead of venting it steadily."
+              },
+              {
+                "id": "c",
+                "text": "She is keeping her mouth open slightly beneath the surface of the pool."
+              }
+            ],
+            "prompt": "Maya feels breathless after travelling only six metres down the shallow lane. What is the most likely cause?",
+            "reteach": "Holding your breath underwater traps carbon dioxide, which exhausts your body faster than swimming itself. A continuous stream of bubbles keeps your lungs relaxed.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That is the correct breathing technique that prevents exhaustion.",
+              "c": "That alone does not trap carbon dioxide or cause premature breathlessness."
+            }
+          },
+          {
+            "answer": "c",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Hold his breath underwater, then exhale and inhale together at the surface."
+              },
+              {
+                "id": "b",
+                "text": "Inhale through his nose beneath the water, then exhale quickly at the top."
+              },
+              {
+                "id": "c",
+                "text": "Exhale bubbles the entire time underwater, then inhale quickly at the top."
+              }
+            ],
+            "prompt": "David wants to complete ten continuous bobs in chest-deep water. How should he time his breath?",
+            "reteach": "The work of exhaling belongs entirely underwater. That leaves the quick moment above the surface solely for drawing in fresh air.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "Trying to exhale and inhale above water cuts your breathing window in half.",
+              "b": "Inhaling underwater pulls pool water straight into your nasal passages."
+            }
+          }
+        ],
+        "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 110 Q80 100 160 110 T320 110\" fill=\"none\" stroke=\"#1F7A4D\" stroke-width=\"2\"/><circle cx=\"160\" cy=\"115\" r=\"28\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M146 112 Q160 120 174 112\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"152\" cy=\"145\" r=\"4\" fill=\"#F2A93B\"/><circle cx=\"160\" cy=\"158\" r=\"6\" fill=\"#F2A93B\"/><circle cx=\"168\" cy=\"172\" r=\"5\" fill=\"#F2A93B\"/><circle cx=\"156\" cy=\"182\" r=\"3\" fill=\"#F2A93B\"/><line x1=\"160\" y1=\"65\" x2=\"160\" y2=\"80\" stroke=\"#1B1A17\" stroke-width=\"2\"/><polyline points=\"155 72 160 65 165 72\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"160\" y=\"45\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1B1A17\" font-family=\"sans-serif\">breathe out</text></svg>",
+        "title": "Breathe out under, breathe in above"
+      },
+      "error": null,
+      "inr": 1.441314,
+      "model": "gemini-3.8-flash",
+      "ms": 32632,
+      "ok": true,
+      "tokensIn": 4503,
+      "tokensOut": 3675,
+      "checks": {
+        "valid": true,
+        "cards": 9,
+        "exercises": 2,
+        "shapeOk": true,
+        "totalWords": 548,
+        "maxCardWords": 85,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": 1,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "2/2",
+        "reteachLeaks": 0,
+        "nextLine": "why looking straight down lifts your sinking hips instantly.",
+        "recall": 2,
+        "svgChars": 789
+      },
+      "reads": [
+        {
+          "rank": 1,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 4,
+            "fidelity": 4,
+            "followsPlan": 4,
+            "hook": 4,
+            "pace": 4,
+            "picture": 3,
+            "quizzes": 3,
+            "teachBeforeTest": 4
+          },
+          "note": "Best: teach comes before every quiz, the 'bob' is defined clearly, and Sam's ten bobs ties to the outcome. Worst: the whyNot lines are weak, such as 'that is the correct technique', and the wiping-eyes mistake is a stretch."
+        },
+        {
+          "rank": 1,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 5,
+            "fidelity": 3,
+            "followsPlan": 4,
+            "hook": 5,
+            "pace": 4,
+            "picture": 4,
+            "quizzes": 3,
+            "teachBeforeTest": 4
+          },
+          "note": "Best: the opening line mirrors the plan's hook and Sam's ten bobs is concrete and ties to the outcome. Worst: the Elena mistake card is about wiping her eyes, which the quiz then tests though it is a minor point, and one whyNot says the correct technique is wrong."
+        }
+      ]
+    },
+    {
+      "case": "swimming ch2",
+      "version": "v1",
+      "k": 2,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Holding your breath underwater feels safe, but it is the exact reason your chest burns after five seconds.\n\nThink of your boat releasing its exhaust. If you clamp the exhaust pipe shut, the engine chokes before it even leaves the shallow end. Swimming feels effortless only when you practice **letting the air spill out**.",
+            "type": "picture"
+          },
+          {
+            "body": "When you hold your breath, carbon dioxide traps itself in your lungs and triggers a panicky urge to gasp. The secret to staying relaxed is **continuous exhalation**—letting out a slow, steady stream of air the second your mouth dips under.\n\nUnderwater, your lungs should never be locked. You hum quietly or release a lazy trickle of bubbles through your nose or mouth, emptying out so you are ready to breathe in.",
+            "title": "The bubbles rule",
+            "type": "teach"
+          },
+          {
+            "body": "Stand in chest-deep water. Take an easy breath, bend your knees until your nose is under, and **hum out loud**. Watch your bubbles float up for three slow counts, then stand up and breathe in. Repeat three times.",
+            "type": "try"
+          },
+          {
+            "body": "Marcus clamped his lips shut the moment his chin dipped into the shallow end. Within four seconds, his shoulders knotted and he scrambled to stand, gasping for air.\n\nOnce he began softly humming his exhales into the water, his heart rate stayed quiet. He stayed down for eight seconds without flinching.",
+            "title": "The five-second panic",
+            "type": "example"
+          },
+          {
+            "answer": "b",
+            "kind": "apply",
+            "options": [
+              {
+                "id": "a",
+                "text": "Clamp your throat closed to keep the air stored inside your lungs."
+              },
+              {
+                "id": "b",
+                "text": "Blow a slow, continuous trickle of air out through your nose or mouth."
+              },
+              {
+                "id": "c",
+                "text": "Blast all of your stored air out into the pool in one fast puff."
+              }
+            ],
+            "prompt": "You bend your knees in chest-deep water and lower your nose and mouth under the surface. What should you do with your breath right away?",
+            "reteach": "Underwater breathing works like a slow leak, not a locked valve or an explosion. A calm, continuous stream of bubbles keeps your chest relaxed until you surface.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's breath-holding, which traps carbon dioxide and triggers a sudden instinct to panic.",
+              "c": "That's emptying your lungs too abruptly, which leaves your chest starved for air too early."
+            }
+          },
+          {
+            "body": "To connect breathing into a repeatable cycle, swimmers practice *bobbing*: sinking down to blow bubbles and popping up to take fresh air.\n\nTiming makes this easy. You do nearly all your breathing work underwater by emptying your lungs. When your mouth cuts above the surface, you do not exhale—you simply **sip air in through your mouth** before sinking back down.",
+            "title": "The bobbing rhythm",
+            "type": "teach"
+          },
+          {
+            "body": "Priya tried bobbing, but every time her mouth cleared the water, she stopped to blow air out before trying to breathe in. She choked on stray splashes because she tried doing both jobs above the surface.\n\nTo avoid this, **finish your exhale underwater** so your moment in the air is spent only inhaling.",
+            "type": "mistake"
+          },
+          {
+            "answer": "c",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Forcefully blow out the last pocket of air before starting to inhale."
+              },
+              {
+                "id": "b",
+                "text": "Pause and hold your breath for two seconds to rest your throat."
+              },
+              {
+                "id": "c",
+                "text": "Take a quick, calm breath in through your mouth and head back under."
+              }
+            ],
+            "prompt": "Your head pops above the surface for a brief split second during a bobbing drill. What should your mouth do during that moment?",
+            "reteach": "Your lungs should already be empty when your face breaks the surface. That leaves the entire second above water open for a quick, clean breath in.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's exhaling above the surface, which steals the brief window you need for taking fresh air.",
+              "b": "That's pausing mid-cycle, which halts your rhythm and makes your legs sink."
+            }
+          },
+          {
+            "body": "Blow a steady stream of bubbles underwater so your chest stays calm, then pop up only to sip fresh air in. Keep that rhythm continuous and your lungs will never feel starved.\n\nNext: why looking straight down makes your legs float instead of sink.",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 2,
+        "outcomeLine": "You can now blow a steady stream of air underwater and bob up for quick, calm breaths.",
+        "recallQuizzes": [
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Hold all her air tightly in her chest until her head stands back up."
+              },
+              {
+                "id": "b",
+                "text": "Hum out a steady, gentle stream of bubbles through her nose or mouth."
+              },
+              {
+                "id": "c",
+                "text": "Push all the air out of her lungs in one sudden, hard burst."
+              }
+            ],
+            "prompt": "Elena lowers her chin and nose beneath the surface in the shallow end. What should she do while her face remains underwater?",
+            "reteach": "Submerging comfortably depends on letting air leak out in a continuous stream, keeping your lungs soft and relaxed.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's breath-holding, which builds up carbon dioxide and creates sudden chest tightness.",
+              "c": "That's dumping your air too quickly, which leaves you needing a breath immediately."
+            }
+          },
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "He inhales fresh air through his mouth and sinks back down."
+              },
+              {
+                "id": "b",
+                "text": "He blows out his leftover air before drawing in a new breath."
+              },
+              {
+                "id": "c",
+                "text": "He locks his breath completely until his feet touch the pool bottom."
+              }
+            ],
+            "prompt": "Tom is completing ten rhythmic bobs at the lane rope. What should happen during the brief second his mouth rises above the waterline?",
+            "reteach": "Because exhalation finishes underwater, the moment above the water is reserved purely for breathing in.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's exhaling above water, which wastes the limited time you have to get oxygen in.",
+              "c": "That's breath-holding, which breaks the fluid exchange of air and spikes your heart rate."
+            }
+          }
+        ],
+        "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 80 Q80 70 160 80 T320 80\" stroke=\"#1F7A4D\" stroke-width=\"3\" fill=\"none\"/><circle cx=\"160\" cy=\"120\" r=\"28\" fill=\"none\" stroke=\"#1B1A17\" stroke-width=\"2\"/><path d=\"M148 118 Q160 110 172 118\" stroke=\"#1B1A17\" stroke-width=\"2\" fill=\"none\"/><circle cx=\"145\" cy=\"150\" r=\"6\" fill=\"#F2A93B\"/><circle cx=\"138\" cy=\"136\" r=\"4\" fill=\"#F2A93B\"/><circle cx=\"130\" cy=\"120\" r=\"3\" fill=\"#F2A93B\"/><circle cx=\"124\" cy=\"102\" r=\"5\" fill=\"#F2A93B\"/><text x=\"160\" y=\"45\" text-anchor=\"middle\" fill=\"#1B1A17\" font-size=\"14\" font-family=\"sans-serif\">SLOW BUBBLES</text></svg>",
+        "title": "Breathe out under, breathe in above"
+      },
+      "error": null,
+      "inr": 2.042334,
+      "model": "gemini-3.8-flash",
+      "ms": 52614,
+      "ok": true,
+      "tokensIn": 4503,
+      "tokensOut": 5583,
+      "checks": {
+        "valid": true,
+        "cards": 9,
+        "exercises": 2,
+        "shapeOk": true,
+        "totalWords": 495,
+        "maxCardWords": 71,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": 2,
+        "rightIsLongest": 1,
+        "whyNotKeysOk": "2/2",
+        "reteachLeaks": 0,
+        "nextLine": "why looking straight down makes your legs float instead of sink.",
+        "recall": 2,
+        "svgChars": 624
+      },
+      "reads": [
+        {
+          "rank": 2,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 3,
+            "fidelity": 3,
+            "followsPlan": 3,
+            "hook": 4,
+            "pace": 4,
+            "picture": 3,
+            "quizzes": 4,
+            "teachBeforeTest": 4
+          },
+          "note": "Best: tidy quizzes with clear whyNots that name the confusion, and a consistent exhaust image. Worst: the outcome line drops the 10 bobs, and the 'chest burns after five seconds' claim and the 'starved' line are shaky."
+        },
+        {
+          "rank": 2,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 3,
+            "fidelity": 3,
+            "followsPlan": 4,
+            "hook": 4,
+            "pace": 4,
+            "picture": 4,
+            "quizzes": 3,
+            "teachBeforeTest": 5
+          },
+          "note": "Best: the teaching order is clean and every quiz follows a card that taught it. Worst: the outcome line is reworded, and some whyNot lines are shaky, such as claiming that exhaling in one puff leaves you starved."
+        }
+      ]
+    },
+    {
+      "case": "swimming ch2",
+      "version": "v2",
+      "k": 1,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Holding your breath feels safer underwater, yet it is the exact trap that leaves you gasping. Think of your lungs as the ventilation pipe in our little boat: if you keep stale air trapped inside while submerged, there is no empty space for fresh air when you pop up. You must **breathe out continuously underwater** so breathing in at the surface takes only a split second.",
+            "type": "picture"
+          },
+          {
+            "answer": "a",
+            "kind": "guess",
+            "options": [
+              {
+                "id": "a",
+                "text": "Releasing a steady stream of bubbles through your nose or mouth."
+              },
+              {
+                "id": "b",
+                "text": "Holding all your air clamped tight until your mouth clears the pool."
+              },
+              {
+                "id": "c",
+                "text": "Pushing out one sudden burst of air right as you prepare to stand."
+              }
+            ],
+            "prompt": "You sink below the surface in chest-deep water. What should your breath be doing while your chin is under?",
+            "reteach": "Underwater breathing works like a humming song. The moment your face dips beneath the surface, stale air should seep steadily into the water so your lungs arrive empty at the top.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's breath-holding, not steady venting: locking air inside builds chest pressure and triggers panic.",
+              "c": "That's an explosive burst, not a continuous stream: rushing your breath at the end leaves no time to inhale."
+            }
+          },
+          {
+            "body": "When beginners feel out of breath, they usually think they ran out of oxygen. In reality, your chest feels tight because carbon dioxide is trapped in your lungs. Clamping your lips shut holds that exhaust gas inside, ramping up your body's panic alarms.\n\nThe fix is simple: treat the water like a quiet room where you hum. As soon as your mouth and nose submerge, blow a calm, unbroken stream of bubbles out through your nose or mouth. \n\nBy the time your chin rises back into the air, your lungs are already empty. You do not need to waste time exhaling above water. You simply open your mouth and **take one quick sip of fresh air** before dropping back down.",
+            "title": "Clear the pipes before you surface",
+            "type": "teach"
+          },
+          {
+            "body": "Stand in chest-deep water. Take an easy breath in, bend your knees to sink, and gently hum through your nose to blow bubbles for three seconds. Stand up and open your mouth to inhale. Repeat five times.",
+            "type": "try"
+          },
+          {
+            "body": "Marcus used to duck underwater, pinch his throat shut, and surface after four seconds feeling like he had sprinted a hill. His chest felt heavy and bruised. His instructor told him to hum his favourite bassline under the surface. Once Marcus let tiny bubbles stream from his nose the entire time he was submerged, he stood up and gasped no longer; fresh air simply flowed right back in.",
+            "title": "Marcus stops holding his breath",
+            "type": "example"
+          },
+          {
+            "answer": "b",
+            "kind": "apply",
+            "options": [
+              {
+                "id": "a",
+                "text": "Blow out any remaining air forcefully before taking a slow gulp."
+              },
+              {
+                "id": "b",
+                "text": "Open your mouth and take a quick, relaxed breath of air."
+              },
+              {
+                "id": "c",
+                "text": "Hold your breath for two full seconds to settle your heart rate."
+              }
+            ],
+            "prompt": "You are practising your bobbing rhythm. You submerge, hum bubbles for three seconds, and rise. What should you do the instant your mouth breaks the surface?",
+            "reteach": "Because you already emptied your lungs under the surface, the air above is reserved purely for inhaling. Open your mouth, let air rush in effortlessly, and submerge again.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's exhaling above water, not below: you should have finished clearing your lungs while still underwater.",
+              "c": "That's pausing at the top, not rhythmic bobbing: pausing breaks your natural, relaxed breathing rhythm."
+            }
+          },
+          {
+            "body": "A continuous swim is just a chain of calm breaths strung together. Swimmers train this through *bobbing*—sinking slowly underwater to breathe out, then rebounding upward to grab air.\n\nThe mistake is treating the surface like a resting porch. If you hang around at the top coughing and wiping your eyes, your rhythm breaks and your legs sink to the bottom. \n\nInstead, think of yourself as a bouncing cork. You spend four seconds underwater **humming out your exhaust**, and only one quick beat in the air sipping fresh oxygen before sinking down to hum again.",
+            "title": "The rhythm of bobbing",
+            "type": "teach"
+          },
+          {
+            "body": "Elena dipped underwater, kept her lips zipped, and tried to blow her air out and inhale at the exact moment she reached the surface. Because she had to do both jobs above water, she sucked in a splash of water and coughed. You can spot this trap when you feel rushed at the top: **exhale underwater, inhale above**.",
+            "type": "mistake"
+          },
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "It keeps water from entering your goggles during practice."
+              },
+              {
+                "id": "b",
+                "text": "It clears stale gas so you can inhale instantly at the top."
+              },
+              {
+                "id": "c",
+                "text": "It makes your chest significantly lighter so your legs float up."
+              }
+            ],
+            "prompt": "Why does breathing out steadily while submerged prevent you from tiring out quickly?",
+            "reteach": "Exhaling underwater flushes out carbon dioxide, which relieves chest tightness. It also leaves your lungs empty, so inhaling above water requires only a quick split second.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's goggle seal function, not lung function: bubbles have nothing to do with goggle suction.",
+              "c": "That's buoyancy balance, not ventilation: empty lungs actually make you sink slightly, not float higher."
+            }
+          },
+          {
+            "body": "Never hoard air in your lungs when your face is in the water; hum it out steadily through your nose or mouth the entire time you are submerged. When your head pops up, your empty lungs can take in fresh air in a single easy beat.\n\nNext: What keeps your legs from dragging on the bottom when you try to glide?",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 2,
+        "outcomeLine": "You can now do 10 bobs in a row: breathe out slowly underwater, pop up, take a quick breath in, and go back down.",
+        "recallQuizzes": [
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Hold her breath underwater and blow everything out above the surface."
+              },
+              {
+                "id": "b",
+                "text": "Hum a steady stream of air out while submerged instead of holding it."
+              },
+              {
+                "id": "c",
+                "text": "Jump higher out of the water so she has four seconds to breathe in."
+              }
+            ],
+            "prompt": "Priya starts her breathing drill in chest-deep water. She feels breathless after only three bobs. What change should she make?",
+            "reteach": "Breathlessness in new swimmers almost always comes from holding air underwater. Humming out a slow, constant trickle of bubbles prevents exhaust buildup and keeps you calm.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's breath-holding fatigue: dumping air at the surface steals the time you need to inhale.",
+              "c": "That's over-exertion: leaping burns energy and disrupts your calm, horizontal body position."
+            }
+          },
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "A brief moment to inhale, spending most of the time humming under."
+              },
+              {
+                "id": "b",
+                "text": "Equal time above and below the surface to fully dry your face."
+              },
+              {
+                "id": "c",
+                "text": "Twice as long above water as below so your chest completely rests."
+              }
+            ],
+            "prompt": "During continuous bobbing, how long should your mouth spend out of the water compared to under it?",
+            "reteach": "Exhaling takes three to four seconds underwater, but an inhale takes only one quick second at the surface. Your time above water should be just long enough to sip air.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's an even pause: spending extra seconds at the top makes your legs drop toward the floor.",
+              "c": "That's resting between repetitions, not continuous bobbing: the rhythm relies on a quick sip of air."
+            }
+          }
+        ],
+        "title": "Breathe out under, breathe in above"
+      },
+      "error": null,
+      "inr": 1.226736,
+      "model": "gemini-3.8-flash",
+      "ms": 70218,
+      "ok": true,
+      "tokensIn": 3977,
+      "tokensOut": 3099,
+      "checks": {
+        "valid": true,
+        "cards": 10,
+        "exercises": 3,
+        "shapeOk": true,
+        "totalWords": 664,
+        "maxCardWords": 120,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": 3,
+        "rightIsLongest": 1,
+        "whyNotKeysOk": "3/3",
+        "reteachLeaks": 0,
+        "nextLine": "What keeps your legs from dragging on the bottom when you try to glide?",
+        "recall": 2,
+        "svgChars": 0
+      },
+      "reads": [
+        {
+          "rank": 4,
+          "scores": {
+            "clarity": 3,
+            "concreteness": 4,
+            "fidelity": 2,
+            "followsPlan": 4,
+            "hook": 4,
+            "pace": 3,
+            "picture": 2,
+            "quizzes": 3,
+            "teachBeforeTest": 2
+          },
+          "note": "Best: Marcus's bassline example and the bouncing-cork image are vivid. Worst: the first quiz comes before any teaching, the 'ventilation pipe' picture is muddled, and the legs-sink-to-the-bottom claim and the 'bruised' chest are invented."
+        },
+        {
+          "rank": 4,
+          "scores": {
+            "clarity": 3,
+            "concreteness": 4,
+            "fidelity": 2,
+            "followsPlan": 4,
+            "hook": 4,
+            "pace": 2,
+            "picture": 3,
+            "quizzes": 3,
+            "teachBeforeTest": 2
+          },
+          "note": "Best: the whyNot lines name the exact confusion clearly. Worst: the first quiz comes before any teaching, the cards are long, and it makes up claims such as chest feeling 'bruised' and that panic is only about carbon dioxide."
+        }
+      ]
+    },
+    {
+      "case": "swimming ch2",
+      "version": "v2",
+      "k": 2,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Holding your breath underwater feels like closing a hatch tight, but it actually fills your chest with tension. In your body's boat, breathing works like an **exhaust pipe that runs constantly** below the waterline. You blow air out steadily underwater, then open the hatch for a split second above to refill.",
+            "type": "picture"
+          },
+          {
+            "answer": "b",
+            "kind": "guess",
+            "options": [
+              {
+                "id": "a",
+                "text": "Hold all your air tightly until you pop back up."
+              },
+              {
+                "id": "b",
+                "text": "Blow a steady stream of bubbles out the entire time."
+              },
+              {
+                "id": "c",
+                "text": "Breathe in sharply right through your nose underwater."
+              }
+            ],
+            "prompt": "You are standing in chest-deep water getting ready to duck under. What should you do with your breath while your face is submerged?",
+            "reteach": "Underwater, you always exhale. Keeping a continuous, gentle stream of bubbles leaving your nose or mouth keeps water out and relaxes your lungs.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's breath-holding, which traps carbon dioxide in your chest and triggers instant panic.",
+              "c": "That will pull pool water into your sinuses and cause choking."
+            }
+          },
+          {
+            "body": "When adults panic in water, it is rarely from lack of air. It comes from **trapped stale air**. Holding your breath lets carbon dioxide build up, which rings alarm bells in your brain.\n\nThe fix is simple: *bobbing*, which means sinking under while exhaling smoothly, then popping up to take one quick breath in. Under the surface, hum softly or blow quiet bubbles out of your nose or mouth. When you break the surface, your lungs are already empty, so fresh air rushes right in.",
+            "title": "The gentle hum",
+            "type": "teach"
+          },
+          {
+            "body": "Stand in chest-deep water holding the gutter. Take a calm breath in, crouch until your chin and nose go under, and **hum steadily to blow bubbles for three seconds**. Stand up, take one quick breath, and repeat five times.",
+            "type": "try"
+          },
+          {
+            "body": "Marcus used to clamp his mouth shut underwater and leap up after four seconds, gasping for life. His instructor told him to hum his favourite tune into the water instead.\n\nHe sank to his nose, hummed a low note, and watched a steady stream of pearl-like bubbles rise. When his head popped up, his chest was calm. He inhaled with a quick, soft sip of air through his mouth and slipped back under without pausing.",
+            "title": "Marcus finds his rhythm",
+            "type": "example"
+          },
+          {
+            "answer": "a",
+            "kind": "apply",
+            "options": [
+              {
+                "id": "a",
+                "text": "Exhale continuously underwater so your lungs are empty when you surface."
+              },
+              {
+                "id": "b",
+                "text": "Clinch your teeth and hold your breath twice as long before surfacing."
+              },
+              {
+                "id": "c",
+                "text": "Take three massive, forceful breaths while keeping your chin under water."
+              }
+            ],
+            "prompt": "You submerge your mouth and nose for a bob. Halfway through, you feel a sudden, urgent urge to gasp. What should you change on your next attempt?",
+            "reteach": "That sudden urge to gasp happens when you trap air inside. Blowing bubbles the entire time you are submerged empties the lungs so taking a fresh breath above feels effortless.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's the breath-holding trap, which worsens the suffocating feeling by stacking stale air.",
+              "c": "Attempting to inhale near the water line without surfacing will draw water into your throat."
+            }
+          },
+          {
+            "body": "Above the water, you only need half a second. Beginners often think they need to stand tall, wipe their eyes, and take three deep breaths before going under again.\n\nTreat it like a **rhythmic piston**. The underwater phase is long and slow, lasting three to four seconds as you blow your bubbles. The surface phase is brief: mouth clears the water, you take a quick breath in through your mouth, and you sink right back down. Keeping that rhythm turns breathing into an automatic reflex.",
+            "title": "The quick exchange",
+            "type": "teach"
+          },
+          {
+            "body": "Elena tried bobbing by holding her breath underwater, then trying to exhale and inhale all in the one second her head was above the surface. She choked on splashed water because her mouth was busy blowing out when it needed to breathe in. The fix is to **empty your lungs completely before breaking the surface**.",
+            "type": "mistake"
+          },
+          {
+            "answer": "c",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Spend five seconds inhaling above, then two seconds exhaling under."
+              },
+              {
+                "id": "b",
+                "text": "Spend equal time holding air under and catching your breath above."
+              },
+              {
+                "id": "c",
+                "text": "Spend several seconds exhaling under, then a quick moment inhaling above."
+              }
+            ],
+            "prompt": "How should the timing of your breathing be split between being underwater and being above water?",
+            "reteach": "A good swim breath is asymmetrical: a long, slow exhale beneath the surface, followed by a fast, relaxed breath in as soon as your mouth clears the water.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That leaves you standing too long and breaks your body's swimming rhythm.",
+              "b": "That relies on breath-holding, which creates carbon dioxide buildup and exhaustion."
+            }
+          },
+          {
+            "body": "Blow a steady stream of air out underwater so your lungs are empty, then pop up just long enough to take a quick breath in.\n\nNext: Lie flat and glide across the surface without sinking your hips.",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 2,
+        "outcomeLine": "You can do 10 bobs in a row: breathe out slowly underwater, pop up, take a quick breath in, and go back down.",
+        "recallQuizzes": [
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "A quiet humming sensation accompanied by steady bubbles."
+              },
+              {
+                "id": "b",
+                "text": "A tight pressure building up behind his closed lips."
+              },
+              {
+                "id": "c",
+                "text": "A sudden rush of cool water into his nasal passages."
+              }
+            ],
+            "prompt": "David is practising in the shallow end. What sound or sensation tells him he is managing his breath correctly underwater?",
+            "reteach": "Humming forces a continuous stream of air out through your nose or mouth, creating steady bubbles and keeping water safely out.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's the pressure of breath-holding, which leads to chest tightness and fatigue.",
+              "c": "Water entering the nose means air was inhaled or stopped rather than pushed outward."
+            }
+          },
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "She inhaled too rapidly through her mouth once her head cleared the water."
+              },
+              {
+                "id": "b",
+                "text": "She held onto her air underwater instead of blowing out a continuous stream."
+              },
+              {
+                "id": "c",
+                "text": "She kept her feet planted firmly on the pool floor the whole time."
+              }
+            ],
+            "prompt": "Priya pops her head up after five seconds underwater, but she feels panicked and out of breath. What most likely caused this?",
+            "reteach": "Retaining air underwater builds up carbon dioxide, which creates a feeling of panic. Exhaling steadily the entire time prevents this buildup.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "A quick inhalation through the mouth above water is the correct technique.",
+              "c": "Planting your feet provides safety and control; it does not cause breath distress."
+            }
+          }
+        ],
+        "title": "Breathe out under, breathe in above"
+      },
+      "error": null,
+      "inr": 0.912051,
+      "model": "gemini-3.8-flash",
+      "ms": 25879,
+      "ok": true,
+      "tokensIn": 3977,
+      "tokensOut": 2100,
+      "checks": {
+        "valid": true,
+        "cards": 10,
+        "exercises": 3,
+        "shapeOk": true,
+        "totalWords": 587,
+        "maxCardWords": 85,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": 2,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "3/3",
+        "reteachLeaks": 0,
+        "nextLine": "Lie flat and glide across the surface without sinking your hips.",
+        "recall": 2,
+        "svgChars": 0
+      },
+      "reads": [
+        {
+          "rank": 3,
+          "scores": {
+            "clarity": 3,
+            "concreteness": 4,
+            "fidelity": 3,
+            "followsPlan": 4,
+            "hook": 3,
+            "pace": 3,
+            "picture": 3,
+            "quizzes": 3,
+            "teachBeforeTest": 2
+          },
+          "note": "Best: the long-exhale, short-inhale timing is clear and the example is vivid. Worst: a quiz comes right after the picture card, before any teaching, and the correct options are often the longest."
+        },
+        {
+          "rank": 3,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 4,
+            "fidelity": 3,
+            "followsPlan": 4,
+            "hook": 4,
+            "pace": 3,
+            "picture": 3,
+            "quizzes": 3,
+            "teachBeforeTest": 1
+          },
+          "note": "Best: the Marcus story and the 'hum' image are vivid and the timing card is clear. Worst: the first quiz, on exhaling underwater, comes before any teaching card, and the Elena mistake card says she held her breath but then blames exhaling above the surface."
+        }
+      ]
+    },
+    {
+      "case": "world war I ch1",
+      "version": "v1",
+      "k": 1,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Before 1914, Europe was split into two armed camps wired together like dynamite. If a spark hit any single country, every partner was dragged into the explosion.\n\nSix great empires made promises that turned a local fight into a continental trap.",
+            "type": "picture"
+          },
+          {
+            "body": "In 1882, Germany, Austria-Hungary, and Italy signed a pact called the **Triple Alliance**. They promised mutual defense if attacked.\n\nFeeling threatened, Great Britain, France, and Russia banded together in 1907 to form the **Triple Entente** (*entente* means friendly understanding). Instead of keeping the peace, these two rival blocs locked Europe into a hair-trigger balance.",
+            "title": "Two rival teams",
+            "type": "teach"
+          },
+          {
+            "body": "To see the rivalry in action, look at the water. Germany began building massive steel battleships to challenge Britain's empire across the globe.\n\nBritain answered by launching even faster, heavier ships. Neither side felt safer; each new warship convinced the other that a clash was coming.",
+            "title": "A race for battleships",
+            "type": "example"
+          },
+          {
+            "body": "The danger peaked in the **Balkans**, a tense region in southeastern Europe.\n\nNew nationalist movements—groups demanding their own independent homelands—threatened to tear the multi-ethnic Austro-Hungarian Empire apart from the inside. When local rebels pushed against Austro-Hungarian control, they risked pulling the rival alliances directly into their feud.",
+            "title": "The Balkan spark",
+            "type": "teach"
+          },
+          {
+            "body": "Leaders told themselves that giant alliances made war impossible because no sane nation would dare fight three great powers at once.\n\nIn reality, treaties acted as **tripwires**. A minor conflict on the periphery could instantly commit millions of soldiers who had no say in the original dispute.",
+            "title": "The deterrence illusion",
+            "type": "mistake"
+          },
+          {
+            "body": "Europe divided into two heavily armed alliances whose secret pacts turned any regional dispute into a collective war.\n\nWhen unrest shook the Balkans, the entire system was primed to detonate.\n\nNext: how one murder in Sarajevo pulled five great powers into war in five weeks.",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 1,
+        "outcomeLine": "You can now name both alliances and their members, and explain why a local quarrel in the Balkans could pull in every major power.",
+        "recallQuizzes": [
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Germany, Austria-Hungary, and Italy"
+              },
+              {
+                "id": "b",
+                "text": "Great Britain, France, and Russia"
+              },
+              {
+                "id": "c",
+                "text": "Great Britain, Germany, and Russia"
+              }
+            ],
+            "prompt": "Which three nations formed the Triple Entente in 1907?",
+            "reteach": "The two competing blocs were the Triple Alliance (Germany, Austria-Hungary, and Italy) and the Triple Entente (Britain, France, and Russia).",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That's the Triple Alliance formed in 1882, not the Triple Entente.",
+              "c": "Germany was the rival power, not an ally of Britain and Russia."
+            }
+          },
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Nationalist unrest threatened Austria-Hungary and could trigger treaty obligations across both alliances."
+              },
+              {
+                "id": "b",
+                "text": "Balkan kingdoms had built the world's largest navies and threatened British trade routes."
+              },
+              {
+                "id": "c",
+                "text": "Italy planned an invasion of the Balkans to challenge French colonies in North Africa."
+              }
+            ],
+            "prompt": "Why was instability in the Balkans dangerous to all of Europe?",
+            "reteach": "Because the major powers were tied together by defensive pacts, a local nationalist rebellion against Austro-Hungarian control risked drawing in all allied empires.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "The naval arms race was between Britain and Germany, not Balkan kingdoms.",
+              "c": "Italy was allied with Austria-Hungary in 1882 and was not attacking through the Balkans."
+            }
+          }
+        ],
+        "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"70\" y1=\"70\" x2=\"130\" y2=\"110\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-dasharray=\"4 4\"/><line x1=\"250\" y1=\"70\" x2=\"190\" y2=\"110\" stroke=\"#1B1A17\" stroke-width=\"3\" stroke-dasharray=\"4 4\"/><line x1=\"130\" y1=\"110\" x2=\"190\" y2=\"110\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"70\" cy=\"70\" r=\"26\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"70\" y=\"75\" font-size=\"11\" font-family=\"sans-serif\" text-anchor=\"middle\" fill=\"#1B1A17\">Alliance</text><circle cx=\"250\" cy=\"70\" r=\"26\" fill=\"#1F7A4D\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"250\" y=\"75\" font-size=\"11\" font-family=\"sans-serif\" text-anchor=\"middle\" fill=\"#1B1A17\">Entente</text><circle cx=\"160\" cy=\"150\" r=\"14\" fill=\"#F2A93B\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"160\" y1=\"110\" x2=\"160\" y2=\"136\" stroke=\"#1B1A17\" stroke-width=\"2\"/><text x=\"160\" y=\"182\" font-size=\"12\" font-family=\"sans-serif\" text-anchor=\"middle\" fill=\"#1B1A17\">Balkans</text></svg>",
+        "title": "Europe splits into two armed camps"
+      },
+      "error": null,
+      "inr": 1.116612,
+      "model": "gemini-3.8-flash",
+      "ms": 25705,
+      "ok": true,
+      "tokensIn": 4174,
+      "tokensOut": 2710,
+      "checks": {
+        "valid": true,
+        "cards": 6,
+        "exercises": 0,
+        "shapeOk": true,
+        "totalWords": 280,
+        "maxCardWords": 54,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": null,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "0/0",
+        "reteachLeaks": 0,
+        "nextLine": "how one murder in Sarajevo pulled five great powers into war in five weeks.",
+        "recall": 2,
+        "svgChars": 999
+      },
+      "reads": [
+        {
+          "rank": 0,
+          "scores": null,
+          "note": null
+        },
+        {
+          "rank": 1,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 3,
+            "fidelity": 3,
+            "followsPlan": 4,
+            "hook": 4,
+            "pace": 5,
+            "picture": null,
+            "quizzes": 3,
+            "teachBeforeTest": 2
+          },
+          "note": "Best: tight, short cards with an explained 'entente'. Worst: quizzes are present though none are due, the right answer in the second quiz is conspicuously longer, and 'secret pacts' is unsupported."
+        }
+      ]
+    },
+    {
+      "case": "world war I ch1",
+      "version": "v1",
+      "k": 2,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Before 1914, Europe was split into two armed camps where one local quarrel could become everyone's war.\n\nImagine two teams roped together on slick ice. If any single person slipped, the entire line was dragged into the freezing water.",
+            "type": "picture"
+          },
+          {
+            "body": "The division started in 1882 with the **Triple Alliance**, binding Germany, Austria-Hungary, and Italy to defend one another.\n\nAlarmed by German power and a costly naval arms race, the other powers answered back. In 1907, Britain, France, and Russia formed the rival **Triple Entente**.\n\nEurope had split down the middle. Leaders argued that having giant armies on both sides would prevent war, because attacking seemed suicidal.",
+            "title": "Two rival teams",
+            "type": "teach"
+          },
+          {
+            "body": "Look at the naval showdown between Britain and Germany. Britain relied on its massive navy to protect global shipping and its overseas colonies.\n\nWhen Germany began building fleets of heavily armored *dreadnought* battleships, London felt threatened. Instead of backing down, Britain ordered twice as many ships. The race drained both treasuries and convinced British leaders that Germany was an active menace.",
+            "title": "The dreadnought race",
+            "type": "example"
+          },
+          {
+            "body": "The most dangerous friction point was the Balkans, a region in southeastern Europe.\n\nThe Austro-Hungarian Empire ruled several ethnic groups yearning for freedom, fueling intense **nationalist movements** across the border in Serbia.\n\nBecause Russia saw itself as Serbia's protector, any clash between Austria-Hungary and Serbia risked pulling Russia in. That single step would drag both rival alliances into total war.",
+            "title": "The Balkan spark",
+            "type": "teach"
+          },
+          {
+            "body": "Diplomats made the fatal mistake of treating mutual defense pacts as **guarantees of peace**. They believed no nation would dare strike when massive counter-attacks were promised in writing.\n\nIn reality, treaties took away choice. When tension flared, leaders could not step back: they were legally obligated to mobilize, turning a tiny spark into a continent-wide fire.",
+            "title": "The deterrence trap",
+            "type": "mistake"
+          },
+          {
+            "body": "Rival treaties locked Europe into two armed camps—the Triple Alliance and the Triple Entente—where an arms race and Balkan unrest turned any local fight into a world war.\n\nNext: how one murder in Sarajevo pulled five great powers into war in five weeks.",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 1,
+        "outcomeLine": "You can now name both European alliances and explain why a Balkan quarrel threatened total war.",
+        "recallQuizzes": [
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Italy, which had signed on to support Austria-Hungary in the Triple Alliance."
+              },
+              {
+                "id": "b",
+                "text": "Great Britain, which sought to maintain the naval balance across the continent."
+              },
+              {
+                "id": "c",
+                "text": "France, which agreed to defend central European borders against outside threats."
+              }
+            ],
+            "prompt": "Imagine a border skirmish breaks out in 1912 between Russian cavalry and Austrian guards. Under the alliance system, which nation was pledged to back Austria-Hungary?",
+            "reteach": "The continent was divided between the Triple Alliance of Germany, Austria-Hungary, and Italy, and the Triple Entente of Britain, France, and Russia.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's Great Britain, which joined the rival Triple Entente alongside Russia and France.",
+              "c": "That's France, which was allied with Russia in the rival Triple Entente."
+            }
+          },
+          {
+            "answer": "b",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "German merchants controlled regional Balkan trade routes and demanded full military protection."
+              },
+              {
+                "id": "b",
+                "text": "Russia backed local Slavic groups against Austria-Hungary, threatening to trigger both alliances."
+              },
+              {
+                "id": "c",
+                "text": "British naval fleets stationed in Balkan ports refused to allow local nationalist protests."
+              }
+            ],
+            "prompt": "Why did nationalist unrest inside the Balkan region pose such an immediate danger to peace across all of Europe?",
+            "reteach": "Austria-Hungary struggled with internal nationalist movements supported by Serbia. Because Russia vowed to back Serbia, an Austro-Serbian clash threatened to pull all alliance partners into combat.",
+            "type": "exercise",
+            "whyNot": {
+              "a": "That confuses Balkan unrest with merchant trade; commercial shipping disputes were not the trigger.",
+              "c": "That confuses continental unrest with naval blockades; the friction was driven by Slavic nationalism on land."
+            }
+          }
+        ],
+        "svg": "<svg viewBox=\"0 0 320 200\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"60\" y1=\"60\" x2=\"100\" y2=\"120\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"100\" y1=\"120\" x2=\"50\" y2=\"140\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"50\" y1=\"140\" x2=\"60\" y2=\"60\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"60\" cy=\"60\" r=\"16\" fill=\"#1F7A4D\"/><circle cx=\"100\" cy=\"120\" r=\"16\" fill=\"#1F7A4D\"/><circle cx=\"50\" cy=\"140\" r=\"16\" fill=\"#1F7A4D\"/><line x1=\"260\" y1=\"60\" x2=\"220\" y2=\"120\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"220\" y1=\"120\" x2=\"270\" y2=\"140\" stroke=\"#1B1A17\" stroke-width=\"2\"/><line x1=\"270\" y1=\"140\" x2=\"260\" y2=\"60\" stroke=\"#1B1A17\" stroke-width=\"2\"/><circle cx=\"260\" cy=\"60\" r=\"16\" fill=\"#F2A93B\"/><circle cx=\"220\" cy=\"120\" r=\"16\" fill=\"#F2A93B\"/><circle cx=\"270\" cy=\"140\" r=\"16\" fill=\"#F2A93B\"/><line x1=\"100\" y1=\"120\" x2=\"220\" y2=\"120\" stroke=\"#1B1A17\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><circle cx=\"160\" cy=\"120\" r=\"5\" fill=\"#1B1A17\"/><text x=\"70\" y=\"180\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#1B1A17\" text-anchor=\"middle\">ENTENTE</text><text x=\"250\" y=\"180\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#1B1A17\" text-anchor=\"middle\">ALLIANCE</text></svg>",
+        "title": "Europe splits into two armed camps"
+      },
+      "error": null,
+      "inr": 1.776222,
+      "model": "gemini-3.8-flash",
+      "ms": 42600,
+      "ok": true,
+      "tokensIn": 4174,
+      "tokensOut": 4804,
+      "checks": {
+        "valid": true,
+        "cards": 6,
+        "exercises": 0,
+        "shapeOk": true,
+        "totalWords": 325,
+        "maxCardWords": 66,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": null,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "0/0",
+        "reteachLeaks": 0,
+        "nextLine": "how one murder in Sarajevo pulled five great powers into war in five weeks.",
+        "recall": 2,
+        "svgChars": 1184
+      },
+      "reads": [
+        {
+          "rank": 0,
+          "scores": null,
+          "note": null
+        },
+        {
+          "rank": 2,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 4,
+            "fidelity": 3,
+            "followsPlan": 5,
+            "hook": 4,
+            "pace": 4,
+            "picture": null,
+            "quizzes": 3,
+            "teachBeforeTest": 2
+          },
+          "note": "Best: clear Balkan-to-Russia chain and the dreadnought example. Worst: this is a quick handbook, so quizzes are not due, and the 1912 skirmish quiz is a hypothetical; it also claims Britain 'ordered twice as many ships' and that treaties legally obligated mobilization, both invented or overstated."
+        }
+      ]
+    },
+    {
+      "case": "world war I ch1",
+      "version": "v2",
+      "k": 1,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Before 1914, Europe bound itself into two mutual defense pacts so tight that a single spark guaranteed a continent-wide explosion.\n\nPicture two teams of mountain climbers roped together along an icy ledge. If one climber slips, their partners cannot cut the line; the rope's tension drags every climber off the cliff together. That mechanical trap turned a small local dispute into a world war.",
+            "type": "picture"
+          },
+          {
+            "body": "The trap rested on two opposing armed camps. In 1882, Germany, Austria-Hungary, and Italy signed the **Triple Alliance**, promising mutual support.\n\nAlarmed by this growing bloc, Great Britain, France, and Russia formed the **Triple Entente** (*an informal diplomatic understanding*) in 1907. Both sides poured money into massive dreadnought battleships and imperial colonies, believing gigantic armed forces would scare rivals into keeping the peace.",
+            "title": "Two rival blocs",
+            "type": "teach"
+          },
+          {
+            "body": "Consider the naval race between Britain and Germany. Britain relied on open sea lanes to feed its island population and supply its empire. When Germany started constructing modern warships across the North Sea, Britain refused to fall behind and built heavier dreadnoughts of its own. By 1914, shipyards worked around the clock, turning routine naval drills into tense standoffs.",
+            "title": "The battleship race",
+            "type": "example"
+          },
+          {
+            "body": "The weakest link was the Balkans, a mountainous region in southeastern Europe. The Austro-Hungarian Empire ruled millions of people from different cultures, but Slavic populations increasingly demanded independence.\n\nThese **nationalist movements** (*groups fighting for self-rule*) looked to neighboring Serbia and the Russian Empire for protection. Austria-Hungary feared that if one Slavic minority broke away, its entire empire would disintegrate.",
+            "title": "The Balkan powder keg",
+            "type": "teach"
+          },
+          {
+            "body": "Many assume the war began simply because European rulers hated each other. In truth, the fatal mistake was believing **alliances make you safe by intimidating rivals**.\n\nBy locking themselves into mutual defense pledges, great powers surrendered their flexibility. A minor dispute on the Balkan border forced distant empires to prepare their armies for total war before diplomats could negotiate.",
+            "type": "mistake"
+          },
+          {
+            "body": "Two rival alliance networks divided Europe into armed camps, ensuring any localized spark would drag six empires into war. Rising arms races and rebellious nationalist movements in the Balkans turned that system into an explosive tripwire.\n\nNext: One shot in Sarajevo triggered the whole chain reaction.",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 1,
+        "outcomeLine": "You can now name the two pre-1914 alliance blocs and explain why Balkan nationalism threatened European peace.",
+        "recallQuizzes": [
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Great Britain, France, and Russia"
+              },
+              {
+                "id": "b",
+                "text": "Germany, Austria-Hungary, and Italy"
+              },
+              {
+                "id": "c",
+                "text": "Great Britain, Germany, and Russia"
+              }
+            ],
+            "prompt": "Which three nations formed the Triple Entente in 1907?",
+            "reteach": "To balance the Triple Alliance of Germany, Austria-Hungary, and Italy, three neighboring powers united in 1907: Great Britain, France, and the Russian Empire.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's the Triple Alliance formed in 1882, not the Triple Entente.",
+              "c": "That pairs Britain and Russia with Germany, their principal rival."
+            }
+          },
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "It threatened to break their multi-ethnic empire apart."
+              },
+              {
+                "id": "b",
+                "text": "It cut off their main overseas trading ports in Africa."
+              },
+              {
+                "id": "c",
+                "text": "It forced their navy to build dreadnought battleships."
+              }
+            ],
+            "prompt": "Why did nationalist unrest in the Balkans alarm leaders in Austria-Hungary?",
+            "reteach": "Austria-Hungary ruled dozens of distinct ethnic groups. If Slavic communities broke away to establish independent territories, the entire imperial state risked total collapse.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's competition over colonies, not the ethnic instability in the Balkans.",
+              "c": "That's the Anglo-German naval arms race, not the internal border tension."
+            }
+          }
+        ],
+        "title": "Europe splits into two armed camps"
+      },
+      "error": null,
+      "inr": 1.108044,
+      "model": "gemini-3.8-flash",
+      "ms": 29351,
+      "ok": true,
+      "tokensIn": 3648,
+      "tokensOut": 2788,
+      "checks": {
+        "valid": true,
+        "cards": 6,
+        "exercises": 0,
+        "shapeOk": true,
+        "totalWords": 350,
+        "maxCardWords": 64,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": null,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "0/0",
+        "reteachLeaks": 0,
+        "nextLine": "One shot in Sarajevo triggered the whole chain reaction.",
+        "recall": 2,
+        "svgChars": 0
+      },
+      "reads": [
+        {
+          "rank": 0,
+          "scores": null,
+          "note": null
+        },
+        {
+          "rank": 3,
+          "scores": {
+            "clarity": 4,
+            "concreteness": 3,
+            "fidelity": 3,
+            "followsPlan": 4,
+            "hook": 3,
+            "pace": 4,
+            "picture": null,
+            "quizzes": 3,
+            "teachBeforeTest": 2
+          },
+          "note": "Best: defines the new terms inline. Worst: calls the Entente 'informal' and says Britain, France and Russia formed it in alarm; it adds quizzes where none are due, and 'six empires' is loose."
+        }
+      ]
+    },
+    {
+      "case": "world war I ch1",
+      "version": "v2",
+      "k": 2,
+      "chapter": {
+        "cards": [
+          {
+            "body": "Before 1914, Europe was split into two armed camps, tied together by mutual defense treaties like a giant web of tripwires. A fight between any two nations was guaranteed to pull the rest into war.",
+            "type": "picture"
+          },
+          {
+            "body": "The continent divided into two opposing pacts. In 1882, Germany, Austria-Hungary, and Italy formed the **Triple Alliance**. To balance them, Britain, France, and Russia joined together in 1907 as the **Triple Entente**, an alliance or diplomatic understanding between nations. If one member went to battle, its partners had promised to back them up.",
+            "title": "Two rival pacts",
+            "type": "teach"
+          },
+          {
+            "body": "Imperial competition turned friends into bitter rivals overnight. Germany spent massive sums racing Britain to build huge dreadnought battleships, while carving out colonies abroad. When a crisis flared over Morocco, French and German gunboats faced off, showing how a distant squabble could almost spark total war in Europe.",
+            "title": "Rivals in every harbor",
+            "type": "example"
+          },
+          {
+            "body": "The weakest link ran through the Balkans in southeastern Europe. The Austro-Hungarian Empire ruled dozens of different ethnic groups, but **nationalist movements**—groups fighting for their own independent homeland—wanted out. Serbian nationalists inside the empire wanted to unite with neighboring Serbia, turning the region into a simmering hotspot.",
+            "title": "The Balkan powder keg",
+            "type": "teach"
+          },
+          {
+            "body": "People often assume the great powers stumbled into war purely by accident. In reality, **leaders knowingly signed binding military pacts** for decades. They built their alliances precisely to threaten rivals with total conflict, gambling that the other side would always back down first.",
+            "type": "mistake"
+          },
+          {
+            "body": "Two rival alliances turned Europe into two armed teams, while naval arms races and Balkan unrest made a clash inevitable.\n\nNext: How did one murder in Sarajevo pull five great powers into war?",
+            "title": "In one breath",
+            "type": "teach"
+          }
+        ],
+        "n": 1,
+        "outcomeLine": "You can name both alliances and their members, and explain why a local quarrel in the Balkans could pull in every major power.",
+        "recallQuizzes": [
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Germany, Austria-Hungary, and Italy"
+              },
+              {
+                "id": "b",
+                "text": "Great Britain, France, and Russia"
+              },
+              {
+                "id": "c",
+                "text": "Germany, Russia, and the Ottoman Empire"
+              }
+            ],
+            "prompt": "Which three nations joined together in 1882 to form the Triple Alliance?",
+            "reteach": "The Triple Alliance brought together the central powers of Germany, Austria-Hungary, and Italy in 1882.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's the Triple Entente formed in 1907, not the Triple Alliance.",
+              "c": "That's a mix of later rivals, not the 1882 alliance partners."
+            }
+          },
+          {
+            "answer": "a",
+            "kind": "recall",
+            "options": [
+              {
+                "id": "a",
+                "text": "Nationalist groups wanted to break away from imperial rule"
+              },
+              {
+                "id": "b",
+                "text": "Balkan navies threatened major Austro-Hungarian trading ports"
+              },
+              {
+                "id": "c",
+                "text": "The British Empire planned to seize land across the Balkans"
+              }
+            ],
+            "prompt": "Why was unrest in the Balkan region especially dangerous for Austria-Hungary?",
+            "reteach": "Austria-Hungary ruled many ethnic groups, and local nationalist movements sought their own independence, threatening to tear the empire apart.",
+            "type": "exercise",
+            "whyNot": {
+              "b": "That's the North Sea arms race, not the Balkan political crisis.",
+              "c": "That's a misunderstanding of British colonial ambitions outside Europe."
+            }
+          }
+        ],
+        "title": "Europe splits into two armed camps"
+      },
+      "error": null,
+      "inr": 0.626724,
+      "model": "gemini-3.8-flash",
+      "ms": 17477,
+      "ok": true,
+      "tokensIn": 3648,
+      "tokensOut": 1260,
+      "checks": {
+        "valid": true,
+        "cards": 6,
+        "exercises": 0,
+        "shapeOk": true,
+        "totalWords": 259,
+        "maxCardWords": 53,
+        "cardsOverLimit": 0,
+        "optionSpreadMax": null,
+        "rightIsLongest": 0,
+        "whyNotKeysOk": "0/0",
+        "reteachLeaks": 0,
+        "nextLine": "How did one murder in Sarajevo pull five great powers into war?",
+        "recall": 2,
+        "svgChars": 0
+      },
+      "reads": [
+        {
+          "rank": 0,
+          "scores": null,
+          "note": null
+        },
+        {
+          "rank": 4,
+          "scores": {
+            "clarity": 3,
+            "concreteness": 4,
+            "fidelity": 2,
+            "followsPlan": 4,
+            "hook": 3,
+            "pace": 4,
+            "picture": null,
+            "quizzes": 3,
+            "teachBeforeTest": 2
+          },
+          "note": "Best: the Morocco gunboat crisis is a concrete real example. Worst: it adds quizzes where none are due, claims war was 'inevitable' and 'guaranteed', and the Morocco detail is not in the reference facts."
+        }
+      ]
+    }
+  ],
+  "rankings": [
+    {
+      "case": "swimming ch2",
+      "order": [
+        "v2#1",
+        "v1#1",
+        "v1#2",
+        "v2#2"
+      ],
+      "verdict": {
+        "ranking": [
+          "B",
+          "C",
+          "D",
+          "A"
+        ],
+        "versions": [
+          {
+            "label": "A",
+            "note": "Best: Marcus's bassline example and the bouncing-cork image are vivid. Worst: the first quiz comes before any teaching, the 'ventilation pipe' picture is muddled, and the legs-sink-to-the-bottom claim and the 'bruised' chest are invented.",
+            "scores": {
+              "clarity": 3,
+              "concreteness": 4,
+              "fidelity": 2,
+              "followsPlan": 4,
+              "hook": 4,
+              "pace": 3,
+              "picture": 2,
+              "quizzes": 3,
+              "teachBeforeTest": 2
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: teach comes before every quiz, the 'bob' is defined clearly, and Sam's ten bobs ties to the outcome. Worst: the whyNot lines are weak, such as 'that is the correct technique', and the wiping-eyes mistake is a stretch.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 4,
+              "fidelity": 4,
+              "followsPlan": 4,
+              "hook": 4,
+              "pace": 4,
+              "picture": 3,
+              "quizzes": 3,
+              "teachBeforeTest": 4
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: tidy quizzes with clear whyNots that name the confusion, and a consistent exhaust image. Worst: the outcome line drops the 10 bobs, and the 'chest burns after five seconds' claim and the 'starved' line are shaky.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 3,
+              "fidelity": 3,
+              "followsPlan": 3,
+              "hook": 4,
+              "pace": 4,
+              "picture": 3,
+              "quizzes": 4,
+              "teachBeforeTest": 4
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: the long-exhale, short-inhale timing is clear and the example is vivid. Worst: a quiz comes right after the picture card, before any teaching, and the correct options are often the longest.",
+            "scores": {
+              "clarity": 3,
+              "concreteness": 4,
+              "fidelity": 3,
+              "followsPlan": 4,
+              "hook": 3,
+              "pace": 3,
+              "picture": 3,
+              "quizzes": 3,
+              "teachBeforeTest": 2
+            }
+          }
+        ],
+        "why": "B and C teach before they test and stay close to the facts, and B also keeps the 10-bob outcome and a concrete example. A and D put a quiz before any teaching, and A also invents details and muddles its picture."
+      },
+      "error": null,
+      "inr": 4.53222
+    },
+    {
+      "case": "swimming ch1",
+      "order": [
+        "v1#1",
+        "v1#2",
+        "v2#1",
+        "v2#2"
+      ],
+      "verdict": null,
+      "error": "no JSON: {\"versions\":[{\"label\":\"A\",\"scores\":{\"hook\":3,\"followsPlan\":4,\"teachBeforeTest\":5,\"quizzes\":3,\"clarity\":4,\"concreteness\":4,\"picture\":4,\"fidelity\":3,\"pace\":4},\"note\":\"Best: clear suction test, a concret",
+      "inr": 3.410316
+    },
+    {
+      "case": "world war I ch1",
+      "order": [
+        "v2#2",
+        "v1#1",
+        "v2#1",
+        "v1#2"
+      ],
+      "verdict": null,
+      "error": "no JSON: {\"versions\":[{\"label\":\"A\",\"scores\":{\"hook\":4,\"followsPlan\":4,\"teachBeforeTest\":5,\"quizzes\":3,\"clarity\":4,\"concreteness\":4,\"picture\":null,\"fidelity\":3,\"pace\":4},\"note\":\"Best: the Morocco gunboat exampl",
+      "inr": 3.456432
+    },
+    {
+      "case": "swimming ch2",
+      "order": [
+        "v2#2",
+        "v1#2",
+        "v1#1",
+        "v2#1"
+      ],
+      "verdict": {
+        "ranking": [
+          "C",
+          "B",
+          "A",
+          "D"
+        ],
+        "versions": [
+          {
+            "label": "A",
+            "note": "Best: the Marcus story and the 'hum' image are vivid and the timing card is clear. Worst: the first quiz, on exhaling underwater, comes before any teaching card, and the Elena mistake card says she held her breath but then blames exhaling above the surface.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 4,
+              "fidelity": 3,
+              "followsPlan": 4,
+              "hook": 4,
+              "pace": 3,
+              "picture": 3,
+              "quizzes": 3,
+              "teachBeforeTest": 1
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: the teaching order is clean and every quiz follows a card that taught it. Worst: the outcome line is reworded, and some whyNot lines are shaky, such as claiming that exhaling in one puff leaves you starved.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 3,
+              "fidelity": 3,
+              "followsPlan": 4,
+              "hook": 4,
+              "pace": 4,
+              "picture": 4,
+              "quizzes": 3,
+              "teachBeforeTest": 5
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: the opening line mirrors the plan's hook and Sam's ten bobs is concrete and ties to the outcome. Worst: the Elena mistake card is about wiping her eyes, which the quiz then tests though it is a minor point, and one whyNot says the correct technique is wrong.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 5,
+              "fidelity": 3,
+              "followsPlan": 4,
+              "hook": 5,
+              "pace": 4,
+              "picture": 4,
+              "quizzes": 3,
+              "teachBeforeTest": 4
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: the whyNot lines name the exact confusion clearly. Worst: the first quiz comes before any teaching, the cards are long, and it makes up claims such as chest feeling 'bruised' and that panic is only about carbon dioxide.",
+            "scores": {
+              "clarity": 3,
+              "concreteness": 4,
+              "fidelity": 2,
+              "followsPlan": 4,
+              "hook": 4,
+              "pace": 2,
+              "picture": 3,
+              "quizzes": 3,
+              "teachBeforeTest": 2
+            }
+          }
+        ],
+        "why": "C and B teach each point before testing it, keep cards short, and stay close to the plan, while C adds the most concrete, outcome-linked example. A and D open with a quiz before any teaching card, and D is also wordier and invents more detail."
+      },
+      "error": null,
+      "inr": 4.54986
+    },
+    {
+      "case": "world war I ch1",
+      "order": [
+        "v1#2",
+        "v2#1",
+        "v1#1",
+        "v2#2"
+      ],
+      "verdict": {
+        "ranking": [
+          "C",
+          "A",
+          "B",
+          "D"
+        ],
+        "versions": [
+          {
+            "label": "A",
+            "note": "Best: clear Balkan-to-Russia chain and the dreadnought example. Worst: this is a quick handbook, so quizzes are not due, and the 1912 skirmish quiz is a hypothetical; it also claims Britain 'ordered twice as many ships' and that treaties legally obligated mobilization, both invented or overstated.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 4,
+              "fidelity": 3,
+              "followsPlan": 5,
+              "hook": 4,
+              "pace": 4,
+              "picture": null,
+              "quizzes": 3,
+              "teachBeforeTest": 2
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: defines the new terms inline. Worst: calls the Entente 'informal' and says Britain, France and Russia formed it in alarm; it adds quizzes where none are due, and 'six empires' is loose.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 3,
+              "fidelity": 3,
+              "followsPlan": 4,
+              "hook": 3,
+              "pace": 4,
+              "picture": null,
+              "quizzes": 3,
+              "teachBeforeTest": 2
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: tight, short cards with an explained 'entente'. Worst: quizzes are present though none are due, the right answer in the second quiz is conspicuously longer, and 'secret pacts' is unsupported.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 3,
+              "fidelity": 3,
+              "followsPlan": 4,
+              "hook": 4,
+              "pace": 5,
+              "picture": null,
+              "quizzes": 3,
+              "teachBeforeTest": 2
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: the Morocco gunboat crisis is a concrete real example. Worst: it adds quizzes where none are due, claims war was 'inevitable' and 'guaranteed', and the Morocco detail is not in the reference facts.",
+            "scores": {
+              "clarity": 3,
+              "concreteness": 4,
+              "fidelity": 2,
+              "followsPlan": 4,
+              "hook": 3,
+              "pace": 4,
+              "picture": null,
+              "quizzes": 3,
+              "teachBeforeTest": 2
+            }
+          }
+        ],
+        "why": "C is the most concise and stays closest to the plan and facts, with an inline term explanation. D loses points for overstating inevitability and adding unreferenced detail; all four wrongly include quizzes in a quick handbook."
+      },
+      "error": null,
+      "inr": 3.317832
+    },
+    {
+      "case": "swimming ch1",
+      "order": [
+        "v2#2",
+        "v2#1",
+        "v1#2",
+        "v1#1"
+      ],
+      "verdict": {
+        "ranking": [
+          "C",
+          "B",
+          "A",
+          "D"
+        ],
+        "versions": [
+          {
+            "label": "A",
+            "note": "Best: the 'mistake' card teaches that hair under the rim breaks the seal. Worst: the first card says 'shallow water', and the seal card says to hold the cups on 'without looping the strap' and then to slide the strap on, which is muddled. The lifeguard is mentioned only once and the face-in step is thin.",
+            "scores": {
+              "clarity": 3,
+              "concreteness": 4,
+              "fidelity": 3,
+              "followsPlan": 3,
+              "hook": 4,
+              "pace": 4,
+              "picture": 3,
+              "quizzes": 3,
+              "teachBeforeTest": 4
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: it covers all three plan elements, including a dedicated face-in card and the lifeguard. Worst: its distractors are weak, and 'shoulder-deep' is a distractor that is wrong in an unclear way. Some details are invented, such as 'four-foot marker' and the pool drain.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 4,
+              "fidelity": 3,
+              "followsPlan": 5,
+              "hook": 3,
+              "pace": 4,
+              "picture": 3,
+              "quizzes": 3,
+              "teachBeforeTest": 4
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: the hook is the plan's own sentence, and the boat and dock picture is used lightly. Worst: the claim that looking ahead 'triggers worry' is a small unsupported reach. Quiz option c in the first quiz is an obvious throwaway.",
+            "scores": {
+              "clarity": 4,
+              "concreteness": 4,
+              "fidelity": 4,
+              "followsPlan": 4,
+              "hook": 5,
+              "pace": 5,
+              "picture": 4,
+              "quizzes": 4,
+              "teachBeforeTest": 5
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: the 'chest-deep' definition is vivid and the suction test is explained clearly. Worst: the quiz about the shallow lane uses the 'waist-deep with a rail' option, which is ambiguous. 'Tire out twice as fast' and 'last Tuesday' are made up, and the text says a plain 'Chest-deep means below your mouth', which is off.",
+            "scores": {
+              "clarity": 3,
+              "concreteness": 4,
+              "fidelity": 3,
+              "followsPlan": 4,
+              "hook": 3,
+              "pace": 4,
+              "picture": 3,
+              "quizzes": 3,
+              "teachBeforeTest": 3
+            }
+          }
+        ],
+        "why": "C stays closest to the plan and the facts, with a strong hook, short cards, and quiz options that are plausible but clearly distinct. The others add invented details or muddled instructions, or lose some of the plan's elements."
+      },
+      "error": null,
+      "inr": 3.546396
+    }
+  ]
+}

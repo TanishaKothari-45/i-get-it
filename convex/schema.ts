@@ -70,6 +70,9 @@ export default defineSchema({
     cards: v.optional(v.any()),   // array of cards, exercises include answer/whyNot/reteach (never sent raw to the client)
     outcomeLine: v.optional(v.string()),
     error: v.optional(v.string()),
+    // 9 Oct (writer v6): what this chapter taught, the terms, names, opener and closing line it used, and any fact it
+    // needed but did not have. The next chapter's writer gets the earlier chapters' records as "Already taught".
+    ledger: v.optional(v.any()),
     createdAt: v.number(),
   }).index("by_handbook_n", ["handbookId", "n"]),
 

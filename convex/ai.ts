@@ -174,7 +174,9 @@ async function callGemini(kind: Kind, system: string, user: string, model: strin
   if (!keys.length) throw new Error("No Gemini key");
   const schema = jsonSchema(kind);
   let res: any, body: any;
+  const dead = new Set<number>();
   for (let i = 0; i < 2 * keys.length; i++) {
+    if (dead.has(i % keys.length)) continue;
     const left = deadline - Date.now();
     if (left < 5000) throw new Error("Gemini time budget used up");
     res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
@@ -190,8 +192,13 @@ async function callGemini(kind: Kind, system: string, user: string, model: strin
       }),
     }).catch((e: any) => ({ ok: false, status: 0, json: async () => ({ error: String(e?.message ?? e) }) }) as any);
     body = await res.json().catch(() => ({}));
-    if (res.ok || ![503, 429, 0].includes(res.status)) break;
-    if (i % keys.length === keys.length - 1 && deadline - Date.now() > 15000) await new Promise((x) => setTimeout(x, 5000));
+    if (res.ok) break;
+    // 9 Oct: a key out of credit (402) is dropped and the other key carries on. Before, the backup's 402 ended the call
+    // even when the main key had only been busy for a moment (503), and the error read "credits depleted".
+    if (res.status === 402 && dead.size + 1 < keys.length) dead.add(i % keys.length);
+    else if (![503, 429, 0].includes(res.status)) break;
+    // 9 Oct: a 503 "high demand" can last a minute; wait 15 s between rounds when the step has time for it.
+    if (i % keys.length === keys.length - 1 && deadline - Date.now() > 30000) await new Promise((x) => setTimeout(x, 15000));
   }
   if (!res.ok) throw new Error(`Gemini ${res.status}: ${JSON.stringify(body).slice(0, 300)}`);
   const cand = body.candidates?.[0];

@@ -1,0 +1,484 @@
+{
+  "at": "2026-10-08T13:02:06.711Z",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "topic": "Swimming",
+    "level": "new",
+    "goal": "swim my first full length of a pool without stopping",
+    "mode": "skill"
+  },
+  "plans": [
+    {
+      "name": "v1 #1",
+      "version": "v1",
+      "picture": {
+        "line": "Your body is a kayak: staying level and balanced lets you glide effortlessly, while fighting the water sinks the stern.",
+        "name": "a sleek kayak"
+      },
+      "reach": {
+        "pairs": 0,
+        "chaptersUsing": 0
+      },
+      "titles": [
+        "Gear and Water Comfort",
+        "Rhythmic Breathing and Submersion",
+        "Floating and Horizontal Balance",
+        "Flutter Kick Technique",
+        "Freestyle Arm Stroke",
+        "Side Breathing Mechanics",
+        "Pacing Your First Full Length"
+      ],
+      "pic": 2,
+      "all": 3.7777777777777777,
+      "ranks": [
+        5,
+        3
+      ],
+      "notes": [
+        "Best: it uses the brief's chapter titles exactly, and its hooks are curious. Worst: several outcomes are vague ('effectively', 'a clean breath') and the kayak picture is barely mapped.",
+        "Best: chapter titles follow the brief's outline and the hooks are honest; worst: the kayak picture has no part mapping and several outcomes are vague, such as \"catch and pull water effectively\"."
+      ],
+      "ms": 16856,
+      "tokensOut": 1530,
+      "inr": 0.637812
+    },
+    {
+      "name": "v1 #2",
+      "version": "v1",
+      "picture": {
+        "line": "Your body is a narrow canoe: press your chest down to keep the back afloat, roll gently along your long axis, and let your arms act as paddles.",
+        "name": "a floating canoe"
+      },
+      "reach": {
+        "pairs": 0,
+        "chaptersUsing": 0
+      },
+      "titles": [
+        "Gear Up and Settle In",
+        "Breathe Out Underwater",
+        "Balance and the Streamline Float",
+        "Kick from the Hips",
+        "The Freestyle Arm Pull",
+        "The One-Goggle Side Breath",
+        "Pacing the Full 25 Meters"
+      ],
+      "pic": 2.5,
+      "all": 3.7777777777777777,
+      "ranks": [
+        3,
+        4
+      ],
+      "notes": [
+        "Best: good test-based outcomes such as six strokes and 15 m on a board. Worst: the hooks 'swimming slower than you walk' and 'fatigue faster than swimming hard' are shaky claims, the canoe picture is thin, and the day-28 target of 500 m is a big jump.",
+        "Best: crisp hooks such as \"you never need to lift your head, only roll\" and measurable outcomes; worst: it uses canoe instead of kayak with no mapping, and the claim \"pressing your chest down\" and \"slower than you walk\" go past the brief."
+      ],
+      "ms": 32766,
+      "tokensOut": 1377,
+      "inr": 0.589617
+    },
+    {
+      "name": "v5 #1",
+      "version": "v5",
+      "picture": {
+        "line": "Your torso is the rigid hull resting flat on water, rolling smoothly from side to side rather than muscling upward.",
+        "name": "A sleek kayak"
+      },
+      "reach": {
+        "pairs": 0,
+        "chaptersUsing": 0
+      },
+      "titles": [
+        "Gear Up and Own the Shallow End",
+        "Breathe Out Below, In Above",
+        "Float Flat and Stand Back Up",
+        "Kick from the Hips",
+        "The High-Elbow Arm Stroke",
+        "Roll to Breathe on the Side",
+        "Pace Your First 25-Meter Length"
+      ],
+      "pic": 2.5,
+      "all": 3.7222222222222223,
+      "ranks": [
+        4,
+        5
+      ],
+      "notes": [
+        "Best: the chapters follow the brief closely, and the day-7 outcome is clear. Worst: invented hooks ('most adult panics start with goggles', 'exhausts lungs faster than swimming hard') and a thin kayak picture.",
+        "Best: outcomes are concrete and the plan builds to combining kick, pull and breathing; worst: hooks make dubious claims like \"most adult panics start with goggles\" and \"holding breath exhausts lungs faster than swimming hard\", and the picture is thin."
+      ],
+      "ms": 13423,
+      "tokensOut": 1256,
+      "inr": 0.562401
+    },
+    {
+      "name": "v5 #2",
+      "version": "v5",
+      "picture": {
+        "line": "Your buoyant lungs are the hull, your legs act as the steady rudder, and your arms are the rhythmic paddles.",
+        "name": "A slender kayak"
+      },
+      "reach": {
+        "pairs": 0,
+        "chaptersUsing": 0
+      },
+      "titles": [
+        "Goggles and Standing Ground",
+        "Blowing Bubbles and Bobbing",
+        "The Horizontal Glide",
+        "Kicking from the Hips",
+        "The Clean Arm Pull",
+        "Rotating to Breathe",
+        "Pacing the Full Length"
+      ],
+      "pic": 2.5,
+      "all": 3.611111111111111,
+      "ranks": [
+        2,
+        6
+      ],
+      "notes": [
+        "Best: the outcomes are sensible and the hooks stay close to the brief's facts. Worst: the kayak picture is vague and maps lungs, legs and arms inconsistently, and the day-28 claim of 'bilateral' breathing was never taught.",
+        "Best: it stays faithful to the brief's sequence and facts; worst: outcomes are vague (\"pull efficiently\", \"relaxed pace\") and the picture calls lungs the hull with no mapping."
+      ],
+      "ms": 22666,
+      "tokensOut": 2641,
+      "inr": 0.998676
+    },
+    {
+      "name": "v6 #1",
+      "version": "v6",
+      "picture": {
+        "line": "Your body moves through water like a narrow kayak, where a level hull glides effortlessly and a tilted hull drags.",
+        "maps": [
+          {
+            "is": "the flat kayak hull skimming the surface",
+            "part": "torso and floating line"
+          },
+          {
+            "is": "the stern rudder and small rear propeller",
+            "part": "flutter kick"
+          },
+          {
+            "is": "the dual-bladed paddle pulling clean through water",
+            "part": "arm stroke"
+          },
+          {
+            "is": "rolling the hull along its center axis without pitching up",
+            "part": "side breathing"
+          }
+        ],
+        "name": "a touring kayak"
+      },
+      "reach": {
+        "pairs": 4,
+        "chaptersUsing": 5
+      },
+      "titles": [
+        "Goggles on and Grounded",
+        "Continuous Bubbles",
+        "Trimming the Hull",
+        "Power from the Hips",
+        "The Paddle Pull",
+        "Rolling to Breathe",
+        "The First Full Length"
+      ],
+      "pic": 4.5,
+      "all": 4.222222222222222,
+      "ranks": [
+        1,
+        1
+      ],
+      "notes": [
+        "Best: the kayak picture has explicit maps and its hull-trim idea carries through the chapters, and the staged distance outcomes (3 m, 10 m, 25 m) are testable. Worst: the 'cut panic in half' and 'doubles the glide' hooks are invented claims.",
+        "Best: the kayak picture maps hull, kick, paddle and roll, and it carries through chapters such as \"Trimming the Hull\"; worst: made-up hook numbers like \"cuts panic in half\" and \"doubles the glide\"."
+      ],
+      "ms": 21003,
+      "tokensOut": 2383,
+      "inr": 0.926289
+    },
+    {
+      "name": "v6 #2",
+      "version": "v6",
+      "picture": {
+        "line": "Your body moves through water like a narrow kayak: when the hull sits level and rolls cleanly, propulsion takes minimal effort.",
+        "maps": [
+          {
+            "is": "the buoyant kayak hull that must stay flat on top of the water",
+            "part": "your torso and hips"
+          },
+          {
+            "is": "the trim rudder that raises or sinks the back of the boat",
+            "part": "your head position"
+          },
+          {
+            "is": "the paddle blade catching water and pressing it straight backward",
+            "part": "your arm pull"
+          },
+          {
+            "is": "the steady stern motor keeping the vessel aligned and moving forward",
+            "part": "your flutter kick"
+          }
+        ],
+        "name": "a touring kayak"
+      },
+      "reach": {
+        "pairs": 4,
+        "chaptersUsing": 4
+      },
+      "titles": [
+        "Goggles and Shallow Water",
+        "Continuous Bubbles and Bobbing",
+        "Trimming the Hull",
+        "The Hip-Driven Propeller",
+        "Paddling Past the Hips",
+        "Rolling for Air",
+        "Cruising the Full Length"
+      ],
+      "pic": 4,
+      "all": 3.5,
+      "ranks": [
+        6,
+        2
+      ],
+      "notes": [
+        "Best: the kayak picture has several mapped parts. Worst: the arm-stroke outcome says to swim 10 m 'while holding your breath', which contradicts the breathing lessons, and it makes up claims such as 'twice the forward thrust' and 'self-rescue' methods.",
+        "Best: the kayak picture maps hull, head, pull and kick and the outcomes are measurable; worst: it makes up claims like \"twice the forward thrust\" and a \"10-meter swim while holding your breath\", and its glide of 5 m is ambitious."
+      ],
+      "ms": 27784,
+      "tokensOut": 3033,
+      "inr": 1.131039
+    }
+  ],
+  "judges": [
+    {
+      "order": [
+        3,
+        4,
+        1,
+        2,
+        0,
+        5
+      ],
+      "verdict": {
+        "plans": [
+          {
+            "label": "A",
+            "note": "Best: the outcomes are sensible and the hooks stay close to the brief's facts. Worst: the kayak picture is vague and maps lungs, legs and arms inconsistently, and the day-28 claim of 'bilateral' breathing was never taught.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 4,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 4,
+              "picture": 3,
+              "progression": 4,
+              "sources": 4
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: the kayak picture has explicit maps and its hull-trim idea carries through the chapters, and the staged distance outcomes (3 m, 10 m, 25 m) are testable. Worst: the 'cut panic in half' and 'doubles the glide' hooks are invented claims.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 4,
+              "goalFit": 5,
+              "hooks": 4,
+              "outcomes": 5,
+              "picture": 5,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: good test-based outcomes such as six strokes and 15 m on a board. Worst: the hooks 'swimming slower than you walk' and 'fatigue faster than swimming hard' are shaky claims, the canoe picture is thin, and the day-28 target of 500 m is a big jump.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 3,
+              "progression": 4,
+              "sources": 4
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: the chapters follow the brief closely, and the day-7 outcome is clear. Worst: invented hooks ('most adult panics start with goggles', 'exhausts lungs faster than swimming hard') and a thin kayak picture.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 3,
+              "progression": 4,
+              "sources": 4
+            }
+          },
+          {
+            "label": "E",
+            "note": "Best: it uses the brief's chapter titles exactly, and its hooks are curious. Worst: several outcomes are vague ('effectively', 'a clean breath') and the kayak picture is barely mapped.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 4,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 3,
+              "picture": 2,
+              "progression": 4,
+              "sources": 3
+            }
+          },
+          {
+            "label": "F",
+            "note": "Best: the kayak picture has several mapped parts. Worst: the arm-stroke outcome says to swim 10 m 'while holding your breath', which contradicts the breathing lessons, and it makes up claims such as 'twice the forward thrust' and 'self-rescue' methods.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 4,
+              "fidelity": 2,
+              "goalFit": 3,
+              "hooks": 3,
+              "outcomes": 3,
+              "picture": 4,
+              "progression": 3,
+              "sources": 3
+            }
+          }
+        ],
+        "ranking": [
+          "B",
+          "A",
+          "C",
+          "D",
+          "E",
+          "F"
+        ],
+        "why": "B pairs a well-mapped kayak picture with staged, testable distance outcomes that build safely toward the 25 m goal. The others have vaguer pictures, shakier invented hooks or, in F's case, an outcome that contradicts the breathing lessons."
+      },
+      "error": null,
+      "inr": 4.119192
+    },
+    {
+      "order": [
+        5,
+        0,
+        2,
+        1,
+        4,
+        3
+      ],
+      "verdict": {
+        "plans": [
+          {
+            "label": "A",
+            "note": "Best: the kayak picture maps hull, head, pull and kick and the outcomes are measurable; worst: it makes up claims like \"twice the forward thrust\" and a \"10-meter swim while holding your breath\", and its glide of 5 m is ambitious.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 4,
+              "progression": 4,
+              "sources": 4
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: chapter titles follow the brief's outline and the hooks are honest; worst: the kayak picture has no part mapping and several outcomes are vague, such as \"catch and pull water effectively\".",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 4,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 3,
+              "picture": 2,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: outcomes are concrete and the plan builds to combining kick, pull and breathing; worst: hooks make dubious claims like \"most adult panics start with goggles\" and \"holding breath exhausts lungs faster than swimming hard\", and the picture is thin.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 2,
+              "progression": 4,
+              "sources": 4
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: crisp hooks such as \"you never need to lift your head, only roll\" and measurable outcomes; worst: it uses canoe instead of kayak with no mapping, and the claim \"pressing your chest down\" and \"slower than you walk\" go past the brief.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 4,
+              "picture": 2,
+              "progression": 4,
+              "sources": 4
+            }
+          },
+          {
+            "label": "E",
+            "note": "Best: the kayak picture maps hull, kick, paddle and roll, and it carries through chapters such as \"Trimming the Hull\"; worst: made-up hook numbers like \"cuts panic in half\" and \"doubles the glide\".",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 4,
+              "progression": 4,
+              "sources": 4
+            }
+          },
+          {
+            "label": "F",
+            "note": "Best: it stays faithful to the brief's sequence and facts; worst: outcomes are vague (\"pull efficiently\", \"relaxed pace\") and the picture calls lungs the hull with no mapping.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 3,
+              "hooks": 3,
+              "outcomes": 2,
+              "picture": 2,
+              "progression": 4,
+              "sources": 4
+            }
+          }
+        ],
+        "ranking": [
+          "E",
+          "A",
+          "B",
+          "D",
+          "C",
+          "F"
+        ],
+        "why": "E and A pair concrete, testable outcomes with a kayak picture that maps several body parts across the chapters, though both invent a few hook numbers. The others have weak or unmapped pictures, and F also has vague outcomes."
+      },
+      "error": null,
+      "inr": 4.066272
+    }
+  ]
+}

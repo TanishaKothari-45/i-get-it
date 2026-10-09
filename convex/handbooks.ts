@@ -4,11 +4,11 @@ import { getAuthUserId } from "@convex-dev/auth/server";
 import { components, internal } from "./_generated/api";
 import { internalAction, internalMutation, internalQuery, mutation, query, type MutationCtx, type QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
-import { briefForChapter, briefForPlan, MATCH_PROMPT, matchUserMessage, VERSIONS_PROMPT, versionsUserMessage } from "./prompts";
+import { briefForChapter, briefForPlan, referenceForCheck, chapterContext, samePiece, PLAN_PROMPT_V9, CHAPTER_PROMPT_V6, CHECK_PROMPT_V3, CHECK_SCENES_PROMPT_V3, MATCH_PROMPT, matchUserMessage, VERSIONS_PROMPT, versionsUserMessage } from "./prompts";
 import { addCost, inrOf } from "./costs";
 import { pictureCards } from "./pictureCards";
 import type { Trace } from "./trace";
-import { MOVE_PROMPT, moveUserMessage, TRYIT_PROMPT, tryItUserMessage, INTENT_PROMPT, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, CHAPTER_PROMPT, CHECK_PROMPT, CHECK_SCENES_PROMPT, checkUserMessage, PLAN_PROMPT, chapterUserMessage, planUserMessage } from "./prompts";
+import { MOVE_PROMPT, moveUserMessage, TRYIT_PROMPT, tryItUserMessage, INTENT_PROMPT_V2, intentUserMessage, TEACH_PROMPT, teachUserMessage, ASK_SEARCH_PROMPT, askSearchUserMessage, checkUserMessage, chapterUserMessage, planUserMessage } from "./prompts";
 import { level } from "./schema";
 import { copyInto, matchForIntent, sharedRow } from "./library";
 import { onShelf } from "./shelf";
@@ -525,7 +525,7 @@ export const generateIntents = internalAction({
   handler: async (ctx, { handbookId }) => {
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h || h.status !== "intent") return;
-    const r = await ctx.runAction(internal.ai.generate, { kind: "intent", system: INTENT_PROMPT, user: intentUserMessage(h.topic), trace: { handbookId } });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "intent", system: INTENT_PROMPT_V2, user: intentUserMessage(h.topic), trace: { handbookId } });
     // Not a topic at all (9 Oct: "asdfgh" wrote a whole handbook on touch typing): ask, and the answer becomes the topic.
     if (r.ok && r.json?.question === "not-a-topic") { await ctx.runMutation(internal.handbooks.setQuestion, { handbookId, question: NOT_A_TOPIC_Q }); return; }
     const goals = r.ok && Array.isArray(r.json?.goals) ? r.json.goals.filter((g: any) => typeof g?.label === "string" && g.label.trim()).slice(0, 3).map((g: any) => ({ label: String(g.label).slice(0, 60), mode: ["skill", "story", "subject", "decision"].includes(g.mode) ? g.mode : "subject" })) : [];
@@ -568,9 +568,13 @@ export const chooseIntent = mutation({
 // Flash 3.56 on a blind ranking; about ₹1 a plan on Flash against about ₹7 on Opus at high effort. A writer pinned by an
 // A/B test keeps its own model. To switch back: PLAN_MODEL = undefined (Opus high, the 6 Oct setting).
 // D33 (dc for Prateek, 9 Oct 04:0x, from the dev judge: Opus about 8 of 12 a chapter, Flash about 6 with invented numbers; Flash plans had no picture and one block list for every chapter): back on Opus 5.5, effort medium.
-const PLAN_MODEL: string | undefined = undefined;
-const PLAN_EFFORT = "medium" as const;
-const PLAN_BACKUP = { model: "claude-opus-5-5", effort: "high" as const };   // D33: the first try is Opus medium, so the backup is Opus high
+// feat/handbook-shape (Tanisha, 9 Oct): back on Gemini Flash with Opus medium as the backup while the shape work is
+// tested; D33's judge result is noted above and the comparison is to be rerun with the shape prompts.
+// The plan prompt (9 Oct, feat/handbook-shape): v8, the shape framework (convex/prompts.ts). Switch back: PLAN_PROMPT.
+const PLAN_LIVE = PLAN_PROMPT_V9;   // 9 Oct: v9, the 26 changes (chapters as delivery specs). Before: PLAN_PROMPT_V8.
+const PLAN_MODEL: string | undefined = "gemini-3.8-flash";
+const PLAN_EFFORT = "medium" as const;   // used only when the plan runs on Claude
+const PLAN_BACKUP = { model: "claude-opus-5-5", effort: "medium" as const };
 
 export const generatePlan = internalAction({
   args: { handbookId: v.id("handbooks"), clarification: v.optional(v.string()) },
@@ -580,19 +584,23 @@ export const generatePlan = internalAction({
     // Research first (research.ts): what kind of handbook this needs, and the facts and sources it rests on. It runs
     // here, after the goal (8 Oct), so there is nothing to wait for; a brief already present (a clarifying answer brings
     // the reader back here) is reused.
-    if (!(h as any).brief) {
+    // 9 Oct (outside reviews): a clarifying answer with no goal set runs research again, with that answer as the goal;
+    // the brief written before the answer knew nothing of it.
+    const rerun = !!clarification && !h.goal && !!(h as any).brief;
+    if (!(h as any).brief || rerun) {
       await ctx.runMutation(internal.handbooks.markResearch, { handbookId });
-      await ctx.runAction(internal.research.run, { handbookId }).catch((e: any) => console.log("research failed", String(e).slice(0, 200)));
+      await ctx.runAction(internal.research.run, { handbookId, ...(rerun ? { goal: clarification, force: true } : {}) }).catch((e: any) => console.log("research failed", String(e).slice(0, 200)));
       h = (await ctx.runQuery(internal.handbooks.readHandbook, { handbookId })) ?? h;
     }
-    let brief = (h as any).brief ?? null;
-    // D23 guard on the typed line (9 Oct): "how to make/cook/bake X", "X recipe" is one sitting whatever the research
-    // labelled it (Flash called "how to make dal" a skill and planned 7 chapters). The brief is overridden for the plan.
-    const oneOff = /^(how (do i|to) (make|cook|bake|prepare|fry|boil|roast|grill|fix|repair|install|set ?up|tie|fold|clean|wash|change|replace|assemble)\b|.*\brecipe\b)/i.test(h.topic.trim());
-    if (oneOff && brief && (brief.format !== "quick" || Number(brief.chapters) !== 1 || !["howto", "recipe", "event", "person"].includes(String(brief.kind)))) brief = { ...brief, kind: "howto", format: "quick", chapters: 1 };
-    const planUser = planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief) + (oneOff ? `\n\nThis is a one-sitting handbook: "format" is "quick" and "chapters" has exactly ONE item holding every step, starting with a doit checklist titled "What you need".` : "");
-    let r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUser, model: h.writer ?? PLAN_MODEL, effort: h.writer ? undefined : PLAN_EFFORT, trace: { handbookId } });
-    if (!r.ok && !h.writer && PLAN_MODEL) r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: planUser, ...PLAN_BACKUP, trace: { handbookId } });
+    // feat/handbook-shape (9 Oct): D23's typed-line guard (recipes forced to one chapter) and D27's forced 7-chapter
+    // course are left out; the handbook's shape and length are what the shape work decides, from the goal and level.
+    const brief = (h as any).brief ?? null;
+    const planUser = planUserMessage(h.topic, h.level, h.language, h.voice ?? "friend", clarification, h.goal, h.mode) + briefForPlan(brief);
+    // A benchmark handbook (evalShape, 9 Oct) runs on Flash alone: no Opus backup at any step, so a failure stays a
+    // failure and we see what Flash does with the prompts. planOnly stops after the plan (no chapters are written).
+    const flashOnly = !!(h as any).test?.flashOnly, planOnly = !!(h as any).test?.planOnly;
+    let r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_LIVE, user: planUser, model: h.writer ?? PLAN_MODEL, effort: h.writer ? undefined : PLAN_EFFORT, trace: { handbookId } });
+    if (!r.ok && !h.writer && PLAN_MODEL && !flashOnly) r = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_LIVE, user: planUser, ...PLAN_BACKUP, trace: { handbookId } });
     // Claude's own safety check said no: say so plainly, never "try again".
     if (!r.ok && /^declined/.test(r.error)) {
       const ready: any[] = await ctx.runQuery(internal.handbooks.listCache, {});
@@ -610,23 +618,6 @@ export const generatePlan = internalAction({
       await ctx.runMutation(internal.handbooks.setQuestion, { handbookId, question: String(plan.question) });
       return;
     }
-    // D27 (9 Oct): a skill, a subject or a money/health/legal brief is a course of 7, whatever the model returned; one
-    // more try with that said, then the Opus backup, then whatever came back (a short plan beats no plan).
-    const mustBeCourse = ["skill", "subject", "money", "health", "legal"].includes(String(brief?.kind ?? ""));
-    // D23 guard (9 Oct): a recipe, a how-to or any one-off task is ONE chapter with every step; a plan that split it
-    // (the rebuilt dal came back as 4) is asked again, once, with that said.
-    const mustBeOne = ["howto", "recipe", "event", "person"].includes(String(brief?.kind ?? "")) && brief?.format === "quick";
-    if (mustBeOne && Array.isArray(plan.chapters) && plan.chapters.length > 1) {
-      const forced = planUser + `\n\nThis is a one-sitting handbook (${brief.kind}): "format" is "quick" and "chapters" has exactly ONE item that holds every step, with blocks starting with a doit checklist titled "What you need". You returned ${plan.chapters.length} chapters.`;
-      const r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: forced, model: h.writer ?? PLAN_MODEL, trace: { handbookId }, logAs: "plan" });
-      if (r2.ok && Array.isArray(r2.json?.chapters) && r2.json.chapters.length === 1) Object.assign(plan, r2.json);
-    }
-    if (mustBeCourse && Array.isArray(plan.chapters) && plan.chapters.length < CHAPTERS) {
-      const forced = planUser + `\n\nThis is a course (${brief.kind}): "format" is "course" and "chapters" has exactly 7 items. You returned ${plan.chapters.length}.`;
-      let r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: forced, model: h.writer ?? PLAN_MODEL, trace: { handbookId }, logAs: "plan" });
-      if ((!r2.ok || !Array.isArray(r2.json?.chapters) || r2.json.chapters.length < CHAPTERS) && !h.writer) r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: forced, ...PLAN_BACKUP, trace: { handbookId } });
-      if (r2.ok && Array.isArray(r2.json?.chapters) && r2.json.chapters.length === CHAPTERS) Object.assign(plan, r2.json);
-    }
     // 7 for a course; 1 to 3 for a quick one (a recap, one recipe; 7 Oct).
     if (!Array.isArray(plan.chapters) || plan.chapters.length < 1 || plan.chapters.length > CHAPTERS) {
       await ctx.runMutation(internal.handbooks.setFailed, { handbookId, error: `plan had ${plan.chapters?.length ?? 0} chapters` });
@@ -636,28 +627,49 @@ export const generatePlan = internalAction({
     // with the fault stated, then the backup; the better of the two is kept.
     const faults = (p: any): string[] => {
       const out: string[] = [];
-      if (Array.isArray(p?.chapters) && p.chapters.length === CHAPTERS) {
-        if (!p.picture || !p.picture.name) out.push("\"picture\" is null: a course needs one analogy carried through every chapter, with its \"maps\"");
+      // 9 Oct (Tanisha): a handbook has 3 to 7 chapters, each direct and useful on its own, even for a quick request.
+      if (Array.isArray(p?.chapters) && p.chapters.length >= 1 && p.chapters.length < 3) out.push(`the plan has ${p.chapters.length} chapter${p.chapters.length === 1 ? "" : "s"}: a handbook has 3 to 7, each going straight to what the reader asked for`);
+      // 9 Oct (plan v8): any plan of 3 or more chapters that is not a story, quick or course, not only a 7-chapter course.
+      // 9 Oct, after the chapter reviews: an analogy is asked for only on a course that is not a body skill, and a plan that
+      // says why none fits ("pictureWhyNot") is taken at its word; a forced picture (dal as a layer cake) is worse than none.
+      const isCourse = (p?.format ?? (p?.chapters?.length < CHAPTERS ? "quick" : "course")) === "course";
+      if (Array.isArray(p?.chapters) && p.chapters.length >= 3 && p.mode !== "story") {
+        if (isCourse && p.body !== true && !p.pictureWhyNot && (!p.picture || !p.picture.name)) out.push("\"picture\" is null: a course that teaches a skill, a system or an idea needs one analogy where it helps, with its \"maps\", or \"pictureWhyNot\" saying why none fits");
         const lists = p.chapters.slice(1).map((c: any) => JSON.stringify(c.blocks ?? []));
-        if (lists.length > 1 && new Set(lists).size === 1) out.push("chapters 2 to 7 all have the same block list: choose each chapter's blocks for what it teaches");
+        if (lists.length > 1 && new Set(lists).size === 1) out.push("every chapter after the first has the same block list: choose each chapter's blocks for what it teaches");
+      }
+      // 9 Oct (the 26 changes): coverage before any chapter is written. Every piece of the brief is in some chapter, and
+      // every piece a chapter "assumes" was in an earlier chapter's "pieces". Names are matched loosely.
+      if (Array.isArray(p?.chapters) && p.chapters.length >= 1) {
+        const held = p.chapters.map((c: any) => (Array.isArray(c?.pieces) ? c.pieces.map(String) : []));
+        const missing = (Array.isArray(brief?.parts) ? brief.parts : []).map((x: any) => String(x?.part ?? "")).filter((x: string) => x && !held.flat().some((y: string) => samePiece(x, y)));
+        if (held.flat().length && missing.length) out.push(`these pieces from the brief are in no chapter's "pieces": ${missing.join("; ")}`);
+        const early = p.chapters.flatMap((c: any, i: number) => (Array.isArray(c?.assumes) ? c.assumes.map(String) : []).filter((a: string) => !held.slice(0, i).flat().some((y: string) => samePiece(a, y))).map((a: string) => `chapter ${i + 1} assumes "${a}"`));
+        if (early.length) out.push(`a chapter assumes a piece no earlier chapter teaches (${early.slice(0, 4).join("; ")}): teach it earlier, or in that chapter`);
       }
       return out;
     };
     let planFaults = faults(plan);
+    const firstFaults = planFaults;
     if (planFaults.length) {
       const again = planUser + `\n\nYour previous plan had these faults: ${planFaults.join("; ")}. Write the whole plan again with them fixed.`;
-      let r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: again, model: h.writer ?? PLAN_MODEL, effort: h.writer ? undefined : PLAN_EFFORT, trace: { handbookId }, logAs: "plan" });
-      if ((!r2.ok || faults(r2.json).length) && !h.writer) r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_PROMPT, user: again, ...PLAN_BACKUP, trace: { handbookId } });
+      let r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_LIVE, user: again, model: h.writer ?? PLAN_MODEL, effort: h.writer ? undefined : PLAN_EFFORT, trace: { handbookId }, logAs: "plan" });
+      if ((!r2.ok || faults(r2.json).length) && !h.writer && !flashOnly) r2 = await ctx.runAction(internal.ai.generate, { kind: "plan", system: PLAN_LIVE, user: again, ...PLAN_BACKUP, trace: { handbookId } });
       if (r2.ok && Array.isArray(r2.json?.chapters) && r2.json.chapters.length >= 1 && faults(r2.json).length < planFaults.length) { Object.assign(plan, r2.json); planFaults = faults(plan); }
       console.log("plan faults", handbookId, planFaults.length ? planFaults : "fixed");
     }
+    if (flashOnly) await ctx.runMutation(internal.evalShape.noteTest, { handbookId, note: { firstFaults, finalFaults: planFaults } });
     if (!plan.mode && h.mode) plan.mode = h.mode;
     if (h.goal) plan.goal = h.goal;
     plan.chapters = plan.chapters.map((c: any, i: number) => ({ ...c, n: i + 1 }));
-    plan.format = plan.chapters.length < CHAPTERS ? "quick" : "course";
+    // Plan v8 (9 Oct): the format is the pace the plan chose, not the chapter count; a plan without one is read as before.
+    if (plan.format !== "quick" && plan.format !== "course") plan.format = plan.chapters.length < CHAPTERS ? "quick" : "course";
     // D31b (2): move and doit cards are for body skills only (a sport, exercise, dance, yoga, swimming); any other course
     // loses them and a proof of "set" becomes "predict". A one-sitting handbook keeps its "What you need" checklist.
-    const bodySkill = /\b(sport|sports|exercise|exercises|dance|dancing|yoga|swim|swimming|calisthenics|workout|fitness|running|jogging|martial|boxing|gym|stretch|stretching|pilates|cricket|football|tennis|badminton|climbing|cycling|push-?ups?|pull-?ups?|squats?|planks?|posture|breathing)\b/i.test(`${h.topic} ${brief?.kind ?? ""} ${h.goal ?? ""} ${plan.mode ?? ""}`);
+    // 9 Oct (outside reviews): plan v8 says whether this is learned with the body ("body"); the keyword list below is
+    // only for plans without that field (older prompts). It misfired both ways: kathak and CPR lost their move cards,
+    // "running a business" kept them.
+    const bodySkill = typeof plan.body === "boolean" ? plan.body : /\b(sport|sports|exercise|exercises|dance|dancing|yoga|swim|swimming|calisthenics|workout|fitness|running|jogging|martial|boxing|gym|stretch|stretching|pilates|cricket|football|tennis|badminton|climbing|cycling|push-?ups?|pull-?ups?|squats?|planks?|posture|breathing)\b/i.test(`${h.topic} ${brief?.kind ?? ""} ${h.goal ?? ""} ${plan.mode ?? ""}`);
     if (plan.format === "course" && !bodySkill) {
       let stripped = 0;
       for (const c of plan.chapters) {
@@ -669,12 +681,13 @@ export const generatePlan = internalAction({
     if (plan.format === "quick" && !plan.framing && brief?.framing) plan.framing = brief.framing;
     if (plan.format === "course") plan.framing = null;
     await ctx.runMutation(internal.handbooks.setPlan, { handbookId, plan, topic: clarification ? `${h.topic} (${clarification})` : h.topic });
+    if (planOnly) return;
     await ctx.runMutation(internal.handbooks.startChapter, { handbookId, n: 1 });
     // Chapter 1 runs as its own action (8 Oct, Tanisha): the plan is saved and shown now, and a slow or failed chapter
     // never takes the plan step down with it (each step has its own time limit and its own failure).
     await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n: 1 });
-    // A quick handbook (D23, 9 Oct) is one sitting: every chapter is written now, never one ahead, so nothing waits.
-    if (plan.format === "quick") for (let k = 2; k <= plan.chapters.length; k++) { await ctx.runMutation(internal.handbooks.startChapter, { handbookId, n: k }); await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n: k }); }
+    // A quick handbook is one sitting (D23). Since 9 Oct (writer v6) its chapters are written in order, each starting as
+    // soon as the one before it is saved (generateChapter), so every chapter knows what the earlier ones taught.
   },
 });
 
@@ -688,13 +701,14 @@ function validFix(orig: any, fixed: any): boolean {
 }
 type Scene = { card: number; scene: string; real?: string };
 // With opts.pictures, the same call also writes the picture scenes for the listed cards (8 Oct, Tanisha: one call, not two).
-export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max"; trace?: Trace; pictures?: { cards: number[]; analogy: string }; reference?: string } = {}): Promise<{ cards: any[]; report: FactReport; scenes: Scene[] }> {
-  const { pictures, reference, ...callOpts } = opts;
+export async function factCheck(ctx: any, topic: string, level: string, title: string, cards: any[], opts: { model?: string; effort?: "low" | "medium" | "high" | "xhigh" | "max"; trace?: Trace; pictures?: { cards: number[]; analogy: string }; reference?: string; delivery?: string; mainCount?: number } = {}): Promise<{ cards: any[]; report: FactReport; scenes: Scene[]; added: number }> {
+  const { pictures, reference, delivery, mainCount, ...callOpts } = opts;
   const withScenes = !!pictures?.cards.length;
   // reference (D29c): material the cards must agree with (a handbook's own chapters, for its wait stories).
-  const user = checkUserMessage(topic, level, { title, cards }, withScenes ? pictures : undefined) + (reference ? `\n\nReference material these cards must agree with (names and numbers in the cards should trace to it or to a named source):\n${reference}` : "");
-  const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: withScenes ? CHECK_SCENES_PROMPT : CHECK_PROMPT, user, ...callOpts });
-  if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() }, scenes: [] };
+  // Today (9 Oct, after the outside reviews): the checker has no date of its own, so it took recent facts for errors.
+  const user = checkUserMessage(topic, level, { title, cards }, withScenes ? pictures : undefined) + `\nToday: ${new Date().toISOString().slice(0, 10)}` + (reference ? `\n\nReference material these cards must agree with (names and numbers in the cards should trace to it or to a named source):\n${reference}` : "") + (delivery ? `\n\nThis chapter must deliver:\n${delivery}` : "");
+  const r = await ctx.runAction(internal.ai.generate, { kind: "check", system: withScenes ? CHECK_SCENES_PROMPT_V3 : CHECK_PROMPT_V3, user, ...callOpts });
+  if (!r.ok) return { cards, report: { status: "unchecked", fixes: 0, notes: [r.error], at: Date.now() }, scenes: [], added: 0 };
   const scenes: Scene[] = [];
   for (const x of withScenes && Array.isArray(r.json?.scenes) ? r.json.scenes : []) {
     const card = parseInt(String(x?.card ?? "").replace(/[^0-9]/g, ""), 10), scene = String(x?.scene ?? "").trim().slice(0, 400);
@@ -718,7 +732,7 @@ export async function factCheck(ctx: any, topic: string, level: string, title: s
   if (broken.length) {
     const again = `Topic: ${topic}\nThese cards had a real problem but your corrected version did not keep the card's shape (same "type", same fields; an exercise keeps exactly three options with ids a, b, c and "answer" one of them). Return the corrected WHOLE card for each, same shape as the original, in the same JSON format as before.\n` +
       broken.map(({ i, problem }) => `Card ${i} (problem: ${problem}):\n${JSON.stringify(out[i])}`).join("\n\n") + `\n\nReturn only this JSON: {"ok": false, "fixes": [{"card": <index>, "problem": "...", "fixed": <the corrected card>}]}`;
-    const r2 = await ctx.runAction(internal.ai.generate, { kind: "check", system: CHECK_PROMPT, user: again, ...callOpts });
+    const r2 = await ctx.runAction(internal.ai.generate, { kind: "check", system: CHECK_PROMPT_V3, user: again, ...callOpts });
     stillBroken = [];
     for (const b of broken) {
       const f = r2.ok ? (Array.isArray(r2.json?.fixes) ? r2.json.fixes : []).find((x: any) => Number(x?.card) === b.i) : null;
@@ -726,9 +740,23 @@ export async function factCheck(ctx: any, topic: string, level: string, title: s
       else { stillBroken.push(b); notes.push(`card ${b.i}: fix skipped (shape) - ${b.problem}`); }
     }
   }
+  // check v3 (9 Oct): a missing must-have comes back as a new card after a given card; at most 2, only among the
+  // chapter's own cards (not the recall quizzes after them), inserted from the last so the indexes hold. The picture
+  // scenes are numbered by the cards as sent, so those after an insert move up by one.
+  let added = 0;
+  const limit = mainCount ?? out.length;
+  const adds = (delivery && Array.isArray(r.json?.add) ? r.json.add : []).map((x: any) => ({ after: Number(x?.after), card: x?.card }))
+    .filter((x: any) => Number.isInteger(x.after) && x.after >= 0 && x.after < limit && ["teach", "example", "steps"].includes(x.card?.type) && (typeof x.card.body === "string" || Array.isArray(x.card.steps)))
+    .slice(0, 2).sort((a: any, b: any) => b.after - a.after);
+  for (const a of adds) {
+    out.splice(a.after + 1, 0, a.card);
+    for (const sc of scenes) if (sc.card > a.after) sc.card += 1;
+    notes.push(`card added after ${a.after}: a missing must-have`);
+    added++;
+  }
   const applied = notes.filter((x) => !x.includes("fix skipped")).length;
   const status = stillBroken.length ? "unchecked" : applied > 0 ? "fixed" : "passed";
-  return { cards: out, report: { status, fixes: applied, notes, model: r.model, at: Date.now() }, scenes };
+  return { cards: out, report: { status, fixes: applied, notes, model: r.model, at: Date.now() }, scenes, added };
 }
 
 // Body skills (8 Oct): each "move" card gets its moving figure, drawn by Sonnet from the cues. A failed drawing
@@ -776,7 +804,9 @@ export const markRewrite = internalMutation({
 // medium effort (the writer until now) as the backup when Gemini fails. A model pinned for a reader's profile or by an
 // A/B test keeps its own model. On Flash her v3 prompt kept every shape check at about ₹1.2 a chapter. To switch back:
 // CHAPTER_MODEL = undefined (Opus medium, the 6 Oct setting).
-const CHAPTER_MODEL: string | undefined = undefined;   // D33: Opus 5.5 medium (the JOB default)
+// The writer prompt (9 Oct, feat/handbook-shape): v5, length from the plan's minutes. Switch back: CHAPTER_PROMPT.
+const CHAPTER_LIVE = CHAPTER_PROMPT_V6;   // 9 Oct: v6 (own facts, "already taught", must-haves first). Before: CHAPTER_PROMPT_V5.
+const CHAPTER_MODEL: string | undefined = "gemini-3.8-flash";   // feat/handbook-shape (9 Oct): Flash; D33 had Opus 5.5 medium
 const CHAPTER_BACKUP = { model: "claude-opus-5-5", effort: "medium" as const };
 // Paragraphs (one swipe each) and words across the body-bearing cards of a chapter reply (D27).
 export function chapterSize(json: any) {
@@ -800,28 +830,21 @@ export const generateChapter = internalAction({
     const howTheyDid: string | null = shareable ? null : await ctx.runQuery(internal.handbooks.readingReport, { handbookId, n });
     const trace = { handbookId, chapter: n };
     const pinned = prof.model ?? h.writer;
-    const user = chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, shareable ? undefined : prof.line, howTheyDid ?? undefined) + briefForChapter((h as any).brief);
-    let r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user, model: pinned ?? CHAPTER_MODEL, trace });
+    // writer v6 (9 Oct): the chapter's own facts, its pieces and must-haves, and what earlier chapters taught.
+    const planCh = h.plan.chapters?.[n - 1] ?? {};
+    const pieces: string[] | undefined = Array.isArray(planCh.pieces) ? planCh.pieces.map(String) : undefined;
+    const ledgers = await ctx.runQuery(internal.handbooks.readLedgers, { handbookId });
+    const user = chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, shareable ? undefined : prof.line, howTheyDid ?? undefined) + chapterContext((h as any).brief, h.plan, n, ledgers) + briefForChapter((h as any).brief, pieces);
+    let r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_LIVE, user, model: pinned ?? CHAPTER_MODEL, trace });
     // Why a chapter left Flash, for the call log: "budget" (Gemini's time ran out), "error" (any other failure), "floor" (too short twice).
     let bounce: string | undefined;
-    if (!r.ok && !pinned && CHAPTER_MODEL) { bounce = /time budget/i.test(String(r.error)) ? "budget" : "error"; r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user, ...CHAPTER_BACKUP, trace }); }
+    if (!r.ok && !pinned && CHAPTER_MODEL && !(h as any).test?.flashOnly) { bounce = /time budget/i.test(String(r.error)) ? "budget" : "error"; r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_LIVE, user, ...CHAPTER_BACKUP, trace }); }
     if (!r.ok) { await ctx.runMutation(internal.handbooks.setChapterFailed, { handbookId, n, error: r.error }); return; }
-    // D27 (Prateek, 9 Oct: "for 20 minutes we should have at least 30 slides"): a chapter under the floor gets one more
-    // try with the counts stated, then the Opus backup; the counts are written to the call log for /admin. A one-sitting
-    // handbook (quick) has no floor: it is as long as the task.
+    // D27's length floor (30 paragraphs and 800 words, else a retry and then Opus) is left out on feat/handbook-shape
+    // (9 Oct): a chapter's length is what the shape work decides. Its size is still logged for /admin.
     const quick = h.plan?.format === "quick";
-    // Floors (dc for Prateek, 9 Oct 02:5x: "at the very least 30 slides"; quality over cost, a chapter is written once and shared).
-    const floor = quick ? null : n === 1 ? { paragraphs: 12, words: 350, want: "15 to 18 paragraphs and about 450 words" } : { paragraphs: 30, words: 800, want: "at least 30 paragraphs and about 1,000 words" };
-    let size = chapterSize(r.json);
-    let tries = 1;
-    if (floor && (size.paragraphs < floor.paragraphs || size.words < floor.words)) {
-      const more = user + `\n\nYour previous chapter was too short: you wrote ${size.paragraphs} paragraphs and ${size.words} words; chapter ${n} needs ${floor.want}. Write it again, in full, with 2 to 3 paragraphs on every picture, teach, example and mistake card.`;
-      let r2 = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: more, model: pinned ?? CHAPTER_MODEL, trace }); tries++;
-      let s2 = r2.ok ? chapterSize(r2.json) : size;
-      if (!pinned && (!r2.ok || s2.paragraphs < floor.paragraphs || s2.words < floor.words)) { bounce = !r2.ok && /time budget/i.test(String(r2.error)) ? "budget" : "floor"; r2 = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: more, ...CHAPTER_BACKUP, trace }); tries++; s2 = r2.ok ? chapterSize(r2.json) : size; }
-      if (r2.ok && s2.words >= size.words) { r = r2; size = s2; }
-    }
-    await ctx.runMutation(internal.handbooks.noteChapterSize, { handbookId, n, paragraphs: size.paragraphs, words: size.words, floorTries: tries, bounced: !!bounce, bounce });
+    const size = chapterSize(r.json);
+    await ctx.runMutation(internal.handbooks.noteChapterSize, { handbookId, n, paragraphs: size.paragraphs, words: size.words, floorTries: 1, bounced: !!bounce, bounce });
     const ch = r.json;
     // A one-sitting handbook opens with its "What you need" checklist (D23); a writer that put a picture first is corrected here.
     if (quick && Array.isArray(ch.cards)) { const k = ch.cards.findIndex((c: any) => c?.type === "doit" && c.kind === "checklist"); if (k > 0) { const [c] = ch.cards.splice(k, 1); ch.cards.unshift(c); } }
@@ -837,15 +860,29 @@ export const generateChapter = internalAction({
     // Fresh recall quizzes (new examples) are checked in the same pass, then split off.
     const recall = quizzesWanted || n === 1 ? (Array.isArray(ch.recallQuizzes) ? ch.recallQuizzes : []).filter((e: any) => goodQuiz(e)).slice(0, 2) : [];
     // One call checks the facts of the cards and the recall quizzes, and writes the picture scenes for this chapter.
-    const pictures = { cards: pictureCards(kept).map((x) => x.i), analogy: noQuizzes(h.plan) ? "" : String(h.plan?.picture?.line ?? h.plan?.picture?.name ?? "") };
-    const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, [...kept, ...recall], { ...(h.writer ? { model: h.writer } : {}), trace, pictures });
-    const cards = checked.cards.slice(0, kept.length), recallCards = checked.cards.slice(kept.length);
+    const pictures = { cards: pictureCards(kept).map((x) => x.i), analogy: h.plan?.mode === "story" ? "" : String(h.plan?.picture?.line ?? h.plan?.picture?.name ?? "") };
+    // 9 Oct (outside reviews): the check reads the research facts and sources, so it no longer overwrites them with memory.
+    const reference = referenceForCheck((h as any).brief, pieces);
+    // check v3 (9 Oct): it also checks delivery: the must-haves, the outcome line, and the closing line.
+    const nextCh = h.plan.chapters?.[n];
+    const delivery = Array.isArray(planCh.needs) && planCh.needs.length ? `- ${planCh.needs.join("\n- ")}\nOutcome line: ${String(ch.outcomeLine ?? planCh.outcome ?? "")}\n${nextCh ? `Next chapter: "${nextCh.title}": ${nextCh.covers ?? ""}` : "This is the last chapter."}` : undefined;
+    const checked = await factCheck(ctx, h.plan?.topic ?? h.topic, h.level, title, [...kept, ...recall], { ...(h.writer ? { model: h.writer } : {}), trace, pictures, mainCount: kept.length, ...(reference ? { reference } : {}), ...(delivery ? { delivery } : {}) });
+    const cards = checked.cards.slice(0, kept.length + checked.added), recallCards = checked.cards.slice(kept.length + checked.added);
     const report = dropped ? { ...checked.report, notes: [...checked.report.notes, `${dropped} quiz${dropped === 1 ? "" : "zes"} dropped (malformed, or not wanted in this chapter)`] } : checked.report;
     await drawMoves(ctx, h.plan?.topic ?? h.topic, title, cards, trace);
-    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), model: r.model, factCheck: report, scenes: checked.scenes.length ? checked.scenes : undefined });
+    const ledger = ch.ledger && typeof ch.ledger === "object" ? ch.ledger : undefined;
+    await ctx.runMutation(internal.handbooks.setChapter, { handbookId, n, title, cards, recallCards, outcomeLine: String(ch.outcomeLine ?? ""), model: r.model, factCheck: report, scenes: checked.scenes.length ? checked.scenes : undefined, ...(ledger ? { ledger } : {}) });
+    // A quick handbook's next chapter starts now, so it is written with this one's record (writer v6, 9 Oct). Only when
+    // the next chapter does not exist yet: a rewrite of one chapter never rewrites the rest.
+    if (quick && n < (h.plan.chapters?.length ?? 0) && !ledgers.some((x: any) => x.n === n + 1)) {
+      await ctx.runMutation(internal.handbooks.startChapter, { handbookId, n: n + 1 });
+      await ctx.scheduler.runAfter(0, internal.handbooks.generateChapter, { handbookId, n: n + 1 });
+    }
     // The easier and harder quiz versions come after, in the background: the reader can open the chapter meanwhile, and
     // gets the standard quizzes until they land (or if they never do).
-    if (cards.some((c: any) => c?.type === "exercise") || recallCards.length) await ctx.scheduler.runAfter(0, internal.handbooks.addQuizVersions, { handbookId, n, shareable });
+    // A benchmark handbook marked noVersions (evalShape, 9 Oct) skips the easier/harder quiz versions: they cost about
+    // ₹6 a chapter and a review does not read them.
+    if (!(h as any).test?.noVersions && (cards.some((c: any) => c?.type === "exercise") || recallCards.length)) await ctx.scheduler.runAfter(0, internal.handbooks.addQuizVersions, { handbookId, n, shareable });
     if (shareable && n > 1 && !h.test) await ctx.runMutation(internal.library.saveChapter, { handbookId, n });
     // Pictures come after the words. Chapter 1 is drawn now (it opens at once and gives the cover); later chapters are
     // drawn when the reader first opens them (openChapter), so a chapter written but never opened costs no pictures (7 Oct).
@@ -930,17 +967,24 @@ export const startChapter = internalMutation({
     await ctx.db.insert("chapters", { handbookId, n, status: "writing", createdAt: Date.now() });
   },
 });
+// Every chapter of a handbook that exists, with its ledger (writer v6, 9 Oct): the next writer's "Already taught".
+export const readLedgers = internalQuery({
+  args: { handbookId: v.id("handbooks") },
+  handler: async (ctx, { handbookId }) => (await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId)).collect())
+    .map((c: any) => ({ n: c.n, status: c.status, title: c.title, ledger: c.status === "ready" ? c.ledger : undefined })),
+});
+
 export const setChapter = internalMutation({
-  args: { handbookId: v.id("handbooks"), n: v.number(), title: v.string(), cards: v.any(), recallCards: v.optional(v.any()), outcomeLine: v.string(), svg: v.optional(v.string()), model: v.optional(v.string()), factCheck: v.optional(v.any()), quizTiers: v.optional(v.any()), recallTiers: v.optional(v.any()), scenes: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), real: v.optional(v.string()) }))) },
-  handler: async (ctx, { handbookId, n, title, cards, recallCards, outcomeLine, svg, model, factCheck, quizTiers, recallTiers, scenes }) => {
+  args: { handbookId: v.id("handbooks"), n: v.number(), title: v.string(), cards: v.any(), recallCards: v.optional(v.any()), outcomeLine: v.string(), svg: v.optional(v.string()), model: v.optional(v.string()), factCheck: v.optional(v.any()), quizTiers: v.optional(v.any()), recallTiers: v.optional(v.any()), ledger: v.optional(v.any()), scenes: v.optional(v.array(v.object({ card: v.number(), scene: v.string(), real: v.optional(v.string()) }))) },
+  handler: async (ctx, { handbookId, n, title, cards, recallCards, outcomeLine, svg, model, factCheck, quizTiers, recallTiers, scenes, ledger }) => {
     const existing = await ctx.db.query("chapters").withIndex("by_handbook_n", (q) => q.eq("handbookId", handbookId).eq("n", n)).unique();
     const shuffled = shuffleExercises(cards, `${handbookId}:${n}`);
     const recall = recallCards?.length ? shuffleExercises(recallCards, `${handbookId}:${n}:recall`) : undefined;
     const tiers = shuffleTiers(quizTiers, `${handbookId}:${n}`), rTiers = shuffleTiers(recallTiers, `${handbookId}:${n}:recall`);
     // 8 Oct: versions usually come later (addQuizVersions); a rewrite clears the old ones so they never sit beside new cards.
     const versions = { quizTiers: tiers ?? undefined, recallTiers: rTiers ?? undefined };
-    if (existing) await ctx.db.patch(existing._id, { status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, scenes, stale: false, error: undefined, ...versions });
-    else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, scenes, createdAt: Date.now(), ...(tiers ? { quizTiers: tiers } : {}), ...(rTiers ? { recallTiers: rTiers } : {}) });
+    if (existing) await ctx.db.patch(existing._id, { status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, scenes, ledger, stale: false, error: undefined, ...versions });
+    else await ctx.db.insert("chapters", { handbookId, n, status: "ready", title, cards: shuffled, recallCards: recall, outcomeLine, svg, model, factCheck, scenes, ledger, createdAt: Date.now(), ...(tiers ? { quizTiers: tiers } : {}), ...(rTiers ? { recallTiers: rTiers } : {}) });
   },
 });
 // ---------- adapting to the reader ----------
@@ -1520,7 +1564,7 @@ export const writeVariant = internalAction({
     const h = await ctx.runQuery(internal.handbooks.readHandbook, { handbookId });
     if (!h?.plan) return;
     const prof = await ctx.runQuery(internal.handbooks.readProfileLine, { handbookId });
-    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_PROMPT, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, prof.line), model });
+    const r = await ctx.runAction(internal.ai.generate, { kind: "chapter", system: CHAPTER_LIVE, user: chapterUserMessage(h.plan, h.level, h.language, h.voice ?? "friend", n, prof.line), model });
     const ok = r.ok && Array.isArray(r.json?.cards) && r.json.cards.length >= 5;
     await ctx.runMutation(internal.handbooks.setVariant, { handbookId, n, key, model, chapter: ok ? r.json : null, error: ok ? undefined : (r.ok ? "shape" : r.error) });
   },

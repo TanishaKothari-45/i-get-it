@@ -1,0 +1,1989 @@
+{
+  "at": "2026-10-08T12:57:21.602Z",
+  "model": "gemini-3.8-flash",
+  "plans": [
+    {
+      "topic": "world war I",
+      "version": "v1",
+      "n": 1,
+      "error": null,
+      "inr": 0.731808,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 17504,
+      "ok": true,
+      "plan": {
+        "caution": "none",
+        "chapters": [
+          {
+            "covers": "How imperial competition split Europe into the Triple Alliance and Triple Entente, turning the Balkan region into a tripwire.",
+            "hook": "Why did Europe's rival empires tie themselves into mutual defense pacts that guaranteed any small fight went global?",
+            "outcome": "You can explain how Europe divided into two rival armed camps and why local tensions in the Balkans threatened everyone.",
+            "title": "The Alliance Trap"
+          },
+          {
+            "covers": "The assassination of Archduke Franz Ferdinand in Sarajevo and the diplomatic chain reaction that pulled six empires into war by August 1914.",
+            "hook": "A wrong turn on a Sarajevo street dragged 20 million soldiers to war in just one month.",
+            "outcome": "You can trace the step-by-step domino effect from the shooting in Sarajevo to Britain entering the war over Belgium.",
+            "title": "Thirty Days to War"
+          },
+          {
+            "covers": "The collapse of the German, Russian, Austro-Hungarian, and Ottoman empires, the harsh terms of the 1919 Versailles Treaty, and the seeds of World War II.",
+            "hook": "How did redrawing the map in 1919 quietly guarantee another global disaster twenty years later?",
+            "outcome": "You can describe how the war destroyed four empires, redrew the Middle East and Europe, and set up the next war.",
+            "title": "The Broken Map"
+          }
+        ],
+        "declined": false,
+        "format": "quick",
+        "framing": "This doesn't need weeks. Let's run through it quickly and get you going.",
+        "horizon14": null,
+        "horizon28": null,
+        "mode": "subject",
+        "needsClarification": false,
+        "next": [
+          "Causes of World War II",
+          "The Russian Revolution",
+          "Fall of the Ottoman Empire"
+        ],
+        "outcome7": "By the end you'll be able to explain the alliance trap that ignited World War I and how its messy settlement tore apart four empires and paved the way for World War II.",
+        "picture": null,
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "The Sleepwalkers: How Europe Went to War in 1914",
+            "who": "Christopher Clark",
+            "why": "lays out the intricate diplomatic miscalculations and alliance systems that triggered the outbreak"
+          },
+          {
+            "what": "Paris 1919: Six Months That Changed the World",
+            "who": "Margaret MacMillan",
+            "why": "details how the postwar peace negotiations reshaped borders and destabilized global politics"
+          },
+          {
+            "what": "The First World War",
+            "who": "John Keegan",
+            "why": "provides the foundational military progression and scale of the four-year global conflict"
+          }
+        ],
+        "suggestions": [],
+        "topic": "World War I"
+      },
+      "tokensIn": 2476,
+      "tokensOut": 1828,
+      "checks": {
+        "valid": true,
+        "format": "quick",
+        "chapters": 3,
+        "countOk": true,
+        "outcomesYouCan": 3,
+        "hooksOver18": 1,
+        "framing": "This doesn't need weeks. Let's run through it quickly and get you going.",
+        "copiedFraming": true,
+        "picture": null,
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 5,
+          "scores": {
+            "clarity": 4,
+            "coverage": 3,
+            "fidelity": 2,
+            "goalFit": 4,
+            "hooks": 2,
+            "outcomes": 4,
+            "picture": 1,
+            "progression": 4,
+            "sources": 5
+          },
+          "note": "Best: it separates alliances from the July crisis, which builds well; worst: '20 million soldiers dragged to war in a month' is a made-up claim, and the framing is thin."
+        },
+        {
+          "rank": 1,
+          "scores": {
+            "clarity": 4,
+            "coverage": 4,
+            "fidelity": 2,
+            "goalFit": 4,
+            "hooks": 4,
+            "outcomes": 4,
+            "picture": 1,
+            "progression": 5,
+            "sources": 5
+          },
+          "note": "Best: the cleanest build from alliances to outbreak to aftermath with outcomes the reader can check; worst: '20 million soldiers to war in a month' is a made-up number and the framing is generic."
+        }
+      ]
+    },
+    {
+      "topic": "world war I",
+      "version": "v1",
+      "n": 2,
+      "error": null,
+      "inr": 0.526428,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 16777,
+      "ok": true,
+      "plan": {
+        "caution": "none",
+        "chapters": [
+          {
+            "covers": "How imperial rivalries, naval arms races, and mutual defense treaties turned Europe into two armed camps primed for conflict.",
+            "hook": "Why did a dispute between two minor powers pull six global empires into war within thirty days?",
+            "outcome": "You can explain why mutual alliances turned a local dispute into a continental chain reaction.",
+            "title": "The Tripwires"
+          },
+          {
+            "covers": "The Sarajevo assassination, the mobilization of armies, and the subsequent collapse of four ruling imperial dynasties.",
+            "hook": "How did four centuries-old royal dynasties collapse entirely under four years of industrialized warfare?",
+            "outcome": "You can map how the battlefield pressures shattered four historic monarchies across Europe and Asia.",
+            "title": "The Spark and the Fall"
+          },
+          {
+            "covers": "The Treaty of Versailles, newly carved national borders in Europe and the Middle East, and the origins of modern conflicts.",
+            "hook": "Why did a peace treaty signed in 1919 lay the direct groundwork for a deadlier war twenty years later?",
+            "outcome": "You can identify how post-war border mandates and reparations directly set up twentieth-century friction.",
+            "title": "The Cost and the Redrawn World"
+          }
+        ],
+        "declined": false,
+        "format": "quick",
+        "framing": "This doesn't need weeks. Let's walk through how the dominoes fell and reshaped our map.",
+        "horizon14": null,
+        "horizon28": null,
+        "mode": "subject",
+        "needsClarification": false,
+        "next": [
+          "Origins of World War II",
+          "The Russian Revolution",
+          "Fall of the Ottoman Empire"
+        ],
+        "outcome7": "By the end you'll be able to trace how a regional assassination triggered global war and explain how its aftermath redrew the modern world map.",
+        "picture": null,
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "The Sleepwalkers: How Europe Went to War in 1914",
+            "who": "Christopher Clark",
+            "why": "details the diplomatic entanglements and miscalculations leading to the outbreak"
+          },
+          {
+            "what": "Paris 1919: Six Months That Changed the World",
+            "who": "Margaret MacMillan",
+            "why": "explains the negotiations, redrawn borders, and enduring consequences of the peace settlement"
+          }
+        ],
+        "suggestions": [],
+        "topic": "World War I"
+      },
+      "tokensIn": 2476,
+      "tokensOut": 1176,
+      "checks": {
+        "valid": true,
+        "format": "quick",
+        "chapters": 3,
+        "countOk": true,
+        "outcomesYouCan": 3,
+        "hooksOver18": 1,
+        "framing": "This doesn't need weeks. Let's walk through how the dominoes fell and reshaped our map.",
+        "copiedFraming": false,
+        "picture": null,
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 6,
+          "scores": {
+            "clarity": 3,
+            "coverage": 3,
+            "fidelity": 2,
+            "goalFit": 3,
+            "hooks": 3,
+            "outcomes": 3,
+            "picture": 1,
+            "progression": 2,
+            "sources": 4
+          },
+          "note": "Best: the 'Tripwires' title is compact and ties in the naval arms races; worst: chapter 2 combines the Sarajevo spark with the empires' fall, and 'centuries-old' and 'Europe and Asia' are loose."
+        },
+        {
+          "rank": 4,
+          "scores": {
+            "clarity": 4,
+            "coverage": 4,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 3,
+            "picture": 1,
+            "progression": 2,
+            "sources": 5
+          },
+          "note": "Best: ch1 cleanly frames alliances as the foundation and the sources are apt; worst: ch2 puts the Sarajevo spark and the empires' collapse together, and the 'two minor powers' and 'six empires within thirty days' claims are loose."
+        }
+      ]
+    },
+    {
+      "topic": "world war I",
+      "version": "v4",
+      "n": 1,
+      "error": null,
+      "inr": 0.78183,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 18625,
+      "ok": true,
+      "plan": {
+        "caution": "none",
+        "chapters": [
+          {
+            "covers": "Imperial rivalry, the division between the Triple Alliance and Triple Entente, and how Sarajevo's assassination triggered automatic mobilizations.",
+            "hook": "Why did a murder in Sarajevo bring British, German, and Russian armies into combat within five weeks?",
+            "outcome": "You can explain how secret treaties turned a single shooting in Bosnia into a six-nation war in thirty days.",
+            "title": "How Europe Locked Itself into War"
+          },
+          {
+            "covers": "The wartime collapse of the Russian, German, Austro-Hungarian, and Ottoman imperial dynasties under total war and internal revolution.",
+            "hook": "Four ruling dynasties that dominated Europe and the Middle East for centuries vanished in under five years.",
+            "outcome": "You can identify the four ruling dynasties that vanished by 1918 and explain how their falls created independent states.",
+            "title": "The Collapse of Four Empires"
+          },
+          {
+            "covers": "The Treaty of Versailles, Middle Eastern mandate borders, the League of Nations, and how unresolved grievances led toward World War II.",
+            "hook": "How did the 1919 peace treaty accidentally set up the exact conditions for an even deadlier war?",
+            "outcome": "You can trace modern Middle Eastern borders and the causes of World War II directly to the 1919 peace settlements.",
+            "title": "Versailles and the Redrawn World"
+          }
+        ],
+        "declined": false,
+        "format": "quick",
+        "framing": "You don't need weeks of military history to see how a regional crisis dragged six empires into catastrophe and shaped today's global map.",
+        "horizon14": null,
+        "horizon28": null,
+        "mode": "subject",
+        "needsClarification": false,
+        "next": [
+          "Causes of World War II",
+          "The Russian Revolution",
+          "The Fall of the Ottoman Empire"
+        ],
+        "outcome7": "By the end you'll be able to trace how interlocking European alliances turned a local assassination into total war, and explain how the fall of four empires redrew modern borders.",
+        "picture": null,
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "The Sleepwalkers: How Europe Went to War in 1914",
+            "who": "Christopher Clark",
+            "why": "details how mutual alliances and Balkan instability triggered rapid continental mobilization"
+          },
+          {
+            "what": "Paris 1919: Six Months That Changed the World",
+            "who": "Margaret MacMillan",
+            "why": "explains the post-war peace negotiations, territorial redistributions, and the creation of Middle Eastern mandates"
+          }
+        ],
+        "suggestions": [],
+        "topic": "World War I"
+      },
+      "tokensIn": 2590,
+      "tokensOut": 1964,
+      "checks": {
+        "valid": true,
+        "format": "quick",
+        "chapters": 3,
+        "countOk": true,
+        "outcomesYouCan": 3,
+        "hooksOver18": 0,
+        "framing": "You don't need weeks of military history to see how a regional crisis dragged six empires into catastrophe and shaped today's global map.",
+        "copiedFraming": false,
+        "picture": null,
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 1,
+          "scores": {
+            "clarity": 4,
+            "coverage": 5,
+            "fidelity": 3,
+            "goalFit": 5,
+            "hooks": 4,
+            "outcomes": 4,
+            "picture": 1,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: the cleanest progression of causes, then collapse, then aftermath, with the League of Nations and mandates covered; worst: 'six empires' and 'secret treaties' go beyond the brief."
+        },
+        {
+          "rank": 3,
+          "scores": {
+            "clarity": 4,
+            "coverage": 4,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 3,
+            "picture": 1,
+            "progression": 4,
+            "sources": 5
+          },
+          "note": "Best: a clean three-part arc (causes and outbreak, collapse, settlement) with the League of Nations included; worst: 'secret treaties' and 'six-nation war in thirty days' overreach the brief."
+        }
+      ]
+    },
+    {
+      "topic": "world war I",
+      "version": "v4",
+      "n": 2,
+      "error": null,
+      "inr": 1.28583,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 30971,
+      "ok": true,
+      "plan": {
+        "caution": "none",
+        "chapters": [
+          {
+            "covers": "How the Triple Alliance and Triple Entente split Europe, and why an assassination in Sarajevo blew it apart.",
+            "hook": "Why did a wrong turn by a royal driver in Sarajevo unleash global war?",
+            "outcome": "You can explain how imperial rivalries and Balkan nationalism turned a regional crisis into an unavoidable showdown.",
+            "title": "The Powder Keg and the Spark"
+          },
+          {
+            "covers": "The domino declarations of July 1914 and the collapse of the German, Russian, Austro-Hungarian, and Ottoman empires.",
+            "hook": "How did a dispute between two nations topple four massive empires in four years?",
+            "outcome": "You can map the mobilization sequence from Belgium to Russia and identify the four dynasties destroyed by the fighting.",
+            "title": "The Chain Reaction and Ruined Empires"
+          },
+          {
+            "covers": "The 1919 Paris treaties, territorial carve-ups across Europe and the Middle East, and the 20 million deaths that set up World War II.",
+            "hook": "How did a treaty designed to end all war guarantee a second one?",
+            "outcome": "You can trace modern borders and grievances directly back to the Treaty of Versailles and the League of Nations.",
+            "title": "Versailles and the Cost of Peace"
+          }
+        ],
+        "declined": false,
+        "format": "quick",
+        "framing": "You don't need weeks of study to understand World War I: three short chapters give you the full picture from Sarajevo to Versailles.",
+        "horizon14": null,
+        "horizon28": null,
+        "mode": "subject",
+        "needsClarification": false,
+        "next": [
+          "World War II origins",
+          "The Russian Revolution",
+          "Collapse of the Ottoman Empire"
+        ],
+        "outcome7": "By the end you'll be able to explain the chain reaction that sparked 1914 and how the fall of four empires shaped our modern world.",
+        "picture": null,
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "The Sleepwalkers",
+            "who": "Christopher Clark",
+            "why": "details the diplomatic blunders and alliance webs that triggered war in 1914"
+          },
+          {
+            "what": "Paris 1919",
+            "who": "Margaret MacMillan",
+            "why": "explains how the postwar treaties carved new borders and sowed future conflict"
+          }
+        ],
+        "suggestions": [],
+        "topic": "World War I"
+      },
+      "tokensIn": 5215,
+      "tokensOut": 3039,
+      "checks": {
+        "valid": true,
+        "format": "quick",
+        "chapters": 3,
+        "countOk": true,
+        "outcomesYouCan": 3,
+        "hooksOver18": 0,
+        "framing": "You don't need weeks of study to understand World War I: three short chapters give you the full picture from Sarajevo to Versailles.",
+        "copiedFraming": false,
+        "picture": null,
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 4,
+          "scores": {
+            "clarity": 3,
+            "coverage": 4,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 3,
+            "picture": 1,
+            "progression": 2,
+            "sources": 4
+          },
+          "note": "Best: Versailles chapter ties in the League of Nations and the death toll; worst: chapter 2 mixes the July 1914 declarations with the empires' collapse, and the 'wrong turn' hook is not in the brief."
+        },
+        {
+          "rank": 5,
+          "scores": {
+            "clarity": 4,
+            "coverage": 4,
+            "fidelity": 2,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 3,
+            "picture": 1,
+            "progression": 3,
+            "sources": 4
+          },
+          "note": "Best: concise and covers all outline parts; worst: chapter 1 jumps straight to the spark, and '20 million deaths' is stated flatly while the brief gives a range of 15 to 22 million."
+        }
+      ]
+    },
+    {
+      "topic": "world war I",
+      "version": "v5",
+      "n": 1,
+      "error": null,
+      "inr": 0.755937,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 81000,
+      "ok": true,
+      "plan": {
+        "caution": "none",
+        "chapters": [
+          {
+            "covers": "Imperial rivalries, the 1882 Triple Alliance against the 1907 Triple Entente, and how Balkan unrest culminated in Sarajevo.",
+            "hook": "Why did one wrong turn by a royal motorcade drag six rival empires into war within five weeks?",
+            "outcome": "You can explain how colonial competition and secret defensive alliances turned a regional Balkan dispute into a hair-trigger crisis.",
+            "title": "The Powder Keg and the Spark"
+          },
+          {
+            "covers": "The ultimatum to Serbia, Russian mobilization, German invasions through Belgium, and the rapid descent into global war.",
+            "hook": "How did treaties intended to deter aggression actually make total continental warfare mathematically unavoidable?",
+            "outcome": "You can map the day-by-day cascade of declarations and mobilizations between July 28 and August 4, 1914.",
+            "title": "The July Crisis and Total Escalation"
+          },
+          {
+            "covers": "The collapse of Russian, German, Austro-Hungarian, and Ottoman dynasties, the 1919 Versailles treaty, Middle East mandates, and seeds of 1939.",
+            "hook": "Why did a peace treaty designed to prevent future war guarantee another conflict twenty years later?",
+            "outcome": "You can breakdown how new national borders and harsh peace terms directly set up the crises of the twentieth century.",
+            "title": "Four Fallen Empires and an Unstable Peace"
+          }
+        ],
+        "declined": false,
+        "format": "quick",
+        "framing": "You do not need weeks to understand World War I: three focused chapters give you the root causes, the trigger, and the map-shifting fallout.",
+        "horizon14": null,
+        "horizon28": null,
+        "mode": "subject",
+        "needsClarification": false,
+        "next": [
+          "The Russian Revolution",
+          "World War II origins",
+          "Collapse of the Ottoman Empire"
+        ],
+        "outcome7": "By the end you'll be able to explain why Europe stumbled into war in 1914 and how the fallout redrew the modern world map.",
+        "picture": null,
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "The War That Ended Peace",
+            "who": "Margaret MacMillan",
+            "why": "Explains the diplomatic decisions, arms race, and alliance webs that pushed Europe toward conflict"
+          },
+          {
+            "what": "The First World War",
+            "who": "John Keegan",
+            "why": "Provides a clear overview of the geopolitical fronts and massive casualty scale across combatant nations"
+          },
+          {
+            "what": "Paris 1919",
+            "who": "Margaret MacMillan",
+            "why": "Details the Versailles treaty negotiations, imperial collapses, and redrawn Middle Eastern and European borders"
+          }
+        ],
+        "suggestions": [],
+        "topic": "World War I"
+      },
+      "tokensIn": 2649,
+      "tokensOut": 1870,
+      "checks": {
+        "valid": true,
+        "format": "quick",
+        "chapters": 3,
+        "countOk": true,
+        "outcomesYouCan": 3,
+        "hooksOver18": 1,
+        "framing": "You do not need weeks to understand World War I: three focused chapters give you the root causes, the trigger, and the map-shifting fallout.",
+        "copiedFraming": false,
+        "picture": null,
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 3,
+          "scores": {
+            "clarity": 3,
+            "coverage": 4,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 4,
+            "picture": 1,
+            "progression": 4,
+            "sources": 3
+          },
+          "note": "Best: the day-by-day July 28 to August 4 outcome is concrete and testable, and the chapters build in order; worst: it credits 'The War That Ended Peace' to MacMillan, which is correct, but the hook says 'mathematically unavoidable' and the empires' collapse and Versailles are crowded into one chapter."
+        },
+        {
+          "rank": 6,
+          "scores": {
+            "clarity": 3,
+            "coverage": 3,
+            "fidelity": 2,
+            "goalFit": 4,
+            "hooks": 4,
+            "outcomes": 3,
+            "picture": 1,
+            "progression": 4,
+            "sources": 4
+          },
+          "note": "Best: dedicates a chapter to the July crisis with vivid hooks; worst: invents the motorcade wrong turn and 'mathematically unavoidable', and 'breakdown' is a grammar slip."
+        }
+      ]
+    },
+    {
+      "topic": "world war I",
+      "version": "v5",
+      "n": 2,
+      "error": null,
+      "inr": 0.507402,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 12825,
+      "ok": true,
+      "plan": {
+        "caution": "none",
+        "chapters": [
+          {
+            "covers": "How imperial competition divided Europe into two armed camps, turning a regional Balkan assassination into a full global war.",
+            "hook": "Why did a single pistol shot in Sarajevo pull six global powers into war within weeks?",
+            "outcome": "You can trace the 30-day chain reaction from Franz Ferdinand's shooting to general European war.",
+            "title": "The Alliance Trap and the Sarajevo Spark"
+          },
+          {
+            "covers": "The wartime collapse and overthrow of the Russian, German, Austro-Hungarian, and Ottoman imperial systems.",
+            "hook": "Four ruling dynasties that governed most of Europe and the Near East vanished before fighting ended.",
+            "outcome": "You can name the four fallen empires and describe how their domestic crises shattered old dynastic rule.",
+            "title": "The Collapse of Four Dynasties"
+          },
+          {
+            "covers": "The 1919 Treaty of Versailles, the partition of the Middle East into mandates, and grievances that carried into the 1930s.",
+            "hook": "How did a treaty written to guarantee lasting peace help spark an even deadlier world war?",
+            "outcome": "You can explain how postwar peace treaties drew modern border conflicts and paved the path to 1939.",
+            "title": "Versailles, New Borders, and the Aftershocks"
+          }
+        ],
+        "declined": false,
+        "format": "quick",
+        "framing": "You do not need weeks of battle maps to grasp how World War I broke the old world and built the one we live in today.",
+        "horizon14": null,
+        "horizon28": null,
+        "mode": "subject",
+        "needsClarification": false,
+        "next": [
+          "World War II origins",
+          "The Russian Revolution",
+          "Collapse of the Ottoman Empire"
+        ],
+        "outcome7": "By the end you'll be able to explain how interlocking alliances triggered a global war in weeks and how the fall of four empires reshaped modern borders.",
+        "picture": null,
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "The Sleepwalkers: How Europe Went to War in 1914",
+            "who": "Christopher Clark",
+            "why": "Explains how European diplomacy and Balkan tensions escalated into global conflict"
+          },
+          {
+            "what": "Paris 1919: Six Months That Changed the World",
+            "who": "Margaret MacMillan",
+            "why": "Details the peace negotiations, new borders, and imperial mandates set after the armistice"
+          },
+          {
+            "what": "The First World War",
+            "who": "John Keegan",
+            "why": "Provides the foundational operational narrative and casualty scale across all fronts"
+          }
+        ],
+        "suggestions": [],
+        "topic": "World War I"
+      },
+      "tokensIn": 2649,
+      "tokensOut": 1081,
+      "checks": {
+        "valid": true,
+        "format": "quick",
+        "chapters": 3,
+        "countOk": true,
+        "outcomesYouCan": 3,
+        "hooksOver18": 0,
+        "framing": "You do not need weeks of battle maps to grasp how World War I broke the old world and built the one we live in today.",
+        "copiedFraming": false,
+        "picture": null,
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 2,
+          "scores": {
+            "clarity": 4,
+            "coverage": 4,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 4,
+            "picture": 1,
+            "progression": 4,
+            "sources": 5
+          },
+          "note": "Best: clean three-part structure with accurate sources and a solid causes, collapse, aftermath arc; worst: 'six global powers' and 'most of Europe' overstate the facts, and the Versailles hook is a bit grand."
+        },
+        {
+          "rank": 2,
+          "scores": {
+            "clarity": 4,
+            "coverage": 4,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 4,
+            "picture": 1,
+            "progression": 4,
+            "sources": 5
+          },
+          "note": "Best: each chapter has one clear job with testable outcomes like naming the four empires; worst: the hook that the dynasties vanished before fighting ended is slightly off, and chapter 1 crams alliances and Sarajevo together."
+        }
+      ]
+    },
+    {
+      "topic": "swimming",
+      "version": "v1",
+      "n": 1,
+      "error": null,
+      "inr": 0.637812,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 16856,
+      "ok": true,
+      "plan": {
+        "caution": "health",
+        "chapters": [
+          {
+            "covers": "Fitting leak-free goggles and finding safe footing in chest-deep water.",
+            "hook": "Why do ill-fitting goggles ruin more beginner swim sessions than poor physical stamina?",
+            "outcome": "You can stand securely in chest-deep water and open your eyes underwater without panic.",
+            "title": "Gear and Water Comfort"
+          },
+          {
+            "covers": "Slow underwater nose exhalations and continuous bobbing drills.",
+            "hook": "Holding your breath makes you sink; why does blowing constant bubbles keep you calm?",
+            "outcome": "You can exhale steadily underwater and inhale above the surface for ten consecutive bobs.",
+            "title": "Rhythmic Breathing and Submersion"
+          },
+          {
+            "covers": "Neutral head posture, streamlined front glides, and tucking knees to stand.",
+            "hook": "Looking forward sinks your hips immediately, but looking straight down makes you float effortlessly.",
+            "outcome": "You can push off the wall into a flat streamline glide and stand up safely.",
+            "title": "Floating and Horizontal Balance"
+          },
+          {
+            "covers": "Hip-driven flutter kicks, pointed toes, relaxed ankles, and kickboard drills.",
+            "hook": "Why does kicking from your knees stall you out while subtle hip motion shoots you forward?",
+            "outcome": "You can propel yourself ten meters across the pool using only your legs on a kickboard.",
+            "title": "Flutter Kick Technique"
+          },
+          {
+            "covers": "Fingertip-first hand entry, pulling back to the hip, and high-elbow recovery.",
+            "hook": "Pushing water straight down pushes your face up; how do you push backward to glide ahead?",
+            "outcome": "You can catch and pull water effectively with alternating arms while maintaining forward momentum.",
+            "title": "Freestyle Arm Stroke"
+          },
+          {
+            "covers": "Body roll along the spine and single-goggle breathing without lifting your head.",
+            "hook": "Lifting your head drops your legs like an anchor, but rotating your torso keeps you flat.",
+            "outcome": "You can roll to the side to take a clean breath while keeping one goggle submerged.",
+            "title": "Side Breathing Mechanics"
+          },
+          {
+            "covers": "Stroke cadence, conserving oxygen, and chaining short segments into 25 meters.",
+            "hook": "What simple tempo shift lets you finish 25 meters when swimming faster leaves you exhausted halfway?",
+            "outcome": "You can swim a full 25-meter length smoothly without stopping or gasping for air.",
+            "title": "Pacing Your First Full Length"
+          }
+        ],
+        "declined": false,
+        "format": "course",
+        "framing": null,
+        "horizon14": "Day 14: You can swim three continuous 25-meter lengths with short wall rests between them.",
+        "horizon28": "Day 28: You can complete a relaxed 200-meter workout without stopping mid-pool.",
+        "mode": "skill",
+        "needsClarification": false,
+        "next": [
+          "Treading water with ease",
+          "Learning the breaststroke",
+          "Flip turns for lap swimmers"
+        ],
+        "outcome7": "By day 7 you'll be able to swim your first unbroken 25-meter length of freestyle with rhythmic side breathing.",
+        "picture": {
+          "line": "Your body is a kayak: staying level and balanced lets you glide effortlessly, while fighting the water sinks the stern.",
+          "name": "a sleek kayak"
+        },
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "Total Immersion",
+            "who": "Terry Laughlin",
+            "why": "pioneered the balance-first approach to effortless swimming and horizontal body alignment"
+          },
+          {
+            "what": "Swimming and Water Safety",
+            "who": "American Red Cross",
+            "why": "standardized safe adult progression drills for submersion, glides, and stroke mechanics"
+          },
+          {
+            "what": "Adult Learn-to-Swim Program",
+            "who": "U.S. Masters Swimming",
+            "why": "provides proven teaching progressions for breath control and overcoming adult aquatic anxiety"
+          }
+        ],
+        "suggestions": [],
+        "topic": "Swimming Your First Length"
+      },
+      "tokensIn": 2474,
+      "tokensOut": 1530,
+      "checks": {
+        "valid": true,
+        "format": "course",
+        "chapters": 7,
+        "countOk": true,
+        "outcomesYouCan": 7,
+        "hooksOver18": 0,
+        "framing": null,
+        "copiedFraming": false,
+        "picture": "a sleek kayak",
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 2,
+          "scores": {
+            "clarity": 4,
+            "coverage": 5,
+            "fidelity": 4,
+            "goalFit": 4,
+            "hooks": 4,
+            "outcomes": 4,
+            "picture": 4,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: the chapters follow the brief's outline in order, and the kayak picture covers balance and sinking; worst: the day-7 promise to swim 25 m with side breathing is aggressive, and the chapter 5 outcome has no number."
+        },
+        {
+          "rank": 6,
+          "scores": {
+            "clarity": 3,
+            "coverage": 5,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 3,
+            "picture": 3,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: the facts and chapter order follow the brief closely. Worst: several outcomes have no number or test, and the hooks are long and contain errors, such as 'holding your breath makes you sink'."
+        }
+      ]
+    },
+    {
+      "topic": "swimming",
+      "version": "v1",
+      "n": 2,
+      "error": null,
+      "inr": 0.589617,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 32766,
+      "ok": true,
+      "plan": {
+        "caution": "health",
+        "chapters": [
+          {
+            "covers": "Fitting your goggles properly, stepping into chest-deep water, and building safe baseline comfort on your feet.",
+            "hook": "Why do most beginners panic before they ever try to swim their first stroke?",
+            "outcome": "You can stand in chest-deep water with a watertight goggle seal and zero urge to grab the edge.",
+            "title": "Gear Up and Settle In"
+          },
+          {
+            "covers": "Blowing steady bubbles through your nose and mouth underwater and bobbing rhythmically at the lane wall.",
+            "hook": "Holding your breath in water actually triggers fatigue faster than swimming hard.",
+            "outcome": "You can bob ten times continuously, exhaling slowly underwater and inhaling calmly above the surface.",
+            "title": "Breathe Out Underwater"
+          },
+          {
+            "covers": "Pressing your chest down, looking at the pool bottom, and standing up smoothly by tucking your knees first.",
+            "hook": "Lifting your head to breathe instantly sinks your hips to the floor.",
+            "outcome": "You can push off the wall into a five-second horizontal glide and stand up cleanly on your feet.",
+            "title": "Balance and the Streamline Float"
+          },
+          {
+            "covers": "Driving a small, rapid flutter kick from your hips with pointed toes and loose ankles using a kickboard.",
+            "hook": "Kicking harder from bent knees actually drags you backward through the water.",
+            "outcome": "You can travel 15 meters on a kickboard without bending your knees into a bicycle motion.",
+            "title": "Kick from the Hips"
+          },
+          {
+            "covers": "Reaching fingertip-first in line with your shoulder, pulling water back toward your hip, and recovering high elbows.",
+            "hook": "Your hands do not push you forward; they pull the water directly behind you.",
+            "outcome": "You can push off and complete six clean arm strokes while maintaining a steady forward line.",
+            "title": "The Freestyle Arm Pull"
+          },
+          {
+            "covers": "Rotating your body along its long axis to take a quick mouth breath with one goggle lens submerged.",
+            "hook": "You never need to lift your head to breathe; you only need to roll.",
+            "outcome": "You can take four side breaths across a half-length glide without lifting your forehead above water.",
+            "title": "The One-Goggle Side Breath"
+          },
+          {
+            "covers": "Putting stroke, kick, and side breath together at a slow, calm tempo to cross the entire pool without stopping.",
+            "hook": "The secret to finishing your first length is swimming slower than you walk.",
+            "outcome": "You can complete a continuous 25-meter swim from wall to wall and finish with steady breath.",
+            "title": "Pacing the Full 25 Meters"
+          }
+        ],
+        "declined": false,
+        "format": "course",
+        "framing": null,
+        "horizon14": "By day 14 you will string together three continuous lengths with short wall rests between each.",
+        "horizon28": "By day 28 you will comfortably swim 500 meters across a structured 30-minute pool session.",
+        "mode": "skill",
+        "needsClarification": false,
+        "next": [
+          "Swimming Laps for Cardio",
+          "Learning the Breaststroke",
+          "Treading Water for Ten Minutes"
+        ],
+        "outcome7": "By day 7 you'll be able to swim a full 25-meter pool length of freestyle without stopping or panicking.",
+        "picture": {
+          "line": "Your body is a narrow canoe: press your chest down to keep the back afloat, roll gently along your long axis, and let your arms act as paddles.",
+          "name": "a floating canoe"
+        },
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "Total Immersion",
+            "who": "Terry Laughlin",
+            "why": "provides the foundational balance drill of pressing the chest to lift the hips"
+          },
+          {
+            "what": "Swimming and Water Safety Manual",
+            "who": "American Red Cross",
+            "why": "supplies the standard progression for rhythmic breathing, bobbing, and basic glides"
+          },
+          {
+            "what": "Adult Learn-to-Swim Progression",
+            "who": "U.S. Masters Swimming",
+            "why": "details the step-by-step distance progression from shallow-water comfort to full-length swimming"
+          }
+        ],
+        "suggestions": [],
+        "topic": "Swimming Your First Length"
+      },
+      "tokensIn": 2474,
+      "tokensOut": 1377,
+      "checks": {
+        "valid": true,
+        "format": "course",
+        "chapters": 7,
+        "countOk": true,
+        "outcomesYouCan": 7,
+        "hooksOver18": 0,
+        "framing": null,
+        "copiedFraming": false,
+        "picture": "a floating canoe",
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 1,
+          "scores": {
+            "clarity": 5,
+            "coverage": 5,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 4,
+            "outcomes": 5,
+            "picture": 4,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: outcomes are specific and testable (10 bobs, 6 strokes, 5-second glide), and the hooks are punchy; worst: the 500 m in 30 minutes horizon and the claim that breath-holding causes fatigue faster than hard swimming overreach the brief."
+        },
+        {
+          "rank": 4,
+          "scores": {
+            "clarity": 4,
+            "coverage": 5,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 4,
+            "outcomes": 4,
+            "picture": 3,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: it has strong, specific hooks such as 'you only need to roll'. Worst: it adds 'pressing your chest down' beyond the brief, and the 500 m in 30 minutes month goal is aggressive."
+        }
+      ]
+    },
+    {
+      "topic": "swimming",
+      "version": "v4",
+      "n": 1,
+      "error": null,
+      "inr": 0.604674,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 18154,
+      "ok": true,
+      "plan": {
+        "caution": "health",
+        "chapters": [
+          {
+            "covers": "Choosing sealed goggles, finding your stance in chest-deep water, and relaxing your shoulders under the surface.",
+            "hook": "Why does standing in chest-deep water stop panic faster than any breathing trick?",
+            "outcome": "You can enter chest-deep water with watertight goggles and stand securely without tensing up.",
+            "title": "Setting the Hull in the Water"
+          },
+          {
+            "covers": "Exhaling continuously underwater through nose or mouth and mastering rhythmic bobbing cycles.",
+            "hook": "Holding your breath underwater is the exact reason your lungs burn ten seconds into a swim.",
+            "outcome": "You can bob ten times in a row, blowing smooth bubbles underwater and inhaling easily above.",
+            "title": "The Steady Exhaust Pipe"
+          },
+          {
+            "covers": "Pushing into a streamlined horizontal glide, looking straight down, and tucking knees to safely stand back up.",
+            "hook": "Looking toward the other end of the pool instantly sinks your hips like dead weight.",
+            "outcome": "You can glide five meters face-down with hips at the surface and stand up smoothly on demand.",
+            "title": "Balancing the See-Saw"
+          },
+          {
+            "covers": "Kicking from your hips with loose ankles and pointed toes while holding a buoyant kickboard.",
+            "hook": "Kicking harder from your knees actually pulls you backward instead of pushing you forward.",
+            "outcome": "You can cross fifteen meters using steady flutter kicks without bending sharply at the knees.",
+            "title": "The Hip-Driven Motor"
+          },
+          {
+            "covers": "Fingertip-first entry in line with your shoulder, pulling straight back to your hip, and high-elbow recovery.",
+            "hook": "Most swimmers waste half their pull by lifting their hands out of the water too early.",
+            "outcome": "You can link six arm strokes in a row while pulling water all the way past your hip.",
+            "title": "Catching Water with Clean Paddles"
+          },
+          {
+            "covers": "Rotating your torso along its spine to take a mouth breath while keeping one goggle submerged.",
+            "hook": "Lifting your head to breathe sinks your legs, but rolling your body keeps you floating.",
+            "outcome": "You can take three smooth breaths on your side without lifting your forehead out of the water.",
+            "title": "Rolling to Breathe"
+          },
+          {
+            "covers": "Regulating your stroke cadence across 10-meter build-ups to complete one uninterrupted 25-meter crossing.",
+            "hook": "The secret to finishing your first length is swimming at half the speed your instincts demand.",
+            "outcome": "You can swim twenty-five continuous meters at an easy pace and finish without gasping for air.",
+            "title": "Cruising the Full Length"
+          }
+        ],
+        "declined": false,
+        "format": "course",
+        "framing": null,
+        "horizon14": "Swim two consecutive lengths with a brief wall rest between them while keeping your stroke relaxed.",
+        "horizon28": "Complete 400 continuous meters across multiple laps using a smooth, repeatable breathing rhythm.",
+        "mode": "skill",
+        "needsClarification": false,
+        "next": [
+          "treading water easily",
+          "learning backstroke basics",
+          "flip turns for lap swimming"
+        ],
+        "outcome7": "By day 7 you'll be able to swim a continuous 25-meter length of freestyle using relaxed side breathing without stopping or touching the floor.",
+        "picture": {
+          "line": "Your spine is the rigid hull, your lungs provide the buoyancy, and your limbs simply steer and propel the craft.",
+          "name": "a narrow kayak"
+        },
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "Total Immersion: The Revolutionary Way To Swim Better, Faster, and Easier",
+            "who": "Terry Laughlin",
+            "why": "Introduced the focus on vessel balance, body rotation, and effortless water alignment."
+          },
+          {
+            "what": "Swimming and Water Safety Manual",
+            "who": "American Red Cross",
+            "why": "Provides foundational progressions for submersion, breath control, and safety in basic strokes."
+          },
+          {
+            "what": "Adult Learn-to-Swim Instructor Manual",
+            "who": "U.S. Masters Swimming",
+            "why": "Supplies standard adult progression drills from initial floating to lap swimming endurance."
+          }
+        ],
+        "suggestions": [],
+        "topic": "Swimming Your First Pool Length"
+      },
+      "tokensIn": 2588,
+      "tokensOut": 1402,
+      "checks": {
+        "valid": true,
+        "format": "course",
+        "chapters": 7,
+        "countOk": true,
+        "outcomesYouCan": 7,
+        "hooksOver18": 0,
+        "framing": null,
+        "copiedFraming": false,
+        "picture": "a narrow kayak",
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 4,
+          "scores": {
+            "clarity": 3,
+            "coverage": 5,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 4,
+            "picture": 3,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: the 10-meter build-up pacing idea fits the brief's short segments; worst: the metaphor titles (Exhaust Pipe, See-Saw, Motor) mix several images, and the picture says lungs are buoyancy while the hull is the spine."
+        },
+        {
+          "rank": 3,
+          "scores": {
+            "clarity": 3,
+            "coverage": 5,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 4,
+            "outcomes": 4,
+            "picture": 4,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: the picture is the richest, with chapter titles like hull, exhaust pipe, see-saw and motor. Worst: some titles and hooks are cryptic, and the claims that standing stops panic faster than any breathing trick and that swimmers waste half their pull are unsupported."
+        }
+      ]
+    },
+    {
+      "topic": "swimming",
+      "version": "v4",
+      "n": 2,
+      "error": null,
+      "inr": 0.589239,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 22206,
+      "ok": true,
+      "plan": {
+        "caution": "health",
+        "chapters": [
+          {
+            "covers": "Fitting leak-proof goggles and getting comfortable standing and moving in chest-deep water.",
+            "hook": "Why do most adult swimming attempts fail before your feet even leave the bottom?",
+            "outcome": "You can stand securely in chest-deep water and open your eyes clearly underwater with sealed goggles.",
+            "title": "Gear and Water Comfort"
+          },
+          {
+            "covers": "Blowing continuous bubbles through your nose or mouth underwater and bobbing smoothly to the surface.",
+            "hook": "Holding your breath underwater actually makes you panic faster—here is why.",
+            "outcome": "You can bob ten times continuously, exhaling underwater and inhaling only when your mouth clears the surface.",
+            "title": "Rhythmic Breathing and Submersion"
+          },
+          {
+            "covers": "Looking straight down to raise your hips into a front glide and tucking your knees to stand back up.",
+            "hook": "Looking forward sinks your legs immediately, but dropping your gaze makes you weightless.",
+            "outcome": "You can push into a horizontal front glide and stand up cleanly without swallowing water.",
+            "title": "Floating and Horizontal Balance"
+          },
+          {
+            "covers": "Kicking from your hips with straight legs, relaxed ankles, and pointed toes using a kickboard.",
+            "hook": "Bending your knees turns your legs into brakes instead of boat motors.",
+            "outcome": "You can propel yourself forward ten meters using small, rhythmic kicks driven from your hips.",
+            "title": "Flutter Kick Technique"
+          },
+          {
+            "covers": "Reaching fingertip-first in line with your shoulder and pulling water back toward your hip.",
+            "hook": "Where does your hand actually push water to drive you forward fastest?",
+            "outcome": "You can execute alternating arm pulls with high-elbow recoveries while gliding across the water.",
+            "title": "Freestyle Arm Stroke"
+          },
+          {
+            "covers": "Rotating your torso along its long axis to sip air with one goggle lens submerged.",
+            "hook": "Lifting your head sinks your hips, so how do you breathe while staying afloat?",
+            "outcome": "You can turn your head into your armpit pocket to inhale without lifting your neck.",
+            "title": "Side Breathing Mechanics"
+          },
+          {
+            "covers": "Linking strokes, kick, and side breaths at a slow cadence to complete all 25 meters.",
+            "hook": "What is the simple tempo trick that keeps your lungs from burning before mid-pool?",
+            "outcome": "You can swim one unbroken 25-meter pool length at an easy, sustainable pace.",
+            "title": "Pacing Your First Full Length"
+          }
+        ],
+        "declined": false,
+        "format": "course",
+        "framing": null,
+        "horizon14": "You swim continuous lengths with regular side breathing and pause only at the pool walls.",
+        "horizon28": "You complete a 500-meter workout in broken sets of two to four lengths with relaxed pacing.",
+        "mode": "skill",
+        "needsClarification": false,
+        "next": [
+          "Treading water with ease",
+          "Learning the breaststroke",
+          "Open water swimming basics"
+        ],
+        "outcome7": "By day 7 you'll be able to swim a full 25-meter pool length of freestyle without stopping or panicking.",
+        "picture": {
+          "line": "Your body is a long, buoyant log that glides straight only when you stop lifting your heavy head.",
+          "name": "a floating log"
+        },
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "Total Immersion: The Revolutionary Way To Swim Better, Faster, and Easier",
+            "who": "Terry Laughlin",
+            "why": "provides the core concepts of horizontal balance, head position, and whole-body rotation"
+          },
+          {
+            "what": "Swimming and Water Safety",
+            "who": "American Red Cross",
+            "why": "outlines foundational adult progression steps for submersion, breath control, and glides"
+          },
+          {
+            "what": "Adult Learn-to-Swim Instructor Manual",
+            "who": "U.S. Masters Swimming",
+            "why": "details practical progressions for overcoming adult fear and establishing rhythmic breathing"
+          }
+        ],
+        "suggestions": [],
+        "topic": "Adult Beginner Swimming"
+      },
+      "tokensIn": 2588,
+      "tokensOut": 1353,
+      "checks": {
+        "valid": true,
+        "format": "course",
+        "chapters": 7,
+        "countOk": true,
+        "outcomesYouCan": 7,
+        "hooksOver18": 0,
+        "framing": null,
+        "copiedFraming": false,
+        "picture": "a floating log",
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 6,
+          "scores": {
+            "clarity": 3,
+            "coverage": 4,
+            "fidelity": 3,
+            "goalFit": 3,
+            "hooks": 3,
+            "outcomes": 2,
+            "picture": 2,
+            "progression": 4,
+            "sources": 4
+          },
+          "note": "Best: the titles follow the brief's outline closely; worst: the log picture is weak, outcomes like 'turn your head into your armpit pocket' are odd and untestable, and the chapter 5 hook is a bare question."
+        },
+        {
+          "rank": 5,
+          "scores": {
+            "clarity": 4,
+            "coverage": 5,
+            "fidelity": 4,
+            "goalFit": 4,
+            "hooks": 4,
+            "outcomes": 3,
+            "picture": 2,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: the chapter titles match the brief's outline and the hooks are real open loops. Worst: the floating-log picture is weak and carries little through the chapters, and the 500 m month target is unrealistic."
+        }
+      ]
+    },
+    {
+      "topic": "swimming",
+      "version": "v5",
+      "n": 1,
+      "error": null,
+      "inr": 0.562401,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 13423,
+      "ok": true,
+      "plan": {
+        "caution": "health",
+        "chapters": [
+          {
+            "covers": "Fitting leak-proof goggles, standing safely in chest-deep water, and relaxing your shoulders.",
+            "hook": "Why do most adult swimming panics start with ill-fitting goggles in chest-deep water?",
+            "outcome": "You can stand securely and see underwater with a dry, leak-free goggle seal.",
+            "title": "Gear Up and Own the Shallow End"
+          },
+          {
+            "covers": "Rhythmic underwater exhalation through nose or mouth, plus standing bobbing drills.",
+            "hook": "Holding your breath underwater actually exhausts your lungs faster than swimming hard.",
+            "outcome": "You can do 10 continuous bobs while exhaling steadily underwater without swallowing water.",
+            "title": "Breathe Out Below, In Above"
+          },
+          {
+            "covers": "Head alignment looking down, horizontal floating, and tucking knees to chest to stand.",
+            "hook": "Why does looking straight down at the tiles instantly lift your sinking legs?",
+            "outcome": "You can glide horizontally for five seconds and stand up smoothly without flailing.",
+            "title": "Float Flat and Stand Back Up"
+          },
+          {
+            "covers": "Straight-leg flutter kicks with pointed toes and kickboard drills.",
+            "hook": "Bending your knees to kick pushes you backward instead of forward.",
+            "outcome": "You can propel yourself 15 meters using only hip-driven flutter kicks on a board.",
+            "title": "Kick from the Hips"
+          },
+          {
+            "covers": "Fingertip-first entry, pulling straight back to the hip, and relaxed elbow recovery.",
+            "hook": "Your hands generate the most forward push when your elbow stays lifted high.",
+            "outcome": "You can pull through five continuous arm cycles while gliding smoothly forward.",
+            "title": "The High-Elbow Arm Stroke"
+          },
+          {
+            "covers": "Rotating your body along its long axis to inhale while keeping one goggle lens submerged.",
+            "hook": "Lifting your head to breathe sinks your hips; rolling your cheek keeps you floating.",
+            "outcome": "You can take four side breaths in motion without lifting your forehead above water.",
+            "title": "Roll to Breathe on the Side"
+          },
+          {
+            "covers": "Combining kick, pull, and side breathing into a relaxed, slow cadence across the full pool.",
+            "hook": "Swimming slower across the first ten meters is the secret to finishing twenty-five.",
+            "outcome": "You can swim a full 25-meter length without stopping or touching your feet down.",
+            "title": "Pace Your First 25-Meter Length"
+          }
+        ],
+        "declined": false,
+        "format": "course",
+        "framing": null,
+        "horizon14": "Swim three continuous 25-meter laps with a 30-second breather between each.",
+        "horizon28": "Complete a 300-meter workout split into 50-meter intervals with calm side-breathing.",
+        "mode": "skill",
+        "needsClarification": false,
+        "next": [
+          "Treading water with ease",
+          "Basic lap swimming workouts",
+          "Learning the breaststroke"
+        ],
+        "outcome7": "By day 7 you'll swim your first continuous 25-meter lap of freestyle without touching the bottom or gasping for air.",
+        "picture": {
+          "line": "Your torso is the rigid hull resting flat on water, rolling smoothly from side to side rather than muscling upward.",
+          "name": "A sleek kayak"
+        },
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "Total Immersion: The Revolutionary Way To Swim Better, Faster, and Easier",
+            "who": "Terry Laughlin",
+            "why": "Horizontal balance and body roll mechanics for adult beginners"
+          },
+          {
+            "what": "Adult Learn-to-Swim Program",
+            "who": "U.S. Masters Swimming",
+            "why": "Progressive shallow-water comfort and rhythmic breathing sequences"
+          }
+        ],
+        "suggestions": [],
+        "topic": "Adult Beginner Swimming"
+      },
+      "tokensIn": 2647,
+      "tokensOut": 1256,
+      "checks": {
+        "valid": true,
+        "format": "course",
+        "chapters": 7,
+        "countOk": true,
+        "outcomesYouCan": 7,
+        "hooksOver18": 0,
+        "framing": null,
+        "copiedFraming": false,
+        "picture": "A sleek kayak",
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 3,
+          "scores": {
+            "clarity": 4,
+            "coverage": 4,
+            "fidelity": 3,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 4,
+            "picture": 3,
+            "progression": 4,
+            "sources": 3
+          },
+          "note": "Best: the outcomes are concrete and the kick/glide numbers are testable; worst: the chapter 3 hook is self-answering, and the 'rolling your cheek' and 'relaxed elbow' wording departs from the brief's high-elbow point."
+        },
+        {
+          "rank": 1,
+          "scores": {
+            "clarity": 5,
+            "coverage": 5,
+            "fidelity": 3,
+            "goalFit": 5,
+            "hooks": 4,
+            "outcomes": 5,
+            "picture": 4,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: the outcomes are measurable and match the brief (10 bobs, 15 m kick, 4 side breaths, 25 m). Worst: the 'panics start with goggles' and 'exhausts lungs faster than swimming hard' hooks overstate the brief, and the 300 m goal is a stretch."
+        }
+      ]
+    },
+    {
+      "topic": "swimming",
+      "version": "v5",
+      "n": 2,
+      "error": null,
+      "inr": 0.998676,
+      "model": "gemini-3.8-flash",
+      "modelUsed": "gemini-3.8-flash",
+      "ms": 22666,
+      "ok": true,
+      "plan": {
+        "caution": "health",
+        "chapters": [
+          {
+            "covers": "Setting up a watertight goggle seal and establishing comfortable foot placement in chest-deep water.",
+            "hook": "Why does leaking water cause instant panic, and how do you fit goggles to prevent it?",
+            "outcome": "You can stand and submerge calmly in chest-deep water with clear vision and zero eye irritation.",
+            "title": "Goggles and Standing Ground"
+          },
+          {
+            "covers": "Continuous exhalation through your nose and mouth underwater paired with quick inhalation at the surface.",
+            "hook": "Holding your breath underwater is the primary reason new swimmers gas out in ten seconds.",
+            "outcome": "You can complete ten relaxed bobs in rhythm without holding your breath or feeling breathless.",
+            "title": "Blowing Bubbles and Bobbing"
+          },
+          {
+            "covers": "Neutral head alignment looking straight down to raise your hips, and safe recovery to standing.",
+            "hook": "Looking forward makes your legs sink instantly, but looking straight down makes you float.",
+            "outcome": "You can push off into a five-second streamlined glide and stand up safely by tucking your knees.",
+            "title": "The Horizontal Glide"
+          },
+          {
+            "covers": "Straight-leg flutter kicking initiated from the hip flexors with pointed toes and loose ankles.",
+            "hook": "Bending your knees turns your legs into underwater brakes rather than engines.",
+            "outcome": "You can kick across half the pool with a kickboard while maintaining forward momentum.",
+            "title": "Kicking from the Hips"
+          },
+          {
+            "covers": "Fingertip-first entry in line with your shoulder, pulling toward the hip, and high-elbow recovery.",
+            "hook": "Swimmers do not pull themselves through water—they anchor their palms and pull water backward.",
+            "outcome": "You can pull water efficiently through the full stroke path without straining your shoulders.",
+            "title": "The Clean Arm Pull"
+          },
+          {
+            "covers": "Body roll along the spine to take a mouth breath while keeping one goggle lens underwater.",
+            "hook": "Lifting your head sinks your hips, but rolling your body brings air directly to you.",
+            "outcome": "You can breathe to the side during arm strokes without lifting your head or sinking your hips.",
+            "title": "Rotating to Breathe"
+          },
+          {
+            "covers": "Combining slow stroke tempo, rhythmic exhalation, and calm pacing over a full 25-meter distance.",
+            "hook": "Swimming slowly is the secret to completing your first continuous lap without gasping for air.",
+            "outcome": "You can swim from wall to wall continuously at a sustainable, relaxed pace.",
+            "title": "Pacing the Full Length"
+          }
+        ],
+        "declined": false,
+        "format": "course",
+        "framing": null,
+        "horizon14": "At two weeks, you can swim three consecutive 25-meter lengths with short 30-second rests at each wall.",
+        "horizon28": "At one month, you can comfortably complete a continuous 200-meter workout using smooth bilateral side breathing.",
+        "mode": "skill",
+        "needsClarification": false,
+        "next": [
+          "Treading water",
+          "Breaststroke basics",
+          "Flip turns"
+        ],
+        "outcome7": "By day 7 you'll be able to swim a full 25-meter pool length of freestyle without stopping or touching the bottom.",
+        "picture": {
+          "line": "Your buoyant lungs are the hull, your legs act as the steady rudder, and your arms are the rhythmic paddles.",
+          "name": "A slender kayak"
+        },
+        "pushback": null,
+        "question": null,
+        "sources": [
+          {
+            "what": "Total Immersion",
+            "who": "Terry Laughlin",
+            "why": "Techniques for horizontal balance, hydrodynamics, and low-energy arm propulsion"
+          },
+          {
+            "what": "Adult Learn-to-Swim Program",
+            "who": "U.S. Masters Swimming",
+            "why": "Standard progression for adult breath control, flotation, and lap readiness"
+          }
+        ],
+        "suggestions": [],
+        "topic": "Swimming Your First Length"
+      },
+      "tokensIn": 2647,
+      "tokensOut": 2641,
+      "checks": {
+        "valid": true,
+        "format": "course",
+        "chapters": 7,
+        "countOk": true,
+        "outcomesYouCan": 7,
+        "hooksOver18": 0,
+        "framing": null,
+        "copiedFraming": false,
+        "picture": "A slender kayak",
+        "asked": false
+      },
+      "reads": [
+        {
+          "rank": 5,
+          "scores": {
+            "clarity": 3,
+            "coverage": 4,
+            "fidelity": 3,
+            "goalFit": 3,
+            "hooks": 3,
+            "outcomes": 2,
+            "picture": 3,
+            "progression": 4,
+            "sources": 3
+          },
+          "note": "Best: the hooks are clear and the chapter order is sound; worst: the last outcomes are vague ('full stroke path', 'relaxed pace'), and 'hip flexors' plus bilateral breathing at day 28 go beyond the brief."
+        },
+        {
+          "rank": 2,
+          "scores": {
+            "clarity": 4,
+            "coverage": 5,
+            "fidelity": 4,
+            "goalFit": 4,
+            "hooks": 3,
+            "outcomes": 4,
+            "picture": 3,
+            "progression": 5,
+            "sources": 4
+          },
+          "note": "Best: it follows the brief's order and has a clear 25 m end outcome. Worst: the kayak analogy mixes up parts (lungs as hull, legs as rudder), the 'ten seconds' claim is invented, and the 200 m month goal is a stretch."
+        }
+      ]
+    }
+  ],
+  "rankings": [
+    {
+      "topic": "swimming",
+      "order": [
+        "v1#1",
+        "v1#2",
+        "v4#1",
+        "v4#2",
+        "v5#1",
+        "v5#2"
+      ],
+      "verdict": {
+        "plans": [
+          {
+            "label": "A",
+            "note": "Best: the chapters follow the brief's outline in order, and the kayak picture covers balance and sinking; worst: the day-7 promise to swim 25 m with side breathing is aggressive, and the chapter 5 outcome has no number.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 4,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 4,
+              "picture": 4,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: outcomes are specific and testable (10 bobs, 6 strokes, 5-second glide), and the hooks are punchy; worst: the 500 m in 30 minutes horizon and the claim that breath-holding causes fatigue faster than hard swimming overreach the brief.",
+            "scores": {
+              "clarity": 5,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 5,
+              "picture": 4,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: the 10-meter build-up pacing idea fits the brief's short segments; worst: the metaphor titles (Exhaust Pipe, See-Saw, Motor) mix several images, and the picture says lungs are buoyancy while the hull is the spine.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 3,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: the titles follow the brief's outline closely; worst: the log picture is weak, outcomes like 'turn your head into your armpit pocket' are odd and untestable, and the chapter 5 hook is a bare question.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 4,
+              "fidelity": 3,
+              "goalFit": 3,
+              "hooks": 3,
+              "outcomes": 2,
+              "picture": 2,
+              "progression": 4,
+              "sources": 4
+            }
+          },
+          {
+            "label": "E",
+            "note": "Best: the outcomes are concrete and the kick/glide numbers are testable; worst: the chapter 3 hook is self-answering, and the 'rolling your cheek' and 'relaxed elbow' wording departs from the brief's high-elbow point.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 4,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 3,
+              "progression": 4,
+              "sources": 3
+            }
+          },
+          {
+            "label": "F",
+            "note": "Best: the hooks are clear and the chapter order is sound; worst: the last outcomes are vague ('full stroke path', 'relaxed pace'), and 'hip flexors' plus bilateral breathing at day 28 go beyond the brief.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 4,
+              "fidelity": 3,
+              "goalFit": 3,
+              "hooks": 3,
+              "outcomes": 2,
+              "picture": 3,
+              "progression": 4,
+              "sources": 3
+            }
+          }
+        ],
+        "ranking": [
+          "B",
+          "A",
+          "E",
+          "C",
+          "F",
+          "D"
+        ],
+        "why": "B and A cover the whole outline in a sound order, with a picture that carries through the chapters, and B's outcomes are the most specific and testable. The lower plans have vaguer outcomes, weaker or muddled pictures, or hooks that give away their answer."
+      },
+      "error": null,
+      "inr": 4.036032
+    },
+    {
+      "topic": "world war I",
+      "order": [
+        "v5#2",
+        "v4#2",
+        "v1#1",
+        "v5#1",
+        "v4#1",
+        "v1#2"
+      ],
+      "verdict": {
+        "plans": [
+          {
+            "label": "A",
+            "note": "Best: clean three-part structure with accurate sources and a solid causes, collapse, aftermath arc; worst: 'six global powers' and 'most of Europe' overstate the facts, and the Versailles hook is a bit grand.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 4,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 1,
+              "progression": 4,
+              "sources": 5
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: Versailles chapter ties in the League of Nations and the death toll; worst: chapter 2 mixes the July 1914 declarations with the empires' collapse, and the 'wrong turn' hook is not in the brief.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 4,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 3,
+              "picture": 1,
+              "progression": 2,
+              "sources": 4
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: it separates alliances from the July crisis, which builds well; worst: '20 million soldiers dragged to war in a month' is a made-up claim, and the framing is thin.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 3,
+              "fidelity": 2,
+              "goalFit": 4,
+              "hooks": 2,
+              "outcomes": 4,
+              "picture": 1,
+              "progression": 4,
+              "sources": 5
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: the day-by-day July 28 to August 4 outcome is concrete and testable, and the chapters build in order; worst: it credits 'The War That Ended Peace' to MacMillan, which is correct, but the hook says 'mathematically unavoidable' and the empires' collapse and Versailles are crowded into one chapter.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 4,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 1,
+              "progression": 4,
+              "sources": 3
+            }
+          },
+          {
+            "label": "E",
+            "note": "Best: the cleanest progression of causes, then collapse, then aftermath, with the League of Nations and mandates covered; worst: 'six empires' and 'secret treaties' go beyond the brief.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 5,
+              "hooks": 4,
+              "outcomes": 4,
+              "picture": 1,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "F",
+            "note": "Best: the 'Tripwires' title is compact and ties in the naval arms races; worst: chapter 2 combines the Sarajevo spark with the empires' fall, and 'centuries-old' and 'Europe and Asia' are loose.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 3,
+              "fidelity": 2,
+              "goalFit": 3,
+              "hooks": 3,
+              "outcomes": 3,
+              "picture": 1,
+              "progression": 2,
+              "sources": 4
+            }
+          }
+        ],
+        "ranking": [
+          "E",
+          "A",
+          "D",
+          "B",
+          "C",
+          "F"
+        ],
+        "why": "E gives the clearest one-theme-per-chapter order (alliances and outbreak, the four empires' fall, then Versailles with the mandates and the League), and its claims stay close to the brief. The lower plans either cram unrelated topics into one chapter or add claims the brief does not support, such as 20 million soldiers."
+      },
+      "error": null,
+      "inr": 3.160836
+    },
+    {
+      "topic": "swimming",
+      "order": [
+        "v5#2",
+        "v5#1",
+        "v4#2",
+        "v4#1",
+        "v1#2",
+        "v1#1"
+      ],
+      "verdict": {
+        "plans": [
+          {
+            "label": "A",
+            "note": "Best: it follows the brief's order and has a clear 25 m end outcome. Worst: the kayak analogy mixes up parts (lungs as hull, legs as rudder), the 'ten seconds' claim is invented, and the 200 m month goal is a stretch.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 4,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 3,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: the outcomes are measurable and match the brief (10 bobs, 15 m kick, 4 side breaths, 25 m). Worst: the 'panics start with goggles' and 'exhausts lungs faster than swimming hard' hooks overstate the brief, and the 300 m goal is a stretch.",
+            "scores": {
+              "clarity": 5,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 5,
+              "hooks": 4,
+              "outcomes": 5,
+              "picture": 4,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: the chapter titles match the brief's outline and the hooks are real open loops. Worst: the floating-log picture is weak and carries little through the chapters, and the 500 m month target is unrealistic.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 4,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 3,
+              "picture": 2,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: the picture is the richest, with chapter titles like hull, exhaust pipe, see-saw and motor. Worst: some titles and hooks are cryptic, and the claims that standing stops panic faster than any breathing trick and that swimmers waste half their pull are unsupported.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 4,
+              "picture": 4,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "E",
+            "note": "Best: it has strong, specific hooks such as 'you only need to roll'. Worst: it adds 'pressing your chest down' beyond the brief, and the 500 m in 30 minutes month goal is aggressive.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 4,
+              "picture": 3,
+              "progression": 5,
+              "sources": 4
+            }
+          },
+          {
+            "label": "F",
+            "note": "Best: the facts and chapter order follow the brief closely. Worst: several outcomes have no number or test, and the hooks are long and contain errors, such as 'holding your breath makes you sink'.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 5,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 3,
+              "picture": 3,
+              "progression": 5,
+              "sources": 4
+            }
+          }
+        ],
+        "ranking": [
+          "B",
+          "A",
+          "D",
+          "E",
+          "C",
+          "F"
+        ],
+        "why": "B combines measurable, brief-faithful outcomes with an analogy that fits and clear wording. The others either have vague outcomes, weaker pictures, or overreaching claims and month-goal numbers."
+      },
+      "error": null,
+      "inr": 4.000752
+    },
+    {
+      "topic": "world war I",
+      "order": [
+        "v1#2",
+        "v4#1",
+        "v5#1",
+        "v1#1",
+        "v4#2",
+        "v5#2"
+      ],
+      "verdict": {
+        "plans": [
+          {
+            "label": "A",
+            "note": "Best: ch1 cleanly frames alliances as the foundation and the sources are apt; worst: ch2 puts the Sarajevo spark and the empires' collapse together, and the 'two minor powers' and 'six empires within thirty days' claims are loose.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 4,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 3,
+              "picture": 1,
+              "progression": 2,
+              "sources": 5
+            }
+          },
+          {
+            "label": "B",
+            "note": "Best: a clean three-part arc (causes and outbreak, collapse, settlement) with the League of Nations included; worst: 'secret treaties' and 'six-nation war in thirty days' overreach the brief.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 4,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 3,
+              "picture": 1,
+              "progression": 4,
+              "sources": 5
+            }
+          },
+          {
+            "label": "C",
+            "note": "Best: dedicates a chapter to the July crisis with vivid hooks; worst: invents the motorcade wrong turn and 'mathematically unavoidable', and 'breakdown' is a grammar slip.",
+            "scores": {
+              "clarity": 3,
+              "coverage": 3,
+              "fidelity": 2,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 3,
+              "picture": 1,
+              "progression": 4,
+              "sources": 4
+            }
+          },
+          {
+            "label": "D",
+            "note": "Best: the cleanest build from alliances to outbreak to aftermath with outcomes the reader can check; worst: '20 million soldiers to war in a month' is a made-up number and the framing is generic.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 4,
+              "fidelity": 2,
+              "goalFit": 4,
+              "hooks": 4,
+              "outcomes": 4,
+              "picture": 1,
+              "progression": 5,
+              "sources": 5
+            }
+          },
+          {
+            "label": "E",
+            "note": "Best: concise and covers all outline parts; worst: chapter 1 jumps straight to the spark, and '20 million deaths' is stated flatly while the brief gives a range of 15 to 22 million.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 4,
+              "fidelity": 2,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 3,
+              "picture": 1,
+              "progression": 3,
+              "sources": 4
+            }
+          },
+          {
+            "label": "F",
+            "note": "Best: each chapter has one clear job with testable outcomes like naming the four empires; worst: the hook that the dynasties vanished before fighting ended is slightly off, and chapter 1 crams alliances and Sarajevo together.",
+            "scores": {
+              "clarity": 4,
+              "coverage": 4,
+              "fidelity": 3,
+              "goalFit": 4,
+              "hooks": 3,
+              "outcomes": 4,
+              "picture": 1,
+              "progression": 4,
+              "sources": 5
+            }
+          }
+        ],
+        "ranking": [
+          "D",
+          "F",
+          "B",
+          "A",
+          "E",
+          "C"
+        ],
+        "why": "The top plans give each chapter a single job in order (alliances, outbreak, aftermath) and set outcomes the reader can test. The lower ones invent details such as the motorcade wrong turn, merge unrelated topics in one chapter, or state numbers the brief does not support."
+      },
+      "error": null,
+      "inr": 3.105396
+    }
+  ]
+}
