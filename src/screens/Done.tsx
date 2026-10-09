@@ -136,7 +136,7 @@ export default function Done({ nextFailed, total = 7, topic, n, passed, outcomeL
           </div>
         </section>
       )}
-      {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>{total === 7 ? "That's the whole handbook. Seven chapters, done." : "That's all of it. Quick and done."}</p>}
+      {last && <p className="lede" style={{ marginTop: 'var(--l)' }}>{quick ? "That's all of it. Quick and done." : total === 7 ? "That's the whole handbook. Seven chapters, done." : `That's the whole handbook. ${total} chapters, done.`}</p>}
       {last && whatsNext}
 
       {last && (

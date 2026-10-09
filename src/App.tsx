@@ -423,7 +423,7 @@ export default function App() {
     return (
       <Shell onSignOut={isAuthenticated ? signOut : undefined} rail={rail} back={toPlan}>
         <Done onShelf={goExplore}
-          quick={(plan as any)?.format === 'quick' || total < 7}
+          quick={(plan as any)?.format === 'quick'}   // 9 Oct (plan v8): a course can have fewer than 7 chapters
           total={total}
           nextPicture={firstPicture((hb.chapters.find((c) => c.n === (doneN ?? 0) + 1) as any)?.pictures)}
           topic={name}
