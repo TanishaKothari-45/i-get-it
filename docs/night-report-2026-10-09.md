@@ -2,6 +2,14 @@
 
 Read this first. Session dc coordinated the night (D19). Every decision taken in your stead is in docs/decisions.md D18 onward, each with its reasoning; this file says what to check and what waits on you.
 
+## Where things stand (saved 9 Oct 10:07 IST, Prateek: "Save the progress. I'll come back to it.")
+
+- The night's work is all committed and pushed; functions and the static site are live on prod; scripts/prove-path.mjs passed on prod at the last deploy. Sessions 55, 05 and a2 have ended. Nothing is half-built in the working tree.
+- Decisions taken in your stead: D18 to D33 in docs/decisions.md, each with its reasoning. Read them before anything else; the ones that change what readers see are D23 (one-sitting handbooks), D24 (activities never gate), D26 (wall after chapter 2), D28 (typed names), D29 (story carousel), D32 (review queue before the Shelf) and D33 (Opus medium writes plans and chapters again).
+- The pipeline report is a private page: https://claude.ai/artifact/Qp3SdSnsgPux5NRmAYh9NT (run table, where Flash and Opus diverged at each stage, what a prompt fixes and what it cannot).
+- a2's content docs (docs/content-plan.md, content-system.md, content-week-2.md, growth-playbook.md) were left uncommitted when a2 ended; dc committed them unchanged at 10:07 so they are not lost.
+- When you come back: 1) the phone checklist below; 2) /admin "Review", approve or reject the pending handbooks; 3) the "Waits on you" list; 4) the proposed Friday items in dc's section (a Sonnet tie-break when research cannot tell quick from course; a cheaper writer retried only against the same judge after 10 live Opus chapters; watch floorTries, bounces, "unchecked" fact checks).
+
 ## Check on your phone (390 px, logged out, mobile data)
 
 0. "How to make dal" on prod (note: the first rebuild at 00:41 was undone by the D27 course guard and the handbook was briefly a 7-chapter course on prod; 55's third rebuild under D23a makes it one chapter; check the chapter count first): one chapter, ingredients first, steps with quantities, no timer or animated-bowl cards, no sign-up wall mid-recipe. Then type "how to make maggi" as a fresh visitor and expect the same shape.
